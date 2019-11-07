@@ -1,0 +1,771 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"anima",
+				"animationDescriptions"
+			],
+			[
+				"hika",
+				"hikawa_beach_shades"
+			],
+			[
+				"anim",
+				"animationDescriptions"
+			],
+			[
+				"hikawa",
+				"hikawa_beach_book"
+			],
+			[
+				"st",
+				"hikawa_sit_study_awake"
+			],
+			[
+				"slee",
+				"hikawa_sit_study_asleep"
+			],
+			[
+				"hik",
+				"hikawa_sleep_alarm"
+			],
+			[
+				"an",
+				"animationDescriptions"
+			],
+			[
+				"res",
+				"results_max"
+			],
+			[
+				"max",
+				"max_duration"
+			],
+			[
+				"guilds",
+				"guild-channels-translate-length"
+			],
+			[
+				"guild",
+				"guild-channels-max-width"
+			],
+			[
+				"top",
+				"top-bar-height"
+			],
+			[
+				"over",
+				"text-overflow\tproperty"
+			],
+			[
+				"g",
+				"guild-channels-max-width"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "zhikawashrine-assets/Characters/Dialogue/rainy.json",
+			"settings":
+			{
+				"buffer_size": 3248,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zhikawashrine-assets/Data/NPCGiftTastes.json",
+			"settings":
+			{
+				"buffer_size": 1747,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zhikawashrine-assets/Characters/schedules/Rei.json",
+			"settings":
+			{
+				"buffer_size": 5712,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zhikawashrine-assets/Strings/schedules/Rei.json",
+			"settings":
+			{
+				"buffer_size": 912,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zhikawashrine-assets/Characters/Dialogue/Rei.json",
+			"settings":
+			{
+				"buffer_size": 12513,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zhikawashrine-assets/animationDescriptions.json",
+			"settings":
+			{
+				"buffer_size": 5527,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zhikawashrine-assets/Strings/animationDescriptions.json",
+			"settings":
+			{
+				"buffer_size": 2360,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Stardew Valley Expanded/Mods/SVE Core/[SVE] Andy/assets/Schedule/ScheduleDialogue.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Stardew Valley Expanded/Mods/SVE Core/[SVE] Andy/assets/Dialogue/Dialogue.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Beach.tbin",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Characters/schedules/template.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods dev/HikawaShrine/zhikawashrine-assets/Characters/schedules/Abigail.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/schedules/Abigail.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Characters/schedules/Abigail.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/animationDescriptions.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/Buildings.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/NPCNames.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/Characters.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Data/animationDescriptions.json",
+		"/E/Dev/Projects/SDV/Projects/Juuban/[TM]HikawaShrine/content.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/AdventureGuild.tbin",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Characters/Dialogue/MarriageDialogue.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Characters/Dialogue/Alex.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/schedules/Linus.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Strings/schedules/Penny.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Data/TV/CookingChannel.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Data/Festivals/fall16.json",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Data/Festivals/FestivalDates.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/[CP]/[CP]IridiumRecolors/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/IridiumToolsPatch/config.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Examples/[CP] Shiko NPC/content.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Examples/[CP] Shiko NPC/assets/Schedule/ScheduleDialogue.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Examples/[CP] Shiko NPC/assets/Schedule/Schedule.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Examples/[CP] Shiko NPC/assets/Dialogue/Dialogue.json",
+		"/E/Dev/Projects/SDV/XNBCLI/unpacked/CraftingRecipes.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/HDSprites/config.json",
+		"/E/Libraries/マイ・ノート/Notes/watchlist",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/elaine.py",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/havocska.py",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/jishoska.py",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/jaska.py",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/sfxska.py",
+		"/E/Dev/Projects/SDV/PYTK HOWTO MULTIPLE BACK LAYERS",
+		"/E/Libraries/マイ・ノート/Notes/steam console commands",
+		"/E/Libraries/マイ・ノート/Notes/german food.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[CP]SailorStyles_Hairstyles/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/[CP]/[CP]IridiumRecolors/config.json",
+		"/C/Users/alex/AppData/Roaming/StardewValley/ErrorLogs/SMAPI-latest.txt",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/E/Libraries/Downloads/Torrents/Reflector v2.7.1.685 + Crack [OfficialHawk]/Read me.txt",
+		"/E/Dev/Projects/SDV/SDV_Decompiled/Assets/Data/hats.json",
+		"/E/Dev/Projects/SDV/Projects/Cave/[TM]ComfyCave/content.json",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/eye.py",
+		"/E/Dev/Projects/DiscordBot-Red/cogs/banana.py",
+		"/C/Users/alex/AppData/Roaming/BetterDiscord/themes/flexi-local.theme.css",
+		"/C/Users/alex/AppData/Roaming/BetterDiscord/themes/compaks.theme.css",
+		"/C/Users/alex/AppData/Roaming/BetterDiscord/themes/RemasteredCodeBlockLangIdentifier.css",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/TimeSpeed/config.json",
+		"/C/Users/alex/AppData/Roaming/Adobe/Adobe Photoshop CC 2017/Adobe Photoshop CC 2017 Settings/PSUserConfig.txt",
+		"/C/Users/alex/AppData/Local/Temp/config.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Modding/Stardew Valley Expanded/READ ME! Installation Guide.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods dev/BlueberryRings/config.json",
+		"/H/CSIT321/CSIT321 Minutes.txt",
+		"/C/Users/alex/AppData/Roaming/BetterDiscord/themes/EmojiTheme_NotoColorNougat.theme.css",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/Profiles/rci0kj7x.FF-quantum/chrome/userContent.css",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/Profiles/rci0kj7x.FF-quantum/chrome/userChrome.css",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/profiles.ini",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/Profiles/xrjjhyah.default/chrome/userChrome.css",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/Profiles/opd506v7.FF-v56-0b9/prefs.js",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/Profiles/rci0kj7x.FF-quantum/prefs.js",
+		"/E/Steam/steamapps/common/Stardew Valley/Content.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Content/note.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/BetterFruitTrees/config.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/BetterGardenPots/config.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/BetterMixedSeeds/config.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/[CP]/[CF]HolidayEventFurniture/Holidays.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[CP]SailorStyles_Accessories/manifest.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/note.txt",
+		"/C/Users/alex/AppData/Local/Temp/7zO0D0C8EED/Read Me.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[CP]SailorStyles_Shirts/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[CP]SailorStyles_Shirts/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[CP]SailorStyles_Accessories/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[CP]SailorStyles_Hairstyles/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/SailorStyles/[JA]SailorStyles_Hats/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/MoveableMushroomBoxes/ReadMe.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/MoveableMushroomBoxes/MushroomBox.txt",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/MoveableMushroomBoxes/[CP] Movable Mushroom Boxes/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/MoveableMushroomBoxes/[CP] Movable Mushroom Boxes/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/save-backups/other mods/[CP]EemiesSeasonalVictorianBuildings/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/save-backups/other mods/[CP]SeasonalVictorianBuildings/manifest.json",
+		"/C/Users/alex/AppData/Local/Temp/config-1.json",
+		"/E/Libraries/マイ・ノート/Backups/life is strange cd key.txt",
+		"/H/CSCI376/Assignment1/amw188ass1.cpp",
+		"/H/CSCI376/Assignment1/notes.txt.txt",
+		"/E/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Data/CharacterSpawns.json",
+		"/E/Libraries/Documents/Client.bat",
+		"/E/Dev/Projects/SDV/XNBCLI/unpacked/Abigail.json",
+		"/E/Libraries/Downloads/Mods/STARDEW/Stardew Valley Expanded/READ ME! Installation Guide.txt",
+		"/C/Users/alex/AppData/Local/Temp/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/[CP]SeasonalJapaneseBuildings/content.json",
+		"/C/Users/alex/AppData/Roaming/Mozilla/Firefox/Profiles/2l51ls66.default-release/gmp-widevinecdm/1.4.8.1008/manifest.json",
+		"/E/Libraries/Downloads/Torrents/Microsoft Visual Studio 2015 Professional/VH160601tv3/各種ドキュメント他/製作者向け資料/read_me.txt",
+		"/E/Libraries/Downloads/Torrents/Microsoft Visual Studio 2015 Professional/VH160601tv3/各種ドキュメント他/製作者向け資料/製作補助資料/BOSS戦説明.txt",
+		"/E/Libraries/マイ・ノート/Notes/shop",
+		"/E/Libraries/マイ・ノート/Reading/Moon.txt",
+		"/E/Dev/Projects/SDV/XNBCLI/unpacked/Fish.json",
+		"/E/Dev/Projects/SDV/XNBCLI/unpacked/Locations.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/UnlimitedCatsandDogs/manifest.json",
+		"/E/Dev/Projects/SDV/Projects/Juuban/HikawaShrine/HikawaShrine/HikawaShrine.csproj",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/manifest.json",
+		"/E/Dev/Projects/SDV/Mods_Decompiled/SundropCity/manifest.json",
+		"/E/Dev/Projects/SDV/Projects/Juuban/HikawaShrine/HikawaShrine/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/[TM]HikawaShrine/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/config.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/manifest (2).json",
+		"/E/Dev/Projects/SDV/Projects/Juuban/[TM]HikawaShrine/manifest.json",
+		"/E/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/TractorMod/SailorStyles/[CP]SailorStyles_Shirts/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/TractorMod/SailorStyles/[CP]SailorStyles_Hairstyles/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/TractorMod/SailorStyles/[CP]SailorStyles_Accessories/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/TractorMod/SailorStyles/[CP]SailorStyles_Accessories/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/SailorStyles/[CP]SailorStyles_Hairstyles/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/SailorStyles/[CP]SailorStyles_Accessories/manifest.json",
+		"/E/Libraries/マイ・ノート/Notes/notes",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/SailorStyles/[CP]SailorStyles_Shirts/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/SailorStyles/[CP]SailorStyles_Hairstyles/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/viruses/SailorStyles/[CP]SailorStyles_Shirts/content.json",
+		"/E/Dev/Projects/SDV/Projects/BlueberryRings/cutting_room_floor.cs",
+		"/C/Users/alex/AppData/Local/Temp/Teams.txt",
+		"/E/Dev/Projects/SDV/Projects/Juuban/References/new/markings.txt",
+		"/C/Users/alex/AppData/Roaming/StardewValley/startup_preferences",
+		"/E/Steam/steamapps/common/Stardew Valley/save-backups/[TM]HikawaShrine/content.json",
+		"/E/Steam/steamapps/common/Stardew Valley/save-backups/[TM]HikawaShrine/manifest.json",
+		"/E/Steam/steamapps/common/Stardew Valley/Mods/[TM]TenMatchi/manifest.json"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+			"<current file>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\"\",\n",
+			"\"\",",
+			"\":",
+			"16",
+			"\"\",\n",
+			"hikawa_lunchbox_ami",
+			"hikawa_sit_study_awake_ami",
+			"hikawa_sunbake_book",
+			"\"\",\n",
+			"hikawa_popcorn_down",
+			"hikawa_food_prep",
+			"\"\",\n",
+			"hikawa_kneel_",
+			"channels-Ie2l6A",
+			"'\n",
+			"_get_files",
+			"#",
+			",\n",
+			"ture",
+			"ass",
+			"[BBS]",
+			"tmx",
+			"???\n",
+			"damage",
+			"tbin",
+			"4118",
+			"target",
+			"\"scale\":\t\t4",
+			"19",
+			"walkpath",
+			"\n\t\t{\n\t\t\t\"name\": \"Farm\",\n\t\t\t\"removeWarps\": [ \"34 5 FarmCave 8 11\" ],\n\t\t\t\"addWarps\": [ \"34 5 FarmCave 10 19\" ]\n\t\t},",
+			".guild-1EfMGQ",
+			"frame",
+			"youtube",
+			"play",
+			")\n",
+			"fil_special_funcs",
+			"ps3",
+			"厚い",
+			"あつい",
+			"厚い",
+			"\"']/..\")\n",
+			")\n",
+			"'\n",
+			"text",
+			"[:",
+			"results",
+			"電話",
+			"でんわ",
+			"house",
+			"sense",
+			",",
+			"-",
+			", ",
+			"Searching",
+			", ",
+			"AVI",
+			"requests_html",
+			"tv",
+			"msg_content",
+			"task",
+			"destroyed",
+			".avatarContainer-72bSfM",
+			".iconSpacing-3jB4W5",
+			".name-3M0b8v",
+			".content-20Aix8",
+			".unread-1s3J68",
+			".messages",
+			".selected",
+			".guilds",
+			"app_token",
+			"Request",
+			"break",
+			"enqueue_tts",
+			"))\n",
+			"'\n",
+			"TTM",
+			"_get_files",
+			"temp_filepath",
+			"random",
+			"0",
+			",\n",
+			"CabinetWClass",
+			"ahk_class",
+			"()\n",
+			"\")\n",
+			"}\n",
+			"not",
+			"fout_duplicate",
+			"fout_dup",
+			"[]\n",
+			"))\n",
+			"enqueue_tts",
+			"temp_path",
+			"temp_filepath",
+			"sound_base",
+			"\"\n",
+			"self.settings",
+			"settings_json",
+			"check_folders",
+			"delete",
+			"zh",
+			"))\n",
+			"gameany",
+			"async",
+			"game",
+			"}\n",
+			"nv",
+			"joystick",
+			"changes",
+			"KB3150513",
+			"KB3107998",
+			"KB3080149",
+			"KB3068708",
+			"KB3021917",
+			"KB3138612",
+			"KB2952664",
+			"KB",
+			": ",
+			"print",
+			"self.settings",
+			"Downloader",
+			"max_duration",
+			"__init__",
+			"youtube_dl_options",
+			"play",
+			"max_duration",
+			"__init__"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"da-sidebar",
+			"png",
+			"\"scale\":\t\t1",
+			"\\n",
+			"msg",
+			".listDefault-2y5Z9D .avatarContainer-2inGBK",
+			".iconSpacing-3LzVxF",
+			".name-3_Dsmg",
+			".content-3at_AU",
+			".unread-3zKkbm",
+			"explorer.exe",
+			"ahk_exe",
+			"temp_path",
+			"root_path",
+			"\t\t\t",
+			".unread-1s3J68"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "zhikawashrine-assets/Characters/Dialogue/rainy.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								100,
+								100
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "zhikawashrine-assets/Data/NPCGiftTastes.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1747,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								787,
+								787
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "zhikawashrine-assets/Characters/schedules/Rei.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5712,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10,
+								10
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "zhikawashrine-assets/Strings/schedules/Rei.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 912,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "zhikawashrine-assets/Characters/Dialogue/Rei.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12513,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								89
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 60.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "zhikawashrine-assets/animationDescriptions.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5527,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1943,
+								1943
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 120.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "zhikawashrine-assets/Strings/animationDescriptions.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2360,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								771,
+								771
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "text-assets.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

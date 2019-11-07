@@ -1,0 +1,69 @@
+{
+    //  animationDescriptions.json
+    //      contains unique animation frame layouts for all custom characters.
+
+    "hikawa_dangle": "0 16 17/20 21 22 23/17/16 0",
+    "hikawa_dangle_bath": "0 16 17/20 21 22 23/17/16 0/Strings\\animationDescriptions:hikawa_dangle_bath",
+    "hikawa_bath_standing": "19/19/19/Strings\\animationDescriptions:hikawa_bath_standing",
+
+    "hikawa_kneel_down": "0 16/24/16 0",
+    "hikawa_kneel_right": "0 16/28/16 0",
+    "hikawa_kneel_up": "0 16/32/16 0", 
+    "hikawa_kneel_left": "0 16/36/16 0",
+
+    "hikawa_sit_down": "25/25/25",
+    "hikawa_sit_right": "29/29/29",
+    "hikawa_sit_up": "33/33/33",
+    "hikawa_sit_left": "37/37/37",
+    "hikawa_sit_chair_down": "26/26/26",
+    "hikawa_sit_chair_right": "30/30/30",
+    "hikawa_sit_chair_up": "34/34/34",
+    "hikawa_sit_chair_left": "38/38/38",
+    "hikawa_sit_sofa_down": "27/27/27",
+    "hikawa_sit_sofa_right": "31/31/31",
+    "hikawa_sit_sofa_up": "35/35/35",
+    "hikawa_sit_sofa_left": "39/39/39",
+
+    "hikawa_book_small_rei": "41/40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 41/41/Strings\\animationDescriptions:hikawa_book_rei",
+    "hikawa_book_small_ami": "41/40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 41/41/Strings\\animationDescriptions:hikawa_book_ami",
+    "hikawa_book_large_rei": "43/42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42/43/Strings\\animationDescriptions:hikawa_book_rei",
+    "hikawa_book_large_ami": "43/42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42 42/43/Strings\\animationDescriptions:hikawa_book_ami",
+    "hikawa_comic": "45/44 44 44 44 44 44 44 44 46 47 46 47 46 47 46 47 46 47 46 47 46 47 46 47 44 44 44 44 44 44 44 44 44 44 44 44 44 44 44 46 47 46 47 46 47 46 47 46 47 46 47 45 44 44 44 44 44 44 44 44 44 44 44 44 46 47 46 47 46 47 46 47 44 44 44 44 44 44 45/45/Strings\\animationDescriptions:hikawa_comic",
+
+    "hikawa_tea_down": "0 16 17/48 48 48 48 48 48 48 48 48 48 48 48 48 49 50 51 49 48/17 16 0",
+    "hikawa_tea_right": "0 16 17/52 52 52 52 52 52 52 52 52 52 52 52 52 52 52 53 54 55 53 52/17 16 0",
+    "hikawa_tea_left": "0 16 17/56 56 56 56 56 56 56 56 56 56 56 56 56 56 56 56 56 56 57 58 59 57 56/17 16 0",
+
+    "hikawa_lunchbox": "60 61 62 63/63 63 64 64 65 65 66 66 67 67 66 66/63 62 61 60",
+    "hikawa_icecream_left": "68/68 68 68 68 68 69 68 68 68 68 68 68 68 70 71 68 68 68 68 68 68 69 68/68",
+    "hikawa_soda_left": "72/72 72 72 74 74 74 72 72 72 74 74 74 75 75 75 74 74 74 72 72 72 74 74 74 75 75 75 72 72 72 74 74 74 72 72 72 73 73 73 73 73 73 72 72/72",
+    
+    "hikawa_sit_book": "76/77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 77 78 78 79 77/76",
+    "hikawa_sit_soda": "80/80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 81 82 83 81 80/80",
+    "hikawa_sit_study_awake_ami": "84/84 85 88 88 88 86 86 86 87 86 87 86 87 87 87 87 87 87 86 87 86 86 87 86 87 86 87 86 87 87 87 87 87 87 87 87 88 88 89 89 89 89 89 89 89 89 89 89 89 89 88 88 86 86 86 87 86 87 86 87 87 87 86 86 87 86 87 86 87 87 87 87 88 88 85 84 85 85 88 89 89 89 89 89 89 89 89 89 89 89 89 89 85 85 85 85 85 85 85 85 85 85 88 86 87 87 87 87 86 87 86 87 86 87 86 87 86 87 86 87 87 87 86 87 87 88 88 88 85 85/84/Strings\\animationDescriptions:hikawa_sit_study_awake",
+    "hikawa_sit_study_awake_rei": "84/84 85 88 88 88 86 86 86 87 86 87 86 87 87 87 87 87 87 86 87 86 86 87 86 87 86 87 86 87 87 87 87 87 87 87 87 88 88 89 89 89 89 89 89 89 89 89 89 89 89 88 88 86 86 86 87 86 87 86 87 87 87 86 86 87 86 87 86 87 87 87 87 88 88 85 84 85 85 88 89 89 89 89 89 89 89 89 89 89 89 89 89 85 85 85 85 85 85 85 85 85 85 88 86 87 87 87 87 86 87 86 87 86 87 86 87 86 87 86 87 87 87 86 87 87 88 88 88 85 85/84/Strings\\animationDescriptions:hikawa_sit_study_awake",
+    "hikawa_sit_study_asleep": "85 85 86 86 88 88 89 89 89 89 89 90 90/90 90 90 90 90 90 90 90 90 90 90 90 91 91 91 91 91 91 91 91 91 91 90/90 90 89 89 89 89 89 89 89 88 88 88 85 85/Strings\\animationDescriptions:hikawa_sit_study_asleep",
+    
+    "hikawa_sleep": "0 0 19 19 92 92 19 19 92 92 19 19 19 19 19 92 92/92/92 92 19 19 92 92 19 19 92 92 19 19 19 19 19 0 0/Strings\\animationDescriptions:hikawa_sleep",
+    "hikawa_sleep_alarm": "93 94 95/95/95 94 93 19 19 19 19 19 19 0/Strings\\animationDescriptions:hikawa_sleep_alarm",
+    
+    "hikawa_popcorn_down": "96/96 96 96 96 96 96 96 97 97 97 98 99 96/96",
+    "hikawa_popcorn_right": "100/100 100 100 100 100 100 100 101 101 101 102 103/100",
+    "hikawa_popcorn_left": "104/104 104 104 104 104 104 104 105 105 105 106 107/104",
+
+    // not sure if feasible vvv
+    //"hikawa_walk_shopping": "",
+    //"hikawa_walk_boxes": "",
+    //"hikawa_food_prep": "",
+    //"hikawa_food_cook": "",
+    // not sure if feasible ^^^
+
+    "hikawa_beach_book": "141/140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 140 141 141/141/Strings\\animationDescriptions:hikawa_beach_book",
+    "hikawa_beach_shades": "0 147 146 145 144/144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 144 145 146 147 147 147 147 146 145 144/145 146 147 144 0/Strings\\animationDescriptions:hikawa_beach_shades",
+
+    // wait until all others are done vvv
+    //"hikawa_broom": "",
+    //"hikawa_scrub": "",   // infeasible
+    //"hikawa_yummy": "",
+    // wait until all others are done ^^^
+}

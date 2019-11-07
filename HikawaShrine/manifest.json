@@ -1,0 +1,10 @@
+﻿{
+  "Name": "HikawaShrine",
+  "Author": "blueberry",
+  "Version": "1.0.0",
+  "Description": "What the ..?",
+  "UniqueID": "blueberry.HikawaShrine",
+  "EntryDll": "HikawaShrine.dll",
+  "MinimumApiVersion": "2.11",
+  "UpdateKeys": [ "Nexus:" ]
+}
