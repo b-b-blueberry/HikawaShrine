@@ -25,8 +25,8 @@ namespace HikawaShrine.LightGunGame
 		/* Constant Values */
 
 		// debug
-		private bool debugCheats = mConfig.Debug_ArcadeCheats;
-		private bool debugSkipIntro = mConfig.Debug_ArcadeSkipIntro;
+		private bool debugCheats = mConfig.DebugArcadeCheats;
+		private bool debugSkipIntro = mConfig.DebugArcadeSkipIntro;
 
 		// program attributes
 		private const float PLAYER_ANIM_TIMESCALE = 300f;
@@ -308,7 +308,11 @@ namespace HikawaShrine.LightGunGame
 		public LightGunGame()
 		{
 			mArcadeTexture = Hikawa.SHelper.Content.Load<Texture2D>(
-				Path.Combine(Const.ASSETS_PATH, Const.MAPS_PATH, Const.ASSET_ARCADE + Const.ASSET_EXT));
+				Path.Combine(Const.AssetsPath, Const.MapsPath, Const.ArcadeSprites + ".png"));
+
+			// Reload assets customised by the arcade game
+			// ie. LooseSprites/Cursors
+			Hikawa.SHelper.Content.AssetEditors.Add(new ArcadeAssetEditor());
 
 			mShotsSuccessful = 0;
 			mShotsFired = 0;
@@ -503,7 +507,7 @@ namespace HikawaShrine.LightGunGame
 
 		public string minigameId()
 		{
-			return Const.ARCADE_MINIGAME;
+			return Const.ArcadeMinigameName;
 		}
 
 		public bool doMainGameUpdates()

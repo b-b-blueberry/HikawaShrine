@@ -53,49 +53,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="Const.cs" />
-    <Compile Include="HikawaAssetEditor.cs" />
+    <Compile Include="Core\Const.cs" />
+    <Compile Include="Core\EventEditor.cs" />
+    <Compile Include="Core\ArcadeAssetEditor.cs" />
+    <Compile Include="Core\NPCDataEditor.cs" />
     <Compile Include="LightGunGame\LightGunGame.cs" />
-    <Compile Include="Hikawa.cs" />
+    <Compile Include="Core\Hikawa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\animationDescriptions.json">
+    <Content Include="Assets\animationDescriptions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Characters\Dialogue\rainy.json">
+    <Content Include="Assets\Characters\Dialogue\rainy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Characters\Dialogue\Rei.json">
+    <Content Include="Assets\Characters\Dialogue\Rei.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Characters\schedules\Rei.json">
+    <Content Include="Assets\Characters\schedules\Rei.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="assets\Characters\todo--paste world sprites here" />
-    <Content Include="assets\Data\NPCDispositions.json">
+    <None Include="Assets\Characters\todo--paste world sprites here" />
+    <Content Include="Assets\Data\NPCDispositions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Data\NPCGiftTastes.json">
+    <Content Include="Assets\Data\NPCGiftTastes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="assets\Forest.tbin" />
-    <Content Include="assets\Maps\HikawaShrine.tbin">
+    <None Include="Assets\Forest.tbin" />
+    <Content Include="Assets\Maps\HikawaShrine.tbin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="assets\Maps\zhs_home.psd" />
-    <None Include="assets\Maps\zhs_misc.psd" />
-    <None Include="assets\Maps\zhs_scenery.psd" />
-    <None Include="assets\Maps\zhs_shrine.psd" />
-    <None Include="assets\Maps\zhs_trees.psd" />
-    <None Include="assets\Shrine.tbin" />
-    <Content Include="assets\Maps\zhs_arcade.png">
+    <None Include="Assets\Maps\zhs_home.psd" />
+    <None Include="Assets\Maps\zhs_misc.psd" />
+    <None Include="Assets\Maps\zhs_scenery.psd" />
+    <None Include="Assets\Maps\zhs_shrine.psd" />
+    <None Include="Assets\Maps\zhs_trees.psd" />
+    <None Include="Assets\Shrine.tbin" />
+    <Content Include="Assets\Maps\zhs_arcade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Strings\animationDescriptions.json">
+    <Content Include="Assets\Strings\animationDescriptions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Strings\schedules\Rei.json">
+    <Content Include="Assets\Strings\schedules\Rei.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="config.json" />
@@ -112,22 +114,22 @@
     <Analyzer Include="..\packages\Pathoschild.Stardew.ModBuildConfig.2.2.0\analyzers\dotnet\cs\StardewModdingAPI.ModBuildConfig.Analyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\Maps\paths.png" />
-    <Content Include="assets\Maps\spring_outdoorsTileSheet.png" />
-    <Content Include="assets\Maps\spring_town.png" />
-    <Content Include="assets\Maps\townInterior.png" />
-    <Content Include="assets\Maps\zhs_home.png">
+    <Content Include="Assets\Maps\paths.png" />
+    <Content Include="Assets\Maps\spring_outdoorsTileSheet.png" />
+    <Content Include="Assets\Maps\spring_town.png" />
+    <Content Include="Assets\Maps\townInterior.png" />
+    <Content Include="Assets\Maps\zhs_home.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Maps\zhs_misc.png">
+    <Content Include="Assets\Maps\zhs_misc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\Maps\zhs_shrine.png">
+    <Content Include="Assets\Maps\zhs_shrine.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\Portraits\" />
+    <Folder Include="Assets\Portraits\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Pathoschild.Stardew.ModBuildConfig.2.2.0\build\Pathoschild.Stardew.ModBuildConfig.targets" Condition="Exists('..\packages\Pathoschild.Stardew.ModBuildConfig.2.2.0\build\Pathoschild.Stardew.ModBuildConfig.targets')" />

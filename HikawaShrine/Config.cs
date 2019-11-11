@@ -7,8 +7,8 @@ namespace HikawaShrine
 		public string Names { get; set; } = "sub";
 		public string Portraits { get; set; } = "dub";
 
-		public bool Debug_ArcadeCheats { get; set; } = false;
-		public bool Debug_ArcadeSkipIntro { get; set; } = false;
-		public SButton Debug_ArcadePlayGame { get; set; } = SButton.P;
+		public bool DebugArcadeCheats { get; set; } = false;
+		public bool DebugArcadeSkipIntro { get; set; } = false;
+		public SButton DebugArcadePlayGame { get; set; } = SButton.P;
     }
 }
