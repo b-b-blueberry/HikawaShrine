@@ -1,8 +1,8 @@
 ﻿using StardewModdingAPI;
 
-namespace HikawaShrine
+namespace HikawaShrine.Editors
 {
-	class EventEditor : IAssetEditor
+	internal class EventEditor : IAssetEditor
 	{
 		public bool CanEdit<T>(IAssetInfo asset)
 		{

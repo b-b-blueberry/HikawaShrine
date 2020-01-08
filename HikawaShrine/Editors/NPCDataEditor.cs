@@ -2,9 +2,9 @@
 using System.IO;
 using StardewModdingAPI;
 
-namespace HikawaShrine
+namespace HikawaShrine.Editors
 {
-	class NPCDataEditor : IAssetEditor
+	internal class NPCDataEditor : IAssetEditor
 	{
 		public bool CanEdit<T>(IAssetInfo asset)
 		{
@@ -18,9 +18,8 @@ namespace HikawaShrine
 		public void Edit<T>(IAssetData asset)
 		{
 			var data = asset.AsDictionary<string, string>().Data;
-			var customData = Hikawa.SHelper.Content
-				.Load<IDictionary<string, string> >
-				(Path.Combine("Assets", asset.AssetName + ".json"));
+			var customData = ModEntry.Instance.Helper.Content.Load<IDictionary<string, string>>
+				(Path.Combine(Const.AssetsPath, asset.AssetName + ".json"));
 			foreach (var kv in customData)
 				data.Add(kv);
 		}

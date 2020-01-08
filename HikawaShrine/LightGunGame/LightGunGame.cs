@@ -20,50 +20,44 @@ namespace HikawaShrine.LightGunGame
 {
 	internal class LightGunGame : IMinigame
 	{
-		internal static Config mConfig = Hikawa.SHelper.ReadConfig<Config>();
-
 		/* Constant Values */
-
-		// debug
-		private bool debugCheats = mConfig.DebugArcadeCheats;
-		private bool debugSkipIntro = mConfig.DebugArcadeSkipIntro;
-
+		
 		// program attributes
-		private const float PLAYER_ANIM_TIMESCALE = 300f;
-		private const float UI_ANIM_TIMESCALE = 120f;
-		private const int SPRITE_SCALE = 2;
-		private const int TILE_W = 16;
-		private const int MOVE_IDLE = 0;
-		private const int MOVE_RIGHT = 1;
-		private const int MOVE_LEFT = 2;
+		private const float PlayerAnimTimescale = 300f;
+		private const float UiAnimTimescale = 120f;
+		private const int SpriteScale = 2;
+		private const int TileW = 16;
+		private const int MoveIdle = 0;
+		private const int MoveRight = 1;
+		private const int MoveLeft = 2;
 
 		// cutscene timers
-		private const int TIMER_TITLE_PHASE_1 = 800;	// red V
-		private const int TIMER_TITLE_PHASE_2 = 1200;	// codename
-		private const int TIMER_TITLE_PHASE_3 = 1600;	// sailor
-		private const int TIMER_TITLE_PHASE_4 = 2000;	// arcade game
-		private const int TIMER_TITLE_PHASE_5 = 2400;	// blueberry 1991-1996
-		private const int TIMER_TITLE_PHASE_6 = 2800;   // fire to start
+		private const int TimerTitlePhase1 = 800;	// red V
+		private const int TimerTitlePhase2 = 1200;	// codename
+		private const int TimerTitlePhase3 = 1600;	// sailor
+		private const int TimerTitlePhase4 = 2000;	// arcade game
+		private const int TimerTitlePhase5 = 2400;	// blueberry 1991-1996
+		private const int TimerTitlePhase6 = 2800;   // fire to start
 
-		private const int TIMER_SPECIAL_PHASE_1 = 1000; // stand ahead
-		private const int TIMER_SPECIAL_PHASE_2 = 2400; // raise compact
+		private const int TimerSpecialPhase1 = 1000; // stand ahead
+		private const int TimerSpecialPhase2 = 2400; // raise compact
 
-		private const int TIMER_POWER_PHASE_1 = 1500;	// activate
-		private const int TIMER_POWER_PHASE_2 = 5000;	// white glow
-		private const int TIMER_POWER_PHASE_3 = 6500;	// cooldown
+		private const int TimerPowerPhase1 = 1500;	// activate
+		private const int TimerPowerPhase2 = 5000;	// white glow
+		private const int TimerPowerPhase3 = 6500;	// cooldown
 
 		// asset attributes
 
 		// gameplay content
 		private enum SpecialPower {
-			NORMAL,
-			MEGATON,
-			SULPHUR,
-			INCENSE,
-			NONE,
+			Normal,
+			Megaton,
+			Sulphur,
+			Incense,
+			None,
 		}
 		
-		private static readonly int[] POWER_ANIMS = {
+		private static readonly int[] PowerAnims = {
 			0,
 			0, 
 			1,
@@ -72,270 +66,267 @@ namespace HikawaShrine.LightGunGame
 		};
 
 		private enum LightGunAimHeight {
-			HIGH,
-			MID,
-			LOW
+			High,
+			Mid,
+			Low
 		}
 		
 		// hud graphics
-		public const int CROSSHAIR_W = TILE_W * 1;
-		public const int CROSSHAIR_H = TILE_W * 1;
-		public const int CROSSHAIR_X = TILE_W * 2;
-		public const int CROSSHAIR_Y = TILE_W * 0;
+		public const int CrosshairW = TileW * 1;
+		public const int CrosshairH = TileW * 1;
+		public const int CrosshairX = TileW * 2;
+		public const int CrosshairY = TileW * 0;
 
-		private const int MAP_W = 20;
-		private const int MAP_H = MAP_W;
-		private const int HUD_W = TILE_W * 3;
-		private const int HUD_H = TILE_W;
-		private const int GAME_W = TILE_W * MAP_W;
-		private const int GAME_H = TILE_W * MAP_H;
-		private const int GAME_X = 0;
-		private const int GAME_Y = 0;
+		private const int MapW = 20;
+		private const int MapH = MapW;
+		private const int HudW = TileW * 3;
+		private const int HudH = TileW;
+		private const int GameW = TileW * MapW;
+		private const int GameH = TileW * MapH;
+		private const int GameX = 0;
+		private const int GameY = 0;
 
-		private const int STRIPE_BANNER_W = TILE_W * 1;	// note: banner is composed of 2 parts, each of width STRIPE_BANNER_WIDTH
-		private const int STRIPE_BANNER_H = TILE_W * 2;
-		private const int STRIPE_BANNER_X = TITLE_FRAME_X;
-		private const int STRIPE_BANNER_Y = TITLE_FRAME_Y + TITLE_FRAME_H;
+		private const int StripeBannerW = TileW * 1;	// note: banner is composed of 2 parts, each of width STRIPE_BANNER_WIDTH
+		private const int StripeBannerH = TileW * 2;
+		private const int StripeBannerX = TitleFrameX;
+		private const int StripeBannerY = TitleFrameY + TitleFrameH;
 
-		private const int ASSETS_X = 0;
-		private const int ASSETS_Y = 0;
+		private const int AssetsX = 0;
+		private const int AssetsY = 0;
 
 		// miscellaneous object graphics
-		private const int MISC_H = TILE_W * 1;
-		private const int MISC_X = ASSETS_X;
-		private const int MISC_Y = ASSETS_Y;
+		private const int MiscH = TileW * 1;
+		private const int MiscX = AssetsX;
+		private const int MiscY = AssetsY;
 
 		// hud element graphics
-		private const int HUDELEM_H = TILE_W * 3;
-		private const int HUDELEM_X = ASSETS_X;
-		private const int HUDELEM_Y = ASSETS_Y + MISC_H;
+		private const int HudElemH = TileW * 3;
+		private const int HudElemX = AssetsX;
+		private const int HudElemY = AssetsY + MiscH;
 
 		// projectile graphics
-		private const int PROJECTILES_H = TILE_W * 1;
-		private const int PROJECTILES_X = ASSETS_X;
-		private const int PROJECTILES_Y = HUDELEM_Y + HUDELEM_H;
-		private const int PROJECTILES_VARIANTS = 2;
+		private const int ProjectilesH = TileW * 1;
+		private const int ProjectilesX = AssetsX;
+		private const int ProjectilesY = HudElemY + HudElemH;
+		private const int ProjectilesVariants = 2;
 
-		private const int PLAYER_BULLET_X = TILE_W * 13;
-		private const int PLAYER_BULLET_FRAMES = 2;
+		private const int PlayerBulletX = TileW * 13;
+		private const int PlayerBulletFrames = 2;
 
 		// power graphics
-		private const int POWERFX_H = TILE_W * 2;
-		private const int POWERFX_X = ASSETS_X;
-		private const int POWERFX_Y = PROJECTILES_Y + PROJECTILES_H;
+		private const int PowerFxH = TileW * 2;
+		private const int PowerFxX = AssetsX;
+		private const int PowerFxY = ProjectilesY + ProjectilesH;
 
 		// text string graphics
-		private const int STRINGS_H = TILE_W * 1;
-		private const int STRINGS_X = ASSETS_X;
-		private const int STRINGS_Y = POWERFX_Y + POWERFX_H;
+		private const int StringsH = TileW * 1;
+		private const int StringsX = AssetsX;
+		private const int StringsY = PowerFxY + PowerFxH;
 
 		// player graphics
-		private const int PLAYER_W = TILE_W * 2;
-		private const int PLAYER_FULL_H = TILE_W * 3;
-		private const int PLAYER_SPLIT_H = TILE_W * 2;
-		private const int PLAYER_X = ASSETS_X;
-		private const int PLAYER_FULL_Y = STRINGS_Y + STRINGS_H;
-		private const int PLAYER_SPLIT_Y = PLAYER_FULL_Y + PLAYER_FULL_H;
+		private const int PlayerW = TileW * 2;
+		private const int PlayerFullH = TileW * 3;
+		private const int PlayerSplitH = TileW * 2;
+		private const int PlayerX = AssetsX;
+		private const int PlayerFullY = StringsY + StringsH;
+		private const int PlayerSplitY = PlayerFullY + PlayerFullH;
 
-		private const int PLAYER_IDLE_FRAMES = 1;
-		private const int PLAYER_POSE_FRAMES = 3;
-		private const int PLAYER_POSE_X = PLAYER_X + (PLAYER_W * PLAYER_IDLE_FRAMES);
-		private const int PLAYER_SPECIAL_FRAMES = 2;
-		private const int PLAYER_SPECIAL_X = PLAYER_POSE_X + (PLAYER_W * PLAYER_POSE_FRAMES);
-		private const int PLAYER_POWER_X = PLAYER_SPECIAL_X + (PLAYER_W * PLAYER_SPECIAL_FRAMES);
-		private const int PLAYER_POWER_FRAMES = 3;
+		private const int PlayerIdleFrames = 1;
+		private const int PlayerPoseFrames = 3;
+		private const int PlayerPoseX = PlayerX + PlayerW * PlayerIdleFrames;
+		private const int PlayerSpecialFrames = 2;
+		private const int PlayerSpecialX = PlayerPoseX + PlayerW * PlayerPoseFrames;
+		private const int PlayerPowerX = PlayerSpecialX + PlayerW * PlayerSpecialFrames;
+		private const int PlayerPowerFrames = 3;
 
-		private const int PLAYER_RUN_FRAMES = 4;
-		private const int PLAYER_LEGS_IDLE_X = PLAYER_X;
-		private const int PLAYER_LEGS_RUN_X = PLAYER_LEGS_IDLE_X + PLAYER_W * PLAYER_IDLE_FRAMES;
+		private const int PlayerRunFrames = 4;
+		private const int PlayerLegsIdleX = PlayerX;
+		private const int PlayerLegsRunX = PlayerLegsIdleX + PlayerW * PlayerIdleFrames;
 		
-		private const int PLAYER_BODY_RUN_X = PLAYER_LEGS_RUN_X + PLAYER_W * PLAYER_RUN_FRAMES;
-		private const int PLAYER_BODY_FIRE_X = PLAYER_BODY_RUN_X + PLAYER_W * PLAYER_RUN_FRAMES;
-		private const int PLAYER_ARMS_FIRE_X = PLAYER_BODY_FIRE_X + PLAYER_W * PLAYER_RUN_FRAMES;
+		private const int PlayerBodyRunX = PlayerLegsRunX + PlayerW * PlayerRunFrames;
+		private const int PlayerBodyFireX = PlayerBodyRunX + PlayerW * PlayerRunFrames;
+		private const int PlayerArmsFireX = PlayerBodyFireX + PlayerW * PlayerRunFrames;
 
 		// title screen graphics
-		private const int TITLE_TEXT_W = PLAYER_SPLIT_Y + PLAYER_SPLIT_H;
-		private const int TITLE_TEXT_X = ASSETS_X;
+		private const int TitleTextW = PlayerSplitY + PlayerSplitH;
+		private const int TitleTextX = AssetsX;
 
-		private const int TITLE_CODENAME_H = TILE_W * 2;
-		private const int TITLE_CODENAME_Y = TITLE_TEXT_W;
+		private const int TitleCodenameH = TileW * 2;
+		private const int TitleCodenameY = TitleTextW;
 
-		private const int TITLE_SAILOR_H = TILE_W * 5;
-		private const int TITLE_SAILOR_Y = TITLE_CODENAME_Y + TITLE_CODENAME_H;
+		private const int TitleSailorH = TileW * 5;
+		private const int TitleSailorY = TitleCodenameY + TitleCodenameH;
 
-		private const int TITLE_ARCADE_H = TILE_W * 1;
-		private const int TITLE_ARCADE_Y = TITLE_SAILOR_Y + TITLE_SAILOR_H;
+		private const int TitleArcadeH = TileW * 1;
+		private const int TitleArcadeY = TitleSailorY + TitleSailorH;
 
-		private const int TITLE_SIGNATURE_W = TILE_W * 5;
-		private const int TITLE_SIGNATURE_H = TILE_W * 1;
-		private const int TITLE_SIGNATURE_Y = TITLE_ARCADE_Y + TITLE_ARCADE_H;
+		private const int TitleSignatureW = TileW * 5;
+		private const int TitleSignatureH = TileW * 1;
+		private const int TitleSignatureY = TitleArcadeY + TitleArcadeH;
 
-		private const int TITLE_REDV_W = TILE_W * 5;
-		private const int TITLE_REDV_H = TILE_W * 8;
-		private const int TITLE_REDV_X = TITLE_TEXT_W + TITLE_TEXT_X;
-		private const int TITLE_REDV_Y = TITLE_CODENAME_Y;
+		private const int TitleRedVW = TileW * 5;
+		private const int TitleRedVH = TileW * 8;
+		private const int TitleRedVX = TitleTextW + TitleTextX;
+		private const int TitleRedVY = TitleCodenameY;
 
-		private const int TITLE_FRAME_W = TILE_W * 7;
-		private const int TITLE_FRAME_H = TILE_W * 1;
-		private const int TITLE_FRAME_X = TITLE_REDV_X + (2 * TITLE_REDV_W);
-		private const int TITLE_FRAME_Y = TITLE_CODENAME_Y;
-		private const int TITLE_START_W = TILE_W * 6;
-		private const int TITLE_START_H = TILE_W * 1;
+		private const int TitleFrameW = TileW * 7;
+		private const int TitleFrameH = TileW * 1;
+		private const int TitleFrameX = TitleRedVX + 2 * TitleRedVW;
+		private const int TitleFrameY = TitleCodenameY;
+		private const int TitleStartW = TileW * 6;
+		private const int TitleStartH = TileW * 1;
 
 		// world map graphics
-		private const int MAPTILES_X = ASSETS_X;
-		private const int MAPTILES_Y = TITLE_SIGNATURE_Y + TITLE_SIGNATURE_H;
+		private const int MapTilesX = AssetsX;
+		private const int MapTilesY = TitleSignatureY + TitleSignatureH;
 
 		// game attributes
-		private const int GAME_LIVES_DEFAULT = 1;
-		private const int GAME_HEALTH_MAX = 3;
-		private const int GAME_ENERGY_MAX = 7;
-		private const int GAME_ENERGY_THRESHOLD_LOW = 3;
-		private const int GAME_MOVE_SPEED = 5;
-		private const int GAME_DODGE_DELAY = 500;
-		private const int GAME_FIRE_DELAY = 20;
-		private const int GAME_INVINCIBLE_DELAY = 5000;
-		private const int GAME_DEATH_DELAY = 3000;
-		private const int GAME_END_DELAY = 5000;
-		private const int GAME_LOOT_DURATION = 8000;
-		private const int GAME_PLAYER_DAMAGE = 1;
-		private const int GAME_ENEMY_DAMAGE = 1;
+		private const int GameLivesDefault = 1;
+		private const int GameHealthMax = 3;
+		private const int GameEnergyMax = 7;
+		private const int GameEnergyThresholdLow = 3;
+		private const int GameMoveSpeed = 5;
+		private const int GameDodgeDelay = 500;
+		private const int GameFireDelay = 20;
+		private const int GameInvincibleDelay = 5000;
+		private const int GameDeathDelay = 3000;
+		private const int GameEndDelay = 5000;
+		private const int GameLootDuration = 8000;
+		private const int GamePlayerDamage = 1;
+		private const int GameEnemyDamage = 1;
 
-		private const int POWERUP_HEALTH = 0;
-		private const int POWERUP_LIVES = 2;
+		private const int PowerupHealth = 0;
+		private const int PowerupLives = 2;
 
-		private const int POWERUP_HEALTH_AMOUNT = 1;
-		private const int POWERUP_LIVES_AMOUNT = 1;
+		private const int PowerupHealthAmount = 1;
+		private const int PowerupLivesAmount = 1;
 
-		private const float ANIM_CUTSCENE_BACKGROUND_SPEED = 0.1f;
+		private const float AnimCutsceneBackgroundSpeed = 0.1f;
 
-		public enum ProjectileType {
-				LIGHTGUN,
-				DEBRIS,
-				BULLET,
-				ENERGY
+		public static readonly Vector2[] GameProjSpeed = {
+				new Vector2(4.0f, 4.0f) * SpriteScale, 
+				new Vector2(1.0f, 1.0f) * SpriteScale, 
+				new Vector2(1.0f, 1.0f) * SpriteScale, 
+				new Vector2(1.0f, 1.0f) * SpriteScale
 		};
-		public static readonly Vector2[] GAME_PROJ_SPEED = {
-				new Vector2(4.0f, 4.0f) * SPRITE_SCALE, 
-				new Vector2(1.0f, 1.0f) * SPRITE_SCALE, 
-				new Vector2(1.0f, 1.0f) * SPRITE_SCALE, 
-				new Vector2(1.0f, 1.0f) * SPRITE_SCALE
-		};
-		public static readonly float[] GAME_PROJ_ROT_DELTA = {
+		public static readonly float[] GameProjRotDelta = {
 				0.0f,
 				0.0f,
 				0.0f,
 				0.0f
 		};
 
-		// game state
-		private const int OPTION_RETRY = 0;
-		private const int OPTION_QUIT = 1;
+		public enum ProjectileType
+		{
+			Lightgun,
+			Debris,
+			Bullet,
+			Energy
+		}
+		public enum MenuOptions
+		{
+			Retry,
+			Quit
+		}
 
 		/* Gameplay Variables */
 
 		// program
-		private static Vector2 mGameStartCoords;
-		private static Vector2 mGameEndCoords;
-		private behaviorAfterMotionPause mBehaviorAfterPause;
+		private static Vector2 _gameStartCoords;
+		private static Vector2 _gameEndCoords;
+		private behaviorAfterMotionPause _behaviorAfterPause;
 
 		// active game actors
-		public List<LightGunGame.Bullet> mPlayerBullets = new List<LightGunGame.Bullet>();
-		private static List<LightGunGame.Bullet> mEnemyBullets = new List<LightGunGame.Bullet>();
-		private static List<LightGunGame.Monster> mEnemies = new List<LightGunGame.Monster>();
-		private static List<TemporaryAnimatedSprite> mTemporarySprites = new List<TemporaryAnimatedSprite>();
-		private static List<int> mPlayerMovementDirections = new List<int>();
-		private List<Point>[] mSpawnQueue = new List<Point>[4];
-		private int[,] mStageMap = new int[MAP_H, MAP_W];
+		public List<Bullet> PlayerBullets = new List<Bullet>();
+		private static List<Bullet> _enemyBullets = new List<Bullet>();
+		private static List<Monster> _enemies = new List<Monster>();
+		private static List<TemporaryAnimatedSprite> _temporaryAnimatedSprites = new List<TemporaryAnimatedSprite>();
+		private static List<int> _playerMovementDirections = new List<int>();
+		private List<Point>[] _spawnQueue = new List<Point>[4];
+		private int[,] _stageMap = new int[MapH, MapW];
 
 		// player attributes
-		private int mHealth;
-		private int mLives;
-		private int mEnergy;
-		private int mWhichStage;
-		private int mWhichWorld;
-		private int mWhichGame;
-		private int mStageTimer;
-		private int mTotalTimer;
-		private int mShotsSuccessful;
-		private int mShotsFired;
-		private int mScore;
-		private int mGameOverOption;
-		private SpecialPower mActiveSpecialPower;
-		public Vector2 mPlayerPosition;
-		public Rectangle mPlayerBoundingBox;
+		private int _health;
+		private int _lives;
+		private int _energy;
+		private int _whichStage;
+		private int _whichWorld;
+		private int _whichGame;
+		private int _stageTimer;
+		private int _totalTimer;
+		private int _shotsSuccessful;
+		private int _shotsFired;
+		private int _score;
+		private int _gameOverOption;
+		private SpecialPower _activeSpecialPower;
+		public Vector2 PlayerPosition;
+		public Rectangle PlayerBoundingBox;
 
 		// player state
-		private SpriteEffects mMirrorPlayerSprite;
-		private bool mHasPlayerQuit;
+		private SpriteEffects _mirrorPlayerSprite;
+		private bool _hasPlayerQuit;
 		
 		// ui elements
-		private static Texture2D mArcadeTexture;
-		private static Color mScreenFlashColor;
-		private float mCutsceneBackgroundPosition;
+		private static Texture2D _arcadeTexture;
+		private static Color _screenFlashColor;
+		private float _cutsceneBackgroundPosition;
 
 		// timers
 
 		// midgame
-		private static float mPlayerAnimationTimer;
-		private static int mPlayerAnimationPhase;
-		private static int mPlayerFireTimer;
-		private static int mPlayerSpecialTimer;
-		private static int mPlayerPowerTimer;
-		private static int mPlayerInvincibleTimer;
-		private static int mScreenFlashTimer;
-		private static float mRespawnTimer;
+		private static float _playerAnimationTimer;
+		private static int _playerAnimationPhase;
+		private static int _playerFireTimer;
+		private static int _playerSpecialTimer;
+		private static int _playerPowerTimer;
+		private static int _playerInvincibleTimer;
+		private static int _screenFlashTimer;
+		private static float _respawnTimer;
 		// postgame lose
-		private static int mGameRestartTimer;
-		private static int mGameEndTimer;
+		private static int _gameRestartTimer;
+		private static int _gameEndTimer;
 		// postgame win
-		private static int mCutsceneTimer;
-		private static int mCutscenePhase;
+		private static int _cutsceneTimer;
+		private static int _cutscenePhase;
 		// meta
-		private static bool onStartMenu;
-		private static bool onGameOver;
-		private static bool onWorldComplete;
-		private static bool onGameComplete;
+		private static bool _onStartMenu;
+		private static bool _onGameOver;
+		private static bool _onWorldComplete;
+		private static bool _onGameComplete;
 
-		public static int TileSize
-		{
-			get
-			{
-				return TILE_W;
-			}
-		}
+		public static int TileSize => TileW;
 
 		public LightGunGame()
 		{
-			mArcadeTexture = Hikawa.SHelper.Content.Load<Texture2D>(
-				Path.Combine(Const.AssetsPath, Const.MapsPath, Const.ArcadeSprites + ".png"));
+			_arcadeTexture = ModEntry.Instance.Helper.Content.Load<Texture2D>(
+				Path.Combine(Const.AssetsPath, Const.MapsPath, Const.ArcadeSpritesFile + ".png"));
 
 			// Reload assets customised by the arcade game
 			// ie. LooseSprites/Cursors
-			Hikawa.SHelper.Content.AssetEditors.Add(new ArcadeAssetEditor());
+			ModEntry.Instance.Helper.Content.AssetEditors.Add(new Editors.ArcadeAssetEditor());
 
-			mShotsSuccessful = 0;
-			mShotsFired = 0;
-			mTotalTimer = 0;
+			_shotsSuccessful = 0;
+			_shotsFired = 0;
+			_totalTimer = 0;
 
 			reset();
 		}
 
 		public void unload()
 		{
-			mHealth = GAME_HEALTH_MAX;
-			mLives = GAME_LIVES_DEFAULT;
+			_health = GameHealthMax;
+			_lives = GameLivesDefault;
 		}
 
 		public void receiveLeftClick(int x, int y, bool playSound = true)
 		{
-			if (onStartMenu)
+			if (_onStartMenu)
 			{	// Progress through the start menu cutscene
-				mCutscenePhase++;
+				_cutscenePhase++;
 			}
 			else
 			{
-				if (mCutsceneTimer <= 0 && mPlayerPowerTimer <= 0 && mPlayerSpecialTimer <= 0 && mRespawnTimer <= 0 && mGameEndTimer <= 0 && mGameRestartTimer <= 0 && mPlayerFireTimer <= 1)
+				if (_cutsceneTimer <= 0 && _playerPowerTimer <= 0 && _playerSpecialTimer <= 0 && _respawnTimer <= 0 && _gameEndTimer <= 0 && _gameRestartTimer <= 0 && _playerFireTimer <= 1)
 					// Fire lightgun trigger
 					playerFire();
 			}
@@ -343,7 +334,7 @@ namespace HikawaShrine.LightGunGame
 
 		public void leftClickHeld(int x, int y)
 		{
-			if (mCutsceneTimer <= 0 && mPlayerPowerTimer <= 0 && mPlayerSpecialTimer <= 0 && mRespawnTimer <= 0 && mGameEndTimer <= 0 && mGameRestartTimer <= 0 && mPlayerFireTimer <= 1)
+			if (_cutsceneTimer <= 0 && _playerPowerTimer <= 0 && _playerSpecialTimer <= 0 && _respawnTimer <= 0 && _gameEndTimer <= 0 && _gameRestartTimer <= 0 && _playerFireTimer <= 1)
 				// Fire lightgun trigger
 				playerFire();
 		}
@@ -362,48 +353,46 @@ namespace HikawaShrine.LightGunGame
 
 		public void receiveKeyPress(Keys k)
 		{	
-			bool flag = false;
-			if (Game1.options.doesInputListContain(Game1.options.moveLeftButton, k) && !Game1.options.doesInputListContain(Game1.options.moveLeftButton, Keys.Left))
+			var flag = false;
+			if (Game1.options.doesInputListContain(Game1.options.moveLeftButton, k)
+			    && !Game1.options.doesInputListContain(Game1.options.moveLeftButton, Keys.Left))
 			{
 				// Move left
-				addPlayerMovementDirection(MOVE_LEFT);
+				addPlayerMovementDirection(MoveLeft);
 				flag = true;
 			}
-			if (Game1.options.doesInputListContain(Game1.options.moveRightButton, k) && !Game1.options.doesInputListContain(Game1.options.moveRightButton, Keys.Right))
+			if (Game1.options.doesInputListContain(Game1.options.moveRightButton, k)
+			    && !Game1.options.doesInputListContain(Game1.options.moveRightButton, Keys.Right))
 			{
 				// Move right
-				addPlayerMovementDirection(MOVE_RIGHT);
+				addPlayerMovementDirection(MoveRight);
 				flag = true;
 			}
 			if (flag)
-			{
 				return;
-			}
 			
-			if (debugCheats) {
+			if (ModEntry.Instance.Config.DebugMode && ModEntry.Instance.Config.DebugArcadeCheats) {
 				switch (k)
 				{
 					case Keys.D1:
-						if (mHealth < GAME_HEALTH_MAX)
-							Hikawa.SMonitor.Log("mHealth : " + mHealth + " -> " + ++mHealth, LogLevel.Debug);
-						else
-							Hikawa.SMonitor.Log("mHealth : " + mHealth + " == GAME_HEALTH_MAX", LogLevel.Debug);
+						Log.D(_health < GameHealthMax
+							? $"_health : {_health} -> {++_health}"		// Modifies health value
+							: $"_health : {_health} == GameHealthMax");
 						break;
 					case Keys.D2:
-						if (mEnergy < GAME_ENERGY_MAX)
-							Hikawa.SMonitor.Log("mEnergy : " + mEnergy + " -> " + ++mEnergy, LogLevel.Debug);
-						else
-							Hikawa.SMonitor.Log("mEnergy : " + mEnergy + " == GAME_ENERGY_MAX", LogLevel.Debug);
+						Log.D(_energy < GameEnergyMax
+							? $"_energy : {_energy} -> {++_energy}"		// Modifies energy value
+							: $"_energy : {_energy} == GameEnergyMax");
 						break;
 					case Keys.D3:
-						Hikawa.SMonitor.Log("mLives : " + mLives + " -> " + ++mLives, LogLevel.Debug);
+						Log.D($"_lives : {_lives} -> {_lives + 1}");
 						break;
 					case Keys.OemOpenBrackets:
-						Hikawa.SMonitor.Log("mWhichStage : " + mWhichStage + " -> " + (mWhichStage + 1), LogLevel.Debug);
+						Log.D($"_whichStage : {_whichStage} -> {_whichStage + 1}");
 						endCurrentStage();
 						break;
 					case Keys.OemCloseBrackets:
-						Hikawa.SMonitor.Log("mWhichWorld : " + mWhichWorld + " -> " + (mWhichWorld + 1), LogLevel.Debug);
+						Log.D($"_whichWorld : {_whichWorld} -> {_whichWorld + 1}");
 						endCurrentWorld();
 						break;
 				}
@@ -415,9 +404,9 @@ namespace HikawaShrine.LightGunGame
 				case Keys.Space:
 				case Keys.X:
 					// Special power trigger
-					if (mPlayerSpecialTimer <= 0 && mEnergy >= GAME_ENERGY_THRESHOLD_LOW)
+					if (_playerSpecialTimer <= 0 && _energy >= GameEnergyThresholdLow)
 					{
-						mMirrorPlayerSprite = SpriteEffects.None;
+						_mirrorPlayerSprite = SpriteEffects.None;
 						playerSpecialStart();
 					}
 					break;
@@ -427,13 +416,13 @@ namespace HikawaShrine.LightGunGame
 					break;
 				case Keys.A:
 					// Move left
-					addPlayerMovementDirection(MOVE_LEFT);
-					mPlayerAnimationTimer = 0;
+					addPlayerMovementDirection(MoveLeft);
+					_playerAnimationTimer = 0;
 					break;
 				case Keys.D:
 					// Move right
-					addPlayerMovementDirection(MOVE_RIGHT);
-					mPlayerAnimationTimer = 0;
+					addPlayerMovementDirection(MoveRight);
+					_playerAnimationTimer = 0;
 					break;
 			}
 		}
@@ -443,7 +432,7 @@ namespace HikawaShrine.LightGunGame
 			// Accept new input
 			if (k != Keys.None)
 			{
-				Keys keys = Keys.Down;
+				const Keys keys = Keys.Down;
 				if (Game1.options.doesInputListContain(Game1.options.moveRightButton, k))
 					// Move right
 					k = Keys.D;
@@ -457,20 +446,22 @@ namespace HikawaShrine.LightGunGame
 			// Otherwise clear old input
 			else
 			{
-				bool flag = false;
-				if (Game1.options.doesInputListContain(Game1.options.moveLeftButton, k) && !Game1.options.doesInputListContain(Game1.options.moveLeftButton, Keys.Left))
+				var flag = false;
+				if (Game1.options.doesInputListContain(Game1.options.moveLeftButton, k)
+				    && !Game1.options.doesInputListContain(Game1.options.moveLeftButton, Keys.Left))
 				{
-					if (mPlayerMovementDirections.Contains(MOVE_RIGHT))
+					if (_playerMovementDirections.Contains(MoveRight))
 					{
-						mPlayerMovementDirections.Remove(MOVE_RIGHT);
+						_playerMovementDirections.Remove(MoveRight);
 					}
 					flag = true;
 				}
-				if (Game1.options.doesInputListContain(Game1.options.moveRightButton, k) && !Game1.options.doesInputListContain(Game1.options.moveRightButton, Keys.Right))
+				if (Game1.options.doesInputListContain(Game1.options.moveRightButton, k)
+				    && !Game1.options.doesInputListContain(Game1.options.moveRightButton, Keys.Right))
 				{
-					if (mPlayerMovementDirections.Contains(MOVE_LEFT))
+					if (_playerMovementDirections.Contains(MoveLeft))
 					{
-						mPlayerMovementDirections.Remove(MOVE_LEFT);
+						_playerMovementDirections.Remove(MoveLeft);
 					}
 					flag = true;
 				}
@@ -483,16 +474,16 @@ namespace HikawaShrine.LightGunGame
 			if (k == Keys.A)
 			{
 				// Move left
-				if (!mPlayerMovementDirections.Contains(MOVE_LEFT))
+				if (!_playerMovementDirections.Contains(MoveLeft))
 					return;
-				mPlayerMovementDirections.Remove(MOVE_LEFT);
+				_playerMovementDirections.Remove(MoveLeft);
 			}
 			else if (k == Keys.D)
 			{
 				// Move right
-				if (!mPlayerMovementDirections.Contains(MOVE_RIGHT))
+				if (!_playerMovementDirections.Contains(MoveRight))
 					return;
-				mPlayerMovementDirections.Remove(MOVE_RIGHT);
+				_playerMovementDirections.Remove(MoveRight);
 			}
 		}
 
@@ -517,26 +508,24 @@ namespace HikawaShrine.LightGunGame
 
 		public void changeScreenSize()
 		{
-			// TODO : include GAME_X and GAME_Y into position calculations
+			// TODO : include GameX and GameY into position calculations
 
-			mGameStartCoords = new Vector2(
-					(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width - GAME_W * SPRITE_SCALE) / 2,
-					(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height - GAME_H * SPRITE_SCALE) / 2);
+			_gameStartCoords = new Vector2(
+				(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width - GameW * SpriteScale) / 2,
+				(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height - GameH * SpriteScale) / 2);
 					
-			mGameEndCoords = new Vector2(
-				mGameStartCoords.X + GAME_X * SPRITE_SCALE + GAME_W * SPRITE_SCALE,
-				mGameStartCoords.Y + GAME_Y * SPRITE_SCALE + GAME_H * SPRITE_SCALE);
+			_gameEndCoords = new Vector2(
+				_gameStartCoords.X + GameX * SpriteScale + GameW * SpriteScale,
+				_gameStartCoords.Y + GameY * SpriteScale + GameH * SpriteScale);
 
-			Hikawa.SMonitor.Log(
-					"mGameStartCoords: " +
-					"(" + Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width + " - " + GAME_W * SPRITE_SCALE + ") / 2,\n" +
-					"(" + Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height + " - " + GAME_H * SPRITE_SCALE + ") / 2,\n" +
-					"= " + mGameStartCoords.X + ", " + mGameStartCoords.Y,
-					LogLevel.Debug);
+			Log.D("mGameStartCoords: "
+				+ $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width} - {GameW * SpriteScale}) / 2,\n"
+				+ $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height} - {GameH * SpriteScale}) / 2,\n"
+				+ $"= {_gameStartCoords.X}, {_gameStartCoords.Y}",
+				ModEntry.Instance.Config.DebugMode);
 
-			Hikawa.SMonitor.Log(
-					"mGameEndCoords: " + mGameStartCoords.X + ", " + mGameStartCoords.Y,
-					LogLevel.Debug);
+			Log.D($"mGameEndCoords: {_gameStartCoords.X}, {_gameStartCoords.Y}",
+				ModEntry.Instance.Config.DebugMode);
 		}
 
 		private void quitMinigame()
@@ -547,65 +536,70 @@ namespace HikawaShrine.LightGunGame
 			Game1.currentMinigame = null;
 		}
 
+		public bool forceQuit()
+		{
+			return false;
+		}
+
 		private void reset()
 		{
 			changeScreenSize();
 
-			mEnemyBullets.Clear();
-			mEnemies.Clear();
-			mTemporarySprites.Clear();
+			_enemyBullets.Clear();
+			_enemies.Clear();
+			_temporaryAnimatedSprites.Clear();
 
-			mPlayerPosition = new Vector2(
-					mGameStartCoords.X + GAME_X + (GAME_W * SPRITE_SCALE / 2),
-					mGameStartCoords.Y + GAME_Y + (GAME_H * SPRITE_SCALE) - (PLAYER_FULL_H * SPRITE_SCALE)
+			PlayerPosition = new Vector2(
+					_gameStartCoords.X + GameX + (GameW * SpriteScale / 2),
+					_gameStartCoords.Y + GameY + (GameH * SpriteScale) - (PlayerFullH * SpriteScale)
 			);
 
 			// Player bounding box only includes the bottom 2/3rds of the sprite.
-			mPlayerBoundingBox.X = (int)mPlayerPosition.X;
-			mPlayerBoundingBox.Y = (int)mPlayerPosition.Y;
-			mPlayerBoundingBox.Width = PLAYER_W * SPRITE_SCALE;
-			mPlayerBoundingBox.Height = PLAYER_SPLIT_H * SPRITE_SCALE;
+			PlayerBoundingBox.X = (int)PlayerPosition.X;
+			PlayerBoundingBox.Y = (int)PlayerPosition.Y;
+			PlayerBoundingBox.Width = PlayerW * SpriteScale;
+			PlayerBoundingBox.Height = PlayerSplitH * SpriteScale;
 
-			mPlayerAnimationPhase = 0;
-			mPlayerAnimationTimer = 0;
-			mPlayerSpecialTimer = 0;
-			mPlayerFireTimer = 0;
+			_playerAnimationPhase = 0;
+			_playerAnimationTimer = 0;
+			_playerSpecialTimer = 0;
+			_playerFireTimer = 0;
 
-			mCutsceneTimer = 0;
-			mCutscenePhase = 0;
-			mCutsceneBackgroundPosition = 0f;
+			_cutsceneTimer = 0;
+			_cutscenePhase = 0;
+			_cutsceneBackgroundPosition = 0f;
 
 			// todo: reduce score with formula
-			int reducedScore = 0;
-			mScore = Math.Min(0, reducedScore);
+			var reducedScore = 0;
+			_score = Math.Min(0, reducedScore);
 
-			mHealth = GAME_HEALTH_MAX;
-			mEnergy = 0;
-			mActiveSpecialPower = SpecialPower.NONE;
+			_health = GameHealthMax;
+			_energy = 0;
+			_activeSpecialPower = SpecialPower.None;
 
-			mWhichStage = 0;
-			mWhichWorld = 0;
+			_whichStage = 0;
+			_whichWorld = 0;
 
-			mRespawnTimer = 0.0f;
-			onGameOver = false;
+			_respawnTimer = 0.0f;
+			_onGameOver = false;
 
-			if (!debugSkipIntro)
-				onStartMenu = true;
+			if (ModEntry.Instance.Config.DebugMode && !ModEntry.Instance.Config.DebugArcadeSkipIntro)
+				_onStartMenu = true;
 		}
 
 		private void addPlayerMovementDirection(int direction)
 		{
-			if (mPlayerMovementDirections.Contains(direction))
+			if (_playerMovementDirections.Contains(direction))
 				return;
-			mPlayerMovementDirections.Add(direction);
+			_playerMovementDirections.Add(direction);
 		}
 
 		private void playerPowerup(int which)
 		{
 			switch (which)
 			{
-				case POWERUP_HEALTH:
-					mHealth = Math.Min(GAME_HEALTH_MAX, mHealth + POWERUP_HEALTH_AMOUNT);
+				case PowerupHealth:
+					_health = Math.Min(GameHealthMax, _health + PowerupHealthAmount);
 
 					// todo spawn a new temporary sprite at the powerup object coordinates
 
@@ -615,61 +609,59 @@ namespace HikawaShrine.LightGunGame
 
 		private void playerSpecialStart()
 		{
-			mPlayerAnimationPhase = 0;
-			mPlayerSpecialTimer = 1;
+			_playerAnimationPhase = 0;
+			_playerSpecialTimer = 1;
 		}
 		
 		private void playerSpecialEnd()
 		{
 			// Energy levels between 0 and the low-threshold will use a light special power.
-			mActiveSpecialPower = mEnergy >= GAME_ENERGY_MAX ? SpecialPower.NORMAL : SpecialPower.MEGATON;
+			_activeSpecialPower = _energy >= GameEnergyMax ? SpecialPower.Normal : SpecialPower.Megaton;
 
-			mPlayerAnimationPhase = 0;
-			mPlayerSpecialTimer = 0;
+			_playerAnimationPhase = 0;
+			_playerSpecialTimer = 0;
 		}
 
 		private void playerPowerEnd()
 		{
-			mActiveSpecialPower = SpecialPower.NONE;
-			mPlayerAnimationPhase = 0;
-			mPlayerPowerTimer = 0;
-			mEnergy = 0;
+			_activeSpecialPower = SpecialPower.None;
+			_playerAnimationPhase = 0;
+			_playerPowerTimer = 0;
+			_energy = 0;
 		}
 
 		private void playerFire()
 		{
 			// Position the source around the centre of the player
-			Vector2 src = new Vector2(
-					mPlayerPosition.X + (PLAYER_W / 2 * SPRITE_SCALE),
-					mPlayerPosition.Y + (PLAYER_SPLIT_H / 2 * SPRITE_SCALE));
+			var src = new Vector2(
+				PlayerPosition.X + (PlayerW / 2 * SpriteScale),
+				PlayerPosition.Y + (PlayerSplitH / 2 * SpriteScale));
 
 			// Position the target on the centre of the cursor
-			Vector2 dest = new Vector2(
-					Hikawa.SHelper.Input.GetCursorPosition().ScreenPixels.X + (TILE_W / 2 * SPRITE_SCALE),
-					Hikawa.SHelper.Input.GetCursorPosition().ScreenPixels.Y + (TILE_W / 2 * SPRITE_SCALE));
-			spawnBullets(src, dest, GAME_PLAYER_DAMAGE, ProjectileType.LIGHTGUN);
-			mPlayerFireTimer = GAME_FIRE_DELAY;
+			var dest = new Vector2(
+				ModEntry.Instance.Helper.Input.GetCursorPosition().ScreenPixels.X + (TileW / 2 * SpriteScale),
+				ModEntry.Instance.Helper.Input.GetCursorPosition().ScreenPixels.Y + (TileW / 2 * SpriteScale));
+			spawnBullets(src, dest, GamePlayerDamage, ProjectileType.Lightgun);
+			_playerFireTimer = GameFireDelay;
 
 			// Mirror player sprite to face target
-			if (mPlayerMovementDirections.Count == 0)
-				if (dest.X < mPlayerPosition.X)
-					mMirrorPlayerSprite = SpriteEffects.FlipHorizontally;
-				else
-					mMirrorPlayerSprite = SpriteEffects.None;
+			if (_playerMovementDirections.Count == 0) _mirrorPlayerSprite = dest.X < PlayerPosition.X
+				? SpriteEffects.FlipHorizontally
+				: SpriteEffects.None;
 
-			++mShotsFired;
+			++_shotsFired;
 		}
 
 		private bool playerTakeDamage(int damage)
 		{
 			// todo: animate player
 
-			mHealth = Math.Max(0, mHealth - damage);
-			if (mHealth <= 0)
+			_health = Math.Max(0, _health - damage);
+			if (_health <= 0)
 				return true;
 			
-			mScreenFlashColor = new Color(new Vector4(255, 0, 0, 0.25f));
-			mScreenFlashTimer = 200;
+			_screenFlashColor = new Color(new Vector4(255, 0, 0, 0.25f));
+			_screenFlashTimer = 200;
 
 			return false;
 		}
@@ -685,13 +677,13 @@ namespace HikawaShrine.LightGunGame
 		{
 			// todo: understand wtf this function does
 
-			--mLives;
-			mRespawnTimer = GAME_DEATH_DELAY;
-			mSpawnQueue = new List<Point>[4];
-			for (int i = 0; i < 4; ++i)
-				mSpawnQueue[i] = new List<Point>();
+			--_lives;
+			_respawnTimer = GameDeathDelay;
+			_spawnQueue = new List<Point>[4];
+			for (var i = 0; i < 4; ++i)
+				_spawnQueue[i] = new List<Point>();
 
-			mTemporarySprites.Add(
+			_temporaryAnimatedSprites.Add(
 				new TemporaryAnimatedSprite(
 					"LooseSprites\\Cursors", 
 					new Rectangle(
@@ -702,7 +694,7 @@ namespace HikawaShrine.LightGunGame
 					120f, 
 					5, 
 					0, 
-					mGameStartCoords, 
+					_gameStartCoords, 
 					false, 
 					false,
 					1f,
@@ -714,10 +706,10 @@ namespace HikawaShrine.LightGunGame
 					0.0f, 
 					true));
 
-			if (mLives >= 0)
+			if (_lives >= 0)
 				return;
 
-			mTemporarySprites.Add(
+			_temporaryAnimatedSprites.Add(
 				new TemporaryAnimatedSprite(
 					"LooseSprites\\Cursors",
 					new Rectangle(
@@ -728,7 +720,7 @@ namespace HikawaShrine.LightGunGame
 					550f,
 					5, 
 					0,
-					mGameStartCoords,
+					_gameStartCoords,
 					false, 
 					false,
 					1f,
@@ -741,34 +733,34 @@ namespace HikawaShrine.LightGunGame
 					true)
 			{
 				alpha = 1f / 1000f,
-				endFunction = new TemporaryAnimatedSprite.endBehavior(playerGameOverCheck)
+				endFunction = playerGameOverCheck
 			});
 
-			mRespawnTimer *= 3f;
+			_respawnTimer *= 3f;
 		}
 
 		private void playerGameOverCheck(int extra)
 		{
-			if (mLives >= 0)
+			if (_lives >= 0)
 			{
 				playerRespawn();
 				return;
 			}
-			onGameOver = true;
-			mEnemies.Clear();
+			_onGameOver = true;
+			_enemies.Clear();
 			quitMinigame();
 			++Game1.currentLocation.currentEvent.CurrentCommand;
 		}
 
 		private void playerRespawn()
 		{
-			mPlayerInvincibleTimer = GAME_INVINCIBLE_DELAY;
-			mHealth = GAME_HEALTH_MAX;
+			_playerInvincibleTimer = GameInvincibleDelay;
+			_health = GameHealthMax;
 		}
 
 		private void endCurrentStage()
 		{
-			mPlayerMovementDirections.Clear();
+			_playerMovementDirections.Clear();
 
 			// todo: set cutscenes, begin events, etc
 		}
@@ -781,135 +773,136 @@ namespace HikawaShrine.LightGunGame
 		// Begin the next stage within a world
 		private void startNewStage()
 		{
-			++mWhichStage;
-			mStageMap = getMap(mWhichStage);
+			++_whichStage;
+			_stageMap = getMap(_whichStage);
 		}
 
 		// Begin the next world
 		private void startNewWorld()
 		{
-			++mWhichWorld;
+			++_whichWorld;
 		}
 
 		// New Game Plus
 		private void startNewGame()
 		{
-			mGameRestartTimer = 2000;
-			++mWhichGame;
+			_gameRestartTimer = 2000;
+			++_whichGame;
 		}
 
 		private void spawnBullets(Vector2 spawn, Vector2 dest, int damage, ProjectileType type)
 		{
 			// Rotation
-			float radiansBetween = Vector.RadiansBetween(dest, spawn);
+			var radiansBetween = Vector.RadiansBetween(dest, spawn);
 			radiansBetween -= (float)(Math.PI / 2.0d);
-			Hikawa.SMonitor.Log("RadiansBetween " + spawn.ToString() + ", " + dest.ToString() +
-					" = " + string.Format("{0:0.00}", radiansBetween) + "rad",
-					LogLevel.Debug);
+			Log.D($"RadiansBetween {spawn}, {dest} = {radiansBetween:0.00}rad",
+				ModEntry.Instance.Config.DebugMode);
 
 			// Vector of motion
-			Vector2 motion = Vector.PointAt(spawn, dest);
+			var motion = Vector.PointAt(spawn, dest);
 			motion.Normalize();
 
 			// Spawn position
-			Vector2 position = spawn + motion * (GAME_PROJ_SPEED[(int)type] * 5);
+			var position = spawn + motion * (GameProjSpeed[(int)type] * 5);
 
 			// Add the bullet to the active lists for the respective spawner
-			if (type == ProjectileType.LIGHTGUN)
-				mPlayerBullets.Add(new Bullet(position, motion, radiansBetween, type));
+			if (type == ProjectileType.Lightgun)
+				PlayerBullets.Add(new Bullet(position, motion, radiansBetween, type));
 			else
-				mEnemyBullets.Add(new Bullet(position, motion, radiansBetween, type));
+				_enemyBullets.Add(new Bullet(position, motion, radiansBetween, type));
 		}
 
 		private void updateBullets(GameTime time)
 		{
 			// Handle player bullets
-			for (int i = mPlayerBullets.Count - 1; i >= 0; --i)
+			for (var i = PlayerBullets.Count - 1; i >= 0; --i)
 			{
 				// Damage monsters
-				for (int j = mEnemies.Count - 1; j >= 0; --j)
+				for (var j = _enemies.Count - 1; j >= 0; --j)
 				{
-					if (mEnemies[j].position.Intersects(
-							new Rectangle(
-									(int)mPlayerBullets[i].position.X, 
-									(int)mPlayerBullets[i].position.Y,
-									TILE_W * SPRITE_SCALE, 
-									TILE_W * SPRITE_SCALE)))
+					if (_enemies[j].Position.Intersects(
+						new Rectangle(
+							(int)PlayerBullets[i].Position.X, 
+							(int)PlayerBullets[i].Position.Y,
+							TileW * SpriteScale, 
+							TileW * SpriteScale)))
 					{
-						if (!mEnemies[j].takeDamage(GAME_PLAYER_DAMAGE))
+						if (!_enemies[j].takeDamage(GamePlayerDamage))
 						{
-							mEnemies[j].die();
-							mEnemies.RemoveAt(j);
-							mPlayerBullets.RemoveAt(i);
+							_enemies[j].die();
+							_enemies.RemoveAt(j);
+							PlayerBullets.RemoveAt(i);
 						}
 					}
 					break;
 				}
 
 				// Update bullet positions
-				mPlayerBullets[i].position += mPlayerBullets[i].motion * GAME_PROJ_SPEED[(int)mPlayerBullets[i].type];
+				PlayerBullets[i].Position += PlayerBullets[i].Motion * GameProjSpeed[(int)PlayerBullets[i].Type];
 
 				// Remove offscreen bullets
-				if (mPlayerBullets[i].position.X <= mGameStartCoords.X
-				|| mPlayerBullets[i].position.Y <= mGameStartCoords.Y
-				|| mPlayerBullets[i].position.X >= mGameEndCoords.X
-				|| mPlayerBullets[i].position.Y >= mGameEndCoords.Y)
+				if (PlayerBullets[i].Position.X <= _gameStartCoords.X || PlayerBullets[i].Position.X >= _gameEndCoords.X
+				|| PlayerBullets[i].Position.Y <= _gameStartCoords.Y || PlayerBullets[i].Position.Y >= _gameEndCoords.Y)
 				{
-					mPlayerBullets.RemoveAt(i);
+					PlayerBullets.RemoveAt(i);
 				}
 			}
 
 			// Handle enemy bullets
-			for (int i = mEnemyBullets.Count - 1; i >= 0; --i)
+			for (var i = _enemyBullets.Count - 1; i >= 0; --i)
 			{
 				// Damage the player
-				if (mPlayerInvincibleTimer <= 0 && mRespawnTimer <= 0.0)
+				if (_playerInvincibleTimer <= 0 && _respawnTimer <= 0.0)
 				{
-					if (mPlayerInvincibleTimer <= 0 && mRespawnTimer <= 0.0
-					&& mPlayerBoundingBox.Intersects(
-							new Rectangle(
-									(int)mEnemyBullets[i].position.X,
-									(int)mEnemyBullets[i].position.Y, 
-									TILE_W * SPRITE_SCALE,
-									TILE_W * SPRITE_SCALE))) {
-						if (!playerTakeDamage(GAME_ENEMY_DAMAGE))
+					if (_playerInvincibleTimer <= 0 && _respawnTimer <= 0.0
+					&& PlayerBoundingBox.Intersects(
+						new Rectangle(
+							(int)_enemyBullets[i].Position.X,
+							(int)_enemyBullets[i].Position.Y, 
+							TileW * SpriteScale,
+							TileW * SpriteScale))) {
+						if (!playerTakeDamage(GameEnemyDamage))
 						{
 							playerDie();
-							mEnemyBullets.RemoveAt(i);
+							_enemyBullets.RemoveAt(i);
 						}
 					}
 					break;
 				}
 
 				// Update bullet positions
-				mEnemyBullets[i].rotationCur += GAME_PROJ_ROT_DELTA[i];
-				mEnemyBullets[i].position += mEnemyBullets[i].motion * GAME_PROJ_SPEED[(int)mEnemyBullets[i].type];
+				_enemyBullets[i].RotationCur += GameProjRotDelta[i];
+				_enemyBullets[i].Position += _enemyBullets[i].Motion * GameProjSpeed[(int)_enemyBullets[i].Type];
 
 				// Remove offscreen bullets
-				if (mEnemyBullets[i].position.X <= mGameStartCoords.X
-				|| mEnemyBullets[i].position.Y <= mGameStartCoords.Y
-				|| mEnemyBullets[i].position.X >= mGameEndCoords.X
-				|| mEnemyBullets[i].position.Y >= mGameEndCoords.Y)
+				if (_enemyBullets[i].Position.X <= _gameStartCoords.X || _enemyBullets[i].Position.X >= _gameEndCoords.X
+				|| _enemyBullets[i].Position.Y <= _gameStartCoords.Y || _enemyBullets[i].Position.Y >= _gameEndCoords.Y)
 				{
-					mEnemyBullets.RemoveAt(i);
+					_enemyBullets.RemoveAt(i);
 				}
 			}
 		}
 
 		public int[,] getMap(int wave)
 		{
-			int[,] map = new int[MAP_H, MAP_W];
-			for (int i = 0; i < MAP_H; ++i)
+			var map = new int[MapH, MapW];
+			for (var i = 0; i < MapH; ++i)
 			{
-				for (int j = 0; j < MAP_W; ++j)
-					map[i, j] = i != 0 && i != 15 && (j != 0 && j != 15) || (i > 6 && i < 10 || j > 6 && j < 10) ? (i == 0 || i == 15 || (j == 0 || j == 15) ? (Game1.random.NextDouble() < 0.15 ? 1 : 0) : (i == 1 || i == 14 || (j == 1 || j == 14) ? 2 : (Game1.random.NextDouble() < 0.1 ? 4 : 3))) : 5;
+				for (var j = 0; j < MapW; ++j)
+					map[i, j] = i != 0 && i != 15 && (j != 0 && j != 15) || (i > 6 && i < 10 || j > 6 && j < 10)
+						? (i == 0 || i == 15 || (j == 0 || j == 15) 
+							? (Game1.random.NextDouble() < 0.15 ? 1 : 0) 
+							: (i == 1 || i == 14 || (j == 1 || j == 14) 
+								? 2 
+								: (Game1.random.NextDouble() < 0.1? 4 : 3))) 
+						: 5;
 			}
 			switch (wave)
 			{
 				case -1:
-					for (int i = 0; i < MAP_H; ++i)
+					for (var i = 0; i < MapH; ++i)
 					{
-						for (int j = 0; j < MAP_W; ++j)
+						for (var j = 0; j < MapW; ++j)
 						{
 							if (map[i, j] == 0 || map[i, j] == 1 || (map[i, j] == 2 || map[i, j] == 5))
 								map[i, j] = 3;
@@ -917,9 +910,9 @@ namespace HikawaShrine.LightGunGame
 					}
 					break;
 				case 0:
-					for (int i = 0; i < MAP_H; ++i)
+					for (var i = 0; i < MapH; ++i)
 					{
-						for (int j = 0; j < MAP_W; ++j)
+						for (var j = 0; j < MapW; ++j)
 						{
 							map[i, j] = 0;
 						}
@@ -942,18 +935,18 @@ namespace HikawaShrine.LightGunGame
 			TimeSpan elapsedGameTime;
 
 			// Exit the game
-			if (mHasPlayerQuit)
+			if (_hasPlayerQuit)
 			{
 				quitMinigame();
 				return true;
 			}
 
 			// Run through the restart game timer
-			if (mGameRestartTimer > 0)
+			if (_gameRestartTimer > 0)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
-				mGameRestartTimer -= time.ElapsedGameTime.Milliseconds;
-				if (mGameRestartTimer <= 0)
+				_gameRestartTimer -= time.ElapsedGameTime.Milliseconds;
+				if (_gameRestartTimer <= 0)
 				{
 					unload();
 					Game1.currentMinigame = new LightGunGame();
@@ -961,98 +954,98 @@ namespace HikawaShrine.LightGunGame
 			}
 
 			// Run through screen effects
-			if (mScreenFlashTimer > 0)
+			if (_screenFlashTimer > 0)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
-				mScreenFlashTimer -= time.ElapsedGameTime.Milliseconds;
+				_screenFlashTimer -= time.ElapsedGameTime.Milliseconds;
 			}
 
 			// Run down player invincibility
-			if (mPlayerInvincibleTimer > 0)
+			if (_playerInvincibleTimer > 0)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
-				mPlayerInvincibleTimer -= time.ElapsedGameTime.Milliseconds;
+				_playerInvincibleTimer -= time.ElapsedGameTime.Milliseconds;
 			}
 
 			// Run down player lightgun animation
-			if (mPlayerFireTimer > 0)
+			if (_playerFireTimer > 0)
 			{
-				--mPlayerFireTimer;
+				--_playerFireTimer;
 			}
 
 			// Handle player special trigger
-			if (mPlayerSpecialTimer > 0)
+			if (_playerSpecialTimer > 0)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
-				mPlayerSpecialTimer += time.ElapsedGameTime.Milliseconds;
+				_playerSpecialTimer += time.ElapsedGameTime.Milliseconds;
 
 				// Progress through player special trigger animation
 
 				// Events 
-				if (mPlayerAnimationPhase == PLAYER_SPECIAL_FRAMES)
+				if (_playerAnimationPhase == PlayerSpecialFrames)
 				{
 					// Transfer into the active special power
 					playerSpecialEnd();
 				}
 
 				// Timers
-				if (mPlayerAnimationPhase == 0)
+				if (_playerAnimationPhase == 0)
 				{
-					if (mPlayerSpecialTimer >= TIMER_SPECIAL_PHASE_1)
-						++mPlayerAnimationPhase;
+					if (_playerSpecialTimer >= TimerSpecialPhase1)
+						++_playerAnimationPhase;
 				}
-				else if (mPlayerAnimationPhase == 1)
+				else if (_playerAnimationPhase == 1)
 				{
-					if (mPlayerSpecialTimer >= TIMER_SPECIAL_PHASE_2)
-						++mPlayerAnimationPhase;
+					if (_playerSpecialTimer >= TimerSpecialPhase2)
+						++_playerAnimationPhase;
 				}
 			}
 			// Handle player power animations and effects
-			else if (mActiveSpecialPower != SpecialPower.NONE)
+			else if (_activeSpecialPower != SpecialPower.None)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
-				mPlayerPowerTimer += time.ElapsedGameTime.Milliseconds;
+				_playerPowerTimer += time.ElapsedGameTime.Milliseconds;
 
 				// Progress through player power
 
 				// Events
-				if (mPlayerAnimationPhase == PLAYER_POWER_FRAMES)
+				if (_playerAnimationPhase == PlayerPowerFrames)
 				{
 					// Return to usual game flow
 					playerPowerEnd();
 				}
 				
 				// Timers
-				if (mPlayerAnimationPhase == 0)
+				if (_playerAnimationPhase == 0)
 				{
 					// Frequently spawn bullets raining down on the field
-					if (mPlayerPowerTimer % 5 == 0)
+					if (_playerPowerTimer % 5 == 0)
 					{
 						
 					}
 					// Progress to the next phase
-					if (mPlayerPowerTimer >= TIMER_POWER_PHASE_1)
-						++mPlayerAnimationPhase;
+					if (_playerPowerTimer >= TimerPowerPhase1)
+						++_playerAnimationPhase;
 				}
-				else if (mPlayerAnimationPhase == 1)
+				else if (_playerAnimationPhase == 1)
 				{
 					// Progress to the next phase
-					if (mPlayerPowerTimer >= TIMER_POWER_PHASE_2)
-						++mPlayerAnimationPhase;
+					if (_playerPowerTimer >= TimerPowerPhase2)
+						++_playerAnimationPhase;
 				}
-				else if (mPlayerAnimationPhase == 2)
+				else if (_playerAnimationPhase == 2)
 				{
 					// End the power
-					if (mPlayerPowerTimer >= TIMER_POWER_PHASE_3)
-						++mPlayerAnimationPhase;
+					if (_playerPowerTimer >= TimerPowerPhase3)
+						++_playerAnimationPhase;
 				}
 			}
 
 			// Handle other game sprites
-			for (int i = mTemporarySprites.Count - 1; i >= 0; --i)
+			for (var i = _temporaryAnimatedSprites.Count - 1; i >= 0; --i)
 			{
-				if (mTemporarySprites[i].update(time))
-					mTemporarySprites.RemoveAt(i);
+				if (_temporaryAnimatedSprites[i].update(time))
+					_temporaryAnimatedSprites.RemoveAt(i);
 			}
 			
 
@@ -1060,54 +1053,54 @@ namespace HikawaShrine.LightGunGame
 
 
 			// While the game offers player agency
-			if (!onStartMenu && mCutsceneTimer <= 0)
+			if (!_onStartMenu && _cutsceneTimer <= 0)
 			{
 				// Update bullet data
 				updateBullets(time);
 
-				if (mPlayerSpecialTimer <= 0 && mPlayerPowerTimer <= 0)
+				if (_playerSpecialTimer <= 0 && _playerPowerTimer <= 0)
 				{
 					// While the game is engaging the player
-					if (mCutsceneTimer <= 0)
+					if (_cutsceneTimer <= 0)
 					{
 						// Run down the death timer
-						if (mRespawnTimer > 0.0)
+						if (_respawnTimer > 0.0)
 						{
 							elapsedGameTime = time.ElapsedGameTime;
-							mRespawnTimer -= elapsedGameTime.Milliseconds;
+							_respawnTimer -= elapsedGameTime.Milliseconds;
 						}
 
 						// Handle player movement
-						if (mPlayerMovementDirections.Count > 0)
+						if (_playerMovementDirections.Count > 0)
 						{
-							switch (mPlayerMovementDirections.ElementAt<int>(0))
+							switch (_playerMovementDirections.ElementAt(0))
 							{
-								case MOVE_RIGHT:
-									mMirrorPlayerSprite = SpriteEffects.None;
-									if (mPlayerPosition.X + mPlayerBoundingBox.Width < mGameEndCoords.X)
-										mPlayerPosition.X += GAME_MOVE_SPEED;
+								case MoveRight:
+									_mirrorPlayerSprite = SpriteEffects.None;
+									if (PlayerPosition.X + PlayerBoundingBox.Width < _gameEndCoords.X)
+										PlayerPosition.X += GameMoveSpeed;
 									else
-										mPlayerPosition.X = mGameEndCoords.X - mPlayerBoundingBox.Width;
+										PlayerPosition.X = _gameEndCoords.X - PlayerBoundingBox.Width;
 									break;
-								case MOVE_LEFT:
-									mMirrorPlayerSprite = SpriteEffects.FlipHorizontally;
-									if (mPlayerPosition.X > mGameStartCoords.X)
-										mPlayerPosition.X -= GAME_MOVE_SPEED;
+								case MoveLeft:
+									_mirrorPlayerSprite = SpriteEffects.FlipHorizontally;
+									if (PlayerPosition.X > _gameStartCoords.X)
+										PlayerPosition.X -= GameMoveSpeed;
 									else
-										mPlayerPosition.X = mGameStartCoords.X;
+										PlayerPosition.X = _gameStartCoords.X;
 									break;
 							}
 						}
 
 						elapsedGameTime = time.ElapsedGameTime;
-						mPlayerAnimationTimer += elapsedGameTime.Milliseconds;
-						mPlayerAnimationTimer %= (PLAYER_RUN_FRAMES) * PLAYER_ANIM_TIMESCALE;
+						_playerAnimationTimer += elapsedGameTime.Milliseconds;
+						_playerAnimationTimer %= (PlayerRunFrames) * PlayerAnimTimescale;
 
-						mPlayerBoundingBox.X = (int)mPlayerPosition.X;
+						PlayerBoundingBox.X = (int)PlayerPosition.X;
 					}
 
 					// Handle enemy behaviours
-					if (mHealth > 0)
+					if (_health > 0)
 					{
 
 						// todo
@@ -1117,61 +1110,69 @@ namespace HikawaShrine.LightGunGame
 			}
 
 			// Sit on the start game screen until prompted elsewhere
-			if (onGameOver || onStartMenu)
+			if (_onGameOver || _onStartMenu)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
 
 				// Cutscene phase 0 on the title screen progresses by click or by screen event
-				if (mCutscenePhase >= 1)
+				if (_cutscenePhase >= 1)
 				{
-					mCutsceneTimer += elapsedGameTime.Milliseconds;
+					_cutsceneTimer += elapsedGameTime.Milliseconds;
 				}
 
 				// Progress through a small intro sequence
 
-				// Events
-				if (mCutscenePhase == 0)
+				switch (_cutscenePhase)
 				{
-					mCutsceneBackgroundPosition += GAME_W / UI_ANIM_TIMESCALE;
-					if (mCutsceneBackgroundPosition >= GAME_W * 4 / 3)
+					// Events
+					case 0:
 					{
-						++mCutscenePhase;
+						_cutsceneBackgroundPosition += GameW / UiAnimTimescale;
+						if (_cutsceneBackgroundPosition >= GameW * 4 / 3)
+						{
+							++_cutscenePhase;
+						}
+
+						break;
 					}
-				}
-				// Timers
-				else if (mCutscenePhase == 1)
-				{
-					if (mCutsceneTimer >= TIMER_TITLE_PHASE_1)
-						++mCutscenePhase;
-				}
-				else if (mCutscenePhase == 2)
-				{
-					if (mCutsceneTimer < TIMER_TITLE_PHASE_1)
-						mCutsceneTimer = TIMER_TITLE_PHASE_1;
-					else if (mCutsceneTimer >= TIMER_TITLE_PHASE_5)
-						++mCutscenePhase;
-				}
-				else if (mCutscenePhase == 3)
-				{
-					if (mCutsceneTimer < TIMER_TITLE_PHASE_5)
-						mCutsceneTimer = TIMER_TITLE_PHASE_5;
-				}
-				else if (mCutscenePhase == 4)
-				{
-					// End the cutscene and begin the game after the user clicks past the end of intro cutscene (phase 3)
-					mCutsceneTimer = 0;
-					mCutscenePhase = 0;
-					onStartMenu = false;
+					// Timers
+					case 1:
+					{
+						if (_cutsceneTimer >= TimerTitlePhase1)
+							++_cutscenePhase;
+						break;
+					}
+					case 2 when _cutsceneTimer < TimerTitlePhase1:
+						_cutsceneTimer = TimerTitlePhase1;
+						break;
+					case 2:
+					{
+						if (_cutsceneTimer >= TimerTitlePhase5)
+							++_cutscenePhase;
+						break;
+					}
+					case 3:
+					{
+						if (_cutsceneTimer < TimerTitlePhase5)
+							_cutsceneTimer = TimerTitlePhase5;
+						break;
+					}
+					case 4:
+						// End the cutscene and begin the game after the user clicks past the end of intro cutscene (phase 3)
+						_cutsceneTimer = 0;
+						_cutscenePhase = 0;
+						_onStartMenu = false;
+						break;
 				}
 
 			}
 
 			// Run through the end of world cutscene
-			else if (onWorldComplete)
+			else if (_onWorldComplete)
 			{
 				elapsedGameTime = time.ElapsedGameTime;
-				double delta = elapsedGameTime.Milliseconds * (double)ANIM_CUTSCENE_BACKGROUND_SPEED;
-				mCutsceneBackgroundPosition = (float)(mCutsceneBackgroundPosition + delta) % 96f;
+				var delta = elapsedGameTime.Milliseconds * (double)AnimCutsceneBackgroundSpeed;
+				_cutsceneBackgroundPosition = (float)(_cutsceneBackgroundPosition + delta) % 96f;
 			}
 
 			return false;
@@ -1183,26 +1184,25 @@ namespace HikawaShrine.LightGunGame
 				SpriteSortMode.FrontToBack,
 				BlendState.AlphaBlend,
 				SamplerState.PointClamp,
-				(DepthStencilState)null,
-				(RasterizerState)null);
+				null,
+				null);
 				
 			// Render screen flash effects
-			if (mScreenFlashTimer > 0)
+			if (_screenFlashTimer > 0)
 			{
 				b.Draw(
-						Game1.staminaRect,
-						new Rectangle(
-								(int)mGameStartCoords.X,
-								(int)mGameStartCoords.Y,
-								(int)(mGameEndCoords.X - mGameStartCoords.X),
-								(int)(mGameEndCoords.Y - mGameStartCoords.Y)),
-						new Rectangle?(
-								Game1.staminaRect.Bounds),
-						mScreenFlashColor,
-						0.0f,
-						Vector2.Zero,
-						SpriteEffects.None,
-						1f);
+					Game1.staminaRect,
+					new Rectangle(
+						(int)_gameStartCoords.X,
+						(int)_gameStartCoords.Y,
+						(int)(_gameEndCoords.X - _gameStartCoords.X),
+						(int)(_gameEndCoords.Y - _gameStartCoords.Y)),
+					Game1.staminaRect.Bounds,
+					_screenFlashColor,
+					0.0f,
+					Vector2.Zero,
+					SpriteEffects.None,
+					1f);
 			}
 
 			// todo: draw health bar to destrect width * health / healthmax
@@ -1211,284 +1211,275 @@ namespace HikawaShrine.LightGunGame
 			// todo: drawstring stage time countdown
 			
 			// Draw the active game
-			if (!onStartMenu && mRespawnTimer <= 0.0)
+			if (!_onStartMenu && _respawnTimer <= 0.0)
 			{
-				/// debug makito
-				/// very important
+				// debug makito
+				// very important
 				b.Draw(
-						mArcadeTexture, 
+						_arcadeTexture, 
 						new Rectangle(
-								(int)(mGameEndCoords.X - mGameStartCoords.X),
-								(int)(mGameEndCoords.Y - mGameStartCoords.Y),
-								TileSize * SPRITE_SCALE,
-								TileSize * SPRITE_SCALE),
+							(int)(_gameEndCoords.X - _gameStartCoords.X),
+							(int)(_gameEndCoords.Y - _gameStartCoords.Y),
+							TileSize * SpriteScale,
+							TileSize * SpriteScale),
 						new Rectangle(
-								0,
-								0,
-								TileSize,
-								TileSize),
+							0,
+							0,
+							TileSize,
+							TileSize),
 						Color.White,
 						0.0f,
 						new Vector2(
-								TileSize / 2,
-								TileSize / 2),
-						mMirrorPlayerSprite,
+							TileSize / 2,
+							TileSize / 2),
+						_mirrorPlayerSprite,
 						1.0f);
-				/// very important
-				/// debug makito
+				// very important
+				// debug makito
 
 				// Draw the player
-				if (mPlayerInvincibleTimer <= 0 && mPlayerInvincibleTimer / 100 % 2 == 0)
+				if (_playerInvincibleTimer <= 0 && _playerInvincibleTimer / 100 % 2 == 0)
 				{
-					Rectangle[] destRects = new Rectangle[3];
-					Rectangle[] srcRects = new Rectangle[3];
+					var destRects = new Rectangle[3];
+					var srcRects = new Rectangle[3];
 
 					// Draw full body action sprites
-					if (mPlayerSpecialTimer > 0)
+					if (_playerSpecialTimer > 0)
 					{	// Activated special power
 						destRects[0] = new Rectangle(
-								(int)mPlayerPosition.X,
-								(int)mPlayerPosition.Y,
-								mPlayerBoundingBox.Width,
-								PLAYER_FULL_H * SPRITE_SCALE);
+							(int)PlayerPosition.X,
+							(int)PlayerPosition.Y,
+							PlayerBoundingBox.Width,
+							PlayerFullH * SpriteScale);
 						srcRects[0] = new Rectangle(
-								PLAYER_SPECIAL_X + (PLAYER_W * mPlayerAnimationPhase),
-								PLAYER_FULL_Y,
-								PLAYER_W,
-								PLAYER_FULL_H);
+							PlayerSpecialX + (PlayerW * _playerAnimationPhase),
+							PlayerFullY,
+							PlayerW,
+							PlayerFullH);
 					}
-					else if (mActiveSpecialPower != SpecialPower.NONE)
+					else if (_activeSpecialPower != SpecialPower.None)
 					{	// Player used a special power
 						// Draw power effects by type
-						if (mActiveSpecialPower == SpecialPower.NORMAL)
+						if (_activeSpecialPower == SpecialPower.Normal)
 						{   // Player used Venus Love Shower / THRESHOLD_LOW === POWER_NORMAL
 							// . . . .
 						}
 						// Draw full body sprite by phase
 						destRects[0] = new Rectangle(
-								(int)mPlayerPosition.X,
-								(int)mPlayerPosition.Y,
-								mPlayerBoundingBox.Width,
-								PLAYER_FULL_H * SPRITE_SCALE);
+							(int)PlayerPosition.X,
+							(int)PlayerPosition.Y,
+							PlayerBoundingBox.Width,
+							PlayerFullH * SpriteScale);
 						srcRects[0] = new Rectangle(
-								PLAYER_POWER_X + (PLAYER_W * POWER_ANIMS[(int)mActiveSpecialPower]) + (PLAYER_W * mPlayerAnimationPhase),
-								PLAYER_FULL_Y,
-								PLAYER_W,
-								PLAYER_FULL_H);
+							PlayerPowerX + (PlayerW * PowerAnims[(int)_activeSpecialPower]) + (PlayerW * _playerAnimationPhase),
+							PlayerFullY,
+							PlayerW,
+							PlayerFullH);
 					}
-					else if (mRespawnTimer > 0)
+					else if (_respawnTimer > 0)
 					{   // Player dying
 						// . .. . .
 					}
 					// Draw full body idle sprite
-					else if (mPlayerFireTimer <= 0 && mPlayerMovementDirections.Count == 0)
+					else if (_playerFireTimer <= 0 && _playerMovementDirections.Count == 0)
 					{   // Standing idle
 						destRects[0] = new Rectangle(
-								(int)mPlayerPosition.X,
-								(int)mPlayerPosition.Y,
-								mPlayerBoundingBox.Width,
-								PLAYER_FULL_H * SPRITE_SCALE);
+							(int)PlayerPosition.X,
+							(int)PlayerPosition.Y,
+							PlayerBoundingBox.Width,
+							PlayerFullH * SpriteScale);
 						srcRects[0] = new Rectangle(
-								PLAYER_X,
-								PLAYER_FULL_Y,
-								PLAYER_W,
-								PLAYER_FULL_H);
+							PlayerX,
+							PlayerFullY,
+							PlayerW,
+							PlayerFullH);
 					}
 					// Draw appropriate sprite upper body
 					else
 					{
-						if (mPlayerFireTimer > 0)
+						if (_playerFireTimer > 0)
 						{
-							if (mPlayerMovementDirections.Count > 0)
+							if (_playerMovementDirections.Count > 0)
 							{   // Firing running torso
-								int frame = (int)(mPlayerAnimationTimer / PLAYER_ANIM_TIMESCALE);
+								var frame = (int)(_playerAnimationTimer / PlayerAnimTimescale);
 								destRects[0] = new Rectangle(
-										(int)mPlayerPosition.X,
-										(int)mPlayerPosition.Y,
-										mPlayerBoundingBox.Width,
-										mPlayerBoundingBox.Height);
+									(int)PlayerPosition.X,
+									(int)PlayerPosition.Y,
+									PlayerBoundingBox.Width,
+									PlayerBoundingBox.Height);
 								srcRects[0] = new Rectangle(
-										PLAYER_BODY_FIRE_X + (PLAYER_W * frame),
-										PLAYER_SPLIT_Y,
-										PLAYER_W,
-										PLAYER_SPLIT_H);
+									PlayerBodyFireX + (PlayerW * frame),
+									PlayerSplitY,
+									PlayerW,
+									PlayerSplitH);
 							}
 							else
 							{	// Firing standing torso
 								destRects[0] = new Rectangle(
-										(int)mPlayerPosition.X,
-										(int)mPlayerPosition.Y,
-										mPlayerBoundingBox.Width,
-										mPlayerBoundingBox.Height);
+									(int)PlayerPosition.X,
+									(int)PlayerPosition.Y,
+									PlayerBoundingBox.Width,
+									PlayerBoundingBox.Height);
 								srcRects[0] = new Rectangle(
-										PLAYER_BODY_FIRE_X,
-										PLAYER_SPLIT_Y,
-										PLAYER_W,
-										PLAYER_SPLIT_H);
+									PlayerBodyFireX,
+									PlayerSplitY,
+									PlayerW,
+									PlayerSplitH);
 							}
-							if (mPlayerBullets.Count > 0)
+							if (PlayerBullets.Count > 0)
 							{   // Firing arms
-								float radiansBetween = Vector.RadiansBetween(
-										Hikawa.SHelper.Input.GetCursorPosition().AbsolutePixels, mPlayerPosition);
+								var radiansBetween = Vector.RadiansBetween(
+									ModEntry.Instance.Helper.Input.GetCursorPosition().AbsolutePixels, PlayerPosition);
 								radiansBetween -= (float)(Math.PI / 2.0d);
-								int frame = (int)Math.Min(PLAYER_BULLET_FRAMES, Math.Abs(radiansBetween));
-								//Hikawa.SMonitor.Log("Rad: " + radiansBetween + "   |   Frame: " + frame, LogLevel.Debug);
+								var frame = (int)Math.Min(PlayerBulletFrames, Math.Abs(radiansBetween));
+								//Log.D($"Rad: {radiansBetween} | Frame: {frame}", ModEntry.Instance.Config.DebugMode);
 								destRects[2] = new Rectangle(
-										(int)mPlayerPosition.X,
-										(int)mPlayerPosition.Y,
-										mPlayerBoundingBox.Width,
-										mPlayerBoundingBox.Height);
+									(int)PlayerPosition.X,
+									(int)PlayerPosition.Y,
+									PlayerBoundingBox.Width,
+									PlayerBoundingBox.Height);
 								srcRects[2] = new Rectangle(
-										PLAYER_ARMS_FIRE_X + PLAYER_W * frame,
-										PLAYER_SPLIT_Y,
-										PLAYER_W,
-										PLAYER_SPLIT_H);
+									PlayerArmsFireX + PlayerW * frame,
+									PlayerSplitY,
+									PlayerW,
+									PlayerSplitH);
 							}
 						}
 						else
 						{   // Running torso
-							int frame = (int)(mPlayerAnimationTimer / PLAYER_ANIM_TIMESCALE);
+							var frame = (int)(_playerAnimationTimer / PlayerAnimTimescale);
 							destRects[0] = new Rectangle(
-									(int)mPlayerPosition.X,
-									(int)mPlayerPosition.Y,
-									mPlayerBoundingBox.Width,
-									mPlayerBoundingBox.Height);
+								(int)PlayerPosition.X,
+								(int)PlayerPosition.Y,
+								PlayerBoundingBox.Width,
+								PlayerBoundingBox.Height);
 							srcRects[0] = new Rectangle(
-									PLAYER_BODY_RUN_X + (PLAYER_W * frame),
-									PLAYER_SPLIT_Y,
-									PLAYER_W,
-									PLAYER_SPLIT_H);
+								PlayerBodyRunX + (PlayerW * frame),
+								PlayerSplitY,
+								PlayerW,
+								PlayerSplitH);
 						}
 					}
 
 					// Draw appropriate sprite legs
-					if (mPlayerMovementDirections.Count > 0)
+					if (_playerMovementDirections.Count > 0)
 					{   // Running
-						int frame = (int)(mPlayerAnimationTimer / PLAYER_ANIM_TIMESCALE);
+						var frame = (int)(_playerAnimationTimer / PlayerAnimTimescale);
 						destRects[1] = new Rectangle(
-								(int)mPlayerPosition.X,
-								(int)mPlayerPosition.Y + (PLAYER_FULL_H - PLAYER_SPLIT_H) * SPRITE_SCALE,
-								mPlayerBoundingBox.Width,
-								mPlayerBoundingBox.Height);
+							(int)PlayerPosition.X,
+							(int)PlayerPosition.Y + (PlayerFullH - PlayerSplitH) * SpriteScale,
+							PlayerBoundingBox.Width,
+							PlayerBoundingBox.Height);
 						srcRects[1] = new Rectangle(
-								PLAYER_LEGS_RUN_X + (PLAYER_W * frame),
-								PLAYER_SPLIT_Y,
-								PLAYER_W,
-								PLAYER_SPLIT_H);
+							PlayerLegsRunX + (PlayerW * frame),
+							PlayerSplitY,
+							PlayerW,
+							PlayerSplitH);
 					}
-					else if (mPlayerFireTimer > 0)
+					else if (_playerFireTimer > 0)
 					{   // Standing and firing
 						destRects[1] = new Rectangle(
-								(int)mPlayerPosition.X,
-								(int)mPlayerPosition.Y + (PLAYER_FULL_H - PLAYER_SPLIT_H) * SPRITE_SCALE,
-								mPlayerBoundingBox.Width,
-								mPlayerBoundingBox.Height);
+							(int)PlayerPosition.X,
+							(int)PlayerPosition.Y + (PlayerFullH - PlayerSplitH) * SpriteScale,
+							PlayerBoundingBox.Width,
+							PlayerBoundingBox.Height);
 						srcRects[1] = new Rectangle(
-								PLAYER_X,
-								PLAYER_SPLIT_Y,
-								PLAYER_W,
-								PLAYER_SPLIT_H);
+							PlayerX,
+							PlayerSplitY,
+							PlayerW,
+							PlayerSplitH);
 					}
 
 					// Draw the player from each component sprite
-					for(int i = 2; i >= 0; --i)
+					for(var i = 2; i >= 0; --i)
 					{
 						if (srcRects[i] != Rectangle.Empty)
 						{
 							b.Draw(
-									mArcadeTexture,
-									destRects[i],
-									srcRects[i],
-									Color.White,
-									0.0f,
-									Vector2.Zero,
-									mMirrorPlayerSprite,
-									(float)(mPlayerPosition.Y / 10000.0 + i / 1000.0 + 1.0 / 1000.0));
+								_arcadeTexture,
+								destRects[i],
+								srcRects[i],
+								Color.White,
+								0.0f,
+								Vector2.Zero,
+								_mirrorPlayerSprite,
+								(float)(PlayerPosition.Y / 10000.0 + i / 1000.0 + 1.0 / 1000.0));
 						}
 					}
 				}
 
 				// Draw player bullets
-				foreach (Bullet playerBullet in mPlayerBullets)
+				foreach (var playerBullet in PlayerBullets)
 				{
 					b.Draw(
-							mArcadeTexture,
-							new Vector2(
-									playerBullet.position.X,
-									playerBullet.position.Y),
-							new Rectangle(
-									PROJECTILES_X + (TileSize * (int)playerBullet.type),
-									PROJECTILES_Y,
-									TileSize,
-									TileSize),
-							Color.White,
-							playerBullet.rotation,
-							new Vector2(
-									TileSize / 2,
-									TileSize / 2),
-							SPRITE_SCALE,
-							SpriteEffects.None,
-							0.9f);
+						_arcadeTexture,
+						new Vector2(
+							playerBullet.Position.X,
+							playerBullet.Position.Y),
+						new Rectangle(
+							ProjectilesX + (TileSize * (int)playerBullet.Type),
+							ProjectilesY,
+							TileSize,
+							TileSize),
+						Color.White,
+						playerBullet.Rotation,
+						new Vector2(
+							TileSize / 2,
+							TileSize / 2),
+						SpriteScale,
+						SpriteEffects.None,
+						0.9f);
 				}
 
 				// Draw enemy bullets
-				foreach (Bullet enemyBullet in mEnemyBullets)
+				foreach (var enemyBullet in _enemyBullets)
 				{
 					b.Draw(
-							mArcadeTexture,
-							new Vector2(
-									enemyBullet.position.X,
-									enemyBullet.position.Y),
-							new Rectangle(
-									PROJECTILES_X + (TileSize * (int)enemyBullet.type),
-									PROJECTILES_Y,
-									TileSize,
-									TileSize),
-							Color.White,
-							enemyBullet.rotation,
-							Vector2.Zero,
-							SPRITE_SCALE,
-							SpriteEffects.None,
-							0.9f);
+						_arcadeTexture,
+						new Vector2(
+							enemyBullet.Position.X,
+							enemyBullet.Position.Y),
+						new Rectangle(
+							ProjectilesX + (TileSize * (int)enemyBullet.Type),
+							ProjectilesY,
+							TileSize,
+							TileSize),
+						Color.White,
+						enemyBullet.Rotation,
+						Vector2.Zero,
+						SpriteScale,
+						SpriteEffects.None,
+						0.9f);
 				}
 
 				// Draw all the stuff
-				foreach (TemporaryAnimatedSprite temporarySprite in mTemporarySprites)
-				{
-					temporarySprite.draw(
-							b,
-							true,
-							0,
-							0,
-							1f);
-				}
+				foreach (var temporarySprite in _temporaryAnimatedSprites)
+					temporarySprite.draw(b, true);
 
 				// Draw enemies
-				foreach (Monster monster in mEnemies)
-				{
+				foreach (var monster in _enemies)
 					monster.draw(b);
-				}
 
 				// Draw the background
-				switch (mActiveSpecialPower)
+				switch (_activeSpecialPower)
 				{
-					case SpecialPower.NORMAL:
-					case SpecialPower.MEGATON:
-						if (mPlayerAnimationPhase == 1)
+					case SpecialPower.Normal:
+					case SpecialPower.Megaton:
+						if (_playerAnimationPhase == 1)
 						{
 							// Draw a black overlay
 							b.Draw(
-								mArcadeTexture,
+								_arcadeTexture,
 								new Rectangle(
-										(int)mGameStartCoords.X,
-										(int)mGameStartCoords.Y,
-										(int)(mGameEndCoords.X - mGameStartCoords.X),
-										(int)(mGameEndCoords.Y - mGameStartCoords.Y)),
+									(int)_gameStartCoords.X,
+									(int)_gameStartCoords.Y,
+									(int)(_gameEndCoords.X - _gameStartCoords.X),
+									(int)(_gameEndCoords.Y - _gameStartCoords.Y)),
 								new Rectangle(
-										TITLE_FRAME_X,
-										TITLE_FRAME_Y,
-										TileSize,
-										TileSize),
+									TitleFrameX,
+									TitleFrameY,
+									TileSize,
+									TileSize),
 								Color.Black,
 								0.0f,
 								Vector2.Zero,
@@ -1497,25 +1488,25 @@ namespace HikawaShrine.LightGunGame
 						}
 						else
 						{
-							goto case SpecialPower.NONE;
+							goto case SpecialPower.None;
 						}
 						break;
-					case SpecialPower.NONE:
-					case SpecialPower.SULPHUR:
-					case SpecialPower.INCENSE:
+					case SpecialPower.None:
+					case SpecialPower.Sulphur:
+					case SpecialPower.Incense:
 						// Draw the game map
 						b.Draw(
-							mArcadeTexture,
+							_arcadeTexture,
 							new Rectangle(
-									(int)mGameStartCoords.X,
-									(int)mGameStartCoords.Y,
-									(int)(mGameEndCoords.X - mGameStartCoords.X),
-									(int)(mGameEndCoords.Y - mGameStartCoords.Y)),
+								(int)_gameStartCoords.X,
+								(int)_gameStartCoords.Y,
+								(int)(_gameEndCoords.X - _gameStartCoords.X),
+								(int)(_gameEndCoords.Y - _gameStartCoords.Y)),
 							new Rectangle(
-									TITLE_FRAME_X,
-									TITLE_FRAME_Y,
-									TileSize,
-									TileSize),
+								TitleFrameX,
+								TitleFrameY,
+								TileSize,
+								TileSize),
 							Color.White,
 							0.0f,
 							Vector2.Zero,
@@ -1538,247 +1529,245 @@ namespace HikawaShrine.LightGunGame
 
 
 			// Display Start menu
-			if (onStartMenu)
+			if (_onStartMenu)
 			{
 				// Render each phase of the intro
 
 				// Black backdrop
 				b.Draw(
-						mArcadeTexture,
-						new Rectangle(
-								0,
-								0,
-								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width,
-								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height),
-						new Rectangle(
-								TITLE_FRAME_X,
-								TITLE_FRAME_Y,
-								TileSize,
-								TileSize),
-						Color.Black,
-						0.0f,
-						Vector2.Zero,
-						SpriteEffects.None,
-						0.0f);
+					_arcadeTexture,
+					new Rectangle(
+						0,
+						0,
+						Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width,
+						Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height),
+					new Rectangle(
+						TitleFrameX,
+						TitleFrameY,
+						TileSize,
+						TileSize),
+					Color.Black,
+					0.0f,
+					Vector2.Zero,
+					SpriteEffects.None,
+					0.0f);
 
-				if (mCutscenePhase == 0)
+				if (_cutscenePhase == 0)
 				{
 					// Draw the white title banner silhouetted on black
 
 					// White V
 					b.Draw(
-							mArcadeTexture,
-							new Rectangle(
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 3,
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 2,
-									TITLE_REDV_W * SPRITE_SCALE,
-									TITLE_REDV_H * SPRITE_SCALE),
-							new Rectangle(
-									TITLE_REDV_X + TITLE_REDV_W,
-									TITLE_REDV_Y,
-									TITLE_REDV_W,
-									TITLE_REDV_H),
-							Color.White,
-							0.0f,
-							new Vector2(
-									TITLE_REDV_W / 2,
-									TITLE_REDV_H / 2),
-							SpriteEffects.None,
-							0.5f);
+						_arcadeTexture,
+						new Rectangle(
+							Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 3,
+							Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 2,
+							TitleRedVW * SpriteScale,
+							TitleRedVH * SpriteScale),
+						new Rectangle(
+							TitleRedVX + TitleRedVW,
+							TitleRedVY,
+							TitleRedVW,
+							TitleRedVH),
+						Color.White,
+						0.0f,
+						new Vector2(
+							TitleRedVW / 2,
+							TitleRedVH / 2),
+						SpriteEffects.None,
+						0.5f);
 
 					// Pan a vertical letterbox across the screen to simulate light gleam
 
 					// Black frame
 					b.Draw(
-							mArcadeTexture,
-							new Rectangle(
-									-(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width * (TITLE_FRAME_W / 3 * 2))
-											+ ((int)mCutsceneBackgroundPosition),
-									0,
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width * TITLE_FRAME_W,
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height),
-							new Rectangle(
-									TITLE_FRAME_X,
-									TITLE_FRAME_Y,
-									TITLE_FRAME_W,
-									TITLE_FRAME_H),
-							Color.White,
-							0.0f,
-							Vector2.Zero,
-							SpriteEffects.None,
-							1.0f);
+						_arcadeTexture,
+						new Rectangle(
+							-(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width * (TitleFrameW / 3 * 2)) + ((int)_cutsceneBackgroundPosition),
+							0,
+							Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width * TitleFrameW,
+							Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height),
+						new Rectangle(
+							TitleFrameX,
+							TitleFrameY,
+							TitleFrameW,
+							TitleFrameH),
+						Color.White,
+						0.0f,
+						Vector2.Zero,
+						SpriteEffects.None,
+						1.0f);
 				}
 
-				if (mCutscenePhase >= 1)
+				if (_cutscenePhase >= 1)
 				{
 					// Draw the coloured title banner on black
 
 					// Game title banner
 					b.Draw(
-							mArcadeTexture,
-							new Rectangle(
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 3,
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 2,
-									TITLE_REDV_W * SPRITE_SCALE,
-									TITLE_REDV_H * SPRITE_SCALE),
-							new Rectangle(
-									TITLE_REDV_X,
-									TITLE_REDV_Y,
-									TITLE_REDV_W,
-									TITLE_REDV_H),
-							Color.White,
-							0.0f,
-							new Vector2(
-									TITLE_REDV_W / 2,
-									TITLE_REDV_H / 2),
-							SpriteEffects.None,
-							0.1f);
+						_arcadeTexture,
+						new Rectangle(
+							Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 3,
+							Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 2,
+							TitleRedVW * SpriteScale,
+							TitleRedVH * SpriteScale),
+						new Rectangle(
+							TitleRedVX,
+							TitleRedVY,
+							TitleRedVW,
+							TitleRedVH),
+						Color.White,
+						0.0f,
+						new Vector2(
+							TitleRedVW / 2,
+							TitleRedVH / 2),
+						SpriteEffects.None,
+						0.1f);
 				}
 
-				if (mCutscenePhase >= 2)
+				if (_cutscenePhase >= 2)
 				{
 					// Draw the coloured title banner with all title screen text
 
-					if (mCutsceneTimer >= TIMER_TITLE_PHASE_2)
+					if (_cutsceneTimer >= TimerTitlePhase2)
 					{
 						// "Codename"
 						b.Draw(
-								mArcadeTexture,
-								new Rectangle(
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 2,
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 1,
-										TITLE_TEXT_W * SPRITE_SCALE,
-										TITLE_CODENAME_H * SPRITE_SCALE),
-								new Rectangle(
-										TITLE_TEXT_X,
-										TITLE_CODENAME_Y,
-										TITLE_TEXT_W,
-										TITLE_CODENAME_H),
-								Color.White,
-								0.0f,
-								new Vector2(
-										TITLE_TEXT_W / 2,
-										TITLE_CODENAME_H / 2),
-								SpriteEffects.None,
-								1.0f);
-					}
-
-					if (mCutsceneTimer >= TIMER_TITLE_PHASE_3)
-					{
-						// "Sailor"
-						b.Draw(
-								mArcadeTexture,
-								new Rectangle(
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 2,
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 2,
-										TITLE_TEXT_W * SPRITE_SCALE,
-										TITLE_SAILOR_H * SPRITE_SCALE),
-								new Rectangle(
-										TITLE_TEXT_X,
-										TITLE_SAILOR_Y,
-										TITLE_TEXT_W,
-										TITLE_SAILOR_H),
-								Color.White,
-								0.0f,
-								new Vector2(
-										TITLE_TEXT_W / 2,
-										TITLE_SAILOR_H / 2),
-								SpriteEffects.None,
-								0.9f);
-					}
-
-					if (mCutsceneTimer >= TIMER_TITLE_PHASE_4)
-					{
-						// "Arcade Game"
-						b.Draw(
-								mArcadeTexture,
-								new Rectangle(
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 2,
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 2,
-										TITLE_TEXT_W * SPRITE_SCALE,
-										TITLE_ARCADE_H * SPRITE_SCALE),
-								new Rectangle(
-										TITLE_TEXT_X,
-										TITLE_ARCADE_Y,
-										TITLE_TEXT_W,
-										TITLE_ARCADE_H),
-								Color.White,
-								0.0f,
-								new Vector2(
-										TITLE_TEXT_W / 2,
-										TITLE_ARCADE_H / 2),
-								SpriteEffects.None,
-								0.8f);
-					}
-
-				}
-
-				if (mCutscenePhase >= 3)
-				{
-					// Display flashing 'fire to start' text and signature text
-
-					if (mCutsceneTimer >= TIMER_TITLE_PHASE_5)
-					{
-						// "Blueberry 1991-1996"
-						b.Draw(
-							mArcadeTexture,
+							_arcadeTexture,
 							new Rectangle(
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
-									Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 10 * 9,
-									TITLE_SIGNATURE_W * SPRITE_SCALE,
-									TITLE_SIGNATURE_H * SPRITE_SCALE),
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 2,
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 1,
+								TitleTextW * SpriteScale,
+								TitleCodenameH * SpriteScale),
 							new Rectangle(
-									TITLE_TEXT_X,
-									TITLE_SIGNATURE_Y,
-									TITLE_SIGNATURE_W,
-									TITLE_SIGNATURE_H),
+								TitleTextX,
+								TitleCodenameY,
+								TitleTextW,
+								TitleCodenameH),
 							Color.White,
 							0.0f,
 							new Vector2(
-									TITLE_SIGNATURE_W / 2,
-									TITLE_SIGNATURE_H / 2),
+								TitleTextW / 2,
+								TitleCodenameH / 2),
 							SpriteEffects.None,
 							1.0f);
 					}
 
-					if (mCutsceneTimer >= TIMER_TITLE_PHASE_6 && (mCutsceneTimer / 500) % 2 == 0)
+					if (_cutsceneTimer >= TimerTitlePhase3)
+					{
+						// "Sailor"
+						b.Draw(
+							_arcadeTexture,
+							new Rectangle(
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 2,
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 2,
+								TitleTextW * SpriteScale,
+								TitleSailorH * SpriteScale),
+							new Rectangle(
+								TitleTextX,
+								TitleSailorY,
+								TitleTextW,
+								TitleSailorH),
+							Color.White,
+							0.0f,
+							new Vector2(
+								TitleTextW / 2,
+								TitleSailorH / 2),
+							SpriteEffects.None,
+							0.9f);
+					}
+
+					if (_cutsceneTimer >= TimerTitlePhase4)
+					{
+						// "Arcade Game"
+						b.Draw(
+							_arcadeTexture,
+							new Rectangle(
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 5 * 2,
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 2,
+								TitleTextW * SpriteScale,
+								TitleArcadeH * SpriteScale),
+							new Rectangle(
+								TitleTextX,
+								TitleArcadeY,
+								TitleTextW,
+								TitleArcadeH),
+							Color.White,
+							0.0f,
+							new Vector2(
+								TitleTextW / 2,
+								TitleArcadeH / 2),
+							SpriteEffects.None,
+							0.8f);
+					}
+
+				}
+
+				if (_cutscenePhase >= 3)
+				{
+					// Display flashing 'fire to start' text and signature text
+
+					if (_cutsceneTimer >= TimerTitlePhase5)
+					{
+						// "Blueberry 1991-1996"
+						b.Draw(
+							_arcadeTexture,
+							new Rectangle(
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 10 * 9,
+								TitleSignatureW * SpriteScale,
+								TitleSignatureH * SpriteScale),
+							new Rectangle(
+								TitleTextX,
+								TitleSignatureY,
+								TitleSignatureW,
+								TitleSignatureH),
+							Color.White,
+							0.0f,
+							new Vector2(
+								TitleSignatureW / 2,
+								TitleSignatureH / 2),
+							SpriteEffects.None,
+							1.0f);
+					}
+
+					if (_cutsceneTimer >= TimerTitlePhase6 && (_cutsceneTimer / 500) % 2 == 0)
 					{
 						// "Fire to start"
 						b.Draw(
-								mArcadeTexture,
-								new Rectangle(
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
-										Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 4,
-										TITLE_START_W * SPRITE_SCALE,
-										TITLE_START_H * SPRITE_SCALE),
-								new Rectangle(
-										0,
-										TileSize,
-										TITLE_START_W,
-										TITLE_START_H),
-								Color.White,
-								0.0f,
-								new Vector2(
-										TITLE_START_W / 2,
-										TITLE_START_H / 2),
-								SpriteEffects.None,
-								1.0f);
+							_arcadeTexture,
+							new Rectangle(
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
+								Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height / 5 * 4,
+								TitleStartW * SpriteScale,
+								TitleStartH * SpriteScale),
+							new Rectangle(
+								0,
+								TileSize,
+								TitleStartW,
+								TitleStartH),
+							Color.White,
+							0.0f,
+							new Vector2(
+								TitleStartW / 2,
+								TitleStartH / 2),
+							SpriteEffects.None,
+							1.0f);
 					}
 				}
 			}
 
 			// Display Game Over menu options
-			else if (onGameOver)
+			else if (_onGameOver)
 			{
 				b.Draw(
 					Game1.staminaRect,
 					new Rectangle(
-						(int)mGameStartCoords.X,
-						(int)mGameStartCoords.Y,
+						(int)_gameStartCoords.X,
+						(int)_gameStartCoords.Y,
 						16 * TileSize,
 						16 * TileSize),
-					new Rectangle?(
-						Game1.staminaRect.Bounds),
+					Game1.staminaRect.Bounds,
 					Color.Black,
 					0.0f,
 					Vector2.Zero,
@@ -1788,7 +1777,7 @@ namespace HikawaShrine.LightGunGame
 				b.DrawString(
 					Game1.dialogueFont,
 					Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11914"),
-					mGameStartCoords + new Vector2(6f, 7f) * TileSize,
+					_gameStartCoords + new Vector2(6f, 7f) * TileSize,
 					Color.White,
 					0.0f,
 					Vector2.Zero,
@@ -1799,7 +1788,7 @@ namespace HikawaShrine.LightGunGame
 				b.DrawString(
 					Game1.dialogueFont,
 					Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11914"),
-					mGameStartCoords + new Vector2(6f, 7f) * TileSize + new Vector2(-1f, 0.0f),
+					_gameStartCoords + new Vector2(6f, 7f) * TileSize + new Vector2(-1f, 0.0f),
 					Color.White,
 					0.0f,
 					Vector2.Zero,
@@ -1810,7 +1799,7 @@ namespace HikawaShrine.LightGunGame
 				b.DrawString(
 					Game1.dialogueFont,
 					Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11914"),
-					mGameStartCoords + new Vector2(6f, 7f) * TileSize + new Vector2(1f, 0.0f),
+					_gameStartCoords + new Vector2(6f, 7f) * TileSize + new Vector2(1f, 0.0f),
 					Color.White,
 					0.0f,
 					Vector2.Zero,
@@ -1818,20 +1807,20 @@ namespace HikawaShrine.LightGunGame
 					SpriteEffects.None,
 					1f);
 
-				string text1 = Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11917");
-				if (mGameOverOption == 0)
+				var text1 = Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11917");
+				if (_gameOverOption == 0)
 					text1 = "> " + text1;
 
-				string text2 = Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11919");
-				if (mGameOverOption == 1)
+				var text2 = Game1.content.LoadString("Strings\\StringsFromCSFiles:cs.11919");
+				if (_gameOverOption == 1)
 					text2 = "> " + text2;
 
-				if (mGameRestartTimer <= 0 || mGameRestartTimer / 500 % 2 == 0)
+				if (_gameRestartTimer <= 0 || _gameRestartTimer / 500 % 2 == 0)
 				{
 					b.DrawString(
 						Game1.smallFont,
 						text1,
-						mGameStartCoords + new Vector2(6f, 9f) * TileSize,
+						_gameStartCoords + new Vector2(6f, 9f) * TileSize,
 						Color.White,
 						0.0f,
 						Vector2.Zero,
@@ -1843,7 +1832,7 @@ namespace HikawaShrine.LightGunGame
 				b.DrawString(
 					Game1.smallFont,
 					text2,
-					mGameStartCoords + new Vector2(6f, 9f) * TileSize + new Vector2(0.0f, (2 / 3)),
+					_gameStartCoords + new Vector2(6f, 9f) * TileSize + new Vector2(0.0f, (2 / 3)),
 					Color.White,
 					0.0f,
 					Vector2.Zero,
@@ -1853,7 +1842,7 @@ namespace HikawaShrine.LightGunGame
 			}
 
 			// Show cutscene between worlds
-			else if (onWorldComplete)
+			else if (_onWorldComplete)
 			{
 				// todo: display world stats per stage
 				// todo: display total time
@@ -1866,84 +1855,86 @@ namespace HikawaShrine.LightGunGame
 
 		public class Powerup
 		{
-			public int which;
-			public Point position;
-			public int duration;
-			public float yOffset;
+			public int Which;
+			public Point Position;
+			public int Duration;
+			public float YOffset;
 
 			public Powerup(int which, Point position, int duration)
 			{
-				this.which = which;
-				this.position = position;
-				this.duration = duration;
+				Which = which;
+				Position = position;
+				Duration = duration;
 			}
 
 			public void draw(SpriteBatch b)
 			{
-				if (duration <= 2000 && duration / 200 % 2 != 0)
+				if (Duration <= 2000 && Duration / 200 % 2 != 0)
 					return;
 				b.Draw(
-						mArcadeTexture,
-						mGameStartCoords + new Vector2(position.X, position.Y + yOffset),
-						new Rectangle(
-								TILE_W,
-								0, 
-								16, 
-								16),
-						Color.White,
-						0.0f,
-						Vector2.Zero,
-						SPRITE_SCALE,
-						SpriteEffects.None,
-						(float)(position.Y / 10000.0 + 1.0 / 1000.0));
+					_arcadeTexture,
+					_gameStartCoords + new Vector2(Position.X, Position.Y + YOffset),
+					new Rectangle(
+						TileW,
+						0, 
+						16, 
+						16),
+					Color.White,
+					0.0f,
+					Vector2.Zero,
+					SpriteScale,
+					SpriteEffects.None,
+					(float)(Position.Y / 10000.0 + 1.0 / 1000.0));
 			}
 		}
 		
 		public class Bullet
 		{
-			public Vector2 position;        // Current position on screen
-			public Vector2 motion;          // Line of motion between spawn and dest
-			public Vector2 motionCur;       // Current position along vector of motion between spawn and dest
-			public float rotation;          // Angle of vector between spawn and dest
-			public float rotationCur;       // Angle of vector between spawn and dest
-			public ProjectileType type;		// Which projectile, ie. light/heavy/bullet/lightgun
+			public Vector2 Position;        // Current position on screen
+			public Vector2 Motion;          // Line of motion between spawn and dest
+			public Vector2 MotionCur;       // Current position along vector of motion between spawn and dest
+			public float Rotation;          // Angle of vector between spawn and dest
+			public float RotationCur;       // Angle of vector between spawn and dest
+			public ProjectileType Type;		// Which projectile, ie. light/heavy/bullet/lightgun
 
 			public Bullet(Vector2 position, Vector2 motion, float rotation, ProjectileType type)
 			{
-				this.position = position;
-				this.motion = motion;
-				this.rotation = rotation;
-				this.type = type;
+				Position = position;
+				Motion = motion;
+				Rotation = rotation;
+				Type = type;
 				
-				this.motion = motion;
+				Motion = motion;
 
-				motionCur = motion;
-				rotationCur = rotation;
+				MotionCur = motion;
+				RotationCur = rotation;
 			}
 		}
 		
 		public class Monster
 		{
-			private Color tint = Color.White;
-			private Color flashColor = Color.Red;
-			public int health;
-			public int type;
-			public Rectangle position;
-			public float flashColorTimer;
-			public int ticksSinceLastMovement;
+			private Color _tint = Color.White;
+			private Color _flashColor = Color.Red;
+
+			public int Health;
+			public int Type;
+			public Rectangle Position;
+			public float FlashColorTimer;
+			public int TicksSinceLastMovement;
 
 			public Monster(int which, int health, int speed, Point position)
 			{
-				type = which;
-				this.health = health;
-				this.position = new Rectangle(position.X, position.Y, TileSize, TileSize);
+				Type = which;
+				Health = health;
+				Position = new Rectangle(position.X, position.Y, TileSize, TileSize);
 			}
 
 			public Monster(int which, Point position)
 			{
-				type = which;
-				this.position = new Rectangle(position.X, position.Y, TileSize, TileSize);
-				switch (type) {
+				Type = which;
+				Position = new Rectangle(position.X, position.Y, TileSize, TileSize);
+				switch (Type)
+				{
 					// todo: enemy spawn parameters
 				}
 			}
@@ -1954,11 +1945,11 @@ namespace HikawaShrine.LightGunGame
 
 			public virtual bool takeDamage(int damage)
 			{
-				health = Math.Max(0, health - damage);
-				if (health <= 0)
+				Health = Math.Max(0, Health - damage);
+				if (Health <= 0)
 					return false;
-				flashColor = Color.Red;
-				flashColorTimer = 100f;
+				_flashColor = Color.Red;
+				FlashColorTimer = 100f;
 				return true;
 			}
 

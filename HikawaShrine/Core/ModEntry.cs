@@ -10,31 +10,29 @@ using Microsoft.Xna.Framework.Input;
 using xTile;
 using xTile.Dimensions;
 using xTile.Layers;
+using xTile.Tiles;
+using xTile.ObjectModel;
 
 using StardewValley;
 
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
-using xTile.Tiles;
-using xTile.ObjectModel;
-
 namespace HikawaShrine
 {
-	public class Hikawa : Mod
+	public class ModEntry : Mod
 	{
-		internal static IModHelper SHelper;
-		internal static IMonitor SMonitor;
+		internal static ModEntry Instance;
 
 		internal Config Config;
 		internal ITranslationHelper i18n => Helper.Translation;
 		
-		private bool IsJapaneseNames;
-		private bool IsJapanesePortraits;
+		private bool _isJapaneseNames;
+		private bool _isJapanesePortraits;
 
-		private List<string> Maps;
+		private List<string> _maps;
 
-		enum Direction {
+		private enum NPCDirection {
 			Up,
 			Right,
 			Down,
@@ -43,19 +41,17 @@ namespace HikawaShrine
 
 		public override void Entry(IModHelper helper)
 		{
-			// Setup from config.
+			Instance = this;
+
+			// Setup from Config.
 			Config = helper.ReadConfig<Config>();
-			IsJapaneseNames = Config.Names.Equals(Const.ConfigRoman) ? false : true;
-			IsJapanesePortraits = Config.Portraits.Equals(Const.ConfigRoman) ? false : true;
-
-			// Define internals.
-			SHelper = helper;
-			SMonitor = Monitor;
-
+			_isJapaneseNames = !Config.Names.Equals(Const.ConfigRoman);
+			_isJapanesePortraits = !Config.Portraits.Equals(Const.ConfigRoman);
+			
 			// Inject NPC data.
-			helper.Content.AssetEditors.Add(new NPCDataEditor());
+			helper.Content.AssetEditors.Add(new Editors.NPCDataEditor());
 			// Inject events data.
-			helper.Content.AssetEditors.Add(new EventEditor());
+			helper.Content.AssetEditors.Add(new Editors.EventEditor());
 
 			// Setup events.
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
@@ -72,29 +68,29 @@ namespace HikawaShrine
 		private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
 		{
 			// Load maps.
-			List<string> maps = new List<string>();
-			foreach (string file in Directory.EnumerateFiles(Path.Combine(Helper.DirectoryPath, Const.AssetsPath, Const.MapsPath)))
+			var maps = new List<string>();
+			foreach (var file in Directory.EnumerateFiles(Path.Combine(Helper.DirectoryPath, Const.MapsPath)))
 			{
-				string ext = Path.GetExtension(file);
+				var ext = Path.GetExtension(file);
 				if (ext == null || !ext.Equals(Const.MapExtension))
 					continue;
-				string map = Path.GetFileName(file);
+				var map = Path.GetFileName(file);
 				if (map == null)
 					continue;
 				try
 				{
-					Helper.Content.Load<Map>(Path.Combine(Const.AssetsPath, Const.MapsPath, map));
+					Helper.Content.Load<Map>(Path.Combine(Const.MapsPath, map));
 					maps.Add(map);
 					continue;
 				}
 				catch (Exception err)
 				{
-					Monitor.Log("Unable to load " + map, LogLevel.Error);
-					Monitor.Log(err.ToString(), LogLevel.Error);
+					Log.E("Unable to load " + map);
+					Log.E(err.ToString());
 				}
-				Monitor.Log("Did not add " + map, LogLevel.Error);
+				Log.E("Did not add " + map);
 			}
-			Maps = maps;
+			_maps = maps;
 
 			// Load NPCs.
 			/*
@@ -102,14 +98,13 @@ namespace HikawaShrine
 			{
 				var npcRei = new NPC(
 				new AnimatedSprite(Helper.Content.GetActualAssetKey(Path.Combine(Const.ASSETS_PATH, "Characters", "Rei.png"))),
-				new Vector2(50, 50),		// position
-				(int)Direction.Down,		// facingDir
-				i18n.Get("npc.name.rei")	// name
-				);
+				new Vector2(50, 50),
+				(int)NPCDirection.Down,
+				i18n.Get("npc.name.rei"));
 			}
 			catch (Exception err)
 			{
-				Monitor.Log("Unable to load NPCs.\n" + err.ToString(), LogLevel.Error);
+				Log.E("Unable to load NPCs.\n" + err);
 			}
 			*/
 		}
@@ -120,16 +115,17 @@ namespace HikawaShrine
 
 			// Add new locations.
 
-			foreach (string map in Maps)
+			foreach (var map in _maps)
 			{
 				try
 				{
-					Monitor.Log("Adding new location: " + Path.GetFileNameWithoutExtension(map), LogLevel.Debug);
+					Log.D("Adding new location: " + Path.GetFileNameWithoutExtension(map), Config.DebugMode);
 
 					var mapAssetKey = Helper.Content.GetActualAssetKey(
-						Path.Combine(Const.AssetsPath, Const.MapsPath, map));
+						Path.Combine(Const.MapsPath, map));
 					var loc = new GameLocation(
-						mapAssetKey, Path.GetFileNameWithoutExtension(map))
+						mapAssetKey,
+						Path.GetFileNameWithoutExtension(map))
 						{ IsOutdoors = true, IsFarm = false };
 
 					SetupLocation(loc);
@@ -137,77 +133,46 @@ namespace HikawaShrine
 				}
 				catch (Exception e)
 				{
-					Monitor.Log("Unable to add '" + map + "'.\n" + e.ToString(), LogLevel.Error);
+					Log.E("Unable to add '" + map + "'.\n" + e);
 				}
 			}
 
-			GameLocation locShrine = Game1.getLocationFromName(Const.ShrineMap);
+			GameLocation locShrine = Game1.getLocationFromName(Const.ShrineMapName);
 			if (locShrine == null)
 			{
-				Monitor.Log("Failed to load new maps.", LogLevel.Error);
+				Log.E("Failed to load new maps.");
 				return;
 			}
 
 			// Patch exiting locations.
 			try {
-
-				// DEBUG
-				// todo remove
-
-				// FarmHouse - Sailor V Arcade Machine.
-				GameLocation locFarmhouse = Game1.getLocationFromName("FarmHouse");
-				string tileSheetPathFarmhouse = Helper.Content.GetActualAssetKey(
-					Path.Combine(Const.AssetsPath, Const.MapsPath, Const.MiscSprites + ".png"),
-					ContentSource.ModFolder);
-
-				Monitor.Log("Patching : Farmhouse. !! DEBUG", LogLevel.Debug);
-
-				TileSheet tileSheetFarmhouse = new TileSheet(
-					Const.MiscSprites,
-					locFarmhouse.Map,
-					tileSheetPathFarmhouse,
-					new Size(48, 16),
-					new Size(16, 16));
-				locFarmhouse.Map.AddTileSheet(tileSheetFarmhouse);
-				locFarmhouse.Map.LoadTileSheets(Game1.mapDisplayDevice);
-				Layer layerFarmhouse = locFarmhouse.map.GetLayer("Front");
-				StaticTile[] tileAnimFarmhouse = {
-					new StaticTile(layerFarmhouse, tileSheetFarmhouse, BlendMode.Additive, 0),
-					new StaticTile(layerFarmhouse, tileSheetFarmhouse, BlendMode.Additive, 2)
-				};
-
-				layerFarmhouse.Tiles[8, 7] = new AnimatedTile(layerFarmhouse, tileAnimFarmhouse, 1000);
-				layerFarmhouse = locFarmhouse.map.GetLayer("Buildings");
-				layerFarmhouse.Tiles[8, 8] = new StaticTile(layerFarmhouse, tileSheetFarmhouse, BlendMode.Additive, 1);
-				layerFarmhouse.Tiles[8, 8].Properties.Add(Const.TileActionID, new PropertyValue(Const.ArcadeMinigameName));
-
 				// Saloon - Sailor V Arcade Machine.
-				GameLocation locSaloon = Game1.getLocationFromName("Saloon");
-				string tileSheetPath = Helper.Content.GetActualAssetKey(
-					Path.Combine(Const.AssetsPath, Const.MapsPath, Const.MiscSprites + ".png"),
-					ContentSource.ModFolder);
+				var locSaloon = Game1.getLocationFromName("Saloon");
+				var tileSheetPath = Helper.Content.GetActualAssetKey(
+					Path.Combine(Const.MapsPath, Const.MiscSpritesFile + ".png"));
 
-				Monitor.Log("Patching Saloon.", LogLevel.Debug);
+				Log.D("Patching Saloon.", Config.DebugMode);
 
-				TileSheet tileSheet = new TileSheet(
-					Const.MiscSprites,
+				const BlendMode mode = BlendMode.Additive;
+				var tileSheet = new TileSheet(
+					Const.MiscSpritesFile,
 					locSaloon.Map,
 					tileSheetPath,
 					new Size(48, 16),
 					new Size(16, 16));
 				locSaloon.Map.AddTileSheet(tileSheet);
 				locSaloon.Map.LoadTileSheets(Game1.mapDisplayDevice);
-				Layer layer = locSaloon.map.GetLayer("Front");
+				var layer = locSaloon.Map.GetLayer("Front");
 				StaticTile[] tileAnim = {
-					new StaticTile(layer, tileSheet, BlendMode.Additive, 0),
-					new StaticTile(layer, tileSheet, BlendMode.Additive, 2)
+					new StaticTile(layer, tileSheet, mode, 0),
+					new StaticTile(layer, tileSheet, mode, 2)
 				};
 
 				layer.Tiles[40, 16] = new AnimatedTile(layer, tileAnim, 1000);
-				layer = locSaloon.map.GetLayer("Buildings");
-				layer.Tiles[40, 17] = new StaticTile(layer, tileSheet, BlendMode.Additive, 1);
+				layer = locSaloon.Map.GetLayer("Buildings");
+				layer.Tiles[40, 17] = new StaticTile(layer, tileSheet, mode, 1);
 				layer.Tiles[40, 17].Properties.Add(Const.TileActionID, new PropertyValue(Const.ArcadeMinigameName));
-				layer = locSaloon.map.GetLayer("Back");
+				layer = locSaloon.Map.GetLayer("Back");
 				layer.Tiles[40, 18] = layer.Tiles[35, 18];
 
 				// Bus Stop - Shrine Entrance.
@@ -220,8 +185,8 @@ namespace HikawaShrine
 			}
 			catch (Exception e)
 			{
-				Monitor.Log("Failed to patch map files.", LogLevel.Error);
-				Monitor.Log(e.ToString(), LogLevel.Error);
+				Log.E("Failed to patch map files.");
+				Log.E(e.ToString());
 				return;
 			}
 
@@ -233,7 +198,7 @@ namespace HikawaShrine
 				new AnimatedSprite(Helper.Content.GetActualAssetKey(Path.Combine(Const.AssetsPath, "Rei.png"))),
 				new Vector2(50, 50),		// position
 				Const.ShrineMap,			// defaultMap
-				(int)Direction.Down,		// facingDir
+				(int)NPCDirection.Down,		// facingDir
 				i18n.Get("npc.name.rei"),	// name
 				false,						// datable
 				//npc.Schedule = Helper.Reflection.GetMethod(npc, "parseMasterSchedule").Invoke<Dictionary<int, SchedulePathDescription>>("610 80 20 2/630 23 20 2/710 80 20 2/730 23 20 2/810 80 20 2/830 23 20 2/910 80 20 2/930 23 20 2");
@@ -244,7 +209,7 @@ namespace HikawaShrine
 			}
 			catch (Exception err)
 			{
-				Monitor.Log("Unable to load new NPCs.\n" + err.ToString(), LogLevel.Error);
+				Log.XXXXXXXXXXXXXXXX("Unable to load new NPCs.\n" + err.ToString());
 				return;
 			}
 				*/
@@ -327,47 +292,100 @@ namespace HikawaShrine
 
 		private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
 		{
-			e.Button.TryGetKeyboard(out Keys keyPressed);
+			e.Button.TryGetKeyboard(out var keyPressed);
+
+			if (Game1.activeClickableMenu == null) return;
 
 			// Debug - Arcade Machine popup hotkey.
-			if (Game1.activeClickableMenu != null)
+			if (keyPressed.ToSButton().Equals(Config.DebugArcadePlayGame))
 			{
-				if (keyPressed.ToSButton().Equals(Config.DebugArcadePlayGame))
-				{
-					Monitor.Log("hhhhh", LogLevel.Debug);
-					Game1.currentMinigame = new LightGunGame.LightGunGame();
-				}
+				Log.D("Arcade hotkey pressed", Config.DebugMode);
+				Game1.currentMinigame = new LightGunGame.LightGunGame();
 			}
 		}
 
 		private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
 		{
-			if (Game1.activeClickableMenu == null && !Game1.player.UsingTool && !Game1.pickingTool && !Game1.menuUp && (!Game1.eventUp || Game1.currentLocation.currentEvent.playerControlSequence) && !Game1.nameSelectUp && Game1.numberOfSelectedItems == -1)
+			if (Game1.activeClickableMenu != null || Game1.player.UsingTool || Game1.pickingTool || Game1.menuUp ||
+			    (Game1.eventUp && !Game1.currentLocation.currentEvent.playerControlSequence) || Game1.nameSelectUp ||
+			    Game1.numberOfSelectedItems != -1) return;
+
+			// Additional world interactions.
+			if (e.Button.IsActionButton())
 			{
-				// Additional world interactions.
-				if (e.Button.IsActionButton())
+				// Dodge wrong button presses
+				var grabTile = new Vector2(Game1.getOldMouseX() + Game1.viewport.X, Game1.getOldMouseY() + Game1.viewport.Y) / Game1.tileSize;
+				if (!Utility.tileWithinRadiusOfPlayer((int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
+					grabTile = Game1.player.GetGrabTile();
+				var tile = Game1.currentLocation.map.GetLayer("Buildings").PickTile(
+					new Location((int)grabTile.X * Game1.tileSize, (int)grabTile.Y * Game1.tileSize), Game1.viewport.Size);
+				var action = (PropertyValue) null;
+				tile?.Properties.TryGetValue(Const.TileActionID, out action);
+				if (action == null) return;
+
+				// Enter the arcade machine minigame if used in the world
+				var strArray = ((string)action).Split(' ');
+				var args = new string[strArray.Length - 1];
+				Array.Copy(strArray, 1, args, 0, args.Length);
+				switch (strArray[0])
 				{
-					// Sundrop snagged code
-					Vector2 grabTile = new Vector2(Game1.getOldMouseX() + Game1.viewport.X, Game1.getOldMouseY() + Game1.viewport.Y) / Game1.tileSize;
-					if (!Utility.tileWithinRadiusOfPlayer((int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
-						grabTile = Game1.player.GetGrabTile();
-					Tile tile = Game1.currentLocation.map.GetLayer("Buildings").PickTile(new Location((int)grabTile.X * Game1.tileSize, (int)grabTile.Y * Game1.tileSize), Game1.viewport.Size);
-					PropertyValue action = null;
-					tile?.Properties.TryGetValue(Const.TileActionID, out action);
-					if (action != null)
-					{
-						string[] strArray = ((string)action).Split(' ');
-						string[] args = new string[strArray.Length - 1];
-						Array.Copy(strArray, 1, args, 0, args.Length);
-						switch (strArray[0])
-						{
-							case Const.ArcadeMinigameName:
-								Game1.currentMinigame = new LightGunGame.LightGunGame();
-								break;
-						}
-					}
+					case Const.ArcadeMinigameName:
+						Game1.currentMinigame = new LightGunGame.LightGunGame();
+						break;
 				}
 			}
 		}
 	}
 }
+
+// nice code
+
+/*
+ 
+public override bool isCollidingPosition(Microsoft.Xna.Framework.Rectangle position, xTile.Dimensions.Rectangle viewport, bool isFarmer, int damagesFarmer, bool glider, Character character)
+{
+	if (oldMariner != null && position.Intersects(oldMariner.GetBoundingBox()))
+	{
+		return true;
+	}
+	return base.isCollidingPosition(position, viewport, isFarmer, damagesFarmer, glider, character);
+}
+
+public override void checkForMusic(GameTime time)
+{
+	if (Game1.random.NextDouble() < 0.003 && Game1.timeOfDay < 1900)
+	{
+		localSound("seagulls");
+	}
+	base.checkForMusic(time);
+}
+
+
+case 139067618:
+if (s == "IceCreamStand")
+{
+    if (this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 2))) != null || this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 1))) != null || this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 3))) != null)
+    {
+    Game1.activeClickableMenu = (IClickableMenu) new ShopMenu(new Dictionary<ISalable, int[]>()
+    {
+        {
+        (ISalable) new Object(233, 1, false, -1, 0),
+        new int[2]{ 250, int.MaxValue }
+        }
+    }, 0, (string) null, (Func<ISalable, Farmer, int, bool>) null, (Func<ISalable, bool>) null, (string) null);
+    goto default;
+    }
+    else if (Game1.currentSeason.Equals("summer"))
+    {
+    Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\Locations:IceCreamStand_ComeBackLater"));
+    goto default;
+    }
+    else
+    {
+    Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\Locations:IceCreamStand_NotSummer"));
+    goto default;
+    }
+}
+else
+    goto default;
+*/

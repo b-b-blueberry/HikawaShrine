@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 
-namespace HikawaShrine
+namespace HikawaShrine.Editors
 {
-	class ArcadeAssetEditor : IAssetEditor
+	internal class ArcadeAssetEditor : IAssetEditor
 	{ 
 		public bool CanEdit<T>(IAssetInfo asset)
 		{
@@ -14,16 +14,15 @@ namespace HikawaShrine
 		{
 			if (asset.AssetNameEquals("LooseSprites\\Cursors"))
 			{
-				int tileSize = LightGunGame.LightGunGame.TileSize;
-				Texture2D texture = Hikawa.SHelper.Content.Load<Texture2D>(
-					Path.Combine(Const.AssetsPath, Const.MapsPath, Const.ArcadeSprites + ".png"));
+				var texture = ModEntry.Instance.Helper.Content.Load<Texture2D>(
+					Path.Combine(Const.MapsPath, Const.ArcadeSpritesFile + ".png"));
 				asset.AsImage().PatchImage(
 					texture,
 					new Microsoft.Xna.Framework.Rectangle(
-							LightGunGame.LightGunGame.CROSSHAIR_X,
-							LightGunGame.LightGunGame.CROSSHAIR_Y,
-							LightGunGame.LightGunGame.CROSSHAIR_W, 
-							LightGunGame.LightGunGame.CROSSHAIR_H),
+							LightGunGame.LightGunGame.CrosshairX,
+							LightGunGame.LightGunGame.CrosshairY,
+							LightGunGame.LightGunGame.CrosshairW, 
+							LightGunGame.LightGunGame.CrosshairH),
 					new Microsoft.Xna.Framework.Rectangle(32, 0, 16, 16));
 			}
 		}
