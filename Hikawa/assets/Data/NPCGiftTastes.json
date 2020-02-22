@@ -1,0 +1,49 @@
+{
+    //  data/npcgifttastes.json
+    //      contains likes and dislikes by object ID, as well as response dialogue for all characters.
+
+    "Rei": "Wow, it's gorgeous! Thank you so much!/64 82 104 106 128 203 612/What, for me? Oh, you really shouldn't have!/100 103 109 113 115 118 119 120 123 124 125 152/Oh... I'll give it to Grandpa./-6 -5 303 346 348 459/Well, that's... That's just completely horrible!/-75 207 605/Thanks./-4",
+    "Ami": "I'm lost for words!! I love it, thank you!/62 206 234 241/I simply don't know what to say... thank you!/152/Oh... thanks.../-6/Oh dear.../-4 303 346 348 459/Thank you./-80",
+
+    // Canon likes:
+        // Rei: blowfish
+        // Ami: sandwiches
+
+    // Canon hates:
+        // Rei: asparagus
+        // Ami: yellow-tail tuna
+
+    // Rei:
+
+        // Loves:
+        // 64 ruby / 82 fire quartz / 104 elven jewelry / 106 ornamental fan / 128 pufferfish / 283 holly / 612 cranberry candy
+
+        // Likes:
+        // 100 chipped amphora / 103 ancient doll / 109 ancient sword / 113 chicken statue / 115 prehistoric tool / 118 glass shards / 119 bone flute / 120 prehistoric handaxe / 123 ancient drum / 124 golden mask / 125 golden relic / 152 seaweed
+
+        // Dislikes:
+        // -6 MILK / -5 EGGS / 303 pale ale / 346 beer / 348 wine / 459 mead
+
+        // Hates:
+        // -75 VEGETABLES / 207 bean hotpot / 605 artichoke dip
+
+        // Neutral:
+        // -4 FISH
+
+    // Ami:
+
+        // Loves:
+        // 62 aquamarine / 206 pizza / 234 blueberry tart / 241 survival burger
+
+        // Likes:
+        // 152 seaweed
+
+        // Dislikes:
+        // -6 MILK
+
+        // Hates:
+        // -4 FISH / 303 pale ale / 346 beer / 348 wine / 459 mead
+
+        // Neutral:
+        // -80 FLOWERS
+}

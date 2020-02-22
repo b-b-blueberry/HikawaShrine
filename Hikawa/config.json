@@ -1,0 +1,11 @@
+{
+
+/*   Choose one:             sub     /     dub        */
+
+	/* Character names:     Japanese	  Anglicised      */
+  "Names": "sub",
+
+	/* Character portraits: Anime       Stardew Valley  */
+  "Portraits": "dub",
+
+}

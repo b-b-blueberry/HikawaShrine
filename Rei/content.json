@@ -1,0 +1,15 @@
+{
+  "Format": "1.11.0",
+  "Changes": [
+    {
+      "Action": "Load",
+      "Target": "Animals/Dinosaur",
+      "FromFile": "assets/dinosaur.png"
+    },
+    {
+      "Action": "EditImage",
+      "Target": "Maps/springobjects",
+      "FromFile": "assets/fish-object.png"
+    }
+  ]
+}

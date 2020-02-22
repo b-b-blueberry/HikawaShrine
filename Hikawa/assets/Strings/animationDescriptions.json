@@ -1,0 +1,24 @@
+{
+  //  strings/animationDescriptions.json
+  //      contains unique animation dialogues for all custom characters.
+
+  "hikawa_dangle_bath": "",
+  "hikawa_bath_standing": "One look and you're dead.$eThat goes double for her.",
+
+  // add portraits vvv
+  "hikawa_sit_study_awake_ami": "",
+  "hikawa_sit_study_awake_rei": "",
+  // add portraits ^^^
+
+  "hikawa_book_rei": "%Rei is busy.",
+  "hikawa_book_ami": "%Ami is busy.",
+  "hikawa_sit_study_asleep_rei": "%She looks like she's hard at work. Best not to wake her.",
+  "hikawa_sleep": "%She's fast asleep.",
+  "hikawa_sleep_alarm": "%She's sound asleep.",
+
+  // add portraits vvv
+  "hikawa_comic": "",
+  "hikawa_beach_book": "I'm taking a break from my studies today.$eOh, this? It's just some light reading..",
+  "hikawa_beach_shades": ""
+  // add portraits ^^^
+}
