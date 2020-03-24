@@ -1,0 +1,10 @@
+﻿{
+  "Name": "Hikawa",
+  "Author": "blueberry",
+  "Version": "1.0",
+  "Description": "What the ..?",
+  "UniqueID": "blueberry.Hikawa",
+  "EntryDll": "Hikawa.dll",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": [ "Nexus:4643" ]
+}

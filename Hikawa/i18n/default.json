@@ -1,0 +1,45 @@
+﻿{
+    "loc.shrine": "temple", 
+    "loc.hikawashrine": "Cherry Hill Temple",
+    "loc.home": "Rei's House",
+    "loc.hill": "Cherry Hill",
+    "loc.school": "Brookdale Private",
+    "loc.tower": "Starlight Tower",
+
+    "jp.loc.shrine": "shrine",
+    "jp.loc.hikawashrine": "Hikawa Shrine",
+    "jp.loc.home": "Hino Residence",
+    "jp.loc.hill": "Sendaizaka Hill",
+    "jp.loc.school": "TA Private",
+    "jp.loc.tower": "Starlight Tower",
+
+    "npc.rei": "Raye",
+    "npc.ami": "Amy",
+    "npc.usagi": "Serena",
+    "npc.chibi": "Rini",
+    "npc.gramps": "Grandpa",
+    "npc.guy": "Chad",
+    "npc.jade": "Jedite",
+    "npc.koan": "Koan",
+    "npc.berthier": "Bertie",
+    "npc.calaveras": "Avery",
+    "npc.petz": "Prizma",
+
+    "jp.npc.rei": "Rei",
+    "jp.npc.ami": "Ami",
+    "jp.npc.usagi": "Usagi",
+    "jp.npc.chibi": "Chibiusa",
+    "jp.npc.gramps": "Grandpa",
+    "jp.npc.guy": "Yuuichiro",
+    "jp.npc.jade": "Jadeite",
+    "jp.npc.koan": "Koan",
+    "jp.npc.berthier": "Berthier",
+    "jp.npc.calaveras": "Calaveras",
+    "jp.npc.petz": "Petz",
+
+    "name.darkrealm": "Negaverse",
+    "name.darkmoon": "Negamoon",
+
+    "jp.name.darkrealm": "Dark Kingdom",
+    "jp.name.darkmoon": "Nemesis"
+}
