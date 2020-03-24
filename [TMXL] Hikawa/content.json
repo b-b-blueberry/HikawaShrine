@@ -1,0 +1,51 @@
+{
+  //todo: check out town warps? still broken?
+
+  "addMaps": [
+    // Hikawa Shrine
+    {
+      "name": "HikawaShrine",
+      "file": "assets/HikawaShrine.tbin"
+    }
+  ],
+
+  //todo: seasonal edits to Shrine
+
+  "mergeMaps": [
+    // Town - Shrine entrance
+    // Merged in vertical stripes to maximise compatibility between vanilla and SVE
+    {
+      "name": "Town",
+      "file": "assets/HikawaTown.tbin",
+      "sourceArea": [ 0, 0, 17, 20 ],
+      "position": [ 7, 0 ]
+    },
+    {
+      "name": "Town",
+      "file": "assets/HikawaTown.tbin",
+      "sourceArea": [ 17, 0, 3, 17 ],
+      "position": [ 24, 0 ]
+    },
+    {
+      "name": "Town",
+      "file": "assets/HikawaTown.tbin",
+      "sourceArea": [ 20, 0, 3, 16 ],
+      "position": [ 27, 0 ]
+    },
+    {
+      "name": "Town",
+      "file": "assets/HikawaTown.tbin",
+      "sourceArea": [ 23, 0, 5, 15 ],
+      "position": [ 30, 0 ]
+    }
+  ],
+  "onlyWarps": [
+    {
+      // Town - Shrine entrance
+      "name": "Town",
+      "addWarps": [
+        "18 -1 HikawaShrine 35 79 19 -1 HikawaShrine 36 79 20 -1 HikawaShrine 37 79 21 -1 HikawaShrine 38 79"
+      ]
+    }
+  ]
+}

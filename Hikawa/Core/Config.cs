@@ -1,6 +1,6 @@
 ﻿using StardewModdingAPI;
 
-namespace HikawaShrine
+namespace Hikawa
 {
     internal class Config
     {
@@ -11,6 +11,7 @@ namespace HikawaShrine
 		public bool DebugMode { get; set; } = true;
 		public bool DebugArcadeCheats { get; set; } = true;
 		public bool DebugArcadeSkipIntro { get; set; } = false;
+		public bool DebugArcadeMusic { get; set; } = true;
 		public SButton DebugPlayArcade { get; set; } = SButton.OemCloseBrackets;
 		public SButton DebugWarpShrine { get; set; } = SButton.OemOpenBrackets;
     }

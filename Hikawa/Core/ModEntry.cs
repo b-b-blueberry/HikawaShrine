@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
+using Hikawa.Core;
 using Microsoft.Xna.Framework;
-
-using xTile;
 using xTile.Dimensions;
 using xTile.ObjectModel;
 
 using StardewValley;
-
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley.BellsAndWhistles;
 
-namespace HikawaShrine
+namespace Hikawa
 {
 	public class ModEntry : Mod
 	{
 		internal static ModEntry Instance;
+		internal ModSaveData SaveData;
 
 		internal Config Config;
 		internal ITranslationHelper i18n => Helper.Translation;
-		
-		private List<string> _maps;
+
+		private readonly OverlayEffectControl _overlayEffectControl = new OverlayEffectControl();
 
 		private enum NpcDir {
 			Up,
@@ -42,34 +38,77 @@ namespace HikawaShrine
 			Instance = this;
 			Config = helper.ReadConfig<Config>();
 
-			// Testing
 			//helper.Content.AssetEditors.Add(new Editors.TestEditor());
-
-			// Data
-			helper.Content.AssetEditors.Add(new Editors.NpcDataEditor());
-			helper.Content.AssetEditors.Add(new Editors.EventEditor());
-
-			// Locations
 			helper.Content.AssetEditors.Add(new Editors.WorldEditor());
-			helper.Content.AssetLoaders.Add(new Editors.MapLoader());
+			helper.Content.AssetEditors.Add(new Editors.EventEditor());
+			helper.Content.AssetEditors.Add(new Editors.ArcadeEditor());
 
-			// Events
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 			helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
+			helper.Events.GameLoop.DayStarted += OnDayStarted;
+			helper.Events.GameLoop.DayEnding += OnDayEnding;
 			helper.Events.GameLoop.Saved += OnSaved;
-			helper.Events.GameLoop.Saving += OnSaving;
-			helper.Events.Input.ButtonReleased += OnButtonReleased;
+			helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
 
+			helper.Events.Input.ButtonReleased += OnButtonReleased;
 			helper.Events.Player.Warped += OnWarped;
 		}
 
 		#region Game Events
 
+		/// <summary>
+		/// Pre-game
+		/// </summary>
+		private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
+		{
+		}
+
+		/// <summary>
+		/// Pre-start of day
+		/// </summary>
+		private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+		{
+			SaveData = Helper.Data.ReadSaveData<ModSaveData>(
+				ModConsts.SaveDataKey) ?? new ModSaveData();
+		}
+
+		/// <summary>
+		/// Start of day
+		/// </summary>
+		private void OnDayStarted(object sender, DayStartedEventArgs e)
+		{
+		}
+
+		/// <summary>
+		/// End of day
+		/// </summary>
+		private void OnDayEnding(object sender, DayEndingEventArgs e)
+		{
+		}
+
+		/// <summary>
+		/// Post-end of day
+		/// </summary>
+		private void OnSaved(object sender, SavedEventArgs e)
+		{
+		}
+
+		/// <summary>
+		/// Per-frame checks
+		/// </summary>
+		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+		{
+		}
+
+		/// <summary>
+		/// Button check
+		/// </summary>
 		private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
 		{
-			if (Game1.activeClickableMenu != null || Game1.player.UsingTool || Game1.pickingTool || Game1.menuUp
-			    || (Game1.eventUp && !Game1.currentLocation.currentEvent.playerControlSequence)
-			    || Game1.nameSelectUp || Game1.numberOfSelectedItems != -1)
+			if (Game1.eventUp && !Game1.currentLocation.currentEvent.playerControlSequence
+			    || Game1.activeClickableMenu != null || Game1.menuUp || Game1.nameSelectUp
+				|| Game1.player.UsingTool || Game1.pickingTool
+			    || Game1.numberOfSelectedItems != -1)
 				return;
 
 			var btn = e.Button;
@@ -82,148 +121,157 @@ namespace HikawaShrine
 				DebugCommands(btn);
 		}
 
-		private void OnSaveLoaded(object s, EventArgs e)
+		/// <summary>
+		/// Location changed
+		/// </summary>
+		private void OnWarped(object sender, WarpedEventArgs e)
 		{
-			Setup();
-		}
+			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
 
-		private void OnSaved(object s, EventArgs e)
-		{
-			Setup();
-		}
+			if (_overlayEffectControl.IsEnabled())
+				_overlayEffectControl.Disable();
 
-		private void OnSaving(object s, EventArgs e)
-		{
-			foreach (var location in Game1.locations.Where(_ => _.map.Properties.ContainsKey(Const.ModId)).ToArray())
-				Game1.locations.Remove(location);
-		}
-
-		private void OnWarped(object s, WarpedEventArgs e)
-		{
-		}
-
-		private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
-		{
-			// Preload maps
-			var maps = new List<string>();
-			foreach (var file in Directory.EnumerateFiles(
-				Path.Combine(Helper.DirectoryPath, "assets", "Maps")))
-			{
-				var ext = Path.GetExtension(file);
-				if (ext == null || !ext.Equals(".tbin"))
-					continue;
-				var map = Path.GetFileName(file);
-				if (map == null)
-					continue;
-				try
-				{
-					Helper.Content.Load<Map>(Path.Combine("assets", "Maps", map));
-					maps.Add(map);
-					continue;
-				}
-				catch (Exception ex)
-				{
-					Log.E($"Unable to load {map}.\n" + ex);
-				}
-				Log.E($"Did not add {map}");
-			}
-			_maps = maps;
-
-			// Preload NPCs
-			/*
-			try
-			{
-				var npc = new NPC();
-
-				npc = new NPC(
-					new AnimatedSprite(Helper.Content.GetActualAssetKey(
-						$@"assets/Characters/{Const.ReiId + (Config.AnimePortraits ? "_jp" : "")}.png")),
-					new Vector2(50, 50),
-					(int)NpcDir.Right,
-					GetI18nJp("npc.rei"));
-			}
-			catch (Exception ex)
-			{
-				Log.E("Unable to load NPCs.\n" + ex);
-			}
-			*/
+			SetUpLocationSpecificFlair(Game1.currentLocation);
 		}
 
 		#endregion
 
-		/// <summary>
-		/// Adds preloaded locations and NPCs into the game.
-		/// </summary>
-		private void Setup()
-		{
-			// Add new locations
-			foreach (var map in _maps)
-			{
-				try
-				{
-					Log.D($"Adding new location: {Path.GetFileNameWithoutExtension(map)}",
-						Config.DebugMode);
-
-					var mapAssetKey = Helper.Content.GetActualAssetKey(
-						Path.Combine("assets", "Maps", map));
-					var loc = new GameLocation(
-						mapAssetKey,
-						Path.GetFileNameWithoutExtension(map))
-						{ IsOutdoors = true, IsFarm = false };
-
-					SetupLocation(loc);
-					Game1.locations.Add(loc);
-				}
-				catch (Exception ex)
-				{
-					Log.E($"Unable to add {map}\n" + ex);
-				}
-			}
-
-			var locShrine = Game1.getLocationFromName(Const.ModId);
-			if (locShrine == null)
-			{
-				Log.E("Failed to load maps.");
-				return;
-			}
-			
-			// Generate NPCs
-			/*
-			try
-			{
-				var npcRei = new NPC(
-					new AnimatedSprite(Helper.Content.GetActualAssetKey(
-						Path.Combine("assets", "Characters", "{Const.ReiId + (Config.AnimePortraits ? "_jp" : "")}.png"))),
-					new Vector2(50, 50),
-					Const.ShrineId,
-					(int)NpcDir.Right,
-					GetI18nJp("npc.rei"),
-					false,
-					null,
-					Helper.Content.Load<Texture2D>(
-						Path.Combine("Portraits", $"{Const.ReiId}.png")));
-				LoadNpcSchedule(npcRei);
-
-				Game1.getLocationFromName(Const.ShrineId).addCharacter(npcRei);
-			}
-			catch (Exception ex)
-			{
-				Log.E("Unable to load NPCs.\n" + ex);
-				return;
-			}
-			*/
-		}
-
-		private void SetupLocation(GameLocation location)
-		{
-			if (!location.map.Properties.ContainsKey(Const.ModId))
-				location.map.Properties.Add(Const.ModId, true);
-		}
+		#region Manager Methods
 
 		/// <summary>
-		/// Forces an NPC into a custom schedule for the day.
+		/// Adds unique elements to maps on entry.
 		/// </summary>
-		private void LoadNpcSchedule(NPC npc)
+		public void SetUpLocationSpecificFlair(GameLocation location)
+		{
+			switch (location.Name)
+			{
+				case ModConsts.ShrineMapId:
+				{
+					// Hikawa Shrine
+
+					if (SaveData.StoryMist != (int)ModConsts.Progress.Started)
+					{
+						// Eerie effects
+
+						_overlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
+						SpawnCrows(
+							location,
+							new Location(
+								location.Map.Layers[0].LayerWidth / 2 - 1,
+								location.Map.Layers[0].LayerHeight / 10 * 9),
+							new Location(
+								location.Map.Layers[0].LayerWidth / 2 + 1,
+								location.Map.Layers[0].LayerHeight / 10 * 9));
+						if (!Game1.isRaining)
+							Game1.changeMusicTrack("communityCenter");
+					}
+					else if (!Game1.isRaining)
+					{
+						// Crows on regular days
+
+						if (Game1.timeOfDay < 1100)
+						{
+							// Spawn crows as critters
+							SpawnCrows(location);
+						}
+						else if (!Game1.isDarkOut())
+						{
+							// Add crows as temp sprites
+						}
+					}
+
+					break;
+				}
+
+				case "Farm":
+				{
+					// Player's farm
+
+					if (SaveData.StoryPlant == (int)ModConsts.Progress.Started)
+					{
+						// Plant
+					}
+
+					break;
+				}
+
+				case ModConsts.CorridorMapId:
+				{
+					// Doors
+
+					// Haze effect
+					_overlayEffectControl.Enable(OverlayEffectControl.Effect.Haze);
+
+					break;
+				}
+
+				case ModConsts.NegativeMapId:
+				{
+					// Gap
+
+					// Overlaid crystals
+					// Obscuring fog around player
+
+					break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Attempts to add twin crows to the map as critters.
+		/// </summary>
+		private static void SpawnCrows(GameLocation location)
+		{
+			if (!location.IsOutdoors)
+				return;
+			var rand = new Random();
+			const int timeout = 5;
+			for (var attempts = 0; attempts < timeout; ++attempts)
+			{
+				// Identify two separate nearby spawn positions for the crows around the map's middle
+				var w = location.Map.Layers[0].LayerWidth;
+				var h = location.Map.Layers[0].LayerHeight;
+				var vTarget = new Location(
+					rand.Next(w / 4, w / 4 * 3),
+					rand.Next(h / 4, h / 4 * 3));
+				var phobos = Location.Origin;
+				var deimos = Location.Origin;
+				for (var y = -1; y < 1; ++y)
+				{
+					for (var x = -1; x < 1; ++x)
+					{
+						if (location.isTilePassable(
+							new Location(vTarget.X + x, vTarget.Y + y), Game1.viewport)) 
+							phobos = new Location(vTarget.X + x, vTarget.X + y);
+						if (location.isTilePassable(
+							new Location(vTarget.X - x, vTarget.Y - y), Game1.viewport))
+							deimos = new Location(vTarget.X - x, vTarget.X - y);
+						if (phobos == deimos && phobos != Location.Origin)
+							break;
+						if (phobos == deimos || phobos == Location.Origin || deimos == Location.Origin)
+							continue;
+						SpawnCrows(location, phobos, deimos);
+						return;
+					}
+				}
+			}
+			Log.D($"Failed to add crows after {timeout} attempts.");
+		}
+
+		/// <summary>
+		/// Attempts to add twin crows to the map as critters.
+		/// </summary>
+		private static void SpawnCrows(GameLocation location, Location phobos, Location deimos)
+		{
+			Log.W($"Adding crows at {phobos.ToString()} and {deimos.ToString()}");
+			location.addCritter(new Crow(phobos.X, phobos.Y));
+			location.addCritter(new Crow(deimos.X, deimos.Y));
+		}
+
+	/// <summary>
+	/// Forces an NPC into a custom schedule for the day.
+	/// </summary>
+	private void ForceNpcSchedule(NPC npc)
 		{
 			npc.Schedule = npc.getSchedule(Game1.dayOfMonth);
 			npc.scheduleTimeToTry = 9999999;
@@ -237,10 +285,13 @@ namespace HikawaShrine
 			{
 				var grabTile = new Vector2(Game1.getOldMouseX() + Game1.viewport.X, 
 					Game1.getOldMouseY() + Game1.viewport.Y) / Game1.tileSize;
-				if (!Utility.tileWithinRadiusOfPlayer((int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
+				if (!Utility.tileWithinRadiusOfPlayer(
+					(int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
 					grabTile = Game1.player.GetGrabTile();
 				var tile = Game1.currentLocation.map.GetLayer("Buildings").PickTile(
-					new Location((int)grabTile.X * Game1.tileSize, (int)grabTile.Y * Game1.tileSize), 
+					new Location(
+						(int)grabTile.X * Game1.tileSize, 
+						(int)grabTile.Y * Game1.tileSize), 
 					Game1.viewport.Size);
 				var action = (PropertyValue)null;
 				tile?.Properties.TryGetValue("Action", out action);
@@ -249,31 +300,54 @@ namespace HikawaShrine
 				// Enter the arcade machine minigame if used in the world
 				var strArray = ((string)action).Split(' ');
 				var args = new string[strArray.Length - 1];
-				Array.Copy(strArray, 1, args, 0, args.Length);
+				Array.Copy(
+					strArray, 1, 
+					args, 0, 
+					args.Length);
 				switch (strArray[0])
 				{
-					case Const.ArcadeMinigameId:
+					case ModConsts.ArcadeMinigameId:
 						Game1.currentMinigame = new LightGunGame.LightGunGame();
 						break;
 				}
 			}
 		}
 
+		#endregion
+
+		#region Debug Methods
+
 		private void DebugCommands(SButton btn)
 		{
 			if (btn.Equals(Config.DebugPlayArcade))
 			{
-				Log.D($"Pressed {btn} : Playing {Const.ArcadeMinigameId}",
-					Config.DebugMode);
-				Game1.currentMinigame = new LightGunGame.LightGunGame();
+				if (false)
+				{
+					_overlayEffectControl.Toggle();
+				}
+				else
+				{
+					Log.D($"Pressed {btn} : Playing {ModConsts.ArcadeMinigameId}",
+						Config.DebugMode);
+					Game1.currentMinigame = new LightGunGame.LightGunGame();
+				}
 			}
 			else if (btn.Equals(Config.DebugWarpShrine))
 			{
-				Log.D($"Pressed {btn} : Warping to {Const.ShrineId}",
+				Log.D($"Pressed {btn} : Warping to {ModConsts.ShrineMapId}",
 					Config.DebugMode);
-				Game1.player.warpFarmer(new Warp(0, 0, Const.ShrineId, 19, 60, false));
+				if (true)
+					Game1.player.warpFarmer(
+						new Warp(0, 0, "Town",
+							20, 5, true));
+				else
+					Game1.player.warpFarmer(
+						new Warp(0, 0, ModConsts.ShrineMapId,
+							19, 60, false));
 			}
 		}
+
+		#endregion
 	}
 }
 
@@ -282,8 +356,33 @@ namespace HikawaShrine
 // nice code
 
 /*
- 
-public override bool isCollidingPosition(Microsoft.Xna.Framework.Rectangle position, xTile.Dimensions.Rectangle viewport, bool isFarmer, int damagesFarmer, bool glider, Character character)
+
+/// <summary>
+/// Erases common tile features from the destination, replaces them with a clone of the source.
+/// </summary>
+/// <param name="source">Location to be cloned.</param>
+/// <param name="dest">Location to be overwritten.</param>
+public static void SoftCopyLocationObjects(GameLocation source, GameLocation dest)
+{
+	dest.objects.Clear();
+	foreach (var k in source.Objects.Keys)
+	{
+		dest.Objects.TryGetValue(k, out var v);
+		dest.objects.Add(k, v);
+	}
+	dest.netObjects.Clear();
+	foreach (var k in source.netObjects.Keys)
+	{
+		source.netObjects.TryGetValue(k, out var v);
+		dest.netObjects.Add(k, v);
+	}
+	dest.terrainFeatures.Clear();
+	foreach (var f in source.terrainFeatures)
+		dest.terrainFeatures.Add(f);
+}
+
+public override bool isCollidingPosition(Microsoft.Xna.Framework.Rectangle position, 
+xTile.Dimensions.Rectangle viewport, bool isFarmer, int damagesFarmer, bool glider, Character character)
 {
 	if (oldMariner != null && position.Intersects(oldMariner.GetBoundingBox()))
 	{
@@ -305,7 +404,9 @@ public override void checkForMusic(GameTime time)
 case 139067618:
 if (s == "IceCreamStand")
 {
-    if (this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 2))) != null || this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 1))) != null || this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 3))) != null)
+    if (this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 2))) != null 
+	|| this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 1))) != null 
+	|| this.isCharacterAtTile(new Vector2((float) tileLocation.X, (float) (tileLocation.Y - 3))) != null)
     {
     Game1.activeClickableMenu = (IClickableMenu) new ShopMenu(new Dictionary<ISalable, int[]>()
     {

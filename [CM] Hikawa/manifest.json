@@ -1,0 +1,13 @@
+﻿{
+  "Name": "[CM] Hikawa",
+  "Author": "blueberry",
+  "Version": "1.0.0",
+  "Description": "What the ..?",
+  "UniqueID": "blueberry.CM.Hikawa",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": [ "Nexus:4643" ],
+  "ContentPackFor": {
+    "UniqueID": "Platonymous.CustomMusic",
+    "MinimumVersion": "1.5.1"
+  }
+}

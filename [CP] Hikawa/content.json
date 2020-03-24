@@ -1,0 +1,11 @@
+{
+  "Format": "1.11.0",
+  "Changes": [
+    {
+      "LogName": "Hikawa World Strings",
+      "Action": "EditData",
+      "Target": "Strings/StringsFromMaps",
+      "FromFile": "assets/StringsFromMaps.json"
+    }
+  ]
+}

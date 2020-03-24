@@ -1,4 +1,4 @@
-﻿namespace HikawaShrine
+﻿namespace Hikawa
 {
 	class Log
 	{

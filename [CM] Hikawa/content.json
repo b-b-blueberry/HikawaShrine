@@ -1,0 +1,11 @@
+﻿{
+	"Music":
+  [
+		{
+			"Id": "dog_bark",
+			"File": "PrincessRemedySong2.wav",
+			"Loop": true,
+			"Preload": true
+		}
+	]
+}

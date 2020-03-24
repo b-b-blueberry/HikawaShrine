@@ -1,6 +1,6 @@
 ﻿using StardewModdingAPI;
 
-namespace HikawaShrine.Editors
+namespace Hikawa.Editors
 {
 	internal class EventEditor : IAssetEditor
 	{

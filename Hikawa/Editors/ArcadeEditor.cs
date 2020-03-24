@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
 
-namespace HikawaShrine.Editors
+namespace Hikawa.Editors
 {
 	internal class ArcadeEditor : IAssetEditor
 	{
@@ -22,20 +22,21 @@ namespace HikawaShrine.Editors
 
 		public void Edit<T>(IAssetData asset)
 		{
+			if (Game1.currentMinigame == null
+			    || Game1.currentMinigame.minigameId() != ModConsts.ArcadeMinigameId) return;
+
 			// Patch in a custom crosshair cursor for the Sailor V shoot 'em up
-			if (Game1.currentMinigame != null && Game1.currentMinigame.minigameId().Equals(Const.ArcadeMinigameId))
-			{
-				var texture = _helper.Content.Load<Texture2D>(
-					Path.Combine("assets", "Maps", $"{Const.ArcadeSpritesFile}.png"));
-				asset.AsImage().PatchImage(
-					texture,
-					new Rectangle(
-						LightGunGame.LightGunGame.CrosshairX,
-						LightGunGame.LightGunGame.CrosshairY,
-						LightGunGame.LightGunGame.CrosshairW,
-						LightGunGame.LightGunGame.CrosshairH),
-					new Rectangle(32, 0, 16, 16));
-			}
+			var texture = _helper.Content.Load<Texture2D>(
+				Path.Combine("assets", ModConsts.SpritesDirectory, 
+					$"{ModConsts.ArcadeSpritesFile}.png"));
+			asset.AsImage().PatchImage(
+				texture,
+				new Rectangle(
+					LightGunGame.LightGunGame.CrosshairX,
+					LightGunGame.LightGunGame.CrosshairY,
+					LightGunGame.LightGunGame.CrosshairW,
+					LightGunGame.LightGunGame.CrosshairH),
+				new Rectangle(0, 0, 16, 16));
 		}
 	}
 }
