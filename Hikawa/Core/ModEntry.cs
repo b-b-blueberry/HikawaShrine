@@ -15,11 +15,10 @@ namespace Hikawa
 	{
 		internal static ModEntry Instance;
 		internal ModSaveData SaveData;
+		private readonly OverlayEffectControl _overlayEffectControl = new OverlayEffectControl();
 
 		internal Config Config;
 		internal ITranslationHelper i18n => Helper.Translation;
-
-		private readonly OverlayEffectControl _overlayEffectControl = new OverlayEffectControl();
 
 		private enum NpcDir {
 			Up,
