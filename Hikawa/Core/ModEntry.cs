@@ -125,6 +125,9 @@ namespace Hikawa
 		/// </summary>
 		private void OnWarped(object sender, WarpedEventArgs e)
 		{
+			if (e.NewLocation.Name.Equals("FarmHouse", StringComparison.CurrentCultureIgnoreCase))
+				Game1.currentMinigame = new ArcadeGunGame();
+
 			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
 
 			if (_overlayEffectControl.IsEnabled())
@@ -306,7 +309,7 @@ namespace Hikawa
 				switch (strArray[0])
 				{
 					case ModConsts.ArcadeMinigameId:
-						Game1.currentMinigame = new LightGunGame.LightGunGame();
+						Game1.currentMinigame = new ArcadeGunGame();
 						break;
 				}
 			}
@@ -328,7 +331,7 @@ namespace Hikawa
 				{
 					Log.D($"Pressed {btn} : Playing {ModConsts.ArcadeMinigameId}",
 						Config.DebugMode);
-					Game1.currentMinigame = new LightGunGame.LightGunGame();
+					Game1.currentMinigame = new ArcadeGunGame();
 				}
 			}
 			else if (btn.Equals(Config.DebugWarpShrine))
