@@ -32,10 +32,10 @@ namespace Hikawa.Editors
 			asset.AsImage().PatchImage(
 				texture,
 				new Rectangle(
-					LightGunGame.LightGunGame.CrosshairX,
-					LightGunGame.LightGunGame.CrosshairY,
-					LightGunGame.LightGunGame.CrosshairW,
-					LightGunGame.LightGunGame.CrosshairH),
+					ArcadeGunGame.CrosshairDimen.X,
+					ArcadeGunGame.CrosshairDimen.Y,
+					ArcadeGunGame.CrosshairDimen.Width,
+					ArcadeGunGame.CrosshairDimen.Height),
 				new Rectangle(0, 0, 16, 16));
 		}
 	}
