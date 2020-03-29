@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -61,6 +62,7 @@ namespace Hikawa
 		// Bullets and projectiles
 		public enum BulletType
 		{
+			None,
 			Player,
 			Bullet,
 			Bomb,
@@ -68,6 +70,7 @@ namespace Hikawa
 		}
 		private static readonly Dictionary<BulletType, int> BulletSize = new Dictionary<BulletType, int>
 		{
+			{BulletType.None, 0},
 			{BulletType.Player, TD},
 			{BulletType.Bullet, TD},
 			{BulletType.Bomb, 0},
@@ -75,6 +78,7 @@ namespace Hikawa
 		};
 		private static readonly Dictionary<BulletType, Vector2> BulletSpeed = new Dictionary<BulletType, Vector2>
 		{
+			{BulletType.None, Vector2.Zero},
 			{BulletType.Player, new Vector2(4.0f, 4.0f) * SpriteScale},
 			{BulletType.Bullet, new Vector2(1.0f, 1.0f) * SpriteScale},
 			{BulletType.Bomb, new Vector2(1.0f, 1.0f) * SpriteScale},
@@ -82,6 +86,7 @@ namespace Hikawa
 		};
 		private static readonly Dictionary<BulletType, float> BulletSpin = new Dictionary<BulletType, float>
 		{ // todo: add values in radians
+			{BulletType.None, 0f},
 			{BulletType.Player, 0f},
 			{BulletType.Bullet, 0f},
 			{BulletType.Bomb, 0f},
@@ -93,46 +98,50 @@ namespace Hikawa
 			None,
 			Cake,
 			Life,
-			Energy
+			Energy,
+			Time
 		}
 		private static readonly Dictionary<LootDrops, int> LootDurations = new Dictionary<LootDrops, int>
 		{
 			{LootDrops.None, 0},
-			{LootDrops.Cake, 11},
-			{LootDrops.Life, 9},
-			{LootDrops.Energy, 7}
+			{LootDrops.Cake, 5},
+			{LootDrops.Life, 4},
+			{LootDrops.Energy, 3},
+			{LootDrops.Time, 5}
 		};
 		// Monsters
 		public enum MonsterSpecies
 		{
 			// todo: monsters!
 		}
+		private static readonly Dictionary<MonsterSpecies, int> MonsterScore = new Dictionary<MonsterSpecies, int>
+			{ };
 
 		/* Game attributes */
 
 		// Game values
 		private const int GameLivesDefault = 1;
-		private const int GameHealthMax = 3;
-		private const int GameEnergyMax = 7;
 		private const int GameEnergyThresholdLow = 3;
-		private const int GameMoveSpeed = 5;
 		private const int GameDodgeDelay = 500;
 		private const int GameFireDelay = 20;
 		private const int GameInvincibleDelay = 5000;
 		private const int GameDeathDelay = 3000;
 		private const int GameEndDelay = 5000;
-		private const int GamePlayerDamage = 1;
-		private const int GameEnemyDamage = 1;
-		private const int DefaultStageTimeLimit = 90;
+		private const int StageTimeMax = 99000;
+		private const int StageTimeInitial = 60000;
+		private const int StageTimeExtra = 15000;
+		private const int StageTimeHudDigits = 2;
 
 		// Score values
-		private const int ScoreCake = 10000;
-		private const int ScoreBread = 125000;
+		private const int ScoreMax = 99999999;
+		private const int ScoreCake = 5000;
+		private const int ScoreCakeExtra = 150;
+		private const int ScoreBread = 12500;
 
 		/* Sprite attributes */
 
-		private const float PlayerAnimTimescale = 200f;
-		private const float UiAnimTimescale = 85f;
+		private const int PlayerAnimTimescale = 200;
+		private const int UiAnimTimescale = 85;
 		private const int SpriteScale = 2;
 		private const int CursorScale = 4;
 		private const int TD = 16;
@@ -212,10 +221,10 @@ namespace Hikawa
 		private const int PlayerLegsRunX = PlayerLegsIdleX + PlayerW * PlayerIdleFrames;
 		// Split-body body frames
 		private const int PlayerBodyY = PlayerFullY + PlayerFullH;
-		private const int PlayerBodyRunX = PlayerX;
-		private const int PlayerBodyRunFireX = PlayerBodyRunX + PlayerW * PlayerRunFrames;
-		private const int PlayerBodySideFireX = PlayerBodyRunFireX + PlayerW * PlayerRunFrames;
-		private const int PlayerBodyUpFireX = PlayerBodySideFireX + PlayerW;
+		private const int PlayerBodySideFireX = PlayerX;
+		private const int PlayerBodyUpFireX = PlayerBodySideFireX + PlayerSplitWH;
+		private const int PlayerBodyRunX = PlayerBodyUpFireX + PlayerSplitWH;
+		private const int PlayerBodyRunFireX = PlayerBodyRunX + PlayerSplitWH * PlayerRunFrames;
 		// Split-body arm frames
 		private const int PlayerLegsY = PlayerBodyY + PlayerSplitWH;
 		private const int PlayerArmsX = PlayerLegsRunX + PlayerW * PlayerRunFrames;
@@ -319,14 +328,18 @@ namespace Hikawa
 
 		private static int _whichStage;
 		private static int _whichWorld;
-		private static int whichPlaythrough;
-		private static int _stageTimer;
-		private static long _stageMilliseconds;
-		private static int _totalTimer;
+		private static int _whichPlaythrough;
+		private static int _stageMilliseconds;
+		private static int _totalTime;
 		private static int _totalScore;
 		private static int _totalShotsSuccessful;
 		private static int _totalShotsFired;
+		private static int _totalMonstersBonked;
 		private static int _gameOverOption;
+
+		/* Music cues */
+
+		private static ICue gameMusic;
 
 		/* HUD graphics */
 
@@ -334,20 +347,20 @@ namespace Hikawa
 		private static Color _screenFlashColor;
 		private static float _cutsceneBackgroundPosition;
 		// Player score
-		private static int HudScoreDstX;
-		private static int HudScoreDstY;
+		private static int _hudScoreDstX;
+		private static int _hudScoreDstY;
 		// Player life
-		private static int HudLifeDstX;
-		private static int HudLifeDstY;
+		private static int _hudLifeDstX;
+		private static int _hudLifeDstY;
 		// Player energy
-		private static int HudEnergyDstX;
-		private static int HudEnergyDstY;
+		private static int _hudEnergyDstX;
+		private static int _hudEnergyDstY;
 		// Game world and stage
-		private static int HudWorldDstX;
-		private static int HudWorldDstY;
+		private static int _hudWorldDstX;
+		private static int _hudWorldDstY;
 		// Stage timer
-		private static int HudTimeDstX;
-		private static int HudTimeDstY;
+		private static int _hudTimeDstX;
+		private static int _hudTimeDstY;
 
 		/* Timers and countdowns */
 
@@ -367,14 +380,15 @@ namespace Hikawa
 
 		#endregion
 
+
 		public ArcadeGunGame()
 		{
 			changeScreenSize();
 
 			if (ModEntry.Instance.Config.DebugMode && !ModEntry.Instance.Config.DebugArcadeMusic)
 				_playMusic = false;
-			if (_playMusic)
-				Game1.changeMusicTrack("dog_bark", true, Game1.MusicContext.MiniGame);
+
+			Game1.changeMusicTrack("none", false, Game1.MusicContext.MiniGame);
 
 			// Load arcade game assets
 			BlackoutPixel.SetData(new [] { Color.Black });
@@ -388,13 +402,13 @@ namespace Hikawa
 			// Init game statistics
 			_totalShotsSuccessful = 0;
 			_totalShotsFired = 0;
-			_totalTimer = 0;
+			_totalTime = 0;
 
 			// Go to the title screen
 			if (IsDebugMode && !ModEntry.Instance.Config.DebugArcadeSkipIntro)
 				ResetAndReturnToTitle();
 			else
-				Reset();
+				ResetGame();
 		}
 
 		#region Player input methods
@@ -403,11 +417,17 @@ namespace Hikawa
 		{
 			if (_onTitleScreen)
 				_cutscenePhase++; // Progress through the start menu cutscene
-			if (_cutsceneTimer <= 0 
-			    && _player.PowerTimer <= 0 && _player.SpecialTimer <= 0 
-			    && _player.RespawnTimer <= 0 && _gameEndTimer <= 0 && _gameRestartTimer <= 0 
+			if (_cutsceneTimer <= 0
+			    && _player.PowerTimer <= 0 && _player.SpecialTimer <= 0
+			    && _player.RespawnTimer <= 0 && _gameEndTimer <= 0 && _gameRestartTimer <= 0
 			    && _player.FireTimer <= 1)
-				_player.Fire(); // Fire lightgun trigger
+			{
+				// Position the target on the centre of the cursor
+				var target = new Vector2(
+					Helper.Input.GetCursorPosition().ScreenPixels.X + TD / 2 * CursorScale,
+					Helper.Input.GetCursorPosition().ScreenPixels.Y + TD / 2 * CursorScale);
+				_player.Fire(target); // Fire lightgun trigger
+			}
 		}
 
 		public void leftClickHeld(int x, int y) { receiveLeftClick(x, y); }
@@ -442,14 +462,14 @@ namespace Hikawa
 				switch (k)
 				{
 					case Keys.D1:
-						Log.D(_player.Health < GameHealthMax
+						Log.D(_player.Health < _player.HealthMax
 							? $"_health : {_player.Health} -> {++_player.Health}"		// Modifies health value
-							: $"_health : {_player.Health} == GameHealthMax");
+							: $"_health : {_player.Health} == HealthMax");
 						break;
 					case Keys.D2:
-						Log.D(_player.Energy < GameEnergyMax
+						Log.D(_player.Energy < _player.EnergyMax
 							? $"_energy : {_player.Energy} -> {++_player.Energy}"		// Modifies energy value
-							: $"_energy : {_player.Energy} == GameEnergyMax");
+							: $"_energy : {_player.Energy} == EnergyMax");
 						break;
 					case Keys.D3:
 						Log.D($"_lives : {_player.Lives} -> {_player.Lives + 1}");
@@ -558,7 +578,7 @@ namespace Hikawa
 
 		#region Inherited methods
 
-		public bool overrideFreeMouseMovement() { return true; }
+		public bool overrideFreeMouseMovement() { return Game1.options.SnappyMenus; }
 
 		public void receiveEventPoke(int data) { }
 
@@ -570,7 +590,7 @@ namespace Hikawa
 
 		#endregion
 
-		#region Minigame functional methods
+		#region Minigame manager methods
 
 		private static void InvalidateCursorsOnNextTick(object sender, UpdateTickedEventArgs e)
 		{
@@ -595,20 +615,20 @@ namespace Hikawa
 
 			// Initialise HUD element positions
 			// Player score
-			HudScoreDstX = _gamePixelDimen.X;
-			HudScoreDstY = 0;
+			_hudScoreDstX = _gamePixelDimen.X;
+			_hudScoreDstY = _gamePixelDimen.Y - HudDigitSprite.Height * SpriteScale;
 			// Player life
-			HudLifeDstX = _gamePixelDimen.X;
-			HudLifeDstY = _gameEndPixel.Y;
+			_hudLifeDstX = _gamePixelDimen.X;
+			_hudLifeDstY = _gameEndPixel.Y;
 			// Player energy
-			HudEnergyDstX = _gamePixelDimen.X;
-			HudEnergyDstY = _gameEndPixel.Y + HudLifeSprite.Height * SpriteScale;
+			_hudEnergyDstX = _gamePixelDimen.X;
+			_hudEnergyDstY = _gameEndPixel.Y + HudLifeSprite.Height * SpriteScale;
 			// Game world and stage
-			HudWorldDstX = _gameEndPixel.X;
-			HudWorldDstY = _gameEndPixel.Y;
+			_hudWorldDstX = _gameEndPixel.X;
+			_hudWorldDstY = _gameEndPixel.Y;
 			// Stage time remaining
-			HudTimeDstX = _gameEndPixel.X;
-			HudTimeDstY = _gamePixelDimen.Y - HudDigitSprite.Height * SpriteScale;
+			_hudTimeDstX = _gameEndPixel.X;
+			_hudTimeDstY = _gamePixelDimen.Y - HudDigitSprite.Height * SpriteScale;
 			/*
 			Log.D("_gamePixelDimen:\n"
 				  + $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width} - {MapWidthInTiles * TD * SpriteScale}) / 2, "
@@ -628,7 +648,11 @@ namespace Hikawa
 		private static void QuitMinigame()
 		{
 			if (Game1.currentMinigame == null && Game1.IsMusicContextActive(Game1.MusicContext.MiniGame))
+			{
+				if (gameMusic != null && gameMusic.IsPlaying)
+					gameMusic.Stop(AudioStopOptions.Immediate);
 				Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
+			}
 			if (Game1.currentLocation != null
 			    && Game1.currentLocation.Name.Equals((object)"Saloon") && Game1.timeOfDay >= 1700)
 				Game1.changeMusicTrack("Saloon1");
@@ -638,23 +662,34 @@ namespace Hikawa
 
 		public void unload()
 		{
-			_player.ResetLife();
+			_player.Reset();
+			Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
 		}
 
 		/// <summary>
 		/// Starts running down the clock to return to the title screen after resetting the game state.
 		/// </summary>
-		public static void GameOver()
+		private static void GameOver()
 		{
 			_onGameOver = true;
 			_gameRestartTimer = 2000;
 		}
 
 		/// <summary>
+		/// Flags for  to title screen start prompt
+		/// </summary>
+		private static void ResetAndReturnToTitle()
+		{
+			ResetGame();
+			_onTitleScreen = true;
+			PlayMusic(gameMusic, "dog_bark");
+		}
+
+		/// <summary>
 		/// Completely resets all game actors, objects, players, and world state.
 		/// Returns to the title screen.
 		/// </summary>
-		private static void Reset()
+		private static void ResetGame()
 		{
 			// Reset player
 			_player = new Player();
@@ -670,28 +705,25 @@ namespace Hikawa
 			_cutsceneBackgroundPosition = 0f;
 
 			// Shaft the players' score
-			// todo: reduce score with formula
-			var reducedScore = 0;
-			_totalScore = Math.Min(0, reducedScore);
+			AddScore(-1 * _totalScore / 2);
+
+			// Reset game music
+			gameMusic = null;
 
 			// Reset the game world
 			ResetWorld();
 		}
 
-		/// <summary>
-		/// Flags for  to title screen start prompt
-		/// </summary>
-		public static void ResetAndReturnToTitle()
-		{
-			Reset();
-			_onTitleScreen = true;
-		}
-
 		private static void ResetWorld()
 		{
+			_powerups.Clear();
+			_enemies.Clear();
+			_enemyBullets.Clear();
+			_playerBullets.Clear();
+
 			_whichStage = 0;
 			_whichWorld = 0;
-			whichPlaythrough = 0;
+			_whichPlaythrough = 0;
 			_onGameOver = false;
 		}
 
@@ -704,6 +736,7 @@ namespace Hikawa
 			_player.MovementDirections.Clear();
 
 			// todo: set cutscenes, begin events, etc
+			// todo: add stage time to score
 		}
 
 		private void EndCurrentWorld()
@@ -711,13 +744,22 @@ namespace Hikawa
 			// todo: set cutscenes, begin events, etc
 		}
 
+		private static void PlayMusic(ICue cue, string id)
+		{
+			if (!_playMusic) return;
+
+			cue = Game1.soundBank.GetCue(id);
+			cue.Play();
+			Game1.musicPlayerVolume = Game1.options.musicVolumeLevel;
+			Game1.musicCategory.SetVolume(Game1.musicPlayerVolume);
+		}
+
 		private static void StartNewStage()
 		{
 			++_whichStage;
 			_stageMap = GetMap(_whichStage);
 			// todo: set timer per stage/world/boss
-			_stageTimer = DefaultStageTimeLimit;
-			_stageMilliseconds = 0;
+			_stageMilliseconds = StageTimeInitial;
 
 			//Log.D($"Current play/world/stage: {whichPlaythrough}/{_whichWorld}/{_whichStage} with {_stageTimer}s");
 		}
@@ -735,12 +777,12 @@ namespace Hikawa
 			_cutsceneTimer = 0;
 			_cutscenePhase = 0;
 
-			++whichPlaythrough;
+			++_whichPlaythrough;
 			_whichWorld = -1;
 			StartNewWorld();
 		}
 
-		public static int[,] GetMap(int wave)
+		private static int[,] GetMap(int wave)
 		{
 			return null;
 
@@ -791,14 +833,35 @@ namespace Hikawa
 
 		#endregion
 
+		#region Minigame gameplay methods
+
+		private static void AddScore(int score)
+		{
+			var debugscore = _totalScore;
+			_totalScore = Math.Min(ScoreMax, _totalScore + score);
+			Log.D($"Score : {debugscore} => {_totalScore}");
+		}
+
+		/// <summary>
+		/// Creates a new dropped powerup object moving from one point on-screen to another.
+		/// </summary>
+		/// <param name="which">Type of powerup to spawn in.</param>
+		/// <param name="where">Spawn position.</param>
+		private static void SpawnPowerup(LootDrops which, Vector2 where)
+		{
+			Game1.playSound("coin");
+			_powerups.Add(new Powerup(which, 
+				new Rectangle((int)where.X, (int)where.Y, TD, TD)));
+		}
+
 		/// <summary>
 		/// Creates a new bullet object at a point on-screen for either the player or some monster.
 		/// </summary>
 		/// <param name="where">Spawn position.</param>
 		/// <param name="dest">Target for vector of motion from spawn position.</param>
-		/// <param name="damage"></param>
+		/// <param name="power"></param>
 		/// <param name="which">Projectile behaviour, also determines whether player or not.</param>
-		private static void SpawnBullet(Vector2 where, Vector2 dest, int damage, BulletType which)
+		private static void SpawnBullet(Vector2 where, Vector2 dest, int power, BulletType which)
 		{
 			// Rotation to aim towards target
 			var radiansBetween = Vector.RadiansBetween(dest, where);
@@ -821,10 +884,12 @@ namespace Hikawa
 
 			// Add the bullet to the active lists for the respective spawner
 			if (which == BulletType.Player)
-				_playerBullets.Add(new Bullet(collisionBox, motion, radiansBetween, which, dest));
+				_playerBullets.Add(new Bullet(which, power, collisionBox, motion, radiansBetween, dest));
 			else
-				_enemyBullets.Add(new Bullet(collisionBox, motion, radiansBetween, which, dest));
+				_enemyBullets.Add(new Bullet(which, power, collisionBox, motion, radiansBetween, dest));
 		}
+
+		#endregion
 
 		#region Per-tick updates
 
@@ -839,7 +904,6 @@ namespace Hikawa
 				switch (_cutscenePhase)
 				{
 					case 0:
-					{
 						if (_cutsceneTimer >= TimeToTitleBeforeWhite)
 						{
 							// Move the lightshaft V/ texture across the screen
@@ -851,44 +915,35 @@ namespace Hikawa
 							Game1.playSound("wand");
 						}
 						break;
-					}
 					case 1:
-					{
 						if (_cutsceneTimer >= TimeToTitlePhase1)
 						{
 							++_cutscenePhase;
 							Game1.playSound("drumkit6");
 						}
 						break;
-					}
 					case 2:
-					{
 						if (_cutsceneTimer >= TimeToTitlePhase2)
 						{
 							++_cutscenePhase;
 							Game1.playSound("drumkit6");
 						}
 						break;
-					}
 					case 3:
-					{
 						if (_cutsceneTimer >= TimeToTitlePhase3)
 						{
 							++_cutscenePhase;
 							Game1.playSound("drumkit6");
 						}
 						break;
-					}
 					case 4:
-					{
 						if (_cutsceneTimer < TimeToTitlePhase4)
 							_cutsceneTimer = TimeToTitlePhase4;
 						break;
-					}
 					case 5:
 						// End the cutscene and begin the game
 						// after the user clicks past the end of intro cutscene (phase 4)
-						whichPlaythrough = -1;
+						_whichPlaythrough = -1;
 						StartNewPlaythrough();
 						Game1.playSound("cowboy_gunload");
 						break;
@@ -903,6 +958,29 @@ namespace Hikawa
 			}
 		}
 
+		public void OnSecondUpdate()
+		{
+			// Gameplay checks
+			if (!_onTitleScreen && _cutsceneTimer <= 0 && _player.SpecialTimer <= 0 && _player.PowerTimer <= 0)
+			{
+				// Count down stage timer
+				if (_stageMilliseconds <= 0)
+				{
+					//GameOver(); // todo re-enable game over by timeout
+					_stageMilliseconds = StageTimeInitial;
+				}
+
+				// todo: remove DEBUG cake spawning
+				if (Game1.random.NextDouble() > 0.75d)
+				{
+					var where = new Vector2(
+						Game1.random.Next(_gamePixelDimen.X + TD * SpriteScale, _gameEndPixel.X - TD * SpriteScale),
+						Game1.random.Next(_gamePixelDimen.Y + TD * SpriteScale, _gameEndPixel.Y - TD * SpriteScale / 2));
+					SpawnPowerup(LootDrops.Cake, where);
+				}
+			}
+		}
+
 		public bool tick(GameTime time)
 		{
 			/* Game Management */
@@ -912,20 +990,7 @@ namespace Hikawa
 
 			// Per-second checks
 			if ((_stageMilliseconds / elapsedGameTime.Milliseconds) % (1000 / elapsedGameTime.Milliseconds) == 0)
-			{
-				if (!_onTitleScreen && _cutsceneTimer <= 0 && _player.SpecialTimer <= 0 && _player.PowerTimer <= 0)
-				{
-					// Count up total playthrough timer
-					++_totalTimer;
-
-					// Count down stage timer
-					if (--_stageTimer <= 0)
-					{
-						//GameOver(); // todo re-enable game over by timeout
-						_stageTimer = DefaultStageTimeLimit;
-					}
-				}
-			}
+				OnSecondUpdate();
 
 			// Exit the game
 			if (_player.HasPlayerQuit)
@@ -1029,7 +1094,6 @@ namespace Hikawa
 					_temporaryAnimatedSprites.RemoveAt(i);
 			}
 
-
 			/* Game Activity */
 
 			if (!_onTitleScreen && _cutsceneTimer <= 0)
@@ -1056,7 +1120,11 @@ namespace Hikawa
 						_player.RespawnTimer -= elapsedGameTime.Milliseconds;
 					// Run down the stage timer while alive
 					else
-						_stageMilliseconds += elapsedGameTime.Milliseconds;
+					{
+						_stageMilliseconds -= elapsedGameTime.Milliseconds;
+						// Count up total playthrough timer
+						++_totalTime;
+					}
 
 					// Handle player movement
 					if (_player.MovementDirections.Count > 0)
@@ -1066,14 +1134,14 @@ namespace Hikawa
 							case Move.Right:
 								_player.SpriteMirror = SpriteEffects.None;
 								if (_player.Position.X + _player.CollisionBox.Width < _gameEndPixel.X)
-									_player.Position.X += GameMoveSpeed;
+									_player.Position.X += _player.Speed;
 								else
 									_player.Position.X = _gameEndPixel.X - _player.CollisionBox.Width;
 								break;
 							case Move.Left:
 								_player.SpriteMirror = SpriteEffects.FlipHorizontally;
 								if (_player.Position.X > _gamePixelDimen.X)
-									_player.Position.X -= GameMoveSpeed;
+									_player.Position.X -= _player.Speed;
 								else
 									_player.Position.X = _gamePixelDimen.X;
 								break;
@@ -1135,6 +1203,139 @@ namespace Hikawa
 		}
 
 		/// <summary>
+		/// Renders a number digit-by-digit on screen to the target rectangle using the arcade number sprites.
+		/// </summary>
+		/// <param name="number">Number to draw.</param>
+		/// <param name="maxDigits">Number of digits to draw. Will draw leading zeroes if number is shorter.</param>
+		/// <param name="drawLeftToRight">Whether the X origin is a start or end point. Number will not be reversed.</param>
+		/// <param name="where">Target rectangle to draw to, corrected to SpriteScale.</param>
+		/// <param name="origin">Offset of x,y coordinates to draw to.</param>
+		/// <param name="layerDepth">Occlusion value between 0f and 1f.</param>
+		private static void DrawDigits(SpriteBatch b, int number, int maxDigits, bool drawLeftToRight, 
+			Rectangle where, Vector2 origin, float layerDepth)
+		{
+			var destX = drawLeftToRight 
+				? where.X + maxDigits * HudDigitSprite.Width * SpriteScale
+				: where.X;
+			var digits = 1;
+			var divisor = 1;
+			while (digits <= maxDigits)
+			{
+				var index = number >= divisor 
+					? (number % (divisor * 10)) / divisor 
+					: 0;
+				b.Draw(
+					_arcadeTexture,
+					new Rectangle(
+						destX - HudDigitSprite.Width * SpriteScale * digits,
+						 where.Y,
+						 where.Width * SpriteScale,
+						 where.Height * SpriteScale),
+					new Rectangle(
+						HudDigitSprite.X + HudDigitSprite.Width * index,
+						HudDigitSprite.Y,
+						HudDigitSprite.Width,
+						HudDigitSprite.Height),
+					Color.White,
+					0.0f,
+					origin,
+					SpriteEffects.None,
+					layerDepth);
+
+				divisor *= 10;
+				digits++;
+			}
+		}
+
+		/// <summary>
+		/// Renders in-game UI elements to show player and stage state.
+		/// Health, energy, score, world and stage, stage time remaining, stage progress, ...
+		/// </summary>
+		private static void DrawHud(SpriteBatch b)
+		{
+			// Note: draw all HUD elements to depth 1f to show through flashes, effects, objects, etc.
+
+			// todo: Draw enemy health bar to destrect width * health / healthmax
+			//			or Draw enemy health bar as icons onscreen (much nicer)
+
+			// todo: draw extra flair around certain hud elements
+			// see 1581165827502.jpg of viking with hud
+
+			// Player total score
+			DrawDigits(b, _totalScore, 8, true,
+				new Rectangle(_hudScoreDstX, _hudScoreDstY, HudDigitSprite.Width, HudDigitSprite.Height),
+				Vector2.Zero, 1f);
+
+			// Stage time remaining countdown
+			b.Draw(
+				_arcadeTexture,
+				new Rectangle(
+					_hudTimeDstX - HudDigitSprite.Width * (StageTimeHudDigits + 1) * SpriteScale,
+					_hudTimeDstY,
+					TD * SpriteScale, 
+					TD * SpriteScale),
+				new Rectangle( // HARD Y
+					TD * 14,
+					0,
+					TD,
+					TD),
+				Color.White,
+				0f,
+				Vector2.Zero,
+				SpriteEffects.None,
+				1f);
+			if (_stageMilliseconds >= 10000 
+			    || _stageMilliseconds < 10000 && _stageMilliseconds % 1000 < 250)
+				DrawDigits(b, _stageMilliseconds / 1000, StageTimeHudDigits, false,
+					new Rectangle(_hudTimeDstX, _hudTimeDstY, HudDigitSprite.Width, HudDigitSprite.Height),
+					Vector2.Zero, 1f);
+
+			for (var i = 0; i < _player.Health; ++i)
+			{
+				// Player health icons
+				b.Draw(
+					_arcadeTexture,
+					new Rectangle(
+						_hudLifeDstX + HudLifeSprite.Width * SpriteScale * i,
+						_hudLifeDstY,
+						HudLifeSprite.Width * SpriteScale,
+						HudLifeSprite.Height * SpriteScale),
+					new Rectangle(
+						HudLifeSprite.X,
+						HudLifeSprite.Y,
+						HudLifeSprite.Width,
+						HudLifeSprite.Height),
+					Color.White,
+					0.0f,
+					Vector2.Zero,
+					SpriteEffects.None,
+					1f);
+			}
+
+			for (var i = 0; i < _player.Energy; ++i)
+			{
+				// Player energy icons
+				b.Draw(
+					_arcadeTexture,
+					new Rectangle(
+						_hudEnergyDstX + HudEnergySprite.Width * SpriteScale * i,
+						_hudEnergyDstY,
+						HudEnergySprite.Width * SpriteScale,
+						HudEnergySprite.Height * SpriteScale),
+					new Rectangle(
+						HudEnergySprite.X,
+						HudEnergySprite.Y,
+						HudEnergySprite.Width,
+						HudEnergySprite.Height),
+					Color.White,
+					0.0f,
+					Vector2.Zero,
+					SpriteEffects.None,
+					1f);
+			}
+		}
+
+		/// <summary>
 		/// Renders in-game stage background elements.
 		/// </summary>
 		private static void DrawBackground(SpriteBatch b)
@@ -1191,109 +1392,6 @@ namespace Hikawa
 						SpriteEffects.None,
 						0f);
 					break;
-			}
-		}
-
-		/// <summary>
-		/// Renders a number digit-by-digit on screen to the target rectangle using the arcade number sprites.
-		/// </summary>
-		/// <param name="number">Number to draw.</param>
-		/// <param name="maxDigits">Number of digits to draw. Will draw leading zeroes if number is shorter.</param>
-		/// <param name="where">Target rectangle to draw to, corrected to SpriteScale.</param>
-		/// <param name="origin">Offset of x,y coordinates to draw to.</param>
-		/// <param name="layerDepth">Occlusion value between 0f and 1f.</param>
-		private static void DrawDigits(SpriteBatch b, int number, int maxDigits, 
-			Rectangle where, Vector2 origin, float layerDepth)
-		{
-			var digits = 1;
-			var divisor = 1;
-			while (number > divisor)
-			{
-				var index = (number % (divisor * 10)) / divisor;
-				b.Draw(
-					_arcadeTexture,
-					new Rectangle( // Draws in reverse from end of screen
-						where.X- HudDigitSprite.Width * SpriteScale * digits,
-						 where.Y,
-						 where.Width * SpriteScale,
-						 where.Height * SpriteScale),
-					new Rectangle(
-						HudDigitSprite.X + HudDigitSprite.Width * index,
-						HudDigitSprite.Y,
-						HudDigitSprite.Width,
-						HudDigitSprite.Height),
-					Color.White,
-					0.0f,
-					origin,
-					SpriteEffects.None,
-					layerDepth);
-
-				divisor *= 10;
-				digits++;
-			}
-		}
-
-		/// <summary>
-		/// Renders in-game UI elements to show player and stage state.
-		/// Health, energy, score, world and stage, stage time remaining, stage progress, ...
-		/// </summary>
-		private static void DrawHud(SpriteBatch b)
-		{
-			// todo: Draw enemy health bar to destrect width * health / healthmax
-			//			or Draw enemy health bar as icons onscreen (much nicer)
-
-			// Note: draw all HUD elements to depth 1f to show through flashes, effects, objects, etc.
-
-			// todo: draw extra flair around certain hud elements
-			// see 1581165827502.jpg of viking with hud
-
-			// Stage time remaining countdown
-			DrawDigits(b, _stageTimer, 3,
-				new Rectangle(HudTimeDstX, HudTimeDstY, HudDigitSprite.Width, HudDigitSprite.Height),
-				Vector2.Zero, 1f);
-
-			for (var i = 0; i < _player.Health; ++i)
-			{
-				// Player health icons
-				b.Draw(
-					_arcadeTexture,
-					new Rectangle(
-						HudLifeDstX + HudLifeSprite.Width * SpriteScale * i,
-						HudLifeDstY,
-						HudLifeSprite.Width * SpriteScale,
-						HudLifeSprite.Height * SpriteScale),
-					new Rectangle(
-						HudLifeSprite.X,
-						HudLifeSprite.Y,
-						HudLifeSprite.Width,
-						HudLifeSprite.Height),
-					Color.White,
-					0.0f,
-					Vector2.Zero,
-					SpriteEffects.None,
-					1f);
-			}
-
-			for (var i = 0; i < _player.Energy; ++i)
-			{
-				// Player energy icons
-				b.Draw(
-					_arcadeTexture,
-					new Rectangle(
-						HudEnergyDstX + HudEnergySprite.Width * SpriteScale * i,
-						HudEnergyDstY,
-						HudEnergySprite.Width * SpriteScale,
-						HudEnergySprite.Height * SpriteScale),
-					new Rectangle(
-						HudEnergySprite.X,
-						HudEnergySprite.Y,
-						HudEnergySprite.Width,
-						HudEnergySprite.Height),
-					Color.White,
-					0.0f,
-					Vector2.Zero,
-					SpriteEffects.None,
-					1f);
 			}
 		}
 
@@ -1551,7 +1649,7 @@ namespace Hikawa
 					text2,
 					new Vector2(_gamePixelDimen.X, _gamePixelDimen.Y) 
 					+ new Vector2(6f, 9f) * TD 
-					+ new Vector2(0.0f, 2 / 3),
+					+ new Vector2(0.0f, 2f / 3f),
 					Color.White,
 					0.0f,
 					Vector2.Zero,
@@ -1626,7 +1724,7 @@ namespace Hikawa
 				_player.Draw(b);
 				DrawHud(b);
 				if (ModEntry.Instance.Config.DebugMode)
-					DrawTracer(b); // DEBUG
+					DrawTracer(b); // todo: remove DEBUG tracer
 
 				// Draw game objects
 				foreach (var bullet in _playerBullets)
@@ -1680,68 +1778,85 @@ namespace Hikawa
 		public abstract class ArcadeActor : ArcadeObject
 		{
 			public int Health;
+			public int HealthMax;
+			public int Speed;
+			public int SpeedMax;
+			public int Power;
+			public BulletType BulletType;
+
+			public int FireTimer;
+			public int InvisibleTimer;
+			public int InvincibleTimer;
 
 			public int AnimationPhase;
-			public float AnimationTimer;
+			public int AnimationTimer;
 
 			protected ArcadeActor() { }
 
 			protected ArcadeActor(int health, Rectangle collisionBox) : base(collisionBox)
 			{
-				Health = health;
+				HealthMax = health;
+				Health = HealthMax;
 			}
 
-			public virtual bool TakeDamage(int damage)
+			internal virtual bool TakeDamage(int damage)
 			{
 				// Reduce health and check for death
 				Health = Math.Max(0, Health - damage);
 				return Health > 0;
 			}
-			public abstract void BeforeDeath();
-			public abstract void Die();
+
+			internal abstract void Fire(Vector2 target);
+			internal abstract void BeforeDeath();
+			protected abstract void Die();
 		}
 
 		public class Player : ArcadeActor
 		{
 			public int Lives;
 			public int Energy;
+			public int EnergyMax;
 			public SpecialPower ActiveSpecialPower;
 			public bool HasPlayerQuit;
 			public List<Move> MovementDirections = new List<Move>();
 			public Vector2 LastAimVector = Vector2.Zero;
 
-			public int FireTimer;
 			public int SpecialTimer;
 			public int PowerTimer;
-			public int InvincibleTimer;
-			public float RespawnTimer;
+			public int RespawnTimer;
 
 			public Player()
 			{
+				SetStats();
 				Reset();
 			}
 
-			public void Reset()
+			private void SetStats()
 			{
-				ResetLife();
-				ResetEnergy();
+				BulletType = BulletType.Player;
+				Power = 1;
+				HealthMax = 4;
+				SpeedMax = 5;
+				EnergyMax = 7;
+			}
+
+			internal void Reset()
+			{
+				ResetStats();
 				ResetPosition();
 				ResetTimers();
 			}
 
-			public void ResetLife()
+			private void ResetStats()
 			{
-				Health = GameHealthMax;
+				Health = HealthMax;
 				Lives = GameLivesDefault;
-			}
-
-			public void ResetEnergy()
-			{
-				Energy = GameEnergyMax; // todo: return to 0
+				Speed = SpeedMax;
+				Energy = EnergyMax; // todo: return to 0
 				ActiveSpecialPower = SpecialPower.None;
 			}
 
-			public void ResetPosition()
+			private void ResetPosition()
 			{
 				SpriteMirror = SpriteEffects.None;
 				MovementDirections.Clear();
@@ -1749,27 +1864,28 @@ namespace Hikawa
 				// Spawn in the bottom-centre of the playable window
 				Position = new Vector2(
 					_gamePixelDimen.X + _gamePixelDimen.Width / 2 + PlayerW * SpriteScale / 2,
-					_gamePixelDimen.Y + _gamePixelDimen.Height - PlayerFullH * SpriteScale
+					_gamePixelDimen.Y + _gamePixelDimen.Height - PlayerFullH * SpriteScale - TD * SpriteScale / 2
 				);
 				// Player bounding box only includes the bottom 2/3rds of the sprite
 				CollisionBox = new Rectangle(
 					(int)Position.X,
-					(int)Position.Y,
+					(int)Position.Y + PlayerFullH - PlayerSplitWH,
 					PlayerW * SpriteScale,
 					PlayerSplitWH * SpriteScale);
 
 				//Log.D("player:" + $"\nx = {CollisionBox.X}, y = {CollisionBox.Y}, w = {CollisionBox.Width}, h = {CollisionBox.Height}");
 			}
 
-			public void ResetTimers()
+			private void ResetTimers()
 			{
 				AnimationPhase = 0;
 				AnimationTimer = 0;
 				FireTimer = 0;
 				SpecialTimer = 0;
 				PowerTimer = 0;
+				//InvisibleTimer = 0;
 				//InvincibleTimer = 0;
-				RespawnTimer = 0.0f;
+				RespawnTimer = 0;
 			}
 
 			/// <summary>
@@ -1777,27 +1893,31 @@ namespace Hikawa
 			/// </summary>
 			/// <param name="damage">Amount of health to remove at once.</param>
 			/// <returns>Whether the player will survive.</returns>
-			public override bool TakeDamage(int damage)
+			internal override bool TakeDamage(int damage)
 			{
 				var survives = base.TakeDamage(damage);
-				if (!survives)
-					return false;
+				if (survives)
+				{
+					// todo: animate player
 
-				// todo: animate player
+					// Flash translucent red
+					_screenFlashColor = new Color(new Vector4(255, 0, 0, 0.25f));
+					_screenFlashTimer = 200;
+					// Grant momentary invincibility
+					InvincibleTimer = GameInvincibleDelay;
+				}
+				else
+				{
+					_player.BeforeDeath();
+				}
 
-				// Flash translucent red
-				_screenFlashColor = new Color(new Vector4(255, 0, 0, 0.25f));
-				_screenFlashTimer = 200;
-				// Grant momentary invincibility
-				InvincibleTimer = GameInvincibleDelay;
-
-				return true;
+				return survives;
 			}
 
 			/// <summary>
 			/// Pre-death effects.
 			/// </summary>
-			public override void BeforeDeath()
+			internal override void BeforeDeath()
 			{
 				// todo: fill this function with pre-death animation timer etc
 
@@ -1808,7 +1928,7 @@ namespace Hikawa
 			/// <summary>
 			/// Deducts a life from the player and starts a respawn or restart game countdown.
 			/// </summary>
-			public override void Die()
+			protected override void Die()
 			{
 				// todo: understand wtf this function does
 
@@ -1871,14 +1991,14 @@ namespace Hikawa
 						endFunction = GameOverCheck
 					});
 
-				RespawnTimer *= 3f;
+				RespawnTimer *= 3;
 			}
 
 			/// <summary>
 			/// 
 			/// </summary>
 			/// <param name="extra">Inherited from endFunction in TemporaryAnimtedSprite.</param>
-			public void GameOverCheck(int extra)
+			internal void GameOverCheck(int extra)
 			{
 				// todo probably remove this function, this and Die() are messed up entirely
 
@@ -1892,48 +2012,59 @@ namespace Hikawa
 				++Game1.currentLocation.currentEvent.CurrentCommand; // ??????
 			}
 
-			public void Respawn()
+			internal void Respawn()
 			{
 				InvincibleTimer = GameInvincibleDelay;
-				Health = GameHealthMax;
+				Health = HealthMax;
 			}
 
-			public void AddMovementDirection(Move direction)
+			internal void AddMovementDirection(Move direction)
 			{
-				if (MovementDirections.Contains(direction))
-					return;
+				if (MovementDirections.Contains(direction)) return;
 				MovementDirections.Add(direction);
 			}
 
-			public void PickupLoot(Powerup loot)
+			internal void PickupLoot(Powerup loot)
 			{
 				switch (loot.Type)
 				{
 					case LootDrops.Cake:
-					{
-						if (loot.TextureRect.Y == 0)
-							_totalScore += ScoreBread; // makito bonus
-						_totalScore += ScoreCake + loot.TextureRect.X / CakeSprite.Width * 500;
+						if (loot.TextureRect.Y == 0) // maki maki makito
+						{
+							Game1.playSound("crystal");
+							AddScore(ScoreBread);
+						}
+						else
+						{
+							Game1.playSound("coin");
+							AddScore(ScoreCake + loot.TextureRect.X / CakeSprite.Width * ScoreCakeExtra);
+						}
 						break;
-					}
 					case LootDrops.Life:
-					{
-						Health = Math.Min(GameHealthMax, Health + 1);
+						Game1.playSound("powerup");
+						Health = Math.Min(HealthMax, Health + 1);
 						break;
-					}
+					case LootDrops.Energy:
+						Game1.playSound("powerup");
+						Energy = Math.Min(EnergyMax, Energy + 1);
+						break;
+					case LootDrops.Time:
+						Game1.playSound("reward");
+						_stageMilliseconds = Math.Min(StageTimeMax, _stageMilliseconds + StageTimeExtra);
+						break;
 				}
 			}
 
-			public void SpecialStart()
+			internal void SpecialStart()
 			{
 				AnimationPhase = 0;
 				SpecialTimer = 1;
 			}
 
-			public void SpecialEnd()
+			internal void SpecialEnd()
 			{
 				// Energy levels between 0 and the low-threshold will use a light special power
-				ActiveSpecialPower = Energy >= GameEnergyMax
+				ActiveSpecialPower = Energy >= EnergyMax
 					? SpecialPower.Normal
 					: SpecialPower.Megaton;
 
@@ -1941,7 +2072,7 @@ namespace Hikawa
 				SpecialTimer = 0;
 			}
 
-			public void PowerEnd()
+			internal void PowerEnd()
 			{
 				ActiveSpecialPower = SpecialPower.None;
 				AnimationPhase = 0;
@@ -1949,23 +2080,19 @@ namespace Hikawa
 				Energy = 0;
 			}
 
-			public void Fire()
+			internal override void Fire(Vector2 target)
 			{
 				// Position the source around the centre of the player
 				var src = new Vector2(
-					Position.X + PlayerW / 2 * SpriteScale,
-					Position.Y + PlayerSplitWH / 2 * SpriteScale);
+					CollisionBox.X + CollisionBox.Width / 2,
+					CollisionBox.Y + CollisionBox.Height / 2);
 
-				// Position the target on the centre of the cursor
-				var dest = new Vector2(
-					Helper.Input.GetCursorPosition().ScreenPixels.X + TD / 2 * CursorScale,
-					Helper.Input.GetCursorPosition().ScreenPixels.Y + TD / 2 * CursorScale);
-				SpawnBullet(src, dest, GamePlayerDamage, BulletType.Player);
+				SpawnBullet(src, target, Power, BulletType);
 				FireTimer = GameFireDelay;
 
 				// Mirror player sprite to face target
 				if (MovementDirections.Count == 0)
-					SpriteMirror = dest.X < Position.X + CollisionBox.Width / 2
+					SpriteMirror = target.X < Position.X + CollisionBox.Width / 2
 						? SpriteEffects.FlipHorizontally
 						: SpriteEffects.None;
 
@@ -2165,7 +2292,7 @@ namespace Hikawa
 							0.0f,
 							Vector2.Zero,
 							SpriteMirror,
-							Position.Y / 10000f + i / 1000f + 1f / 1000f);
+							Position.Y / 10000f - i / 1000f + 1f / 1000f);
 					}
 				}
 			}
@@ -2173,16 +2300,25 @@ namespace Hikawa
 
 		public class Monster : ArcadeActor
 		{
-			private Color _tint = Color.White;
-			private Color _flashColor = Color.Red;
-
 			public MonsterSpecies Species;
-			public float FlashColorTimer;
-			public int TicksSinceLastMovement;
+			public bool Flying;
+			public Rectangle MovementTarget;
+
+			public int BulletsPerFire;
+			public int IdleTimer;
+			public int HurtTimer;
 
 			public Monster(MonsterSpecies species, int health, Rectangle collisionBox) : base(health, collisionBox)
 			{
 				Species = species;
+				switch (species)
+				{
+					default:
+						Flying = false;
+						BulletsPerFire = 1;
+						MovementTarget = new Rectangle();
+						break;
+				}
 			}
 
 			/// <summary>
@@ -2190,21 +2326,30 @@ namespace Hikawa
 			/// </summary>
 			/// <param name="damage">Amount of health to remove at once.</param>
 			/// <returns>Whether the monster will survive.</returns>
-			public override bool TakeDamage(int damage)
+			internal override bool TakeDamage(int damage)
 			{
 				++_totalShotsSuccessful;
 
 				var survives = base.TakeDamage(damage);
-				if (!survives)
-					return false;
+				if (survives)
+					HurtTimer = 120;
+				else
+					BeforeDeath();
 
-				_flashColor = Color.Red;
-				FlashColorTimer = 100f;
-				return true;
+				return survives;
 			}
 
-			public override void BeforeDeath()
+			internal override void Fire(Vector2 where)
 			{
+
+			}
+
+			internal override void BeforeDeath()
+			{
+				// Reward points
+				++_totalMonstersBonked;
+				AddScore(MonsterScore[Species]);
+
 				// Throw loot upon dying
 				GetLootDrop(new Rectangle(
 					CollisionBox.X + CollisionBox.Width / 2,
@@ -2212,13 +2357,10 @@ namespace Hikawa
 					TD,
 					TD));
 
-				// todo: literally anything at all
-				// animations, counters, something
-
 				Die();
 			}
 
-			public override void Die()
+			protected override void Die()
 			{
 				_enemies.Remove(this);
 			}
@@ -2227,7 +2369,7 @@ namespace Hikawa
 			/// Create a new Powerup object at some position.
 			/// </summary>
 			/// <param name="collisionBox">Spawn position and touch bounds.</param>
-			public virtual void GetLootDrop(Rectangle collisionBox)
+			internal virtual void GetLootDrop(Rectangle collisionBox)
 			{
 				var rand = Game1.random.NextDouble();
 				var which = LootDrops.None;
@@ -2238,10 +2380,67 @@ namespace Hikawa
 				else if (rand < 0.2)
 					which = LootDrops.Cake;
 				if (which != LootDrops.None)
-					_powerups.Add(new Powerup(which, collisionBox));
+					SpawnPowerup(
+						which,
+						new Vector2(collisionBox.X, collisionBox.Y));
 			}
 
-			public override void Update() { }
+			internal virtual void OnReachedMovementTarget()
+			{
+				switch (Species)
+				{
+					default:
+						// todo reset move target for some species
+						if (FireTimer <= 0)
+							FireTimer = 300;
+						if (IdleTimer <= 0)
+							IdleTimer = 120;
+						break;
+				}
+			}
+
+			internal virtual void GetNewMovementTarget()
+			{
+				var x = 0;
+				var y = 0;
+				if (Flying)
+				{
+					// todo: flying enemem
+				}
+				else
+				{
+					x = Position.X + Game1.random.NextDouble() * Position.X < _gamePixelDimen.X / 2 ? 1 : -1;
+					y = (int) Position.Y;
+				}
+				MovementTarget = new Rectangle(x, y, CollisionBox.Width, CollisionBox.Height);
+			}
+
+			public override void Update()
+			{
+				// Run down hurt frames
+				if (HurtTimer > 0) 
+					--HurtTimer;
+
+				// Movement
+				if (HurtTimer <= 0)
+				{
+					if (MovementTarget != Rectangle.Empty)
+					{
+						if (Math.Abs(Position.X - MovementTarget.X) < Speed)
+							Position.X += Speed * Position.X < MovementTarget.X ? 1 : -1;
+						if (Math.Abs(Position.Y - MovementTarget.Y) < Speed)
+							Position.Y += Speed * Position.Y < MovementTarget.Y ? 1 : -1;
+					}
+					else if (CollisionBox.Intersects(MovementTarget))
+						OnReachedMovementTarget();
+					// While neither firing or pausing after firing
+					else if (FireTimer <= 0 && IdleTimer <= 0)
+					{
+						if (MovementTarget == Rectangle.Empty)
+							GetNewMovementTarget();
+					}
+				}
+			}
 
 			public override void Draw(SpriteBatch b)
 			{
@@ -2255,10 +2454,14 @@ namespace Hikawa
 						0,
 						16,
 						16),
-					Color.White,
+					HurtTimer <= 0 
+						? Color.White
+						: Color.Red,
 					0.0f,
 					Vector2.Zero,
-					SpriteScale,
+					CollisionBox.Y < _gamePixelDimen.Height / 2 
+						? SpriteScale / 2
+						: SpriteScale,
 					SpriteEffects.None,
 					(float)(Position.Y / 10000.0 + 1.0 / 1000.0));
 			}
@@ -2273,14 +2476,10 @@ namespace Hikawa
 
 			public Powerup(LootDrops type, Rectangle collisionBox) : base(collisionBox)
 			{
-				Type = type;
-				Duration = LootDurations[type] * 1000;
-
 				// Pick a texture for the powerup drop
 				switch (type)
-				{
+				{ // HARD Y
 					case LootDrops.Cake:
-					{
 						// Decide which cake to show (or makito)
 						var x = 0;
 						var y = 0;
@@ -2293,23 +2492,26 @@ namespace Hikawa
 						}
 						else
 						{
-							Log.D("Chose MAKITO");
+							Log.D("Chose makito");
 						}
 
 						TextureRect = new Rectangle(TD * x, TD * y, TD, TD);
 						break;
-					}
 					case LootDrops.Life:
-					{
 						TextureRect = new Rectangle(TD * 12, 0, TD, TD);
 						break;
-					}
 					case LootDrops.Energy:
-					{
 						TextureRect = new Rectangle(TD * 13, 0, TD, TD);
 						break;
-					}
+					case LootDrops.Time:
+						TextureRect = new Rectangle(TD * 14, 0, TD, TD);
+						break;
+					default:
+						return;
 				}
+
+				Type = type;
+				Duration = LootDurations[type] * 1000;
 			}
 
 			/// <summary>
@@ -2318,8 +2520,16 @@ namespace Hikawa
 			public override void Update()
 			{
 				// Powerup expired
-				if (Duration <= 0)
+				if (--Duration <= 0)
+				{
+					Log.D($"{Type} expired at {CollisionBox.X}, {CollisionBox.Y}");
 					_powerups.Remove(this);
+				}
+
+				// Powerup dropping in from spawn
+				var endpoint = _player.CollisionBox.Y + _player.CollisionBox.Height - CollisionBox.Height;
+				if (CollisionBox.Y < endpoint)
+					CollisionBox.Y = Math.Min(endpoint, CollisionBox.Y + 4 * SpriteScale);
 
 				if (!CollisionBox.Intersects(_player.CollisionBox)) return;
 
@@ -2330,30 +2540,30 @@ namespace Hikawa
 
 			public override void Draw(SpriteBatch b)
 			{
-				if (Duration <= 2000 && Duration / 200 % 2 != 0)
-					return;
+				if (Duration <= 2000 && Duration / 200 % 2 != 0) return;
 
 				b.Draw(
 					_arcadeTexture,
 					new Vector2(
-						_gamePixelDimen.X + CollisionBox.X, 
-						_gamePixelDimen.Y + CollisionBox.Y + YOffset),
+						CollisionBox.X, 
+						CollisionBox.Y + YOffset),
 					new Rectangle(
-						TD,
-						0, 
-						16, 
-						16),
+						TextureRect.X,
+						TextureRect.Y,
+						TextureRect.Width,
+						TextureRect.Height),
 					Color.White,
 					0.0f,
 					Vector2.Zero,
 					SpriteScale,
 					SpriteEffects.None,
-					(float)(CollisionBox.Y / 10000.0 + 1.0 / 1000.0));
+					CollisionBox.Y / 10000f + 1f / 1000f);
 			}
 		}
 		
 		public class Bullet : ArcadeObject
 		{
+			public int Power;
 			public Vector2 Motion;          // Line of motion between spawn and dest
 			public Vector2 MotionCur;       // Current position along vector of motion between spawn and dest
 			public float Rotation;          // Angle of vector between spawn and dest
@@ -2363,16 +2573,15 @@ namespace Hikawa
 			public Vector2 Start;
 			public Vector2 Target; // DEBUG - target to draw line towards
 
-			public Bullet(Rectangle collisionBox, Vector2 motion, float rotation, BulletType type, Vector2 target)
+			public Bullet(BulletType type, int power, Rectangle collisionBox, Vector2 motion, float rotation, Vector2 target)
 				: base(collisionBox)
 			{
-				Motion = motion;
-				Rotation = rotation;
 				Type = type;
-				
-				Motion = motion;
+				Power = power;
 
+				Motion = motion;
 				MotionCur = motion;
+				Rotation = rotation;
 				RotationCur = type == BulletType.Player ? 0f : rotation;
 
 				Start = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
@@ -2392,9 +2601,9 @@ namespace Hikawa
 					for (var j = _enemies.Count - 1; j >= 0; --j)
 					{
 						if (!CollisionBox.Intersects(_enemies[j].CollisionBox)) continue;
-						if (_enemies[j].TakeDamage(GamePlayerDamage)) continue;
-						_enemies[j].Die();
 						_playerBullets.Remove(this);
+						if (_enemies[j].HurtTimer > 0)
+							_enemies[j].TakeDamage(Power);
 					}
 				}
 				else
@@ -2402,14 +2611,9 @@ namespace Hikawa
 					// Damage the player
 					if (_player.InvincibleTimer <= 0 && _player.RespawnTimer <= 0f)
 					{
+						_enemyBullets.Remove(this);
 						if (CollisionBox.Intersects(_player.CollisionBox))
-						{
-							if (!_player.TakeDamage(GameEnemyDamage))
-							{
-								_player.BeforeDeath();
-								_enemyBullets.Remove(this);
-							}
-						}
+							_player.TakeDamage(Power);
 					}
 				}
 

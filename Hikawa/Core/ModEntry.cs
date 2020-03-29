@@ -62,6 +62,7 @@ namespace Hikawa
 		{
 		}
 
+
 		/// <summary>
 		/// Pre-start of day
 		/// </summary>
@@ -336,16 +337,23 @@ namespace Hikawa
 			}
 			else if (btn.Equals(Config.DebugWarpShrine))
 			{
-				Log.D($"Pressed {btn} : Warping to {ModConsts.ShrineMapId}",
-					Config.DebugMode);
+				var mapId = "";
 				if (true)
+				{
+					mapId = "Town";
 					Game1.player.warpFarmer(
-						new Warp(0, 0, "Town",
+						new Warp(0, 0, mapId,
 							20, 5, true));
+				}
 				else
+				{
+					mapId = ModConsts.ShrineMapId;
 					Game1.player.warpFarmer(
-						new Warp(0, 0, ModConsts.ShrineMapId,
+						new Warp(0, 0, mapId,
 							19, 60, false));
+				}
+				Log.D($"Pressed {btn} : Warping to {mapId}",
+					Config.DebugMode);
 			}
 		}
 
