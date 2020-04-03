@@ -13,6 +13,7 @@ using StardewValley.Minigames;
 
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley.Locations;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa
@@ -51,6 +52,39 @@ namespace Hikawa
 			Sulphur,
 			Incense
 		}
+		public enum PowerPhase
+		{
+			None,
+			BeforeActive1,
+			BeforeActive2,
+			Active1,
+			Active2,
+			Active3,
+			Active4,
+			AfterActive1,
+			AfterActive2
+		}
+		// Player special power animation
+		private const int TimeToSpecialPhase1 = 1000; // stand ahead
+		private const int TimeToSpecialPhase2 = TimeToSpecialPhase1 + 1400; // raise compact
+
+		// World special power effects
+		private const int TimeToPowerPhase1 = 1500; // activation
+		private const int TimeToPowerPhase2 = TimeToPowerPhase1 + 3500; // white glow
+		private const int TimeToPowerPhase3 = TimeToPowerPhase2 + 1500; // cooldown
+
+		private static readonly Dictionary<PowerPhase, int> PowerPhaseDurations = new Dictionary<PowerPhase, int>
+		{
+			{ PowerPhase.None, 400 },
+			{ PowerPhase.BeforeActive1, 200 },
+			{ PowerPhase.BeforeActive2, 400 },
+			{ PowerPhase.Active1, 1000 },
+			{ PowerPhase.Active2, 500 },
+			{ PowerPhase.Active3, 500 },
+			{ PowerPhase.Active4, 250 },
+			{ PowerPhase.AfterActive1, 400 },
+			{ PowerPhase.AfterActive2, 400 },
+		};
 		public enum PowerAnimationFrameGroup
 		{
 			None = 0,
@@ -63,59 +97,125 @@ namespace Hikawa
 		public enum BulletType
 		{
 			None,
-			Player,
-			Bullet,
-			Bomb,
-			Energy
+			Player, // players
+			Gun,
+			Bomb, // no collision, different arc, explodes on death
+			Energy,
+			Petal, // menu screen effects
 		}
 		private static readonly Dictionary<BulletType, int> BulletSize = new Dictionary<BulletType, int>
 		{
 			{BulletType.None, 0},
 			{BulletType.Player, TD},
-			{BulletType.Bullet, TD},
+			{BulletType.Gun, TD / 2},
 			{BulletType.Bomb, 0},
-			{BulletType.Energy, TD}
+			{BulletType.Energy, TD},
+			{BulletType.Petal, TD},
 		};
 		private static readonly Dictionary<BulletType, Vector2> BulletSpeed = new Dictionary<BulletType, Vector2>
 		{
 			{BulletType.None, Vector2.Zero},
-			{BulletType.Player, new Vector2(4.0f, 4.0f) * SpriteScale},
-			{BulletType.Bullet, new Vector2(1.0f, 1.0f) * SpriteScale},
-			{BulletType.Bomb, new Vector2(1.0f, 1.0f) * SpriteScale},
-			{BulletType.Energy, new Vector2(1.0f, 1.0f) * SpriteScale}
+			{BulletType.Player, Vector2.One * 3f * SpriteScale},
+			{BulletType.Gun, Vector2.One * 2f * SpriteScale},
+			{BulletType.Bomb, Vector2.One * 1.5f * SpriteScale},
+			{BulletType.Energy, Vector2.One * 3f * SpriteScale},
+			{BulletType.Petal, Vector2.One * 3f * SpriteScale},
 		};
 		private static readonly Dictionary<BulletType, float> BulletSpin = new Dictionary<BulletType, float>
 		{ // todo: add values in radians
 			{BulletType.None, 0f},
 			{BulletType.Player, 0f},
-			{BulletType.Bullet, 0f},
+			{BulletType.Gun, 0f},
 			{BulletType.Bomb, 0f},
-			{BulletType.Energy, 0f}
+			{BulletType.Energy, 0f},
+		};
+		private static readonly Dictionary<BulletType, int[]> BulletAnimations = new Dictionary<BulletType, int[]>
+		{
+			{ BulletType.None, new []{ 0 } },
+			{ BulletType.Player, new []{ 0 } },
+			{ BulletType.Gun, new []{ 0 } },
+			{ BulletType.Bomb, new []{ 0 } },
+			{ BulletType.Energy, new []{ 0 } },
+			{ BulletType.Petal, new []{ 0, 1, 0, 2 } },
 		};
 		// Loot drops and powerups
 		public enum LootDrops
 		{
 			None,
-			Cake,
 			Life,
 			Energy,
+			Cake,
 			Time
 		}
+		private static readonly Dictionary<LootDrops, double> LootRollGets = new Dictionary<LootDrops, double>
+		{
+			{LootDrops.None, 0},
+			{LootDrops.Life, 0.1d},
+			{LootDrops.Energy, 0.2d},
+			{LootDrops.Cake, 0.5d},
+			{LootDrops.Time, 0.9d}
+		};
 		private static readonly Dictionary<LootDrops, int> LootDurations = new Dictionary<LootDrops, int>
 		{
 			{LootDrops.None, 0},
-			{LootDrops.Cake, 5},
 			{LootDrops.Life, 4},
 			{LootDrops.Energy, 3},
+			{LootDrops.Cake, 5},
 			{LootDrops.Time, 5}
 		};
 		// Monsters
 		public enum MonsterSpecies
 		{
-			// todo: monsters!
+			Mafia,
 		}
+		private static readonly Dictionary<MonsterSpecies, int> MonsterHealth = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 1},
+		};
+		private static readonly Dictionary<MonsterSpecies, int> MonsterSpeed = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 5},
+		};
+		private static readonly Dictionary<MonsterSpecies, int> MonsterPower = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 1},
+		};
+		private static readonly Dictionary<MonsterSpecies, bool> MonsterIsFlying = new Dictionary<MonsterSpecies, bool>
+		{
+			{MonsterSpecies.Mafia, false},
+		};
+		private static readonly Dictionary<MonsterSpecies, int> MonsterBullets = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 1},
+		};
+		private static readonly Dictionary<MonsterSpecies, bool> MonsterFireStaggered = new Dictionary<MonsterSpecies, bool>
+		{
+			{MonsterSpecies.Mafia, false},
+		};
 		private static readonly Dictionary<MonsterSpecies, int> MonsterScore = new Dictionary<MonsterSpecies, int>
-			{ };
+		{
+			{MonsterSpecies.Mafia, 150},
+		};
+		private static readonly Dictionary<MonsterSpecies, int> MonsterAimWidth = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 32 * SpriteScale},
+		};
+		private static readonly Dictionary<MonsterSpecies, int> MonsterFireTime = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 1600},
+		};
+		private static readonly Dictionary<MonsterSpecies, int> MonsterIdleTime = new Dictionary<MonsterSpecies, int>
+		{
+			{MonsterSpecies.Mafia, 1600},
+		};
+		private static readonly Dictionary<MonsterSpecies, bool> MonsterFiringCancellable = new Dictionary<MonsterSpecies, bool>
+		{
+			{MonsterSpecies.Mafia, true},
+		};
+		private static readonly Dictionary<MonsterSpecies, double> MonsterLootRates = new Dictionary<MonsterSpecies, double>
+		{
+			{MonsterSpecies.Mafia, 0.5d},
+		};
 
 		/* Game attributes */
 
@@ -130,6 +230,7 @@ namespace Hikawa
 		private const int StageTimeMax = 99000;
 		private const int StageTimeInitial = 60000;
 		private const int StageTimeExtra = 15000;
+		private const int StageTimeCritical = 5000;
 		private const int StageTimeHudDigits = 2;
 
 		// Score values
@@ -140,12 +241,15 @@ namespace Hikawa
 
 		/* Sprite attributes */
 
-		private const int PlayerAnimTimescale = 200;
-		private const int UiAnimTimescale = 85;
+		// Sprite dimensions and size multipliers
+		private const int TD = 16;
 		private const int SpriteScale = 2;
 		private const int CursorScale = 4;
-		private const int TD = 16;
-		// boundary dimensions for gameplay, menus, and cutscenes
+		// Animation rates
+		private const int UiAnimTimescale = 85;
+		private const int PlayerAnimTimescale = 200;
+		private const int EnemyAnimTimescale = 200;
+		// Boundary dimensions for gameplay, menus, and cutscenes
 		private const int MapWidthInTiles = 20;
 		private const int MapHeightInTiles = 18;
 
@@ -160,15 +264,6 @@ namespace Hikawa
 		private const int TimeToTitlePhase4 = TimeToTitlePhase3 + 400; // © BLUEBERRY 1996
 		private const int TimeToTitlePhase5 = TimeToTitlePhase4 + 400; // fire to start
 		private const int TimeToBlinkPrompt = 600; // fire to start blink period
-
-		// Player special power animation
-		private const int TimeToSpecialPhase1 = 1000; // stand ahead
-		private const int TimeToSpecialPhase2 = TimeToSpecialPhase1 + 1400; // raise compact
-
-		// World special power effects
-		private const int TimeToPowerPhase1 = 1500; // activation
-		private const int TimeToPowerPhase2 = TimeToPowerPhase1 + 3500; // white glow
-		private const int TimeToPowerPhase3 = TimeToPowerPhase2 + 1500; // cooldown
 
 		// HUD graphics
 
@@ -190,8 +285,21 @@ namespace Hikawa
 			0, TD * 1, TD, TD);
 		// projectiles
 		private const int ProjectileVariants = 2;
-		public static readonly Rectangle ProjectileSprite = new Rectangle( // HARD Y
-			0, TD * 4, TD, TD);
+		public static readonly Dictionary<BulletType, Rectangle> ProjectileSrcRects = new Dictionary<BulletType, Rectangle>
+		{
+			{ BulletType.None, new Rectangle(0, TD * 4, TD, TD) }, 
+			{ BulletType.Player, new Rectangle(0, TD * 4, TD, TD) },
+			{ BulletType.Gun, new Rectangle(0, TD * 4, TD, TD) },
+			{ BulletType.Bomb, new Rectangle(0, TD * 4, TD, TD) },
+			{ BulletType.Energy, new Rectangle(0, TD * 4, TD, TD) },
+			{ BulletType.Petal, new Rectangle(0, TD * 4, TD, TD) },
+		};
+		// monsters
+		private const int EnemyRunFrames = 3;
+		private static readonly Dictionary<MonsterSpecies, Rectangle> MonsterSrcRects = new Dictionary<MonsterSpecies, Rectangle>
+		{
+			{MonsterSpecies.Mafia, new Rectangle(0, TD * 24, TD * 2, TD * 3)},
+		};
 
 		/* Player graphics */
 
@@ -231,6 +339,17 @@ namespace Hikawa
 		private const int PlayerArmsY = PlayerLegsY;
 		// Special powers
 		private const int PowerFxY = TD * 5; // HARD Y
+		// Shadows
+		private static readonly Rectangle ActorShadowRect = new Rectangle(
+			CakeSprite.X + CakeSprite.Width * CakesFrames,
+			CakeSprite.Y,
+			TD * 2,
+			TD);
+		private static readonly Rectangle LootShadowRect = new Rectangle(
+			ActorShadowRect.X + ActorShadowRect.Width,
+			ActorShadowRect.Y,
+			TD,
+			TD);
 
 		/* Title screen graphics */
 
@@ -283,6 +402,9 @@ namespace Hikawa
 		// Player score
 		private static readonly Rectangle HudScoreTextSprite = new Rectangle(
 			0, HudStringsY, TD * 1, HudStringsH);
+		// Player portrait
+		private static readonly Rectangle HudPortraitSprite = new Rectangle( // HARD Y
+			0, TD * 2, TD * 2, TD * 2);
 		// Player life
 		private static readonly Rectangle HudLifeSprite = new Rectangle( // HARD Y
 			TD * 12, 0, TD, TD);
@@ -311,6 +433,8 @@ namespace Hikawa
 		public delegate void behaviorAfterMotionPause();
 
 		private static readonly Texture2D BlackoutPixel = new Texture2D(
+			Game1.graphics.GraphicsDevice, 1, 1);
+		private static readonly Texture2D ColorFillPixel = new Texture2D(
 			Game1.graphics.GraphicsDevice, 1, 1);
 
 		/* Game actors and objects */
@@ -349,6 +473,9 @@ namespace Hikawa
 		// Player score
 		private static int _hudScoreDstX;
 		private static int _hudScoreDstY;
+		// Player portrait
+		private static int _hudPortraitDstX;
+		private static int _hudPortraitDstY;
 		// Player life
 		private static int _hudLifeDstX;
 		private static int _hudLifeDstY;
@@ -392,6 +519,7 @@ namespace Hikawa
 
 			// Load arcade game assets
 			BlackoutPixel.SetData(new [] { Color.Black });
+			ColorFillPixel.SetData(new [] { Color.Bisque });
 			_arcadeTexture = Helper.Content.Load<Texture2D>(
 				Path.Combine("assets", ModConsts.SpritesDirectory, 
 					$"{ModConsts.ArcadeSpritesFile}.png"));
@@ -418,7 +546,7 @@ namespace Hikawa
 			if (_onTitleScreen)
 				_cutscenePhase++; // Progress through the start menu cutscene
 			if (_cutsceneTimer <= 0
-			    && _player.PowerTimer <= 0 && _player.SpecialTimer <= 0
+			    && _player.PowerTimer <= 0
 			    && _player.RespawnTimer <= 0 && _gameEndTimer <= 0 && _gameRestartTimer <= 0
 			    && _player.FireTimer <= 1)
 			{
@@ -491,10 +619,11 @@ namespace Hikawa
 				case Keys.Space:
 				case Keys.X:
 					// Special power trigger
-					if (_player.SpecialTimer <= 0 && _player.Energy >= GameEnergyThresholdLow)
+					if (_player.PowerTimer <= 0 
+					    && _player.Energy >= GameEnergyThresholdLow)
 					{
 						_player.SpriteMirror = SpriteEffects.None;
-						_player.SpecialStart();
+						_player.PowerBeforeActive();
 					}
 					break;
 				case Keys.Escape:
@@ -600,8 +729,6 @@ namespace Hikawa
 
 		public void changeScreenSize()
 		{
-			// TODO : include GameX and GameY into position calculations
-
 			// Initialise pixel dimension bounds for game drawing
 			_gamePixelDimen.X =
 				(Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width - MapWidthInTiles * TD * SpriteScale) / 2;
@@ -617,35 +744,38 @@ namespace Hikawa
 			// Player score
 			_hudScoreDstX = _gamePixelDimen.X;
 			_hudScoreDstY = _gamePixelDimen.Y - HudDigitSprite.Height * SpriteScale;
+			// Player portrait
+			_hudPortraitDstX = _gamePixelDimen.X;
+			_hudPortraitDstY = _gameEndPixel.Y;
 			// Player life
-			_hudLifeDstX = _gamePixelDimen.X;
-			_hudLifeDstY = _gameEndPixel.Y;
+			_hudLifeDstX = _hudPortraitDstX + HudPortraitSprite.Width * SpriteScale;
+			_hudLifeDstY = _hudPortraitDstY;
 			// Player energy
-			_hudEnergyDstX = _gamePixelDimen.X;
-			_hudEnergyDstY = _gameEndPixel.Y + HudLifeSprite.Height * SpriteScale;
+			_hudEnergyDstX = _hudLifeDstX;
+			_hudEnergyDstY = _hudLifeDstY + HudLifeSprite.Height * SpriteScale;
 			// Game world and stage
 			_hudWorldDstX = _gameEndPixel.X;
 			_hudWorldDstY = _gameEndPixel.Y;
 			// Stage time remaining
 			_hudTimeDstX = _gameEndPixel.X;
 			_hudTimeDstY = _gamePixelDimen.Y - HudDigitSprite.Height * SpriteScale;
-			/*
+			
 			Log.D("_gamePixelDimen:\n"
 				  + $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width} - {MapWidthInTiles * TD * SpriteScale}) / 2, "
 			      + $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height} - {MapHeightInTiles * TD * SpriteScale}) / 2\n"
-			      + $"x = {_gamePixelDimen.X}, y = {_gamePixelDimen.Y}",
+			      + $"x = {_gamePixelDimen.X}, y = {_gamePixelDimen.Y}"
+				  + $", w = {_gamePixelDimen.Width}, h = {_gamePixelDimen.Height}",
+				IsDebugMode);
+			Log.D("_gamePixelDimen.Center:\n"
+			      + $"{_gamePixelDimen.Center.ToString()}\n",
 				IsDebugMode);
 			Log.D("GameEndCoords:\n"
 			      + $"{_gamePixelDimen.X} + {MapWidthInTiles * TD} * {SpriteScale}\n"
 			      + $"= {_gameEndPixel.X}, {_gameEndPixel.Y}",
 				IsDebugMode);
-			Log.D("_gamePixelDimen:\n"
-				  + $"w = {_gamePixelDimen.Width}, h = {_gamePixelDimen.Height}",
-				IsDebugMode);
-			*/
 		}
 
-		private static void QuitMinigame()
+		private static bool QuitMinigame()
 		{
 			if (Game1.currentMinigame == null && Game1.IsMusicContextActive(Game1.MusicContext.MiniGame))
 			{
@@ -658,6 +788,7 @@ namespace Hikawa
 				Game1.changeMusicTrack("Saloon1");
 			Game1.currentMinigame = null;
 			Helper.Content.InvalidateCache("LooseSprites/Cursors");
+			return true;
 		}
 
 		public void unload()
@@ -673,6 +804,10 @@ namespace Hikawa
 		{
 			_onGameOver = true;
 			_gameRestartTimer = 2000;
+
+			// todo: ingame event involving arcade gungame
+			if (Game1.currentLocation.currentEvent != null)
+				++Game1.currentLocation.currentEvent.CurrentCommand;
 		}
 
 		/// <summary>
@@ -729,7 +864,7 @@ namespace Hikawa
 
 		#endregion
 
-		#region Game progression methods
+		#region Minigame progression methods
 
 		private void EndCurrentStage()
 		{
@@ -839,7 +974,19 @@ namespace Hikawa
 		{
 			var debugscore = _totalScore;
 			_totalScore = Math.Min(ScoreMax, _totalScore + score);
-			Log.D($"Score : {debugscore} => {_totalScore}");
+			//Log.D($"Score : {debugscore} => {_totalScore}");
+		}
+
+		private static void SpawnMonster(MonsterSpecies which, Vector2 where)
+		{
+			Game1.playSound("pullItemFromWater");
+			_enemies.Add(new Monster(which, 
+				new Rectangle(
+					(int)where.X,
+					(int)where.Y,
+					MonsterSrcRects[which].Width * SpriteScale, 
+					MonsterSrcRects[which].Height * SpriteScale), 
+				MonsterHealth[which]));
 		}
 
 		/// <summary>
@@ -849,6 +996,15 @@ namespace Hikawa
 		/// <param name="where">Spawn position.</param>
 		private static void SpawnPowerup(LootDrops which, Vector2 where)
 		{
+			// Correct out-of-bounds spawns
+			if (where.X < _gamePixelDimen.X)
+				where.X = _gamePixelDimen.X;
+			if (where.X > _gameEndPixel.X - TD * SpriteScale)
+				where.X = _gameEndPixel.X - TD * SpriteScale;
+			if (where.Y > _player.Position.Y)
+				where.Y = _player.Position.Y;
+
+			// Spawn powerup
 			Game1.playSound("coin");
 			_powerups.Add(new Powerup(which, 
 				new Rectangle((int)where.X, (int)where.Y, TD, TD)));
@@ -857,11 +1013,12 @@ namespace Hikawa
 		/// <summary>
 		/// Creates a new bullet object at a point on-screen for either the player or some monster.
 		/// </summary>
+		/// <param name="which">Projectile behaviour, also determines whether player or not.</param>
 		/// <param name="where">Spawn position.</param>
 		/// <param name="dest">Target for vector of motion from spawn position.</param>
-		/// <param name="power"></param>
-		/// <param name="which">Projectile behaviour, also determines whether player or not.</param>
-		private static void SpawnBullet(Vector2 where, Vector2 dest, int power, BulletType which)
+		/// <param name="power">Health deducted from collider on hit.</param>
+		/// <param name="who">Actor that fired the projectile.</param>
+		private static void SpawnBullet(BulletType which, Vector2 where, Vector2 dest, int power, ArcadeActor who)
 		{
 			// Rotation to aim towards target
 			var radiansBetween = Vector.RadiansBetween(dest, where);
@@ -871,7 +1028,7 @@ namespace Hikawa
 			// Vector of motion
 			var motion = Vector.PointAt(where, dest);
 			motion.Normalize();
-			_player.LastAimVector = motion;
+			_player.LastAimMotion = motion;
 			//Log.D($"Normalised motion = {motion.X:0.00}x, {motion.Y:0.00}y, mirror={_player.SpriteMirror}");
 
 			// Spawn position
@@ -883,17 +1040,53 @@ namespace Hikawa
 				BulletSize[which]);
 
 			// Add the bullet to the active lists for the respective spawner
-			if (which == BulletType.Player)
-				_playerBullets.Add(new Bullet(which, power, collisionBox, motion, radiansBetween, dest));
+			var bullet = new Bullet(which, power, who, collisionBox, motion, radiansBetween, dest);
+			if (who is Player)
+				_playerBullets.Add(bullet);
 			else
-				_enemyBullets.Add(new Bullet(which, power, collisionBox, motion, radiansBetween, dest));
+				_enemyBullets.Add(bullet);
 		}
 
 		#endregion
 
 		#region Per-tick updates
 
-		private static void UpdateMenus(TimeSpan elapsedGameTime)
+		private void UpdateTimers(TimeSpan elapsedGameTime)
+		{
+			// Run through the restart game timer
+			if (_gameRestartTimer > 0)
+			{
+				_gameRestartTimer -= elapsedGameTime.Milliseconds;
+				if (_gameRestartTimer <= 0)
+				{
+					unload();
+					Game1.currentMinigame = new ArcadeGunGame();
+				}
+			}
+
+			// Run through screen effects
+			if (_screenFlashTimer > 0)
+				_screenFlashTimer -= elapsedGameTime.Milliseconds;
+		}
+
+		private void UpdateGame(TimeSpan elapsedGameTime)
+		{
+			// Update player
+			_player.Update(elapsedGameTime);
+			// Update bullets
+			foreach (var bullet in _playerBullets.ToArray())
+				bullet.Update(elapsedGameTime);
+			foreach (var bullet in _enemyBullets.ToArray())
+				bullet.Update(elapsedGameTime);
+			// Update powerups
+			foreach (var powerup in _powerups.ToArray())
+				powerup.Update(elapsedGameTime);
+			// Update enemies
+			foreach (var enemy in _enemies.ToArray())
+				enemy.Update(elapsedGameTime);
+		}
+
+		private void UpdateMenus(TimeSpan elapsedGameTime)
 		{
 			// Sit on the start game screen until clicked away
 			if (_onGameOver || _onTitleScreen)
@@ -961,7 +1154,7 @@ namespace Hikawa
 		public void OnSecondUpdate()
 		{
 			// Gameplay checks
-			if (!_onTitleScreen && _cutsceneTimer <= 0 && _player.SpecialTimer <= 0 && _player.PowerTimer <= 0)
+			if (!_onTitleScreen && _cutsceneTimer <= 0 && _player.PowerTimer <= 0)
 			{
 				// Count down stage timer
 				if (_stageMilliseconds <= 0)
@@ -971,198 +1164,51 @@ namespace Hikawa
 				}
 
 				// todo: remove DEBUG cake spawning
+				/*
 				if (Game1.random.NextDouble() > 0.75d)
 				{
 					var where = new Vector2(
 						Game1.random.Next(_gamePixelDimen.X + TD * SpriteScale, _gameEndPixel.X - TD * SpriteScale),
-						Game1.random.Next(_gamePixelDimen.Y + TD * SpriteScale, _gameEndPixel.Y - TD * SpriteScale / 2));
+						Game1.random.Next(_gamePixelDimen.Y + TD * SpriteScale, _gamePixelDimen.Center.Y));
 					SpawnPowerup(LootDrops.Cake, where);
+				}
+				*/
+
+				// todo: remove DEBUG monster spawning
+				if (!_enemies.Any())
+				{
+					var which = MonsterSpecies.Mafia;
+					var xpos = Game1.random.NextDouble() < 0.5d 
+						? _gamePixelDimen.X - MonsterSrcRects[which].Width * SpriteScale
+						: _gameEndPixel.X;
+					xpos = _gameEndPixel.X;
+					var where = new Vector2(xpos, _gamePixelDimen.Center.Y);
+					Log.D($"Spawning {which} at {where.ToString()}, "
+					      + $"{(where.X < _gamePixelDimen.Center.X ? "left" : "right")} side.");
+					SpawnMonster(which, where);
 				}
 			}
 		}
 
 		public bool tick(GameTime time)
 		{
-			/* Game Management */
-
 			var elapsedGameTime = time.ElapsedGameTime;
 			//Log.D($"_stageMilliseconds: {_stageMilliseconds} | _stageTimer: {_stageTimer}");
 
-			// Per-second checks
+			if (_player.HasPlayerQuit)
+				return QuitMinigame();
+
+			// Per-second updates
 			if ((_stageMilliseconds / elapsedGameTime.Milliseconds) % (1000 / elapsedGameTime.Milliseconds) == 0)
 				OnSecondUpdate();
 
-			// Exit the game
-			if (_player.HasPlayerQuit)
-			{
-				QuitMinigame();
-				return true;
-			}
-
-			// Run through the restart game timer
-			if (_gameRestartTimer > 0)
-			{
-				_gameRestartTimer -= elapsedGameTime.Milliseconds;
-				if (_gameRestartTimer <= 0)
-				{
-					unload();
-					Game1.currentMinigame = new ArcadeGunGame();
-				}
-			}
-
-			// Run through screen effects
-			if (_screenFlashTimer > 0)
-				_screenFlashTimer -= elapsedGameTime.Milliseconds;
-
-			// Run down player invincibility
-			if (_player.InvincibleTimer > 0)
-				_player.InvincibleTimer -= elapsedGameTime.Milliseconds;
-
-			// Run down player lightgun animation
-			if (_player.FireTimer > 0)
-				--_player.FireTimer;
-			else
-				_player.LastAimVector = Vector2.Zero;
-
-			// Handle player special trigger
-			if (_player.SpecialTimer > 0)
-			{
-				_player.SpecialTimer += elapsedGameTime.Milliseconds;
-
-				// Progress through player special trigger animation
-
-				// Events 
-				if (_player.AnimationPhase == PlayerSpecialFrames)
-					// Transfer into the active special power
-					_player.SpecialEnd();
-				// Timers
-				if (_player.AnimationPhase == 0)
-				{
-					if (_player.SpecialTimer >= TimeToSpecialPhase1)
-						++_player.AnimationPhase;
-				}
-				else if (_player.AnimationPhase == 1)
-				{
-					if (_player.SpecialTimer >= TimeToSpecialPhase2)
-						++_player.AnimationPhase;
-				}
-			}
-			// Handle player power animations and effects
-			else if (_player.ActiveSpecialPower != SpecialPower.None)
-			{
-				_player.PowerTimer += elapsedGameTime.Milliseconds;
-
-				// Progress through player power
-
-				// Events
-				if (_player.AnimationPhase == PlayerPowerFrames)
-				{
-					// Return to usual game flow
-					_player.PowerEnd();
-				}
-				
-				// Timers
-				if (_player.AnimationPhase == 0)
-				{
-					// Frequently spawn bullets raining down on the field
-					if (_player.PowerTimer % 5 == 0)
-					{
-						
-					}
-					// Progress to the next phase
-					if (_player.PowerTimer >= TimeToPowerPhase1)
-						++_player.AnimationPhase;
-				}
-				else if (_player.AnimationPhase == 1)
-				{
-					// Progress to the next phase
-					if (_player.PowerTimer >= TimeToPowerPhase2)
-						++_player.AnimationPhase;
-				}
-				else if (_player.AnimationPhase == 2)
-				{
-					// End the power
-					if (_player.PowerTimer >= TimeToPowerPhase3)
-						++_player.AnimationPhase;
-				}
-			}
-
-			// Handle other game sprites
+			// Per-millisecond updates
+			UpdateTimers(elapsedGameTime);
 			for (var i = _temporaryAnimatedSprites.Count - 1; i >= 0; --i)
-			{
 				if (_temporaryAnimatedSprites[i].update(time))
 					_temporaryAnimatedSprites.RemoveAt(i);
-			}
-
-			/* Game Activity */
-
 			if (!_onTitleScreen && _cutsceneTimer <= 0)
-			{
-				// Update bullets
-				for (var i = _playerBullets.Count - 1; i >= 0; --i)
-					_playerBullets[i].Update();
-				for (var i = _enemyBullets.Count - 1; i >= 0; --i)
-					_enemyBullets[i].Update();
-
-				// Update powerups
-				for (var i = _powerups.Count - 1; i > 0; --i)
-					_powerups[i].Update();
-
-				// Update enemies
-				for (var i = _enemies.Count - 1; i > 0; --i)
-					_enemies[i].Update();
-
-				// While the player has agency
-				if (_player.SpecialTimer <= 0 && _player.PowerTimer <= 0)
-				{
-					// Run down the death timer
-					if (_player.RespawnTimer > 0.0)
-						_player.RespawnTimer -= elapsedGameTime.Milliseconds;
-					// Run down the stage timer while alive
-					else
-					{
-						_stageMilliseconds -= elapsedGameTime.Milliseconds;
-						// Count up total playthrough timer
-						++_totalTime;
-					}
-
-					// Handle player movement
-					if (_player.MovementDirections.Count > 0)
-					{
-						switch (_player.MovementDirections.ElementAt(0))
-						{
-							case Move.Right:
-								_player.SpriteMirror = SpriteEffects.None;
-								if (_player.Position.X + _player.CollisionBox.Width < _gameEndPixel.X)
-									_player.Position.X += _player.Speed;
-								else
-									_player.Position.X = _gameEndPixel.X - _player.CollisionBox.Width;
-								break;
-							case Move.Left:
-								_player.SpriteMirror = SpriteEffects.FlipHorizontally;
-								if (_player.Position.X > _gamePixelDimen.X)
-									_player.Position.X -= _player.Speed;
-								else
-									_player.Position.X = _gamePixelDimen.X;
-								break;
-						}
-					}
-
-					_player.AnimationTimer += elapsedGameTime.Milliseconds;
-					_player.AnimationTimer %= (PlayerRunFrames) * PlayerAnimTimescale;
-
-					_player.CollisionBox.X = (int)_player.Position.X;
-
-					// Handle enemy behaviours
-					if (_player.Health > 0)
-					{
-
-						// todo
-
-					}
-				}
-			}
-
+				UpdateGame(elapsedGameTime);
 			UpdateMenus(elapsedGameTime);
 
 			return false;
@@ -1177,13 +1223,14 @@ namespace Hikawa
 		/// </summary>
 		private static void DrawTracer(SpriteBatch b)
 		{
+			return;
 			if (!ModEntry.Instance.Config.DebugMode || !_playerBullets.Any()) return;
 
 			// create 1x1 white texture for line drawing
 			var t = new Texture2D(Game1.graphics.GraphicsDevice, 2, 2);
 			t.SetData(new[] { Color.White, Color.White, Color.White, Color.White });
 
-			var startpoint = _playerBullets[_playerBullets.Count - 1].Start;
+			var startpoint = _playerBullets[_playerBullets.Count - 1].Origin;
 			var endpoint = _playerBullets[_playerBullets.Count - 1].Target;
 			var line = endpoint - startpoint;
 			var angle = Vector.RadiansBetween(startpoint, endpoint);
@@ -1270,7 +1317,7 @@ namespace Hikawa
 			b.Draw(
 				_arcadeTexture,
 				new Rectangle(
-					_hudTimeDstX - HudDigitSprite.Width * (StageTimeHudDigits + 1) * SpriteScale,
+					_hudTimeDstX - HudDigitSprite.Width * (StageTimeHudDigits + 2) * SpriteScale,
 					_hudTimeDstY,
 					TD * SpriteScale, 
 					TD * SpriteScale),
@@ -1285,31 +1332,91 @@ namespace Hikawa
 				SpriteEffects.None,
 				1f);
 			if (_stageMilliseconds >= 10000 
-			    || _stageMilliseconds < 10000 && _stageMilliseconds % 1000 < 250)
+			    || _stageMilliseconds < 10000 && _stageMilliseconds % 400 < 200)
 				DrawDigits(b, _stageMilliseconds / 1000, StageTimeHudDigits, false,
 					new Rectangle(_hudTimeDstX, _hudTimeDstY, HudDigitSprite.Width, HudDigitSprite.Height),
 					Vector2.Zero, 1f);
 
-			for (var i = 0; i < _player.Health; ++i)
+			// Player portrait
+			var whichPortrait = 1; // Default
+			
+			if (_player.Health == 0 && _stageMilliseconds % 1000 < 400)
+				whichPortrait = 8; // Out 2
+			else if (_player.Health == 0)
+				whichPortrait = 7; // Out 1
+			else if (_player.ActivePowerPhase == PowerPhase.AfterActive2)
+				whichPortrait = 6; // Power end 2
+			else if (_player.ActivePowerPhase == PowerPhase.AfterActive1)
+				whichPortrait = 5; // Power end 1
+			else if (_player.ActivePowerPhase == PowerPhase.BeforeActive1 
+			         || _player.ActivePowerPhase == PowerPhase.BeforeActive2)
+				whichPortrait = 4; // Power start
+			else if (_player.HurtTimer > 0)
+				whichPortrait = 3; // Hurt
+			else if (_player.RespawnTimer > 0)
+				whichPortrait = 2; // Respawn and end-of-stage pose
+
+			// Frame
+			b.Draw(
+				_arcadeTexture,
+				new Rectangle(
+					_hudPortraitDstX,
+					_hudPortraitDstY,
+					HudPortraitSprite.Width * SpriteScale,
+					HudPortraitSprite.Height * SpriteScale),
+				new Rectangle(
+					HudPortraitSprite.X,
+					HudPortraitSprite.Y,
+					HudPortraitSprite.Width,
+					HudPortraitSprite.Height),
+				Color.White,
+				0.0f,
+				Vector2.Zero,
+				SpriteEffects.None,
+				1f);
+			// Character
+			b.Draw(
+				_arcadeTexture,
+				new Rectangle(
+					_hudPortraitDstX,
+					_hudPortraitDstY,
+					HudPortraitSprite.Width * SpriteScale,
+					HudPortraitSprite.Height * SpriteScale),
+				new Rectangle(
+					HudPortraitSprite.X + HudPortraitSprite.Width * whichPortrait,
+					HudPortraitSprite.Y,
+					HudPortraitSprite.Width,
+					HudPortraitSprite.Height),
+				Color.White,
+				0.0f,
+				Vector2.Zero,
+				SpriteEffects.None,
+				1f - 1f / 10000f);
+
+			if (_player.Health > 1 || 
+			    _player.Health == 1 && _stageMilliseconds % 400 < 200)
 			{
-				// Player health icons
-				b.Draw(
-					_arcadeTexture,
-					new Rectangle(
-						_hudLifeDstX + HudLifeSprite.Width * SpriteScale * i,
-						_hudLifeDstY,
-						HudLifeSprite.Width * SpriteScale,
-						HudLifeSprite.Height * SpriteScale),
-					new Rectangle(
-						HudLifeSprite.X,
-						HudLifeSprite.Y,
-						HudLifeSprite.Width,
-						HudLifeSprite.Height),
-					Color.White,
-					0.0f,
-					Vector2.Zero,
-					SpriteEffects.None,
-					1f);
+				for (var i = 0; i < _player.Health; ++i)
+				{
+					// Player health icons
+					b.Draw(
+						_arcadeTexture,
+						new Rectangle(
+							_hudLifeDstX + HudLifeSprite.Width * SpriteScale * i,
+							_hudLifeDstY,
+							HudLifeSprite.Width * SpriteScale,
+							HudLifeSprite.Height * SpriteScale),
+						new Rectangle(
+							HudLifeSprite.X,
+							HudLifeSprite.Y,
+							HudLifeSprite.Width,
+							HudLifeSprite.Height),
+						Color.White,
+						0.0f,
+						Vector2.Zero,
+						SpriteEffects.None,
+						1f);
+				}
 			}
 
 			for (var i = 0; i < _player.Energy; ++i)
@@ -1344,7 +1451,7 @@ namespace Hikawa
 			{
 				case SpecialPower.Normal:
 				case SpecialPower.Megaton:
-					if (_player.AnimationPhase == 1)
+					if (_player.ActivePowerPhase > PowerPhase.BeforeActive2 && _player.ActivePowerPhase < PowerPhase.AfterActive2)
 					{
 						// Draw a black overlay
 						b.Draw(
@@ -1375,7 +1482,7 @@ namespace Hikawa
 				case SpecialPower.None:
 					// Draw the game map
 					b.Draw(
-						BlackoutPixel,
+						ColorFillPixel,
 						new Rectangle(
 							_gamePixelDimen.X,
 							_gamePixelDimen.Y,
@@ -1384,8 +1491,8 @@ namespace Hikawa
 						new Rectangle(
 							0,
 							0,
-							BlackoutPixel.Width,
-							BlackoutPixel.Height),
+							ColorFillPixel.Width,
+							ColorFillPixel.Height),
 						Color.White,
 						0.0f,
 						Vector2.Zero,
@@ -1767,7 +1874,7 @@ namespace Hikawa
 				Position = new Vector2(CollisionBox.X, CollisionBox.Y);
 			}
 
-			public abstract void Update();
+			public abstract void Update(TimeSpan elapsedGameTime);
 			public abstract void Draw(SpriteBatch b);
 		}
 
@@ -1785,18 +1892,20 @@ namespace Hikawa
 			public BulletType BulletType;
 
 			public int FireTimer;
+			public int HurtTimer;
 			public int InvisibleTimer;
 			public int InvincibleTimer;
 
-			public int AnimationPhase;
+			//public int AnimationPhase;
 			public int AnimationTimer;
 
 			protected ArcadeActor() { }
 
-			protected ArcadeActor(int health, Rectangle collisionBox) : base(collisionBox)
+			protected ArcadeActor(Rectangle collisionBox, int health, int healthMax) 
+				: base(collisionBox)
 			{
-				HealthMax = health;
-				Health = HealthMax;
+				HealthMax = healthMax > 0 ? healthMax : health;
+				Health = health;
 			}
 
 			internal virtual bool TakeDamage(int damage)
@@ -1816,13 +1925,15 @@ namespace Hikawa
 			public int Lives;
 			public int Energy;
 			public int EnergyMax;
+
 			public SpecialPower ActiveSpecialPower;
+			public PowerPhase ActivePowerPhase;
+			public int PowerTimer;
+
 			public bool HasPlayerQuit;
 			public List<Move> MovementDirections = new List<Move>();
-			public Vector2 LastAimVector = Vector2.Zero;
+			public Vector2 LastAimMotion = Vector2.Zero;
 
-			public int SpecialTimer;
-			public int PowerTimer;
 			public int RespawnTimer;
 
 			public Player()
@@ -1834,9 +1945,9 @@ namespace Hikawa
 			private void SetStats()
 			{
 				BulletType = BulletType.Player;
-				Power = 1;
 				HealthMax = 4;
 				SpeedMax = 5;
+				Power = 1;
 				EnergyMax = 7;
 			}
 
@@ -1852,8 +1963,9 @@ namespace Hikawa
 				Health = HealthMax;
 				Lives = GameLivesDefault;
 				Speed = SpeedMax;
-				Energy = EnergyMax; // todo: return to 0
+				Energy = 3; // todo: return to 0
 				ActiveSpecialPower = SpecialPower.None;
+				ActivePowerPhase = PowerPhase.None;
 			}
 
 			private void ResetPosition()
@@ -1878,10 +1990,9 @@ namespace Hikawa
 
 			private void ResetTimers()
 			{
-				AnimationPhase = 0;
 				AnimationTimer = 0;
 				FireTimer = 0;
-				SpecialTimer = 0;
+				HurtTimer = 0;
 				PowerTimer = 0;
 				//InvisibleTimer = 0;
 				//InvincibleTimer = 0;
@@ -1895,7 +2006,12 @@ namespace Hikawa
 			/// <returns>Whether the player will survive.</returns>
 			internal override bool TakeDamage(int damage)
 			{
+				var lastHealth = Health;
+
 				var survives = base.TakeDamage(damage);
+
+				Log.D($"Player hit for {damage} : {lastHealth}/{HealthMax} => {Health}/{HealthMax}");
+
 				if (survives)
 				{
 					// todo: animate player
@@ -1903,6 +2019,7 @@ namespace Hikawa
 					// Flash translucent red
 					_screenFlashColor = new Color(new Vector4(255, 0, 0, 0.25f));
 					_screenFlashTimer = 200;
+					HurtTimer = 200;
 					// Grant momentary invincibility
 					InvincibleTimer = GameInvincibleDelay;
 				}
@@ -2008,8 +2125,6 @@ namespace Hikawa
 					return;
 				}
 				GameOver();
-
-				++Game1.currentLocation.currentEvent.CurrentCommand; // ??????
 			}
 
 			internal void Respawn()
@@ -2029,8 +2144,8 @@ namespace Hikawa
 				switch (loot.Type)
 				{
 					case LootDrops.Cake:
-						if (loot.TextureRect.Y == 0) // maki maki makito
-						{
+						if (loot.TextureRect.Y == 0)
+						{ // maki maki makito
 							Game1.playSound("crystal");
 							AddScore(ScoreBread);
 						}
@@ -2055,29 +2170,34 @@ namespace Hikawa
 				}
 			}
 
-			internal void SpecialStart()
+			/// <summary>
+			/// Player pressed hotkey to use special power, starts up an animation before kicking in.
+			/// </summary>
+			internal void PowerBeforeActive()
 			{
-				AnimationPhase = 0;
-				SpecialTimer = 1;
+				ActivePowerPhase = PowerPhase.BeforeActive1;
 			}
 
-			internal void SpecialEnd()
+			/// <summary>
+			/// Power after-use before-active animation has ended, so start playing out the power's effects.
+			/// </summary>
+			internal void PowerActive()
 			{
 				// Energy levels between 0 and the low-threshold will use a light special power
 				ActiveSpecialPower = Energy >= EnergyMax
 					? SpecialPower.Normal
 					: SpecialPower.Megaton;
-
-				AnimationPhase = 0;
-				SpecialTimer = 0;
+				
+				ActivePowerPhase = PowerPhase.AfterActive1;
 			}
 
-			internal void PowerEnd()
+			/// <summary>
+			/// Power's effects have finished playing out, play a wind-down animation and resolve the effects.
+			/// </summary>
+			internal void PowerAfterActive()
 			{
 				ActiveSpecialPower = SpecialPower.None;
-				AnimationPhase = 0;
-				PowerTimer = 0;
-				Energy = 0;
+				ActivePowerPhase = PowerPhase.None;
 			}
 
 			internal override void Fire(Vector2 target)
@@ -2087,7 +2207,7 @@ namespace Hikawa
 					CollisionBox.X + CollisionBox.Width / 2,
 					CollisionBox.Y + CollisionBox.Height / 2);
 
-				SpawnBullet(src, target, Power, BulletType);
+				SpawnBullet(BulletType, src, target, Power, this);
 				FireTimer = GameFireDelay;
 
 				// Mirror player sprite to face target
@@ -2101,31 +2221,99 @@ namespace Hikawa
 				++_totalShotsFired;
 			}
 
-			public override void Update() { }
+			public override void Update(TimeSpan elapsedGameTime)
+			{
+				if (HurtTimer > 0)
+					HurtTimer -= elapsedGameTime.Milliseconds;
+
+				// todo: relegate outside player update routines to this method
+				// Run down player invincibility
+				if (InvincibleTimer > 0)
+					InvincibleTimer -= elapsedGameTime.Milliseconds;
+
+				// Run down player lightgun animation
+				if (FireTimer > 0)
+					--FireTimer;
+				else
+					LastAimMotion = Vector2.Zero;
+			
+				/* Player special powers */
+				
+				// Move through the power animations and effects
+				if (PowerTimer > 0 || ActiveSpecialPower != SpecialPower.None)
+				{
+					PowerTimer += elapsedGameTime.Milliseconds;
+					if (PowerTimer >= PowerPhaseDurations[ActivePowerPhase])
+					{
+						++ActivePowerPhase;
+					}
+				}
+				else if (ActiveSpecialPower != SpecialPower.None)
+				{
+					PowerTimer += elapsedGameTime.Milliseconds;
+
+					if (ActivePowerPhase == PowerPhase.AfterActive2 
+					    && PowerTimer >= PowerPhaseDurations[ActivePowerPhase])
+					{
+						// Return to usual game flow
+						PowerAfterActive();
+					}
+				}
+				
+				// While the player has agency
+				else if (PowerTimer <= 0)
+				{
+					// Run down the death timer
+					if (RespawnTimer > 0.0)
+						RespawnTimer -= elapsedGameTime.Milliseconds;
+					// Run down the stage timer while alive
+					else
+					{
+						_stageMilliseconds -= elapsedGameTime.Milliseconds;
+						// Count up total playthrough timer
+						++_totalTime;
+					}
+
+					// Handle player movement
+					if (MovementDirections.Count > 0)
+					{
+						switch (MovementDirections.ElementAt(0))
+						{
+							case Move.Right:
+								SpriteMirror = SpriteEffects.None;
+								if (Position.X + CollisionBox.Width < _gameEndPixel.X)
+									Position.X += Speed;
+								else
+									Position.X = _gameEndPixel.X - CollisionBox.Width;
+								break;
+							case Move.Left:
+								SpriteMirror = SpriteEffects.FlipHorizontally;
+								if (Position.X > _gamePixelDimen.X)
+									Position.X -= Speed;
+								else
+									Position.X = _gamePixelDimen.X;
+								break;
+						}
+					}
+
+					AnimationTimer += elapsedGameTime.Milliseconds;
+					AnimationTimer %= (PlayerRunFrames) * PlayerAnimTimescale;
+
+					// Update collision box values to sync with position
+					CollisionBox.X = (int)Position.X;
+				}
+			}
 
 			public override void Draw(SpriteBatch b)
 			{
 				// Flicker sprite visibility while invincible
-				if (InvincibleTimer > 0 || InvincibleTimer / 100 % 2 != 0) return;
+				if (InvincibleTimer > 0 && InvincibleTimer / 100 % 2 != 0) return;
 
 				var destRects = new Rectangle[3];
 				var srcRects = new Rectangle[3];
 
 				// Draw full body action sprites
-				if (SpecialTimer > 0)
-				{   // Activated special power
-					destRects[0] = new Rectangle(
-						(int)Position.X,
-						(int)Position.Y,
-						CollisionBox.Width,
-						PlayerFullH * SpriteScale);
-					srcRects[0] = new Rectangle(
-						PlayerSpecialX + PlayerW * AnimationPhase,
-						PlayerFullY,
-						PlayerW,
-						PlayerFullH);
-				}
-				else if (ActiveSpecialPower != SpecialPower.None)
+				if (ActiveSpecialPower != SpecialPower.None)
 				{   // Player used a special power
 					// Draw power effects by type
 					if (ActiveSpecialPower == SpecialPower.Normal)
@@ -2141,7 +2329,20 @@ namespace Hikawa
 					srcRects[0] = new Rectangle(
 						PlayerPowerX
 						+ PlayerW * (int)(PowerAnimationFrameGroup)ActiveSpecialPower
-						+ PlayerW * AnimationPhase,
+						+ PlayerW * (int)ActivePowerPhase,
+						PlayerFullY,
+						PlayerW,
+						PlayerFullH);
+				}
+				else if (PowerTimer > 0)
+				{   // Activated special power
+					destRects[0] = new Rectangle(
+						(int)Position.X,
+						(int)Position.Y,
+						CollisionBox.Width,
+						PlayerFullH * SpriteScale);
+					srcRects[0] = new Rectangle(
+						PlayerSpecialX + PlayerW * (int)ActivePowerPhase,
 						PlayerFullY,
 						PlayerW,
 						PlayerFullH);
@@ -2171,22 +2372,23 @@ namespace Hikawa
 					{
 						var whichFrame = 0; // authors note: it was quicker to swap the level and below sprites 
 											// than to fix my stupid broken logic
-						if (LastAimVector != Vector2.Zero)
+						if (LastAimMotion != Vector2.Zero)
 						{
 							// Firing arms
-							if ((int)Math.Ceiling(LastAimVector.X) == (int)SpriteMirror
-							|| MovementDirections.Count > 0 && Math.Abs(LastAimVector.Y) >= 0.9f)
+							if ((int)Math.Ceiling(LastAimMotion.X) == (int)SpriteMirror
+							|| MovementDirections.Count > 0 && Math.Abs(LastAimMotion.Y) >= 0.9f)
 								whichFrame = 4; // Aiming backwards, also aiming upwards while running
-							else if (Math.Abs(LastAimVector.Y) >= 0.9f) // Aiming upwards while standing
+							else if (Math.Abs(LastAimMotion.Y) >= 0.9f) // Aiming upwards while standing
 								whichFrame = 5; // invalid index, therefore no visible arms
-							else if (LastAimVector.Y < -0.6f) // Aiming low
+							else if (LastAimMotion.Y < -0.6f) // Aiming low
 								whichFrame = 3;
-							else if (LastAimVector.Y < -0.2f) // Aiming level
+							else if (LastAimMotion.Y < -0.2f) // Aiming level
 								whichFrame = 2;
-							else if (LastAimVector.Y > 0.2f) // Aiming below
+							else if (LastAimMotion.Y > 0.2f) // Aiming below
 								whichFrame = 1;
 							destRects[2] = new Rectangle(
-								(int)Position.X,
+								(int)Position.X + (PlayerSplitWH / 2 * SpriteScale) 
+								* (SpriteMirror == SpriteEffects.None ? 1 : -1),
 								(int)Position.Y,
 								CollisionBox.Width,
 								CollisionBox.Height);
@@ -2198,7 +2400,7 @@ namespace Hikawa
 						}
 						if (MovementDirections.Count > 0)
 						{   // Firing running torso
-							whichFrame = (int)(AnimationTimer / PlayerAnimTimescale);
+							whichFrame = AnimationTimer / PlayerAnimTimescale;
 							destRects[0] = new Rectangle(
 								(int)Position.X,
 								(int)Position.Y,
@@ -2213,8 +2415,8 @@ namespace Hikawa
 						else
 						{   // Firing standing torso
 							whichFrame = PlayerBodySideFireX; // Aiming sideways
-							if (Math.Abs(LastAimVector.Y) >= 0.9f
-								|| (int)Math.Ceiling(LastAimVector.X) == (int)SpriteMirror)
+							if (Math.Abs(LastAimMotion.Y) >= 0.9f
+								|| (int)Math.Ceiling(LastAimMotion.X) == (int)SpriteMirror)
 								whichFrame = PlayerBodyUpFireX; // Aiming upwards
 							destRects[0] = new Rectangle(
 								(int)Position.X,
@@ -2230,7 +2432,7 @@ namespace Hikawa
 					}
 					else
 					{   // Running torso
-						var whichFrame = (int)(AnimationTimer / PlayerAnimTimescale);
+						var whichFrame = AnimationTimer / PlayerAnimTimescale;
 						destRects[0] = new Rectangle(
 							(int)Position.X,
 							(int)Position.Y,
@@ -2247,7 +2449,7 @@ namespace Hikawa
 				// Draw appropriate sprite legs
 				if (MovementDirections.Count > 0)
 				{   // Running
-					var whichFrame = (int)(AnimationTimer / PlayerAnimTimescale);
+					var whichFrame = AnimationTimer / PlayerAnimTimescale;
 					destRects[1] = new Rectangle(
 						(int)Position.X,
 						(int)Position.Y + (PlayerFullH - PlayerSplitWH) * SpriteScale,
@@ -2261,10 +2463,10 @@ namespace Hikawa
 				}
 				else if (FireTimer > 0)
 				{   // Standing and firing
-					if (LastAimVector != Vector2.Zero)
+					if (LastAimMotion != Vector2.Zero)
 					{   // Firing legs
 						var whichFrame = 0; // Aiming sideways
-						if (Math.Abs(LastAimVector.Y) > 0.9f)
+						if (Math.Abs(LastAimMotion.Y) > 0.9f)
 							whichFrame = 1; // Aiming upwards
 						destRects[1] = new Rectangle(
 							(int)Position.X,
@@ -2295,6 +2497,21 @@ namespace Hikawa
 							Position.Y / 10000f - i / 1000f + 1f / 1000f);
 					}
 				}
+
+				// Draw the player's shadow
+				b.Draw(
+					_arcadeTexture,
+					new Rectangle(
+						(int)Position.X,
+						(int)(Position.Y + PlayerFullH * SpriteScale - ActorShadowRect.Height * SpriteScale),
+						ActorShadowRect.Width * SpriteScale,
+						ActorShadowRect.Height * SpriteScale), 
+					ActorShadowRect,
+					Color.White,
+					0.0f,
+					Vector2.Zero,
+					SpriteEffects.None,
+					Position.Y / 10000f - 5f / 1000f + 1f / 1000f);
 			}
 		}
 
@@ -2302,21 +2519,30 @@ namespace Hikawa
 		{
 			public MonsterSpecies Species;
 			public bool Flying;
+			public bool ScaleWithDistance;
 			public Rectangle MovementTarget;
+			public List<Vector2> AimTargets = new List<Vector2>();
 
-			public int BulletsPerFire;
 			public int IdleTimer;
-			public int HurtTimer;
 
-			public Monster(MonsterSpecies species, int health, Rectangle collisionBox) : base(health, collisionBox)
+			public Monster(MonsterSpecies species, Rectangle collisionBox, int health, int healthMax = -1) 
+				: base(collisionBox, health, healthMax)
+			{
+				SetStats(species);
+			}
+
+			private void SetStats(MonsterSpecies species)
 			{
 				Species = species;
 				switch (species)
 				{
 					default:
-						Flying = false;
-						BulletsPerFire = 1;
-						MovementTarget = new Rectangle();
+						SpeedMax = MonsterSpeed[species];
+						Speed = SpeedMax;
+						Power = MonsterPower[species];
+						Flying = MonsterIsFlying[species];
+						ScaleWithDistance = false;
+						MovementTarget = Rectangle.Empty;
 						break;
 				}
 			}
@@ -2328,20 +2554,177 @@ namespace Hikawa
 			/// <returns>Whether the monster will survive.</returns>
 			internal override bool TakeDamage(int damage)
 			{
+				var lastHealth = Health;
+
 				++_totalShotsSuccessful;
 
 				var survives = base.TakeDamage(damage);
+
+				Log.D($"{Species} hit for {damage} : {lastHealth}/{HealthMax} => {Health}/{HealthMax}");
+
 				if (survives)
-					HurtTimer = 120;
+					HurtTimer = 20;
 				else
 					BeforeDeath();
-
 				return survives;
 			}
 
 			internal override void Fire(Vector2 where)
 			{
+				var type = ArcadeGunGame.BulletType.None;
+				switch (Species)
+				{
+					default:
+						type = BulletType.Gun;
+						break;
+				}
+				var src = new Vector2(CollisionBox.Center.X, CollisionBox.Center.Y);
 
+				Log.D($"{Species} firing from {src.ToString()} => {where.ToString()} / {Power} power / {type} type");
+
+				SpawnBullet(type, src, where, Power, this);
+			}
+
+			internal void GetNewAimTargets()
+			{
+				AimTargets.Clear();
+				if (MonsterBullets[Species] == 1)
+				{
+					var target = Vector2.Zero;
+
+					// Fire as close to the player as possible within the aim bounds for this monster
+					if (_player.CollisionBox.X < CollisionBox.Center.X - MonsterAimWidth[Species])
+						target.X = _player.CollisionBox.Center.X;
+					else if (_player.CollisionBox.Center.X > CollisionBox.Center.X + MonsterAimWidth[Species])
+						target.X = CollisionBox.Center.X + MonsterAimWidth[Species];
+					else
+						target.X = _player.CollisionBox.Center.X;
+					target.Y = _player.CollisionBox.Center.Y;
+
+					AimTargets.Add(target);
+				}
+				else
+				{
+					// todo: multi-bullet sprays
+				}
+
+				var str = "";
+				foreach (var target in AimTargets)
+					str += $"{target.ToString()} ";
+				Log.D($"{Species} aim targets: {str}");
+			}
+
+			internal virtual void GetNewMovementTarget()
+			{
+				var xpos = 0;
+				if (Flying)
+				{
+					// todo: flying enemem
+				}
+				else
+				{
+					xpos = Game1.random.Next(_gamePixelDimen.Width / 8, _gamePixelDimen.Width / 2);
+
+					// Initial target moves a short distance into the screen
+					if (Position.X <= _gamePixelDimen.X)
+					{
+						// Spawn from left side
+						xpos = _gamePixelDimen.X + xpos;
+					}
+					else if (Position.X + CollisionBox.Width >= _gameEndPixel.X)
+					{
+						// Spawn from right side
+						xpos = _gameEndPixel.X - xpos;
+					}
+					
+					// Repeat targets swap sides
+					else if (Position.X < _gamePixelDimen.Center.X)
+					{
+						xpos = _gameEndPixel.X - xpos;
+					}
+					else
+					{
+						xpos = _gamePixelDimen.X + xpos;
+					}
+
+					// Avoid stutter-stepping
+					if (Math.Abs(Position.X - xpos) < CollisionBox.Width * 2)
+					{
+						xpos += (int)(Position.X - xpos);
+					}
+				}
+
+				SpriteMirror = Position.X < _gamePixelDimen.Center.X 
+					? SpriteEffects.None
+					: SpriteEffects.FlipHorizontally;
+				MovementTarget = new Rectangle(xpos, (int)Position.Y, CollisionBox.Width, CollisionBox.Height);
+
+				Log.D($"{Species} moving at {CollisionBox.Center.ToString()} => {MovementTarget.Center.ToString()}, " + $"{(Position.X < _gamePixelDimen.Center.X ? "left" : "right")} side.");
+			}
+
+			internal virtual void OnReachedMovementTarget()
+			{
+				Log.D($"{Species} moved to {CollisionBox.Center.ToString()} == {MovementTarget.Center.ToString()}");
+				AnimationTimer = 0;
+				SpriteMirror = SpriteEffects.None;
+				switch (Species)
+				{
+					default:
+						// todo reset move target for some species
+						MovementTarget = Rectangle.Empty;
+						if (FireTimer <= 0)
+							FireTimer = MonsterFireTime[Species];
+						if (IdleTimer <= 0)
+							IdleTimer = MonsterIdleTime[Species];
+						break;
+				}
+			}
+
+			/// <summary>
+			/// Has a chance to create a new Powerup object at some position.
+			/// </summary>
+			/// <param name="collisionBox">Spawn position and touch bounds.</param>
+			internal virtual void GetLootDrop(Rectangle collisionBox)
+			{
+				var rand = Game1.random.NextDouble();
+
+				var rate = MonsterLootRates[Species];
+				var rateTime = rate / 2 - (_stageMilliseconds - StageTimeInitial) / 500000f;
+
+				var which = LootDrops.None;
+				if (rand < LootRollGets[LootDrops.Life] * rate)
+					which = LootDrops.Life;
+				else if (rand < LootRollGets[LootDrops.Energy] * rate)
+					which = LootDrops.Energy;
+				else if (rand < LootRollGets[LootDrops.Cake] * rate)
+					which = LootDrops.Cake;
+				else if (rand < LootRollGets[LootDrops.Time] * rateTime)
+					which = LootDrops.Time;
+				
+				Log.D($"GetLootDrop : rates: "
+				      + $"life={LootRollGets[LootDrops.Life] * rate:0.0000} "
+				      + $"energy={LootRollGets[LootDrops.Energy] * rate:0.0000} "
+				      + $"cake={LootRollGets[LootDrops.Cake] * rate:0.0000} "
+				      + $"time={LootRollGets[LootDrops.Time] * rate:0.0000} ");
+				Log.D($"GetLootDrop : "
+				      + $"rand={rand:0.00} "
+				      + $"rate={rate:0.00000} "
+				      + $"time={LootRollGets[LootDrops.Time] * rate} "
+				      + $"rateTime={LootRollGets[LootDrops.Time] * rateTime:0.00000}");
+				Log.D($"GetLootDrop : "
+				      + $"which={which}");
+
+				// good players get cake
+				if (which == LootDrops.Life && _player.Health == _player.HealthMax)
+					which = LootDrops.Cake;
+				// bad players get clock
+				if (which == LootDrops.Cake && _stageMilliseconds <= StageTimeCritical)
+					which = LootDrops.Time;
+
+				if (which != LootDrops.None)
+					SpawnPowerup(
+						which,
+						new Vector2(collisionBox.X, collisionBox.Y));
 			}
 
 			internal override void BeforeDeath()
@@ -2350,7 +2733,7 @@ namespace Hikawa
 				++_totalMonstersBonked;
 				AddScore(MonsterScore[Species]);
 
-				// Throw loot upon dying
+				// Try to throw loot upon dying
 				GetLootDrop(new Rectangle(
 					CollisionBox.X + CollisionBox.Width / 2,
 					CollisionBox.Y + CollisionBox.Height / 2,
@@ -2362,108 +2745,175 @@ namespace Hikawa
 
 			protected override void Die()
 			{
+				Log.D($"{Species} died");
 				_enemies.Remove(this);
 			}
 
-			/// <summary>
-			/// Create a new Powerup object at some position.
-			/// </summary>
-			/// <param name="collisionBox">Spawn position and touch bounds.</param>
-			internal virtual void GetLootDrop(Rectangle collisionBox)
+			public override void Update(TimeSpan elapsedGameTime)
 			{
-				var rand = Game1.random.NextDouble();
-				var which = LootDrops.None;
-				if (rand < 0.05)
-					which = LootDrops.Life;
-				else if (rand < 0.1)
-					which = LootDrops.Energy;
-				else if (rand < 0.2)
-					which = LootDrops.Cake;
-				if (which != LootDrops.None)
-					SpawnPowerup(
-						which,
-						new Vector2(collisionBox.X, collisionBox.Y));
-			}
+				// Prepare to fire
+				if (FireTimer == MonsterFireTime[Species])
+					GetNewAimTargets();
 
-			internal virtual void OnReachedMovementTarget()
-			{
-				switch (Species)
-				{
-					default:
-						// todo reset move target for some species
-						if (FireTimer <= 0)
-							FireTimer = 300;
-						if (IdleTimer <= 0)
-							IdleTimer = 120;
-						break;
-				}
-			}
-
-			internal virtual void GetNewMovementTarget()
-			{
-				var x = 0;
-				var y = 0;
-				if (Flying)
-				{
-					// todo: flying enemem
-				}
-				else
-				{
-					x = Position.X + Game1.random.NextDouble() * Position.X < _gamePixelDimen.X / 2 ? 1 : -1;
-					y = (int) Position.Y;
-				}
-				MovementTarget = new Rectangle(x, y, CollisionBox.Width, CollisionBox.Height);
-			}
-
-			public override void Update()
-			{
-				// Run down hurt frames
+				// Run down timers
+				if (IdleTimer > 0)
+					IdleTimer -= elapsedGameTime.Milliseconds;
 				if (HurtTimer > 0) 
-					--HurtTimer;
+					HurtTimer -= elapsedGameTime.Milliseconds;
 
-				// Movement
-				if (HurtTimer <= 0)
+				if (FireTimer > 0)
+					FireTimer -= elapsedGameTime.Milliseconds;
+				if (InvincibleTimer > 0)
+					InvincibleTimer -= elapsedGameTime.Milliseconds;
+
+				if (FireTimer > 0 && (HurtTimer <= 0 || !MonsterFiringCancellable[Species]))
+				{	// Fire when not being stunned by hurt
+					if (FireTimer < MonsterFireTime[Species] / 2)
+					{	// Unload all bullets at once for this species
+						foreach (var target in AimTargets.ToArray())
+							Fire(target);
+						AimTargets.Clear();
+					}
+					else if (MonsterFireStaggered[Species])
+					{	// Unload the next bullet in a staggered sequence for this species
+						if (FireTimer / MonsterBullets[Species] % elapsedGameTime.Milliseconds == 0)
+						{
+							// todo: monster staggered firing
+						}
+					}
+				}
+				else if (HurtTimer <= 0)
 				{
+					// todo: player contact damage check when necessary
+
+					// While moving
 					if (MovementTarget != Rectangle.Empty)
 					{
-						if (Math.Abs(Position.X - MovementTarget.X) < Speed)
-							Position.X += Speed * Position.X < MovementTarget.X ? 1 : -1;
-						if (Math.Abs(Position.Y - MovementTarget.Y) < Speed)
-							Position.Y += Speed * Position.Y < MovementTarget.Y ? 1 : -1;
+						if (CollisionBox.Intersects(MovementTarget))
+						{   // Act on reaching target position
+							OnReachedMovementTarget();
+						}
+						else
+						{
+							// Update position
+							if (Math.Abs(Position.X - MovementTarget.X) > Speed)
+								Position.X += Speed * (Position.X > MovementTarget.X ? -1 : 1);
+							if (Math.Abs(Position.Y - MovementTarget.Y) > Speed)
+								Position.Y += Speed * (Position.Y > MovementTarget.Y ? -1 : 1);
+
+							// Update collision box values to sync with position
+							CollisionBox.X = (int)Position.X;
+							CollisionBox.Y = (int)Position.Y;
+							
+							// Scale down distant monsters
+							if (ScaleWithDistance)
+								CollisionBox.Width = MonsterSrcRects[Species].Width * (CollisionBox.Y < _gamePixelDimen.Height / 2
+									? 1
+									: 2);
+
+							// Tick up the animation timer while moving
+							AnimationTimer += elapsedGameTime.Milliseconds;
+							AnimationTimer %= EnemyRunFrames * EnemyAnimTimescale;
+						}
 					}
-					else if (CollisionBox.Intersects(MovementTarget))
-						OnReachedMovementTarget();
-					// While neither firing or pausing after firing
+					// While not moving and neither firing or pausing after firing
 					else if (FireTimer <= 0 && IdleTimer <= 0)
 					{
-						if (MovementTarget == Rectangle.Empty)
-							GetNewMovementTarget();
+						// Fetch a new movement target after firing and idling
+						GetNewMovementTarget();
 					}
 				}
 			}
 
 			public override void Draw(SpriteBatch b)
 			{
+				var whichFrame = 0;
+
+				// Run frames
+				if (MovementTarget != Rectangle.Empty)
+					whichFrame = 1 + AnimationTimer / EnemyAnimTimescale;
+
+				var scale = ScaleWithDistance && CollisionBox.Y < _gamePixelDimen.Height / 2
+					? SpriteScale / 2 
+					: SpriteScale;
+				
+				// Crop the monster to remain in the game bounds for the illusion of a screen limit
+				var xOffset = 0;
+				var yOffset = 0;
+				var width = MonsterSrcRects[Species].Width;
+				var height = MonsterSrcRects[Species].Height;
+				var flipOffset = false;
+				
+				if (CollisionBox.X < _gamePixelDimen.X)
+				{
+					xOffset = Math.Abs(CollisionBox.X - _gamePixelDimen.X) / scale;
+					width = MonsterSrcRects[Species].Width - xOffset;
+				}
+				else if (CollisionBox.X + MonsterSrcRects[Species].Width * scale > _gameEndPixel.X)
+				{
+					width = MonsterSrcRects[Species].Width - Math.Abs(
+						(CollisionBox.X + MonsterSrcRects[Species].Width * scale - _gameEndPixel.X) / scale);
+					xOffset = MonsterSrcRects[Species].Width - width;
+					flipOffset = true;
+				}
+				
+				// todo: cropping for y-axis
+
+				/*
+				if (CollisionBox.Y < _gamePixelDimen.Y)
+				{
+					height = Math.Min(MonsterSrcRects[Species].Height, Math.Abs(CollisionBox.Y - _gamePixelDimen.Y));
+					yOffset = MonsterSrcRects[Species].Height - height;
+				}
+				else if (CollisionBox.Y > _gameEndPixel.Y - MonsterSrcRects[Species].Height * scale)
+				{
+					height = Math.Min(MonsterSrcRects[Species].Height, Math.Abs(CollisionBox.Y - _gameEndPixel.Y - MonsterSrcRects[Species].Height));
+				}
+				*/
+
+				if (CollisionBox.X < _gamePixelDimen.X 
+				    || CollisionBox.X + MonsterSrcRects[Species].Width * scale > _gameEndPixel.X)
+					Log.D($"Draw {Species}: x={xOffset} y={yOffset} w={width} h={height}");
+
+				// Draw the monster
 				b.Draw(
 					_arcadeTexture,
-					new Vector2(
-						_gamePixelDimen.X + Position.X,
-						_gamePixelDimen.Y + Position.Y),
 					new Rectangle(
-						TD,
-						0,
-						16,
-						16),
+						(int)Position.X + (flipOffset ? 0 : xOffset * scale),
+						(int)Position.Y + yOffset * scale,
+						width * scale,
+						height * scale),
+					new Rectangle(
+						MonsterSrcRects[Species].X + MonsterSrcRects[Species].Width * whichFrame + xOffset,
+						MonsterSrcRects[Species].Y + yOffset,
+						width,
+						height),
 					HurtTimer <= 0 
 						? Color.White
 						: Color.Red,
 					0.0f,
 					Vector2.Zero,
-					CollisionBox.Y < _gamePixelDimen.Height / 2 
-						? SpriteScale / 2
-						: SpriteScale,
+					SpriteMirror,
+					Position.Y / 10000f + 1f / 1000f);
+				
+				// Draw the player's shadow
+				var yOffsetFromFlying = Flying ? TD * scale : 0f;
+				b.Draw(
+					_arcadeTexture,
+					new Rectangle(
+						(int)Position.X,
+						(int)(Position.Y + MonsterSrcRects[Species].Height * scale - ActorShadowRect.Height * scale
+						      + yOffsetFromFlying),
+						ActorShadowRect.Width * SpriteScale,
+						ActorShadowRect.Height * SpriteScale), 
+					ActorShadowRect,
+					Color.White,
+					0.0f,
+					Vector2.Zero,
 					SpriteEffects.None,
-					(float)(Position.Y / 10000.0 + 1.0 / 1000.0));
+					(Position.Y - yOffsetFromFlying) / 10000f);
+
+				// todo: draw a flashing crosshair over the bullet target
 			}
 		}
 
@@ -2486,9 +2936,9 @@ namespace Hikawa
 						var d = Game1.random.NextDouble();
 						if (d > 0.05)
 						{
-							x = (int)(10 * (d * Math.Floor(10d / CakesFrames)));
+							x = (int)(CakesFrames * (d * Math.Floor(10d / (CakesFrames))));
 							y = 1;
-							Log.D($"Chose cake #{x}");
+							Log.D($"Chose cake no.{x}");
 						}
 						else
 						{
@@ -2517,19 +2967,24 @@ namespace Hikawa
 			/// <summary>
 			/// Update dropped loot per tick, removing them as their timer runs down.
 			/// </summary>
-			public override void Update()
+			public override void Update(TimeSpan elapsedGameTime)
 			{
 				// Powerup expired
-				if (--Duration <= 0)
+				Duration -= elapsedGameTime.Milliseconds;
+				if (Duration <= 0)
 				{
-					Log.D($"{Type} expired at {CollisionBox.X}, {CollisionBox.Y}");
+					Log.D($"{Type} expired at {Position.X}, {Position.Y}");
 					_powerups.Remove(this);
 				}
 
 				// Powerup dropping in from spawn
 				var endpoint = _player.CollisionBox.Y + _player.CollisionBox.Height - CollisionBox.Height;
-				if (CollisionBox.Y < endpoint)
-					CollisionBox.Y = Math.Min(endpoint, CollisionBox.Y + 4 * SpriteScale);
+				if (Position.Y < endpoint)
+					Position.Y = Math.Min(endpoint, Position.Y + 4 * SpriteScale);
+
+				// Update collision box values to sync with position
+				CollisionBox.X = (int)Position.X;
+				CollisionBox.Y = (int)Position.Y;
 
 				if (!CollisionBox.Intersects(_player.CollisionBox)) return;
 
@@ -2541,12 +2996,17 @@ namespace Hikawa
 			public override void Draw(SpriteBatch b)
 			{
 				if (Duration <= 2000 && Duration / 200 % 2 != 0) return;
-
+				/*
+				var scale = CollisionBox.Y < _gamePixelDimen.Height / 2
+					? SpriteScale / 2 
+					: SpriteScale;
+				*/
+				var scale = SpriteScale;
 				b.Draw(
 					_arcadeTexture,
 					new Vector2(
-						CollisionBox.X, 
-						CollisionBox.Y + YOffset),
+						Position.X,
+						Position.Y + YOffset),
 					new Rectangle(
 						TextureRect.X,
 						TextureRect.Y,
@@ -2557,92 +3017,137 @@ namespace Hikawa
 					Vector2.Zero,
 					SpriteScale,
 					SpriteEffects.None,
-					CollisionBox.Y / 10000f + 1f / 1000f);
+					Position.Y / 10000f + 1f / 1000f);
+
+				// Draw the powerup's shadow
+				b.Draw(
+					_arcadeTexture,
+					new Rectangle(
+						(int)Position.X,
+						_player.CollisionBox.Y + _player.CollisionBox.Height - LootShadowRect.Height,
+						LootShadowRect.Width * scale,
+						LootShadowRect.Height * scale), 
+					LootShadowRect,
+					Color.White,
+					0.0f,
+					Vector2.Zero,
+					SpriteEffects.None,
+					Position.Y / 10000f);
 			}
 		}
 		
 		public class Bullet : ArcadeObject
 		{
+			public ArcadeActor Owner;
 			public int Power;
 			public Vector2 Motion;          // Line of motion between spawn and dest
 			public Vector2 MotionCur;       // Current position along vector of motion between spawn and dest
 			public float Rotation;          // Angle of vector between spawn and dest
 			public float RotationCur;       // Current spin
 			public BulletType Type;
+			public bool ScaleWithDistance;
 
-			public Vector2 Start;
-			public Vector2 Target; // DEBUG - target to draw line towards
+			public Vector2 Origin;
+			public Vector2 Target;
 
-			public Bullet(BulletType type, int power, Rectangle collisionBox, Vector2 motion, float rotation, Vector2 target)
+			public Bullet(BulletType type, int power, ArcadeActor owner, Rectangle collisionBox, Vector2 motion, float rotation, Vector2 target)
 				: base(collisionBox)
 			{
 				Type = type;
 				Power = power;
+				Owner = owner;
 
 				Motion = motion;
 				MotionCur = motion;
 				Rotation = rotation;
 				RotationCur = type == BulletType.Player ? 0f : rotation;
+				ScaleWithDistance = false;
 
-				Start = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
+				Origin = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
 				Target = target;
 
-				//Log.D("bullet:" + $"\nCB x = {CollisionBox.X}, y = {CollisionBox.Y}, w = {CollisionBox.Width}, h = {CollisionBox.Height}");
+				//Log.D($"Bullet : {Type} :" + $" x = {CollisionBox.X}, y = {CollisionBox.Y}," + $" w = {CollisionBox.Width}, h = {CollisionBox.Height}");
 			}
 
 			/// <summary>
 			/// Update on-screen bullets per tick, removing as they travel offscreen or hit a target.
 			/// </summary>
-			public override void Update()
+			public override void Update(TimeSpan elapsedGameTime)
 			{
-				// Damage any monsters colliding with bullets
-				if (Type == BulletType.Player)
+				// Remove offscreen bullets
+				if (!CollisionBox.Intersects(_gamePixelDimen))
 				{
+					//Log.D($"Bullet : {Type} : out of bounds");
+					
+					if (Owner is Player)
+						_playerBullets.Remove(this);
+					else
+						_enemyBullets.Remove(this);
+				}
+
+				if (Owner is Player)
+				{   // Damage any monsters colliding with bullets
 					for (var j = _enemies.Count - 1; j >= 0; --j)
 					{
-						if (!CollisionBox.Intersects(_enemies[j].CollisionBox)) continue;
-						_playerBullets.Remove(this);
-						if (_enemies[j].HurtTimer > 0)
-							_enemies[j].TakeDamage(Power);
+						if (CollisionBox.Intersects(_enemies[j].CollisionBox))
+						{
+							Log.D($"Bullet : {Type} : hit {_enemies[j].Species}");
+
+							_playerBullets.Remove(this);
+							if (_enemies[j].HurtTimer <= 0)
+								_enemies[j].TakeDamage(Power);
+						}
 					}
 				}
 				else
-				{
-					// Damage the player
+				{	// Damage the player
 					if (_player.InvincibleTimer <= 0 && _player.RespawnTimer <= 0f)
 					{
-						_enemyBullets.Remove(this);
 						if (CollisionBox.Intersects(_player.CollisionBox))
-							_player.TakeDamage(Power);
+						{
+							Log.D($"Bullet : {Type} : hit player");
+
+							_enemyBullets.Remove(this);
+							if (CollisionBox.Intersects(_player.CollisionBox))
+								_player.TakeDamage(Power);
+						}
 					}
 				}
 
 				// Update bullet positions
 				Position += Motion * BulletSpeed[Type];
+
+				// Update collision box values to sync with position
 				CollisionBox.X = (int)Position.X;
 				CollisionBox.Y = (int)Position.Y;
-
-				// Remove offscreen bullets
-				if (!CollisionBox.Intersects(_gamePixelDimen))
-					_playerBullets.Remove(this);
+				
+				// Scale down distant bullets
+				if (ScaleWithDistance)
+					CollisionBox.Width = BulletSize[Type] * (CollisionBox.Y < _gamePixelDimen.Height / 2
+						? 1
+						: 2);
 			}
 
 			public override void Draw(SpriteBatch b)
 			{
+				var scale = ScaleWithDistance && CollisionBox.Y < _gamePixelDimen.Height / 2
+					? SpriteScale / 2 
+					: SpriteScale;
+
 				b.Draw(
 					_arcadeTexture,
 					new Vector2(
 						CollisionBox.X,
 						CollisionBox.Y),
 					new Rectangle(
-						ProjectileSprite.X + TD * (int)Type,
-						ProjectileSprite.Y,
-						ProjectileSprite.Width,
-						ProjectileSprite.Height),
+						ProjectileSrcRects[Type].X + TD * (int)Type,
+						ProjectileSrcRects[Type].Y,
+						ProjectileSrcRects[Type].Width,
+						ProjectileSrcRects[Type].Height),
 					Color.White,
 					Rotation,
-					new Vector2(ProjectileSprite.Width / 2, ProjectileSprite.Height / 2),
-					SpriteScale,
+					new Vector2(ProjectileSrcRects[Type].Width / 2, ProjectileSrcRects[Type].Height / 2),
+					scale,
 					SpriteEffects.None,
 					0.9f);
 			}
