@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -28,6 +27,44 @@ namespace Hikawa
 		#region Constant Values
 		///////////////////////
 
+			
+		/* Game attributes */
+
+		// Game values
+		private const int GameLivesDefault = 1;
+		private const int GameEnergyThresholdLow = 3;
+		private const int GameDodgeDelay = 500;
+		private const int GameInvincibleDelay = 3000;
+		private const int GameDeathDelay = 3000;
+		private const int GameEndDelay = 5000;
+
+		private const int StageTimeMax = 99000;
+		private const int StageTimeInitial = 60000;
+		private const int StageTimeExtra = 15000;
+		private const int StageTimeCritical = 5000;
+		private const int StageTimeHudDigits = 2;
+
+		// Score values
+		private const int ScoreMax = 99999999;
+		private const int ScoreCake = 3000;
+		private const int ScoreCakeExtra = 150;
+		private const int ScoreBread = 10400;
+		
+		/* Sprite attributes */
+
+		// Sprite dimensions and size multipliers
+		private const int TD = 16;
+		private const int SpriteScale = 2;
+		private const int CursorScale = 4;
+		// Animation rates, lower is faster
+		private const int UiAnimTimescale = 85;
+		private const int PlayerAnimTimescale = 250;
+		private const int EnemyAnimTimescale = 200;
+		private const int BulletAnimTimescale = 500;
+		private const int PowerupAnimTimescale = 100;
+		// Boundary dimensions for gameplay, menus, and cutscenes
+		private const int MapWidthInTiles = 20;
+		private const int MapHeightInTiles = 18;
 
 		/* Enum values */
 
@@ -37,9 +74,24 @@ namespace Hikawa
 			Retry,
 			Quit
 		}
+		public enum Swatch
+		{
+			Black,
+			White,
+			LightRed,
+			Red,
+			DarkRed,
+			LightGreen,
+			Green,
+			DarkGreen,
+			LightBlue,
+			Blue,
+			DarkBlue,
+			Brown,
+			Length
+		}
 		public enum Move
 		{
-			None,
 			Right,
 			Left
 		}
@@ -104,16 +156,18 @@ namespace Hikawa
 			Bomb, // no collision, different arc, explodes on death
 			Energy,
 			Petal, // menu screen effects
+			Bubble,
 		}
 		private static readonly Dictionary<BulletType, float> BulletSpeed = new Dictionary<BulletType, float>
 		{
 			{BulletType.None, 0f},
-			{BulletType.Player, 4f},
+			{BulletType.Player, 3f},
 			{BulletType.Gun, 3f},
 			{BulletType.Junk, 1.5f},
 			{BulletType.Bomb, 2f},
 			{BulletType.Energy, 3f},
 			{BulletType.Petal, 0.35f},
+			{BulletType.Bubble, 1f},
 		};
 		private static readonly Dictionary<BulletType, float> BulletSpin = new Dictionary<BulletType, float>
 		{ // todo: add values in radians
@@ -123,6 +177,19 @@ namespace Hikawa
 			{BulletType.Junk, (float)(Math.PI / 180f)},
 			{BulletType.Bomb, 0f},
 			{BulletType.Energy, 0f},
+			{BulletType.Petal, 0f},
+			{BulletType.Bubble, 0f},
+		};
+		private static readonly Dictionary<BulletType, int> BulletFireRates = new Dictionary<BulletType, int>
+		{
+			{BulletType.None, 0},
+			{BulletType.Player, 20},
+			{BulletType.Gun, 10},
+			{BulletType.Junk, 0},
+			{BulletType.Bomb, 30},
+			{BulletType.Energy, 0},
+			{BulletType.Petal, 5},
+			{BulletType.Bubble, 40},
 		};
 		private static readonly Dictionary<BulletType, int> BulletSize = new Dictionary<BulletType, int>
 		{
@@ -133,6 +200,7 @@ namespace Hikawa
 			{BulletType.Bomb, TD},
 			{BulletType.Energy, TD},
 			{BulletType.Petal, TD},
+			{BulletType.Bubble, TD},
 		};
 		private static readonly Dictionary<BulletType, int> BulletFrames = new Dictionary<BulletType, int>
 		{
@@ -143,6 +211,7 @@ namespace Hikawa
 			{BulletType.Bomb, 2},
 			{BulletType.Energy, 2},
 			{BulletType.Petal, 3},
+			{BulletType.Bubble, 2},
 		};
 		private static readonly Dictionary<BulletType, int[]> BulletAnimations = new Dictionary<BulletType, int[]>
 		{
@@ -153,6 +222,7 @@ namespace Hikawa
 			{BulletType.Bomb, new []{ 0 }},
 			{BulletType.Energy, new []{ 0 }},
 			{BulletType.Petal, new []{ 0, 1, 0, 2 }},
+			{BulletType.Bubble, new []{ 0, 1 }},
 		};
 		// Loot drops and powerups
 		public enum LootDrops
@@ -163,6 +233,7 @@ namespace Hikawa
 			Cake,
 			Time,
 			Megahealth,
+			BubbleGun,
 		}
 		private static readonly Dictionary<LootDrops, double> LootRollGets = new Dictionary<LootDrops, double>
 		{
@@ -170,6 +241,7 @@ namespace Hikawa
 			{LootDrops.Life, 0.1d},
 			{LootDrops.Energy, 0.2d},
 			{LootDrops.Cake, 0.5d},
+			{LootDrops.BubbleGun, 0.55d},
 			{LootDrops.Time, 0.9d},
 			{LootDrops.Megahealth, 1d},
 		};
@@ -181,6 +253,7 @@ namespace Hikawa
 			{LootDrops.Cake, 5},
 			{LootDrops.Time, 5},
 			{LootDrops.Megahealth, 99999},
+			{LootDrops.BubbleGun, 5},
 		};
 		// Monsters
 		public enum MonsterSpecies
@@ -236,43 +309,6 @@ namespace Hikawa
 			{MonsterSpecies.Mafia, 0.5d},
 		};
 
-		/* Game attributes */
-
-		// Game values
-		private const int GameLivesDefault = 1;
-		private const int GameEnergyThresholdLow = 3;
-		private const int GameDodgeDelay = 500;
-		private const int GameFireDelay = 20;
-		private const int GameInvincibleDelay = 5000;
-		private const int GameDeathDelay = 3000;
-		private const int GameEndDelay = 5000;
-		private const int StageTimeMax = 99000;
-		private const int StageTimeInitial = 60000;
-		private const int StageTimeExtra = 15000;
-		private const int StageTimeCritical = 5000;
-		private const int StageTimeHudDigits = 2;
-
-		// Score values
-		private const int ScoreMax = 99999999;
-		private const int ScoreCake = 5000;
-		private const int ScoreCakeExtra = 150;
-		private const int ScoreBread = 12500;
-
-		/* Sprite attributes */
-
-		// Sprite dimensions and size multipliers
-		private const int TD = 16;
-		private const int SpriteScale = 2;
-		private const int CursorScale = 4;
-		// Animation rates, lower is faster
-		private const int UiAnimTimescale = 85;
-		private const int PlayerAnimTimescale = 200;
-		private const int EnemyAnimTimescale = 200;
-		private const int BulletAnimTimescale = 500;
-		// Boundary dimensions for gameplay, menus, and cutscenes
-		private const int MapWidthInTiles = 20;
-		private const int MapHeightInTiles = 18;
-
 		/* Cutscene and unique animation times */
 
 		// Title screen, splash screen and standby
@@ -295,12 +331,12 @@ namespace Hikawa
 		public static readonly int BulletSpriteY = CakeSprite.Y + CakeSprite.Height;
 		public static readonly Dictionary<BulletType, Rectangle> BulletSrcRects = new Dictionary<BulletType, Rectangle>
 		{ // todo: remove??
-			{ BulletType.None, new Rectangle(0, TD * 4, TD, TD) }, 
-			{ BulletType.Player, new Rectangle(0, TD * 4, TD, TD) },
-			{ BulletType.Gun, new Rectangle(0, TD * 4, TD, TD) },
-			{ BulletType.Bomb, new Rectangle(0, TD * 4, TD, TD) },
-			{ BulletType.Energy, new Rectangle(0, TD * 4, TD, TD) },
-			{ BulletType.Petal, new Rectangle(0, TD * 4, TD, TD) },
+			{ BulletType.None, new Rectangle(0, BulletSpriteY, TD, TD) }, 
+			{ BulletType.Player, new Rectangle(0, BulletSpriteY, TD, TD) },
+			{ BulletType.Gun, new Rectangle(0, BulletSpriteY, TD, TD) },
+			{ BulletType.Bomb, new Rectangle(0, BulletSpriteY, TD, TD) },
+			{ BulletType.Energy, new Rectangle(0, BulletSpriteY, TD, TD) },
+			{ BulletType.Petal, new Rectangle(0, BulletSpriteY, TD, TD) },
 		};
 		// monsters
 		private const int EnemyRunFrames = 3;
@@ -318,24 +354,32 @@ namespace Hikawa
 
 		/* HUD graphics */
 		
-		// Player score
-		private static readonly Rectangle HudScoreTextSprite = new Rectangle(
-			0, HudStringsY, TD * 1, HudStringsH);
-		// Enemy life
-		private static readonly Rectangle HudHealthPipSprite = new Rectangle( // HARD Y // HARD X
-			TD * 12, TD, 6, TD);
+		// Crosshair
+		public static readonly Rectangle CrosshairDimen = new Rectangle( // HARD Y
+			TD * 2, 0, TD, TD);
+
 		// Player life
 		private static readonly Rectangle HudLifeSprite = new Rectangle( // HARD Y
 			TD * 12, 0, TD, TD);
 		// Player energy
 		private static readonly Rectangle HudEnergySprite = new Rectangle( // HARD Y
 			HudLifeSprite.X + HudLifeSprite.Width, 0, TD, TD);
-		// Player crosshair
-		public static readonly Rectangle CrosshairDimen = new Rectangle( // HARD Y
-			TD * 2, 0, TD, TD);
 		// Player portrait
 		private static readonly Rectangle HudPortraitSprite = new Rectangle(
 			0, HudStringsY + HudStringsH, TD * 2, TD * 2);
+
+		// Player score
+		private static readonly Rectangle HudScoreTextSprite = new Rectangle(
+			0, HudStringsY, TD * 1, HudStringsH);
+		// Stage enemy health
+		private const int HudHealthPips = 20;
+		private static readonly Rectangle HudHealthPipSprite = new Rectangle( // HARD Y // HARD X
+			TD * 12, TD, 6, TD);
+		private static readonly Rectangle HudHealthTextSprite = new Rectangle( // WEIRD X
+			HudEnergySprite.X + HudEnergySprite.Width, HudStringsY, TD * 3, TD);
+		// Stage time
+		private static readonly Rectangle HudTimeSprite = new Rectangle( // HARD Y
+			HudEnergySprite.X + HudEnergySprite.Width, 0, TD, TD);
 
 		/* Player graphics */
 
@@ -462,10 +506,8 @@ namespace Hikawa
 		private behaviorAfterMotionPause _behaviorAfterPause;
 		public delegate void behaviorAfterMotionPause();
 
-		private static readonly Texture2D BlackoutPixel = new Texture2D(
-			Game1.graphics.GraphicsDevice, 1, 1);
-		private static readonly Texture2D ColorFillPixel = new Texture2D(
-			Game1.graphics.GraphicsDevice, 1, 1);
+		private static readonly Texture2D FillColours = new Texture2D(
+			Game1.graphics.GraphicsDevice, (int)Swatch.Length, 1);
 
 		/* Game actors and objects */
 
@@ -488,12 +530,15 @@ namespace Hikawa
 		private static int _stageEnemyHealth;
 		private static int _stageMilliseconds;
 		private static int[,] _stageMap = new int[MapHeightInTiles, MapWidthInTiles];
+		private static bool _enemyHealthRegenerating;
+
 		// Records and statistics
 		private static int _totalTime;
 		private static int _totalScore;
 		private static int _totalShotsSuccessful;
 		private static int _totalShotsFired;
 		private static int _totalMonstersBonked;
+
 		// Extras
 		private static int _currentMenuOption;
 
@@ -557,12 +602,19 @@ namespace Hikawa
 			Game1.changeMusicTrack("none", false, Game1.MusicContext.MiniGame);
 
 			// Load arcade game assets
-			BlackoutPixel.SetData(new [] { Color.Black });
-			ColorFillPixel.SetData(new [] { Color.Bisque });
 			_arcadeTexture = Helper.Content.Load<Texture2D>(
-				Path.Combine("assets", ModConsts.SpritesDirectory, 
-					$"{ModConsts.ArcadeSpritesFile}.png"));
+				Path.Combine("assets", ModConsts.SpritesDirectory, $"{ModConsts.ArcadeSpritesFile}.png"));
+
+			// Load fill colours
+			var swatch = new Color[(int)Swatch.Length];
+			_arcadeTexture.GetData(0, 
+				new Rectangle(0, 0, swatch.Length, 1),
+				swatch, 0, swatch.Length);
+			FillColours.SetData(swatch);
+
+			// Load player 2's modified assets
 			LoadPlayer2();
+
 			// Reload assets customised by the arcade game
 			// ie. LooseSprites/Cursors
 			Helper.Events.GameLoop.UpdateTicked += InvalidateCursorsOnNextTick;
@@ -673,7 +725,7 @@ namespace Hikawa
 					    && _player.Energy >= GameEnergyThresholdLow)
 					{
 						_player.SpriteMirror = SpriteEffects.None;
-						_player.PowerBeforeActive();
+						_player.PowerStart();
 					}
 					break;
 				case Keys.Escape:
@@ -773,44 +825,35 @@ namespace Hikawa
 
 		private static void LoadPlayer2()
 		{
-			/* Load texture as a duplicate of the usual arcade game set */
+			/* Load texture as a duplicate of the usual arcade game set, bottom cropped out */
 			
-			// todo: track these color values to match texture values in photoshop doc
-			var player1ColorA = new Color(227, 23, 85, 255);
-			var player1ColorB = new Color(152, 2, 44, 255);
-			var player1ColorC = new Color(89, 18, 14, 255);
-			
-			var player2ColorA = new Color(84, 218, 122, 255);
-			var player2ColorB = new Color(18, 117, 85, 255);
-			var player2ColorC = new Color(55, 0, 85, 255);
+			var rect = new Rectangle(
+				0,
+				0,
+				_arcadeTexture.Width,
+				PlayerLegsY + PlayerSplitWH);
 
-			// Copy the arcade spritesheet
-			var regionStart = HudPortraitSprite.Y;
-			var regionEnd = PlayerLegsY + PlayerSplitWH;
-
-			var width = _arcadeTexture.Width;
-			var height = _arcadeTexture.Height;
-			var pixels = new Color[width * height];
-			_arcadeTexture.GetData(pixels);
+			var pixels = new Color[rect.Width * rect.Height];
+			_arcadeTexture.GetData(0, rect, pixels, 0, pixels.Length);
 			
 			// Swap out copy colours in the player sprites region with player 2's theme
-			for (var y = regionStart; y < regionEnd; ++y)
+			for (var y = HudPortraitSprite.Y; y < rect.Height; ++y)
 			{
-				for (var x = 0; x < width; ++x)
+				for (var x = 0; x < rect.Width; ++x)
 				{
-					var i = x + y * width;
+					var i = x + y * rect.Width;
 					if (pixels[i].A == 0) continue;
-					if (pixels[i].Equals(player1ColorA))
-						pixels[i] = player2ColorA;
-					else if (pixels[i].Equals(player1ColorB))
-						pixels[i] = player2ColorB;
-					else if (pixels[i].Equals(player1ColorC))
-						pixels[i] = player2ColorC;
+					if (pixels[i] == pixels[(int)Swatch.LightRed])
+						pixels[i] = pixels[(int)Swatch.LightGreen];
+					else if (pixels[i] == pixels[(int)Swatch.Red])
+						pixels[i] = pixels[(int)Swatch.Green];
+					else if (pixels[i] == pixels[(int)Swatch.DarkRed])
+						pixels[i] = pixels[(int)Swatch.DarkGreen];
 				}
 			}
 			
 			// Copy new sprite set to player 2's draw texture
-			_player2Texture = new Texture2D(Game1.graphics.GraphicsDevice, width, height);
+			_player2Texture = new Texture2D(Game1.graphics.GraphicsDevice, rect.Width, rect.Height);
 			_player2Texture.SetData(pixels);
 		}
 
@@ -1302,7 +1345,7 @@ namespace Hikawa
 							: _right;
 						var where = new Vector2(xpos, _centre.Y);
 						//Log.D($"Spawning {which} at {where.ToString()}, " + $"{(where.X < _centre.X ? "left" : "right")} side.");
-						//SpawnMonster(which, where);
+						SpawnMonster(which, where);
 					}
 				}
 			}
@@ -1315,7 +1358,7 @@ namespace Hikawa
 					var which = BulletType.Petal;
 					var xpos = Game1.random.Next(_left - TD * SpriteScale * 3, _right - TD * SpriteScale);
 					var ypos = _top + 5;
-					Log.D($"Spawn {which} at {xpos}, {ypos} thanks");
+					//Log.D($"Spawn {which} at {xpos}, {ypos} thanks");
 					SpawnBullet(which, 
 						new Vector2(xpos, ypos), 
 						new Vector2(xpos + Game1.random.Next(TD * 3, TD * 8), _bottom), 
@@ -1336,6 +1379,16 @@ namespace Hikawa
 			if ((!_onTitleScreen && (_stageMilliseconds / elapsedGameTime.Milliseconds) % (1000 / elapsedGameTime.Milliseconds) == 0) 
 			    || (_onTitleScreen && (_cutsceneTimer / elapsedGameTime.Milliseconds) % (1000 / elapsedGameTime.Milliseconds) == 0))
 				PerSecondUpdate();
+
+			// Per-quarter-second updates
+			if ((_stageMilliseconds / elapsedGameTime.Milliseconds) % (1000 / elapsedGameTime.Milliseconds)
+			    == 250 / elapsedGameTime.Milliseconds)
+			{
+				if (_player.IsHealthRegenerating)
+					_player.AddHealth(1);
+				if (_player.IsEnergyDepleting)
+					_player.RemoveEnergy(1);
+			}
 
 			// Per-millisecond updates
 			UpdateMenus(elapsedGameTime);
@@ -1474,46 +1527,89 @@ namespace Hikawa
 				new Rectangle(
 					_hudTimeDstX - HudDigitSprite.Width * (StageTimeHudDigits + 2) * SpriteScale,
 					_hudTimeDstY,
-					TD * SpriteScale, 
-					TD * SpriteScale),
-				new Rectangle( // HARD Y
-					TD * 14,
-					0,
-					TD,
-					TD),
+					HudTimeSprite.Width * SpriteScale, 
+					HudTimeSprite.Height * SpriteScale),
+				new Rectangle(
+					HudTimeSprite.X,
+					HudTimeSprite.Y,
+					HudTimeSprite.Width,
+					HudTimeSprite.Height),
 				Color.White,
 				0f,
 				Vector2.Zero,
 				SpriteEffects.None,
 				1f);
+
 			if (_stageMilliseconds >= 10000 
 			    || _stageMilliseconds < 10000 && _stageMilliseconds % 400 < 200)
 				DrawDigits(b, _stageMilliseconds / 1000, StageTimeHudDigits, false,
 					new Rectangle(_hudTimeDstX, _hudTimeDstY, HudDigitSprite.Width, HudDigitSprite.Height),
 					Vector2.Zero, 1f);
+			
+			// Stage enemy health
+			// Label
+			b.Draw(
+				_arcadeTexture,
+				new Rectangle(
+					_hudGoalDstX,
+					_hudGoalDstY,
+					HudHealthTextSprite.Width * SpriteScale,
+					HudHealthTextSprite.Height * SpriteScale),
+				HudHealthTextSprite,
+				Color.White,
+				0.0f,
+				new Vector2 (HudHealthTextSprite.Width / 2, HudHealthTextSprite.Height / 2),
+				SpriteEffects.None,
+				1f);
+			// Frame inner
+			b.Draw(
+				FillColours,
+				new Rectangle(
+					(_hudGoalDstX - HudHealthPipSprite.Width * SpriteScale * HudHealthPips / 2) - 1 * SpriteScale,
+					_hudGoalDstY,
+					(HudHealthPipSprite.Width * HudHealthPips + 2) * SpriteScale,
+					HudHealthPipSprite.Height * SpriteScale),
+				new Rectangle((int)Swatch.LightBlue, 0, 1, 1),
+				Color.White,
+				0.0f,
+				Vector2.Zero,
+				SpriteEffects.None,
+				1f - 1f / 10000f - 1f / 10000f);
+			// Frame outer
+			b.Draw(
+				FillColours,
+				new Rectangle(
+					(_hudGoalDstX - HudHealthPipSprite.Width * SpriteScale * HudHealthPips / 2) - 2 * SpriteScale,
+					(_hudGoalDstY) - 1 * SpriteScale,
+					(HudHealthPipSprite.Width * HudHealthPips + 4) * SpriteScale,
+					HudHealthPipSprite.Height * SpriteScale + 4),
+				new Rectangle((int)Swatch.Black, 0, 1, 1),
+				Color.White,
+				0.0f,
+				Vector2.Zero,
+				SpriteEffects.None,
+				1f - 1f / 10000f - 1f / 10000f - 1f / 10000f);
 
-			const int pips = 20;
-			for (var i = 0; i < pips; ++i)
-			{
-				// Stage enemy health icons, lost health greyed out
+			var healthPercentage = (float)_stageEnemyHealth / _stageEnemyHealthGoal;
+			for (var i = 0; i < HudHealthPips; ++i)
+			{ 
+				// Health icons, with lost health greyed out
 				b.Draw(
 					_arcadeTexture,
 					new Rectangle(
-						_hudGoalDstX - HudHealthPipSprite.Width * SpriteScale * _stageEnemyHealthGoal / 2
+						_hudGoalDstX - HudHealthPipSprite.Width * SpriteScale * HudHealthPips / 2
 						+ HudHealthPipSprite.Width * SpriteScale * i ,
 						_hudGoalDstY,
 						HudHealthPipSprite.Width * SpriteScale,
 						HudHealthPipSprite.Height * SpriteScale),
 					HudHealthPipSprite,
-					i < pips * ((float)_stageEnemyHealthGoal / _stageEnemyHealth) 
-					&& ((float)_stageEnemyHealthGoal / _stageEnemyHealth > 0.1f 
-					    || (float)_stageEnemyHealthGoal / _stageEnemyHealth <= 0.1f)
+					i < HudHealthPips * healthPercentage
 						? Color.White 
 						: Color.DarkSlateBlue,
 					0f,
 					Vector2.Zero,
 					SpriteEffects.None,
-					1f);
+					1f - 1f / 10000f);
 			}
 		}
 
@@ -1530,17 +1626,13 @@ namespace Hikawa
 					{
 						// Draw a black overlay
 						b.Draw(
-							BlackoutPixel,
+							FillColours,
 							new Rectangle(
 								_left,
 								_top,
 								_width,
 								_height),
-							new Rectangle(
-								0,
-								0,
-								BlackoutPixel.Width,
-								BlackoutPixel.Height),
+							new Rectangle((int)Swatch.Black, 0, 1, 1),
 							Color.Black,
 							0.0f,
 							Vector2.Zero,
@@ -1557,17 +1649,13 @@ namespace Hikawa
 				case SpecialPower.None:
 					// Draw the game map
 					b.Draw(
-						ColorFillPixel,
+						FillColours,
 						new Rectangle(
 							_left,
 							_top,
 							_width,
 							_height),
-						new Rectangle(
-							0,
-							0,
-							ColorFillPixel.Width,
-							ColorFillPixel.Height),
+						new Rectangle((int)Swatch.Brown, 0, 1, 1),
 						Color.White,
 						0.0f,
 						Vector2.Zero,
@@ -1608,17 +1696,13 @@ namespace Hikawa
 			{
 				// Draw a black backdrop
 				b.Draw(
-					BlackoutPixel,
+					FillColours,
 					new Rectangle(
 						_left,
 						_top,
 						_width,
 						_height),
-					new Rectangle(
-						0,
-						0,
-						BlackoutPixel.Width,
-						BlackoutPixel.Height),
+					new Rectangle((int)Swatch.Black, 0, 1, 1),
 					Color.White,
 					0.0f,
 					Vector2.Zero,
@@ -1910,6 +1994,8 @@ namespace Hikawa
 
 		/// <summary>
 		/// Generates a new draw rectangle for sprites moving in or out of the playable boundary for the game.
+		/// Note: This crops the left side. Sprite will need correction by mirroring when moving over the right/bottom side.
+		/// Note: You'll need the FlipOffset value too for that.
 		/// </summary>
 		/// <param name="srcRect">Area to read sprite from in asset file.</param>
 		/// <param name="destRect">Area to draw sprite to on-screen.</param>
@@ -1948,6 +2034,7 @@ namespace Hikawa
 				yOffset = srcRect.Height - height;
 			}
 
+			/*
 			if (destRect.X < _left 
 			    || destRect.X + srcRect.Width * scale > _right
 			    || destRect.Y < _top
@@ -1955,6 +2042,7 @@ namespace Hikawa
 				Log.D($"Draw: x={xOffset} y={yOffset} w={width} h={height} "
 				      + $"left={destRect.X < _left} right={destRect.X + srcRect.Width * scale > _right} "
 				      + $"top={destRect.Y < _top} bottom={destRect.Y + srcRect.Height * scale > _bottom}");
+			*/
 
 			return new Rectangle(xOffset, yOffset, width, height);
 		}
@@ -2014,7 +2102,7 @@ namespace Hikawa
 			public int Health;
 			public int HealthMax;
 			public int Power;
-			public BulletType BulletType;
+			public BulletType ActiveBulletType;
 
 			public int FireTimer;
 			public int HurtTimer;
@@ -2051,24 +2139,27 @@ namespace Hikawa
 			public SpecialPower ActiveSpecialPower;
 			public PowerPhase ActivePowerPhase;
 			public int PowerTimer;
-
+			public int WeaponTimer;
+			
 			public bool IsPlayerOne;
 			public bool HasPlayerQuit;
+			public bool IsHealthRegenerating;
+			public bool IsEnergyDepleting;
 			public List<Move> MovementDirections = new List<Move>();
 			public Vector2 LastAimMotion = Vector2.Zero;
-
+			
 			public int RespawnTimer;
 
 			public Player()
 			{
-				IsPlayerOne = false;
+				IsPlayerOne = true;
 				SetStats();
 				Reset();
 			}
 
 			private void SetStats()
 			{
-				BulletType = BulletType.Player;
+				ActiveBulletType = BulletType.Player;
 				HealthMax = 4;
 				SpeedMax = 5;
 				Power = 1;
@@ -2090,6 +2181,7 @@ namespace Hikawa
 				Energy = 3; // todo: return to 0
 				ActiveSpecialPower = SpecialPower.None;
 				ActivePowerPhase = PowerPhase.None;
+				ActiveBulletType = BulletType.Player;
 			}
 
 			private void ResetPosition()
@@ -2263,6 +2355,33 @@ namespace Hikawa
 				MovementDirections.Add(direction);
 			}
 
+			internal void AddHealth(int howMuch)
+			{
+				Game1.playSound("powerup");
+				Health = Math.Min(HealthMax, Health + Math.Abs(howMuch));
+				if (Health == HealthMax)
+					IsHealthRegenerating = false;
+			}
+			
+			internal void AddEnergy(int howMuch)
+			{
+				Game1.playSound("powerup");
+				Energy = Math.Min(EnergyMax, Energy + Math.Abs(howMuch));
+			}
+
+			internal void RemoveEnergy(int howMuch)
+			{
+				Energy = Math.Max(0, Energy - Math.Abs(howMuch));
+				if (Energy == 0)
+					IsEnergyDepleting = false;
+			}
+
+			internal void SwapBulletType(BulletType which = BulletType.Player)
+			{
+				Game1.playSound("cowboy_gunload");
+				ActiveBulletType = which;
+			}
+
 			internal void PickupLoot(Powerup loot)
 			{
 				switch (loot.Type)
@@ -2280,24 +2399,31 @@ namespace Hikawa
 						}
 						break;
 					case LootDrops.Life:
-						Game1.playSound("powerup");
-						Health = Math.Min(HealthMax, Health + 1);
+						AddHealth(1);
 						break;
 					case LootDrops.Energy:
-						Game1.playSound("powerup");
-						Energy = Math.Min(EnergyMax, Energy + 1);
+						AddEnergy(1);
 						break;
 					case LootDrops.Time:
 						Game1.playSound("reward");
 						_stageMilliseconds = Math.Min(StageTimeMax, _stageMilliseconds + StageTimeExtra);
 						break;
+					case LootDrops.Megahealth:
+						Game1.playSound("reward");
+						IsHealthRegenerating = true;
+						break;
 				}
+			}
+
+			internal void PowerStart()
+			{
+				PowerBeforeActive();
 			}
 
 			/// <summary>
 			/// Player pressed hotkey to use special power, starts up an animation before kicking in.
 			/// </summary>
-			internal void PowerBeforeActive()
+			private void PowerBeforeActive()
 			{
 				ActivePowerPhase = PowerPhase.BeforeActive1;
 			}
@@ -2305,7 +2431,7 @@ namespace Hikawa
 			/// <summary>
 			/// Power after-use before-active animation has ended, so start playing out the power's effects.
 			/// </summary>
-			internal void PowerActive()
+			private void PowerActive()
 			{
 				// Energy levels between 0 and the low-threshold will use a light special power
 				ActiveSpecialPower = Energy >= EnergyMax
@@ -2318,21 +2444,26 @@ namespace Hikawa
 			/// <summary>
 			/// Power's effects have finished playing out, play a wind-down animation and resolve the effects.
 			/// </summary>
-			internal void PowerAfterActive()
+			private void PowerAfterActive()
 			{
 				ActiveSpecialPower = SpecialPower.None;
-				ActivePowerPhase = PowerPhase.BeforeActive1;
+				ActivePowerPhase = PowerPhase.AfterActive1;
+			}
+
+			private void PowerEnd()
+			{
+				ActivePowerPhase = PowerPhase.None;
 			}
 
 			internal override void Fire(Vector2 target)
 			{
 				// Position the source around the centre of the player
 				var src = new Vector2(
-					CollisionBox.X + CollisionBox.Width / 2,
-					CollisionBox.Y + CollisionBox.Height / 2);
+					CollisionBox.Center.X,
+					CollisionBox.Y);
 
-				SpawnBullet(BulletType, src, target, Power, this, false);
-				FireTimer = GameFireDelay;
+				SpawnBullet(ActiveBulletType, src, target, Power, this, false);
+				FireTimer = BulletFireRates[ActiveBulletType];
 
 				// Mirror player sprite to face target
 				if (MovementDirections.Count == 0)
@@ -2347,13 +2478,25 @@ namespace Hikawa
 
 			public override void Update(TimeSpan elapsedGameTime)
 			{
-				if (HurtTimer > 0)
+				if (HurtTimer <= 0)
+				{ }
+				else
 					HurtTimer -= elapsedGameTime.Milliseconds;
 
 				// todo: relegate outside player update routines to this method
 				// Run down player invincibility
-				if (InvincibleTimer > 0)
+				if (InvincibleTimer <= 0)
+				{ }
+				else
 					InvincibleTimer -= elapsedGameTime.Milliseconds;
+
+				// Run down custom weapons
+				if (ActiveBulletType == BulletType.Player)
+				{ }
+				else if (WeaponTimer > 0)
+					WeaponTimer -= elapsedGameTime.Milliseconds;
+				else
+					SwapBulletType();
 
 				// Run down player lightgun animation
 				if (FireTimer > 0)
@@ -2366,21 +2509,33 @@ namespace Hikawa
 				// Move through the power animations and effects
 				if (ActiveSpecialPower != SpecialPower.None)
 				{
+					// Advance phases
 					PowerTimer += elapsedGameTime.Milliseconds;
 					if (PowerTimer >= PowerPhaseDurations[ActivePowerPhase])
 					{
 						++ActivePowerPhase;
 					}
-				}
-				else if (ActiveSpecialPower != SpecialPower.None)
-				{
-					PowerTimer += elapsedGameTime.Milliseconds;
 
-					if (ActivePowerPhase == PowerPhase.AfterActive2 
-					    && PowerTimer >= PowerPhaseDurations[ActivePowerPhase])
+					// Power phases
+					if (PowerTimer < PowerPhaseDurations[ActivePowerPhase])
+					{ }
+					else
 					{
-						// Return to usual game flow
-						PowerAfterActive();
+						switch (ActivePowerPhase)
+						{
+							case PowerPhase.BeforeActive1:
+								// Start power effects
+								PowerActive();
+								break;
+							case PowerPhase.Active4:
+								// End power effects
+								PowerAfterActive();
+								break;
+							case PowerPhase.AfterActive2:
+								// Return to usual game flow
+								PowerEnd();
+								break;
+						}
 					}
 				}
 				
@@ -2433,44 +2588,78 @@ namespace Hikawa
 			var xPosForPlayer = 0;
 
 			// Player portrait
-			var whichPortrait = 1; // Default
-			
+			var whichPortrait = 0; // Default
+			var whichBackdrop = (int)Swatch.Blue;
+
 			if (Health == 0 && _stageMilliseconds % 1000 < 400)
-				whichPortrait = 8; // Out 2
+			{
+				whichPortrait = 7; // Out 2
+				whichBackdrop = (int) Swatch.Blue;
+			}
 			else if (Health == 0)
-				whichPortrait = 7; // Out 1
+			{
+				whichPortrait = 6; // Out 1
+				whichBackdrop = (int) Swatch.Blue;
+			}
 			else if (ActivePowerPhase == PowerPhase.AfterActive2)
-				whichPortrait = 6; // Power end 2
+			{
+				whichPortrait = 5; // Power end 2
+				whichBackdrop = (int) Swatch.LightBlue;
+			}
 			else if (ActivePowerPhase == PowerPhase.AfterActive1)
-				whichPortrait = 5; // Power end 1
-			else if (ActivePowerPhase == PowerPhase.BeforeActive1 
+			{
+				whichPortrait = 4; // Power end 1
+				whichBackdrop = (int) Swatch.LightBlue;
+			}
+			else if (ActivePowerPhase == PowerPhase.BeforeActive1
 			         || ActivePowerPhase == PowerPhase.BeforeActive2)
-				whichPortrait = 4; // Power start
+			{
+				whichPortrait = 3; // Power start
+				whichBackdrop = (int) Swatch.LightBlue;
+			}
 			else if (HurtTimer > 0)
-				whichPortrait = 3; // Hurt
+			{
+				whichPortrait = 2; // Hurt
+				whichBackdrop = (int) Swatch.LightRed;
+			}
 			else if (RespawnTimer > 0)
-				whichPortrait = 2; // Respawn and end-of-stage pose
+			{
+				whichPortrait = 1; // Respawn and end-of-stage pose
+				whichBackdrop = (int) Swatch.LightBlue;
+			}
 			
 			xPosForPlayer = IsPlayerOne 
 				? _hudPortraitDstX 
 				: _right - HudPortraitSprite.Width * SpriteScale;
-
+				
 			// Frame
 			b.Draw(
-				IsPlayerOne 
-					? _arcadeTexture 
-					: _player2Texture,
+				FillColours,
 				new Rectangle(
 					xPosForPlayer,
 					_hudPortraitDstY,
 					HudPortraitSprite.Width * SpriteScale,
 					HudPortraitSprite.Height * SpriteScale),
-				HudPortraitSprite,
+				new Rectangle((int)Swatch.White, 0, 1, 1),
 				Color.White,
 				0.0f,
 				Vector2.Zero,
 				SpriteEffects.None,
-				1f);
+				1f - 1f / 10000f - 1f / 10000f);
+			// Backdrop
+			b.Draw(
+				FillColours,
+				new Rectangle(
+					(xPosForPlayer) + 1 * SpriteScale,
+					(_hudPortraitDstY) + 1 * SpriteScale,
+					(HudPortraitSprite.Width - 2) * SpriteScale,
+					(HudPortraitSprite.Height - 2) * SpriteScale),
+				new Rectangle(whichBackdrop, 0, 1, 1),
+				Color.White,
+				0.0f,
+				Vector2.Zero,
+				SpriteEffects.None,
+				1f - 1f / 10000f);
 			// Character
 			b.Draw(
 				IsPlayerOne 
@@ -2490,7 +2679,7 @@ namespace Hikawa
 				0.0f,
 				Vector2.Zero,
 				IsPlayerOne ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
-				1f - 1f / 10000f);
+				1f);
 
 			xPosForPlayer = IsPlayerOne
 				? _hudLifeDstX
@@ -2987,7 +3176,7 @@ namespace Hikawa
 
 			protected override void Die()
 			{
-				Log.D($"{Species} died");
+				//Log.D($"{Species} died");
 				Game1.playSound("Cowboy_monsterDie");
 				_enemies.Remove(this);
 
@@ -3150,21 +3339,18 @@ namespace Hikawa
 				{ // HARD Y
 					case LootDrops.Cake:
 						// Decide which cake to show (or makito)
-						var x = 0;
-						var y = 0;
 						var d = Game1.random.NextDouble();
 						if (d > 0.05)
 						{
-							x = (int)(CakesFrames * (d * Math.Floor(10d / (CakesFrames))));
-							y = 1;
+							var x = (int)(CakesFrames * (d * Math.Floor(10d / (CakesFrames))));
+							TextureRect = new Rectangle(TD * x, TD, TD, TD);
 							Log.D($"Chose cake no.{x}");
 						}
 						else
 						{
+							TextureRect = new Rectangle(0, FillColours.Height, TD, TD - FillColours.Height);
 							Log.D("Chose makito");
 						}
-
-						TextureRect = new Rectangle(TD * x, TD * y, TD, TD);
 						break;
 					case LootDrops.Life:
 						TextureRect = new Rectangle(TD * 12, 0, TD, TD);
@@ -3180,7 +3366,7 @@ namespace Hikawa
 						break;
 					case LootDrops.None:
 					default:
-						return;
+						throw new NotImplementedException($"Powerup: {type} not implemented :(");
 				}
 
 				Type = type;
@@ -3309,9 +3495,12 @@ namespace Hikawa
 				Origin = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
 				Target = target;
 
-				Log.D($"Bullet  : {Type} :" + $" x = {CollisionBox.X}, y = {CollisionBox.Y}," + $" w = {CollisionBox.Width}, h = {CollisionBox.Height}");
-				Log.D($"TexRect : {Type} :" + $" x = {TextureRect.X}, y = {TextureRect.Y}," + $" w = {TextureRect.Width}, h = {TextureRect.Height}");
-				Log.D($"Firing trajectory: {Origin} => {Target} : motion {Motion}");
+				SpriteMirror = (Origin.X < Target.X ? SpriteEffects.FlipHorizontally : 0)
+				               | (Origin.Y < Target.Y ? SpriteEffects.FlipVertically : 0);
+
+				//Log.D($"Bullet  : {Type} :" + $" x = {CollisionBox.X}, y = {CollisionBox.Y}," + $" w = {CollisionBox.Width}, h = {CollisionBox.Height}");
+				//Log.D($"TexRect : {Type} :" + $" x = {TextureRect.X}, y = {TextureRect.Y}," + $" w = {TextureRect.Width}, h = {TextureRect.Height}");
+				//Log.D($"Firing trajectory: {Origin} => {Target}" + $"\nmotion x={Motion.X:0.000} y={Motion.Y:0.000}");
 			}
 
 			/// <summary>
@@ -3404,29 +3593,29 @@ namespace Hikawa
 					colorTint = Color.LightPink;
 				else if (Math.Abs(_left - Origin.X) % 10 > 2)
 					colorTint = Color.PaleVioletRed;
-				
-				// Crop the monster to remain in the game bounds for the illusion of a screen limit
+
+				// Crop the bullet to remain in the game bounds for the illusion of a screen limit
 				var clipRect = GetSpriteDimensionsVisibleAtGameBounds(TextureRect, CollisionBox, scale);
 				var flipOffset = clipRect.X > 0 && CollisionBox.X > _centre.X 
 				                 || clipRect.Y > 0 && CollisionBox.Y > _centre.Y;
-
+				
 				b.Draw(
 					_arcadeTexture,
 					new Rectangle(
-						(int)Position.X + (!flipOffset ? 0 : clipRect.X * scale),
-						(int)Position.Y + (!flipOffset ? 0 : clipRect.Y * scale),
+						(int)Position.X + (flipOffset ? 0 : clipRect.X * scale),
+						(int)Position.Y + (flipOffset ? 0 : clipRect.Y * scale),
 						clipRect.Width * scale,
-						clipRect.Height * scale), 
+						clipRect.Height * scale),
 					new Rectangle(
-						TextureRect.X + BulletSize[Type] * whichFrame + clipRect.X,
+						TextureRect.X + TextureRect.Width * whichFrame + clipRect.X,
 						TextureRect.Y + clipRect.Y,
 						clipRect.Width,
 						clipRect.Height),
 					colorTint,
 					Rotation,
-					new Vector2(TextureRect.Width / 2, TextureRect.Height / 2),
+					Vector2.Zero,
 					SpriteMirror,
-					0.9f);
+					Position.Y / 10000f);
 			}
 		}
 		
