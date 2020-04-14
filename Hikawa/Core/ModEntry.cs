@@ -126,9 +126,6 @@ namespace Hikawa
 		/// </summary>
 		private void OnWarped(object sender, WarpedEventArgs e)
 		{
-			if (e.NewLocation.Name.Equals("FarmHouse", StringComparison.CurrentCultureIgnoreCase))
-				Game1.currentMinigame = new ArcadeGunGame();
-
 			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
 
 			if (_overlayEffectControl.IsEnabled())
