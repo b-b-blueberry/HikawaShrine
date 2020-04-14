@@ -6,6 +6,11 @@
     {
       "name": "HikawaShrine",
       "file": "assets/HikawaShrine.tbin"
+    },
+    // Hino Homestead
+    {
+      "name": "HikawaHouse",
+      "file": "assets/HikawaHouse.tbin"
     }
   ],
 
