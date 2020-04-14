@@ -594,12 +594,13 @@ namespace Hikawa
 
 		public ArcadeGunGame()
 		{
+			Log.D("ArcadeGunGame()");
 			changeScreenSize();
+			
+			Game1.changeMusicTrack("none", false, Game1.MusicContext.MiniGame);
 
 			if (ModEntry.Instance.Config.DebugMode && !ModEntry.Instance.Config.DebugArcadeMusic)
 				_playMusic = false;
-
-			Game1.changeMusicTrack("none", false, Game1.MusicContext.MiniGame);
 
 			// Load arcade game assets
 			_arcadeTexture = Helper.Content.Load<Texture2D>(
@@ -635,6 +636,17 @@ namespace Hikawa
 
 		public void receiveLeftClick(int x, int y, bool playSound = true)
 		{
+			if (_onTitleScreen)
+			{
+				if (_cutscenePhase < 4)
+				{
+					_cutscenePhase = 4; // Skip the splash animation
+				}
+				else
+				{
+					++_cutscenePhase;
+				}
+			}
 			if (_cutsceneTimer <= 0
 			    && _player.PowerTimer <= 0
 			    && _player.RespawnTimer <= 0 && _gameEndTimer <= 0 && _gameRestartTimer <= 0
@@ -652,19 +664,7 @@ namespace Hikawa
 
 		public void receiveRightClick(int x, int y, bool playSound = true) { }
 
-		public void releaseLeftClick(int x, int y) {
-			if (_onTitleScreen)
-			{
-				if (_cutscenePhase < 4)
-				{
-					_cutscenePhase = 4; // Skip the splash animation
-				}
-				else
-				{
-					++_cutscenePhase;
-				}
-			}
-		}
+		public void releaseLeftClick(int x, int y) { }
 
 		public void releaseRightClick(int x, int y) { }
 
@@ -825,6 +825,7 @@ namespace Hikawa
 
 		private static void LoadPlayer2()
 		{
+			Log.D("LoadPlayer2()");
 			/* Load texture as a duplicate of the usual arcade game set, bottom cropped out */
 			
 			var rect = new Rectangle(
@@ -859,12 +860,14 @@ namespace Hikawa
 
 		private static void InvalidateCursorsOnNextTick(object sender, UpdateTickedEventArgs e)
 		{
+			Log.D("InvalidateCursorsOnNextTick()");
 			Helper.Events.GameLoop.UpdateTicked -= InvalidateCursorsOnNextTick;
 			Helper.Content.InvalidateCache("LooseSprites/Cursors");
 		}
 
 		public void changeScreenSize()
 		{
+			Log.D("");
 			/* Determine game edge bounds */
 
 			// this used to be a rect and a vect but it was awful
@@ -906,28 +909,17 @@ namespace Hikawa
 			_hudWorldDstX = _right;
 			_hudWorldDstY = below;
 			
-			Log.D("_gamePixelDimen:\n"
-				  + $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Width} - {MapWidthInTiles * TD * SpriteScale}) / 2, "
-			      + $"({Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Height} - {MapHeightInTiles * TD * SpriteScale}) / 2\n"
-			      + $"x = {_left}, y = {_top}, w = {_width}, h = {_height}",
-				IsDebugMode);
-			Log.D("_centre:\n"
-			      + $"{_centre.ToString()}\n",
-				IsDebugMode);
-			Log.D("GameEndCoords:\n"
-			      + $"{_left} + {MapWidthInTiles * TD} * {SpriteScale}\n"
-			      + $"= {_right}, {_bottom}",
+			Log.D("changeScreenSize()\n"
+			+ $"Dimensions: x = {_left:000}, y = {_top:000}, w = {_width:000}, h = {_height:000}\n"
+			+ $"Centre:     x = {_centre.X:000}, y = {_centre.Y:000}\n"
+			+ $"Endpoint:   x = {_right:000}, y = {_bottom:000}",
 				IsDebugMode);
 		}
 
 		private static bool QuitMinigame()
 		{
-			if (Game1.currentMinigame != null && Game1.IsMusicContextActive(Game1.MusicContext.MiniGame))
-			{
-				if (gameMusic != null && gameMusic.IsPlaying)
-					gameMusic.Stop(AudioStopOptions.Immediate);
-				Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
-			}
+			Log.D("QuitMinigame()");
+			StopMusic();
 			if (Game1.currentLocation != null
 			    && Game1.currentLocation.Name.Equals((object)"Saloon") && Game1.timeOfDay >= 1700)
 				Game1.changeMusicTrack("Saloon1");
@@ -938,6 +930,7 @@ namespace Hikawa
 
 		public void unload()
 		{
+			Log.D("unload()");
 			_player.Reset();
 			Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
 		}
@@ -947,6 +940,7 @@ namespace Hikawa
 		/// </summary>
 		private static void GameOver()
 		{
+			Log.D("GameOver()");
 			_onGameOver = true;
 			_gameRestartTimer = 2000;
 
@@ -960,6 +954,7 @@ namespace Hikawa
 		/// </summary>
 		private static void ResetAndReturnToTitle()
 		{
+			Log.D("ResetAndReturnToTitle()");
 			ResetGame();
 			_onTitleScreen = true;
 			PlayMusic(gameMusic, "dog_bark");
@@ -971,6 +966,7 @@ namespace Hikawa
 		/// </summary>
 		private static void ResetGame()
 		{
+			Log.D("ResetGame()");
 			// Reset player
 			_player = new Player();
 
@@ -996,6 +992,7 @@ namespace Hikawa
 
 		private static void CleanUpStage()
 		{
+			Log.D("CleanUpStage()");
 			_powerups.Clear();
 			_enemies.Clear();
 			_playerBullets.Clear();
@@ -1009,6 +1006,7 @@ namespace Hikawa
 		
 		private static void ResetPlaythrough()
 		{
+			Log.D("ResetPlaythrough()");
 			_whichStage = 0;
 			_whichWorld = 0;
 			_onGameOver = false;
@@ -1016,6 +1014,7 @@ namespace Hikawa
 
 		private static void EndCurrentStage()
 		{
+			Log.D("EndCurrentStage()");
 			_player.MovementDirections.Clear();
 
 			// todo: set cutscenes, begin events, etc
@@ -1026,11 +1025,13 @@ namespace Hikawa
 
 		private static void EndCurrentWorld()
 		{
+			Log.D("EndCurrentWorld()");
 			// todo: set cutscenes, begin events, etc
 		}
 
 		private static void PlayMusic(ICue cue, string id)
 		{
+			Log.D($"PlayMusic(ICue cue, string id : {id}, _playMusic: {_playMusic})");
 			if (!_playMusic) return;
 
 			cue = Game1.soundBank.GetCue(id);
@@ -1039,8 +1040,16 @@ namespace Hikawa
 			Game1.musicCategory.SetVolume(Game1.musicPlayerVolume);
 		}
 
+		private static void StopMusic() {
+			if (gameMusic != null && gameMusic.IsPlaying)
+				gameMusic.Stop(AudioStopOptions.Immediate);
+			if (Game1.IsMusicContextActive(Game1.MusicContext.MiniGame))
+				Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
+		}
+
 		private static void StartNewStage()
 		{
+			Log.D("StartNewStage()");
 			++_whichStage;
 			_stageMap = GetMap(_whichStage);
 
@@ -1059,6 +1068,7 @@ namespace Hikawa
 
 		private static void StartNewWorld()
 		{
+			Log.D("StartNewWorld()");
 			++_whichWorld;
 			_whichStage = -1;
 			StartNewStage();
@@ -1066,6 +1076,7 @@ namespace Hikawa
 
 		private static void StartNewPlaythrough()
 		{
+			Log.D("StartNewPlaythrough()");
 			CleanUpStage();
 			ResetPlaythrough();
 			_onTitleScreen = false;
@@ -1352,7 +1363,7 @@ namespace Hikawa
 			else
 			{
 				// Menu actions
-				if (_cutsceneTimer >= TimeToTitlePhase1)
+				if (_cutsceneTimer >= TimeToTitlePhase2)
 				{
 					// Spawn petals
 					var which = BulletType.Petal;
@@ -3642,6 +3653,34 @@ namespace Hikawa
 	#region Nice code
 
 	/*
+		// Crop.harvest() -- Nice for delayed sounds and flow
+		if ((int)harvestMethod == 1)
+		{
+			if (junimoHarvester != null)
+			{
+				DelayedAction.playSoundAfterDelay("daggerswipe", 150, junimoHarvester.currentLocation);
+			}
+			if (junimoHarvester != null && Utility.isOnScreen(junimoHarvester.getTileLocationPoint(), 64, junimoHarvester.currentLocation))
+			{
+				junimoHarvester.currentLocation.playSound("harvest");
+			}
+			if (junimoHarvester != null && Utility.isOnScreen(junimoHarvester.getTileLocationPoint(), 64, junimoHarvester.currentLocation))
+			{
+				DelayedAction.playSoundAfterDelay("coin", 260, junimoHarvester.currentLocation);
+			}
+			if (junimoHarvester != null)
+			{
+				junimoHarvester.tryToAddItemToHut(harvestedItem2.getOne());
+			}
+			else
+			{
+				Game1.createItemDebris(harvestedItem2.getOne(), new Vector2(xTile * 64 + 32, yTile * 64 + 32), -1);
+			}
+			success = true;
+		}
+
+
+		// AbigailGame.tick() -- Nice for collisions
 		if ((double) Utility.distance((float) this.playerBoundingBox.Center.X, 
 		(float) (AbigailGame.powerups[index].position.X + AbigailGame.TD / 2), 
 		(float) this.playerBoundingBox.Center.Y, 
