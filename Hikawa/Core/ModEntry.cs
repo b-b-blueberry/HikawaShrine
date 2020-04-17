@@ -143,6 +143,7 @@ namespace Hikawa
 		/// </summary>
 		public void SetUpLocationSpecificFlair(GameLocation location)
 		{
+			Log.D($"Warped to {location.Name}, setting up flair.");
 			switch (location.Name)
 			{
 				case ModConsts.ShrineMapId:
@@ -180,6 +181,56 @@ namespace Hikawa
 						}
 					}
 
+					break;
+				}
+
+				case ModConsts.HouseMapId:
+				{
+					const int doorMarkerIndex = 32;
+					var where = new Point(7, 12);
+
+					var isOpen = Helper.Reflection.GetMethod(location, "doorHasStateOpen").Invoke<bool>(where);
+					if (location.Map.GetLayer("Buildings").Tiles[where.X, where.Y].TileIndex == doorMarkerIndex)
+					{
+						Log.D($"Marker found at {where.ToString()}");
+						if (location.interiorDoors.ContainsKey(where))
+						{
+							Log.D($"Door found at {where.ToString()}");
+							var door = new InteriorDoor(location, where)
+							{
+								Sprite = new TemporaryAnimatedSprite(
+									"LooseSprites\\Cursors",
+									new Microsoft.Xna.Framework.Rectangle(0, 512, 80, 48),
+									100f,
+									4,
+									1,
+									new Vector2(where.X - 2, where.Y - 2) * 64f,
+									false,
+									false,
+									((where.Y + 1) * 64 - 12) / 10000f,
+									0f,
+									Color.White,
+									4f,
+									0f,
+									0f,
+									0f) {holdLastFrame = true, paused = true}
+							};
+							if (isOpen)
+							{
+								door.Sprite.paused = false;
+								door.Sprite.resetEnd();
+							}
+							Helper.Reflection.GetMethod(location.interiorDoors, "setFieldValue").Invoke(door, where, isOpen);
+						}
+						else
+						{
+							Log.E($"Failed to find a door at marker point {where.ToString()}");
+						}
+					}
+					else
+					{
+						Log.E($"Door marker not found at point {where.ToString()}");
+					}
 					break;
 				}
 
@@ -335,12 +386,19 @@ namespace Hikawa
 			else if (btn.Equals(Config.DebugWarpShrine))
 			{
 				var mapId = "";
-				if (true)
+				if (false)
 				{
 					mapId = "Town";
 					Game1.player.warpFarmer(
 						new Warp(0, 0, mapId,
 							20, 5, true));
+				}
+				else if (true)
+				{
+					mapId = ModConsts.HouseMapId;
+					Game1.player.warpFarmer(
+						new Warp(0, 0, mapId,
+							5, 19, false));
 				}
 				else
 				{

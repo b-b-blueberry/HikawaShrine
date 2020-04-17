@@ -21,6 +21,7 @@ namespace Hikawa
 		// Maps
 		internal const string MapPrefix = "Hikawa";
 		internal const string ShrineMapId = MapPrefix + "Shrine";
+		internal const string HouseMapId = MapPrefix + "House";
 		internal const string TownSnippetId = MapPrefix + "Town";
 		internal const string TownJojaSnippetId = TownSnippetId + "Joja";
 		internal const string CorridorMapId = MapPrefix + "Corridor";
