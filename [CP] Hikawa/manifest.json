@@ -8,5 +8,11 @@
   "UpdateKeys": [ "Nexus:4643" ],
   "ContentPackFor": {
     "UniqueID": "Pathoschild.ContentPatcher"
-  }
+  },
+  "Dependencies": [
+    {
+      "UniqueID": "blueberry.Hikawa",
+      "IsRequired": true
+    }
+  ]
 }

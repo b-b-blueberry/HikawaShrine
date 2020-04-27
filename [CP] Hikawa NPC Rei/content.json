@@ -2,49 +2,49 @@
   "Format": "1.11.0",
   "Changes": [
     {
-      "LogName": "Rei: NPCDispositions",
+      "LogName": "Hikawa: Rei - NPCDispositions",
       "Action": "EditData",
       "Target": "Data/NPCDispositions",
       "FromFile": "assets/NPCDispositions.json"
     },
     {
-      "LogName": "Rei: NPCGiftTastes",
+      "LogName": "Hikawa: Rei - NPCGiftTastes",
       "Action": "EditData",
       "Target": "Data/NPCGiftTastes",
       "FromFile": "assets/NPCGiftTastes.json"
     },
     {
-      "LogName": "Rei: AnimationDescriptions",
+      "LogName": "Hikawa: Rei - AnimationDescriptions",
       "Action": "EditData",
       "Target": "Data/animationdescriptions",
       "FromFile": "assets/Schedule.json"
     },
     {
-      "LogName": "Rei: Portraits",
+      "LogName": "Hikawa: Rei - Portraits",
       "Action": "Load",
       "Target": "Portraits/Rei",
       "FromFile": "assets/portraits.png"
     },
     {
-      "LogName": "Rei: Characters",
+      "LogName": "Hikawa: Rei - Characters",
       "Action": "Load",
       "Target": "Characters/Rei",
       "FromFile": "assets/characters.png"
     },
     {
-      "LogName": "Rei: Schedule",
+      "LogName": "Hikawa: Rei - Schedule",
       "Action": "Load",
       "Target": "Characters/schedules/Rei",
       "FromFile": "assets/Schedule.json"
     },
     {
-      "LogName": "Rei: Dialogue",
+      "LogName": "Hikawa: Rei - Dialogue",
       "Action": "Load",
       "Target": "Characters/Dialogue/Rei",
       "FromFile": "assets/Dialogue.json"
     },
     {
-      "LogName": "Rei: ScheduleDialogue",
+      "LogName": "Hikawa: Rei - ScheduleDialogue",
       "Action": "Load",
       "Target": "Strings/schedules/Rei",
       "FromFile": "assets/ScheduleDialogue.json"

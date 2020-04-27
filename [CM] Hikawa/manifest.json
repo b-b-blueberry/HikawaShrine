@@ -9,5 +9,11 @@
   "ContentPackFor": {
     "UniqueID": "Platonymous.CustomMusic",
     "MinimumVersion": "1.5.1"
-  }
+  },
+  "Dependencies": [
+    {
+      "UniqueID": "blueberry.Hikawa",
+      "IsRequired": true
+    }
+  ]
 }
