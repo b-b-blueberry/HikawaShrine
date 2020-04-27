@@ -12,6 +12,10 @@
 	},
 	"Dependencies": [
     {
+      "UniqueID": "blueberry.Hikawa",
+      "IsRequired": true
+    },
+    {
       "UniqueID": "FlashShifter.StardewValleyExpandedCP",
 			"IsRequired":  false 
     }

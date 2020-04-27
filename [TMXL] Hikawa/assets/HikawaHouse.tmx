@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="31" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="30">
+<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="30">
  <properties>
   <property name="AmbientLight" value="95 95 95"/>
   <property name="Doors" value="7 12 townInterior 120"/>
   <property name="Light" value="1 6 6 2 6 6 3 6 6 4 6 6 5 6 6 6 6 6 7 6 6 8 6 6 9 6 6 10 6 6 11 6 6 12 6 6 18 2 6"/>
-  <property name="Warp" value="3 21 HikawaShrine 1 1 4 21 HikawaShrine 1 1 5 21 HikawaShrine 1 1 6 21 HikawaShrine 1 1"/>
+  <property name="Warp" value="3 21 HikawaShrine 1 1 4 21 HikawaShrine 1 1 5 21 HikawaShrine 1 1 6 21 HikawaShrine 1 1 18 31 HikawaShrine 1 1 19 31 HikawaShrine 1 1"/>
+  <property name="WindowLight" value="3 6 6 4 6 6 7 6 6 8 6 6 11 6 6 12 6 6 18 2 6 2 15 6 23 15 6 23 17 6 18 30 6 19 30 6 4 19 6 6 19 6"/>
  </properties>
  <tileset firstgid="1" name="townInterior" tilewidth="16" tileheight="16" tilecount="2176" columns="32">
   <image source="townInterior" width="512" height="1088"/>
@@ -26,51 +27,60 @@
    </animation>
   </tile>
  </tileset>
- <layer id="1" name="Back" width="25" height="31">
+ <layer id="1" name="Back" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJzNlctKw0AUhieFlLRB3SpSFaqg+AJWF14qaHXpRlHQWqGCS7eCt42Xp1Bfwwewb+BlLbT6Al42/ofkMKfDJAbbgD98nEmnc878mZmMUv9fRcFoSjXKgsUu5p3ylSqBGVBTmr2wvxu+lpG7AlbBoRewFkKy+XrMK/UEnsFLXj/b+k3NZZSazeha7EH6IjUxtgXewHteP9v6SVuupoy8J6IGe5C+SB8Y+wm+wLdlrqYqjm5vI/9O6IU88dpwTVYDPITxNQGeqHGaVeoMnIMFL6hFzBs1SK6TnKYYd4Pct+AOVEXOqqWGqTEnwMPeyQHf133SRydqhfQj9wAYFDWWxPyKMSTRAeY7jtwTYFLUqIsa5Rhs4r1A0Poz5h6R61GLIaoG5805wXunaNaQ6yHnZRJVoxXOU8Y4H/Q773sZX2N8yPlzZG82H43wed8LYhIf8v0n8bHktfvm/0b5oN/lvBsq2gd/r+peu29+V27EGbKdabkuNh9pieZ75Ab3FDHt6zbdWz2gF/T5v+eKEvnge4pYEW26twpgCAx3UIPO/zrGb4Tcu7q92UFeKb4rZCwIZN9fxfdSKRtEfuYo293ScSa4bynu/nJn/FWmjzQ0QufN0TENXWAvXYIrcN2lfWXK/O6mIfP7Y+oH+ZWPnA==
+   eJzNlctKw0AUhieFlNhU3SpSdaGg+AJeFl6hVpduFAUvKAouxZ3gDcHL2gdQ8RHc+QD2DbysC62+gJeN/zE5zHGYaGwb8IePM8kk58yfmcko9f+1ltV0JVRjO6uZqGPefl+pATAEjrKa1bCffZ1nq68xidwFMA22vICZEBL7uhY17jNKPYBH8JTR17Z+UyMppYZTuhZ7IF83okYZ71bAM3jJ6GtbP2nB1Ywj756owR6kL9Ir3n0D7+DDMlZTBUe3F5F/KfRCnnhuuCarCO7CWIqBJ2rsp5U6AIdgzAtqEaNGDZLrxKcs3rtA7ktwBZZFzmVLDVPdToCHtdMAfF/3SR+1qBLSgtytoE3UyIvxyX1uEkebGG8PcveCPlFjXdSQ+9zEJl4LBM0/Y64ROR9yn5tE1eC8DU7w3SmaNeR8yHGZRNWohOOU8ScfdJ/XvYwle4mv5+X4ObI3m49ieL3hBTGOD/n94/jIe99987NRPui+HHdRRfvg/9W69903fys3Yg/Z9rScF5uPpETj3XGDc4oY9HWbzq1G0ASa/d9zRYl88DlFTIk2nVs50A46aqhB+38W78+F3Lq6PV9DXik+K2TMCWRfteJzaSAdRL7mKNv10m4qOG8prvxyZlQr00cS6qT95uiYhI6xlk7AKTir07oyZf53k5D899TrrP+rPgFmx5rk
   </data>
  </layer>
  <objectgroup id="2" name="Back"/>
- <layer id="3" name="Tatami" width="25" height="31">
+ <layer id="3" name="Tatami" width="25" height="32">
   <properties>
    <property name="DrawAbove" value="Back"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRgA00cjMwNAPxFCDeDMRboHQLN0SOGmAS0JyDQLwYiEuAuBhKg8yfRCU7moDmXATiRCBOBuIUKBtkfhMV/XEJiCdCwwxkRyEQb6KyP44gxUkx1J6JVPTHYaA5h5DiGkYvAeKNVLLjMtCcK9yoNMg/k6FpaxSMglEwCgYSAACYpSPA
+   eJxjYBgFo2AUjIJRgA00cjMwNAPxFCDeDMRboHQLN0SOGmAS0JyDQLwYiEuAuBhKg8yfRCU7moDmXATiRCBOBuIUKBtkfhMV/XEJiCdCwwxkRyEQb6KyP44gxUkx1J6JVPTHYaA5h5DiGkYvAeKNVLLjMtCcK9yoNMg/k6FpaxSMglEwCoY7AACQdyPA
   </data>
  </layer>
  <objectgroup id="4" name="Tatami"/>
- <layer id="5" name="TatamiKitchen" width="25" height="31">
+ <layer id="5" name="KitchenTatami" width="25" height="32" visible="0">
+  <properties>
+   <property name="DrawAbove" value="Back"/>
+  </properties>
   <data encoding="base64" compression="zlib">
-   eJztkckJwDAMBPVXlSEVGNxAjgZyNGCSDpwCs8J6uAARCOzA4N+uJYkQQgj5E5OKHPDs3gWuGtexI6vACz6wwltbdxSWn+Dg/7fsWVt3FJY/wuy7sh1tPlsEpcvPfovqPSlwDkII+YoXHA8VCQ==
+   eJztkckNgDAMBP13lYgKIqUBjgY4Goigg1Aga8WPFOAPaEca5bcb2yKEEEK+xKQiBzy7d4GrxnXsyCrwgg+s8NbWHYXlJzj4/y171tYdheWPMPuubEebzxZB6fKz36J6TwqcgxBC/sQLVAsVCQ==
   </data>
  </layer>
- <objectgroup id="6" name="TatamiKitchen"/>
- <layer id="7" name="Tile Layer 9" width="25" height="31">
+ <objectgroup id="6" name="KitchenTatami" visible="0"/>
+ <layer id="7" name="KitchenRed" width="25" height="32" visible="0">
+  <properties>
+   <property name="DrawAbove" value="Back"/>
+  </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAowQSwTJv7DSF3za6CYViCGCYGRATX9UYPkD+SwkqGhv0bBKBgFo4BWAABImgkA
+   eJxjYBgFo2AUjIJRMAowQSwTJv7DSF3za6CYViCGCYGRATX9UYPkD+SwkqGhv0bBKBgFo2AoAwDMxwkA
   </data>
  </layer>
- <objectgroup id="8" name="Tile Layer 9"/>
- <layer id="9" name="Tile Layer 10" width="25" height="31">
+ <objectgroup id="8" name="KitchenRed" visible="0"/>
+ <layer id="9" name="KitchenDark" width="25" height="32">
+  <properties>
+   <property name="DrawAbove" value="Back"/>
+  </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAowgSwTBNsDsQOUXsBEPfNB5sUDcQKUpgVoAJrrzAGh65HsoKY/EpD8gRxWB2jkp1EwCkbBKKAlAAD5+Agn
+   eJxjYBgFo2AUjIJRMAowgSwTBNsDsQOUXsBEPfNB5sUDcQKUpgVoAJrrzAGh65HsoKY/EpD8gRxWB2jkp1EwCkbBKBjqAAApcAgn
   </data>
  </layer>
- <objectgroup id="10" name="Tile Layer 10"/>
- <layer id="11" name="AboveBack" width="25" height="31">
+ <objectgroup id="10" name="KitchenDark"/>
+ <layer id="11" name="AboveBack" width="25" height="32">
   <properties>
    <property name="DrawAbove" value="Tatami"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2Bog7/cDAz/uGlrBy8PAwMfD+n6RGnsLmTASke7hhsQp0PYqdPBjhk47OBGSrukphNXoHo3IvV85cIu7sSMyp9FpbDAZR8hIM2EWy53APNRBtBdmXjcNgqGBqgdLYsHHOSNxgFFAADAbwmH
+   eJxjYBgFo2Bog7/cDAz/uGlrBy8PAwMfD+n6RGnsLmTASke7hhsQp0PYqdPBjhk47OBGSrukphNXoHo3IvV85cIu7sSMyp9FpbDAZR8hIM2EWy53APNRBtBdmXjcNgqGBqgdLYsHHOSNxsGgBwB5ZwmH
   </data>
  </layer>
  <objectgroup id="12" name="AboveBack"/>
- <layer id="13" name="Buildings" width="25" height="31">
+ <layer id="13" name="Buildings" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJzVlT1MFEEUx0fu+MjNdRo+Y4FfMYHDCEgoIBBsIZpAARqVwsRCGwsiAiEEkNBAh4Zg6IwFamJhLFQKEhMLtSChECqNjRgLCoxwjb+Lu9m5uZlhD9aCl/wyO2/ee/95O7N3QuzfjliI0jL1ZqQQs9AqA18UdVVeUPszdMH3RDR96TlPqP1U2tfz1fJjl729L8IreA1lBUJMOjRstk7vG4lsX2beS80+uKrsvzYuRAqu4buu9eXS2KRekcz2/UyYYzup36VojMeCvkwaf6izA7uQTuTOXfvzNT6gN1YcxN1Vgl+GPBxV47E0x6zE7N+QKmNbs/Xh+2+WCDEdz63Vwn5KQCr7WuL5GTyXZo0wqBqd1CmHKkXjDc9v4Z1Fw7cHrE95eWvKmek9fuWOfyFuHW7j2CJ2FT4y/+TQeMTaHDyECc6g1PK7kplXs/6D9U2lj29oxJjHLRon5D9Owik4DWfgljRrpPF3xITVTBrV5NRDAzTCBWiCexaN95Y7eBT/Ma0P/26ch3lLnkljzYvdZvyt5R1PZmvodyNjOyzuQhp6LH388nIKqVeUDNZqeU5pGmeJrdE0KrgzlTDgOHOX9WjvymTdMhgHDX3YrJ/Ai9yD8oJovkHXb4Oe02w45zZ87Zo/zPuyxfj/48tezVHGS3A5hIarVzWn16u1wHjFe77B2A8pqINzeZyJa1++DVFvGO7v0cdBNKKK93Nc79IUc1ALc08Oo8adfd6lfDRG/pNGTTLXp9pfPTVSGA==
+   eJzVlT1MFEEUx0fuBHJznYQPjQV+xQROoqKxkEC0hWgCBWpUChIKaSwIfhBjJBgb7cAYiB2x8COxMBYqBQkJBVqYUIiVxkaMBYUGuIbfxd3sMDdv2IO14CW/zM6b995/3s3snlKbtx0CSVqh3kOt1CNo0ZEvibomr6j9CTrgRyaZvuycSWo/0/J6qVph7FSw96fwBt5CTZlSM1lZQ7IFev+aWe8rzLupeQEuGftvTCuVg8v4rlh9+TQWqVeu1/t+Zdyx7dTvMDTupaK+XBrL1FmBVchniue+/YUas+jdrYjirhvBr2Mejqkxod0x0yn5HTJlpDWpj9DfW6nUg3RxrdPspxK0sa/nPL+Al9qtEQdTo506tbDH0HjH83v4IGiENsL6/SBv3jgzu8dv3PEvxC3ANRxLxH6GOeYfPRqPWRuFMRjmDKqF70phXs/6T9YXjT6+o5FinhY09ul/7IcDcBAOQZ92a+Txn0kp0Vwa9eQcg+PQDCfgJAwKGjPCHdyFv8rqI7wbR+GJkOfSmA9i/zD+tfL2Wu+sfTcKtsLiKuShS+jjd5Czk3rl2WitkeecpXGY2AZLo447sxsGPGfusy7rt3JZp47GG44+JOsh8Cz3oLYsmXfQ922wc045zrkVX5vlj/N7STHh//hUUPMO4zk4H0PD16uZ0x3UGme8GDxfZeyBHByBphLOxLev0G5R7zbc3KCPrWgkFR/m+H5LV8xWLc492Y4a/Zu8S6VoDP0njYZssS9pjY2+SWt2z1K2
   </data>
  </layer>
  <objectgroup id="14" name="Buildings">
@@ -141,7 +151,7 @@
   </object>
   <object id="14" name="TileData" x="112" y="192" width="16" height="16">
    <properties>
-    <property name="Action" value="Door"/>
+    <property name="Action" value="Door Rei"/>
    </properties>
   </object>
   <object id="15" name="TileData" x="48" y="208" width="16" height="16">
@@ -220,21 +230,21 @@
    </properties>
   </object>
  </objectgroup>
- <layer id="15" name="Front" width="25" height="31">
+ <layer id="15" name="Front" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJzVVTtOw0AQXQcUoawpoAXBDaDgAhDSozgRByAB8enpDS1NoKMETgBcgE8DN0gQJVwACgoKnhWvPBlmYscOBU968q49O29mZ0Y2Jj/WfGNOwWb8vPQLOFNQZz5vsL8dg46LPeKZ4C/wE5u8efHYHb7LiUZks1JO8qJx0buV2FRij+BPGjMNdpiN0/wLbE30WUQjxLnjlLMhNNqxRt2DHlgqZdeg8Z1Y2eYi1rgD78EjQhpfqHzT7sDlV5tK7By0nuyQPqgSvwGLrwE+gI/kvds7ZKlL5LdFNPic896sMp9O4wl3+6zcb8DySIurzb5H8W2g7l347zGNj4oxn5XRNQIlDwkeNEt20K/ryWvEdaX04ygaM/A/yzT4PGfRaJH9G/y9CzVJu58ucuqBL2DNynm8KrWeF2pwLtgexu+2rZxHWv1qNj2PdZs8d+3vvtLOrnr955c3OB98/inpPFK42WwwW7d2Z2jNtdmj5HOYBTTfBawXwU2ljhF4TUbVWMJ6GdwZs0ZLObMPnQNwj+kVzSML8mjw/430LwyH9FYeSHnxuSgKqT557mcYpDz+q8Yc8zluDd5nUi/9ACrUfwk=
+   eJzVVTtOw0AQXQcUoawpoAXBDaDgAhDcozgRB8AB8enpDS1NoKMETgBcgE8DN0gQJVwACgoKnhWvPBl24i8FT3ryrj07b2ZnRlaqONZcpU7BTvy8dEs4E9BiPm+wv61Ax8Qe8cziz3cTm6J58dgNvuuJRmSzUk/yonHRu7WxI8QewZ1UahrsMRuj+RfYmhiyjEaIc8cpZ0NodGONlgM9sFbLrkHjO9F2m4tY4w68B48IaXyh8E26A5OfN5XYGUg92SN90CR+fRZfG3wAH8l7szfIUpfIb0A0+Jzz3mwyn0bjCXf7LNyvz/JIi6vLvkfxbaDuffgfMI2PhlKfjfwavpCHDQ40a3rUr+nJa8R1JfRjHo0Z+J9lGnyes2gEZP8Gf++WmqTdTx85DcAX0NP2PF6FWs9banBusT2M321rex5p9fN0eh7rOnnu6t99JZ1ddYbPL2d0Pvj8U9J5pDCz2Wa2Zm3O0JpLs0fJ5zALaL4LWC+Cm0IdI/Ca5NVYwnoZ3KlYIxDO7EPnANxjemXzyIIiGvx/Y/sXhmN6qwhsefG5KAtbfYrczzjY8vivGnPMZ9UavM+q6qW8+AHNN38J
   </data>
  </layer>
  <objectgroup id="16" name="Front"/>
- <layer id="17" name="Paths" width="25" height="31">
+ <layer id="17" name="Paths" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
   </data>
  </layer>
  <objectgroup id="18" name="Paths"/>
- <layer id="19" name="AlwaysFront" width="25" height="31">
+ <layer id="19" name="AlwaysFront" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwXACjDjwqB2jYLiCa1y0t+MZHez4Rgc7CAEA0OAC4w==
+   eJxjYBgFo2AUjIJRMApGwXACjDjwqB2jYLiCa1y0t+MZHez4Rgc7BgMAAPGbAuM=
   </data>
  </layer>
  <objectgroup id="20" name="AlwaysFront"/>
