@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="31" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="30">
+ <properties>
+  <property name="AmbientLight" value="95 95 95"/>
+  <property name="Doors" value="7 12 townInterior 120"/>
+  <property name="Light" value="1 6 6 2 6 6 3 6 6 4 6 6 5 6 6 6 6 6 7 6 6 8 6 6 9 6 6 10 6 6 11 6 6 12 6 6 18 2 6"/>
+  <property name="Warp" value="3 21 HikawaShrine 1 1 4 21 HikawaShrine 1 1 5 21 HikawaShrine 1 1 6 21 HikawaShrine 1 1"/>
+ </properties>
+ <tileset firstgid="1" name="townInterior" tilewidth="16" tileheight="16" tilecount="2176" columns="32">
+  <image source="townInterior" width="512" height="1088"/>
+ </tileset>
+ <tileset firstgid="2177" name="paths" tilewidth="16" tileheight="16" tilecount="32" columns="4">
+  <image source="paths" width="64" height="128"/>
+ </tileset>
+ <tileset firstgid="2209" name="walls_and_floors" tilewidth="16" tileheight="16" tilecount="560" columns="16">
+  <image source="walls_and_floors.png" width="256" height="560"/>
+ </tileset>
+ <tileset firstgid="2769" name="z_hikawa_indoors" tilewidth="16" tileheight="16" tilecount="560" columns="16">
+  <image source="z_hikawa_indoors.png" width="256" height="560"/>
+  <tile id="150">
+   <animation>
+    <frame tileid="150" duration="500"/>
+    <frame tileid="134" duration="500"/>
+    <frame tileid="118" duration="500"/>
+    <frame tileid="102" duration="500"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer id="1" name="Back" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJzNlctKw0AUhieFlLRB3SpSFaqg+AJWF14qaHXpRlHQWqGCS7eCt42Xp1Bfwwewb+BlLbT6Al42/ofkMKfDJAbbgD98nEmnc878mZmMUv9fRcFoSjXKgsUu5p3ylSqBGVBTmr2wvxu+lpG7AlbBoRewFkKy+XrMK/UEnsFLXj/b+k3NZZSazeha7EH6IjUxtgXewHteP9v6SVuupoy8J6IGe5C+SB8Y+wm+wLdlrqYqjm5vI/9O6IU88dpwTVYDPITxNQGeqHGaVeoMnIMFL6hFzBs1SK6TnKYYd4Pct+AOVEXOqqWGqTEnwMPeyQHf133SRydqhfQj9wAYFDWWxPyKMSTRAeY7jtwTYFLUqIsa5Rhs4r1A0Poz5h6R61GLIaoG5805wXunaNaQ6yHnZRJVoxXOU8Y4H/Q773sZX2N8yPlzZG82H43wed8LYhIf8v0n8bHktfvm/0b5oN/lvBsq2gd/r+peu29+V27EGbKdabkuNh9pieZ75Ab3FDHt6zbdWz2gF/T5v+eKEvnge4pYEW26twpgCAx3UIPO/zrGb4Tcu7q92UFeKb4rZCwIZN9fxfdSKRtEfuYo293ScSa4bynu/nJn/FWmjzQ0QufN0TENXWAvXYIrcN2lfWXK/O6mIfP7Y+oH+ZWPnA==
+  </data>
+ </layer>
+ <objectgroup id="2" name="Back"/>
+ <layer id="3" name="Tatami" width="25" height="31">
+  <properties>
+   <property name="DrawAbove" value="Back"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRgA00cjMwNAPxFCDeDMRboHQLN0SOGmAS0JyDQLwYiEuAuBhKg8yfRCU7moDmXATiRCBOBuIUKBtkfhMV/XEJiCdCwwxkRyEQb6KyP44gxUkx1J6JVPTHYaA5h5DiGkYvAeKNVLLjMtCcK9yoNMg/k6FpaxSMglEwCgYSAACYpSPA
+  </data>
+ </layer>
+ <objectgroup id="4" name="Tatami"/>
+ <layer id="5" name="TatamiKitchen" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJztkckJwDAMBPVXlSEVGNxAjgZyNGCSDpwCs8J6uAARCOzA4N+uJYkQQgj5E5OKHPDs3gWuGtexI6vACz6wwltbdxSWn+Dg/7fsWVt3FJY/wuy7sh1tPlsEpcvPfovqPSlwDkII+YoXHA8VCQ==
+  </data>
+ </layer>
+ <objectgroup id="6" name="TatamiKitchen"/>
+ <layer id="7" name="Tile Layer 9" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAowQSwTJv7DSF3za6CYViCGCYGRATX9UYPkD+SwkqGhv0bBKBgFo4BWAABImgkA
+  </data>
+ </layer>
+ <objectgroup id="8" name="Tile Layer 9"/>
+ <layer id="9" name="Tile Layer 10" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAowgSwTBNsDsQOUXsBEPfNB5sUDcQKUpgVoAJrrzAGh65HsoKY/EpD8gRxWB2jkp1EwCkbBKKAlAAD5+Agn
+  </data>
+ </layer>
+ <objectgroup id="10" name="Tile Layer 10"/>
+ <layer id="11" name="AboveBack" width="25" height="31">
+  <properties>
+   <property name="DrawAbove" value="Tatami"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2Bog7/cDAz/uGlrBy8PAwMfD+n6RGnsLmTASke7hhsQp0PYqdPBjhk47OBGSrukphNXoHo3IvV85cIu7sSMyp9FpbDAZR8hIM2EWy53APNRBtBdmXjcNgqGBqgdLYsHHOSNxgFFAADAbwmH
+  </data>
+ </layer>
+ <objectgroup id="12" name="AboveBack"/>
+ <layer id="13" name="Buildings" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJzVlT1MFEEUx0fu+MjNdRo+Y4FfMYHDCEgoIBBsIZpAARqVwsRCGwsiAiEEkNBAh4Zg6IwFamJhLFQKEhMLtSChECqNjRgLCoxwjb+Lu9m5uZlhD9aCl/wyO2/ee/95O7N3QuzfjliI0jL1ZqQQs9AqA18UdVVeUPszdMH3RDR96TlPqP1U2tfz1fJjl729L8IreA1lBUJMOjRstk7vG4lsX2beS80+uKrsvzYuRAqu4buu9eXS2KRekcz2/UyYYzup36VojMeCvkwaf6izA7uQTuTOXfvzNT6gN1YcxN1Vgl+GPBxV47E0x6zE7N+QKmNbs/Xh+2+WCDEdz63Vwn5KQCr7WuL5GTyXZo0wqBqd1CmHKkXjDc9v4Z1Fw7cHrE95eWvKmek9fuWOfyFuHW7j2CJ2FT4y/+TQeMTaHDyECc6g1PK7kplXs/6D9U2lj29oxJjHLRon5D9Owik4DWfgljRrpPF3xITVTBrV5NRDAzTCBWiCexaN95Y7eBT/Ma0P/26ch3lLnkljzYvdZvyt5R1PZmvodyNjOyzuQhp6LH388nIKqVeUDNZqeU5pGmeJrdE0KrgzlTDgOHOX9WjvymTdMhgHDX3YrJ/Ai9yD8oJovkHXb4Oe02w45zZ87Zo/zPuyxfj/48tezVHGS3A5hIarVzWn16u1wHjFe77B2A8pqINzeZyJa1++DVFvGO7v0cdBNKKK93Nc79IUc1ALc08Oo8adfd6lfDRG/pNGTTLXp9pfPTVSGA==
+  </data>
+ </layer>
+ <objectgroup id="14" name="Buildings">
+  <object id="1" name="TileData" x="256" y="48" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.6&quot;"/>
+   </properties>
+  </object>
+  <object id="2" name="TileData" x="272" y="48" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.6&quot;"/>
+   </properties>
+  </object>
+  <object id="3" name="TileData" x="256" y="64" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.6&quot;"/>
+   </properties>
+  </object>
+  <object id="4" name="TileData" x="272" y="64" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.6&quot;"/>
+   </properties>
+  </object>
+  <object id="5" name="TileData" x="112" y="80" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.2&quot;"/>
+   </properties>
+  </object>
+  <object id="6" name="TileData" x="128" y="80" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.2&quot;"/>
+   </properties>
+  </object>
+  <object id="7" name="TileData" x="112" y="96" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.2&quot;"/>
+   </properties>
+  </object>
+  <object id="8" name="TileData" x="128" y="96" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.2&quot;"/>
+   </properties>
+  </object>
+  <object id="9" name="TileData" x="112" y="112" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.2&quot;"/>
+   </properties>
+  </object>
+  <object id="10" name="TileData" x="128" y="112" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.2&quot;"/>
+   </properties>
+  </object>
+  <object id="11" name="TileData" x="48" y="192" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="12" name="TileData" x="64" y="192" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="13" name="TileData" x="80" y="192" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="14" name="TileData" x="112" y="192" width="16" height="16">
+   <properties>
+    <property name="Action" value="Door"/>
+   </properties>
+  </object>
+  <object id="15" name="TileData" x="48" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="16" name="TileData" x="64" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="17" name="TileData" x="80" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="18" name="TileData" x="288" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="19" name="TileData" x="304" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="20" name="TileData" x="320" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="21" name="TileData" x="352" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.1&quot;"/>
+   </properties>
+  </object>
+  <object id="22" name="TileData" x="48" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.5&quot;"/>
+   </properties>
+  </object>
+  <object id="23" name="TileData" x="256" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="24" name="TileData" x="288" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="25" name="TileData" x="304" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="26" name="TileData" x="320" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="27" name="TileData" x="352" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.1&quot;"/>
+   </properties>
+  </object>
+  <object id="28" name="TileData" x="256" y="240" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.4&quot;"/>
+   </properties>
+  </object>
+  <object id="29" name="TileData" x="96" y="256" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.3&quot;"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="15" name="Front" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJzVVTtOw0AQXQcUoawpoAXBDaDgAhDSozgRByAB8enpDS1NoKMETgBcgE8DN0gQJVwACgoKnhWvPBlmYscOBU968q49O29mZ0Y2Jj/WfGNOwWb8vPQLOFNQZz5vsL8dg46LPeKZ4C/wE5u8efHYHb7LiUZks1JO8qJx0buV2FRij+BPGjMNdpiN0/wLbE30WUQjxLnjlLMhNNqxRt2DHlgqZdeg8Z1Y2eYi1rgD78EjQhpfqHzT7sDlV5tK7By0nuyQPqgSvwGLrwE+gI/kvds7ZKlL5LdFNPic896sMp9O4wl3+6zcb8DySIurzb5H8W2g7l347zGNj4oxn5XRNQIlDwkeNEt20K/ryWvEdaX04ygaM/A/yzT4PGfRaJH9G/y9CzVJu58ucuqBL2DNynm8KrWeF2pwLtgexu+2rZxHWv1qNj2PdZs8d+3vvtLOrnr955c3OB98/inpPFK42WwwW7d2Z2jNtdmj5HOYBTTfBawXwU2ljhF4TUbVWMJ6GdwZs0ZLObMPnQNwj+kVzSML8mjw/430LwyH9FYeSHnxuSgKqT557mcYpDz+q8Yc8zluDd5nUi/9ACrUfwk=
+  </data>
+ </layer>
+ <objectgroup id="16" name="Front"/>
+ <layer id="17" name="Paths" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <objectgroup id="18" name="Paths"/>
+ <layer id="19" name="AlwaysFront" width="25" height="31">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwXACjDjwqB2jYLiCa1y0t+MZHez4Rgc7CAEA0OAC4w==
+  </data>
+ </layer>
+ <objectgroup id="20" name="AlwaysFront"/>
+</map>

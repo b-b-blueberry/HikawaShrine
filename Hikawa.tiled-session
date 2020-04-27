@@ -1,0 +1,1803 @@
+{
+    "activeFile": "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
+    "fileStates": {
+        "../HikawaShrine/HikawaShrine/Assets/Maps/HikawaShrine.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480,
+                "y": 695.5
+            }
+        },
+        "../HikawaShrine/HikawaShrine/assets/Maps/Katrine's Location Map.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 522,
+                "y": 516
+            }
+        },
+        "C:/Users/alex/AppData/Local/Temp/FarmCave.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 117
+            }
+        },
+        "C:\\Users\\alex\\AppData\\Local\\Temp\\7zO4556E54B\\ProFarm.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639,
+                "y": 500
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropHotelLobby.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 382,
+                "y": 510
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropJewelryStore.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1174,
+                "y": 298
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropJoeShack.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 119,
+                "y": 128
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropJoja.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 126,
+                "y": 128
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropPark.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 887,
+                "y": 895
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropPlaza.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 885,
+                "y": 893
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropPromenade.tbin": {
+            "scale": 1,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 842,
+                "y": 517
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropResidential.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1118,
+                "y": 367
+            }
+        },
+        "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropShoppingDistrict.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 884,
+                "y": 892
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Cave/[TM]ComfyCave/assets/FarmCave.tmx": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 308.75,
+                "y": 113.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Cave/[TM]ComfyCave/assets/Maps/FarmCave.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 205,
+                "y": 209
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/ComfyCave/[TM]ComfyCave/assets/Maps/FarmCave.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 255
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/HikawaShrine/HikawaShrine/assets/Maps/HikawaShrine.tbin": {
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1106,
+                "y": 524
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/Resources/Shrine/BusStop.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 272,
+                "y": 165
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]HikawaShrine/assets/Shrine.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 499,
+                "y": 541.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/BusStop.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/BusStop.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 344,
+                "y": 488
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/BusStopShrineForest.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 503,
+                "y": 511
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/Grass.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 368,
+                "y": 250
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/Shrine.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 870,
+                "y": 258
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/Town.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1022,
+                "y": 894
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/Woods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/[TM]TenMatchi/assets/ZTenMatchi.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 555,
+                "y": 222
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/city/JuubanCity.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 541,
+                "y": 280
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/city/zJuubanCity.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 210,
+                "y": 285
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/BusStop.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 382,
+                "y": 117
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/BusStop.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 503,
+                "y": 511
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/BusStopShrineA.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 775,
+                "y": 590
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/BusStopShrineForest.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 497,
+                "y": 505
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/Town.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1421,
+                "y": 1113
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/Woods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 255
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/junk/fuck.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 118
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/Juuban/[TM]JuubanCity/assets/shrine/Shrine.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 631,
+                "y": 373
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseForestSplit.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 143.5,
+                "y": 104
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseForestSquare.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 122.5,
+                "y": 99.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseForestTall.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 104,
+                "y": 186
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseForestTriple.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 145.5,
+                "y": 193
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseRock0.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 77,
+                "y": 113
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseRock1.tbin": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 150,
+                "y": 145
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseTree0.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 152.5,
+                "y": 137
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseTree1.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 95.5,
+                "y": 157
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseTree2.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 160,
+                "y": 102
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/SecretBase/Assets/Maps/SecretBaseTree3.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 139,
+                "y": 132
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Backwoods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 597,
+                "y": 378
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/BathHouse_Entry.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 127,
+                "y": 128
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/BathHouse_Pool.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 217,
+                "y": 187.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Beach-Luau.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 644.25,
+                "y": 157.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Beach-NightMarket.tbin": {
+            "scale": 8,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 654,
+                "y": 494.125
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Beach.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1165,
+                "y": 425
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/BusStop.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 186,
+                "y": 274.66666666666663
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Forest-FlowerFestival.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 256,
+                "y": 606
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Forest-IceFestival.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1168,
+                "y": 588
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Forest.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1687,
+                "y": 334
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Mountain.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 227,
+                "y": 304
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Railroad.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1247,
+                "y": 867
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Saloon.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 579.6666666666666,
+                "y": 278
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/SeedShop.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 129.33333333333331,
+                "y": 377.3333333333333
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Town-Christmas.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 558.5,
+                "y": 1003.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Town-EggFestival.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 474,
+                "y": 1092.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Town-Fair.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 653,
+                "y": 1257
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Town-Halloween.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 497,
+                "y": 1064
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Town.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1640.5,
+                "y": 813.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/AdventureGuild.tbin": {
+            "scale": 1,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 256,
+                "y": 445
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 712.5,
+                "y": 294.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods_GraveSite.tbin": {
+            "scale": 1.274816176470588,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 392.60562364816155,
+                "y": 320.43835616438355
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/BathHouse_Pool.tbin": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 215.33333333333331,
+                "y": 214.66666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach-Luau.tbin": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 491,
+                "y": 315
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach-NightMarket.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 251.33333333333331,
+                "y": 548.6666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 383,
+                "y": 519.6666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/BusStop.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 230.75,
+                "y": 164.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Cabin.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 128,
+                "y": 127
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/CellarChris.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 472.75,
+                "y": -269.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/CommunityCenter_Joja.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 296.75,
+                "y": 304.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/CommunityCenter_Ruins.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 247.75,
+                "y": 241.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Desert.tbin": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 467,
+                "y": 424
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 647.3333333333333,
+                "y": 169.66666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/FarmHouse.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 98,
+                "y": 99.33333333333333
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Foraging.tbin": {
+            "scale": 5.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1085.7272727272727,
+                "y": 238.09090909090912
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_FourCorners.tbin": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 496,
+                "y": 597.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest-IceFestival.tbin": {
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1371,
+                "y": 435
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 378,
+                "y": -1030
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HaleyHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 239.5,
+                "y": 130.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HarveyRoom.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 157.5,
+                "y": 90.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": 222.75,
+                "y": 212.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaShrine (2).tbin": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1258.3333333333333,
+                "y": 687
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaShrine (6).tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 878.75,
+                "y": 375.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaShrine.tbin": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 569,
+                "y": 769.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaTown.tbin": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 277.75,
+                "y": 170.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaTownJoja.tbin": {
+            "scale": 2,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": -38.5,
+                "y": 332.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Hospital.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 200,
+                "y": 222.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Jaspers-Bedroom.tbin": {
+            "scale": 2.6676339285714286,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 112.27177642038323,
+                "y": 63.35202075140154
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/JoshHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 254.25,
+                "y": 200.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Katrine's location map.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 319.5,
+                "y": 152.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/LeahHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 217.25,
+                "y": 137.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ManorHouse.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 127
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/MaruBasement.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 127,
+                "y": 127
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mine.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 316.5,
+                "y": 173
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/1.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/10.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 128
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/11.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/12.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639,
+                "y": 128
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/13.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/14.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/15.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/16.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/17.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 512
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/18.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/19.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 512
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/2.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/20.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 459,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/21.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/22.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/23.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/24.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/25.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/26.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/27.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/28.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 512
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/29.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 457,
+                "y": 622
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/3.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/31.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 256
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/4.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/5.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/6.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/7.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 314.33333333333337,
+                "y": 265.33333333333326
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/8.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mines/9.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 384
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 374.5,
+                "y": 301.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Railroad.tbin": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 498.5,
+                "y": 742.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Saloon.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 595,
+                "y": 286.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SamHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 235.25,
+                "y": 193.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SandyHouse.tbin": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 256,
+                "y": 127
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 240.75,
+                "y": 176.25
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SebastianMountain.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 375,
+                "y": 255
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SebastianRide.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 247,
+                "y": 127
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SebastianRoom.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 101.49999999999999,
+                "y": 65.83333333333334
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Shed.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 155,
+                "y": 68
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Submarine.tbin": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 248,
+                "y": 255
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Summit.tbin": {
+            "scale": 2.2978125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 159.49952400380795,
+                "y": 236.52930776553788
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Summit.tmx": {
+            "scale": 2.2265625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 324.04210526315785,
+                "y": 279.5789473684211
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town Hikawa.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 236.5,
+                "y": 210.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town SVE.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 338.5,
+                "y": 48
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 831.5,
+                "y": 1173.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/TownFairClean.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 14.25,
+                "y": 44.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Woods.tbin": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 685,
+                "y": 190
+            }
+        },
+        "E:/Dev/Projects/SDV/XNBCLI/unpacked/testXNB/HikawaShrine.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1023,
+                "y": 885
+            }
+        },
+        "E:/Dev/Projects/SVM/Cave/Resources/FarmCave.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 218,
+                "y": 233.33333333333331
+            }
+        },
+        "E:/Dev/Projects/SVM/Cave/Resources/FarmHouse2.tbin": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 130.33333333333331,
+                "y": 824.6666666666666
+            }
+        },
+        "E:/Dev/Projects/SVM/Cave/Resources/original/FarmCave.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 165,
+                "y": 101.5
+            }
+        },
+        "E:/Dev/Projects/SVM/Cave/[TM]ComfyCave/assets/FarmCave.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.3333333333333,
+                "y": 148.33333333333331
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/Resources/BusStop.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 221.5,
+                "y": 184
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/Resources/Town.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 699.5,
+                "y": 814.5
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/Resources/Tunnel.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 381,
+                "y": 264
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/BusStop.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 263.5,
+                "y": 207.5
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/BusStop.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 413,
+                "y": 629.5
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/BusStopShrineA.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 806,
+                "y": 896
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/BusStopShrineForest.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 728.6666666666666,
+                "y": 108.66666666666666
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/NexusScene1.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 346,
+                "y": 317
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/Shrine.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 978.5,
+                "y": 332.5
+            }
+        },
+        "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/Woods.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 728,
+                "y": 196.5
+            }
+        },
+        "E:/Dev/Projects/SVM/Shrine/Resources/Railroad.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 763.5,
+                "y": 869.5
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/BathHouse_Pool.tbin": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 87,
+                "y": 40
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/BusStop.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 384,
+                "y": 118
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/Farm.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 637,
+                "y": 360
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/Farm_Combat.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 636,
+                "y": 497
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/Farm_Fishing.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 638,
+                "y": 499
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/Farm_Foraging.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639,
+                "y": 639
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/Farm_Mining.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 637,
+                "y": 637
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Modding/Examples/[CP] Immersive Characters - Shane/assets/JasParty.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 570.5,
+                "y": 232.5
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Old/Modding/Examples/[TMX]JungleTempleAndCityBus/assets/buspeople/Bus(people).tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 247,
+                "y": 128
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Old/Modding/Examples/[TMX]JungleTempleAndCityBus/assets/jungletemple/JungleTempleExterior.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 253,
+                "y": 245
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/TMX Loader Examples/[BH] Boarding House/[TMX] Boarding House/assets/BusStop.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 10.833333333333314,
+                "y": 40.66666666666667
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/Backwoods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 246
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/BusStop.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 255
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/Forest.tbin": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1320,
+                "y": 600
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/ForestWest.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 881,
+                "y": 592
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/LostWoods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 924,
+                "y": 468
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/Mountain.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 467,
+                "y": 337
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/SpriteSpring.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 895,
+                "y": 511
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/Town.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1046,
+                "y": 1246
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Testing/SVE/[TMX] Stardew Valley Expanded Locations/assets/TownEast.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 383,
+                "y": 255
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods TEST/[TESTING]/[TMX] Buildable Greenhouse/assets/GreenhouseInterior.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 256
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods TEST/[TESTING]/[TMX] Buildable Greenhouse/assets/XLGreenhouse.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 888,
+                "y": 811
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods dev/HikawaShrine/zhikawashrine-assets/Maps/HikawaShrine.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 216,
+                "y": 262.66666666666663
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods dev/HikawaShrine/zhikawashrine-assets/Shrine.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 553.3333333333333,
+                "y": 758.6666666666666
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods multiplayer/[TM]ComfyCave/assets/FarmCave.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 204.5,
+                "y": 153.5
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/ComfyCave/assets/FarmCave.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 286.66666666666663,
+                "y": 189.33333333333331
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/Hikawa/assets/Maps/HikawaShrine.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 587.5,
+                "y": 390
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/Hikawa/assets/Maps/HikawaTownJoja.tbin": {
+            "scale": 2.6006249999999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 200.14419610670515,
+                "y": 107.28190338860853
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/zhikawashrine-assets/Forest.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 599,
+                "y": 523
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/zhikawashrine-assets/Maps/HikawaShrine.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 254,
+                "y": 256
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/HikawaShrine/zhikawashrine-assets/Shrine.tbin": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 155,
+                "y": 553.5
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/JASPER/[TMX] Jasper Locations/assets/Jaspers-Bedroom.tbin": {
+            "scale": 2.6676339285714286,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 112.27177642038323,
+                "y": 12.183080913731075
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TESTING]/..Stardew Valley Expanded/[TMX] Stardew Valley Expanded Locations/assets/Forest.tbin": {
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 923.5,
+                "y": 1211.5
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TESTING]/..Stardew Valley Expanded/[TMX] Stardew Valley Expanded Locations/assets/JenkinsHouse.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 288.3333333333333,
+                "y": 285.6666666666667
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TESTING]/Stardew Valley Expanded/[TMX] Stardew Valley Expanded Locations/assets/Forest.tbin": {
+            "scale": 2,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 541.5,
+                "y": 1559
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]ComfyCave/assets/FarmCave.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 117
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]ComfyCave/assets/FarmCave.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 256,
+                "y": 256
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]HikawaShrine/assets/Shrine.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 658,
+                "y": 514
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]HikawaShrine/zhikawashrine-assets/Shrine.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 624.6666666666666,
+                "y": 948.6666666666666
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]JuubanCity/assets/BusStop.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 647,
+                "y": 819
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]JuubanCity/assets/JuubanCity.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 631,
+                "y": 401
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]TenMatchi/assets/TenMatchi.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 508,
+                "y": 362
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]TenMatchi/assets/ZTenMatchi.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 622,
+                "y": 427
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/save-backups/[TM]HikawaShrine/assets/Shrine.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 624,
+                "y": 94
+            }
+        },
+        "E:\\Dev\\Projects\\SVM\\Cave\\Resources\\FarmCave.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 255,
+                "y": 253
+            }
+        },
+        "E:\\Dev\\Projects\\SVM\\Juuban\\[TM]JuubanCity\\assets\\Woods.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 255
+            }
+        },
+        "E:\\Dev\\Projects\\SVM\\XNBCLI\\unpacked\\Desert.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400,
+                "y": 590
+            }
+        },
+        "Hikawa/assets/Maps/HikawaShrine.tbin": {
+            "scale": 0.9908811475409834,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.14889876951725,
+                "y": 350.19336159652573
+            }
+        },
+        "Hikawa/assets/Maps/testmap.tbin": {
+            "scale": 1.1300717213114753,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.4170633301601,
+                "y": 488.0221224896868
+            }
+        },
+        "Hikawa/assets/Shrine.tbin": {
+            "scale": 0.8246527777777778,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 614.197894736842,
+                "y": 392.89263157894743
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 192.5,
+                "y": 230.25
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 730,
+                "y": 622.5
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 683.5,
+                "y": 366.5
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine2.tbin": {
+            "scale": 0.624485294117647,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 680.560461556576,
+                "y": 641.3281525962558
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine2.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 715.5,
+                "y": 688.5
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaTown.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 216,
+                "y": 154.75
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaTownJoja.tbin": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 63.81818181818183,
+                "y": 57
+            }
+        }
+    },
+    "openFiles": [
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
+        "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin"
+    ],
+    "project": "Hikawa.tiled-project",
+    "recentFiles": [
+        "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
+        "[TMXL] Hikawa/assets/HikawaShrine2.tbin",
+        "[TMXL] Hikawa/assets/HikawaShrine.tbin",
+        "[TMXL] Hikawa/assets/HikawaTown.tbin",
+        "[TMXL] Hikawa/assets/HikawaTownJoja.tbin",
+        "[TMXL] Hikawa/assets/HikawaHouse.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaHouse.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin"
+    ]
+}

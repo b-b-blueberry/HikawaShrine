@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using Hikawa.Core;
 using Microsoft.Xna.Framework;
 using xTile.Dimensions;
@@ -196,15 +198,18 @@ namespace Hikawa
 						if (location.interiorDoors.ContainsKey(where))
 						{
 							Log.D($"Door found at {where.ToString()}");
-							var door = new InteriorDoor(location, where)
+							var interiorDoor = location.interiorDoors.Doors.First ((door) => door.Position == where);
+							if (interiorDoor != null)
 							{
-								Sprite = new TemporaryAnimatedSprite(
-									"LooseSprites\\Cursors",
-									new Microsoft.Xna.Framework.Rectangle(0, 512, 80, 48),
+								var texture = location.Map.GetTileSheet(ModConsts.IndoorsSpritesFile).ImageSource;
+								Log.D($"Tilesheet image source: {texture}");
+								var sprite = new TemporaryAnimatedSprite(
+									texture,
+									new Microsoft.Xna.Framework.Rectangle(0, 512, 64, 48),
 									100f,
 									4,
 									1,
-									new Vector2(where.X - 2, where.Y - 2) * 64f,
+									new Vector2(where.X - 3, where.Y - 2) * 64f,
 									false,
 									false,
 									((where.Y + 1) * 64 - 12) / 10000f,
@@ -213,14 +218,13 @@ namespace Hikawa
 									4f,
 									0f,
 									0f,
-									0f) {holdLastFrame = true, paused = true}
-							};
-							if (isOpen)
-							{
-								door.Sprite.paused = false;
-								door.Sprite.resetEnd();
+									0f)
+								{
+									holdLastFrame = true, 
+									paused = true
+								};
+								interiorDoor.Sprite = sprite;
 							}
-							Helper.Reflection.GetMethod(location.interiorDoors, "setFieldValue").Invoke(door, where, isOpen);
 						}
 						else
 						{

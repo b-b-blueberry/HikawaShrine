@@ -11,6 +11,7 @@ namespace Hikawa
 		internal const string SpritesDirectory = "Sprites";
 		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
 		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
+		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
 
 
 		/* Game objects */
