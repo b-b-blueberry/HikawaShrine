@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using Hikawa.Core;
 using Microsoft.Xna.Framework;

@@ -27,7 +27,7 @@ namespace Hikawa.Editors
 
 			// Patch in a custom crosshair cursor for the Sailor V shoot 'em up
 			var texture = _helper.Content.Load<Texture2D>(
-				Path.Combine("assets", ModConsts.SpritesDirectory, 
+				Path.Combine(ModConsts.AssetsDirectory, ModConsts.SpritesDirectory, 
 					$"{ModConsts.ArcadeSpritesFile}.png"));
 			asset.AsImage().PatchImage(
 				texture,

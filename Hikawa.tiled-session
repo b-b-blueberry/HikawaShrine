@@ -1,5 +1,5 @@
 {
-    "activeFile": "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
+    "activeFile": "[TMXL] Hikawa/assets/HikawaShrine.tmx",
     "fileStates": {
         "../HikawaShrine/HikawaShrine/Assets/Maps/HikawaShrine.tbin": {
             "scale": 2,
@@ -674,11 +674,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin": {
-            "scale": 0.5,
-            "selectedLayer": 1,
+            "scale": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 378,
-                "y": -1030
+                "x": 1661.875,
+                "y": 533
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HaleyHouse.tbin": {
@@ -1053,8 +1053,8 @@
             "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 374.5,
-                "y": 301.5
+                "x": 402.5,
+                "y": 348.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Railroad.tbin": {
@@ -1090,11 +1090,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin": {
-            "scale": 2,
+            "scale": 4,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 240.75,
-                "y": 176.25
+                "x": 459.375,
+                "y": 183.625
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SebastianMountain.tbin": {
@@ -1173,8 +1173,8 @@
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 831.5,
-                "y": 1173.5
+                "x": 582.5,
+                "y": 923.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/TownFairClean.tbin": {
@@ -1729,6 +1729,14 @@
                 "y": 230.25
             }
         },
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx": {
+            "scale": 3,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 146.5,
+                "y": 255.5
+            }
+        },
         "[TMXL] Hikawa/assets/HikawaShrine.tbin": {
             "scale": 1,
             "selectedLayer": 0,
@@ -1739,10 +1747,18 @@
         },
         "[TMXL] Hikawa/assets/HikawaShrine.tmx": {
             "scale": 1,
-            "selectedLayer": 0,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 683.5,
-                "y": 366.5
+                "x": 737.5,
+                "y": 549.5
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine0.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 736.75,
+                "y": 784.75
             }
         },
         "[TMXL] Hikawa/assets/HikawaShrine2.tbin": {
@@ -1755,10 +1771,10 @@
         },
         "[TMXL] Hikawa/assets/HikawaShrine2.tmx": {
             "scale": 1,
-            "selectedLayer": 0,
+            "selectedLayer": 16,
             "viewCenter": {
-                "x": 715.5,
-                "y": 688.5
+                "x": 850.5,
+                "y": 519.5
             }
         },
         "[TMXL] Hikawa/assets/HikawaTown.tbin": {
@@ -1779,25 +1795,28 @@
         }
     },
     "openFiles": [
-        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
-        "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin"
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx",
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
+        "[TMXL] Hikawa/assets/HikawaShrine0.tmx",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin"
     ],
     "project": "Hikawa.tiled-project",
     "recentFiles": [
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin",
+        "[TMXL] Hikawa/assets/HikawaShrine0.tmx",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin",
         "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
-        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
         "[TMXL] Hikawa/assets/HikawaShrine2.tbin",
         "[TMXL] Hikawa/assets/HikawaShrine.tbin",
-        "[TMXL] Hikawa/assets/HikawaTown.tbin",
-        "[TMXL] Hikawa/assets/HikawaTownJoja.tbin",
-        "[TMXL] Hikawa/assets/HikawaHouse.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HikawaHouse.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin"
+        "[TMXL] Hikawa/assets/HikawaTown.tbin"
     ]
 }

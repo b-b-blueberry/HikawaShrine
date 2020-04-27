@@ -604,7 +604,7 @@ namespace Hikawa
 
 			// Load arcade game assets
 			_arcadeTexture = Helper.Content.Load<Texture2D>(
-				Path.Combine("assets", ModConsts.SpritesDirectory, $"{ModConsts.ArcadeSpritesFile}.png"));
+				Path.Combine(ModConsts.AssetsDirectory, ModConsts.SpritesDirectory, $"{ModConsts.ArcadeSpritesFile}.png"));
 
 			// Load fill colours
 			var swatch = new Color[(int)Swatch.Length];

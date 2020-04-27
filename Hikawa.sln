@@ -9,13 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NPCs", "NPCs", "{312BD64E-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[TMXL] Hikawa", "[TMXL] Hikawa\[TMXL] Hikawa.csproj", "{0FF02F31-86D7-4EC4-8A0E-10D31FE7A5D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ami", "[CP] Hikawa NPC Ami\Ami.csproj", "{F9461D48-5CD4-4081-A6C0-A9B971142EFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[CP] Hikawa NPC Ami", "[CP] Hikawa NPC Ami\[CP] Hikawa NPC Ami.csproj", "{F9461D48-5CD4-4081-A6C0-A9B971142EFB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rei", "[CP] Hikawa NPC Rei\Rei.csproj", "{17B261D6-C083-45E3-AEE4-4DAD9BBA6B8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[CP] Hikawa NPC Rei", "[CP] Hikawa NPC Rei\[CP] Hikawa NPC Rei.csproj", "{17B261D6-C083-45E3-AEE4-4DAD9BBA6B8C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[CP] Hikawa", "[CP] Hikawa\[CP] Hikawa.csproj", "{BDB77A2A-9B82-4951-A09C-6FAB43A44874}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[CM] Hikawa", "[CM] Hikawa\[CM] Hikawa.csproj", "{35B9AB22-CDAF-4422-9624-552145AC6396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[CM] Hikawa", "[CM] Hikawa\[CM] Hikawa.csproj", "{35B9AB22-CDAF-4422-9624-552145AC6396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[CP] Hikawa NPC Grandpa", "[CP] Hikawa NPC Grandpa\[CP] Hikawa NPC Grandpa.csproj", "{D94E1A83-8434-4CBB-837E-95F34E323738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{35B9AB22-CDAF-4422-9624-552145AC6396}.Debug|x86.Build.0 = Debug|x86
 		{35B9AB22-CDAF-4422-9624-552145AC6396}.Release|x86.ActiveCfg = Release|x86
 		{35B9AB22-CDAF-4422-9624-552145AC6396}.Release|x86.Build.0 = Release|x86
+		{D94E1A83-8434-4CBB-837E-95F34E323738}.Debug|x86.ActiveCfg = Debug|x86
+		{D94E1A83-8434-4CBB-837E-95F34E323738}.Debug|x86.Build.0 = Debug|x86
+		{D94E1A83-8434-4CBB-837E-95F34E323738}.Release|x86.ActiveCfg = Release|x86
+		{D94E1A83-8434-4CBB-837E-95F34E323738}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F9461D48-5CD4-4081-A6C0-A9B971142EFB} = {312BD64E-40DD-4846-BE73-EBA74DA134EC}
 		{17B261D6-C083-45E3-AEE4-4DAD9BBA6B8C} = {312BD64E-40DD-4846-BE73-EBA74DA134EC}
+		{D94E1A83-8434-4CBB-837E-95F34E323738} = {312BD64E-40DD-4846-BE73-EBA74DA134EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9F54E92-6496-459C-B13E-FB7D0851CC38}

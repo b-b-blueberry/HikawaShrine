@@ -7,6 +7,7 @@ namespace Hikawa
 	{
 		/* Mod data */
 		// Directories
+		internal const string AssetsDirectory = "assets";
 		internal const string TilesheetPrefix = "z_hikawa";
 		internal const string SpritesDirectory = "Sprites";
 		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
@@ -19,6 +20,7 @@ namespace Hikawa
 		internal const string ReiNpcId = "Rei";
 		internal const string AmiNpcId = "Ami";
 		internal const string UsaNpcId = "Usagi";
+		internal const string GrampsNpcId = "Grandpa";
 		// Maps
 		internal const string MapPrefix = "Hikawa";
 		internal const string ShrineMapId = MapPrefix + "Shrine";
