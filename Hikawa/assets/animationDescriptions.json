@@ -44,8 +44,8 @@
     "hikawa_sit_study_awake_rei": "84/84 85 88 88 88 86 86 86 87 86 87 86 87 87 87 87 87 87 86 87 86 86 87 86 87 86 87 86 87 87 87 87 87 87 87 87 88 88 89 89 89 89 89 89 89 89 89 89 89 89 88 88 86 86 86 87 86 87 86 87 87 87 86 86 87 86 87 86 87 87 87 87 88 88 85 84 85 85 88 89 89 89 89 89 89 89 89 89 89 89 89 89 85 85 85 85 85 85 85 85 85 85 88 86 87 87 87 87 86 87 86 87 86 87 86 87 86 87 86 87 87 87 86 87 87 88 88 88 85 85/84/Strings\\animationDescriptions:hikawa_sit_study_awake",
     "hikawa_sit_study_asleep": "85 85 86 86 88 88 89 89 89 89 89 90 90/90 90 90 90 90 90 90 90 90 90 90 90 91 91 91 91 91 91 91 91 91 91 90/90 90 89 89 89 89 89 89 89 88 88 88 85 85/Strings\\animationDescriptions:hikawa_sit_study_asleep",
     
-    "hikawa_sleep": "0 0 19 19 92 92 19 19 92 92 19 19 19 19 19 92 92/92/92 92 19 19 92 92 19 19 92 92 19 19 19 19 19 0 0/Strings\\animationDescriptions:hikawa_sleep",
-    "hikawa_sleep_alarm": "93 94 95/95/95 94 93 19 19 19 19 19 19 0/Strings\\animationDescriptions:hikawa_sleep_alarm",
+    "hikawa_rei_sleep": "0 0 19 19 92 92 19 19 92 92 19 19 19 19 19 92 92/92/92 92 19 19 92 92 19 19 92 92 19 19 19 19 19 0 0/Strings\\animationDescriptions:hikawa_sleep",
+    "hikawa_rei_sleep_alarm": "93 94 95/95/95 94 93 19 19 19 19 19 19 0/Strings\\animationDescriptions:hikawa_sleep_alarm",
     
     "hikawa_popcorn_down": "96/96 96 96 96 96 96 96 97 97 97 98 99 96/96",
     "hikawa_popcorn_right": "100/100 100 100 100 100 100 100 101 101 101 102 103/100",
