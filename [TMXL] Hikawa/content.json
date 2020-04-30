@@ -5,12 +5,12 @@
     // Hikawa Shrine
     {
       "name": "HikawaShrine",
-      "file": "assets/HikawaShrine.tbin"
+      "file": "assets/HikawaShrine.tmx"
     },
     // Hino Homestead
     {
       "name": "HikawaHouse",
-      "file": "assets/HikawaHouse.tbin"
+      "file": "assets/HikawaHouse.tmx"
     }
   ],
 
@@ -21,25 +21,25 @@
     // Merged in vertical stripes to maximise compatibility between vanilla and SVE
     {
       "name": "Town",
-      "file": "assets/HikawaTown.tbin",
+      "file": "assets/HikawaTown.tmx",
       "sourceArea": [ 0, 0, 17, 20 ],
       "position": [ 7, 0 ]
     },
     {
       "name": "Town",
-      "file": "assets/HikawaTown.tbin",
+      "file": "assets/HikawaTown.tmx",
       "sourceArea": [ 17, 0, 3, 17 ],
       "position": [ 24, 0 ]
     },
     {
       "name": "Town",
-      "file": "assets/HikawaTown.tbin",
+      "file": "assets/HikawaTown.tmx",
       "sourceArea": [ 20, 0, 3, 16 ],
       "position": [ 27, 0 ]
     },
     {
       "name": "Town",
-      "file": "assets/HikawaTown.tbin",
+      "file": "assets/HikawaTown.tmx",
       "sourceArea": [ 23, 0, 5, 15 ],
       "position": [ 30, 0 ]
     }
