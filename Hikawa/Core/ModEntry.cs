@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hikawa.Core;
 using Microsoft.Xna.Framework;
@@ -9,6 +10,7 @@ using StardewValley;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley.BellsAndWhistles;
+using StardewValley.Menus;
 
 namespace Hikawa
 {
@@ -151,10 +153,9 @@ namespace Hikawa
 				{
 					// Hikawa Shrine
 
-					if (SaveData.StoryMist != (int)ModConsts.Progress.Started)
+					if (SaveData.StoryMist == (int)ModConsts.Progress.Started)
 					{
 						// Eerie effects
-
 						_overlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
 						SpawnCrows(
 							location,
@@ -171,7 +172,7 @@ namespace Hikawa
 					{
 						// Crows on regular days
 
-						if (Game1.timeOfDay < 1100)
+						if (Game1.timeOfDay < 1200)
 						{
 							// Spawn crows as critters
 							SpawnCrows(location);
@@ -179,6 +180,18 @@ namespace Hikawa
 						else if (!Game1.isDarkOut())
 						{
 							// Add crows as temp sprites
+							var roll = Game1.random.NextDouble();
+							if (roll < 0.3)
+							{
+								
+							} else if (roll < 0.7)
+							{
+
+							}
+							else
+							{
+
+							}
 						}
 					}
 
@@ -190,14 +203,13 @@ namespace Hikawa
 					const int doorMarkerIndex = 32;
 					var where = new Point(7, 12);
 
-					var isOpen = Helper.Reflection.GetMethod(location, "doorHasStateOpen").Invoke<bool>(where);
 					if (location.Map.GetLayer("Buildings").Tiles[where.X, where.Y].TileIndex == doorMarkerIndex)
 					{
 						Log.D($"Marker found at {where.ToString()}");
 						if (location.interiorDoors.ContainsKey(where))
 						{
 							Log.D($"Door found at {where.ToString()}");
-							var interiorDoor = location.interiorDoors.Doors.First ((door) => door.Position == where);
+							var interiorDoor = location.interiorDoors.Doors.First (door => door.Position == where);
 							if (interiorDoor != null)
 							{
 								var texture = location.Map.GetTileSheet(ModConsts.IndoorsSpritesFile).ImageSource;
@@ -322,10 +334,10 @@ namespace Hikawa
 			location.addCritter(new Crow(deimos.X, deimos.Y));
 		}
 
-	/// <summary>
-	/// Forces an NPC into a custom schedule for the day.
-	/// </summary>
-	private void ForceNpcSchedule(NPC npc)
+		/// <summary>
+		/// Forces an NPC into a custom schedule for the day.
+		/// </summary>
+		private void ForceNpcSchedule(NPC npc)
 		{
 			npc.Schedule = npc.getSchedule(Game1.dayOfMonth);
 			npc.scheduleTimeToTry = 9999999;
@@ -351,7 +363,6 @@ namespace Hikawa
 				tile?.Properties.TryGetValue("Action", out action);
 				if (action == null) return;
 
-				// Enter the arcade machine minigame if used in the world
 				var strArray = ((string)action).Split(' ');
 				var args = new string[strArray.Length - 1];
 				Array.Copy(
@@ -360,11 +371,48 @@ namespace Hikawa
 					args.Length);
 				switch (strArray[0])
 				{
-					case ModConsts.ArcadeMinigameId:
+					// Enter the arcade machine minigame if used in the world
+					case ModConsts.ActionArcade:
 						Game1.currentMinigame = new ArcadeGunGame();
+						break;
+
+					// Bring up the shop menu if someone's attending the omiyageya
+					case ModConsts.ActionShrineShop:
+						var where = Game1.currentLocation;
+						var who = where.isCharacterAtTile(new Vector2(grabTile.X, grabTile.Y - 2));
+						if (who != null)
+						{
+							Game1.activeClickableMenu = new ShopMenu(GetSouvenirShopStock(), 0, who.Name);
+						}
+						else
+						{
+							Game1.drawObjectDialogue(i18n.Get("string.loc.shrine.shopclosed"));
+						}
+						break;
+
+					// Using the Shrine offertory box
+					case ModConsts.ActionShrineOffering:
+						break;
+
+					// Interactions with the Ema stand at the Shrine
+					case ModConsts.ActionEma:
+						break;
+
+					// Trying to enter the Shrine Hall front doors
+					case ModConsts.ActionShrineHall:
 						break;
 				}
 			}
+		}
+
+		private Dictionary<ISalable, int[]> GetSouvenirShopStock()
+		{
+			var stock = new Dictionary<ISalable, int[]>();
+
+			stock.Add(new StardewValley.Object(233, 1),
+				new[] {250, int.MaxValue});
+
+			return stock;
 		}
 
 		#endregion

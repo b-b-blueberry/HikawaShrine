@@ -41,5 +41,7 @@
     "name.darkmoon": "Negamoon",
 
     "jp.name.darkrealm": "Dark Kingdom",
-    "jp.name.darkmoon": "Nemesis"
+    "jp.name.darkmoon": "Nemesis",
+
+    "string.loc.shrine.shopclosed": "Nobody's attending the souvenir shop at the moment.",
 }

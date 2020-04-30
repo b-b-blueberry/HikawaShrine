@@ -16,6 +16,9 @@ namespace Hikawa
 
 
 		/* Game objects */
+		// Objects
+		internal const string ArcadeMinigameId = "Hikawa_LightGun";
+		internal const string ArcadeObjectName = "Sailor V Arcade System";
 		// NPCs
 		internal const string ReiNpcId = "Rei";
 		internal const string AmiNpcId = "Ami";
@@ -29,9 +32,12 @@ namespace Hikawa
 		internal const string TownJojaSnippetId = TownSnippetId + "Joja";
 		internal const string CorridorMapId = MapPrefix + "Corridor";
 		internal const string NegativeMapId = MapPrefix + "Negative";
-		// Objects
-		internal const string ArcadeMinigameId = "Hikawa_LightGun";
-		internal const string ArcadeObjectName = "Sailor V Arcade System";
+		// Tile actions
+		internal const string ActionEma = MapPrefix + "Ema";
+		internal const string ActionArcade = MapPrefix + "ArcadeMinigameId";
+		internal const string ActionShrineHall = MapPrefix + "HallDoor";
+		internal const string ActionShrineShop = MapPrefix + "OmiyageyaShop";
+		internal const string ActionShrineOffering = MapPrefix + "Offering";
 		// Coordinates
 		internal static readonly Location ArcadeMachinePosition = new Location(40, 16);
 		internal static readonly List<Location> CrowTilePositions = new List<Location>
