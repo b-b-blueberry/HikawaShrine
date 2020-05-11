@@ -1,0 +1,10 @@
+{
+  "Name": "Dark Fruit Tree",
+  "Product": "Dark Fruit",
+  "SaplingName": "Dark Seed",
+  "SaplingDescription": "?????????",
+  "Season": "spring",
+  "SaplingPurchasePrice": 20,
+  "SaplingPurchaseFrom": "blueberry",
+  "SaplingPurchaseRequirements": [ "y 9999" ]
+}

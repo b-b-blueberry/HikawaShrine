@@ -1,0 +1,43 @@
+{
+    "Name": "Dark Fruit Macaron",
+    "Description": "A chic treat with a dark twist. It's hard to eat other desserts after this.",
+    "Category": "Cooking",
+    "Edibility": 32,
+    "EdibleIsDrink": false,
+    "EdibleBuffs": null,
+    "Price": 300,
+    "IsColored": false,
+    "GiftTastes":
+    {
+    },
+    "Recipe":
+    {
+        "ResultCount": 1,
+        "Ingredients": [
+            {
+                "Object": "Dark Fruit",
+                "Count": 1,
+            },
+            {
+                "Object": -5,
+                "Count": 1,
+            },
+            {
+                "Object": 245,
+                "Count": 1,
+            }
+        ],
+        "CanPurchase": true,
+        "PurchaseFrom": "Gus",
+        "PurchasePrice": 300,
+        "PurchaseRequirements": [
+            "y 999"
+     ],
+    },
+    "NameLocalization":
+    {
+    },
+    "DescriptionLocalization":
+    {
+    }
+}

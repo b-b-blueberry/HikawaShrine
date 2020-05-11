@@ -1,0 +1,26 @@
+{
+  "Name": "Warp Totem: Shrine",
+  "Description": "Warp directly to Hikawa Shrine. Consumed on use.",
+  "Category": "Junk",
+  "CategoryTextOverride": "",
+  "CategoryColorOverride": "0, 0, 0, 0",
+  "Edibility": -300,
+  "Price": 50,
+  "Recipe": {
+    "ResultCount": 1,
+    "Ingredients": [
+      {
+        "Object": 298,
+        "Count": 1
+      },
+      {
+        "Object": 638,
+        "Count": 1
+      },
+      {
+        "Object": 334,
+        "Count": 3
+      }
+    ]
+  }
+}

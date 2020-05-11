@@ -1,0 +1,9 @@
+{
+    "Name": "Dark Fruit",
+    "Description": "It smells nice, but... should you really eat this?",
+    "Category": "Fruit",
+    "Edibility": 15,
+    "Price": 65,
+    "IsColored": false,
+    "Recipe": null
+}

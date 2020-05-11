@@ -1,0 +1,20 @@
+{
+  "Name": "Crystal Moon Wand",
+  "Description": "___",
+  "Type": "Sword",
+
+  "MinimumDamage": 24,
+  "MaximumDamage": 31,
+  "Knockback": 1, //How far the enemy will be pushed back from the player after being hit with this weapon.
+  "Accuracy": 8, //How accurate the weapon is.
+  "Defense": 0, //When blocking, how much protection it provides.
+  "Speed": 0, //How fast the swing of the weapon is. 0 is deafult.
+  "MineDropVar": -1,
+  "MineDropMinimumLevel": -1,
+  "ExtraSwingArea": 1,
+  "CritChance": 0.02,
+  "CritMultiplier": 3,
+  "CanPurchase": false,
+  "PurchaseFrom": "Pierre",
+  "PurchasePrice": 25000
+}

@@ -1,0 +1,43 @@
+{
+    "Name": "Dark Fruit Pie",
+    "Description": "A juicy pie stuffed with a strange fruit. Other foods just don't taste as good after this!",
+    "Category": "Cooking",
+    "Edibility": 32,
+    "EdibleIsDrink": false,
+    "EdibleBuffs": null,
+    "Price": 375,
+    "IsColored": false,
+    "GiftTastes":
+    {
+    },
+    "Recipe":
+    {
+        "ResultCount": 1,
+        "Ingredients": [
+            {
+                "Object": "Dark Fruit",
+                "Count": 1,
+            },
+            {
+                "Object": 246,
+                "Count": 1,
+            },
+            {
+                "Object": 245,
+                "Count": 1,
+            }
+        ],
+        "CanPurchase": true,
+        "PurchaseFrom": "Gus",
+        "PurchasePrice": 375,
+        "PurchaseRequirements": [
+            "y 999"
+     ],
+    },
+    "NameLocalization":
+    {
+    },
+    "DescriptionLocalization":
+    {
+    }
+}
