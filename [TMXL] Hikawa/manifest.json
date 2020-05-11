@@ -5,19 +5,19 @@
 	"Description": "What the ..?",
 	"UniqueID": "blueberry.TMXL.Hikawa",
 	"MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "Nexus:4643" ],
+  "UpdateKeys": [ "Nexus:????" ],
 	"ContentPackFor": {
 		"UniqueID": "Platonymous.TMXLoader",
 		"MinimumVersion": "1.6.4"
 	},
 	"Dependencies": [
-    {
-      "UniqueID": "blueberry.Hikawa",
-      "IsRequired": true
-    },
-    {
-      "UniqueID": "FlashShifter.StardewValleyExpandedCP",
-			"IsRequired":  false 
-    }
-	] 
+		{
+			"UniqueID": "blueberry.Hikawa",
+			"IsRequired": true
+		},
+		{
+			"UniqueID": "FlashShifter.StardewValleyExpandedCP",
+			"IsRequired": false
+		}
+	]
 }

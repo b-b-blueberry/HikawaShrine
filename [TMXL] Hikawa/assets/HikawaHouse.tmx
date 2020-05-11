@@ -44,7 +44,7 @@
  <objectgroup id="4" name="Tatami"/>
  <layer id="5" name="KitchenTatami" width="25" height="32" visible="0">
   <properties>
-   <property name="DrawAbove" value="Back"/>
+   <property name="DrawAbove" value=""/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJztkckNgDAMBP13lYgKIqUBjgY4Goigg1Aga8WPFOAPaEca5bcb2yKEEEK+xKQiBzy7d4GrxnXsyCrwgg+s8NbWHYXlJzj4/y171tYdheWPMPuubEebzxZB6fKz36J6TwqcgxBC/sQLVAsVCQ==
@@ -53,16 +53,16 @@
  <objectgroup id="6" name="KitchenTatami" visible="0"/>
  <layer id="7" name="KitchenRed" width="25" height="32" visible="0">
   <properties>
-   <property name="DrawAbove" value="Back"/>
+   <property name="DrawAbove" value=""/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMAowQSwTJv7DSF3za6CYViCGCYGRATX9UYPkD+SwkqGhv0bBKBgFo2AoAwDMxwkA
   </data>
  </layer>
  <objectgroup id="8" name="KitchenRed" visible="0"/>
- <layer id="9" name="KitchenDark" width="25" height="32">
+ <layer id="9" name="KitchenDark" width="25" height="32" visible="0">
   <properties>
-   <property name="DrawAbove" value="Back"/>
+   <property name="DrawAbove" value=""/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMAowgSwTBNsDsQOUXsBEPfNB5sUDcQKUpgVoAJrrzAGh65HsoKY/EpD8gRxWB2jkp1EwCkbBKBjqAAApcAgn
@@ -83,7 +83,7 @@
    eJzVlT1MFEEUx0fuBHJznYQPjQV+xQROoqKxkEC0hWgCBWpUChIKaSwIfhBjJBgb7cAYiB2x8COxMBYqBQkJBVqYUIiVxkaMBYUGuIbfxd3sMDdv2IO14CW/zM6b995/3s3snlKbtx0CSVqh3kOt1CNo0ZEvibomr6j9CTrgRyaZvuycSWo/0/J6qVph7FSw96fwBt5CTZlSM1lZQ7IFev+aWe8rzLupeQEuGftvTCuVg8v4rlh9+TQWqVeu1/t+Zdyx7dTvMDTupaK+XBrL1FmBVchniue+/YUas+jdrYjirhvBr2Mejqkxod0x0yn5HTJlpDWpj9DfW6nUg3RxrdPspxK0sa/nPL+Al9qtEQdTo506tbDH0HjH83v4IGiENsL6/SBv3jgzu8dv3PEvxC3ANRxLxH6GOeYfPRqPWRuFMRjmDKqF70phXs/6T9YXjT6+o5FinhY09ul/7IcDcBAOQZ92a+Txn0kp0Vwa9eQcg+PQDCfgJAwKGjPCHdyFv8rqI7wbR+GJkOfSmA9i/zD+tfL2Wu+sfTcKtsLiKuShS+jjd5Czk3rl2WitkeecpXGY2AZLo447sxsGPGfusy7rt3JZp47GG44+JOsh8Cz3oLYsmXfQ922wc045zrkVX5vlj/N7STHh//hUUPMO4zk4H0PD16uZ0x3UGme8GDxfZeyBHByBphLOxLev0G5R7zbc3KCPrWgkFR/m+H5LV8xWLc492Y4a/Zu8S6VoDP0njYZssS9pjY2+SWt2z1K2
   </data>
  </layer>
- <objectgroup id="14" name="Buildings">
+ <objectgroup id="14" name="Buildings" visible="0">
   <object id="1" name="TileData" x="256" y="48" width="16" height="16">
    <properties>
     <property name="Action" value="Message &quot;HikawaHouse.6&quot;"/>
@@ -151,7 +151,7 @@
   </object>
   <object id="14" name="TileData" x="112" y="192" width="16" height="16">
    <properties>
-    <property name="Action" value="Door Rei"/>
+    <property name="Action" value="Door HikawaRei"/>
    </properties>
   </object>
   <object id="15" name="TileData" x="48" y="208" width="16" height="16">

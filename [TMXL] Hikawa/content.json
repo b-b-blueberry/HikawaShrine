@@ -5,7 +5,8 @@
     // Hikawa Shrine
     {
       "name": "HikawaShrine",
-      "file": "assets/HikawaShrine.tmx"
+      "file": "assets/HikawaShrine.tmx",
+      "type": "Custom:Hikawa.GameObjects.HikawaShrine, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
     },
     // Hino Homestead
     {

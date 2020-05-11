@@ -8,16 +8,16 @@
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
     <EnableHarmony>true</EnableHarmony>
-    <IgnoreModFilePatterns>\.dll$, \.pdb$</IgnoreModFilePatterns>
+    <IgnoreModFilePatterns>\.dll$, \.pdb$, assets[/\\][^z].*\.png$</IgnoreModFilePatterns>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="assets\HikawaShrine0.tmx" />
-    <None Remove="assets\paths.png" />
-    <None Remove="assets\spring_outdoorsTileSheet.png" />
-    <None Remove="assets\spring_town.png" />
-    <None Remove="assets\townInterior.png" />
-    <None Remove="assets\walls_and_floors.png" />
+    <Content Include="assets\z_hikawa_*.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Hikawa*.tmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
