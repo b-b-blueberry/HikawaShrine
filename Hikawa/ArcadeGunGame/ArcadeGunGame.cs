@@ -597,9 +597,9 @@ namespace Hikawa
 			Log.D("ArcadeGunGame()");
 			changeScreenSize();
 			
-			Game1.changeMusicTrack("none", false, Game1.MusicContext.MiniGame);
+			Game1.changeMusicTrack("none");
 
-			if (ModEntry.Instance.Config.DebugMode && !ModEntry.Instance.Config.DebugArcadeMusic)
+			if (!(Game1.musicPlayerVolume > 0f) || ModEntry.Instance.Config.DebugMode && !ModEntry.Instance.Config.DebugArcadeMusic)
 				_playMusic = false;
 
 			// Load arcade game assets
@@ -626,10 +626,15 @@ namespace Hikawa
 			_totalTime = 0;
 
 			// Go to the title screen
-			if (IsDebugMode && !ModEntry.Instance.Config.DebugArcadeSkipIntro)
-				ResetAndReturnToTitle();
-			else
+			if (IsDebugMode && ModEntry.Instance.Config.DebugArcadeSkipIntro)
+			{
+				PlayMusic("cm:blueberry.hikawa.arcade_main:Cowboy_OVERWORLD");
 				ResetGame();
+			}
+			else
+			{
+				ResetAndReturnToTitle();
+			}
 		}
 
 		#region Player input methods
@@ -867,7 +872,7 @@ namespace Hikawa
 
 		public void changeScreenSize()
 		{
-			Log.D("");
+			Log.D("changeScreenSize()");
 			/* Determine game edge bounds */
 
 			// this used to be a rect and a vect but it was awful
@@ -916,14 +921,13 @@ namespace Hikawa
 				IsDebugMode);
 		}
 
-		private static bool QuitMinigame()
+		private bool QuitMinigame()
 		{
 			Log.D("QuitMinigame()");
 			StopMusic();
 			if (Game1.currentLocation != null
 			    && Game1.currentLocation.Name.Equals((object)"Saloon") && Game1.timeOfDay >= 1700)
 				Game1.changeMusicTrack("Saloon1");
-			Game1.currentMinigame = null;
 			Helper.Content.InvalidateCache("LooseSprites/Cursors");
 			return true;
 		}
@@ -938,7 +942,7 @@ namespace Hikawa
 		/// <summary>
 		/// Starts running down the clock to return to the title screen after resetting the game state.
 		/// </summary>
-		private static void GameOver()
+		public static void GameOver()
 		{
 			Log.D("GameOver()");
 			_onGameOver = true;
@@ -952,19 +956,18 @@ namespace Hikawa
 		/// <summary>
 		/// Flags for  to title screen start prompt
 		/// </summary>
-		private static void ResetAndReturnToTitle()
+		public void ResetAndReturnToTitle()
 		{
 			Log.D("ResetAndReturnToTitle()");
 			ResetGame();
 			_onTitleScreen = true;
-			PlayMusic(gameMusic, "dog_bark");
 		}
 
 		/// <summary>
 		/// Completely resets all game actors, objects, players, and world state.
 		/// Returns to the title screen.
 		/// </summary>
-		private static void ResetGame()
+		public void ResetGame()
 		{
 			Log.D("ResetGame()");
 			// Reset player
@@ -984,13 +987,13 @@ namespace Hikawa
 			AddScore(-1 * _totalScore / 2);
 
 			// Reset game music
-			gameMusic = null;
+			StopMusic();
 
 			// Reset the game world
 			ResetPlaythrough();
 		}
 
-		private static void CleanUpStage()
+		private void CleanUpStage()
 		{
 			Log.D("CleanUpStage()");
 			_powerups.Clear();
@@ -1004,7 +1007,7 @@ namespace Hikawa
 
 		#region Minigame progression methods
 		
-		private static void ResetPlaythrough()
+		private void ResetPlaythrough()
 		{
 			Log.D("ResetPlaythrough()");
 			_whichStage = 0;
@@ -1029,25 +1032,22 @@ namespace Hikawa
 			// todo: set cutscenes, begin events, etc
 		}
 
-		private static void PlayMusic(ICue cue, string id)
+		private void PlayMusic(string id)
 		{
-			Log.D($"PlayMusic(ICue cue, string id : {id}, _playMusic: {_playMusic})");
 			if (!_playMusic) return;
+			
+			Log.D($"PlayMusic(id={id})");
 
-			cue = Game1.soundBank.GetCue(id);
-			cue.Play();
-			Game1.musicPlayerVolume = Game1.options.musicVolumeLevel;
-			Game1.musicCategory.SetVolume(Game1.musicPlayerVolume);
+			gameMusic = Game1.soundBank.GetCue(id);
+			gameMusic.Play();
 		}
 
-		private static void StopMusic() {
-			if (gameMusic != null && gameMusic.IsPlaying)
-				gameMusic.Stop(AudioStopOptions.Immediate);
-			if (Game1.IsMusicContextActive(Game1.MusicContext.MiniGame))
-				Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
+		private void StopMusic() {
+			gameMusic?.Stop(AudioStopOptions.AsAuthored);
+			//Game1.stopMusicTrack(Game1.MusicContext.MiniGame);
 		}
 
-		private static void StartNewStage()
+		private void StartNewStage()
 		{
 			Log.D("StartNewStage()");
 			++_whichStage;
@@ -1066,7 +1066,7 @@ namespace Hikawa
 			//Log.D($"Current play/world/stage: {whichPlaythrough}/{_whichWorld}/{_whichStage} with {_stageTimer}s");
 		}
 
-		private static void StartNewWorld()
+		private void StartNewWorld()
 		{
 			Log.D("StartNewWorld()");
 			++_whichWorld;
@@ -1074,7 +1074,7 @@ namespace Hikawa
 			StartNewStage();
 		}
 
-		private static void StartNewPlaythrough()
+		private void StartNewPlaythrough()
 		{
 			Log.D("StartNewPlaythrough()");
 			CleanUpStage();
@@ -1278,6 +1278,7 @@ namespace Hikawa
 						{
 							++_cutscenePhase; // Start showing all the title screen elements after it's held on blank for a bit
 							Game1.playSound("wand");
+							PlayMusic("cm:blueberry.hikawa.arcade_main:Cowboy_OVERWORLD");
 						}
 						break;
 					case 1:
