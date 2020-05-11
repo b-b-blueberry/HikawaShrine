@@ -22,7 +22,7 @@
 
   // Usual schedule
   // 0600 feed the chickens, 0800 school, 1400 run the shop, 2000 sweep the floor, 2200 go to bed
-  "Mon": "0600 HikawaHouse 9 14 1/0800 HikawaShrine 56 44 2/1400 HikawaShrine 27 42 \"Strings\\Schedules\\Rei:Shop.000\"/1900 HikawaShrine 42 47/2200 HikawaHouse 9 14 1",
+  "Mon": "0600 HikawaHouse 9 14 ReiSleep/0800 HikawaShrine 56 44/1400 HikawaShrine 27 42 \"Strings\\Schedules\\Rei:Shop.000\"/1900 HikawaShrine 42 47/2200 HikawaHouse 9 14 ReiSleep",
   "Tue": "GOTO Mon",
   "Wed": "GOTO Mon",
   "Thu": "GOTO Mon",
@@ -33,9 +33,9 @@
 
   // Seasonal weekend schedule
   // 0600 stand around, 1400 prepare food for the week, 2200 go to bed
-  "spring_Sun": "GOTO Mon",
+  "spring_Sun": "0600 HikawaHouse 9 14 ReiSleep/0700 HikawaShrine 37 41/1500 HikawaHouse 19 15 2 \"Strings\\Schedules\\Rei:Cooking.000\"/1900 HikawaHouse 4 16 ReiComics/2300 HikawaHouse 9 14 ReiSleep",
   // 0600 go for soda at the ice cream stand, 1200 visit the beach, 1600 read comics at home, 2200 go to bed
-  "summer_Sun": "GOTO Mon",
+  "summer_Sun": "0600 Town 90 91 3 ReiIceCream/",
   // 0600 read at home, 1400 study for exams, 2200 go to bed
   "fall_Sun": "GOTO Mon",
   // 0600 sleep, 0800 go skiing, 1400 return home, 1500 make tea, 2200 go to bed

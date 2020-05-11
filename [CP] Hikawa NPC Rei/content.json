@@ -2,52 +2,68 @@
   "Format": "1.11.0",
   "Changes": [
     {
-      "LogName": "Hikawa: Rei - NPCDispositions",
+      "LogName": "Rei: Disposition",
       "Action": "EditData",
       "Target": "Data/NPCDispositions",
-      "FromFile": "assets/NPCDispositions.json"
+      "Entries": {
+        "HikawaRei": "teen/rude/outgoing/neutral/female/not-datable/null/Other/summer 2/HikawaGrandpa 'grandpa'/HikawaHouse 9 14/Rei"
+      }
     },
     {
-      "LogName": "Hikawa: Rei - NPCGiftTastes",
+      "LogName": "Rei: Gift tastes",
       "Action": "EditData",
       "Target": "Data/NPCGiftTastes",
-      "FromFile": "assets/NPCGiftTastes.json"
+      "Entries": {
+        "HikawaRei": "Wow, it's gorgeous! Thank you so much!/64 82 104 106 128 203 612/What, for me? You shouldn't have!/100 103 109 113 115 118 119 120 123 124 125 152/Oh... I'll give it to Grandpa./-6 -5 303 346 348 459/That's just completely horrible!/-75 207 605/Thanks./-4/ "
+      }
     },
     {
-      "LogName": "Hikawa: Rei - AnimationDescriptions",
-      "Action": "EditData",
-      "Target": "Data/animationdescriptions",
-      "FromFile": "assets/Schedule.json"
-    },
-    {
-      "LogName": "Hikawa: Rei - Portraits",
+      "LogName": "Rei: Portraits",
       "Action": "Load",
-      "Target": "Portraits/Rei",
-      "FromFile": "assets/portraits.png"
+      "Target": "Portraits/HikawaRei",
+      "FromFile": "assets/Portraits/Portrait.png"
     },
     {
-      "LogName": "Hikawa: Rei - Characters",
+      "LogName": "Rei: Sprites",
       "Action": "Load",
-      "Target": "Characters/Rei",
-      "FromFile": "assets/characters.png"
+      "Target": "Characters/HikawaRei",
+      "FromFile": "assets/Sprites/Sprite.png"
     },
     {
-      "LogName": "Hikawa: Rei - Schedule",
+      "LogName": "Rei: Dialogue",
       "Action": "Load",
-      "Target": "Characters/schedules/Rei",
-      "FromFile": "assets/Schedule.json"
-    },
-    {
-      "LogName": "Hikawa: Rei - Dialogue",
-      "Action": "Load",
-      "Target": "Characters/Dialogue/Rei",
+      "Target": "Characters/Dialogue/HikawaRei",
       "FromFile": "assets/Dialogue.json"
     },
     {
-      "LogName": "Hikawa: Rei - ScheduleDialogue",
+      "LogName": "Rei: Schedule",
       "Action": "Load",
-      "Target": "Strings/schedules/Rei",
+      "Target": "Characters/schedules/HikawaRei",
+      "FromFile": "assets/Schedule.json"
+    },
+    {
+      "LogName": "Rei: Schedule dialogue",
+      "Action": "Load",
+      "Target": "Strings/schedules/HikawaRei",
       "FromFile": "assets/ScheduleDialogue.json"
     }
   ]
 }
+
+// Canon likes:
+// Rei: blowfish
+// Canon hates:
+// Rei: asparagus
+
+// Rei:
+
+// Loves:
+// 64 ruby / 82 fire quartz / 104 elven jewelry / 106 ornamental fan / 128 pufferfish / 283 holly / 612 cranberry candy
+// Likes:
+// 100 chipped amphora / 103 ancient doll / 109 ancient sword / 113 chicken statue / 115 prehistoric tool / 118 glass shards / 119 bone flute / 120 prehistoric handaxe / 123 ancient drum / 124 golden mask / 125 golden relic / 152 seaweed
+// Dislikes:
+// -6 MILK / -5 EGGS / 303 pale ale / 346 beer / 348 wine / 459 mead
+// Hates:
+// -75 VEGETABLES / 207 bean hotpot / 605 artichoke dip
+// Neutral:
+// -4 FISH
