@@ -10,9 +10,9 @@ namespace Hikawa.Editors
 	{
 		private readonly IModHelper _helper;
 
-		public ArcadeEditor()
+		public ArcadeEditor(IModHelper helper)
 		{
-			_helper = ModEntry.Instance.Helper;
+			_helper = helper;
 		}
 
 		public bool CanEdit<T>(IAssetInfo asset)

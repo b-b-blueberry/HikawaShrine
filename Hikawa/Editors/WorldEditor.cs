@@ -17,14 +17,15 @@ namespace Hikawa.Editors
 	{
 		private readonly IModHelper _helper;
 
-		public WorldEditor()
+		public WorldEditor(IModHelper helper)
 		{
-			_helper = ModEntry.Instance.Helper;
+			_helper = helper;
 		}
 
 		public bool CanEdit<T>(IAssetInfo asset)
 		{
-			return asset.AssetNameEquals(@"Maps/Saloon") 
+			return asset.AssetNameEquals(@"Characters/schedules/Haley") 
+			       || asset.AssetNameEquals(@"Maps/Saloon")
 			       || asset.AssetNameEquals(@"Maps/Town");
 		}
 
@@ -33,7 +34,21 @@ namespace Hikawa.Editors
 			Log.D($"Editing {asset.AssetName}",
 				ModEntry.Instance.Config.DebugMode);
 
-			if (asset.AssetNameEquals(@"Maps/Saloon"))
+			if (asset.AssetNameEquals(@"Characters/schedules/Haley"))
+			{
+				// Move, binch, get out the way
+				var data = asset.AsDictionary<string, string>().Data;
+				foreach (var key in data.Keys.ToList())
+				{
+					if (key.Contains("summer"))
+					{
+						data.TryGetValue(key, out var value);
+						if (value != null)
+							data[key] = value.Replace("Town 90 91", "Town 89 93");
+					}
+				}
+			}
+			else if (asset.AssetNameEquals(@"Maps/Saloon"))
 			{
 				// todo: make arcade machine conditional based on story progression
 				// have an overnight event adding it to the location
