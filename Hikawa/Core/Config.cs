@@ -12,7 +12,9 @@ namespace Hikawa
 		public bool DebugArcadeCheats { get; set; } = true;
 		public bool DebugArcadeSkipIntro { get; set; } = false;
 		public bool DebugArcadeMusic { get; set; } = true;
+		public bool DebugShowRainInTheNight { get; set; } = false;
 		public SButton DebugPlayArcade { get; set; } = SButton.OemCloseBrackets;
 		public SButton DebugWarpShrine { get; set; } = SButton.OemOpenBrackets;
+		public SButton DebugPlantBanana { get; set; } = SButton.OemPipe;
     }
 }
