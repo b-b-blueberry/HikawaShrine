@@ -5,7 +5,7 @@
   "Description": "What the ..?",
   "UniqueID": "blueberry.CP.Hikawa",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "Nexus:4643" ],
+  "UpdateKeys": [ "Nexus:????" ],
   "ContentPackFor": {
     "UniqueID": "Pathoschild.ContentPatcher"
   },

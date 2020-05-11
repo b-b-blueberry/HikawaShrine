@@ -13,5 +13,12 @@
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="1.2.0.1" />
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
+    <PackageReference Include="Platonymous.PyTK" Version="1.12.40" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SpaceCore">
+      <HintPath>..\..\..\..\..\..\Steam\steamapps\common\Stardew Valley\Mods\[CORE]\SpaceCore\SpaceCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

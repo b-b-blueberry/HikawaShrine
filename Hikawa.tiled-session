@@ -1,5 +1,5 @@
 {
-    "activeFile": "[TMXL] Hikawa/assets/HikawaShrine.tmx",
+    "activeFile": "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
     "fileStates": {
         "../HikawaShrine/HikawaShrine/Assets/Maps/HikawaShrine.tbin": {
             "scale": 2,
@@ -541,8 +541,8 @@
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 712.5,
-                "y": 294.5
+                "x": 491.5,
+                "y": 315.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods_GraveSite.tbin": {
@@ -573,8 +573,8 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 251.33333333333331,
-                "y": 548.6666666666666
+                "x": 430.33333333333337,
+                "y": 587.6666666666666
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach.tbin": {
@@ -634,11 +634,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm.tbin": {
-            "scale": 3,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 647.3333333333333,
-                "y": 169.66666666666666
+                "x": 835.5,
+                "y": 408.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/FarmHouse.tbin": {
@@ -649,20 +649,44 @@
                 "y": 99.33333333333333
             }
         },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Combat.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 822.5,
+                "y": 344.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Fishing.tbin": {
+            "scale": 0.7191796875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 718.1793493020476,
+                "y": 516.5607517245124
+            }
+        },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Foraging.tbin": {
-            "scale": 5.5,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 1085.7272727272727,
-                "y": 238.09090909090912
+                "x": 840.5,
+                "y": 368.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_FourCorners.tbin": {
-            "scale": 4,
+            "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 496,
-                "y": 597.75
+                "x": 742.5,
+                "y": 539.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Mining.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1034.25,
+                "y": 459.75
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest-IceFestival.tbin": {
@@ -674,11 +698,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin": {
-            "scale": 4,
+            "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 1661.875,
-                "y": 533
+                "x": 1650.75,
+                "y": 272
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HaleyHouse.tbin": {
@@ -1053,8 +1077,8 @@
             "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 402.5,
-                "y": 348.5
+                "x": 268.5,
+                "y": 404.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Railroad.tbin": {
@@ -1093,8 +1117,8 @@
             "scale": 4,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 459.375,
-                "y": 183.625
+                "x": 459.125,
+                "y": 217.625
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SebastianMountain.tbin": {
@@ -1169,12 +1193,28 @@
                 "y": 48
             }
         },
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin": {
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town-Fair.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 297.25,
+                "y": 1099.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town-Halloween.tbin": {
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 582.5,
-                "y": 923.5
+                "x": 424.5,
+                "y": 950.5
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1458.75,
+                "y": 1433.25
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/TownFairClean.tbin": {
@@ -1186,11 +1226,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Woods.tbin": {
-            "scale": 0.5,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 685,
-                "y": 190
+                "x": 610.5,
+                "y": 242.5
             }
         },
         "E:/Dev/Projects/SDV/XNBCLI/unpacked/testXNB/HikawaShrine.tbin": {
@@ -1697,6 +1737,46 @@
                 "y": 590
             }
         },
+        "H:/SDV/Projects old 2/HikawaShrine/HikawaShrine/Assets/Maps/HikawaShrine.tbin": {
+            "scale": 0.9353995901639344,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.36365627909527,
+                "y": 486.9576647132921
+            }
+        },
+        "H:/SDV/Projects old 2/Juuban/[TM]HikawaShrine/zhikawashrine-assets/Shrine.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 552.5,
+                "y": 477
+            }
+        },
+        "H:/SDV/Projects/Hikawa assets/HikawaShrine.tbin": {
+            "scale": 0.676875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 742.382271468144,
+                "y": 514.1274238227146
+            }
+        },
+        "H:/SDV/Projects/Hikawa old1/Hikawa/assets/Maps/HikawaShrine.tbin": {
+            "scale": 0.6690043604651162,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 881.16017598175,
+                "y": 720.4736298951714
+            }
+        },
+        "H:/SDV/Projects/Hikawa old1/Hikawa/assets/Maps/testmap.tbin": {
+            "scale": 0.9353995901639344,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.36365627909527,
+                "y": 488.0267265458131
+            }
+        },
         "Hikawa/assets/Maps/HikawaShrine.tbin": {
             "scale": 0.9908811475409834,
             "selectedLayer": 0,
@@ -1731,10 +1811,10 @@
         },
         "[TMXL] Hikawa/assets/HikawaHouse.tmx": {
             "scale": 3,
-            "selectedLayer": 13,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 146.5,
-                "y": 255.5
+                "x": 178.83333333333331,
+                "y": 217.83333333333331
             }
         },
         "[TMXL] Hikawa/assets/HikawaShrine.tbin": {
@@ -1746,19 +1826,19 @@
             }
         },
         "[TMXL] Hikawa/assets/HikawaShrine.tmx": {
-            "scale": 1,
-            "selectedLayer": 7,
+            "scale": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 737.5,
-                "y": 549.5
+                "x": 850.75,
+                "y": 450.75
             }
         },
         "[TMXL] Hikawa/assets/HikawaShrine0.tmx": {
             "scale": 2,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 736.75,
-                "y": 784.75
+                "x": 866.75,
+                "y": 862.25
             }
         },
         "[TMXL] Hikawa/assets/HikawaShrine2.tbin": {
@@ -1792,6 +1872,14 @@
                 "x": 63.81818181818183,
                 "y": 57
             }
+        },
+        "[TMXL] Hikawa/assets/HikawaTownJoja.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 59.909090909090914,
+                "y": 73.18181818181817
+            }
         }
     },
     "openFiles": [
@@ -1800,23 +1888,21 @@
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
         "[TMXL] Hikawa/assets/HikawaHouse.tmx",
         "[TMXL] Hikawa/assets/HikawaShrine.tmx",
-        "[TMXL] Hikawa/assets/HikawaShrine0.tmx",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin"
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach-NightMarket.tbin"
     ],
     "project": "Hikawa.tiled-project",
     "recentFiles": [
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach-NightMarket.tbin",
         "[TMXL] Hikawa/assets/HikawaShrine.tmx",
         "[TMXL] Hikawa/assets/HikawaHouse.tmx",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin",
-        "[TMXL] Hikawa/assets/HikawaShrine0.tmx",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin",
-        "[TMXL] Hikawa/assets/HikawaShrine2.tmx",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
-        "[TMXL] Hikawa/assets/HikawaShrine2.tbin",
-        "[TMXL] Hikawa/assets/HikawaShrine.tbin",
-        "[TMXL] Hikawa/assets/HikawaTown.tbin"
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_FourCorners.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Combat.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Mining.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Fishing.tbin",
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm.tbin"
     ]
 }
