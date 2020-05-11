@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley;
 
-namespace Hikawa.Core
+namespace Hikawa.GameObjects
 {
 	//todo: add List<OverlayEffect> for stacking effects
 	//eg. shadow under player + haze
