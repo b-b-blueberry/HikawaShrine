@@ -4,13 +4,13 @@
   "addMaps": [
     // Hikawa Shrine
     {
-      "name": "HikawaShrine",
+      "name": "blueberry.Hikawa.Shrine",
       "file": "assets/HikawaShrine.tmx",
       "type": "Custom:Hikawa.GameObjects.HikawaShrine, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
     },
     // Hino Homestead
     {
-      "name": "HikawaHouse",
+      "name": "blueberry.Hikawa.House",
       "file": "assets/HikawaHouse.tmx"
     }
   ],
@@ -50,7 +50,7 @@
       // Town - Shrine entrance
       "name": "Town",
       "addWarps": [
-        "18 -1 HikawaShrine 35 79 19 -1 HikawaShrine 36 79 20 -1 HikawaShrine 37 79 21 -1 HikawaShrine 38 79"
+        "18 -1 blueberry.Hikawa.Shrine 37 66 19 -1 blueberry.Hikawa.Shrine 38 66 20 -1 blueberry.Hikawa.Shrine 39 66 21 -1 blueberry.Hikawa.Shrine 40 66"
       ]
     }
   ]

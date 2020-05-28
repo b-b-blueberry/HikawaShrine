@@ -61,8 +61,7 @@ namespace Hikawa.Editors
 				{
 					var tilesheetPath =
 						_helper.Content.GetActualAssetKey(
-							Path.Combine(ModConsts.AssetsDirectory, ModConsts.SpritesDirectory, 
-								$"{ModConsts.ExtraSpritesFile}.png"));
+							Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
 					if (tilesheetPath == null)
 						Log.E("WorldEditor failed to load extras tilesheet.");
 					var tilesheetPng = _helper.Content.Load<Texture2D>(tilesheetPath);
@@ -106,14 +105,14 @@ namespace Hikawa.Editors
 				{
 					var tilesheetPath =
 						_helper.Content.GetActualAssetKey(
-							Path.Combine(ModConsts.AssetsDirectory, "Maps", $"{ModConsts.OutdoorsTilesheetFile}.png"));
+							Path.Combine(ModConsts.AssetsPath, "Maps", $"{ModConsts.OutdoorsTilesheetFile}.png"));
 					if (tilesheetPath == null)
 						Log.E("WorldEditor failed to load outdoors tilesheet.");
 					var tilesheetPng = _helper.Content.Load<Texture2D>(tilesheetPath);
 
 					var townMap = asset.GetData<Map>();
 					var newMap = _helper.Content.Load<Map>(
-						Path.Combine(ModConsts.AssetsDirectory, "Maps", $"{ModConsts.TownSnippetId}.tbin"));
+						Path.Combine(ModConsts.AssetsPath, "Maps", $"{ModConsts.TownSnippetId}.tbin"));
 					if (newMap == null)
 					{
 						Log.E($"WorldEditor failed to load {ModConsts.TownSnippetId} snippet.");

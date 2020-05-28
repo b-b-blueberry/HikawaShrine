@@ -9,44 +9,45 @@ namespace Hikawa
 	{
 		/* Mod data */
 		// Directories
-		internal const string ModName = "Hikawa";
+		internal const string ModName = "blueberry.Hikawa";
+		internal const string ContentPrefix = ModName + ".";
 		internal const string SaveDataKey = ModName;
 
-		internal const string AssetsDirectory = "assets";
-		internal const string TilesheetPrefix = "z_hikawa";
-		internal const string SpritesDirectory = "Sprites";
+		internal const string AssetsPath = "assets";
+		internal static readonly string SpritesPath = Path.Combine(AssetsPath, "Sprites");
 		internal static readonly string EventsPath = Path.Combine("Data", "events.json");
+		internal static readonly string JaContentPackPath = Path.Combine(AssetsPath, "ContentPack");
+
+		internal const string TilesheetPrefix = "z_hikawa";
 		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
 		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
 		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
-		
-		internal const string ContentPackPrefix = "blueberry.Hikawa.";
-		internal static readonly string JaContentPackPath = Path.Combine(AssetsDirectory, "ContentPack");
 
 
 		/* Game objects */
 		// Objects
-		internal const string ArcadeMinigameId = ModName + "LightGun";
+		private const string ArcadeMinigameName = "LightGun";
+		internal const string ArcadeMinigameId = ModName + ArcadeMinigameName;
 		internal const string ArcadeObjectName = "Sailor V Arcade System";
 		// NPCs
-		internal const string ReiNpcId = "HikawaRei";
-		internal const string AmiNpcId = "HikawaAmi";
-		internal const string UsaNpcId = "HikawaUsagi";
-		internal const string GrampsNpcId = "HikawaGrandpa";
+		internal const string ReiNpcId = ContentPrefix + "Rei";
+		internal const string AmiNpcId = ContentPrefix + "Ami";
+		internal const string UsaNpcId = ContentPrefix + "Usagi";
+		internal const string GrampsNpcId = ContentPrefix + "Grandpa";
 		// Maps
-		internal const string MapPrefix = ModName;
-		internal const string ShrineMapId = MapPrefix + "Shrine";
-		internal const string HouseMapId = MapPrefix + "House";
-		internal const string TownSnippetId = MapPrefix + "Town";
-		internal const string TownJojaSnippetId = TownSnippetId + "Joja";
-		internal const string CorridorMapId = MapPrefix + "Corridor";
-		internal const string NegativeMapId = MapPrefix + "Negative";
+		internal const string ShrineMapId = ContentPrefix + "Shrine";
+		internal const string HouseMapId = ContentPrefix + "House";
+		internal const string TownSnippetId = ContentPrefix + "Town";
+		internal const string TownJojaSnippetId = TownSnippetId + "." + "Joja";
+		internal const string CorridorMapId = ContentPrefix + "Corridor";
+		internal const string NegativeMapId = ContentPrefix + "Negative";
 		// Tile actions
-		internal const string ActionEma = MapPrefix + "Ema";
-		internal const string ActionArcade = MapPrefix + "ArcadeMinigameId";
-		internal const string ActionShrineHall = MapPrefix + "HallDoor";
-		internal const string ActionShrineShop = MapPrefix + "OmiyageyaShop";
-		internal const string ActionShrineOffering = MapPrefix + "Offering";
+		internal const string ActionEma = ContentPrefix + "Ema";
+		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;
+		internal const string ActionShrineHall = ContentPrefix + "HallDoor";
+		internal const string ActionShrineShop = ContentPrefix + "OmiyageyaShop";
+		internal const string ActionShrineOffering = ContentPrefix + "Offering";
+		internal const string ActionLockbox = ContentPrefix + "Lockbox";
 		internal const int OfferingCostS = 75;
 		internal const int OfferingCostM = 330;
 		internal const int OfferingCostL = 825;

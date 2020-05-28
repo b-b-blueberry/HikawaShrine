@@ -102,8 +102,7 @@ namespace Hikawa.GameObjects
 
 			try
 			{
-				var textureName = Path.Combine(ModConsts.AssetsDirectory, ModConsts.SpritesDirectory,
-					ModConsts.ExtraSpritesFile + ".png");
+				var textureName = Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile + ".png");
 				_texture = ModEntry.Instance.Helper.Content.Load<Texture2D>(textureName);
 			}
 			catch (Exception e)

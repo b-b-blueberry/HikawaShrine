@@ -2,32 +2,32 @@
   "Music": [
     // Licensed, temporary, sue me if this gets to release
     {
-      "Id": "blueberry.hikawa.arcade_main",
+      "Id": "blueberry.Hikawa.arcade_main",
       "File": "assets/PrincessRemedySong2.wav",
       "Loop": true,
       "Preload": false
     },
     {
-      "Id": "blueberry.hikawa.dark_despair",
+      "Id": "blueberry.Hikawa.dark_despair",
       "File": "assets/SailormoonZetsubouToAku.wav",
       "Loop": false,
       "Preload": true
     },
     // Vanilla, repacked
     {
-      "Id": "blueberry.hikawa.rainsound_wom",
+      "Id": "blueberry.Hikawa.rainsound_wom",
       "File": "assets/rainsound_wom.wav",
       "Loop": false,
       "Preload": true
     },
     {
-      "Id": "blueberry.hikawa.rainsound_ooh",
+      "Id": "blueberry.Hikawa.rainsound_ooh",
       "File": "assets/rainsound_ooh.wav",
       "Loop": false,
       "Preload": true
     },
     {
-      "Id": "blueberry.hikawa.rainsound_ahh",
+      "Id": "blueberry.Hikawa.rainsound_ahh",
       "File": "assets/rainsound_ahh.wav",
       "Loop": false,
       "Preload": true

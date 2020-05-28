@@ -6,7 +6,7 @@
       "Action": "EditData",
       "Target": "Data/NPCDispositions",
       "Entries": {
-        "HikawaRei": "teen/rude/outgoing/neutral/female/not-datable/null/Other/summer 2/HikawaGrandpa 'grandpa'/HikawaHouse 9 14/Rei"
+        "blueberry.Hikawa.Rei": "teen/rude/outgoing/neutral/female/not-datable/null/Other/summer 2/blueberry.Hikawa.Grandpa 'grandpa'/blueberry.Hikawa.House 9 14/Rei"
       }
     },
     {
@@ -14,37 +14,37 @@
       "Action": "EditData",
       "Target": "Data/NPCGiftTastes",
       "Entries": {
-        "HikawaRei": "Wow, it's gorgeous! Thank you so much!/64 82 104 106 128 203 612/What, for me? You shouldn't have!/100 103 109 113 115 118 119 120 123 124 125 152/Oh... I'll give it to Grandpa./-6 -5 303 346 348 459/That's just completely horrible!/-75 207 605/Thanks./-4/ "
+        "blueberry.Hikawa.Rei": "Wow, it's gorgeous! Thank you so much!/64 82 104 106 128 203 612/What, for me? You shouldn't have!/100 103 109 113 115 118 119 120 123 124 125 152/Oh... I'll give it to Grandpa./-6 -5 303 346 348 459/That's just completely horrible!/-75 207 605/Thanks./-4/ "
       }
     },
     {
       "LogName": "Rei: Portraits",
       "Action": "Load",
-      "Target": "Portraits/HikawaRei",
+      "Target": "Portraits/blueberry.Hikawa.Rei",
       "FromFile": "assets/Portraits/Portrait.png"
     },
     {
       "LogName": "Rei: Sprites",
       "Action": "Load",
-      "Target": "Characters/HikawaRei",
+      "Target": "Characters/blueberry.Hikawa.Rei",
       "FromFile": "assets/Sprites/Sprite.png"
     },
     {
       "LogName": "Rei: Dialogue",
       "Action": "Load",
-      "Target": "Characters/Dialogue/HikawaRei",
+      "Target": "Characters/Dialogue/blueberry.Hikawa.Rei",
       "FromFile": "assets/Dialogue.json"
     },
     {
       "LogName": "Rei: Schedule",
       "Action": "Load",
-      "Target": "Characters/schedules/HikawaRei",
+      "Target": "Characters/schedules/blueberry.Hikawa.Rei",
       "FromFile": "assets/Schedule.json"
     },
     {
       "LogName": "Rei: Schedule dialogue",
       "Action": "Load",
-      "Target": "Strings/schedules/HikawaRei",
+      "Target": "Strings/schedules/blueberry.Hikawa.Rei",
       "FromFile": "assets/ScheduleDialogue.json"
     }
   ]
