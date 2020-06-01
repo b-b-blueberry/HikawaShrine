@@ -13,11 +13,10 @@ using StardewModdingAPI.Events;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 
-using SpaceCore.Events;
+//using SpaceCore.Events;
 
-using Hikawa.Core;
-using Hikawa.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
+using Object = StardewValley.Object;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa
@@ -27,16 +26,22 @@ namespace Hikawa
 		internal static ModEntry Instance;
 		internal ModSaveData SaveData;
 		internal IJsonAssetsApi JaApi;
-		private readonly OverlayEffectControl _overlayEffectControl = new OverlayEffectControl();
+		private readonly GameObjects.OverlayEffectControl _overlayEffectControl = new GameObjects.OverlayEffectControl();
 
 		internal Config Config;
 		internal ITranslationHelper i18n => Helper.Translation;
 		
+		private bool _isPlayerSittingDown;
+		private readonly int[] _playerSittingFrames = {62, 117, 54, 117};
+		private Vector2 _playerLastStandingLocation;
+		private bool _shouldCrowsSpawnToday;
+
+
+		// SPRITE TESTING
 		private Texture2D _texture;
 		private static readonly int X = Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Center.X;
 		private static readonly int Y = Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Center.Y;
 		private static float _yOffset;
-
 		private static readonly Rectangle SourceRectGlare = new Rectangle(
 			96, 144, 112, 32);
 		private static readonly List<Rectangle> SourceRects = new List<Rectangle>
@@ -59,6 +64,8 @@ namespace Hikawa
 			new Rectangle(X - 24 * 4, Y + Y / 4, 64 * 4, 64 * 4),
 			new Rectangle(X + 00 * 4, Y + Y / 4, 48 * 4, 64 * 4),
 		};
+		// SPRITE TESTING
+
 
 		public override void Entry(IModHelper helper)
 		{
@@ -67,7 +74,7 @@ namespace Hikawa
 
 			//helper.Content.AssetEditors.Add(new Editors.TestEditor(helper));
 			helper.Content.AssetEditors.Add(new Editors.WorldEditor(helper));
-			helper.Content.AssetEditors.Add(new Editors.EventEditor(helper));
+			//helper.Content.AssetEditors.Add(new Editors.EventEditor(helper));
 			helper.Content.AssetEditors.Add(new Editors.ArcadeEditor(helper));
 
 			helper.Events.GameLoop.GameLaunched += OnGameLaunched;
@@ -80,32 +87,29 @@ namespace Hikawa
 			helper.Events.Player.Warped += OnWarped;
 			helper.Events.Input.ButtonPressed += OnButtonPressed;
 
-			SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
-
-			AddConsoleCommands();
+			//SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
+			
 			if (Config.DebugMode)
 			{
+				// Add debugging commands
+				AddConsoleCommands();
+
 				// Add texture render tests
 				//helper.Events.Display.Rendering += OnRendering;
-				var textureName = Path.Combine(ModConsts.AssetsDirectory, ModConsts.SpritesDirectory,
-					ModConsts.ExtraSpritesFile + ".png");
+				var textureName = Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile + ".png");
 				_texture = Instance.Helper.Content.Load<Texture2D>(textureName);
 			}
 		}
 
 		private void AddConsoleCommands()
 		{
-			if (!Config.DebugMode)
-				return;
-
-			// Add debug commands
 			Helper.ConsoleCommands.Add("bharcade", "Start arcade game: use START, TITLE, RESET", (s, p) =>
 			{
 				if (p[0].ToLower() == "start")
 					Game1.currentMinigame = new ArcadeGunGame();
-				else if (Game1.currentMinigame != null && Game1.currentMinigame is ArcadeGunGame
-				                                       && Game1.currentMinigame.minigameId()
-				                                       == ModConsts.ArcadeMinigameId)
+				else if (Game1.currentMinigame != null
+				         && Game1.currentMinigame is ArcadeGunGame
+				         && Game1.currentMinigame.minigameId() == ModConsts.ArcadeMinigameId)
 				{
 					if (p[0].ToLower() == "title")
 						((ArcadeGunGame)(Game1.currentMinigame)).ResetAndReturnToTitle();
@@ -125,10 +129,14 @@ namespace Hikawa
 			{
 				SpawnCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 			});
+			Helper.ConsoleCommands.Add("bhcrows2", "Respawn perched crows at the shrine.", (s, p) =>
+			{
+				SpawnPerchedCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
+			});
 			Helper.ConsoleCommands.Add("bhtotem", "Totem warp.", (s, p) =>
 			{
-				StartWarpToShrine(new StardewValley.Object(
-					JaApi.GetObjectId("Warp Totem: Hilltop"), 1).getOne() as StardewValley.Object, Game1.currentLocation);
+				StartWarpToShrine(new Object(
+					JaApi.GetObjectId("Warp Totem: Hilltop"), 1).getOne() as Object, Game1.currentLocation);
 			});
 			Helper.ConsoleCommands.Add("bhhome", "Warp to Rei's house.", (s, p) =>
 			{
@@ -150,6 +158,7 @@ namespace Hikawa
 			});
 		}
 
+		// SPRITE TESTING
 		private void OnRendering(object sender, RenderingEventArgs e)
 		{
 			_yOffset = 6f * (float)Math.Sin(Game1.currentGameTime.TotalGameTime.TotalMilliseconds / (Math.PI * 300f));
@@ -185,6 +194,7 @@ namespace Hikawa
 					0.9f - i / 10000f);
 			}
 		}
+		// SPRITE TESTING
 
 		#region Game Events
 
@@ -211,6 +221,35 @@ namespace Hikawa
 		/// </summary>
 		private void OnDayStarted(object sender, DayStartedEventArgs e)
 		{
+			_shouldCrowsSpawnToday = 
+				Game1.currentSeason != "winter" && !Game1.isRaining
+				|| Game1.currentSeason == "winter" && Game1.random.NextDouble() < 0.3d;
+
+			// todo: apply shrine buffs
+			switch (SaveData.LastShrineBuffId)
+			{
+				case 0:
+					break;
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				case 6:
+					break;
+				case 7:
+					break;
+				case 8:
+					break;
+				case 9:
+					break;
+			}
+
 			SaveData.AwaitingShrineBuff = false;
 			if (SaveData.ShrineBuffCooldown > 0)
 			{
@@ -220,12 +259,12 @@ namespace Hikawa
 			if (SaveData.StoryStock <= (int) ModConsts.Progress.Started)
 			{
 				Log.D("Loading up bomba action listener.");
-				SpaceEvents.BombExploded += HikawaBombExploded;
+				//SpaceEvents.BombExploded += HikawaBombExploded;
 			}
 
 			if (SaveData.StoryPlant >= (int) ModConsts.Progress.Started)
 			{
-				SpaceEvents.OnItemEaten += HikawaFoodEaten;
+				//SpaceEvents.OnItemEaten += HikawaFoodEaten;
 				if (SaveData.BananaBunch > 0)
 				{
 					Game1.player.Stamina = Math.Min(Game1.player.MaxStamina / 3f,
@@ -261,8 +300,6 @@ namespace Hikawa
 
 				SaveData.BananaRepublic -= Math.Max(1, (int) Math.Ceiling(SaveData.BananaRepublic / 25f));
 			}
-
-			// todo: shrine buffs take effect
 		}
 		
 		/// <summary>
@@ -298,7 +335,7 @@ namespace Hikawa
 			if (_overlayEffectControl.IsEnabled())
 				_overlayEffectControl.Disable();
 
-			SetUpLocationSpecificFlair(Game1.currentLocation);
+			SetUpLocationCustomFlair(Game1.currentLocation);
 		}
 
 		/// <summary>
@@ -309,23 +346,67 @@ namespace Hikawa
 			if (Game1.eventUp && !Game1.currentLocation.currentEvent.playerControlSequence
 			    || Game1.currentBillboard != 0 || Game1.activeClickableMenu != null || Game1.menuUp || Game1.nameSelectUp
 			    || Game1.IsChatting || Game1.dialogueTyping || Game1.dialogueUp
-			    || Game1.player.UsingTool || Game1.pickingTool || Game1.numberOfSelectedItems != -1
-			    || !Game1.player.CanMove || Game1.fadeToBlack)
+			    || Game1.player.UsingTool || Game1.pickingTool || Game1.numberOfSelectedItems != -1 || Game1.fadeToBlack)
 				return;
 			
-			var btn = e.Button;
+			if (Game1.player.CanMove)
+			{
+				var btn = e.Button;
 
-			// Additional world interactions
-			if (btn.IsActionButton())
-				TryCheckForActions();
+				// Additional world interactions
+				if (btn.IsActionButton())
+					TryCheckForActions();
 
-			// Debug functions
-			if (Config.DebugMode)
-				DebugCommands(btn);
+				// Debug functions
+				if (Config.DebugMode)
+					DebugCommands(btn);
 
-			// Tool overrides
-			if (btn.IsUseToolButton() && Game1.player.CurrentTool != null)
-				TryCheckForToolUse(Game1.player.CurrentTool);
+				// Tool overrides
+				if (btn.IsUseToolButton() && Game1.player.CurrentTool != null)
+					TryCheckForToolUse(Game1.player.CurrentTool);
+			}
+			else if (!_isPlayerSittingDown)
+			{}
+			else
+			{
+				SitDownEnd();
+			}
+		}
+
+		/// <summary>
+		/// Lock the player into a sitting-down animation facing a given direction until they press any key.
+		/// </summary>
+		/// <param name="position">Target position in world coordinates to sit at.</param>
+		/// <param name="direction">Value for direction to face, follows standard SDV rules of clockwise-from-zero.</param>
+		private void SitDownStart(Vector2 position, int direction) {
+			_playerLastStandingLocation = Game1.player.getTileLocation();
+
+			Game1.playSound("breathin");
+			Game1.player.faceDirection(direction);
+			Game1.player.completelyStopAnimatingOrDoingAction();
+			Game1.player.setTileLocation(position);
+			Game1.player.yOffset = 0f;
+
+			var animFrames = new FarmerSprite.AnimationFrame[1];
+			animFrames[0] = new FarmerSprite.AnimationFrame(
+				_playerSittingFrames[direction], 999999, false, direction == 3);
+			Game1.player.FarmerSprite.animateOnce(animFrames);
+			Game1.player.CanMove = false;
+			_isPlayerSittingDown = true;
+		}
+
+		/// <summary>
+		/// Remove restrictions from the player after sitting, and teleport them to their last standing position.
+		/// </summary>
+		private void SitDownEnd() {
+			Game1.playSound("breathout");
+			Game1.player.faceDirection(2);
+			Game1.player.setTileLocation(_playerLastStandingLocation);
+			Game1.player.CanMove = true;
+			_isPlayerSittingDown = false;
+			_playerLastStandingLocation = Vector2.Zero;
+
+			// todo: add a butt indent on benches in winter
 		}
 		
 		/// <summary>
@@ -338,22 +419,19 @@ namespace Hikawa
 				return;
 			CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation);
 		}
-		
-		private void CheckTileAction()
+
+		private string[] GetTileProperty(Vector2 position)
 		{
-			var grabTile = new Vector2(Game1.getOldMouseX() + Game1.viewport.X, 
-				Game1.getOldMouseY() + Game1.viewport.Y) / Game1.tileSize;
-			if (!Utility.tileWithinRadiusOfPlayer(
-				(int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
-				grabTile = Game1.player.GetGrabTile();
 			var tile = Game1.currentLocation.map.GetLayer("Buildings").PickTile(
 				new Location(
-					(int)grabTile.X * Game1.tileSize, 
-					(int)grabTile.Y * Game1.tileSize), 
+					(int)position.X * Game1.tileSize, 
+					(int)position.Y * Game1.tileSize), 
 				Game1.viewport.Size);
 			var action = (PropertyValue)null;
 			tile?.Properties.TryGetValue("Action", out action);
-			if (action == null) return;
+
+			if (action == null)
+				return null;
 
 			var strArray = ((string)action).Split(' ');
 			var args = new string[strArray.Length - 1];
@@ -362,8 +440,30 @@ namespace Hikawa
 				args, 0, 
 				args.Length);
 
+			return strArray;
+		}
+		
+		private void CheckTileAction()
+		{
+			var grabTile = new Vector2(Game1.getOldMouseX() + Game1.viewport.X, 
+				Game1.getOldMouseY() + Game1.viewport.Y) / Game1.tileSize;
+			if (!Utility.tileWithinRadiusOfPlayer(
+				(int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
+				grabTile = Game1.player.GetGrabTile();
+
+			CheckTileAction(grabTile);
+		}
+
+		private void CheckTileAction(Vector2 position)
+		{
 			var where = Game1.currentLocation;
-			switch (strArray[0])
+			var property = GetTileProperty(position);
+
+			if (property == null)
+				return;
+
+			var action = property[0];
+			switch (action)
 			{
 				// Enter the arcade machine minigame if used in the world
 				case ModConsts.ActionArcade:
@@ -425,10 +525,26 @@ namespace Hikawa
 
 				// Interactions with the Ema stand at the Shrine
 				case ModConsts.ActionEma:
+					Log.W("ActionEma!");
 					break;
-
+					
 				// Trying to enter the Shrine Hall front doors
 				case ModConsts.ActionShrineHall:
+					Log.W("ActionShrineHall!");
+					break;
+
+				// Lockbox
+				case ModConsts.ActionLockbox:
+					Log.W("ActionLockbox!");
+					break;
+
+				// Sit on benches
+				case ModConsts.ActionSit:
+					
+					var tileCoordinates = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
+					var direction = property.Length > 1 ? int.Parse(property[1]) : 2;
+					SitDownStart(tileCoordinates, direction);
+
 					break;
 			}
 		}
@@ -436,9 +552,9 @@ namespace Hikawa
 		/// <summary>
 		/// Method lifted from StardewValley.Object.performUseAction(Farmer who): Object.cs:2723 from ILSpy
 		/// </summary>
-		public void CheckHeldObjectAction(StardewValley.Object o, GameLocation where)
+		public void CheckHeldObjectAction(Object o, GameLocation where)
 		{
-			if (!Game1.player.canMove || o.isTemporarilyInvisible)
+			if (!Game1.player.CanMove || o.isTemporarilyInvisible)
 				return;
 
 			if (o.Name != null && o.Name == "Warp Totem: Hilltop")
@@ -499,19 +615,23 @@ namespace Hikawa
 		/// <summary>
 		/// Adds unique elements to maps on entry.
 		/// </summary>
-		public void SetUpLocationSpecificFlair(GameLocation where)
+		public void SetUpLocationCustomFlair(GameLocation where)
 		{
-			Log.D($"Warped to {where.Name}, setting up flair.");
+			Log.D($"Warped to {where.Name}, adding flair.");
 			switch (where.Name)
 			{
+				// Hikawa Shrine
 				case ModConsts.ShrineMapId:
 				{
-					// Hikawa Shrine
-
-					if (SaveData.StoryMist == (int)ModConsts.Progress.Started)
+					if (IsItObonYet())
+					{
+						// todo: obon decorations
+						SpawnPerchedCrows(where);
+					}
+					else if (SaveData.StoryMist == (int)ModConsts.Progress.Started)
 					{
 						// Eerie effects
-						_overlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
+						_overlayEffectControl.Enable(GameObjects.OverlayEffectControl.Effect.Mist);
 						SpawnCrows(
 							where,
 							new Location(
@@ -521,42 +641,100 @@ namespace Hikawa
 								where.Map.Layers[0].LayerWidth / 2 + 1,
 								where.Map.Layers[0].LayerHeight / 10 * 9));
 						if (!Game1.isRaining)
-							Game1.changeMusicTrack("communityCenter");
-					}
-					else if (!Game1.isRaining)
-					{
-						// Crows on regular days
-
-						if (Game1.timeOfDay < 1200)
 						{
-							// Spawn crows as critters
+							Game1.changeMusicTrack("communityCenter");
+						}
+					}
+					else if (_shouldCrowsSpawnToday)
+					{
+						if (Game1.timeOfDay < 1130)
+						{
+							// Spawn active crows on the ground in the morning
 							SpawnCrows(where);
 						}
 						else if (!Game1.isDarkOut())
 						{
-							// Add crows as temp sprites
+							// Spawn passive crows as custom perched critters in the afternoon
 							var roll = Game1.random.NextDouble();
-							if (roll < 0.3)
-							{
-								
-							} else if (roll < 0.7)
-							{
+							var phobos = Vector2.Zero;
+							var deimos = Vector2.Zero;
+							var hopRange = 0;
 
+							if (Game1.currentSeason == "winter")
+								roll /= 2f;
+							if (roll < 0.2d)
+							{
+								// Shrine front
+								phobos = new Vector2(37.8f, 31.6f);
+								deimos = new Vector2(39.2f, 31.6f);
+							}
+							else if (roll < 0.3d)
+							{
+								// Shrine left
+								phobos = new Vector2(33, 31);
+								deimos = new Vector2(35, 31.25f);
+							}
+							else if (roll < 0.4d)
+							{
+								// Shrine right
+								phobos = new Vector2(42, 31.25f);
+								deimos = new Vector2(44, 31);
+							}
+							else if (roll < 0.5d)
+							{
+								// House
+								phobos = new Vector2(58, 20);
+								deimos = new Vector2(60, 20.75f);
+								hopRange = 2;
+							}
+							else if (roll < 0.65d)
+							{
+								// Tourou
+								phobos = new Vector2(35, 39.2f);
+								deimos = new Vector2(42, 39.2f);
+							}
+							else if (roll < 0.8d)
+							{
+								// Torii
+								phobos = new Vector2(37, 50f);
+								deimos = new Vector2(39, 50f);
+								hopRange = 2;
+							}
+							else if (roll < 0.9d)
+							{
+								// Ema
+								phobos = new Vector2(44.5f, 41.1f);
+								deimos = new Vector2(46.5f, 41.1f);
+							}
+							else if (roll < 0.95d)
+							{
+								// Omiyageya
+								phobos = new Vector2(27f, 39.3f);
+								deimos = new Vector2(29.075f, 39.125f);
 							}
 							else
 							{
-
+								// Hall
+								phobos = new Vector2(56, 32f);
+								deimos = new Vector2(57, 34);
 							}
+							if (Game1.currentSeason == "winter")
+								hopRange = 0;
+
+							SpawnPerchedCrows(where, phobos, deimos, hopRange);
 						}
 					}
-
 					break;
 				}
 
+				// Rei's house
 				case ModConsts.HouseMapId:
 				{
+					var point = Point.Zero;
+
+					// Rei's custom door
 					const int doorMarkerIndex = 32;
-					var point = new Point(7, 12);
+					point = new Point(7, 12);
 
 					if (where.Map.GetLayer("Buildings").Tiles[point.X, point.Y].TileIndex == doorMarkerIndex)
 					{
@@ -565,37 +743,72 @@ namespace Hikawa
 						{
 							Log.D($"Door found at {point.ToString()}");
 							var interiorDoor = where.interiorDoors.Doors.First (door => door.Position == point);
-							if (interiorDoor != null)
+							var texture = where.Map.GetTileSheet(ModConsts.IndoorsSpritesFile).ImageSource;
+							Log.D($"Tilesheet image source: {texture}");
+							var sprite = new TemporaryAnimatedSprite(
+								texture,
+								new Rectangle(0, 512, 64, 48),
+								100f,
+								4,
+								1,
+								new Vector2(point.X - 3, point.Y - 2) * 64f,
+								false,
+								false,
+								((point.Y + 1) * 64 - 12) / 10000f,
+								0f,
+								Color.White,
+								4f,
+								0f,
+								0f,
+								0f)
 							{
-								var texture = where.Map.GetTileSheet(ModConsts.IndoorsSpritesFile).ImageSource;
-								Log.D($"Tilesheet image source: {texture}");
-								var sprite = new TemporaryAnimatedSprite(
-									texture,
-									new Microsoft.Xna.Framework.Rectangle(0, 512, 64, 48),
-									100f,
-									4,
-									1,
-									new Vector2(point.X - 3, point.Y - 2) * 64f,
-									false,
-									false,
-									((point.Y + 1) * 64 - 12) / 10000f,
-									0f,
-									Color.White,
-									4f,
-									0f,
-									0f,
-									0f)
-								{
-									holdLastFrame = true, 
-									paused = true
-								};
-								interiorDoor.Sprite = sprite;
-							}
+								holdLastFrame = true, 
+								paused = true
+							};
+							interiorDoor.Sprite = sprite;
 						}
 						else
 						{
 							Log.E($"Failed to find a door at marker point {point.ToString()}");
 						}
+
+						// Seasonal tiles
+						// Butsudan
+						var tilesheet = where.Map.GetTileSheet(ModConsts.IndoorsSpritesFile);
+						var layer = where.Map.GetLayer("Buildings");
+						var rowIncrement = tilesheet.SheetWidth;
+						var index = 218;
+						if (IsItObonYet())
+						{
+							// Obon
+							layer.Tiles[16, 3].TileIndex = index;
+							layer.Tiles[16, 4].TileIndex = index + rowIncrement;
+							layer.Tiles[17, 3].TileIndex = index + 1;
+							layer.Tiles[17, 4].TileIndex = index + rowIncrement + 1;
+						}
+						else
+						{
+							// Seasonal
+							index = Game1.currentSeason switch
+							{
+								"spring" => 214,
+								"summer" => 215,
+								"fall" => 216,
+								"winter" => 217
+							};
+							layer.Tiles[17, 3].TileIndex = index;
+							layer.Tiles[17, 4].TileIndex = index + rowIncrement;
+						}
+						// Window flowers
+						index = Game1.currentSeason switch
+						{
+							"spring" => 244,
+							"summer" => 245,
+							"fall" => 246,
+							"winter" => 247
+						};
+						layer.Tiles[3, 15].TileIndex = index;
+						layer.Tiles[3, 16].TileIndex = index + rowIncrement;
 					}
 					else
 					{
@@ -603,11 +816,10 @@ namespace Hikawa
 					}
 					break;
 				}
-
+				
+				// Player's farm
 				case "Farm":
 				{
-					// Player's farm
-
 					if (SaveData.StoryPlant == (int)ModConsts.Progress.Started)
 					{
 						// Plant
@@ -615,21 +827,19 @@ namespace Hikawa
 
 					break;
 				}
-
+				
+				// Doors
 				case ModConsts.CorridorMapId:
 				{
-					// Doors
-
 					// Haze effect
-					_overlayEffectControl.Enable(OverlayEffectControl.Effect.Haze);
+					_overlayEffectControl.Enable(GameObjects.OverlayEffectControl.Effect.Haze);
 
 					break;
 				}
-
+				
+				// Gap
 				case ModConsts.NegativeMapId:
 				{
-					// Gap
-
 					// Overlaid crystals
 					// Obscuring fog around player
 
@@ -645,48 +855,93 @@ namespace Hikawa
 		{
 			if (!where.IsOutdoors)
 				return;
-			var rand = new Random();
-			const int timeout = 5;
-			for (var attempts = 0; attempts < timeout; ++attempts)
+
+			const int retries = 25;
+			for (var attempts = 0; attempts < retries; ++attempts)
 			{
 				// Identify two separate nearby spawn positions for the crows around the map's middle
-				var w = where.Map.Layers[0].LayerWidth;
-				var h = where.Map.Layers[0].LayerHeight;
-				var vTarget = new Location(
-					rand.Next(w / 4, w / 4 * 3),
-					rand.Next(h / 4, h / 4 * 3));
+				var target = new Location(
+					Game1.random.Next(19, 62), // X position
+					Game1.random.Next(22, 57)); // Y position
 				var phobos = Location.Origin;
 				var deimos = Location.Origin;
+				Log.D($"New target: {target.ToString()} -->");
 				for (var y = -1; y < 1; ++y)
 				{
 					for (var x = -1; x < 1; ++x)
 					{
-						if (where.isTilePassable(
-							new Location(vTarget.X + x, vTarget.Y + y), Game1.viewport)) 
-							phobos = new Location(vTarget.X + x, vTarget.X + y);
-						if (where.isTilePassable(
-							new Location(vTarget.X - x, vTarget.Y - y), Game1.viewport))
-							deimos = new Location(vTarget.X - x, vTarget.X - y);
+						Log.D($"Checking phobos [{target.X + x}, {target.Y + y}]...");
+						Log.D($"Checking deimos [{target.X - x}, {target.Y - y}]...");
+
+						if (where.isTilePassable(new Location(target.X + x, target.Y + y), Game1.viewport))
+						{
+							phobos = new Location(target.X + x, target.X + y);
+							Log.D($"Phobos tile OK: {phobos.ToString()}");
+						}
+
+						if (where.isTilePassable(new Location(target.X - x, target.Y - y), Game1.viewport))
+						{
+							deimos = new Location(target.X - x, target.X - y);
+							Log.D($"Deimos tile OK: {deimos.ToString()}");
+						}
+
 						if (phobos == deimos && phobos != Location.Origin)
+						{
+							Log.D("Skipping cluster, non-default Phobos is equal to Deimos");
 							break;
-						if (phobos == deimos || phobos == Location.Origin || deimos == Location.Origin)
+						}
+						if (phobos == deimos)
+						{
+							Log.D("Skipping tile, Phobos and Deimos are equal");
 							continue;
+						}
+						if (phobos == Location.Origin || deimos == Location.Origin)
+						{
+							Log.D($"Skipping tile, Phobos ({phobos.ToString()}) or Deimos ({deimos.ToString()}) is default");
+							continue;
+						}
+
 						SpawnCrows(where, phobos, deimos);
 						return;
 					}
 				}
+				Log.W($"Failed to add crows around {target.ToString()}.");
 			}
-			Log.D($"Failed to add crows after {timeout} attempts.");
+			Log.W($"Failed to add crows after {retries} attempts.");
 		}
 
 		/// <summary>
-		/// Attempts to add twin crows to the map as critters.
+		/// Attempts to add twin crows to the map as default Crow critters.
 		/// </summary>
 		private static void SpawnCrows(GameLocation where, Location phobos, Location deimos)
 		{
 			Log.W($"Adding crows at {phobos.ToString()} and {deimos.ToString()}");
 			where.addCritter(new Crow(phobos.X, phobos.Y));
 			where.addCritter(new Crow(deimos.X, deimos.Y));
+		}
+		
+		private static void SpawnPerchedCrows(GameLocation where)
+		{
+			SpawnPerchedCrows(where, new Vector2(36, 48), new Vector2(41, 48), 2);
+		}
+
+		/// <summary>
+		/// Attempt to add twin crows as custom CrowPerched critters.
+		/// Crow tile coordinates are multiplied by 64f to get world coordinates.
+		/// Crows swap places and patterns once every few days.
+		/// </summary>
+		/// <param name="where">Map location to spawn in.</param>
+		/// <param name="phobos">Tile coordinates for the left-side crow.</param>
+		/// <param name="deimos">Tile coordinates for the right-side crow.</param>
+		/// <param name="hopRange">Distance to each side the crows can hop. 0 to disable.</param>
+		private static void SpawnPerchedCrows(GameLocation where, Vector2 phobos, Vector2 deimos, int hopRange)
+		{
+			Log.W($"Adding perched crows at {phobos.ToString()} and {deimos.ToString()}");
+			var isDeimos = Game1.dayOfMonth % 3 == 0;
+			where.addCritter(new GameObjects.Critters.Crow(isDeimos,
+				new Vector2(phobos.X, phobos.Y) * 64f, hopRange));
+			where.addCritter(new GameObjects.Critters.Crow(!isDeimos,
+				new Vector2(deimos.X, deimos.Y) * 64f, hopRange));
 		}
 
 		/// <summary>
@@ -746,14 +1001,13 @@ namespace Hikawa
 			}
 		}
 
-		public void StartWarpToShrine(StardewValley.Object o, GameLocation where) {
+		public void StartWarpToShrine(Object o, GameLocation where) {
 			var multiplayer = Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
 			var index = JaApi.GetObjectId(o.Name);
 
 			Game1.player.jitterStrength = 1f;
 			where.playSound("warrior");
 			Game1.player.faceDirection(2);
-			Game1.player.CanMove = false;
 			Game1.player.temporarilyInvincible = true;
 			Game1.player.temporaryInvincibilityTimer = -4000;
 			Game1.changeMusicTrack("none");
@@ -773,6 +1027,7 @@ namespace Hikawa
 					TotemWarpToShrine,
 					true)
 			});
+			Game1.player.CanMove = false;
 
 			multiplayer.broadcastSprites(where, new TemporaryAnimatedSprite(
 				index, 
@@ -933,8 +1188,6 @@ namespace Hikawa
 			var cooldown = 0;
 			switch (answer)
 			{
-				// todo: all the cool things
-
 				case "offerS":
 					cooldown = 1;
 					tribute = ModConsts.OfferingCostS;
@@ -979,21 +1232,29 @@ namespace Hikawa
 					{
 						var whichSound = "yoba";
 						if (whichBuff == 0)
-							whichSound = "cm:blueberry.hikawa.rainsound_wom:rainsound";
+							whichSound = ModConsts.ContentPrefix + "rainsound_wom";
 						else if (whichBuff < 4)
-							whichSound = "cm:blueberry.hikawa.rainsound_ooh:rainsound";
+							whichSound = ModConsts.ContentPrefix + "rainsound_ooh";
 						else if (whichBuff < 7)
-							whichSound = "cm:blueberry.hikawa.rainsound_ahh:rainsound";
+							whichSound = ModConsts.ContentPrefix + "rainsound_ahh";
 						Game1.currentLocation.localSound(whichSound);
 						Game1.drawObjectDialogue(i18n.Get("string.shrine.offering_accepted." + whichBuff));
+						farmer.CanMove = true;
 					},
 					true)
 			});
+			farmer.CanMove = false;
+		}
+
+		public static bool IsItObonYet()
+		{
+			return Game1.currentSeason == "summer" && Game1.dayOfMonth > 27
+			       || Game1.currentSeason == "fall" && Game1.dayOfMonth < 3;
 		}
 		
 		private static string GetContentPackId(string name)
 		{
-			return Regex.Replace(ModConsts.ContentPackPrefix + name,
+			return Regex.Replace(ModConsts.ContentPrefix + name,
 				"[^a-zA-Z0-9_.]", "");
 		}
 
@@ -1007,13 +1268,13 @@ namespace Hikawa
 			{
 				foreach (var hat in JaApi.GetAllHatsFromContentPack(GetContentPackId("Hats")))
 				{
-					stock.Add(new StardewValley.Object(JaApi.GetHatId(hat), 1), new[] {1150, 1});
+					stock.Add(new Object(JaApi.GetHatId(hat), 1), new[] {1150, 1});
 				}
 			}
 
 			return stock;
 		}
-		
+		/*
 		private void HikawaBombExploded(object sender, EventArgsBombExploded e)
 		{
 			var distance = Vector2.Distance(ModConsts.StoryStockPosition, e.Position);
@@ -1023,7 +1284,7 @@ namespace Hikawa
 				Game1.playSound("reward");
 
 				Game1.currentLocation.currentEvent = new Event(Helper.Content.Load<string>(
-					Path.Combine(ModConsts.AssetsDirectory, ModConsts.EventsPath)));
+					Path.Combine(ModConsts.AssetsPath, ModConsts.EventsPath)));
 
 				// todo: invalidate Town at the end of the event
 				//Helper.Content.InvalidateCache(@"Maps/Town");
@@ -1047,7 +1308,7 @@ namespace Hikawa
 
 		private void HikawaFoodEaten(object sender, EventArgs e)
 		{
-			if (Game1.player.itemToEat.Name.StartsWith("Dark Fruit"))
+			if (Game1.player.itemToEat.Name.StartsWith("Dark Fruit") || Game1.player.itemToEat.Name == "Energized Dark Fruit")
 			{
 				++SaveData.BananaBunch;
 				if (SaveData.BananaBunch > ModConsts.BananaBegins)
@@ -1066,6 +1327,8 @@ namespace Hikawa
 			}
 		}
 
+	*/
+
 		#endregion
 
 		#region Debug Methods
@@ -1079,10 +1342,10 @@ namespace Hikawa
 				if (!Game1.IsMasterGame)
 					return;
 
-				var f = Game1.getLocationFromName("Farm") as Farm;
-				if (f.terrainFeatures.ContainsKey(position))
-					f.terrainFeatures.Remove(position);
-				f.terrainFeatures.Add(position, new HikawaBanana());
+				var farm = Game1.getLocationFromName("Farm") as Farm;
+				if (farm.terrainFeatures.ContainsKey(position))
+					farm.terrainFeatures.Remove(position);
+				//farm.terrainFeatures.Add(position, new HikawaBanana());
 			}
 			if (btn.Equals(Config.DebugPlayArcade))
 			{
@@ -1099,30 +1362,47 @@ namespace Hikawa
 			}
 			else if (btn.Equals(Config.DebugWarpShrine))
 			{
-				var mapId = "";
+				var mapName = "";
 				if (false)
 				{
-					mapId = "Town";
+					mapName = "Town";
 					Game1.player.warpFarmer(
-						new Warp(0, 0, mapId,
+						new Warp(0, 0, mapName,
 							20, 5, true));
 				}
 				else if (false)
 				{
-					mapId = ModConsts.HouseMapId;
+					mapName = ModConsts.HouseMapId;
 					Game1.player.warpFarmer(
-						new Warp(0, 0, mapId,
+						new Warp(0, 0, mapName,
 							5, 19, false));
 				}
 				else
 				{
-					mapId = ModConsts.ShrineMapId;
+					mapName = ModConsts.ShrineMapId;
 					Game1.player.warpFarmer(
-						new Warp(0, 0, mapId,
+						new Warp(0, 0, mapName,
 							39, 60, false));
 				}
-				Log.D($"Pressed {btn} : Warping to {mapId}",
+				Log.D($"Pressed {btn} : Warping to {mapName}",
 					Config.DebugMode);
+			}
+		}
+
+		#endregion
+
+		#region Vector operations
+
+		internal class Vector
+		{
+			public static Vector2 PointAt(Vector2 va, Vector2 vb)
+			{
+				return vb - va;
+			}
+			
+			public static float RadiansBetween(Vector2 va, Vector2 vb)
+			{
+				return (float)Math.Atan2(vb.Y - va.Y, vb.X - va.X);
 			}
 		}
 

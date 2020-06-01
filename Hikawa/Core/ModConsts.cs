@@ -22,6 +22,7 @@ namespace Hikawa
 		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
 		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
 		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
+		internal const string CrowSpritesFile = TilesheetPrefix + "_crows";
 
 
 		/* Game objects */
@@ -43,11 +44,12 @@ namespace Hikawa
 		internal const string NegativeMapId = ContentPrefix + "Negative";
 		// Tile actions
 		internal const string ActionEma = ContentPrefix + "Ema";
-		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;
 		internal const string ActionShrineHall = ContentPrefix + "HallDoor";
 		internal const string ActionShrineShop = ContentPrefix + "OmiyageyaShop";
 		internal const string ActionShrineOffering = ContentPrefix + "Offering";
 		internal const string ActionLockbox = ContentPrefix + "Lockbox";
+		internal const string ActionSit = ContentPrefix + "Sit";
+		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;
 		internal const int OfferingCostS = 75;
 		internal const int OfferingCostM = 330;
 		internal const int OfferingCostL = 825;

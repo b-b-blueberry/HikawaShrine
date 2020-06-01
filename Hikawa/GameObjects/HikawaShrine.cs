@@ -17,10 +17,13 @@ namespace Hikawa.GameObjects
 			: base(map, name)
 		{
 			var multiplayer = ModEntry.Instance.Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
-			_shrineAnimals.Add(new FarmAnimal("White Chicken", multiplayer.getNewID(), -1) {age = { 99 }});
-			_shrineAnimals.Add(new FarmAnimal("White Chicken", multiplayer.getNewID(), -1) {age = { 99 }});
-			_shrineAnimals[0].Position = new Vector2(41f, 18f) * 64f;
-			_shrineAnimals[1].Position = new Vector2(43f, 18f) * 64f;
+			for (var i = 0; i < 2; ++i)
+			{
+				_shrineAnimals.Add(new FarmAnimal("White Chicken", multiplayer.getNewID(), -1));
+				_shrineAnimals[i].Position = new Vector2(49 + 2 * i, 22 + i) * 64f;
+				_shrineAnimals[i].age.Value = _shrineAnimals[i].ageWhenMature.Value;
+				_shrineAnimals[i].reloadData();
+			}
 		}
 
 		protected override void initNetFields()

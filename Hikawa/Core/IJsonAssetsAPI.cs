@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Hikawa.Core
+namespace Hikawa
 {
 	public interface IJsonAssetsApi
 	{

@@ -1190,12 +1190,12 @@ namespace Hikawa
 		private static void SpawnBullet(BulletType which, Vector2 where, Vector2 dest, int power, ArcadeActor who, bool rotate)
 		{
 			// Rotation to aim towards target
-			var radiansBetween = Vector.RadiansBetween(dest, where);
+			var radiansBetween = ModEntry.Vector.RadiansBetween(dest, where);
 			radiansBetween -= (float)(Math.PI / 2.0d);
 			//Log.D($"RadiansBetween {where}, {dest} = {radiansBetween:0.00}rad", _isDebugMode);
 
 			// Vector of motion
-			var motion = Vector.PointAt(where, dest);
+			var motion = ModEntry.Vector.PointAt(where, dest);
 			motion.Normalize();
 			_player.LastAimMotion = motion;
 			var speed = BulletSpeed[which];
@@ -1455,7 +1455,7 @@ namespace Hikawa
 			var startpoint = _playerBullets[_playerBullets.Count - 1].Origin;
 			var endpoint = _playerBullets[_playerBullets.Count - 1].Target;
 			var line = endpoint - startpoint;
-			var angle = Vector.RadiansBetween(startpoint, endpoint);
+			var angle = ModEntry.Vector.RadiansBetween(startpoint, endpoint);
 			b.Draw(
 				_arcadeTexture,
 				new Rectangle(
@@ -3631,23 +3631,6 @@ namespace Hikawa
 			}
 		}
 		
-		#endregion
-
-		#region Vector operations
-
-		internal class Vector
-		{
-			public static Vector2 PointAt(Vector2 va, Vector2 vb)
-			{
-				return vb - va;
-			}
-			
-			public static float RadiansBetween(Vector2 va, Vector2 vb)
-			{
-				return (float)Math.Atan2(vb.Y - va.Y, vb.X - va.X);
-			}
-		}
-
 		#endregion
 	}
 
