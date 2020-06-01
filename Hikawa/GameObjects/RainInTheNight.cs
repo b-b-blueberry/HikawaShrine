@@ -255,7 +255,7 @@ namespace Hikawa.GameObjects
 				if (Game1.musicPlayerVolume > 0f)
 				{
 					Game1.changeMusicTrack("none");
-					Game1.playSound("blueberry.hikawa.dark_despair");
+					Game1.playSound(ModConsts.ContentPrefix + "dark_despair");
 				}
 
 				_timer = 6250;
@@ -531,7 +531,7 @@ namespace Hikawa.GameObjects
 			{
 				_farm.terrainFeatures.Remove(_targetLocation);
 			}
-			_farm.terrainFeatures.Add(_targetLocation, new HikawaBanana());
+			//_farm.terrainFeatures.Add(_targetLocation, new HikawaBanana());
 		}
 
 		public void drawAboveEverything(SpriteBatch b) {}
