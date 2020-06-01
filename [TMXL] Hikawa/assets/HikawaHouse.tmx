@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="37">
+<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="42">
  <properties>
   <property name="AmbientLight" value="95 95 95"/>
   <property name="DayTiles" value="AboveBack 3 15 296 AboveBack 3 16 312 Front 3 16 268 Buildings 3 17 284 Back 17 5 671 Back 17 6 703 Buildings 18 1 108 Buildings 18 2 124 Buildings 3 13 282 Buildings 3 14 298 Back 3 15 314 Buildings 1 5 7 Buildings 2 5 8 Buildings 3 5 9 Buildings 4 5 10 Buildings 5 5 7 Buildings 6 5 8 Buildings 7 5 9 Buildings 8 5 10 Buildings 9 5 7 Buildings 10 5 8 Buildings 11 5 9 Buildings 12 5 10 Buildings 1 6 23 Buildings 2 6 24 Buildings 3 6 25 Buildings 4 6 26 Buildings 5 6 23 Buildings 6 6 24 Buildings 7 6 25 Buildings 8 6 53 Buildings 9 6 23 Buildings 10 6 24 Buildings 11 6 25 Buildings 12 6 26 Buildings 1 7 39 Buildings 2 7 40 Buildings 3 7 41 Buildings 4 7 42 Buildings 5 7 39 Buildings 6 7 40 Buildings 7 7 41 Buildings 8 7 42 Buildings 9 7 39 Buildings 10 7 40 Buildings 11 7 41 Buildings 12 7 42 Front 8 12 1 Front 8 13 17 Buildings 19 2 3 AboveBack 4 16 20 AboveBack 2 7 300 AboveBack 3 7 301 AboveBack 2 8 316 AboveBack 3 8 317"/>
@@ -264,6 +264,16 @@
   <object id="36" name="TileData" x="352" y="112" width="16" height="16">
    <properties>
     <property name="Action" value="blueberry.Hikawa.Lockbox"/>
+   </properties>
+  </object>
+  <object id="37" name="TileData" x="160" y="288" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 3"/>
+   </properties>
+  </object>
+  <object id="38" name="TileData" x="352" y="256" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 3"/>
    </properties>
   </object>
  </objectgroup>
