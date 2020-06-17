@@ -29,22 +29,19 @@ namespace Hikawa.GameObjects.Critters
 
 		public Crow(bool isDeimos, Vector2 position, int hopRange)
 		{
-			_isDeimos = isDeimos;
-			_hopRange = hopRange;
-
-			position.X += 32f;
-			position.Y += 32f;
-			startingPosition = this.position = position;
-			_state = State.Idle;
-
 			var asset = ModEntry.Instance.Helper.Content.GetActualAssetKey(
 				Path.Combine(ModConsts.SpritesPath, ModConsts.CrowSpritesFile + ".png"));
 			sprite = new AnimatedSprite(asset, 0, 32, 32);
 			
-			baseFrame = _crowBaseFrame = isDeimos ? 4 : 0;
-			flip = isDeimos;
+			_isDeimos = isDeimos;
+			_hopRange = hopRange;
+			_state = State.Idle;
+			
+			startingPosition = this.position = position * 64f + new Vector2(32f);
+			baseFrame = _crowBaseFrame = _isDeimos ? 4 : 0;
+			flip = _isDeimos;
 
-			Log.W($"Perched crow {WhichCrow()} generated");
+			Log.W($"Perched crow {WhichCrow()} generated at {startingPosition.ToString()}");
 		}
 
 		public void Hop(Farmer who)
@@ -59,7 +56,7 @@ namespace Hikawa.GameObjects.Critters
 
 		private void LookAtPlayer(Farmer who, GameLocation environment)
 		{
-			var farmer = IsFarmerInRange(environment);
+			var farmer = IsFarmerInRange(environment, 16);
 			if (farmer == null || _state != State.Looking)
 				return;
 
@@ -70,30 +67,22 @@ namespace Hikawa.GameObjects.Critters
 			sprite.currentFrame = 0;
 		}
 		
-		private Farmer IsFarmerInRange(GameLocation environment)
+		private Farmer IsFarmerInRange(GameLocation environment, int range)
 		{
-			return Utility.isThereAFarmerWithinDistance(position / 64f, 16, environment);
+			return Utility.isThereAFarmerWithinDistance(position / 64f, range, environment);
 		}
 
 		public override bool update(GameTime time, GameLocation environment)
 		{
-			// Hopping motion
+			// Hopping motion - don't hop through buildings, only hop onto AlwaysFront tiles
 			if (yJumpOffset < 0f && !environment.isCollidingPosition(getBoundingBox(-2, 0), Game1.viewport,
 				false, 0, false, null, false, false, true))
 			{
 				var nextTileOver = new Location(
 					(int)Math.Floor((position.X + (flip ? 1f : -1f)) / 64f),
 					(int)Math.Floor(position.Y / 64f));
-				Log.D($"Checking tile at {nextTileOver.ToString()} for {WhichCrow()} at {position.ToString()}:");
 				if (environment.Map.GetLayer("AlwaysFront").Tiles[nextTileOver.X, nextTileOver.Y] != null)
-				{
 					position.X += 2f * (flip ? 1f : -1f);
-					Log.D("True");
-				}
-				else
-				{
-					Log.D("False");
-				}
 
 				sprite.CurrentFrame = yJumpOffset > -1f ? 8 : 9;
 				return base.update(time, environment);
@@ -126,7 +115,7 @@ namespace Hikawa.GameObjects.Critters
 								break;
 							case 4:
 								Log.W($"{WhichCrow()}: Picking Looking from Idle");
-								if (IsFarmerInRange(environment) != null)
+								if (IsFarmerInRange(environment, 16) != null)
 								{
 									Log.D("Success.");
 									_state = State.Looking;
@@ -183,8 +172,8 @@ namespace Hikawa.GameObjects.Critters
 							animFrames.Add(new FarmerSprite.AnimationFrame((short)_crowBaseFrame, 3600, false, flip, DoneAnimating));
 							Log.D($"Shuteye: {shuteye}");
 						}
-						sprite.loop = false;
 						sprite.setCurrentAnimation(animFrames);
+						sprite.loop = false;
 					}
 					break;
 

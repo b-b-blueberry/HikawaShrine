@@ -50,7 +50,7 @@
       // Town - Shrine entrance
       "name": "Town",
       "addWarps": [
-        "18 -1 blueberry.Hikawa.Shrine 37 66 19 -1 blueberry.Hikawa.Shrine 38 66 20 -1 blueberry.Hikawa.Shrine 39 66 21 -1 blueberry.Hikawa.Shrine 40 66"
+        "18 -1 blueberry.Hikawa.Shrine 37 65 19 -1 blueberry.Hikawa.Shrine 38 65 20 -1 blueberry.Hikawa.Shrine 39 65 21 -1 blueberry.Hikawa.Shrine 40 65"
       ]
     }
   ]

@@ -11,26 +11,26 @@
       "Id": "blueberry.Hikawa.dark_despair",
       "File": "assets/SailormoonZetsubouToAku.wav",
       "Loop": false,
-      "Preload": true
+      "Preload": false
     },
     // Vanilla, repacked
     {
       "Id": "blueberry.Hikawa.rainsound_wom",
       "File": "assets/rainsound_wom.wav",
       "Loop": false,
-      "Preload": true
+      "Preload": false
     },
     {
       "Id": "blueberry.Hikawa.rainsound_ooh",
       "File": "assets/rainsound_ooh.wav",
       "Loop": false,
-      "Preload": true
+      "Preload": false
     },
     {
       "Id": "blueberry.Hikawa.rainsound_ahh",
       "File": "assets/rainsound_ahh.wav",
       "Loop": false,
-      "Preload": true
+      "Preload": false
     }
   ]
 }

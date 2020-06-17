@@ -2,18 +2,16 @@
 using StardewModdingAPI;
 using StardewValley;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using xTile;
 using xTile.Dimensions;
-using xTile.Layers;
 using xTile.ObjectModel;
 using xTile.Tiles;
 
 namespace Hikawa.Editors
 {
-	internal class WorldEditor : IAssetEditor
+	internal class WorldEditor : IAssetEditor, IAssetLoader
 	{
 		private readonly IModHelper _helper;
 
@@ -21,6 +19,26 @@ namespace Hikawa.Editors
 		{
 			_helper = helper;
 		}
+
+		// Loader
+
+		public bool CanLoad<T>(IAssetInfo asset)
+		{
+			return asset.AssetNameEquals(Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile));
+		}
+		
+		public T Load<T>(IAssetInfo asset)
+		{
+			Log.D($"Loaded custom asset ({asset.AssetName})",
+				ModEntry.Instance.Config.DebugMode);
+			
+			if (asset.AssetNameEquals(Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile)))
+				return (T)(object)_helper.Content.Load<Texture2D>(
+					Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile));
+			return (T) (object) null;
+		}
+		
+		// Editor
 
 		public bool CanEdit<T>(IAssetInfo asset)
 		{

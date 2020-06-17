@@ -1,24 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-<PropertyGroup>
+  <PropertyGroup>
     <AssemblyName>Hikawa</AssemblyName>
     <RootNamespace>Hikawa</RootNamespace>
     <Version>1.0.0</Version>
     <TargetFramework>net452</TargetFramework>
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
-    <IgnoreModFilePatterns>DotNetZip\.(?:dll|pdb),PyTK\.(?:dll|pdb),0Harmony\.(?:dll|pdb), MoonSharp.Interpreter\.(?:dll|pdb), NCalc\.(?:dll|pdb),TMXTile\.(?:dll|pdb)</IgnoreModFilePatterns>
-    <EnableHarmony>true</EnableHarmony>
+    <IgnoreModFilePatterns>TMXTile\.(?:dll|pdb)</IgnoreModFilePatterns>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lib.Harmony" Version="1.2.0.1" />
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
-    <PackageReference Include="Platonymous.PyTK" Version="1.12.40" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="SpaceCore">
-      <HintPath>..\..\..\..\..\..\Steam\steamapps\common\Stardew Valley\Mods\[CORE]\SpaceCore\SpaceCore.dll</HintPath>
+      <HintPath>$(GamePath)\Mods\[CORE]\SpaceCore\SpaceCore.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PyTK">
+      <HintPath>$(GamePath)\Mods\[CORE]\PyTK\PyTK.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 </Project>

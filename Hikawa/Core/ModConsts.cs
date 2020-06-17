@@ -14,7 +14,7 @@ namespace Hikawa
 		internal const string SaveDataKey = ModName;
 
 		internal const string AssetsPath = "assets";
-		internal static readonly string SpritesPath = Path.Combine(AssetsPath, "Sprites");
+		internal static readonly string SpritesPath = Path.Combine(AssetsPath, "LooseSprites");
 		internal static readonly string EventsPath = Path.Combine("Data", "events.json");
 		internal static readonly string JaContentPackPath = Path.Combine(AssetsPath, "ContentPack");
 
@@ -23,6 +23,7 @@ namespace Hikawa
 		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
 		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
 		internal const string CrowSpritesFile = TilesheetPrefix + "_crows";
+		internal const string CatSpritesFile = TilesheetPrefix + "_cats";
 
 
 		/* Game objects */

@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework;
-using xTile.Dimensions;
-using xTile.ObjectModel;
 
 using StardewValley;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
-
-//using SpaceCore.Events;
-
-using Microsoft.Xna.Framework.Graphics;
 using Object = StardewValley.Object;
+
+using SpaceCore.Events;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using xTile.Dimensions;
+using xTile.ObjectModel;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+
 
 namespace Hikawa
 {
@@ -30,11 +31,13 @@ namespace Hikawa
 
 		internal Config Config;
 		internal ITranslationHelper i18n => Helper.Translation;
-		
+
+		private bool _isPlayerAgencySuppressed;
 		private bool _isPlayerSittingDown;
 		private readonly int[] _playerSittingFrames = {62, 117, 54, 117};
 		private Vector2 _playerLastStandingLocation;
 		private bool _shouldCrowsSpawnToday;
+		private bool _whatAboutCatsCanTheySpawnToday;
 
 
 		// SPRITE TESTING
@@ -83,11 +86,12 @@ namespace Hikawa
 			helper.Events.GameLoop.DayEnding += OnDayEnding;
 			helper.Events.GameLoop.Saved += OnSaved;
 			helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+			helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
 			
 			helper.Events.Player.Warped += OnWarped;
 			helper.Events.Input.ButtonPressed += OnButtonPressed;
 
-			//SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
+			SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
 			
 			if (Config.DebugMode)
 			{
@@ -103,7 +107,9 @@ namespace Hikawa
 
 		private void AddConsoleCommands()
 		{
-			Helper.ConsoleCommands.Add("bharcade", "Start arcade game: use START, TITLE, RESET", (s, p) =>
+			// TODO: METHOD: Find some way to set default warp location, intercept Warped maybe?
+
+			Helper.ConsoleCommands.Add("harcade", "Start arcade game: use START, TITLE, RESET", (s, p) =>
 			{
 				if (p[0].ToLower() == "start")
 					Game1.currentMinigame = new ArcadeGunGame();
@@ -117,40 +123,58 @@ namespace Hikawa
 						((ArcadeGunGame)(Game1.currentMinigame)).ResetGame();
 				}
 			});
-			Helper.ConsoleCommands.Add("bhoverlay", "Toggle screen overlays.", (s, p) =>
+			Helper.ConsoleCommands.Add("hoverlay", "Toggle screen overlays.", (s, p) =>
 			{
 				_overlayEffectControl.Toggle();
 			});
-			Helper.ConsoleCommands.Add("bhoffer", "Make a shrine offering: use S, M, or L.", (s, p) =>
+			Helper.ConsoleCommands.Add("hoffer", "Make a shrine offering: use S, M, or L.", (s, p) =>
 			{
 				MakeShrineOffering(Game1.player, "offer" + p[0]?.ToUpper()[0]);
 			});
-			Helper.ConsoleCommands.Add("bhcrows", "Respawn twin crows at the shrine.", (s, p) =>
+			Helper.ConsoleCommands.Add("hcrows", "Respawn twin crows at the shrine.", (s, p) =>
 			{
 				SpawnCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 			});
-			Helper.ConsoleCommands.Add("bhcrows2", "Respawn perched crows at the shrine.", (s, p) =>
+			Helper.ConsoleCommands.Add("hcrows2", "Respawn perched crows at the shrine.", (s, p) =>
 			{
 				SpawnPerchedCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 			});
-			Helper.ConsoleCommands.Add("bhtotem", "Totem warp.", (s, p) =>
+			Helper.ConsoleCommands.Add("htotem", "Totem warp.", (s, p) =>
 			{
 				StartWarpToShrine(new Object(
 					JaApi.GetObjectId("Warp Totem: Hilltop"), 1).getOne() as Object, Game1.currentLocation);
 			});
-			Helper.ConsoleCommands.Add("bhhome", "Warp to Rei's house.", (s, p) =>
+			Helper.ConsoleCommands.Add("hh", "Warp to Rei's house.", (s, p) =>
 			{
 				Game1.player.warpFarmer(
 					new Warp(0, 0, ModConsts.HouseMapId,
 						5, 19, false));
 			});
-			Helper.ConsoleCommands.Add("bhshrine", "Warp to Hikawa Shrine.", (s, p) =>
+			Helper.ConsoleCommands.Add("hhome", "Warp to Rei's house.", (s, p) =>
+			{
+				Game1.player.warpFarmer(
+					new Warp(0, 0, ModConsts.HouseMapId,
+						5, 19, false));
+			});
+			Helper.ConsoleCommands.Add("hs", "Warp to Hikawa Shrine.", (s, p) =>
 			{
 				Game1.player.warpFarmer(
 					new Warp(0, 0, ModConsts.ShrineMapId,
 						39, 60, false));
 			});
-			Helper.ConsoleCommands.Add("bhtown", "Warp to the shrine entrance.", (s, p) =>
+			Helper.ConsoleCommands.Add("hshrine", "Warp to Hikawa Shrine.", (s, p) =>
+			{
+				Game1.player.warpFarmer(
+					new Warp(0, 0, ModConsts.ShrineMapId,
+						39, 60, false));
+			});
+			Helper.ConsoleCommands.Add("ht", "Warp to the shrine entrance.", (s, p) =>
+			{
+				Game1.player.warpFarmer(
+					new Warp(0, 0, "Town",
+						20, 5, false));
+			});
+			Helper.ConsoleCommands.Add("htown", "Warp to the shrine entrance.", (s, p) =>
 			{
 				Game1.player.warpFarmer(
 					new Warp(0, 0, "Town",
@@ -196,6 +220,22 @@ namespace Hikawa
 		}
 		// SPRITE TESTING
 
+		#region Data Model
+
+		private void LoadModData()
+		{
+			SaveData = Helper.Data.ReadSaveData<ModSaveData>(
+				ModConsts.SaveDataKey) ?? new ModSaveData();
+		}
+
+		private void UnloadModData()
+		{
+			SaveData = null;
+			_isPlayerSittingDown = false;
+		}
+
+		#endregion
+
 		#region Game Events
 
 		/// <summary>
@@ -212,8 +252,7 @@ namespace Hikawa
 		/// </summary>
 		private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
 		{
-			SaveData = Helper.Data.ReadSaveData<ModSaveData>(
-				ModConsts.SaveDataKey) ?? new ModSaveData();
+			LoadModData();
 		}
 
 		/// <summary>
@@ -225,7 +264,12 @@ namespace Hikawa
 				Game1.currentSeason != "winter" && !Game1.isRaining
 				|| Game1.currentSeason == "winter" && Game1.random.NextDouble() < 0.3d;
 
-			// todo: apply shrine buffs
+			_whatAboutCatsCanTheySpawnToday = true; // TODO: METHOD: caats spawn conditions
+
+			_isPlayerAgencySuppressed = false;
+			_isPlayerSittingDown = false;
+
+			// TODO: CONTENT: Write and apply shrine buffs
 			switch (SaveData.LastShrineBuffId)
 			{
 				case 0:
@@ -259,12 +303,12 @@ namespace Hikawa
 			if (SaveData.StoryStock <= (int) ModConsts.Progress.Started)
 			{
 				Log.D("Loading up bomba action listener.");
-				//SpaceEvents.BombExploded += HikawaBombExploded;
+				SpaceEvents.BombExploded += HikawaBombExploded;
 			}
 
 			if (SaveData.StoryPlant >= (int) ModConsts.Progress.Started)
 			{
-				//SpaceEvents.OnItemEaten += HikawaFoodEaten;
+				SpaceEvents.OnItemEaten += HikawaFoodEaten;
 				if (SaveData.BananaBunch > 0)
 				{
 					Game1.player.Stamina = Math.Min(Game1.player.MaxStamina / 3f,
@@ -273,7 +317,7 @@ namespace Hikawa
 				}
 			}
 
-			// todo: banana world effects
+			// TODO: CONTENT: Write and implement banana world effects
 			if (SaveData.BananaRepublic == 0) {}
 			else
 			{
@@ -314,8 +358,13 @@ namespace Hikawa
 		/// </summary>
 		private void OnSaved(object sender, SavedEventArgs e)
 		{
-			// todo: write save data
+			// TODO: DEBUG: Write save data
 			//Helper.Data.WriteSaveData(ModConsts.SaveDataKey, SaveData);
+		}
+		
+		private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
+		{
+			UnloadModData();
 		}
 
 		/// <summary>
@@ -330,6 +379,9 @@ namespace Hikawa
 		/// </summary>
 		private void OnWarped(object sender, WarpedEventArgs e)
 		{
+			_isPlayerSittingDown = false;
+			_isPlayerAgencySuppressed = false;
+
 			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
 
 			if (_overlayEffectControl.IsEnabled())
@@ -348,6 +400,12 @@ namespace Hikawa
 			    || Game1.IsChatting || Game1.dialogueTyping || Game1.dialogueUp
 			    || Game1.player.UsingTool || Game1.pickingTool || Game1.numberOfSelectedItems != -1 || Game1.fadeToBlack)
 				return;
+
+			if (_isPlayerAgencySuppressed)
+			{
+				Helper.Input.Suppress(e.Button);
+				return;
+			}
 			
 			if (Game1.player.CanMove)
 			{
@@ -369,6 +427,7 @@ namespace Hikawa
 			{}
 			else
 			{
+				Helper.Input.Suppress(e.Button);
 				SitDownEnd();
 			}
 		}
@@ -400,13 +459,56 @@ namespace Hikawa
 		/// </summary>
 		private void SitDownEnd() {
 			Game1.playSound("breathout");
+			Game1.player.completelyStopAnimatingOrDoingAction();
 			Game1.player.faceDirection(2);
 			Game1.player.setTileLocation(_playerLastStandingLocation);
 			Game1.player.CanMove = true;
 			_isPlayerSittingDown = false;
 			_playerLastStandingLocation = Vector2.Zero;
 
-			// todo: add a butt indent on benches in winter
+			if (Game1.currentSeason == "winter" && Game1.currentLocation.IsOutdoors)
+			{
+				var position = new Vector2(
+					Game1.player.lastPosition.X,
+					Game1.player.lastPosition.Y - 32);
+				var id = 87008
+				         + (int)Math.Floor(position.Y / 64)
+				         * Game1.currentLocation.Map.DisplayWidth / 64 
+				         + (int)Math.Floor(position.X / 64);
+
+				Log.D($"Cold butt identified: {id}, exists: {Game1.currentLocation.getTemporarySpriteByID(id) != null}");
+
+				if (Game1.currentLocation.getTemporarySpriteByID(id) == null)
+				{
+					Log.D("Adding cold butt.");
+					var assetKey = Helper.Content.GetActualAssetKey(
+						Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile + ".png"));
+					var direction = Game1.player.FacingDirection;
+					var layer = (Game1.player.getStandingY() - 64f) / 10000f - 1f / 1000f;
+					var multiplayer = Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
+					multiplayer.broadcastSprites(Game1.currentLocation, new TemporaryAnimatedSprite(
+						assetKey, 
+						new Rectangle(64, direction % 2 == 0 ? 0 : 16, 16, 16),
+						9999,
+						1,
+						9999,
+						position,
+						false,
+						direction == 3,
+						layer,
+						0f,
+						Color.White,
+						4f,
+						0f,
+						direction == 0 ? 0f : (float)Math.PI,
+						0f)
+					{
+						id = id,
+						holdLastFrame = true,
+						verticalFlipped = direction == 0
+					});
+				}
+			}
 		}
 		
 		/// <summary>
@@ -554,10 +656,10 @@ namespace Hikawa
 		/// </summary>
 		public void CheckHeldObjectAction(Object o, GameLocation where)
 		{
-			if (!Game1.player.CanMove || o.isTemporarilyInvisible)
+			if (!Game1.player.CanMove || o.isTemporarilyInvisible || _isPlayerAgencySuppressed)
 				return;
 
-			if (o.Name != null && o.Name == "Warp Totem: Hilltop")
+			if (o.Name != null && o.Name == "Warp Totem: Shrine")
 			{
 				if (!Game1.eventUp && !Game1.isFestival() && !Game1.fadeToBlack
 				    && !Game1.player.swimming.Value && !Game1.player.bathingClothes.Value)
@@ -625,7 +727,10 @@ namespace Hikawa
 				{
 					if (IsItObonYet())
 					{
-						// todo: obon decorations
+						// Nice one
+
+						// TODO: ASSETS: Obon decorations for the shrine
+
 						SpawnPerchedCrows(where);
 					}
 					else if (SaveData.StoryMist == (int)ModConsts.Progress.Started)
@@ -645,83 +750,106 @@ namespace Hikawa
 							Game1.changeMusicTrack("communityCenter");
 						}
 					}
-					else if (_shouldCrowsSpawnToday)
+					else
 					{
-						if (Game1.timeOfDay < 1130)
+						if (_shouldCrowsSpawnToday)
 						{
-							// Spawn active crows on the ground in the morning
-							SpawnCrows(where);
+							if (Game1.timeOfDay < 1130)
+							{
+								// Spawn active crows on the ground in the morning
+								SpawnCrows(where);
+							}
+							if (!Game1.isDarkOut())
+							{
+								// Spawn passive crows as custom perched critters in the afternoon
+								var roll = Game1.random.NextDouble();
+								var phobos = Vector2.Zero;
+								var deimos = Vector2.Zero;
+								var hopRange = 0;
+
+								if (Game1.currentSeason == "winter")
+									roll /= 2f;
+								if (roll < 0.2d)
+								{
+									// Shrine front
+									phobos = new Vector2(37.8f, 31.6f);
+									deimos = new Vector2(39.2f, 31.6f);
+								}
+								else if (roll < 0.3d)
+								{
+									// Shrine left
+									phobos = new Vector2(33, 31);
+									deimos = new Vector2(35, 31.25f);
+								}
+								else if (roll < 0.4d)
+								{
+									// Shrine right
+									phobos = new Vector2(42, 31.25f);
+									deimos = new Vector2(44, 31);
+								}
+								else if (roll < 0.5d)
+								{
+									// House
+									phobos = new Vector2(58, 20);
+									deimos = new Vector2(60, 20.75f);
+									hopRange = 2;
+								}
+								else if (roll < 0.65d)
+								{
+									// Tourou
+									phobos = new Vector2(35, 39.2f);
+									deimos = new Vector2(42, 39.2f);
+								}
+								else if (roll < 0.8d)
+								{
+									// Torii
+									phobos = new Vector2(37, 50f);
+									deimos = new Vector2(39, 50f);
+									hopRange = 2;
+								}
+								else if (roll < 0.9d)
+								{
+									// Ema
+									phobos = new Vector2(44.5f, 41.1f);
+									deimos = new Vector2(46.5f, 41.1f);
+								}
+								else if (roll < 0.95d)
+								{
+									// Omiyageya
+									phobos = new Vector2(27f, 39.3f);
+									deimos = new Vector2(29.075f, 39.125f);
+								}
+								else
+								{
+									// Hall
+									phobos = new Vector2(56, 32f);
+									deimos = new Vector2(57, 34);
+								}
+								if (Game1.currentSeason == "winter")
+									hopRange = 0;
+
+								SpawnPerchedCrows(where, phobos, deimos, hopRange);
+							}
 						}
-						else if (!Game1.isDarkOut())
+						if (_whatAboutCatsCanTheySpawnToday)
 						{
-							// Spawn passive crows as custom perched critters in the afternoon
 							var roll = Game1.random.NextDouble();
-							var phobos = Vector2.Zero;
-							var deimos = Vector2.Zero;
-							var hopRange = 0;
+							var position = Vector2.Zero;
+							var baseFrame = GameObjects.Critters.Cat.StandingBaseFrame;
+							var scareRange = 0;
+							var flip = false;
 
-							if (Game1.currentSeason == "winter")
-								roll /= 2f;
-							if (roll < 0.2d)
+							if (roll < 1f)
 							{
-								// Shrine front
-								phobos = new Vector2(37.8f, 31.6f);
-								deimos = new Vector2(39.2f, 31.6f);
+								// Test animation: Grooming
+								//position = new Vector2(28, 48);
+								position = new Vector2(23, 45);
+								baseFrame = GameObjects.Critters.Cat.StandingBaseFrame;
+								scareRange = 3;
+								flip = false;
 							}
-							else if (roll < 0.3d)
-							{
-								// Shrine left
-								phobos = new Vector2(33, 31);
-								deimos = new Vector2(35, 31.25f);
-							}
-							else if (roll < 0.4d)
-							{
-								// Shrine right
-								phobos = new Vector2(42, 31.25f);
-								deimos = new Vector2(44, 31);
-							}
-							else if (roll < 0.5d)
-							{
-								// House
-								phobos = new Vector2(58, 20);
-								deimos = new Vector2(60, 20.75f);
-								hopRange = 2;
-							}
-							else if (roll < 0.65d)
-							{
-								// Tourou
-								phobos = new Vector2(35, 39.2f);
-								deimos = new Vector2(42, 39.2f);
-							}
-							else if (roll < 0.8d)
-							{
-								// Torii
-								phobos = new Vector2(37, 50f);
-								deimos = new Vector2(39, 50f);
-								hopRange = 2;
-							}
-							else if (roll < 0.9d)
-							{
-								// Ema
-								phobos = new Vector2(44.5f, 41.1f);
-								deimos = new Vector2(46.5f, 41.1f);
-							}
-							else if (roll < 0.95d)
-							{
-								// Omiyageya
-								phobos = new Vector2(27f, 39.3f);
-								deimos = new Vector2(29.075f, 39.125f);
-							}
-							else
-							{
-								// Hall
-								phobos = new Vector2(56, 32f);
-								deimos = new Vector2(57, 34);
-							}
-							if (Game1.currentSeason == "winter")
-								hopRange = 0;
 
-							SpawnPerchedCrows(where, phobos, deimos, hopRange);
+							SpawnCats(where, position, baseFrame, scareRange, flip);
 						}
 					}
 					break;
@@ -915,7 +1043,6 @@ namespace Hikawa
 		/// </summary>
 		private static void SpawnCrows(GameLocation where, Location phobos, Location deimos)
 		{
-			Log.W($"Adding crows at {phobos.ToString()} and {deimos.ToString()}");
 			where.addCritter(new Crow(phobos.X, phobos.Y));
 			where.addCritter(new Crow(deimos.X, deimos.Y));
 		}
@@ -939,9 +1066,15 @@ namespace Hikawa
 			Log.W($"Adding perched crows at {phobos.ToString()} and {deimos.ToString()}");
 			var isDeimos = Game1.dayOfMonth % 3 == 0;
 			where.addCritter(new GameObjects.Critters.Crow(isDeimos,
-				new Vector2(phobos.X, phobos.Y) * 64f, hopRange));
+				new Vector2(phobos.X, phobos.Y), hopRange));
 			where.addCritter(new GameObjects.Critters.Crow(!isDeimos,
-				new Vector2(deimos.X, deimos.Y) * 64f, hopRange));
+				new Vector2(deimos.X, deimos.Y), hopRange));
+		}
+
+		private static void SpawnCats(GameLocation where, Vector2 position, int baseFrame, int scareRange, bool flip)
+		{
+			Log.W($"Adding cat at {position.ToString()}");
+			where.addCritter(new GameObjects.Critters.Cat(position, baseFrame, scareRange, flip));
 		}
 
 		/// <summary>
@@ -959,7 +1092,7 @@ namespace Hikawa
 		{
 			Log.W("Start Mission");
 
-			// todo: mission data
+			// TODO: CONTENT: Write and implement mission data
 			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
 			{
 
@@ -981,8 +1114,8 @@ namespace Hikawa
 		private void EndMission()
 		{
 			Log.W("End Mission");
-
-			// todo: mission data
+			
+			// TODO: CONTENT: Write and implement mission data
 			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
 			{
 
@@ -1239,11 +1372,11 @@ namespace Hikawa
 							whichSound = ModConsts.ContentPrefix + "rainsound_ahh";
 						Game1.currentLocation.localSound(whichSound);
 						Game1.drawObjectDialogue(i18n.Get("string.shrine.offering_accepted." + whichBuff));
-						farmer.CanMove = true;
+						_isPlayerAgencySuppressed = false;
 					},
 					true)
 			});
-			farmer.CanMove = false;
+			_isPlayerAgencySuppressed = true;
 		}
 
 		public static bool IsItObonYet()
@@ -1262,7 +1395,8 @@ namespace Hikawa
 		{
 			var stock = new Dictionary<ISalable, int[]>();
 
-			// todo: compile the shop stock for whichever events seen, whatever time of year, whoever is behind the counter, story progress
+			// TODO: CONTENT: Compile the shop stock
+			// Build for whichever events seen, whatever time of year, whoever is behind the counter, story progress
 
 			if (who.Name == ModConsts.ReiNpcId)
 			{
@@ -1274,7 +1408,7 @@ namespace Hikawa
 
 			return stock;
 		}
-		/*
+		
 		private void HikawaBombExploded(object sender, EventArgsBombExploded e)
 		{
 			var distance = Vector2.Distance(ModConsts.StoryStockPosition, e.Position);
@@ -1286,7 +1420,7 @@ namespace Hikawa
 				Game1.currentLocation.currentEvent = new Event(Helper.Content.Load<string>(
 					Path.Combine(ModConsts.AssetsPath, ModConsts.EventsPath)));
 
-				// todo: invalidate Town at the end of the event
+				// TODO: METHOD: Patch Town at the end of the event
 				//Helper.Content.InvalidateCache(@"Maps/Town");
 
 				SpaceEvents.BombExploded -= HikawaBombExploded;
@@ -1302,10 +1436,11 @@ namespace Hikawa
 			    || SaveData.StoryPlant == (int) ModConsts.Progress.Started && Game1.weatherForTomorrow == Game1.weather_rain)
 			{
 				Log.D("Rain on the horizon");
-				e.NightEvent = new RainInTheNight();
+				e.NightEvent = new GameObjects.RainInTheNight();
 			}
 		}
-
+		
+		// TODO: SYSTEM: Remove this event listener from the list under conditions
 		private void HikawaFoodEaten(object sender, EventArgs e)
 		{
 			if (Game1.player.itemToEat.Name.StartsWith("Dark Fruit") || Game1.player.itemToEat.Name == "Energized Dark Fruit")
@@ -1327,8 +1462,6 @@ namespace Hikawa
 			}
 		}
 
-	*/
-
 		#endregion
 
 		#region Debug Methods
@@ -1339,13 +1472,13 @@ namespace Hikawa
 			{
 				var position = Game1.player.getTileLocation();
 				--position.Y;
-				if (!Game1.IsMasterGame)
+				if (!Context.IsMainPlayer)
 					return;
 
 				var farm = Game1.getLocationFromName("Farm") as Farm;
 				if (farm.terrainFeatures.ContainsKey(position))
 					farm.terrainFeatures.Remove(position);
-				//farm.terrainFeatures.Add(position, new HikawaBanana());
+				farm.terrainFeatures.Add(position, new GameObjects.HikawaBanana());
 			}
 			if (btn.Equals(Config.DebugPlayArcade))
 			{
