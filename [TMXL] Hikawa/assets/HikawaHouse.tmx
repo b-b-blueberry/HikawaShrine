@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="42">
+<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="43">
  <properties>
   <property name="AmbientLight" value="95 95 95"/>
   <property name="DayTiles" value="AboveBack 3 15 296 AboveBack 3 16 312 Front 3 16 268 Buildings 3 17 284 Back 17 5 671 Back 17 6 703 Buildings 18 1 108 Buildings 18 2 124 Buildings 3 13 282 Buildings 3 14 298 Back 3 15 314 Buildings 1 5 7 Buildings 2 5 8 Buildings 3 5 9 Buildings 4 5 10 Buildings 5 5 7 Buildings 6 5 8 Buildings 7 5 9 Buildings 8 5 10 Buildings 9 5 7 Buildings 10 5 8 Buildings 11 5 9 Buildings 12 5 10 Buildings 1 6 23 Buildings 2 6 24 Buildings 3 6 25 Buildings 4 6 26 Buildings 5 6 23 Buildings 6 6 24 Buildings 7 6 25 Buildings 8 6 53 Buildings 9 6 23 Buildings 10 6 24 Buildings 11 6 25 Buildings 12 6 26 Buildings 1 7 39 Buildings 2 7 40 Buildings 3 7 41 Buildings 4 7 42 Buildings 5 7 39 Buildings 6 7 40 Buildings 7 7 41 Buildings 8 7 42 Buildings 9 7 39 Buildings 10 7 40 Buildings 11 7 41 Buildings 12 7 42 Front 8 12 1 Front 8 13 17 Buildings 19 2 3 AboveBack 4 16 20 AboveBack 2 7 300 AboveBack 3 7 301 AboveBack 2 8 316 AboveBack 3 8 317"/>
@@ -31,7 +31,7 @@
  </tileset>
  <layer id="1" name="Back" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJzNlUtLw0AQxzeBlEiiXhWperCg+AWsHuoLavXoRVGoFaWCR/Em+ELwcfbuAz+CNw8e7Qcp2G/hjLvDTpdd+0gC/uHHbNNkZv/Z3YwQ/1+HsWYqoxqnsWY1xbxzkRBFYAG4iTUH6n/y9Rj3X2MNcleADeAklGwqUOTrLUENrkVfiCdfxpKvPaCv9wQ1dgPNCsz9E3LvAVVfe+C++lHF0+Oqyn+hIq0NvUNSA/hSsdkFIatxmRPiCrgGlkP5vpAlowYq8Lrnmz33DLlfgFegxnLWLDVMFTyJTaHjeq9qKUZgf44CY5H+r8zmx8+5STc6hvlOQ+4ZYJbVqLMa/Jyb2ER7AcH1J8w9wteDn3MTVw3KO+DJ947RrMHXg8/LxKYolmuA8+TRfKZg1KB9z2PTXuL3fj5/iuTN5qOhfh+FMnbygdcDdp/LB1+Pctjum+51+cDrfN4t4fZB36t62O6b3lXgOEO2M83XxeYjK+F8zwLZp5D5SI+xbw0CQ8Bw1DmXS+iD+hSyzsbYt/LAODCRoAae/y14flvxEejxToK8XCXW9yjmGfy/fkV9qZjT/Y9HPk5L56oPYtxP0F//kukjC03iefN0zEK3sJfugHvgIaV9Zcr87mYh/u1Jq9f3qh+KJYSk
+   eJzNlUtLw0AQxzeBlEiiXhWperCg+AWsHuoLavXoRVGoFaWCR/Em+EKwevbuAz+CNw8e6wcp2G/hjLvDjsuufSQB//Bjlk0yj31khPj/Oow1UxnFOI01qyn6nYuEKAILwE2sOVDPqa6HuP8Ya+C7AmwAJ6FkU4Giul4TxOBa9IV49KUt+boGrOstQYzdQLMCuX+A7z2g6usaeF39qOLpcVX5v1CW9obWkPQJNJVtdUHIYlzmhLgCroHlUK4XsmTEQAVe93yx757A9zPwAtSYz5olhqmCJ7EpdMz3qrZiBM7nKDAW6Wdllh+/5ybd6BjynQbfM8Asi1FnMfg9N7GJzgKC+0+YZ4TvB7/nJq4Y5HfAk+uO1ozB94PnZWJTFMs9wDy5Nb8pGDHo3HPbsof4eZ/nT5Zqs9XRVLkchXK+Ux04H7D3XHXw/Sgr31Q3veuqA+d53m3hroP+V/Xwd920VoHjDtnuNN8XWx1ZCfM9C2SfQuYjPca+NQgMAcNRZ18uYR3Up5B1Nsa+lQfGgYkEMfD+b8H324r3QI93EvjlKrG+RzbP4M/6FfWlYk73P275OC2dqz6Idj9Bf/1LZh1ZaBLvm6dtFrqFs9QA7oD7lM6VKfO/m4X4vyetXt+rvgHbQYSj
   </data>
  </layer>
  <objectgroup id="2" name="Back"/>
@@ -85,7 +85,7 @@
    eJztlbtrFUEUhyd3r0m8s4VgCAGx8EkwxmDUYKEo2ioKBkkUNYXGIkW0MIkPJAiKjRaCgqjRRqxULMTKB0LAP0BBY6WVSbDwiZrGb8ksO3d2z+7muqUHPnbmzJnzmzOPe5Wq3eoEirQg3yWt1GXYrCNfEXltzpL7OeyE15Vi6nLn3CX3PS2Pz1UrjH1h1j4Gj+EJDMIxLWu8pcZ3MAHvK9n9HnL1wn4dW4Y6gO+gjmt8Yt4kTMF0pbpfr+PjSXabuDs60jjnKTXuRxq/mPcb/sBMJbtvr0+q41VZqdGGKO64Ffwo5+HYGjcT9iywl578hmwZaUyqI/QfblTqYjmeaxPraQRtrSvozze+JI082Bo7yNMCiyyN+7QfwENB4wj+fjgPF8y8vcKbD/ofStxRxidgAMcXzvcp7We6Oq/dPsHYEFyFayauOUVjmrFJmLLq+IiOR78s1LFUz7IMlsMKWAlHhfc4g3+bp0RL0ljCnE5YB+thA3TBsKAxLtzBhfibnDrCu7FWmKNUssYbE/+D709n7mK/WsO9G4F9pf8NvkO3UMdnM2ce+er9aGw17XZHo5XYNkejRIwHZV+uI826nb1y7Trje4xm8B1JqEOyPgK3cw9aSsW8wbTfBnfOxoSz3oJvq+PPs19pMWNWvlu0d8HuHBpZ/8dhv8fkusF3n2kf4tsH7bAGOuZwJmnrCu0U+U7DyYw6/kUjya7U1a7hssB6S6v89L2uxYIcZwrYnyyNPL7/GrP52vy4r2iNrN+kvxV/ZAs=
   </data>
  </layer>
- <objectgroup id="14" name="Buildings">
+ <objectgroup id="14" name="Buildings" visible="0">
   <object id="1" name="TileData" x="256" y="48" width="16" height="16">
    <properties>
     <property name="Action" value="Message &quot;HikawaHouse.6&quot;"/>
@@ -274,6 +274,11 @@
   <object id="38" name="TileData" x="352" y="256" width="16" height="16">
    <properties>
     <property name="Action" value="blueberry.Hikawa.Sit 3"/>
+   </properties>
+  </object>
+  <object id="42" name="TileData" x="288" y="288" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;HikawaHouse.9&quot;"/>
    </properties>
   </object>
  </objectgroup>
