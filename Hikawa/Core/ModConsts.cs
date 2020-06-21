@@ -85,6 +85,7 @@ namespace Hikawa
 		}
 
 		// Values and things
+		internal const int BuffId = 870084643;
 		internal const int BananaBegins = 3;
 		internal const int BigBananaBonanza = 7;
 	}

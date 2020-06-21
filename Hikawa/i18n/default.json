@@ -13,6 +13,8 @@
   "string.shrine.offering_prompt": "Make an offering?",
   "string.shrine.offering_awaiting": "You've already paid tribute to the shrine today.",
   "string.shrine.offering_cooldown": "You still feel a little peculiar from your last visit.",
+  "string.shrine.buff_inspect": "Hikawa Shrine",
+
   "string.shrine.offering_accepted.0": "You feel a little less rich.",
   "string.shrine.offering_accepted.1": "You feel a shiver run through you.",
   "string.shrine.offering_accepted.2": "You feel a little uneasy.",

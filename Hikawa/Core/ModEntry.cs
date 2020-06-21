@@ -19,7 +19,6 @@ using xTile.Dimensions;
 using xTile.ObjectModel;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-
 namespace Hikawa
 {
 	public class ModEntry : Mod
@@ -372,8 +371,69 @@ namespace Hikawa
 		/// </summary>
 		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
 		{
+			ReapplyBuff(e);
 		}
-		
+
+		private void ReapplyBuff(UpdateTickedEventArgs e)
+		{
+			if (Game1.eventUp || !Context.IsWorldReady || SaveData.LastShrineBuffId < 1)
+				return;
+
+			var buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(_ => _.which == ModConsts.BuffId);
+			if (buff == null)
+			{
+				Game1.buffsDisplay.addOtherBuff(
+					buff = new Buff(
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						0,
+						SaveData.LastShrineBuffId == 8 ? 1 : 0,
+						0,
+						0,
+						0,
+						source: ModManifest.UniqueID,
+						displaySource: i18n.Get("string.shrine.offering_accepted." + SaveData.LastShrineBuffId))
+					{
+
+					});
+			}
+			buff.millisecondsDuration = 50;
+
+			switch (SaveData.LastShrineBuffId)
+			{
+				case 1: // Shivers () [寒]
+					break;
+				case 2: // Uneasy () [悪]
+					break;
+				case 3: // Hungry (Buff buffs) []
+					break;
+				case 4: // Comfort () [強]
+					break;
+				case 5: // Warm breeze (Loot) [金]
+					break;
+				case 6: // Sunlight (Health) [光]
+					if (!e.IsMultipleOf(180))
+						break;
+					Game1.player.health = Math.Min(Game1.player.maxHealth, Game1.player.health + 1);
+					break;
+				case 7: // Weight (Stamina) [心]
+					if (!e.IsMultipleOf(180))
+						break;
+					Game1.player.Stamina = Math.Min(Game1.player.MaxStamina, Game1.player.Stamina + 1);
+					break;
+				case 8: // Wind (Speed) [風]
+					break;
+				case 9: // Great confidence (Luck) [幸]
+					break;
+			}
+		}
+
 		/// <summary>
 		/// Location changed
 		/// </summary>
@@ -466,49 +526,54 @@ namespace Hikawa
 			_isPlayerSittingDown = false;
 			_playerLastStandingLocation = Vector2.Zero;
 
-			if (Game1.currentSeason == "winter" && Game1.currentLocation.IsOutdoors)
+			if (Game1.currentSeason != "winter" || !Game1.currentLocation.IsOutdoors)
+				return;
+
+			var position = new Vector2(
+				Game1.player.lastPosition.X,
+				Game1.player.lastPosition.Y - 32);
+			var id = 87008
+			         + (int)Math.Floor(position.Y / 64)
+			         * Game1.currentLocation.Map.DisplayWidth / 64 
+			         + (int)Math.Floor(position.X / 64);
+
+			// TODO: SYSTEM: Consider ways of having the farmer sprite appear above Front tiles on the tile above where they sit
+
+			Log.D($"Cold butt identified: {id}, exists: {Game1.currentLocation.getTemporarySpriteByID(id) != null}",
+				Config.DebugMode);
+
+			if (Game1.currentLocation.getTemporarySpriteByID(id) != null)
+				return;
+
+			Log.D("Adding cold butt.",
+				Config.DebugMode);
+
+			var assetKey = Helper.Content.GetActualAssetKey(
+				Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile + ".png"));
+			var direction = Game1.player.FacingDirection;
+			var layer = (Game1.player.getStandingY() - 64f) / 10000f - 1f / 1000f;
+			var multiplayer = Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
+			multiplayer.broadcastSprites(Game1.currentLocation, new TemporaryAnimatedSprite(
+				assetKey, 
+				new Rectangle(64, direction % 2 == 0 ? 0 : 16, 16, 16),
+				9999,
+				1,
+				9999,
+				position,
+				false,
+				direction == 3,
+				layer,
+				0f,
+				Color.White,
+				4f,
+				0f,
+				direction == 0 ? 0f : (float)Math.PI,
+				0f)
 			{
-				var position = new Vector2(
-					Game1.player.lastPosition.X,
-					Game1.player.lastPosition.Y - 32);
-				var id = 87008
-				         + (int)Math.Floor(position.Y / 64)
-				         * Game1.currentLocation.Map.DisplayWidth / 64 
-				         + (int)Math.Floor(position.X / 64);
-
-				Log.D($"Cold butt identified: {id}, exists: {Game1.currentLocation.getTemporarySpriteByID(id) != null}");
-
-				if (Game1.currentLocation.getTemporarySpriteByID(id) == null)
-				{
-					Log.D("Adding cold butt.");
-					var assetKey = Helper.Content.GetActualAssetKey(
-						Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile + ".png"));
-					var direction = Game1.player.FacingDirection;
-					var layer = (Game1.player.getStandingY() - 64f) / 10000f - 1f / 1000f;
-					var multiplayer = Helper.Reflection.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
-					multiplayer.broadcastSprites(Game1.currentLocation, new TemporaryAnimatedSprite(
-						assetKey, 
-						new Rectangle(64, direction % 2 == 0 ? 0 : 16, 16, 16),
-						9999,
-						1,
-						9999,
-						position,
-						false,
-						direction == 3,
-						layer,
-						0f,
-						Color.White,
-						4f,
-						0f,
-						direction == 0 ? 0f : (float)Math.PI,
-						0f)
-					{
-						id = id,
-						holdLastFrame = true,
-						verticalFlipped = direction == 0
-					});
-				}
-			}
+				id = id,
+				holdLastFrame = true,
+				verticalFlipped = direction == 0
+			});
 		}
 		
 		/// <summary>
@@ -1092,6 +1157,9 @@ namespace Hikawa
 		{
 			Log.W("Start Mission");
 
+			// If a mission requires that the player has a slot for an item eg. Wand, Mirror, and they don't have one, break out
+			//if (Game1.player.freeSpotsInInventory() < 3 && SaveData.StoryDoors > (int) ModConsts.Progress.Started || SaveData.StoryGap)
+
 			// TODO: CONTENT: Write and implement mission data
 			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
 			{
@@ -1414,7 +1482,8 @@ namespace Hikawa
 			var distance = Vector2.Distance(ModConsts.StoryStockPosition, e.Position);
 			if (Game1.currentLocation.Name == "Town" && distance <= e.Radius * 2f)
 			{
-				Log.D("TACTICAL NUKE");
+				Log.D("TACTICAL NUKE",
+					Config.DebugMode);
 				Game1.playSound("reward");
 
 				Game1.currentLocation.currentEvent = new Event(Helper.Content.Load<string>(
@@ -1429,13 +1498,16 @@ namespace Hikawa
 
 		private void HikawaFarmEvents(object sender, EventArgsChooseNightlyFarmEvent e)
 		{
-			Log.D($"HikawaFarmEvents: (vanilla event: {e.NightEvent != null})");
+			Log.D($"HikawaFarmEvents: (vanilla event: {e.NightEvent != null})",
+				Config.DebugMode);
 			if (e.NightEvent != null)
-				Log.D($"(vanilla event type: {e.NightEvent.GetType().FullName})");
+				Log.D($"(vanilla event type: {e.NightEvent.GetType().FullName})",
+					Config.DebugMode);
 			if (Config.DebugShowRainInTheNight
 			    || SaveData.StoryPlant == (int) ModConsts.Progress.Started && Game1.weatherForTomorrow == Game1.weather_rain)
 			{
-				Log.D("Rain on the horizon");
+				Log.D("Rain on the horizon",
+					Config.DebugMode);
 				e.NightEvent = new GameObjects.RainInTheNight();
 			}
 		}
@@ -1443,12 +1515,84 @@ namespace Hikawa
 		// TODO: SYSTEM: Remove this event listener from the list under conditions
 		private void HikawaFoodEaten(object sender, EventArgs e)
 		{
-			if (Game1.player.itemToEat.Name.StartsWith("Dark Fruit") || Game1.player.itemToEat.Name == "Energized Dark Fruit")
+			var item = Game1.player.itemToEat;
+			var itemDescription = Game1.objectInformation[item.ParentSheetIndex].Split('/');
+			var isDrink = itemDescription.Length > 6 && itemDescription[6].Equals("drink");
+
+			// Avoid stardrops and inedible objects
+			if (item.ParentSheetIndex == 434 || int.Parse(itemDescription[2]) <= 0)
+				return;
+			
+			// TODO: Test buff #7: Hungry
+
+			if (SaveData.LastShrineBuffId == 7)
+			{
+				// Boost recovery
+				var energy = item.staminaRecoveredOnConsumption();
+				var health = item.healthRecoveredOnConsumption();
+				Game1.player.Stamina = Math.Min(Game1.player.MaxStamina, Game1.player.Stamina + energy / 15);
+				Game1.player.health = Math.Min(Game1.player.maxHealth, Game1.player.health + health / 12);
+				
+				// Buff buffs
+				var stats = itemDescription.Length > 7
+					? Array.ConvertAll(itemDescription[7].Split(' '), int.Parse)
+					: new[] {0};
+				var newStats = new[]
+				{
+					stats[0] > 0 ? stats[0] + 1 : 0,
+					stats[1] > 0 ? stats[1] + 1 : 0,
+					stats[2] > 0 ? stats[2] + 1 : 0,
+					stats[3],
+					stats[4],
+					stats[5] > 0 ? stats[5] + 1 : 0,
+					stats[6],
+					stats[7] + stats[7] / 8,
+					stats[8] + stats[8] / 5,
+					stats[9],
+					stats[10] > 0 ? stats[10] + 1 : 0,
+					stats.Length > 11 && stats[11] > 0 ? stats[11] + 1 : 0
+				};
+				var buff = new Buff(
+					newStats[0],
+					newStats[1],
+					newStats[2],
+					newStats[3],
+					newStats[4],
+					newStats[5],
+					newStats[6],
+					newStats[7],
+					newStats[8],
+					newStats[9],
+					newStats[10],
+					newStats[11],
+					itemDescription.Length > 8 ? int.Parse(itemDescription[8]) : -1,
+					itemDescription[0], 
+					itemDescription[4]);
+				var duration = Math.Min(120000, (int) (int.Parse(itemDescription[2]) / 20f * 30000f));
+
+				Log.D($"Boosting buff: {item.DisplayName}"
+				      + $"\nOriginal: {stats.Aggregate("", (s, i) => s + $"{i} ")}" 
+				      + $"\nBoosted:  {newStats.Aggregate("", (s, i) => s + $"{i} ")}",
+					Config.DebugMode);
+				Log.D($"Boosting recovery: E{energy} + {energy / 15}, H{health} + {health / 12}",
+					Config.DebugMode);
+
+				if (isDrink)
+				{
+					Game1.buffsDisplay.tryToAddDrinkBuff(buff);
+				}
+				else
+				{
+					Game1.buffsDisplay.tryToAddFoodBuff(buff, duration);
+				}
+			}
+
+			if (item.Name.StartsWith("Dark Fruit") || item.Name == "Energized Dark Fruit")
 			{
 				++SaveData.BananaBunch;
 				if (SaveData.BananaBunch > ModConsts.BananaBegins)
 				{
-					var foodEnergy = Game1.player.itemToEat.staminaRecoveredOnConsumption();
+					var foodEnergy = item.staminaRecoveredOnConsumption();
 					Game1.player.Stamina += Math.Max(foodEnergy * 3, foodEnergy / (SaveData.BananaBunch * foodEnergy) * foodEnergy);
 				}
 			}
@@ -1456,7 +1600,7 @@ namespace Hikawa
 			{
 				if (SaveData.BananaBunch > ModConsts.BananaBegins)
 				{
-					var foodEnergy = Game1.player.itemToEat.staminaRecoveredOnConsumption();
+					var foodEnergy = item.staminaRecoveredOnConsumption();
 					Game1.player.Stamina -= Math.Min(foodEnergy, foodEnergy / (SaveData.BananaBunch * foodEnergy) * foodEnergy);
 				}
 			}
