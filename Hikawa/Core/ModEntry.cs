@@ -15,6 +15,7 @@ using SpaceCore.Events;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewValley.Objects;
 using xTile.Dimensions;
 using xTile.ObjectModel;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -23,20 +24,44 @@ namespace Hikawa
 {
 	public class ModEntry : Mod
 	{
+		internal Config Config;
+		internal ITranslationHelper i18n => Helper.Translation;
+		
+		// Mod objects
 		internal static ModEntry Instance;
 		internal ModSaveData SaveData;
 		internal IJsonAssetsApi JaApi;
 		private readonly GameObjects.OverlayEffectControl _overlayEffectControl = new GameObjects.OverlayEffectControl();
 
-		internal Config Config;
-		internal ITranslationHelper i18n => Helper.Translation;
-
+		// Mini Sit
 		private bool _isPlayerAgencySuppressed;
 		private bool _isPlayerSittingDown;
 		private readonly int[] _playerSittingFrames = {62, 117, 54, 117};
 		private Vector2 _playerLastStandingLocation;
+
+		// Critters
 		private bool _shouldCrowsSpawnToday;
 		private bool _whatAboutCatsCanTheySpawnToday;
+
+		// Others
+		internal int BuffIconIndex = 24;
+
+		internal enum Buffs
+		{
+			None,
+			Shivers,
+			Uneasy,
+			Comfort,
+			Warmth,
+			Hunger,
+			Sunlight,
+			Weightless,
+			Wind,
+			Confidence,
+			Rain,
+			Water,
+			Love,
+		}
 
 
 		// SPRITE TESTING
@@ -91,6 +116,7 @@ namespace Hikawa
 			helper.Events.Input.ButtonPressed += OnButtonPressed;
 
 			SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
+			SpaceEvents.AfterGiftGiven += HikawaGiftsGiven;
 			
 			if (Config.DebugMode)
 			{
@@ -268,31 +294,6 @@ namespace Hikawa
 			_isPlayerAgencySuppressed = false;
 			_isPlayerSittingDown = false;
 
-			// TODO: CONTENT: Write and apply shrine buffs
-			switch (SaveData.LastShrineBuffId)
-			{
-				case 0:
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					break;
-				case 6:
-					break;
-				case 7:
-					break;
-				case 8:
-					break;
-				case 9:
-					break;
-			}
-
 			SaveData.AwaitingShrineBuff = false;
 			if (SaveData.ShrineBuffCooldown > 0)
 			{
@@ -376,7 +377,7 @@ namespace Hikawa
 
 		private void ReapplyBuff(UpdateTickedEventArgs e)
 		{
-			if (Game1.eventUp || !Context.IsWorldReady || SaveData.LastShrineBuffId < 1)
+			if (Game1.eventUp || !Context.IsWorldReady || SaveData.LastShrineBuffId <= 0 || SaveData.AwaitingShrineBuff)
 				return;
 
 			var buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(_ => _.which == ModConsts.BuffId);
@@ -384,52 +385,57 @@ namespace Hikawa
 			{
 				Game1.buffsDisplay.addOtherBuff(
 					buff = new Buff(
+						SaveData.LastShrineBuffId == Buffs.Comfort ? 1 : 0,
+						SaveData.LastShrineBuffId == Buffs.Water ? 2 : 0,
 						0,
 						0,
+						SaveData.LastShrineBuffId ==Buffs.Confidence ? 2 : 0,
+						SaveData.LastShrineBuffId == Buffs.Comfort ? 1 : 0,
 						0,
+						SaveData.LastShrineBuffId == Buffs.Weightless ? 16 : 0,
+						SaveData.LastShrineBuffId == Buffs.Comfort || SaveData.LastShrineBuffId == Buffs.Warmth ? 24 : 0,
+						SaveData.LastShrineBuffId == Buffs.Wind ? 1 : 0,
+						SaveData.LastShrineBuffId == Buffs.Sunlight ? 1 : 0,
+						SaveData.LastShrineBuffId == Buffs.Sunlight ? 1 : 0,
 						0,
-						0,
-						0,
-						0,
-						0,
-						0,
-						SaveData.LastShrineBuffId == 8 ? 1 : 0,
-						0,
-						0,
-						0,
-						source: ModManifest.UniqueID,
-						displaySource: i18n.Get("string.shrine.offering_accepted." + SaveData.LastShrineBuffId))
+						ModManifest.UniqueID,
+						i18n.Get("string.shrine.buff_inspect"))
 					{
-
+						sheetIndex = BuffIconIndex + (int) SaveData.LastShrineBuffId,
+						description = i18n.Get("string.shrine.offering_accepted." + SaveData.LastShrineBuffId)
 					});
 			}
 			buff.millisecondsDuration = 50;
 
 			switch (SaveData.LastShrineBuffId)
 			{
-				case 1: // Shivers () [寒]
+				case Buffs.Shivers: // Shivers () [寒]
 					break;
-				case 2: // Uneasy () [悪]
+				case Buffs.Uneasy: // Uneasy () [悪]
 					break;
-				case 3: // Hungry (Buff buffs) []
+				case Buffs.Comfort: // Comfort (Farming) [畑]
 					break;
-				case 4: // Comfort () [強]
+				case Buffs.Warmth: // Warm breeze (Loot) [金]
 					break;
-				case 5: // Warm breeze (Loot) [金]
+				case Buffs.Hunger: // Hungry (Buff buffs) [心]
 					break;
-				case 6: // Sunlight (Health) [光]
+				case Buffs.Sunlight: // Sunlight (Health) [光]
 					if (!e.IsMultipleOf(180))
 						break;
 					Game1.player.health = Math.Min(Game1.player.maxHealth, Game1.player.health + 1);
 					break;
-				case 7: // Weight (Stamina) [心]
+				case Buffs.Weightless: // Weight lifted (Stamina) [強]
 					if (!e.IsMultipleOf(180))
 						break;
 					Game1.player.Stamina = Math.Min(Game1.player.MaxStamina, Game1.player.Stamina + 1);
 					break;
-				case 8: // Wind (Speed) [風]
+				case Buffs.Wind: // Wind (Speed) [風]
 					break;
-				case 9: // Great confidence (Luck) [幸]
+				case Buffs.Confidence: // Great confidence (Luck) [幸]
+					break;
+				case Buffs.Rain: // Cold breeze (Rain) [雨]
+					break;
+				case Buffs.Water: // Water (Fishing) [魚]
 					break;
 			}
 		}
@@ -654,18 +660,12 @@ namespace Hikawa
 				case ModConsts.ActionShrineOffering:
 					if (SaveData.AtlantisInterlude)
 					{
-						where.createQuestionDialogue(
+						CreateQuestionDialogue(
 							i18n.Get("string.shrine.atlantis_prompt"),
-							new[]
+							new List<Response>
 							{
 								new Response("atlantis", i18n.Get("dialogue.response.ready")),
 								new Response("cancel", i18n.Get("dialogue.response.later"))
-							},
-							delegate(Farmer farmer, string answer)
-							{
-								if (answer == "cancel")
-									return;
-								StartMission();
 							});
 					}
 					else if (SaveData.AwaitingShrineBuff)
@@ -678,16 +678,15 @@ namespace Hikawa
 						Game1.drawObjectDialogue(i18n.Get("string.shrine.offering_cooldown"));
 						break;
 					}
-					where.createQuestionDialogue(
+					CreateQuestionDialogue(
 						i18n.Get("string.shrine.offering_prompt"), 
-						new[]
+						new List<Response>
 						{
 							new Response("offerS", $"{ModConsts.OfferingCostS}g"),
 							new Response("offerM", $"{ModConsts.OfferingCostM}g"),
 							new Response("offerL", $"{ModConsts.OfferingCostL}g"),
 							new Response("cancel", i18n.Get("dialogue.response.cancel"))
-						}, 
-						MakeShrineOffering);
+						});
 					break;
 
 				// Interactions with the Ema stand at the Shrine
@@ -707,7 +706,6 @@ namespace Hikawa
 
 				// Sit on benches
 				case ModConsts.ActionSit:
-					
 					var tileCoordinates = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
 					var direction = property.Length > 1 ? int.Parse(property[1]) : 2;
 					SitDownStart(tileCoordinates, direction);
@@ -721,16 +719,28 @@ namespace Hikawa
 		/// </summary>
 		public void CheckHeldObjectAction(Object o, GameLocation where)
 		{
-			if (!Game1.player.CanMove || o.isTemporarilyInvisible || _isPlayerAgencySuppressed)
+			if (!Game1.player.CanMove || o.isTemporarilyInvisible || _isPlayerAgencySuppressed 
+			    || !Game1.eventUp && !Game1.isFestival() && !Game1.fadeToBlack 
+			    && !Game1.player.swimming.Value && !Game1.player.bathingClothes.Value)
 				return;
 
-			if (o.Name != null && o.Name == "Warp Totem: Shrine")
+			if (string.IsNullOrEmpty(o.Name))
+				return;
+
+			switch (o.Name)
 			{
-				if (!Game1.eventUp && !Game1.isFestival() && !Game1.fadeToBlack
-				    && !Game1.player.swimming.Value && !Game1.player.bathingClothes.Value)
-				{
+				case "Warp Totem: Shrine":
 					StartWarpToShrine(o, where);
-				}
+					break;
+				case "Crystal Mirror":
+					var dialogue = new List<string>{ i18n.Get("dialogue.flee_inspect") };
+					var options = new List<Response>
+					{
+						new Response("flee", i18n.Get("dialogue.response.veryready")),
+						new Response("cancel", i18n.Get("dialogue.response.cancel")),
+					};
+					CreateInspectThenQuestionDialogue(dialogue, options);
+					break;
 			}
 		}
 
@@ -739,39 +749,43 @@ namespace Hikawa
 		/// </summary>
 		public void TryCheckForToolUse(Tool tool)
 		{
-			if (tool.Name == "Crystal Moon Wand")
+			switch (tool.Name)
 			{
-				Log.D("Wand: Start of anim");
-				Game1.playSound("wand");
-				Game1.player.FarmerSprite.animateOnce(new[]
-				{
-					new FarmerSprite.AnimationFrame(
-						57,
-						1500,
-						false,
-						false),
-					new FarmerSprite.AnimationFrame(
-						(short)Game1.player.FarmerSprite.CurrentFrame,
-						0,
-						false,
-						false,
-						delegate
-						{
-							Log.D("Wand: End of anim");
-						},
-						true)
-				});
-				Game1.screenGlowOnce(Color.Violet, false);
-				Utility.addSprinklesToLocation(
-					Game1.player.currentLocation, 
-					Game1.player.getTileX(), Game1.player.getTileY(), 
-					16, 
-					16, 
-					1300, 
-					20,
-					Color.White,
-					null,
-					true);
+				case "Crystal Moon Wand":
+					Log.D("Wand: Start of anim");
+					Game1.playSound("wand");
+					Game1.player.FarmerSprite.animateOnce(new[]
+					{
+						new FarmerSprite.AnimationFrame(
+							57,
+							1500,
+							false,
+							false),
+						new FarmerSprite.AnimationFrame(
+							(short)Game1.player.FarmerSprite.CurrentFrame,
+							0,
+							false,
+							false,
+							delegate
+							{
+								// TODO: SYSTEM: Crystal Moon Wand behaviours
+
+								Log.D("Wand: End of anim");
+							},
+							true)
+					});
+					Game1.screenGlowOnce(Color.Violet, false);
+					Utility.addSprinklesToLocation(
+						Game1.player.currentLocation, 
+						Game1.player.getTileX(), Game1.player.getTileY(), 
+						16, 
+						16, 
+						1300, 
+						20,
+						Color.White,
+						null,
+						true);
+					break;
 			}
 		}
 		
@@ -1179,6 +1193,29 @@ namespace Hikawa
 			}
 		}
 
+		private void FleeMission()
+		{
+			Log.W("Flee Mission");
+			
+			// TODO: CONTENT: Write and implement mission data
+			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
+			{
+
+			}
+		}
+
 		private void EndMission()
 		{
 			Log.W("End Mission");
@@ -1378,10 +1415,6 @@ namespace Hikawa
 		
 		private void MakeShrineOffering(Farmer farmer, string answer)
 		{
-			if (!answer.StartsWith("offer") 
-			    || !answer.EndsWith("S") && !answer.EndsWith("M") && !answer.EndsWith("L"))
-				return;
-
 			Game1.playSound("purchase");
 			SaveData.AwaitingShrineBuff = true;
 			var roll = Game1.player.DailyLuck;
@@ -1408,14 +1441,36 @@ namespace Hikawa
 					break;
 			}
 
-			Log.D($"Shrine: Rolled {roll} (with luck at{Game1.player.DailyLuck}) for offering {tribute}g.");
+			Log.D($"Shrine: Rolled {roll} (with luck at{Game1.player.DailyLuck}) for offering {tribute}g.",
+				Config.DebugMode);
 			
 			farmer.Money -= tribute;
 			SaveData.ShrineBuffCooldown = cooldown;
 			var whichBuff = (int)Math.Floor(roll);
 			if (whichBuff < 0) whichBuff = 0;
-			if (whichBuff > 9) whichBuff = 9;
-			SaveData.LastShrineBuffId = whichBuff;
+			if (whichBuff > (int) Buffs.Confidence) whichBuff = (int) Buffs.Confidence;
+
+			// Roll for extra effects
+			if (whichBuff > 0)
+			{
+				roll = Game1.random.NextDouble();
+				Log.D($"Shrine: Rerolled {roll}.",
+					Config.DebugMode);
+				if (roll < 0.05)
+				{
+					whichBuff = (int) Buffs.Rain;
+				}
+				else if (roll < 0.1)
+				{
+					whichBuff = (int) Buffs.Water;
+				}
+				else if (roll < 0.15)
+				{
+					whichBuff = (int) Buffs.Love;
+				}
+			}
+
+			SaveData.LastShrineBuffId = (Buffs) whichBuff;
 
 			farmer.FarmerSprite.animateOnce(new[]
 			{
@@ -1523,9 +1578,9 @@ namespace Hikawa
 			if (item.ParentSheetIndex == 434 || int.Parse(itemDescription[2]) <= 0)
 				return;
 			
-			// TODO: Test buff #7: Hungry
+			// TODO: Test buff: Hunger
 
-			if (SaveData.LastShrineBuffId == 7)
+			if (SaveData.LastShrineBuffId == Buffs.Hunger)
 			{
 				// Boost recovery
 				var energy = item.staminaRecoveredOnConsumption();
@@ -1603,6 +1658,58 @@ namespace Hikawa
 					var foodEnergy = item.staminaRecoveredOnConsumption();
 					Game1.player.Stamina -= Math.Min(foodEnergy, foodEnergy / (SaveData.BananaBunch * foodEnergy) * foodEnergy);
 				}
+			}
+		}
+		
+		private void HikawaGiftsGiven(object sender, EventArgsGiftGiven e)
+		{
+			// TODO: Buff effects for Love
+		}
+
+		#endregion
+
+		#region Dialogue Methods
+		
+		private void CreateInspectDialogue(string dialogue)
+		{
+			Game1.drawDialogueNoTyping(dialogue);
+		}
+
+		private void CreateQuestionDialogue(string question, List<Response> answers)
+		{
+			Game1.currentLocation.createQuestionDialogue(question, answers.ToArray(), DialogueAnswers);
+		}
+
+		/// <summary>
+		/// Creates a hybrid dialogue box using features of inspectDialogue and questionDialogue.
+		/// A series of dialogues is presented, with the final dialogue having assigned responses.
+		/// </summary>
+		private void CreateInspectThenQuestionDialogue(List<string> dialogues, List<Response> answerChoices)
+		{
+			Game1.currentLocation.afterQuestion = DialogueAnswers;
+			Game1.activeClickableMenu = new MultipleDialogueQuestion(Helper, dialogues, answerChoices);
+			Game1.dialogueUp = true;
+			Game1.player.canMove = false;
+		}
+
+		private void DialogueAnswers(Farmer who, string answer)
+		{
+			if (string.IsNullOrEmpty(answer) || answer == "cancel")
+				return;
+			var ans = answer.Split(' ');
+			switch (ans[0])
+			{
+				case "offerS":
+				case "offerM":
+				case "offerL":
+					MakeShrineOffering(who, answer);
+					break;
+				case "atlantis":
+					StartMission();
+					break;
+				default:
+					Log.E($"Invalid dialogue key: {answer}");
+					break;
 			}
 		}
 

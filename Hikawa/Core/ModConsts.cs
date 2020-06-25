@@ -20,6 +20,7 @@ namespace Hikawa
 
 		internal const string TilesheetPrefix = "z_hikawa";
 		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
+		internal const string BuffIconSpritesFile = TilesheetPrefix + "_bufficons";
 		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
 		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
 		internal const string CrowSpritesFile = TilesheetPrefix + "_crows";

@@ -1,0 +1,26 @@
+{
+  "Name": "Crystal Mirror",
+  "Description": "Gaze into the mirror to return from the Negaverse.",
+  "Category": "Junk",
+  "CategoryTextOverride": "",
+  "CategoryColorOverride": "0, 0, 0, 0",
+  "Edibility": -300,
+  "Price": 50,
+  "Recipe": {
+    "ResultCount": 1,
+    "Ingredients": [
+      {
+        "Object": 298,
+        "Count": 1
+      },
+      {
+        "Object": 638,
+        "Count": 1
+      },
+      {
+        "Object": 334,
+        "Count": 3
+      }
+    ]
+  }
+}

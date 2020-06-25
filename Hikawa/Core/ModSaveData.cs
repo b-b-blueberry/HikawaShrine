@@ -3,7 +3,7 @@
 	class ModSaveData
 	{
 		public bool AtlantisInterlude { get; set; }
-		public int LastShrineBuffId { get; set; }
+		public ModEntry.Buffs LastShrineBuffId { get; set; }
 		public bool AwaitingShrineBuff { get; set; }
 		public int ShrineBuffCooldown { get; set; }
 		public int StoryStock { get; set; }

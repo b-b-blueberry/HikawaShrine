@@ -1,13 +1,16 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
-using StardewValley;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+
+using StardewModdingAPI;
+using StardewValley;
+
+using Microsoft.Xna.Framework.Graphics;
 using xTile;
 using xTile.Dimensions;
 using xTile.ObjectModel;
 using xTile.Tiles;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.Editors
 {
@@ -20,7 +23,7 @@ namespace Hikawa.Editors
 			_helper = helper;
 		}
 
-		// Loader
+		/* Loader */
 
 		public bool CanLoad<T>(IAssetInfo asset)
 		{
@@ -38,23 +41,63 @@ namespace Hikawa.Editors
 			return (T) (object) null;
 		}
 		
-		// Editor
+		/* Editor */
+		
+		private float nearestMultiple(float value, float multiple)
+		{
+			return (float) Math.Round((decimal) value / (decimal) multiple,
+				MidpointRounding.AwayFromZero) * multiple;
+		}
 
 		public bool CanEdit<T>(IAssetInfo asset)
 		{
-			return asset.AssetNameEquals(@"Characters/schedules/Haley") 
+			return asset.AssetNameEquals(@"TileSheets/BuffsIcons")
+			       || asset.AssetNameEquals(@"Characters/schedules/Haley") 
 			       || asset.AssetNameEquals(@"Maps/Saloon")
 			       || asset.AssetNameEquals(@"Maps/Town");
 		}
-
+		
 		public void Edit<T>(IAssetData asset)
 		{
 			Log.D($"Editing {asset.AssetName}",
 				ModEntry.Instance.Config.DebugMode);
 
-			if (asset.AssetNameEquals(@"Characters/schedules/Haley"))
+			if (asset.AssetNameEquals(@"TileSheets/BuffsIcons"))
 			{
-				// Move, binch, get out the way
+				Log.D($"Patching {asset.AssetName}",
+					ModEntry.Instance.Config.DebugMode);
+
+				// Append sprites to the asset:
+				const int spriteSize = 16;//px
+				var source = _helper.Content.Load<Texture2D>(
+					Path.Combine(ModConsts.SpritesPath, ModConsts.BuffIconSpritesFile));
+				var dest = asset.AsImage();
+				var sourceRect = new Rectangle(0, 0, source.Width, source.Height);
+				
+				// Align the sprites to the asset tile dimensions
+				var ypos = Math.Min(
+					dest.Data.Bounds.Height,
+					(int) nearestMultiple(dest.Data.Bounds.Height, spriteSize));
+				var destRect = new Rectangle(0, ypos, source.Width, source.Height);
+
+				// Substitute the asset with a taller version to accomodate our sprites
+				var original = dest.Data;
+				var texture = new Texture2D(Game1.graphics.GraphicsDevice, original.Width, destRect.Bottom);
+				dest.ReplaceWith(texture);
+				dest.PatchImage(original);
+
+				// Patch the sprites into the expanded asset
+				dest.PatchImage(source, sourceRect, destRect);
+
+				// Update index for our elements in the asset
+				ModEntry.Instance.BuffIconIndex = ypos / spriteSize;
+
+				Log.D($"New buff icon index: {ModEntry.Instance.BuffIconIndex}",
+					ModEntry.Instance.Config.DebugMode);
+			}
+			else if (asset.AssetNameEquals(@"Characters/schedules/Haley"))
+			{
+				// Move binch, get out the way
 				var data = asset.AsDictionary<string, string>().Data;
 				foreach (var key in data.Keys.ToList())
 				{
