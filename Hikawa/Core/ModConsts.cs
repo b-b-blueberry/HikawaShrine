@@ -43,7 +43,7 @@ namespace Hikawa
 		internal const string TownSnippetId = ContentPrefix + "Town";
 		internal const string TownJojaSnippetId = TownSnippetId + "." + "Joja";
 		internal const string CorridorMapId = ContentPrefix + "Corridor";
-		internal const string NegativeMapId = ContentPrefix + "Negative";
+		internal const string VortexMapId = ContentPrefix + "Vortex";
 		// Tile actions
 		internal const string ActionEma = ContentPrefix + "Ema";
 		internal const string ActionShrineHall = ContentPrefix + "HallDoor";

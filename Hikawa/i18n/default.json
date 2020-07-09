@@ -7,6 +7,8 @@
   "dialogue.response.ready": "I'm ready!",
   "dialogue.response.veryready": "I'm sure!",
   "dialogue.response.later": "Not yet",
+  "dialogue.flee_inspect": "Looking into the mirror will escape from the Negaverse, and this chapter will remain open.",
+  "dialogue.flee_prompt": "Flee and return to the Shrine?",
 
   // World interaction strings
   "string.shrine.shop_closed": "Nobody's attending the souvenir shop at the moment.",
@@ -25,12 +27,14 @@
   "string.shrine.offering_accepted.7": "You feel a weight has been lifted.",
   "string.shrine.offering_accepted.8": "You feel the wind behind you.",
   "string.shrine.offering_accepted.9": "You feel a great sense of confidence.",
+  "string.shrine.offering_accepted.10": "You feel a cold breeze take hold.",
+  "string.shrine.offering_accepted.11": "You feel a change in the waters.",
 
   "string.shrine.atlantis_prompt": "Set off on the next chapter?",
   "string.shrine.atlantis_veryprompt": "This action will have consequences. Go ahead?",
 
   // Misc character strings
-  // todo: portrait codes
+  // TODO: ASSETS: Portrait codes
   "string.story.stock.chat_first": "Huh? You're a new face in town.$b#If you're looking for the old shrine, you're out of luck.",
   "string.story.stock.chat_after": "When that new chain store arrived, they dumped their stock at our steps.$b#I wish someone would just blow it up already.",
   "string.story.plant.mono1": "Such greed from these hungry townsfolk...", 
@@ -44,5 +48,5 @@
   "event.story.stock.0002": "speak HikawaJade \"Good day. I do like to meet my targets.\"",
   "event.story.stock.0003": "speak Morris \"You should be honoured to be a part of Joja Corporation's regional strategy!\"",
   "event.story.stock.0004": "speak HikawaRei \"What a bunch of creeps.\"",
-  "event.story.stock.0005": "speak HikawaRei \"You really did blow up their stockade, didn't you?$b#\"" // todo the rest of this -- gender flip case?
+  "event.story.stock.0005": "speak HikawaRei \"You really did blow up their stockade, didn't you?$b#\"" // TODO: ASSETS: the rest of this -- gender flip case?
 }

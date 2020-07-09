@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Objects;
 using xTile.Dimensions;
 using xTile.ObjectModel;
+using xTile.Tiles;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa
@@ -33,7 +34,7 @@ namespace Hikawa
 		internal IJsonAssetsApi JaApi;
 		private readonly GameObjects.OverlayEffectControl _overlayEffectControl = new GameObjects.OverlayEffectControl();
 
-		// Mini Sit
+		// Mini-Sit
 		private bool _isPlayerAgencySuppressed;
 		private bool _isPlayerSittingDown;
 		private readonly int[] _playerSittingFrames = {62, 117, 54, 117};
@@ -44,6 +45,9 @@ namespace Hikawa
 		private bool _whatAboutCatsCanTheySpawnToday;
 
 		// Others
+		private int AnimationTimer;
+		private int AnimationStage;
+		private float AnimationScale;
 		internal int BuffIconIndex = 24;
 
 		internal enum Buffs
@@ -479,7 +483,7 @@ namespace Hikawa
 
 				// Additional world interactions
 				if (btn.IsActionButton())
-					TryCheckForActions();
+					TryCheckForActions(e.Cursor.GrabTile);
 
 				// Debug functions
 				if (Config.DebugMode)
@@ -497,6 +501,10 @@ namespace Hikawa
 				SitDownEnd();
 			}
 		}
+		
+		#endregion
+
+		#region Mini-Sit
 
 		/// <summary>
 		/// Lock the player into a sitting-down animation facing a given direction until they press any key.
@@ -581,19 +589,23 @@ namespace Hikawa
 				verticalFlipped = direction == 0
 			});
 		}
+
+		#endregion
 		
+		#region Tile Actions
+
 		/// <summary>
 		/// Handles player interactions with custom mod elements.
 		/// </summary>
-		private void TryCheckForActions()
+		private void TryCheckForActions(Vector2 position)
 		{
-			CheckTileAction();
+			CheckTileAction(position);
 			if (Game1.player.ActiveObject == null || Game1.player.isRidingHorse())
 				return;
 			CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation);
 		}
 
-		private string[] GetTileProperty(Vector2 position)
+		private string[] GetTileAction(Vector2 position)
 		{
 			var tile = Game1.currentLocation.map.GetLayer("Buildings").PickTile(
 				new Location(
@@ -616,21 +628,10 @@ namespace Hikawa
 			return strArray;
 		}
 		
-		private void CheckTileAction()
-		{
-			var grabTile = new Vector2(Game1.getOldMouseX() + Game1.viewport.X, 
-				Game1.getOldMouseY() + Game1.viewport.Y) / Game1.tileSize;
-			if (!Utility.tileWithinRadiusOfPlayer(
-				(int)grabTile.X, (int)grabTile.Y, 1, Game1.player))
-				grabTile = Game1.player.GetGrabTile();
-
-			CheckTileAction(grabTile);
-		}
-
 		private void CheckTileAction(Vector2 position)
 		{
 			var where = Game1.currentLocation;
-			var property = GetTileProperty(position);
+			var property = GetTileAction(position);
 
 			if (property == null)
 				return;
@@ -714,6 +715,10 @@ namespace Hikawa
 			}
 		}
 
+		#endregion
+
+		#region Object Actions
+
 		/// <summary>
 		/// Method lifted from StardewValley.Object.performUseAction(Farmer who): Object.cs:2723 from ILSpy
 		/// </summary>
@@ -788,7 +793,7 @@ namespace Hikawa
 					break;
 			}
 		}
-		
+
 		#endregion
 
 		#region Manager Methods
@@ -1044,11 +1049,13 @@ namespace Hikawa
 					break;
 				}
 				
-				// Gap
-				case ModConsts.NegativeMapId:
+				// Vortex
+				case ModConsts.VortexMapId + "1":
+				case ModConsts.VortexMapId + "2":
+				case ModConsts.VortexMapId + "3":
 				{
-					// Overlaid crystals
-					// Obscuring fog around player
+					// Obscuring darkness
+					_overlayEffectControl.Enable(GameObjects.OverlayEffectControl.Effect.Dark);
 
 					break;
 				}
@@ -1165,78 +1172,6 @@ namespace Hikawa
 			npc.scheduleTimeToTry = 9999999;
 			npc.ignoreScheduleToday = false;
 			npc.followSchedule = true;
-		}
-
-		private void StartMission()
-		{
-			Log.W("Start Mission");
-
-			// If a mission requires that the player has a slot for an item eg. Wand, Mirror, and they don't have one, break out
-			//if (Game1.player.freeSpotsInInventory() < 3 && SaveData.StoryDoors > (int) ModConsts.Progress.Started || SaveData.StoryGap)
-
-			// TODO: CONTENT: Write and implement mission data
-			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
-			{
-
-			}
-		}
-
-		private void FleeMission()
-		{
-			Log.W("Flee Mission");
-			
-			// TODO: CONTENT: Write and implement mission data
-			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
-			{
-
-			}
-		}
-
-		private void EndMission()
-		{
-			Log.W("End Mission");
-			
-			// TODO: CONTENT: Write and implement mission data
-			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
-			{
-
-			}
-			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
-			{
-
-			}
 		}
 
 		public void StartWarpToShrine(Object o, GameLocation where) {
@@ -1501,6 +1436,61 @@ namespace Hikawa
 			});
 			_isPlayerAgencySuppressed = true;
 		}
+		
+		private void TouchVortexWarp()
+		{
+			Log.W("TouchVortexWarp");
+			_isPlayerAgencySuppressed = true;
+			Helper.Events.GameLoop.UpdateTicked += UpdateVortexWarp;
+			Game1.player.completelyStopAnimatingOrDoingAction();
+			AnimationTimer = AnimationStage = 0;
+		}
+
+		private void UpdateVortexWarp(object sender, UpdateTickedEventArgs e)
+		{
+			const int SpinsPerSide = 48;
+			const int StopSpeedingUp = 16;
+
+			// Spin the player with acceleration and deceleration
+			// TODO: SLEEPY: Correct this routine
+			AnimationTimer += (Math.Abs(AnimationStage - StopSpeedingUp) < StopSpeedingUp 
+				                  ? AnimationStage 
+				                  : StopSpeedingUp)
+				* AnimationStage < SpinsPerSide ? 1 : -1;
+
+			if (AnimationTimer % 48 == 0)
+			{
+				++AnimationStage;
+				Game1.player.FacingDirection = AnimationStage % 4;
+				Game1.playSoundPitched("toyPiano", AnimationTimer);
+			}
+
+			// Warp after spin-in
+			if (AnimationStage == SpinsPerSide)
+				MidVortexWarp();
+
+			// Exit after spin-out
+			if (AnimationStage >= SpinsPerSide * 2)
+				EndVortexWarp();
+		}
+
+		private void MidVortexWarp()
+		{
+			// Warp the player to the target position and location
+			var property = GetTileAction(Game1.player.Position / 64f);
+			var target = new Vector2(int.Parse(property[1]), int.Parse(property[2]));
+			Game1.warpFarmer(property[3] ?? Game1.currentLocation.Name, (int)target.X, (int)target.Y, false);
+			Game1.playSound("wand");
+		}
+
+		private void EndVortexWarp()
+		{
+			Log.W("EndVortexWarp");
+			_isPlayerAgencySuppressed = false;
+			Helper.Events.GameLoop.UpdateTicked -= UpdateVortexWarp;
+			Game1.player.completelyStopAnimatingOrDoingAction();
+			AnimationTimer = AnimationStage = 0;
+		}
 
 		public static bool IsItObonYet()
 		{
@@ -1531,6 +1521,86 @@ namespace Hikawa
 
 			return stock;
 		}
+
+		#endregion
+
+		#region Mission Methods
+		
+		private void StartMission()
+		{
+			Log.W("Start Mission");
+
+			// If a mission requires that the player has a slot for an item eg. Wand, Mirror, and they don't have one, break out
+			//if (Game1.player.freeSpotsInInventory() < 3 && SaveData.StoryDoors > (int) ModConsts.Progress.Started || SaveData.StoryGap)
+
+			// TODO: CONTENT: Write and implement mission data
+			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
+			{
+
+			}
+		}
+
+		private void FleeMission()
+		{
+			Log.W("Flee Mission");
+			
+			// TODO: CONTENT: Write and implement mission data
+			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
+			{
+
+			}
+		}
+
+		private void EndMission()
+		{
+			Log.W("End Mission");
+			
+			// TODO: CONTENT: Write and implement mission data
+			if (SaveData.StoryPlant == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryDoors == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryGap == (int) ModConsts.Progress.Started)
+			{
+
+			}
+			else if (SaveData.StoryTower == (int) ModConsts.Progress.Started)
+			{
+
+			}
+		}
+
+		#endregion
+
+		#region SpaceEvents
 		
 		private void HikawaBombExploded(object sender, EventArgsBombExploded e)
 		{

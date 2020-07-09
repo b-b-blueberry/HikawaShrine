@@ -137,7 +137,7 @@ namespace Hikawa.GameObjects.Critters
 						_state = State.StartSitting;
 					}
 
-					// todo: standing animations
+					// TODO: ASSETS: Standing animations
 					break;
 
 				case State.StartRunning:
@@ -234,7 +234,7 @@ namespace Hikawa.GameObjects.Critters
 								break;
 							case 2:
 								Log.W("Cat: Picked SKIP from Sitting");
-								// todo: sitting animations
+								// TODO: ASSETS: Sitting animations
 								break;
 						}
 					}

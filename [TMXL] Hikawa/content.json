@@ -1,5 +1,5 @@
 {
-  //todo: check out town warps? still broken? remove map properties from snippets
+  // TODO: DEBUG: Check out town warps? Still broken? Remove map properties from snippets
 
   "addMaps": [
     // Hikawa Shrine
@@ -12,10 +12,15 @@
     {
       "name": "blueberry.Hikawa.House",
       "file": "assets/HikawaHouse.tmx"
+    },
+    // TODO: DEBUG: Remove test maps
+    {
+      "name": "blueberry.Hikawa.Vortex1",
+      "file": "assets/HikawaVortex1.tmx"
     }
   ],
 
-  //todo: seasonal edits to Shrine
+  // TODO: CONTENT: Seasonal edits to Shrine
 
   "mergeMaps": [
     // Town - Shrine entrance

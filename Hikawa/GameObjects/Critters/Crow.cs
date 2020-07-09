@@ -63,7 +63,7 @@ namespace Hikawa.GameObjects.Critters
 			var angle = ModEntry.Vector.RadiansBetween(position, farmer.Position);
 			Log.W($"LookAt angle between crow ({position}) and {farmer.Name} ({farmer.Position}) == {angle}f");
 
-			// todo: select current frame based on angle, consider 'flip'
+			// TODO: METHOD: Select current frame based on angle, consider 'flip'
 			sprite.currentFrame = 0;
 		}
 		

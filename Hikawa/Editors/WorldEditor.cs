@@ -111,7 +111,7 @@ namespace Hikawa.Editors
 			}
 			else if (asset.AssetNameEquals(@"Maps/Saloon"))
 			{
-				// todo: make arcade machine conditional based on story progression
+				// TODO: CONTENT: Make arcade machine conditional based on story progression
 				// have an overnight event adding it to the location
 				
 				// Saloon - Sailor V Arcade Machine
@@ -139,15 +139,15 @@ namespace Hikawa.Editors
 					var layer = saloonMap.GetLayer("Front");
 					StaticTile[] tileAnim =
 					{
-						new StaticTile(layer, tileSheet, blendMode, 0),
-						new StaticTile(layer, tileSheet, blendMode, 2)
+						new StaticTile(layer, tileSheet, blendMode, 1),
+						new StaticTile(layer, tileSheet, blendMode, 3)
 					};
 
 					layer.Tiles[x, y] = new AnimatedTile(
 						layer, tileAnim, 1000);
 					layer = saloonMap.GetLayer("Buildings");
 					layer.Tiles[x, y + 1] = new StaticTile(
-						layer, tileSheet, blendMode, 1);
+						layer, tileSheet, blendMode, 2);
 					layer.Tiles[x, y + 1].Properties.Add("Action",
 						new PropertyValue(ModConsts.ArcadeMinigameId));
 					layer = saloonMap.GetLayer("Back");
@@ -191,7 +191,7 @@ namespace Hikawa.Editors
 					townMap.LoadTileSheets(Game1.mapDisplayDevice);
 
 					// Joja stockade
-					//todo: file check for !explosion flag
+					// TODO: SYSTEM: File check for !explosion flag
 
 					// Apply tilesheets to snippet
 					var tilesheetNames = new List<string>();

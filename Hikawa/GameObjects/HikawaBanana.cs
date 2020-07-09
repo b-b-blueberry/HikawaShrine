@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using StardewValley.TerrainFeatures;
-using PyTK.CustomElementHandler;
+
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.TerrainFeatures;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using xTile.Dimensions;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
+using PyTK.CustomElementHandler;
+
 namespace Hikawa.GameObjects
 {
+	// TODO: ASSETS: Add leaf sprites to banana tree
+
 	public class HikawaBanana : FruitTree, ISaveElement
 	{
 		private readonly IReflectedField<List<Leaf>> _leaves;
@@ -66,8 +71,8 @@ namespace Hikawa.GameObjects
 			if (data.ContainsKey(saplingIndex))
 			{
 				var rawData = data[saplingIndex].Split('/');
-				treeType.Value = Convert.ToInt32(rawData[0]);
-				indexOfFruit.Value = Convert.ToInt32(rawData[2]);
+				treeType.Value = int.Parse(rawData[0]);
+				indexOfFruit.Value = int.Parse(rawData[2]);
 				fruitSeason.Value = Game1.currentSeason;
 				Log.W("Reloaded HikawaBanana");
 			}

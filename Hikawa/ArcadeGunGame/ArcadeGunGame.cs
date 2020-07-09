@@ -170,7 +170,7 @@ namespace Hikawa
 			{BulletType.Bubble, 1f},
 		};
 		private static readonly Dictionary<BulletType, float> BulletSpin = new Dictionary<BulletType, float>
-		{ // todo: add values in radians
+		{ // TODO: CONTENT: Add values in radians
 			{BulletType.None, 0f},
 			{BulletType.Player, 0f},
 			{BulletType.Gun, 0f},
@@ -330,7 +330,7 @@ namespace Hikawa
 		// Bullets
 		public static readonly int BulletSpriteY = CakeSprite.Y + CakeSprite.Height;
 		public static readonly Dictionary<BulletType, Rectangle> BulletSrcRects = new Dictionary<BulletType, Rectangle>
-		{ // todo: remove??
+		{ // TODO: CLEANUP: Remove bullet source rects??
 			{ BulletType.None, new Rectangle(0, BulletSpriteY, TD, TD) }, 
 			{ BulletType.Player, new Rectangle(0, BulletSpriteY, TD, TD) },
 			{ BulletType.Gun, new Rectangle(0, BulletSpriteY, TD, TD) },
@@ -392,7 +392,7 @@ namespace Hikawa
 		// Split-body sprites (body, arms or legs individually)
 		private const int PlayerSplitWH = TD * 2;
 
-		// todo: resolve special/power animations
+		// TODO: CONTENT: Resolve special/power animations
 
 		// Full-body pre-special power pose
 		private const int PlayerPoseFrames = 3;
@@ -948,7 +948,7 @@ namespace Hikawa
 			_onGameOver = true;
 			_gameRestartTimer = 2000;
 
-			// todo: ingame event involving arcade gungame
+			// TODO: ASSETS: Ingame event involving arcade gungame
 			if (Game1.currentLocation.currentEvent != null)
 				++Game1.currentLocation.currentEvent.CurrentCommand;
 		}
@@ -1020,16 +1020,16 @@ namespace Hikawa
 			Log.D("EndCurrentStage()");
 			_player.MovementDirections.Clear();
 
-			// todo: set cutscenes, begin events, etc
-			// todo: add stage time to score
-			// todo: purge remaining monsters and bullets
-			// todo: consume remaining powerups one-by-one
+			// TODO: METHOD: Set cutscenes, begin events, etc
+			// TODO: METHOD: Add stage time to score
+			// TODO: METHOD: Purge remaining monsters and bullets
+			// TODO: METHOD: Consume remaining powerups one-by-one
 		}
 
 		private static void EndCurrentWorld()
 		{
 			Log.D("EndCurrentWorld()");
-			// todo: set cutscenes, begin events, etc
+			// TODO: SYSTEM: Set cutscenes, begin events, etc
 		}
 
 		private void PlayMusic(string id)
@@ -1056,7 +1056,7 @@ namespace Hikawa
 			switch (_whichStage)
 			{
 				default:
-					// todo: set health and timer per stage/world/boss
+					// TODO: CONTENT: Set health and timer per stage/world/boss
 
 					_stageEnemyHealth = _stageEnemyHealthGoal = 30;
 					_stageMilliseconds = StageTimeInitial;
@@ -1337,7 +1337,7 @@ namespace Hikawa
 						_stageMilliseconds = StageTimeInitial;
 					}
 
-					// todo: remove DEBUG cake spawning
+					// TODO: DEBUG: Remove DEBUG cake spawning
 					/*
 					if (Game1.random.NextDouble() > 0.75d)
 					{
@@ -1348,7 +1348,7 @@ namespace Hikawa
 					}
 					*/
 
-					// todo: remove DEBUG monster spawning
+					// TODO: DEBUG: Remove DEBUG monster spawning
 					if (!_enemies.Any())
 					{
 						var which = MonsterSpecies.Mafia;
@@ -1525,7 +1525,7 @@ namespace Hikawa
 			// Self-note:
 			// Draw all HUD elements to depth 1f to show through flashes, effects, objects, etc.
 
-			// todo: draw extra flair around certain hud elements
+			// TODO: ASSETS: Draw extra flair around certain hud elements
 			// see 1581165827502.jpg of viking with hud
 
 			// Player total score
@@ -1683,7 +1683,7 @@ namespace Hikawa
 			_player.Draw(b);
 			DrawHud(b);
 			if (ModEntry.Instance.Config.DebugMode)
-				DrawTracer(b); // todo: remove DEBUG tracer
+				DrawTracer(b); // TODO: DEBUG: Remove DEBUG tracer
 
 			// Draw game objects
 			foreach (var bullet in _playerBullets)
@@ -1959,8 +1959,8 @@ namespace Hikawa
 			// Show cutscene between worlds
 			else if (_onWorldComplete)
 			{
-				// todo: display world stats per stage
-				// todo: display total time
+				// TODO: METHOD: Display world stats per stage
+				// TODO: METHOD: Display total time
 			}
 		}
 
@@ -2190,7 +2190,7 @@ namespace Hikawa
 				Health = HealthMax;
 				Lives = GameLivesDefault;
 				Speed = SpeedMax;
-				Energy = 3; // todo: return to 0
+				Energy = 3; // TODO: DEBUG: Return value to 0
 				ActiveSpecialPower = SpecialPower.None;
 				ActivePowerPhase = PowerPhase.None;
 				ActiveBulletType = BulletType.Player;
@@ -2242,7 +2242,7 @@ namespace Hikawa
 
 				if (survives)
 				{
-					// todo: animate player
+					// TODO: ASSETS: Animate player on taking damage
 
 					// Flash translucent red
 					_screenFlashColor = new Color(new Vector4(255, 0, 0, 0.25f));
@@ -2264,7 +2264,7 @@ namespace Hikawa
 			/// </summary>
 			internal override void BeforeDeath()
 			{
-				// todo: fill this function with pre-death animation timer etc
+				// TODO: METHOD: Fill this function with pre-death animation timer etc
 
 				Game1.playSound("cowboy_dead");
 				Die();
@@ -2275,7 +2275,7 @@ namespace Hikawa
 			/// </summary>
 			protected override void Die()
 			{
-				// todo: understand wtf this function does
+				// TODO: CLEANUP: Understand wtf this function does
 
 				--Lives;
 				RespawnTimer = GameDeathDelay;
@@ -2345,7 +2345,7 @@ namespace Hikawa
 			/// <param name="extra">Inherited from endFunction in TemporaryAnimtedSprite.</param>
 			internal void GameOverCheck(int extra)
 			{
-				// todo probably remove this function, this and Die() are messed up entirely
+				// TODO: CLEANUP: Probably remove this function, this and Die() are messed up entirely
 
 				if (Lives >= 0)
 				{
@@ -2495,7 +2495,7 @@ namespace Hikawa
 				else
 					HurtTimer -= elapsedGameTime.Milliseconds;
 
-				// todo: relegate outside player update routines to this method
+				// TODO: CLEANUP: Relegate outside player update routines to this method
 				// Run down player invincibility
 				if (InvincibleTimer <= 0)
 				{ }
@@ -3049,7 +3049,7 @@ namespace Hikawa
 				}
 				else
 				{
-					// todo: multi-bullet sprays
+					// TODO: METHOD: Multi-bullet sprays
 				}
 
 				var str = "";
@@ -3063,7 +3063,7 @@ namespace Hikawa
 				var xpos = 0;
 				if (Flying)
 				{
-					// todo: flying enemem
+					// TODO: SYSTEM: Flying enemem
 				}
 				else
 				{
@@ -3114,7 +3114,7 @@ namespace Hikawa
 				switch (Species)
 				{
 					default:
-						// todo reset move target for some species
+						// TODO: METHOD: Reset move target for some species
 						MovementTarget = Rectangle.Empty;
 						if (FireTimer <= 0)
 							FireTimer = MonsterFireTime[Species];
@@ -3232,13 +3232,13 @@ namespace Hikawa
 					{	// Unload the next bullet in a staggered sequence for this species
 						if (FireTimer / MonsterBullets[Species] % elapsedGameTime.Milliseconds == 0)
 						{
-							// todo: monster staggered firing
+							// TODO: METHOD: Monster staggered firing
 						}
 					}
 				}
 				else if (HurtTimer <= 0)
 				{
-					// todo: player contact damage check when necessary
+					// TODO: METHOD: Player contact damage check when necessary
 
 					// While moving
 					if (MovementTarget != Rectangle.Empty)
@@ -3334,7 +3334,7 @@ namespace Hikawa
 					SpriteEffects.None,
 					(Position.Y - yOffsetFromFlying) / 10000f);
 
-				// todo: draw a flashing crosshair over the bullet target
+				// TODO: METHOD: Draw a flashing crosshair over the bullet target
 			}
 		}
 
