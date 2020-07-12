@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,8 +18,11 @@ namespace Hikawa.GameObjects
 			None,
 			Mist,
 			Haze,
+			Dark,
+			StuffAbove,
+			StuffBelow,
 			Stars,
-			Dark
+			Count
 		}
 
 		private const float TextureScale = 4f;
@@ -28,6 +32,7 @@ namespace Hikawa.GameObjects
 		private float _fxYMotion;
 		private float _fxOpacity;
 		private float _fxRotationRad;
+		private bool _isGluedToViewport;
 
 		// Variables changing on-ticked
 		private bool _shouldDrawEffects;
@@ -42,42 +47,90 @@ namespace Hikawa.GameObjects
 			Set(Effect.Mist);
 		}
 
-		internal void Set(Effect whichEffect)
+		internal bool Set(Effect whichEffect)
 		{
 			Reset();
 			_currentEffect = whichEffect;
 			switch (whichEffect)
 			{
 				case Effect.Mist:
+					_fxTexture = Game1.temporaryContent.Load<Texture2D>(
+						"LooseSprites\\steamAnimation");
 					_fxXMotion = 0.05f;
 					_fxYMotion = 0.02f;
 					_fxOpacity = 0.8f;
 					_fxRotationRad = (float)(90d * Math.PI / 180d);
-					_fxTexture = Game1.temporaryContent.Load<Texture2D>(
-						"LooseSprites\\steamAnimation");
 					break;
 
 				case Effect.Haze:
+					_fxTexture = Game1.temporaryContent.Load<Texture2D>(
+						"LooseSprites\\steamAnimation");
 					_fxXMotion = 0.005f;
 					_fxYMotion = 0.035f;
 					_fxOpacity = 0.5f;
-					_fxTexture = Game1.temporaryContent.Load<Texture2D>(
-						"LooseSprites\\steamAnimation");
 					break;
 
 				case Effect.Stars:
+					// TODO: CONTENT: Effect.Stars
+
+					Log.E("Did not enable Effect.Stars.");
+					break;
+					
 					_fxYMotion = 0.5f;
 					_fxOpacity = 0.8f;
-
-					Log.E("No texture loaded for Effect.Stars.");
-					Disable();
 					break;
 
 				case Effect.Dark:
 					_fxTexture = ModEntry.Instance.Helper.Content.Load<Texture2D>(
-						Path.Combine(ModConsts.SpritesPath, ModConsts.ExtraSpritesFile + ".png"));
+						Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
+					_isGluedToViewport = true;
+					break;
+
+				case Effect.StuffAbove:
+					if (!Game1.currentLocation.Name.StartsWith(ModConsts.VortexMapId))
+					{
+						Log.E("Did not enable Effect.StuffAbove: Not in Vortex.");
+						break;
+					}
+
+					var str = "Tilesheets:";
+					var sources = new List<string>();
+					var names = new List<string>();
+					foreach (var tilesheet in Game1.currentLocation.Map.TileSheets)
+					{
+						names.Add(tilesheet.Id);
+						sources.Add(tilesheet.ImageSource);
+					}
+					for (var i = 0; i < sources.Count; ++i)
+					{
+						str = $"{str}\n{names[i]}: {sources[i]}";
+					}
+					Log.W(str);
+
+					_fxTexture = ModEntry.Instance.Helper.Content.Load<Texture2D>(
+						Game1.currentLocation.Map.GetTileSheet(ModConsts.BusSpritesFile).ImageSource);
+					_isGluedToViewport = true;
+					
+					break;
+
+				case Effect.None:
+					Log.W("Did not enable overlay: None set.");
 					break;
 			}
+
+			if (!_isGluedToViewport)
+			{
+				_fxPosition = new Vector2(
+					Game1.viewport.X,
+					Game1.viewport.Y);
+			}
+			
+			return _fxTexture != null;
+		}
+
+		internal Effect CurrentEffect()
+		{
+			return _currentEffect;
 		}
 
 		internal bool IsEnabled()
@@ -87,21 +140,27 @@ namespace Hikawa.GameObjects
 
 		internal void Enable(Effect whichEffect)
 		{
-			Log.W("Enabled mist");
-			ModEntry.Instance.Helper.Events.Display.RenderedWorld += OnRenderedWorld;
+			if (Set(whichEffect))
+			{
+				ModEntry.Instance.Helper.Events.Display.RenderedWorld += OnRenderedWorld;
+				_shouldDrawEffects = true;
 
-			Set(whichEffect);
-
-			_shouldDrawEffects = true;
-			_fxPosition = new Vector2(-Game1.viewport.X, -Game1.viewport.Y);
+				Log.W($"Enabled {_currentEffect}");
+			}
+			else
+			{
+				Log.W($"Did not enable overlay: {_currentEffect}.");
+				Disable();
+			}
 		}
 
 		internal void Disable()
 		{
-			Log.W("Disabled mist");
+			Log.W($"Disabled {_currentEffect}");
+
 			Reset();
-			_shouldDrawEffects = false;
 			ModEntry.Instance.Helper.Events.Display.RenderedWorld -= OnRenderedWorld;
+			_shouldDrawEffects = false;
 		}
 
 		internal void Reset()
@@ -110,6 +169,7 @@ namespace Hikawa.GameObjects
 			_fxXMotion = _fxYMotion = _fxOpacity = _fxRotationRad = 0f;
 			_fxPosition = Vector2.Zero;
 			_fxTexture = null;
+			_isGluedToViewport = false;
 		}
 
 		internal void Toggle()
@@ -128,7 +188,8 @@ namespace Hikawa.GameObjects
 
 		internal void Update(GameTime time)
 		{
-			_fxPosition -= Game1.getMostRecentViewportMotion();
+			if (!_isGluedToViewport)
+				_fxPosition -= Game1.getMostRecentViewportMotion();
 
 			if (_fxXMotion <= 0)
 				return;
@@ -146,74 +207,113 @@ namespace Hikawa.GameObjects
 		/// </summary>
 		internal void DrawMist(SpriteBatch b)
 		{
-			if (_currentEffect == Effect.Mist || _currentEffect == Effect.Haze || _currentEffect == Effect.Stars)
+			switch (_currentEffect)
 			{
-				for (var x = _fxPosition.X + _fxXOffset;
-					x < Game1.graphics.GraphicsDevice.Viewport.Width + 256f;
-					x += 256f)
+				case Effect.Mist:
+				case Effect.Haze:
+				case Effect.Stars:
 				{
-					for (var y = _fxPosition.Y + _fxYOffset;
-						y < Game1.graphics.GraphicsDevice.Viewport.Height + 128f;
-						y += 256f)
+					for (var x = _fxPosition.X + _fxXOffset;
+						x < Game1.graphics.GraphicsDevice.Viewport.Width + 256f;
+						x += 256f)
 					{
-						b.Draw(
-							_fxTexture,
-							new Vector2(x, y),
-							new Rectangle(0, 0, 64, 64),
-							Color.White * _fxOpacity,
-							_fxRotationRad,
+						for (var y = _fxPosition.Y;
+							y < Game1.graphics.GraphicsDevice.Viewport.Height + 128f;
+							y += 256f)
+						{
+							b.Draw(
+								_fxTexture,
+								new Vector2(x, y),
+								new Rectangle(0, 0, 64, 64),
+								Color.White * _fxOpacity,
+								_fxRotationRad,
+								Vector2.Zero,
+								TextureScale,
+								SpriteEffects.None,
+								1f);
+						}
+					}
+
+					break;
+				}
+
+				case Effect.Dark:
+				{
+					const int gradientSize = 160;
+					const int sourceRectYPos = 272;
+
+					var topW = Game1.graphics.GraphicsDevice.Viewport.Width;
+					var topH = (int)(Game1.graphics.GraphicsDevice.Viewport.Height - gradientSize * TextureScale) / 2;
+					var sideW = (int)(Game1.graphics.GraphicsDevice.Viewport.Width - gradientSize * TextureScale) / 2;
+					var sideH = Game1.graphics.GraphicsDevice.Viewport.Height - topH * 2;
+
+					var topleft = new Vector2(
+						Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Center.X - gradientSize / 2 * TextureScale,
+						Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Center.Y - gradientSize / 2 * TextureScale);
+
+					// Darkness gradient
+					b.Draw(
+						_fxTexture,
+						new Rectangle(
+							(int)(topleft.X),
+							(int)(topleft.Y),
+							(int)(gradientSize * TextureScale),
+							(int)(gradientSize * TextureScale)),
+						new Rectangle(0, sourceRectYPos, gradientSize, gradientSize),
+						Color.White,
+						0f,
+						Vector2.Zero,
+						SpriteEffects.None,
+						1f);
+
+					// Darkness fill for space between gradient and screen border
+					var positions = new[]
+					{
+						new Vector2(topleft.X - sideW, topleft.Y - topH), // Top
+						new Vector2(topleft.X + gradientSize * TextureScale, topleft.Y), // Right
+						new Vector2(topleft.X - sideW, topleft.Y + gradientSize * TextureScale), // Bottom
+						new Vector2(topleft.X - sideW, topleft.Y), // Left
+					};
+
+					// TODO: SYSTEM: Correct Effect.Dark after StuffAbove has been sorted
+
+					for (var i = 0; i < positions.Length; ++i)
+					{
+						// TODO: TESTING: Conditional draw for Overlay Dark border
+						if (i % 2 == 0 && topH <= 1f
+						    || i % 2 == 1 && sideW <= 1f)
+							continue;
+
+						b.Draw(_fxTexture,
+							new Rectangle(
+								(int) positions[i].X,
+								(int) positions[i].Y,
+								i % 2 == 0 ? topW : sideW,
+								i % 2 == 0 ? topH : sideH),
+							new Rectangle(0, sourceRectYPos, 1, 1),
+							Color.White,
+							0f,
 							Vector2.Zero,
-							TextureScale,
 							SpriteEffects.None,
 							1f);
 					}
+
+					break;
 				}
-			}
-			else if (_currentEffect == Effect.Dark)
-			{
-				// Darkness gradient
-				const int gradientSize = 96;
-				b.Draw(
-					_fxTexture,
-					new Rectangle(
-						(int)(_fxPosition.X + _fxXOffset),
-						(int)(_fxPosition.Y + _fxYOffset),
-						(int)(gradientSize * TextureScale),
-						(int)(gradientSize * TextureScale)),
-					new Rectangle(0, 144, gradientSize, gradientSize),
-					Color.White,
-					0f,
-					Vector2.Zero,
-					SpriteEffects.None,
-					1f);
 
-				// Darkness fill for space between gradient and screen border
-				var gap = new Vector2(
-					Game1.graphics.GraphicsDevice.Viewport.Width - gradientSize * TextureScale,
-					Game1.graphics.GraphicsDevice.Viewport.Height - gradientSize * TextureScale);
-				var positions = new[]
+				case Effect.StuffAbove:
 				{
-					new Vector2(_fxPosition.X, _fxPosition.Y - gap.Y), // Top
-					new Vector2(_fxPosition.X - gap.X, _fxPosition.Y), // Left
-					new Vector2(_fxPosition.X, _fxPosition.Y + gradientSize * TextureScale), // Bottom
-					new Vector2(_fxPosition.X + gradientSize * TextureScale, _fxPosition.Y) // Right
-				};
-				for (var i = 0; i < 4; ++i)
-				{
-					// TODO: TESTING: Conditional draw for Overlay Dark border
-					if (i % 2 == 0 && gap.X <= 1f)
-						continue;
-					if (i % 2 == 1 && gap.Y <= 1f)
-						continue;
+					// TODO: CONTENT: Test Effect.StuffAbove
 
+					var gap = new Vector2(
+						Game1.graphics.GraphicsDevice.Viewport.Width - _fxTexture.Width * TextureScale,
+						Game1.graphics.GraphicsDevice.Viewport.Height - _fxTexture.Height * TextureScale);
+					
 					b.Draw(_fxTexture,
-						new Rectangle(
-							(int)positions[i].X,
-							(int)positions[i].Y,
-							(int)gap.X,
-							(int)gap.Y * (i % 2 == 0 ? 1 : 2)), // Stretch sides to fill out corners
-						new Rectangle(0, 0, 1, 1),
-						Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+						_fxPosition,
+						Color.White);
+
+					break;
 				}
 			}
 		}

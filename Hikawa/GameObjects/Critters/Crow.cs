@@ -30,7 +30,7 @@ namespace Hikawa.GameObjects.Critters
 		public Crow(bool isDeimos, Vector2 position, int hopRange)
 		{
 			var asset = ModEntry.Instance.Helper.Content.GetActualAssetKey(
-				Path.Combine(ModConsts.SpritesPath, ModConsts.CrowSpritesFile + ".png"));
+				Path.Combine(ModConsts.SpritesPath, $"{ModConsts.CrowSpritesFile}.png"));
 			sprite = new AnimatedSprite(asset, 0, 32, 32);
 			
 			_isDeimos = isDeimos;

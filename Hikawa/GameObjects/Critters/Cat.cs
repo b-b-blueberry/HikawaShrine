@@ -44,7 +44,7 @@ namespace Hikawa.GameObjects.Critters
 		public Cat(Vector2 position, int baseFrame, int scareRange, bool flip)
 		{
 			var asset = ModEntry.Instance.Helper.Content.GetActualAssetKey(Path.Combine(
-				ModConsts.SpritesPath, ModConsts.CatSpritesFile + ".png"));
+				ModConsts.SpritesPath, $"{ModConsts.CatSpritesFile}.png"));
 			sprite = new AnimatedSprite(asset, baseFrame, 32, 32);
 
 			_state = State.Idle;

@@ -30,17 +30,17 @@
   "string.shrine.offering_accepted.10": "You feel a cold breeze take hold.",
   "string.shrine.offering_accepted.11": "You feel a change in the waters.",
 
-  "string.shrine.atlantis_prompt": "Set off on the next chapter?",
-  "string.shrine.atlantis_veryprompt": "This action will have consequences. Go ahead?",
+  "string.shrine.interloper_prompt": "Set off on the next chapter?",
+  "string.shrine.interloper_veryprompt": "This action will have consequences. Go ahead?",
 
   // Misc character strings
   // TODO: ASSETS: Portrait codes
   "string.story.stock.chat_first": "Huh? You're a new face in town.$b#If you're looking for the old shrine, you're out of luck.",
   "string.story.stock.chat_after": "When that new chain store arrived, they dumped their stock at our steps.$b#I wish someone would just blow it up already.",
-  "string.story.plant.mono1": "Such greed from these hungry townsfolk...", 
-  "string.story.plant.mono1plus": "Such energy, what potential!", 
-  "string.story.plant.mono2": "Your energy will feed the dark!", 
-  "string.story.plant.mono3": "Ha ha ha...", 
+  "string.story.plant.mono1": "Such greed from these hungry townsfolk...",
+  "string.story.plant.mono1plus": "Such energy, what potential!",
+  "string.story.plant.mono2": "Your energy will feed the dark!",
+  "string.story.plant.mono3": "Ha ha ha...",
 
   // Event strings
   "event.story.stock.0000": "speak \"HikawaRei What the ..?\"",

@@ -25,6 +25,7 @@ namespace Hikawa
 		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
 		internal const string CrowSpritesFile = TilesheetPrefix + "_crows";
 		internal const string CatSpritesFile = TilesheetPrefix + "_cats";
+		internal const string BusSpritesFile = TilesheetPrefix + "_buses";
 
 
 		/* Game objects */
@@ -51,6 +52,7 @@ namespace Hikawa
 		internal const string ActionShrineOffering = ContentPrefix + "Offering";
 		internal const string ActionLockbox = ContentPrefix + "Lockbox";
 		internal const string ActionSit = ContentPrefix + "Sit";
+		internal const string ActionVortex = ContentPrefix + "Vortex";
 		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;
 		internal const int OfferingCostS = 75;
 		internal const int OfferingCostM = 330;
@@ -74,16 +76,6 @@ namespace Hikawa
 			new Vector2(47, 18), // Wilderness
 			new Vector2(38, 40)  // Four Corners
 		};
-		// Events and story
-		internal enum Progress
-		{
-			None,
-			Started,
-			ExtraStage1,
-			ExtraStage2,
-			ExtraStage3,
-			Complete
-		}
 
 		// Values and things
 		internal const int BuffId = 870084643;

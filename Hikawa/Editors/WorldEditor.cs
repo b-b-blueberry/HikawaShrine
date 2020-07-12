@@ -70,7 +70,7 @@ namespace Hikawa.Editors
 				// Append sprites to the asset:
 				const int spriteSize = 16;//px
 				var source = _helper.Content.Load<Texture2D>(
-					Path.Combine(ModConsts.SpritesPath, ModConsts.BuffIconSpritesFile));
+					Path.Combine(ModConsts.SpritesPath, $"{ModConsts.BuffIconSpritesFile}.png"));
 				var dest = asset.AsImage();
 				var sourceRect = new Rectangle(0, 0, source.Width, source.Height);
 				

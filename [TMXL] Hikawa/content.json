@@ -17,6 +17,8 @@
     {
       "name": "blueberry.Hikawa.Vortex1",
       "file": "assets/HikawaVortex1.tmx"
+
+      // TODO: DEBUG: Resolve parallax motion in Vortex
     }
   ],
 

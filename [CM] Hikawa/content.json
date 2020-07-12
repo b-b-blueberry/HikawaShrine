@@ -31,6 +31,36 @@
       "File": "assets/rainsound_ahh.wav",
       "Loop": false,
       "Preload": false
+    },
+    {
+      "Id": "blueberry.Hikawa.vortex0",
+      "File": "assets/vortex0.wav",
+      "Loop": false,
+      "Preload": false
+    },
+    {
+      "Id": "blueberry.Hikawa.vortex1",
+      "File": "assets/vortex1.wav",
+      "Loop": false,
+      "Preload": false
+    },
+    {
+      "Id": "blueberry.Hikawa.vortex2",
+      "File": "assets/vortex2.wav",
+      "Loop": false,
+      "Preload": false
+    },
+    {
+      "Id": "blueberry.Hikawa.vortex3",
+      "File": "assets/vortex3.wav",
+      "Loop": false,
+      "Preload": false
+    },
+    {
+      "Id": "blueberry.Hikawa.vortex4",
+      "File": "assets/vortex4.wav",
+      "Loop": false,
+      "Preload": false
     }
   ]
 }
