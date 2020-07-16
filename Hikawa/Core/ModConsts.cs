@@ -23,6 +23,7 @@ namespace Hikawa
 		internal const string BuffIconSpritesFile = TilesheetPrefix + "_bufficons";
 		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
 		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
+		internal const string BundlesSpritesFile = TilesheetPrefix + "_bundles";
 		internal const string CrowSpritesFile = TilesheetPrefix + "_crows";
 		internal const string CatSpritesFile = TilesheetPrefix + "_cats";
 		internal const string BusSpritesFile = TilesheetPrefix + "_buses";
@@ -38,6 +39,7 @@ namespace Hikawa
 		internal const string AmiNpcId = ContentPrefix + "Ami";
 		internal const string UsaNpcId = ContentPrefix + "Usagi";
 		internal const string GrampsNpcId = ContentPrefix + "Grandpa";
+		internal const string YuuichiroNpcId = ContentPrefix + "Yuuichiro";
 		// Maps
 		internal const string ShrineMapId = ContentPrefix + "Shrine";
 		internal const string HouseMapId = ContentPrefix + "House";
@@ -59,9 +61,20 @@ namespace Hikawa
 		internal const int OfferingCostL = 825;
 
 		// Coordinates
+		internal const string DebugDefaultWarpTo = ShrineMapId;
+
+		internal static readonly Dictionary<string, Location> DefaultWarps = new Dictionary<string, Location>
+		{
+			//{ ShrineMapId, new Location(39, 60) },
+			{ ShrineMapId, new Location(45, 45) },
+			{ HouseMapId, new Location(5, 19) },
+			{ "Town", new Location(20, 5) },
+			{ VortexMapId + 1, new Location(25, 40) },
+		};
+
+		internal static readonly Location TotemWarpPosition = new Location(69, 45);
 		internal static readonly Vector2 StoryStockPosition = new Vector2(20, 10);
 		internal static readonly Vector2 ShrineSouvenirShopPosition = new Vector2(28, 42) * 64f;
-		internal static readonly Location ShrineDefaultWarpPosition = new Location(71, 40);
 		internal static readonly Location ArcadeMachinePosition = new Location(40, 16);
 		internal static readonly List<Location> CrowTilePositions = new List<Location>
 		{
@@ -78,7 +91,7 @@ namespace Hikawa
 		};
 
 		// Values and things
-		internal const int BuffId = 870084643;
+		internal const int SharedBuffId = 870084643;
 		internal const int BananaBegins = 3;
 		internal const int BigBananaBonanza = 7;
 	}

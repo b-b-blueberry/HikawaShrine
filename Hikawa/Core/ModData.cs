@@ -42,5 +42,8 @@ namespace Hikawa
 		public int ShrineBuffCooldown { get; set; }
 		public int BananaBunch { get; set; }
 		public int BananaRepublic { get; set; }
+		public bool HasCheckedBundlesThisSeason { get; set; }
+
+		public List<Dictionary<List<object>, List<bool>>> BundlesThisSeason { get; set; }
 	}
 }

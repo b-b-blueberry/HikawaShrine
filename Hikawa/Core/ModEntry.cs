@@ -12,15 +12,17 @@ using StardewValley.Menus;
 using StardewValley.Objects;
 using Object = StardewValley.Object;
 
-using SpaceCore.Events;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using xTile.Dimensions;
 using xTile.ObjectModel;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
+using SpaceCore.Events;
+
 using Hikawa.GameObjects;
+using Hikawa.GameObjects.Menus;
+using Microsoft.Xna.Framework.Input;
 
 namespace Hikawa
 {
@@ -57,12 +59,12 @@ namespace Hikawa
 
 		// Others
 		internal int CommonTextureScale = 4;
-		internal int BuffIconIndex = 24;
+		internal int InitialBuffIconIndex = 24;
 		internal Vector2 DummyChestCoords = new Vector2(38, 32);
 		internal Vector2 DummyChestMissionOffset = new Vector2(1, 1);
 		private bool _isPlayerGodMode;
 		private bool _isPlayerBuddhaMode;
-		private int playerHealthToMaintain;
+		private int _playerHealthToMaintain;
 
 		internal enum Buffs
 		{
@@ -78,8 +80,7 @@ namespace Hikawa
 			Confidence,
 			Rain,
 			Water,
-			Love,
-			Count
+			Love
 		}
 
 
@@ -128,7 +129,6 @@ namespace Hikawa
 			helper.Events.GameLoop.DayStarted += OnDayStarted;
 			helper.Events.GameLoop.DayEnding += OnDayEnding;
 			helper.Events.GameLoop.Saved += OnSaved;
-			helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
 			helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
 			
 			helper.Events.Player.Warped += OnWarped;
@@ -158,7 +158,7 @@ namespace Hikawa
 				{ "harcade",
 					new[] { "ha", "Start arcade game: use START, TITLE, RESET." }}, 
 				{ "hoverlay",
-					new[] { "hov", $"Manage screen overlays: use 0~{OverlayEffectControl.Effect.Count - 1} or ?." }},
+					new[] { "hov", $"Manage screen overlays: use 0~{OverlayEffectControl.Effect.Count - 1}." }},
 				{ "hoffer",
 					new[] { "hof", "Make a shrine offering: use S, M, or L." }},
 				{ "hcrows",
@@ -175,6 +175,14 @@ namespace Hikawa
 					new[] { "he", "Warp to the shrine entrance." }},
 				{ "hvortex", 
 					new[] { "hv", "Warp to a Vortex map: use 1~3." }},
+				{ "hbuff", 
+					new[] { "hbf", "Add a Shrine buff: use 1~15." }},
+				{ "hgod", 
+					new[] { "hg", "Toggle God mode." }},
+				{ "hbuddha", 
+					new[] { "hbd", "Toggle Buddha mode." }},
+				{ "hpain", 
+					new[] { "hp", "Take random damage. Able to kill player from full health." }},
 			};
 
 			foreach (var command in commands)
@@ -216,10 +224,6 @@ namespace Hikawa
 						{
 							if (p.Length < 1)
 							{
-								_overlayEffectControl.Toggle();
-							}
-							else if (p[0] == "?")
-							{
 								Log.D($"Current effect: {_overlayEffectControl.CurrentEffect()}");
 							}
 							else
@@ -230,7 +234,7 @@ namespace Hikawa
 									return;
 								}
 								catch (FormatException) {}
-								Log.E("Not a valid effect index.");
+								_overlayEffectControl.Toggle();
 							}
 						};
 						break;
@@ -273,27 +277,21 @@ namespace Hikawa
 					case "hhome":
 						callback = (s, p) =>
 						{
-							Game1.player.warpFarmer(
-								new Warp(0, 0, ModConsts.HouseMapId,
-									5, 19, false));
+							WarpToDefault(ModConsts.HouseMapId);
 						};
 						break;
 
 					case "hshrine":
 						callback = (s, p) =>
 						{
-							Game1.player.warpFarmer(
-								new Warp(0, 0, ModConsts.ShrineMapId,
-									39, 60, false));
+							WarpToDefault(ModConsts.ShrineMapId);
 						};
 						break;
 						
 					case "hentry":
 						callback = (s, p) =>
 						{
-							Game1.player.warpFarmer(
-								new Warp(0, 0, "Town",
-									20, 5, false));
+							WarpToDefault("Town");
 						};
 						break;
 						
@@ -302,15 +300,53 @@ namespace Hikawa
 						{
 							// TODO: CONTENT: Default warps for Vortex maps through console commands
 							var which = p.Length > 0 ? p[0] : "1";
-							var position = which switch
+							WarpToDefault(ModConsts.VortexMapId + which);
+						};
+						break;
+						
+					case "hbuff":
+						callback = (s, p) =>
+						{
+							if (p.Length > 0)
 							{
-								"3" => new Location(25, 40),
-								"2" => new Location(25, 40),
-								_ => new Location(25, 40)
-							};
-							Game1.player.warpFarmer(
-								new Warp(0, 0, ModConsts.VortexMapId + which,
-									position.X, position.Y, false));
+								try
+								{
+									SetBuff((Buffs) int.Parse(p[0]), true);
+								}
+								catch (Exception) {
+									Log.E("Not a valid buff index.");
+									return;
+								}
+							}
+							Log.W($"Shrine buffs"
+							      + $"\nAwaiting: {SaveData.AwaitingShrineBuff}"
+							      + $" | Current: {SaveData.LastShrineBuffId}"
+							      + $" | Cooldown: {SaveData.ShrineBuffCooldown}");
+						};
+						break;
+						
+					case "hgod":
+						callback = (s, p) =>
+						{
+							ToggleGodMode();
+							Log.W($"God mode {(_isPlayerGodMode ? "on" : "off")}");
+						};
+						break;
+
+					case "hbuddha":
+						callback = (s, p) =>
+						{
+							ToggleBuddhaMode();
+							Log.W($"Buddha mode {(_isPlayerBuddhaMode ? "on" : "off")}");
+						};
+						break;
+
+					case "hpain":
+						callback = (s, p) =>
+						{
+							var pain = Game1.random.Next(1, Game1.player.maxHealth * 3 / 2);
+							Game1.player.takeDamage(pain, true, null);
+							Log.W($"Hurt for {pain}");
 						};
 						break;
 				}
@@ -391,6 +427,7 @@ namespace Hikawa
 		/// </summary>
 		private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
 		{
+			Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
 			LoadModData();
 			GenerateDummyStorage();
 		}
@@ -428,10 +465,15 @@ namespace Hikawa
 			_isPlayerAgencySuppressed = false;
 			_isPlayerSittingDown = false;
 
-			SaveData.AwaitingShrineBuff = false;
-			if (SaveData.ShrineBuffCooldown > 0)
+			if (SaveData.AwaitingShrineBuff)
+			{
+				Log.W($"Awaited and receiving buff: {SaveData.LastShrineBuffId}");
+				SetBuff(SaveData.LastShrineBuffId, false);
+			}
+			else if (SaveData.ShrineBuffCooldown > 0)
 			{
 				--SaveData.ShrineBuffCooldown;
+				Log.W($"Buff cooldown: {SaveData.ShrineBuffCooldown}");
 			}
 
 			if (currentStory.Value <= ModData.Progress.Started)
@@ -480,11 +522,10 @@ namespace Hikawa
 				SaveData.BananaRepublic -= Math.Max(1, (int) Math.Ceiling(SaveData.BananaRepublic / 25f));
 			}
 
-			Game1.player.warpFarmer(
-				new Warp(0, 0, ModConsts.VortexMapId + "1",
-					25, 40, false));
+			if (Config.DebugMode)
+				WarpToDefault(ModConsts.DebugDefaultWarpTo);
 		}
-		
+
 		/// <summary>
 		/// End of day
 		/// </summary>
@@ -503,6 +544,8 @@ namespace Hikawa
 		
 		private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
 		{
+			Helper.Events.GameLoop.UpdateTicked -= OnUpdateTicked;
+
 			UnloadModData();
 		}
 
@@ -511,91 +554,33 @@ namespace Hikawa
 		/// </summary>
 		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
 		{
-			ReapplyBuff(e);
+			if (!Context.IsWorldReady)
+				return;
 
-			// //TODO: TEST: Blocking damage with God mode
+			// Maintain permanent buffs for the day
+			if (SaveData.LastShrineBuffId > Buffs.None
+			    && !SaveData.AwaitingShrineBuff
+			    && !Game1.eventUp && Context.IsPlayerFree)
+				ReapplyBuffs(e.IsMultipleOf(180));
+
 			if (!_isPlayerGodMode) {}
-			else if (Game1.player.health < playerHealthToMaintain)
+			else if (Game1.player.health < _playerHealthToMaintain)
 			{
-				Log.W($"Blocked {playerHealthToMaintain - Game1.player.health} damage.");
-				Game1.player.health = playerHealthToMaintain;
+				Log.W($"Blocked {_playerHealthToMaintain - Game1.player.health} damage.");
+				Game1.player.health = _playerHealthToMaintain;
+
+				CheckForBuddhaOnMission();
 			}
 
-			// TODO: TEST: Blocking death with Buddha mode
 			if (!_isPlayerBuddhaMode) {}
 			else if (Game1.player.health < 1)
 			{
-				Log.W($"Blocked {playerHealthToMaintain - Game1.player.health} damage.");
-				Game1.player.health = playerHealthToMaintain = 1;
+				Log.W($"Blocked {_playerHealthToMaintain - Game1.player.health} damage.");
+				Game1.player.health = _playerHealthToMaintain = 1;
 				_isPlayerGodMode = true;
 			}
 		}
-
-		private void ReapplyBuff(UpdateTickedEventArgs e)
-		{
-			if (Game1.eventUp || !Context.IsWorldReady || SaveData.LastShrineBuffId <= 0 || SaveData.AwaitingShrineBuff)
-				return;
-
-			var buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(_ => _.which == ModConsts.BuffId);
-			if (buff == null)
-			{
-				Game1.buffsDisplay.addOtherBuff(
-					buff = new Buff(
-						SaveData.LastShrineBuffId == Buffs.Comfort ? 1 : 0,
-						SaveData.LastShrineBuffId == Buffs.Water ? 2 : 0,
-						0,
-						0,
-						SaveData.LastShrineBuffId ==Buffs.Confidence ? 2 : 0,
-						SaveData.LastShrineBuffId == Buffs.Comfort ? 1 : 0,
-						0,
-						SaveData.LastShrineBuffId == Buffs.Weightless ? 16 : 0,
-						SaveData.LastShrineBuffId == Buffs.Comfort || SaveData.LastShrineBuffId == Buffs.Warmth ? 24 : 0,
-						SaveData.LastShrineBuffId == Buffs.Wind ? 1 : 0,
-						SaveData.LastShrineBuffId == Buffs.Sunlight ? 1 : 0,
-						SaveData.LastShrineBuffId == Buffs.Sunlight ? 1 : 0,
-						0,
-						ModManifest.UniqueID,
-						i18n.Get("string.shrine.buff_inspect"))
-					{
-						sheetIndex = BuffIconIndex + (int) SaveData.LastShrineBuffId,
-						description = i18n.Get("string.shrine.offering_accepted." + SaveData.LastShrineBuffId)
-					});
-			}
-			buff.millisecondsDuration = 50;
-
-			switch (SaveData.LastShrineBuffId)
-			{
-				case Buffs.Shivers: // Shivers () [寒]
-					break;
-				case Buffs.Uneasy: // Uneasy () [悪]
-					break;
-				case Buffs.Comfort: // Comfort (Farming) [畑]
-					break;
-				case Buffs.Warmth: // Warm breeze (Loot) [金]
-					break;
-				case Buffs.Hunger: // Hungry (Buff buffs) [心]
-					break;
-				case Buffs.Sunlight: // Sunlight (Health) [光]
-					if (!e.IsMultipleOf(180))
-						break;
-					Game1.player.health = Math.Min(Game1.player.maxHealth, Game1.player.health + 1);
-					break;
-				case Buffs.Weightless: // Weight lifted (Stamina) [強]
-					if (!e.IsMultipleOf(180))
-						break;
-					Game1.player.Stamina = Math.Min(Game1.player.MaxStamina, Game1.player.Stamina + 1);
-					break;
-				case Buffs.Wind: // Wind (Speed) [風]
-					break;
-				case Buffs.Confidence: // Great confidence (Luck) [幸]
-					break;
-				case Buffs.Rain: // Cold breeze (Rain) [雨]
-					break;
-				case Buffs.Water: // Water (Fishing) [魚]
-					break;
-			}
-		}
-
+		
 		/// <summary>
 		/// Location changed
 		/// </summary>
@@ -608,6 +593,9 @@ namespace Hikawa
 
 			if (_overlayEffectControl.IsEnabled())
 				_overlayEffectControl.Disable();
+
+			SetBuddhaMode(CheckInterloper());
+			SetGodMode(false);
 
 			SetUpLocationCustomFlair(Game1.currentLocation);
 		}
@@ -845,6 +833,7 @@ namespace Hikawa
 				// Interactions with the Ema stand at the Shrine
 				case ModConsts.ActionEma:
 					Log.W("ActionEma!");
+					Game1.activeClickableMenu = new EmaMenu();
 					break;
 					
 				// Trying to enter the Shrine Hall front doors
@@ -867,8 +856,7 @@ namespace Hikawa
 
 				// Vortex warps
 				case ModConsts.ActionVortex:
-					_animationTarget = position;
-					TouchVortexWarp();
+					TouchVortexWarp(position);
 					break;
 			}
 		}
@@ -948,6 +936,148 @@ namespace Hikawa
 
 		#endregion
 
+		#region Miscellaneous Methods
+		
+		private static void WarpToDefault(string where)
+		{
+			if (string.IsNullOrEmpty(where) || Game1.getLocationFromName(where) == null)
+				return;
+			Game1.player.warpFarmer(
+				new Warp(0, 0,
+					ModConsts.ShrineMapId,
+					ModConsts.DefaultWarps[where].X, ModConsts.DefaultWarps[where].Y,
+					false));
+		}
+
+		private bool ToggleGodMode()
+		{
+			return SetGodMode(!_isPlayerGodMode);
+		}
+
+		private bool SetGodMode(bool isEnabled)
+		{
+			_isPlayerGodMode = isEnabled;
+			_playerHealthToMaintain = Game1.player.health;
+			return _isPlayerGodMode;
+		}
+
+		private bool ToggleBuddhaMode()
+		{
+			return SetBuddhaMode(!_isPlayerBuddhaMode);
+		}
+
+		private bool SetBuddhaMode(bool isEnabled)
+		{
+			_isPlayerBuddhaMode = isEnabled;
+			return _isPlayerBuddhaMode;
+		}
+
+		private void SetBuff(Buffs id, bool reset)
+		{
+			Log.W($"Set buff '{id}', reset: {reset}");
+
+			if (!Enum.IsDefined(typeof(Buffs), id))
+				throw new ArgumentOutOfRangeException();
+
+			// Remove any existing Shrine buff
+			var currentBuff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(_ => _.which == ModConsts.SharedBuffId);
+			currentBuff?.removeBuff();
+			
+			SaveData.AwaitingShrineBuff = false;
+			if (reset)
+			{
+				// Reset buff data for this save
+				SaveData.LastShrineBuffId = id;
+				SaveData.ShrineBuffCooldown = 0;
+			}
+
+			// Apply the buff
+			ReapplyBuffs(true);
+		}
+
+		private void ReapplyBuffs(bool isThreeSecondUpdate)
+		{
+			var buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(_ => _.which == ModConsts.SharedBuffId);
+			if (buff == null)
+			{
+				Game1.buffsDisplay.addOtherBuff(
+					buff = new Buff(
+						SaveData.LastShrineBuffId == Buffs.Comfort ? 1 : 0,
+						SaveData.LastShrineBuffId == Buffs.Water ? 2 : 0,
+						0,
+						0,
+						SaveData.LastShrineBuffId ==Buffs.Confidence ? 2 : 0,
+						SaveData.LastShrineBuffId == Buffs.Comfort ? 1 : 0,
+						0,
+						SaveData.LastShrineBuffId == Buffs.Weightless ? 16 : 0,
+						SaveData.LastShrineBuffId == Buffs.Comfort || SaveData.LastShrineBuffId == Buffs.Warmth ? 24 : 0,
+						SaveData.LastShrineBuffId == Buffs.Wind ? 1 : 0,
+						SaveData.LastShrineBuffId == Buffs.Sunlight ? 1 : 0,
+						SaveData.LastShrineBuffId == Buffs.Sunlight ? 1 : 0,
+						0,
+						ModManifest.UniqueID,
+						i18n.Get("string.shrine.buff_hover"))
+					{
+						sheetIndex = InitialBuffIconIndex + (int) SaveData.LastShrineBuffId,
+						description = i18n.Get("string.shrine.offering_accepted." + (int)SaveData.LastShrineBuffId),
+						which = ModConsts.SharedBuffId,
+					});
+			}
+			buff.millisecondsDuration = 50;
+
+			switch (SaveData.LastShrineBuffId)
+			{
+				case Buffs.Shivers: // Shivers () [寒]
+					break;
+				case Buffs.Uneasy: // Uneasy () [悪]
+					break;
+				case Buffs.Comfort: // Comfort (Farming) [畑]
+					break;
+				case Buffs.Warmth: // Warm breeze (Loot) [金]
+					break;
+				case Buffs.Hunger: // Hungry (Buff buffs) [心]
+					break;
+				case Buffs.Sunlight: // Sunlight (Health) [光]
+					if (!isThreeSecondUpdate)
+						break;
+					Game1.player.health = Math.Min(Game1.player.maxHealth, Game1.player.health + 1);
+					break;
+				case Buffs.Weightless: // Weight lifted (Stamina) [強]
+					if (!isThreeSecondUpdate)
+						break;
+					Game1.player.Stamina = Math.Min(Game1.player.MaxStamina, Game1.player.Stamina + 1);
+					break;
+				case Buffs.Wind: // Wind (Speed) [風]
+					break;
+				case Buffs.Confidence: // Great confidence (Luck) [幸]
+					break;
+				case Buffs.Rain: // Cold breeze (Rain) [雨]
+					break;
+				case Buffs.Water: // Water (Fishing) [魚]
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Forces an NPC into a custom schedule for the day.
+		/// </summary>
+		private void ForceNpcSchedule(NPC npc)
+		{
+			npc.Schedule = npc.getSchedule(Game1.dayOfMonth);
+			npc.scheduleTimeToTry = 9999999;
+			npc.ignoreScheduleToday = false;
+			npc.followSchedule = true;
+		}
+
+		private void ResetAnimationVars() {
+			Game1.player.completelyStopAnimatingOrDoingAction();
+			_animationExtraValue = _animationStage = _animationTimer = 0;
+			_animationTarget = Vector2.Zero;
+			_animationFlag = false;
+		}
+
+		#endregion
+		
 		#region General Location Methods
 
 		/// <summary>
@@ -973,7 +1103,7 @@ namespace Hikawa
 					else if (currentStory.Key == ModData.Chapter.Mist && currentStory.Value == ModData.Progress.Started)
 					{
 						// Eerie effects
-						_overlayEffectControl.Enable(GameObjects.OverlayEffectControl.Effect.Mist);
+						_overlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
 						SpawnCrows(
 							where,
 							new Location(
@@ -1207,33 +1337,11 @@ namespace Hikawa
 				case ModConsts.VortexMapId + "3":
 				{
 					// Obscuring darkness
-					_overlayEffectControl.Enable(OverlayEffectControl.Effect.Dark);
+					_overlayEffectControl.Enable(OverlayEffectControl.Effect.Dark, 1f);
 
 					break;
 				}
 			}
-		}
-
-		#endregion
-
-		#region Miscellaneous Methods
-		
-		/// <summary>
-		/// Forces an NPC into a custom schedule for the day.
-		/// </summary>
-		private void ForceNpcSchedule(NPC npc)
-		{
-			npc.Schedule = npc.getSchedule(Game1.dayOfMonth);
-			npc.scheduleTimeToTry = 9999999;
-			npc.ignoreScheduleToday = false;
-			npc.followSchedule = true;
-		}
-
-		private void ResetAnimationVars() {
-			Game1.player.completelyStopAnimatingOrDoingAction();
-			_animationExtraValue = _animationStage = _animationTimer = 0;
-			_animationTarget = Vector2.Zero;
-			_animationFlag = false;
 		}
 
 		#endregion
@@ -1506,7 +1614,7 @@ namespace Hikawa
 		/// </summary>
 		public void FinishTotemWarp()
 		{
-			var coords = ModConsts.ShrineDefaultWarpPosition;
+			var coords = ModConsts.TotemWarpPosition;
 			Game1.warpFarmer(ModConsts.ShrineMapId, coords.X, coords.Y, false);
 			Game1.fadeToBlackAlpha = 0.99f;
 			Game1.screenGlow = false;
@@ -1641,12 +1749,13 @@ namespace Hikawa
 
 		#region Vortex Methods
 		
-		private void TouchVortexWarp()
+		private void TouchVortexWarp(Vector2 fromPosition)
 		{
 			_isPlayerAgencySuppressed = true;
 			Helper.Events.GameLoop.UpdateTicked += UpdateVortexWarp;
 			ResetAnimationVars();
 			_animationExtraValue = Game1.player.FacingDirection;
+			_animationTarget = fromPosition;
 		}
 
 		private void UpdateVortexWarp(object sender, UpdateTickedEventArgs e)
@@ -1664,7 +1773,7 @@ namespace Hikawa
 			// After Flag is set; fade to black, warp the player, double the counter speed, and run it in reverse
 
 			_animationTimer += animRate;
-			if (_animationTimer % Math.Max(halfwayStage * 2 - _animationStage, 0)
+			if (_animationTimer % Math.Max(halfwayStage * 2 - _animationStage, 1)
 			    > animRate * (_animationFlag ? outVelocity : inVelocity))
 				return;
 
@@ -1688,11 +1797,19 @@ namespace Hikawa
 		private void VortexWarpActuallyHappens()
 		{
 			var property = GetTileAction(_animationTarget);
-			var target = new Vector2(int.Parse(property[1]), int.Parse(property[2]));
-			if (property.Length > 3)
-				Game1.currentLocation = Game1.getLocationFromName(property[3]);
-			Game1.player.Position = target * 64f + new Vector2(0.5f * 64f);
-			Game1.globalFadeToClear(null, 0.04f);
+			if (property != null && property.Length > 1)
+			{
+				var target = new Vector2(int.Parse(property[1]), int.Parse(property[2]));
+				if (property.Length > 3)
+					Game1.currentLocation = Game1.getLocationFromName(property[3]);
+				Game1.player.Position = new Vector2(target.X * 64f, target.Y * 64f + 32f);
+				Game1.globalFadeToClear(null, 0.04f);
+			}
+			else
+			{
+				Log.E($"Bad vortex warp tile data: Position {_animationTarget} : {property}");
+				Log.E("This is exactly the reason why you have a magic mirror");
+			}
 
 			_animationFlag = true; // Start running counter in reverse
 		}
@@ -1710,17 +1827,35 @@ namespace Hikawa
 
 		#region Mission Methods
 
-		internal KeyValuePair<ModData.Chapter, ModData.Progress> GetCurrentStory()
+		internal static KeyValuePair<ModData.Chapter, ModData.Progress> GetCurrentStory()
 		{
-			return SaveData.Story.FirstOrDefault(_ => _.Value != ModData.Progress.None);
+			return Instance.SaveData.Story.FirstOrDefault(_ => _.Value != ModData.Progress.None);
 		}
 
-		// TODO: SYSTEM: Consider auto-check-and-set 'CheckGodMode' and 'CheckBuddhaMode' methods
-		// similar to 'CheckInterloper' to cut down on loose bool checks
+		// TODO: SYSTEM: Implement CleanUpMissionState when moving in/out of chapters
+
+		private void CleanUpMissionState()
+		{
+			SetGodMode(false);
+			SetBuddhaMode(false);
+			CheckInterloper();
+
+			var itemsToRemove = new[]
+			{
+				"Crystal Mirror",
+			};
+			foreach (var itemToRemove in itemsToRemove)
+			{
+				var item = Game1.player.hasItemWithNameThatContains(itemToRemove);
+				if (item != null)
+					Game1.player.removeItemFromInventory(item);
+			}
+		}
 
 		internal bool CheckInterloper()
 		{
 			_isInterloper = false;
+			var currentStory = GetCurrentStory();
 			var where = Game1.currentLocation;
 			if (where.Name.StartsWith(ModConsts.VortexMapId)
 			    || where.Name.StartsWith(ModConsts.CorridorMapId))
@@ -1735,29 +1870,44 @@ namespace Hikawa
 		{
 			Log.W("StartMission");
 
-			// If a mission requires that the player has a slot for an item eg. Wand, Mirror, and they don't have one, break out
+			// If a mission requires that the player has a slot for an item eg. Wand or Mirror, and they don't have one, break out
 			//if (Game1.player.freeSpotsInInventory() < 3 && Data.StoryDoors > (int) ModConsts.Progress.Started || Data.StoryGap)
 
-			// TODO: CONTENT: Write and implement mission data
+			// TODO: CONTENT: Fill in mission start data
+
+			// TODO: SYSTEM: Add Buddha mode on lethal missions
 		}
 
 		private void FleeMission()
 		{
 			Log.W("FleeMission");
 			
-			// TODO: CONTENT: Write and implement mission data
+			// TODO: CONTENT: Fill in mission flee data
 		}
 
 		private void EndMission()
 		{
 			Log.W("EndMission");
 			
-			// TODO: CONTENT: Write and implement mission data
+			// TODO: CONTENT: Fill in mission ending data
+
+		}
+
+		private void CheckForBuddhaOnMission()
+		{
+			if (CheckInterloper())
+			{
+				Log.W("Interloper caught in Buddha");
+
+				// TODO: CONTENT: Fill in mission knockout data
+
+				StartBubbleWarpOut();
+			}
 		}
 		
 		private void PromptCrystalMirror()
 		{
-			_isPlayerGodMode = true;
+			SetGodMode(true);
 
 			var dialogue = new List<string>{ i18n.Get("dialogue.flee_inspect") };
 			var options = new List<Response>
@@ -1770,7 +1920,7 @@ namespace Hikawa
 
 		private void StartBubbleWarpOut()
 		{
-			_isPlayerGodMode = true;
+			SetGodMode(true);
 			_isPlayerAgencySuppressed = true;
 			ResetAnimationVars();
 			Helper.Events.GameLoop.UpdateTicked += UpdateBubbleWarp;
@@ -1842,8 +1992,8 @@ namespace Hikawa
 
 		private void EndBubbleWarp()
 		{
-			_isPlayerBuddhaMode = false;
-			_isPlayerGodMode = false;
+			SetBuddhaMode(false);
+			SetGodMode(false);
 			_isPlayerAgencySuppressed = false;
 			ResetAnimationVars();
 
@@ -2052,7 +2202,7 @@ namespace Hikawa
 
 				default:
 					Log.E($"Invalid dialogue key: {answer}");
-					_isPlayerGodMode = false;
+					SetGodMode(false);
 					break;
 			}
 		}

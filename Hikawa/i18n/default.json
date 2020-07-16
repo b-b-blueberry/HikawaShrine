@@ -15,7 +15,7 @@
   "string.shrine.offering_prompt": "Make an offering?",
   "string.shrine.offering_awaiting": "You've already paid tribute to the shrine today.",
   "string.shrine.offering_cooldown": "You still feel a little peculiar from your last visit.",
-  "string.shrine.buff_inspect": "Hikawa Shrine",
+  "string.shrine.buff_hover": "Hikawa Shrine",
 
   "string.shrine.offering_accepted.0": "You feel a little less rich.",
   "string.shrine.offering_accepted.1": "You feel a shiver run through you.",
@@ -32,6 +32,13 @@
 
   "string.shrine.interloper_prompt": "Set off on the next chapter?",
   "string.shrine.interloper_veryprompt": "This action will have consequences. Go ahead?",
+
+  // Bundles menu strings
+  "string.menu.bundles.0_inspect": "Bundle of Light",
+  "string.menu.bundles.1_inspect": "Cultural Offerings",
+  "string.menu.bundles.2_inspect": "Food Offerings",
+  "string.menu.bundles.3_inspect": "??? Offerings",
+  "string.menu.bundles.4_inspect": "Bundle of Love",
 
   // Misc character strings
   // TODO: ASSETS: Portrait codes
