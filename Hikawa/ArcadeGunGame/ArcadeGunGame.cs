@@ -1552,6 +1552,7 @@ namespace Hikawa
 				SpriteEffects.None,
 				1f);
 
+			// Flash timer when less than 10 seconds remain
 			if (_stageMilliseconds >= 10000 
 			    || _stageMilliseconds < 10000 && _stageMilliseconds % 400 < 200)
 				DrawDigits(b, _stageMilliseconds / 1000, StageTimeHudDigits, false,

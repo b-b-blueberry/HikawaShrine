@@ -54,7 +54,7 @@ namespace Hikawa.GameObjects.Critters
 			this.baseFrame = baseFrame;
 			this.flip = flip;
 
-			Log.W($"Cat generated at {startingPosition.ToString()}");
+			Log.W($"Cat generated at (X:{(startingPosition.X / 64f):.00} Y:{(startingPosition.Y / 64f):.00})");
 		}
 		
 		/// <summary>

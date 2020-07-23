@@ -43,7 +43,7 @@ namespace Hikawa.Editors
 		
 		/* Editor */
 		
-		private float nearestMultiple(float value, float multiple)
+		private static float NearestMultiple(float value, float multiple)
 		{
 			return (float) Math.Round((decimal) value / (decimal) multiple,
 				MidpointRounding.AwayFromZero) * multiple;
@@ -77,7 +77,7 @@ namespace Hikawa.Editors
 				// Align the sprites to the asset tile dimensions
 				var ypos = Math.Min(
 					dest.Data.Bounds.Height,
-					(int) nearestMultiple(dest.Data.Bounds.Height, spriteSize));
+					(int) NearestMultiple(dest.Data.Bounds.Height, spriteSize));
 				var destRect = new Rectangle(0, ypos, source.Width, source.Height);
 
 				// Substitute the asset with a taller version to accomodate our sprites
@@ -90,9 +90,9 @@ namespace Hikawa.Editors
 				dest.PatchImage(source, sourceRect, destRect);
 
 				// Update index for our elements in the asset
-				ModEntry.Instance.BuffIconIndex = ypos / spriteSize;
+				ModEntry.Instance.InitialBuffIconIndex = ypos / spriteSize * texture.Width / spriteSize;
 
-				Log.D($"New buff icon index: {ModEntry.Instance.BuffIconIndex}",
+				Log.D($"New buff icon index: {ModEntry.Instance.InitialBuffIconIndex}",
 					ModEntry.Instance.Config.DebugMode);
 			}
 			else if (asset.AssetNameEquals(@"Characters/schedules/Haley"))
