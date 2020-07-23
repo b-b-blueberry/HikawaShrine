@@ -35,19 +35,22 @@
 
   // Bundles menu strings
   "string.menu.bundles.0_inspect": "Bundle of Light",
-  "string.menu.bundles.1_inspect": "Cultural Offerings",
-  "string.menu.bundles.2_inspect": "Food Offerings",
+  "string.menu.bundles.1_inspect": "Artefact Offerings",
+  "string.menu.bundles.2_inspect": "Produce Offerings",
   "string.menu.bundles.3_inspect": "??? Offerings",
   "string.menu.bundles.4_inspect": "Bundle of Love",
+  "string.menu.bundles.any_inspect": "Any {{category}}",
 
   // Misc character strings
   // TODO: ASSETS: Portrait codes
-  "string.story.stock.chat_first": "Huh? You're a new face in town.$b#If you're looking for the old shrine, you're out of luck.",
-  "string.story.stock.chat_after": "When that new chain store arrived, they dumped their stock at our steps.$b#I wish someone would just blow it up already.",
-  "string.story.plant.mono1": "Such greed from these hungry townsfolk...",
-  "string.story.plant.mono1plus": "Such energy, what potential!",
-  "string.story.plant.mono2": "Your energy will feed the dark!",
-  "string.story.plant.mono3": "Ha ha ha...",
+  "talk.story.stock.chat_first": "Huh? You're a new face in town.$b#If you're looking for the old shrine, you're out of luck.",
+  "talk.story.stock.chat_after": "When that new chain store arrived, they dumped their stock at our steps.$b#I wish someone would just blow it up already.",
+  "talk.story.plant.mono1": "Such greed from these hungry townsfolk...",
+  "talk.story.plant.mono1plus": "Such energy, what potential!",
+  "talk.story.plant.mono2": "Your energy will feed the dark!",
+  "talk.story.plant.mono3": "Ha ha ha...",
+
+  "talk.misc.frogman": "Gero gero. Are you lost?",
 
   // Event strings
   "event.story.stock.0000": "speak \"HikawaRei What the ..?\"",

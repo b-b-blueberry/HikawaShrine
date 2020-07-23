@@ -32,6 +32,7 @@ namespace Hikawa.GameObjects
 		private float _fxYMotion;
 		private float _fxOpacity;
 		private float _fxRotationRad;
+		private float _fxScale;
 		private bool _isGluedToViewport;
 
 		// Variables changing on-ticked
@@ -48,6 +49,11 @@ namespace Hikawa.GameObjects
 		}
 
 		internal bool Set(Effect whichEffect)
+		{
+			return Set(whichEffect, 1f);
+		}
+
+		internal bool Set(Effect whichEffect, float effectScale)
 		{
 			Reset();
 			_currentEffect = whichEffect;
@@ -83,6 +89,7 @@ namespace Hikawa.GameObjects
 				case Effect.Dark:
 					_fxTexture = ModEntry.Instance.Helper.Content.Load<Texture2D>(
 						Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
+					_fxScale = effectScale;
 					_isGluedToViewport = true;
 					break;
 
@@ -140,7 +147,12 @@ namespace Hikawa.GameObjects
 
 		internal void Enable(Effect whichEffect)
 		{
-			if (Set(whichEffect))
+			Enable(whichEffect, 1f);
+		}
+
+		internal void Enable(Effect whichEffect, float effectScale)
+		{
+			if (Set(whichEffect, effectScale))
 			{
 				ModEntry.Instance.Helper.Events.Display.RenderedWorld += OnRenderedWorld;
 				_shouldDrawEffects = true;
@@ -166,9 +178,9 @@ namespace Hikawa.GameObjects
 		internal void Reset()
 		{
 			_currentEffect = Effect.None;
-			_fxXMotion = _fxYMotion = _fxOpacity = _fxRotationRad = 0f;
-			_fxPosition = Vector2.Zero;
 			_fxTexture = null;
+			_fxScale = _fxXMotion = _fxYMotion = _fxOpacity = _fxRotationRad = 0f;
+			_fxPosition = Vector2.Zero;
 			_isGluedToViewport = false;
 		}
 
@@ -239,9 +251,10 @@ namespace Hikawa.GameObjects
 
 				case Effect.Dark:
 				{
-					const int gradientSize = 160;
+					const int sourceRectDimen = 160;
 					const int sourceRectYPos = 272;
-
+					
+					var gradientSize = sourceRectDimen * _fxScale;
 					var topW = Game1.graphics.GraphicsDevice.Viewport.Width;
 					var topH = (int)(Game1.graphics.GraphicsDevice.Viewport.Height - gradientSize * TextureScale) / 2;
 					var sideW = (int)(Game1.graphics.GraphicsDevice.Viewport.Width - gradientSize * TextureScale) / 2;
@@ -259,12 +272,14 @@ namespace Hikawa.GameObjects
 							(int)(topleft.Y),
 							(int)(gradientSize * TextureScale),
 							(int)(gradientSize * TextureScale)),
-						new Rectangle(0, sourceRectYPos, gradientSize, gradientSize),
+						new Rectangle(0, sourceRectYPos, (int)gradientSize, (int)gradientSize),
 						Color.White,
 						0f,
 						Vector2.Zero,
 						SpriteEffects.None,
 						1f);
+
+					// TODO: SYSTEM: Have Effect.Dark give a little more room for very large resolutions
 
 					// Darkness fill for space between gradient and screen border
 					var positions = new[]

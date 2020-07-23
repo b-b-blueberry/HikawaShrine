@@ -55,6 +55,7 @@ namespace Hikawa
 		internal const string ActionLockbox = ContentPrefix + "Lockbox";
 		internal const string ActionSit = ContentPrefix + "Sit";
 		internal const string ActionVortex = ContentPrefix + "Vortex";
+		internal const string ActionFrogman = ContentPrefix + "Frogman";
 		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;
 		internal const int OfferingCostS = 75;
 		internal const int OfferingCostM = 330;
@@ -62,7 +63,8 @@ namespace Hikawa
 
 		// Coordinates
 		internal const string DebugDefaultWarpTo = ShrineMapId;
-
+		
+		// TODO: CONTENT: Fill in default warps for missing maps
 		internal static readonly Dictionary<string, Location> DefaultWarps = new Dictionary<string, Location>
 		{
 			//{ ShrineMapId, new Location(39, 60) },

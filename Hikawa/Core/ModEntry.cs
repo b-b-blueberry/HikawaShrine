@@ -14,6 +14,7 @@ using Object = StardewValley.Object;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using xTile.Dimensions;
 using xTile.ObjectModel;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -22,7 +23,6 @@ using SpaceCore.Events;
 
 using Hikawa.GameObjects;
 using Hikawa.GameObjects.Menus;
-using Microsoft.Xna.Framework.Input;
 
 namespace Hikawa
 {
@@ -48,7 +48,8 @@ namespace Hikawa
 		private bool _whatAboutCatsCanTheySpawnToday;
 
 		// Animations
-		private float _animationExtraValue;
+		private int _animationExtraInt;
+		private float _animationExtraFloat;
 		private int _animationTimer;
 		private int _animationStage;
 		private bool _animationFlag;
@@ -65,6 +66,7 @@ namespace Hikawa
 		private bool _isPlayerGodMode;
 		private bool _isPlayerBuddhaMode;
 		private int _playerHealthToMaintain;
+		private int _dizzyStack;
 
 		internal enum Buffs
 		{
@@ -80,7 +82,8 @@ namespace Hikawa
 			Confidence,
 			Rain,
 			Water,
-			Love
+			Love,
+			Count
 		}
 
 
@@ -128,7 +131,7 @@ namespace Hikawa
 			helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
 			helper.Events.GameLoop.DayStarted += OnDayStarted;
 			helper.Events.GameLoop.DayEnding += OnDayEnding;
-			helper.Events.GameLoop.Saved += OnSaved;
+			helper.Events.GameLoop.Saving += OnSaving;
 			helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
 			
 			helper.Events.Player.Warped += OnWarped;
@@ -153,36 +156,46 @@ namespace Hikawa
 		{
 			// TODO: METHOD: Find some way to set default warp location, intercept Warped maybe?
 
+			const string cmd = "bb"; // Command prefix
 			var commands = new Dictionary<string, string[]>
 			{
-				{ "harcade",
-					new[] { "ha", "Start arcade game: use START, TITLE, RESET." }}, 
-				{ "hoverlay",
-					new[] { "hov", $"Manage screen overlays: use 0~{OverlayEffectControl.Effect.Count - 1}." }},
-				{ "hoffer",
-					new[] { "hof", "Make a shrine offering: use S, M, or L." }},
-				{ "hcrows",
-					new[] { "hc", "Respawn twin crows at the shrine." }},
-				{ "hcrows2",
-					new[] { "hc2", "Respawn perched crows at the shrine." }},
-				{ "htotem",
-					new[] { "ht", "Play a totem warp to the Shrine." }},
-				{ "hhouse",
-					new[] { "hh", "Warp to Rei's house." }},
-				{ "hshrine",
-					new[] { "hs", "Warp to Hikawa Shrine." }},
-				{ "hentry",
-					new[] { "he", "Warp to the shrine entrance." }},
-				{ "hvortex", 
-					new[] { "hv", "Warp to a Vortex map: use 1~3." }},
-				{ "hbuff", 
-					new[] { "hbf", "Add a Shrine buff: use 1~15." }},
-				{ "hgod", 
-					new[] { "hg", "Toggle God mode." }},
-				{ "hbuddha", 
-					new[] { "hbd", "Toggle Buddha mode." }},
-				{ "hpain", 
-					new[] { "hp", "Take random damage. Able to kill player from full health." }},
+				{ cmd + "arcade",
+					new[] { cmd + "a", "Start arcade game:"
+					                 + " use START, TITLE, RESET." }}, 
+				{ cmd + "overlay",
+					new[] { cmd + "ov", $"Manage screen overlays:"
+					                  + $" use 0~{OverlayEffectControl.Effect.Count - 1}." }},
+				{ cmd + "offer",
+					new[] { cmd + "of", "Make a shrine offering:"
+					                  + " use S, M, or L." }},
+				{ cmd + "crows",
+					new[] { cmd + "c", "Respawn twin crows at the shrine." }},
+				{ cmd + "crows2",
+					new[] { cmd + "c2", "Respawn perched crows at the shrine." }},
+				{ cmd + "totem",
+					new[] { cmd + "t", "Fire a totem warp to the Shrine." }},
+				{ cmd + "house",
+					new[] { cmd + "h", "Warp to Rei's house." }},
+				{ cmd + "shrine",
+					new[] { cmd + "s", "Warp to Hikawa Shrine." }},
+				{ cmd + "entry",
+					new[] { cmd + "e", "Warp to the shrine entrance." }},
+				{ cmd + "vortex", 
+					new[] { cmd + "v", "Warp to a Vortex map:"
+					                 + " use 1~3." }},
+				{ cmd + "buff", 
+					new[] { cmd + "bf", "Add a Shrine buff:"
+					                  + $" use 0~{Buffs.Count - 1}." }},
+				{ cmd + "god", 
+					new[] { cmd + "g", "Toggle God mode." }},
+				{ cmd + "buddha", 
+					new[] { cmd + "bd", "Toggle Buddha mode." }},
+				{ cmd + "pain", 
+					new[] { cmd + "p", "Take random damage. Able to kill player from full health." }},
+				{ cmd + "chapter", 
+					new[] { cmd + "ch", $"Set or reset story progress:"
+					                  + $" use 0~{ModData.Chapter.End - 1}"
+					                  + $" 0~{ModData.Progress.Complete - 1}." }},
 			};
 
 			foreach (var command in commands)
@@ -190,7 +203,7 @@ namespace Hikawa
 				Action<string, string[]> callback = (s, p) => {};
 				switch (command.Key)
 				{
-					case "harcade":
+					case cmd + "arcade":
 						callback = (s, p) =>
 						{
 							var action = p[0].ToLower();
@@ -219,7 +232,7 @@ namespace Hikawa
 						};
 						break;
 
-					case "hoverlay":
+					case cmd + "overlay":
 						callback = (s, p) =>
 						{
 							if (p.Length < 1)
@@ -239,7 +252,7 @@ namespace Hikawa
 						};
 						break;
 						
-					case "hoffer":
+					case cmd + "offer":
 						callback = (s, p) =>
 						{
 							try
@@ -252,21 +265,21 @@ namespace Hikawa
 						};
 						break;
 
-					case "hcrows":
+					case cmd + "crows":
 						callback = (s, p) =>
 						{
 							SpawnCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 						};
 						break;
 
-					case "hcrows2":
+					case cmd + "crows2":
 						callback = (s, p) =>
 						{
 							SpawnPerchedCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 						};
 						break;
 
-					case "htotem":
+					case cmd + "totem":
 						callback = (s, p) =>
 						{
 							StartWarpToShrine(new Object(
@@ -274,37 +287,36 @@ namespace Hikawa
 						};
 						break;
 
-					case "hhome":
+					case cmd + "home":
 						callback = (s, p) =>
 						{
 							WarpToDefault(ModConsts.HouseMapId);
 						};
 						break;
 
-					case "hshrine":
+					case cmd + "shrine":
 						callback = (s, p) =>
 						{
 							WarpToDefault(ModConsts.ShrineMapId);
 						};
 						break;
 						
-					case "hentry":
+					case cmd + "entry":
 						callback = (s, p) =>
 						{
 							WarpToDefault("Town");
 						};
 						break;
 						
-					case "hvortex":
+					case cmd + "vortex":
 						callback = (s, p) =>
 						{
-							// TODO: CONTENT: Default warps for Vortex maps through console commands
 							var which = p.Length > 0 ? p[0] : "1";
 							WarpToDefault(ModConsts.VortexMapId + which);
 						};
 						break;
 						
-					case "hbuff":
+					case cmd + "buff":
 						callback = (s, p) =>
 						{
 							if (p.Length > 0)
@@ -325,7 +337,7 @@ namespace Hikawa
 						};
 						break;
 						
-					case "hgod":
+					case cmd + "god":
 						callback = (s, p) =>
 						{
 							ToggleGodMode();
@@ -333,7 +345,7 @@ namespace Hikawa
 						};
 						break;
 
-					case "hbuddha":
+					case cmd + "buddha":
 						callback = (s, p) =>
 						{
 							ToggleBuddhaMode();
@@ -341,12 +353,33 @@ namespace Hikawa
 						};
 						break;
 
-					case "hpain":
+					case cmd + "pain":
 						callback = (s, p) =>
 						{
 							var pain = Game1.random.Next(1, Game1.player.maxHealth * 3 / 2);
 							Game1.player.takeDamage(pain, true, null);
 							Log.W($"Hurt for {pain}");
+						};
+						break;
+
+					case cmd + "chapter":
+						callback = (s, p) =>
+						{
+							// Reset all chapter progress with no args
+							var chapter = p.Length > 0 ? (ModData.Chapter) int.Parse(p[0]) : ModData.Chapter.None;
+							var progress = p.Length > 1 ? (ModData.Progress) int.Parse(p[1]) : ModData.Progress.None;
+							
+							// Mark all chapters before this one as complete, and all after as not yet started
+							for (var c = ModData.Chapter.None; c < chapter; ++c)
+								SaveData.Story[c] = ModData.Progress.Complete;
+							for (var c = chapter; c < ModData.Chapter.End; ++c)
+								SaveData.Story[c] = ModData.Progress.None;
+
+							// Set current chapter progress
+							SaveData.Story[chapter] = progress;
+
+							var currentStory = GetCurrentStory();
+							Log.W($"Current chapter: {currentStory.Key} : {currentStory.Value}");
 						};
 						break;
 				}
@@ -536,10 +569,14 @@ namespace Hikawa
 		/// <summary>
 		/// Post-end of day
 		/// </summary>
-		private void OnSaved(object sender, SavedEventArgs e)
+		private void OnSaving(object sender, SavingEventArgs e)
 		{
 			// TODO: DEBUG: Write save data
 			//Helper.Data.WriteSaveData(ModConsts.SaveDataKey, Data);
+
+			// TODO: DEBUG: Write bundle data
+			if (Game1.dayOfMonth == 27)
+				EmaMenu.ResetBundlesForNewSeason();
 		}
 		
 		private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
@@ -853,10 +890,34 @@ namespace Hikawa
 					SitDownStart(tileCoordinates, direction);
 
 					break;
-
+					
 				// Vortex warps
 				case ModConsts.ActionVortex:
 					TouchVortexWarp(position);
+					break;
+
+				// Frogman Seijin
+				case ModConsts.ActionFrogman:
+					Log.W("ActionFrogman!");
+
+					const int delay = 1500;
+					Game1.player.completelyStopAnimatingOrDoingAction();
+					_isPlayerAgencySuppressed = true;
+					SetGodMode(true);
+
+					// TODO: CONTENT: Action Frogman: Animate frogman for (delay) duration
+
+					Game1.delayedActions.Add(new DelayedAction(delay, () =>
+					{
+						Game1.playSound("rainsound_wom");
+						CreateInspectDialogue(i18n.Get("talk.misc.frogman"));
+
+						// TODO: CONTENT: Action Frogman: Stop animating frogman and do something
+
+						_isPlayerAgencySuppressed = false;
+						SetGodMode(false);
+					})); 
+
 					break;
 			}
 		}
@@ -883,6 +944,7 @@ namespace Hikawa
 				case "Warp Totem: Shrine":
 					StartWarpToShrine(o, where);
 					break;
+
 				case "Crystal Mirror":
 					PromptCrystalMirror();
 					break;
@@ -944,7 +1006,7 @@ namespace Hikawa
 				return;
 			Game1.player.warpFarmer(
 				new Warp(0, 0,
-					ModConsts.ShrineMapId,
+					where,
 					ModConsts.DefaultWarps[where].X, ModConsts.DefaultWarps[where].Y,
 					false));
 		}
@@ -1071,7 +1133,7 @@ namespace Hikawa
 
 		private void ResetAnimationVars() {
 			Game1.player.completelyStopAnimatingOrDoingAction();
-			_animationExtraValue = _animationStage = _animationTimer = 0;
+			_animationExtraFloat = _animationStage = _animationTimer = 0;
 			_animationTarget = Vector2.Zero;
 			_animationFlag = false;
 		}
@@ -1262,7 +1324,7 @@ namespace Hikawa
 						}
 						else
 						{
-							Log.E($"Failed to find a door at marker point {point.ToString()}");
+							Log.E($"Failed to find a door at marker point {point.ToString()}: No entry!");
 						}
 
 						// Seasonal tiles
@@ -1287,7 +1349,8 @@ namespace Hikawa
 								"spring" => 214,
 								"summer" => 215,
 								"fall" => 216,
-								"winter" => 217
+								"winter" => 217,
+								_ => index
 							};
 							layer.Tiles[17, 3].TileIndex = index;
 							layer.Tiles[17, 4].TileIndex = index + rowIncrement;
@@ -1298,14 +1361,15 @@ namespace Hikawa
 							"spring" => 244,
 							"summer" => 245,
 							"fall" => 246,
-							"winter" => 247
+							"winter" => 247,
+							_ => index
 						};
 						layer.Tiles[3, 15].TileIndex = index;
 						layer.Tiles[3, 16].TileIndex = index + rowIncrement;
 					}
 					else
 					{
-						Log.E($"Door marker not found at point {point.ToString()}");
+						Log.E($"Door marker not found at point {point.ToString()}: No entry!");
 					}
 					break;
 				}
@@ -1357,49 +1421,31 @@ namespace Hikawa
 				return;
 
 			const int retries = 25;
+			const int radius = (3 - 1) / 2;
+			var spawnArea = new Rectangle(19, 22, 43, 35);
 			for (var attempts = 0; attempts < retries; ++attempts)
 			{
 				// Identify two separate nearby spawn positions for the crows around the map's middle
 				var target = new Location(
-					Game1.random.Next(19, 62), // X position
-					Game1.random.Next(22, 57)); // Y position
+					Game1.random.Next(spawnArea.X, spawnArea.X + spawnArea.Width),
+					Game1.random.Next(spawnArea.Y, spawnArea.Y + spawnArea.Height));
 				var phobos = Location.Origin;
 				var deimos = Location.Origin;
-				Log.D($"New target: {target.ToString()} -->");
-				for (var y = -1; y < 1; ++y)
+				for (var y = -radius; y < radius; ++y)
 				{
-					for (var x = -1; x < 1; ++x)
+					for (var x = -radius; x < radius; ++x)
 					{
-						Log.D($"Checking phobos [{target.X + x}, {target.Y + y}]...");
-						Log.D($"Checking deimos [{target.X - x}, {target.Y - y}]...");
-
 						if (where.isTilePassable(new Location(target.X + x, target.Y + y), Game1.viewport))
-						{
 							phobos = new Location(target.X + x, target.X + y);
-							Log.D($"Phobos tile OK: {phobos.ToString()}");
-						}
-
 						if (where.isTilePassable(new Location(target.X - x, target.Y - y), Game1.viewport))
-						{
 							deimos = new Location(target.X - x, target.X - y);
-							Log.D($"Deimos tile OK: {deimos.ToString()}");
-						}
 
 						if (phobos == deimos && phobos != Location.Origin)
-						{
-							Log.D("Skipping cluster, non-default Phobos is equal to Deimos");
 							break;
-						}
 						if (phobos == deimos)
-						{
-							Log.D("Skipping tile, Phobos and Deimos are equal");
 							continue;
-						}
 						if (phobos == Location.Origin || deimos == Location.Origin)
-						{
-							Log.D($"Skipping tile, Phobos ({phobos.ToString()}) or Deimos ({deimos.ToString()}) is default");
 							continue;
-						}
 
 						SpawnCrows(where, phobos, deimos);
 						return;
@@ -1754,7 +1800,7 @@ namespace Hikawa
 			_isPlayerAgencySuppressed = true;
 			Helper.Events.GameLoop.UpdateTicked += UpdateVortexWarp;
 			ResetAnimationVars();
-			_animationExtraValue = Game1.player.FacingDirection;
+			_animationExtraFloat = Game1.player.FacingDirection;
 			_animationTarget = fromPosition;
 		}
 
@@ -1766,10 +1812,13 @@ namespace Hikawa
 			const int inVelocity = 1;
 			const int outVelocity = 2;
 
+			_animationExtraInt = halfwayStage * 2 * animRate;
+
 			// Spin the player with acceleration and deceleration
-			// AnimationExtraValue: Stores original facing direction
 			// AnimationStage: Linearly increasing/decreasing rate to turn the player with FacingDirection
 			// AnimationFlag: Whether we've passed the middle of the animation
+			// AnimationExtraFloat: Stores original facing direction
+			// AnimationExtraInt: Stores duration of animation for the dizzy cooldown timer to add onto
 			// After Flag is set; fade to black, warp the player, double the counter speed, and run it in reverse
 
 			_animationTimer += animRate;
@@ -1779,7 +1828,7 @@ namespace Hikawa
 
 			// Turn the player around 90° for each stage
 			_animationStage += _animationFlag ? -1 : 1;
-			Game1.player.FacingDirection = (int)(_animationExtraValue + _animationStage) % 4;
+			Game1.player.FacingDirection = (int)(_animationExtraFloat + _animationStage) % 4;
 			
 			// Play sounds as you warp out/in
 			if (_animationStage > 0 && _animationStage % (halfwayStage / numOfBeeps) == 0 || _animationStage == 1)
@@ -1802,7 +1851,7 @@ namespace Hikawa
 				var target = new Vector2(int.Parse(property[1]), int.Parse(property[2]));
 				if (property.Length > 3)
 					Game1.currentLocation = Game1.getLocationFromName(property[3]);
-				Game1.player.Position = new Vector2(target.X * 64f, target.Y * 64f + 32f);
+				Game1.player.Position = new Vector2(target.X * 64f, (target.Y + 1) * 64f);
 				Game1.globalFadeToClear(null, 0.04f);
 			}
 			else
@@ -1810,17 +1859,44 @@ namespace Hikawa
 				Log.E($"Bad vortex warp tile data: Position {_animationTarget} : {property}");
 				Log.E("This is exactly the reason why you have a magic mirror");
 			}
-
 			_animationFlag = true; // Start running counter in reverse
 		}
 
 		private void EndVortexWarp()
 		{
+			const int dizzyExtraCooldownTime = 22000;
+
 			_isPlayerAgencySuppressed = false;
 			Helper.Events.GameLoop.UpdateTicked -= UpdateVortexWarp;
 			ResetAnimationVars();
 
-			// TODO: CONTENT: Animate farmer on dizzy warping, use frames 104 and 105
+			++_dizzyStack;
+			Log.W($"Dizzy up to {_dizzyStack}");
+			if (_dizzyStack > 2)
+			{
+				_isPlayerAgencySuppressed = true;
+				SetGodMode(true);
+				
+				Game1.currentLocation.localSound("croak");
+				Game1.player.FacingDirection = 2;
+				Game1.player.FarmerSprite.animateOnce(224, 400f, 4, who =>
+				{
+					--_dizzyStack;
+					_isPlayerAgencySuppressed = false;
+					SetGodMode(false);
+				});
+				Game1.player.doEmote(12);
+			}
+			else
+			{
+				var cooldownBeforeDizzyClears = _animationExtraInt + dizzyExtraCooldownTime;
+				Game1.delayedActions.Add(new DelayedAction(cooldownBeforeDizzyClears, () =>
+				{
+					--_dizzyStack;
+					Log.W($"Dizzy down to {_dizzyStack}");
+				}));
+			}
+			
 		}
 
 		#endregion
@@ -1829,7 +1905,8 @@ namespace Hikawa
 
 		internal static KeyValuePair<ModData.Chapter, ModData.Progress> GetCurrentStory()
 		{
-			return Instance.SaveData.Story.FirstOrDefault(_ => _.Value != ModData.Progress.None);
+			var reverseOrder = Instance.SaveData.Story;
+			return reverseOrder.Reverse().FirstOrDefault(_ => _.Value != ModData.Progress.None);
 		}
 
 		// TODO: SYSTEM: Implement CleanUpMissionState when moving in/out of chapters
@@ -1928,10 +2005,10 @@ namespace Hikawa
 
 			// TODO: CONTENT: Choose a unique animation set for each of defeated and fleeing, use the mirror sprite if possible
 
-			_animationExtraValue = Game1.player.health < 10 ? 5 : 70;
+			_animationExtraFloat = Game1.player.health < 10 ? 5 : 70;
 			Game1.player.FarmerSprite.setCurrentAnimation(new []
 			{
-				new FarmerSprite.AnimationFrame((int)_animationExtraValue, 1500,
+				new FarmerSprite.AnimationFrame((int)_animationExtraFloat, 1500,
 					false, false, delegate 
 					{
 						
@@ -1963,7 +2040,7 @@ namespace Hikawa
 			var farmerOffset = 0 - _animationTarget.Y
 			                   + Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Y
 			                   + Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Height / 2f;
-			Game1.player.FarmerSprite.setCurrentFrame((int)_animationExtraValue, (int)farmerOffset);
+			Game1.player.FarmerSprite.setCurrentFrame((int)_animationExtraFloat, (int)farmerOffset);
 			
 			// End bubble warp once the bubble reaches a goal position
 			if (_animationFlag && Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea().Height / 2f - _animationTarget.Y

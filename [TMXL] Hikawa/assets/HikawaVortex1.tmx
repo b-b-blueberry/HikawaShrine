@@ -1924,37 +1924,27 @@
    </properties>
   </tile>
  </tileset>
- <layer id="48" name="Back" width="55" height="55">
-  <data encoding="base64" compression="zlib">
-   eJztwwENAAAMAiBjvH84cxjksNFLqqqqqqqqqqqqqqqqDw6EO7oE
-  </data>
- </layer>
- <objectgroup id="2" name="Back"/>
  <layer id="54" name="Buses" width="55" height="55" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt2McRwjAUhOF3InVALIFUAqkEUguEFjC0QGgBeoDi+NWARwcZhNhvZq8e9vLw2kxERFKzr1u2I1uyId/+PSGd6HMkGTkk1u1Gnyu5kHNi3UTk/zy4Y/dEb9mLXs9Eu4lIGLqBInFhFxv72NjJbi8nhV1s7GNjJ7u9/HFFfn9gFxv72NjJbi8HxY12tzrXr35/4Ea7W51L3x9ERESKVeK/uEwqpEpqCb2DNujSJC3SJp0Iuvm82/no8owe6ZMBGUbQzefdzseIZ4zJhEzJLIJuoczpsiBLsiLrhLqJiIiIiEjx3hG5OWA=
   </data>
  </layer>
+ <objectgroup id="55" name="Buses"/>
  <imagelayer id="56" name="BusImage">
   <image source="z_hikawa_buses_1.png" width="879" height="879"/>
   <properties>
-   <property name="DrawAbove" value="Back"/>
-   <property name="ParallaxX" type="float" value="1600"/>
-   <property name="ParallaxY" type="float" value="900"/>
-   <property name="StartX" type="float" value="0"/>
-   <property name="StartY" type="float" value="0"/>
+   <property name="DrawBefore" value="Back"/>
+   <property name="ParallaxX" type="int" value="120"/>
+   <property name="ParallaxY" type="int" value="150"/>
+   <property name="WrapAround" value="X"/>
   </properties>
  </imagelayer>
- <objectgroup id="55" name="Buses"/>
- <layer id="49" name="Islands" width="55" height="55">
-  <properties>
-   <property name="DrawAbove" value="Back"/>
-  </properties>
+ <layer id="48" name="Back" width="55" height="55">
   <data encoding="base64" compression="zlib">
    eJztmEESgyAMRXuGdoOH8oy9nuAlWhedpjQgECTR+W+GTRX435QAud0AAAAAAOQs7tuC01azT3C/mn1G8xK9awXv/rXRGHC/P6d0HwveOE1rRi+nO9VHGy5GtaTiqs2mYZ5kWqifbaxgxBsAV+Cztu7vtfWYtNXwrIU5LX7HQj6k83PfuFTfynjzhryl9tyauNW2MMA/nadEMz1Lpfbl0uYHeNvTWvptWtsIby1zSzzBWzsl/yfpmPEdKX5+FDlPcX6XjjnKU42uHmNoeqK6pPUMi76oLml/eBtLD2+5moomOQ21+ZPbXzQp8Vaq80xx096fpNAzxJyon16tVmU19/UC3s7JEXcGK3B3hLN7AsASdE1ZroO3wJ1RAAAAANCPF5XFkmM=
   </data>
  </layer>
- <objectgroup id="50" name="Islands"/>
+ <objectgroup id="2" name="Back"/>
  <layer id="5" name="Buildings" width="55" height="55">
   <data encoding="base64" compression="zlib">
    eJztWTtMFEEYXm20ojAUN6uVhUE0aGVhrLSzUPDZqTx8d74AIdr5OMFnZyGJGu1MRKOonYmIgNoZAwpoaYgatfL9/dmZ3M/czN4u7N4cyX7Jl73s/Tf7fzM3M98/63kZMmTIkCFDOhgSnjcsZtZGO35/fIZtpIFx5DQRM685vuedFQG7wG7wfIVoa0Nu7X7w+Tty+gGeAk+DZ8DfOc/Li4Bz/eLfrzLouF4B2qjPu8Bu2fd52fdfLblN4v4yxJ6TV+InQ+wDh9p+Yix+5ewaZopBh9qq6Nkxnt+H8XkEbgTrwXv47QLD/1NhzKE20xwhjIgg915cX+A6CA6Bw+BLsBlsAZ8LSxvy3i3E3A7RnibWa3n5cjw+iyD3flzf4zoGjoMT4Ac/vA2Ox4h94kjbDuS1E2wEm0iP1DSdNnaJYHxVW83gK0e6CIfw/MPgUfBYjLnB9wvVxhERjK9qqxVsq4A9gBDFQ1AMra1qv/iLz/9yhe+T8DNJQK3/+RIeQsWpmCpDXLW8Nx0/Exd52lf9ICfyE39yxX2s52jzEDyOYhYb4mrkPeVnTEjKW16Drh6aDyF9rOdo8xA8btLiVWrwrKVgrfQo3Nsk7S17aV+1rFGqj/V9SeWnvJTyvcsTWuuS8pb9tK+CA36xb6C+r7X4vzSRlLccQe6j4DtwScR+p327gXmpuyLwJfcTyikNb7k6orY6Gae81DMR+JKBhHJKw1vaPKMOW79G7ZtSWONQm61fNzDf3yAZ5v1tqE9BW5iX5bD1axPz/bulpqhzmKDqopYUtHEvS/VKzpJXnH6Noo3qJF4XpQHuZaleuco0VPsFzx61X8mDldo/fFkn2eqiJME97B2WF62NyrNHhclP6qC5Ow9tzy9DjcM97FOWW5R1WfeBJj+pg9pdCF2LyqCNe9g3LDd93Veen/y1zQdG2RNoXVqBuJVlrk35OlCnPdv0f9N9IN8TitYlGevqDIhrexvh/6b7QL4n2MZwLe6vc3CewLVx70+e37T+Kf2m+kuN4SZwM7gF3ApuA7c70BbXQ02G1F9qDPeAe8F94H7wAHjQgTY+X8jnN0q/P1pijpSqvzrQXqfDcy0Cny/9zO9/EeE+kc+7E4g76VhHVHQg704R7qW+4fuL+P4SeBm8Mku0XaC8hVYzhPwHXZ6Fx8UN6LgpStcMytO7PAuPi4fQ1Cem1gzKQ5veddBZ+OtZoK3VL5yB85pBeWjTu46Ps0AXgc5o1Rm4fkZbLi+fFnpMuYvgjLZcXj4NlDqjdeHlkwI/o6U1g787S+N8o5zgZ7S0ZlTiu7MMGTJkyDAV/wEZjBUb
@@ -2000,7 +1990,7 @@
  <objectgroup id="8" name="Paths"/>
  <layer id="9" name="Front" width="55" height="55">
   <data encoding="base64" compression="zlib">
-   eJzt18EJgDAMAMCuYWdyJt1B9xX9i0UQrSR3336S0ISkFAAAMtmG67epljLX72I5acT21HLktfbM7Q0v1quHMVg+QBLBZ1drbwD+Tw9/J90uG+22AmLINovhAXsivxb0f6a7GaAn/QYA3LQDfxwIxg==
+   eJzt18ENgDAIBVDWsDM5k+6g+xpdwB7RlveuXCCB5BMBAEAl1/Je21rE3vJ6yXQ8c52TzjaLtbObAHyjlxuA/3PDecplWb8VAAxNToR85X4GAAAYwA237Agw
   </data>
  </layer>
  <objectgroup id="10" name="Front"/>
