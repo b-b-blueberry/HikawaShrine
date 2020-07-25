@@ -19,6 +19,7 @@ namespace Hikawa.GameObjects
 			Mist,
 			Haze,
 			Dark,
+			Nighttime,
 			StuffAbove,
 			StuffBelow,
 			Stars,
@@ -34,6 +35,8 @@ namespace Hikawa.GameObjects
 		private float _fxRotationRad;
 		private float _fxScale;
 		private bool _isGluedToViewport;
+		private Effect _previousEffect;
+		private Effect _currentEffect;
 
 		// Variables changing on-ticked
 		private bool _shouldDrawEffects;
@@ -41,7 +44,6 @@ namespace Hikawa.GameObjects
 		private float _fxXOffset;
 		private float _fxYOffset;
 		private Vector2 _fxPosition = Vector2.Zero;
-		private Effect _currentEffect;
 
 		internal OverlayEffectControl()
 		{
@@ -55,6 +57,9 @@ namespace Hikawa.GameObjects
 
 		internal bool Set(Effect whichEffect, float effectScale)
 		{
+			if (_currentEffect != Effect.None)
+				_previousEffect = _currentEffect;
+
 			Reset();
 			_currentEffect = whichEffect;
 			switch (whichEffect)
@@ -87,6 +92,7 @@ namespace Hikawa.GameObjects
 					break;
 
 				case Effect.Dark:
+				case Effect.Nighttime:
 					_fxTexture = ModEntry.Instance.Helper.Content.Load<Texture2D>(
 						Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
 					_fxScale = effectScale;
@@ -155,6 +161,9 @@ namespace Hikawa.GameObjects
 			if (Set(whichEffect, effectScale))
 			{
 				ModEntry.Instance.Helper.Events.Display.RenderedWorld += OnRenderedWorld;
+				if (_currentEffect == Effect.Nighttime)
+					ModEntry.Instance.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
+
 				_shouldDrawEffects = true;
 
 				Log.W($"Enabled {_currentEffect}");
@@ -169,9 +178,12 @@ namespace Hikawa.GameObjects
 		internal void Disable()
 		{
 			Log.W($"Disabled {_currentEffect}");
+			
+			ModEntry.Instance.Helper.Events.Display.RenderedWorld -= OnRenderedWorld;
+			if (_currentEffect == Effect.Nighttime)
+				ModEntry.Instance.Helper.Events.GameLoop.TimeChanged -= OnTimeChanged;
 
 			Reset();
-			ModEntry.Instance.Helper.Events.Display.RenderedWorld -= OnRenderedWorld;
 			_shouldDrawEffects = false;
 		}
 
@@ -182,6 +194,11 @@ namespace Hikawa.GameObjects
 			_fxScale = _fxXMotion = _fxYMotion = _fxOpacity = _fxRotationRad = 0f;
 			_fxPosition = Vector2.Zero;
 			_isGluedToViewport = false;
+		}
+
+		internal void Previous()
+		{
+			Set(_previousEffect);
 		}
 
 		internal void Toggle()
@@ -197,21 +214,33 @@ namespace Hikawa.GameObjects
 			Update(Game1.currentGameTime);
 			DrawMist(e.SpriteBatch);
 		}
+		
+		private void OnTimeChanged(object sender, TimeChangedEventArgs e)
+		{
+			if (_currentEffect != Effect.Nighttime && Game1.timeOfDay >= Game1.getStartingToGetDarkTime())
+			{
+				_fxOpacity = ModEntry.GetProgressFromEveningIntoNighttime();
+			}
+		}
 
 		internal void Update(GameTime time)
 		{
 			if (!_isGluedToViewport)
 				_fxPosition -= Game1.getMostRecentViewportMotion();
+			
+			if (_fxXMotion <= 0) {}
+			else
+			{
+				_fxXOffset -= time.ElapsedGameTime.Milliseconds * _fxXMotion;
+				_fxXOffset %= -256f;
+			}
 
-			if (_fxXMotion <= 0)
-				return;
-			_fxXOffset -= time.ElapsedGameTime.Milliseconds * _fxXMotion;
-			_fxXOffset %= -256f;
-
-			if (_fxYMotion <= 0)
-				return;
-			_fxYOffset -= time.ElapsedGameTime.Milliseconds * _fxYMotion;
-			_fxYOffset %= -256f;
+			if (_fxYMotion <= 0) {}
+			else
+			{
+				_fxYOffset -= time.ElapsedGameTime.Milliseconds * _fxYMotion;
+				_fxYOffset %= -256f;
+			}
 		}
 
 		/// <summary>
@@ -248,8 +277,9 @@ namespace Hikawa.GameObjects
 
 					break;
 				}
-
+				
 				case Effect.Dark:
+				case Effect.Nighttime:
 				{
 					const int sourceRectDimen = 160;
 					const int sourceRectYPos = 272;
@@ -273,7 +303,7 @@ namespace Hikawa.GameObjects
 							(int)(gradientSize * TextureScale),
 							(int)(gradientSize * TextureScale)),
 						new Rectangle(0, sourceRectYPos, (int)gradientSize, (int)gradientSize),
-						Color.White,
+						Color.White * _fxOpacity,
 						0f,
 						Vector2.Zero,
 						SpriteEffects.None,
@@ -306,7 +336,7 @@ namespace Hikawa.GameObjects
 								i % 2 == 0 ? topW : sideW,
 								i % 2 == 0 ? topH : sideH),
 							new Rectangle(0, sourceRectYPos, 1, 1),
-							Color.White,
+							Color.White * _fxOpacity,
 							0f,
 							Vector2.Zero,
 							SpriteEffects.None,

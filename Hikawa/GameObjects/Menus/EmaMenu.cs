@@ -6,13 +6,14 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PyTK.Extensions;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 using StardewModdingAPI;
+using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
-using xTile.Dimensions;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.GameObjects.Menus
 {
@@ -47,8 +48,9 @@ namespace Hikawa.GameObjects.Menus
 		// Source rects for various menu elements
 		// Hikawa Bundles texture file:
 		private readonly Rectangle EmaFrameSourceRect;
-		private readonly Rectangle ItemSlotIconSourceRect;
 		private readonly Rectangle EmaFudaSourceRect;
+		private readonly Rectangle GradientSourceRect;
+		private readonly Rectangle ItemSlotIconSourceRect;
 		private readonly Rectangle BundleIconSourceRect;
 		private readonly List<Rectangle> FoliageSourceRects;
 		// TODO: CONTENT: Fill in bundle source rects when finished
@@ -75,6 +77,18 @@ namespace Hikawa.GameObjects.Menus
 
 		private readonly Stack<State> _stack = new Stack<State>();
 		private readonly Texture2D _texture; // Texture for all custom menu elements
+		
+		private const int Scale = 4;
+		private const int ForegroundAnimFrames = 3;
+		private const int TimeToPulse = 2500;
+		private const int PulseTime = 1000;
+		private const float DebugClockTickSeconds = 2.5f;
+		
+		private static readonly Color SkyLowerStartColor = Color.SkyBlue;
+		private static readonly Color SkyLowerEndColor = Color.Indigo;
+		private static readonly Color SkyHigherStartColor = Color.DeepSkyBlue;
+		private static readonly Color SkyHigherEndColor = Color.MidnightBlue;
+		private static readonly Color SkyDarkColor = Color.Sienna;
 
 		// Lambda
 		private IModHelper Helper => ModEntry.Instance.Helper;
@@ -86,19 +100,18 @@ namespace Hikawa.GameObjects.Menus
 		private int _hoveredButton; // Index of current hovered button in the ButtonDestRects list
 		private Bundles _currentBundle; // Index of which bundle button was clicked in Root menu
 		private bool _isNavigatingWithKeyboard;
-		private float _animTimerBackground;
+		private float _DEBUGtimer;
 		private float _animTimerForeground;
 		private float _animTimerInterface;
 		private int _animWhichPieceToAnimate;
 		private int _animWhichFrame;
 		private int _pulseTimer;
 		private int _whenToPulseTimer;
-
-		private const int TimeToPulse = 2500;
-		private const int PulseTime = 1000;
-		private const int Scale = 4;
-
-		private const int ForegroundAnimFrames = 3;
+		private int _lastClockTime;
+		private Vector3 _initialSkyHSL;
+		private Vector3 _initialGradientHSL;
+		private Color _skyLowerColour = SkyLowerStartColor;
+		private Color _skyHigherColour = SkyHigherStartColor;
 
 		public EmaMenu() : this(State.Opening, true) {}
 
@@ -154,8 +167,10 @@ namespace Hikawa.GameObjects.Menus
 				0, StardewPanoramaSourceRect.Width * season, StardewPanoramaSourceRect.Width, 360);
 			EmaFudaSourceRect = new Rectangle(
 				0, EmaFrameSourceRect.Height, EmaFrameSourceRect.Width, 180);
+			GradientSourceRect = new Rectangle(
+				EmaFudaSourceRect.Width, EmaFudaSourceRect.Y, 5, EmaFudaSourceRect.Height);
 			ItemSlotIconSourceRect = new Rectangle(
-				EmaFudaSourceRect.Width, EmaFudaSourceRect.Y + EmaFudaSourceRect.Height - 18, 18, 18);
+				GradientSourceRect.X + GradientSourceRect.Width, GradientSourceRect.Y, 18, 18);
 			BundleIconSourceRect = new Rectangle(
 				0, 0, 0, 0);
 
@@ -170,6 +185,13 @@ namespace Hikawa.GameObjects.Menus
 					i < 2 ? rect.Width / 2 : rect.Width,
 					rect.Height));
 			};
+			
+			ModEntry.OverlayEffectControl.Set(OverlayEffectControl.Effect.Nighttime);
+		}
+
+		~EmaMenu()
+		{
+			ModEntry.OverlayEffectControl.Previous();
 		}
 
 		internal static void LoadBundlesState()
@@ -222,7 +244,7 @@ namespace Hikawa.GameObjects.Menus
 			if (_stack.Count < 1)
 				return;
 
-			Log.W($"Popping {_stack.Peek()}");
+			//Log.W($"Popping {_stack.Peek()}");
 			_stack.Pop();
 
 			if (playSound)
@@ -331,6 +353,72 @@ namespace Hikawa.GameObjects.Menus
 			Log.W($"Bundle item buttons: {buttons.Count}");
 		}
 
+		private static void SetEveningTenMinuteHue(ref Color color, ref Vector3 initialHSL, Vector3 deltaHSL)
+		{
+			var hsl = ModEntry.ColorConverter.RGBtoHSL(color);
+			if (hsl == Vector3.Zero)
+				return;
+			
+			if (initialHSL == Vector3.Zero)
+				initialHSL = hsl;
+
+			var steps = Game1.getTrulyDarkTime() - Game1.getStartingToGetDarkTime();
+			var current = Math.Max(0, Math.Min(steps, Game1.timeOfDay - Game1.getStartingToGetDarkTime()));
+			
+			float target, range, step;
+
+			if (deltaHSL.X > 0f)
+			{
+				target = initialHSL.X + deltaHSL.X / 255f;
+				range = target - initialHSL.X;
+				step = range / steps;
+				hsl.X = initialHSL.X + step * current;
+			}
+			if (deltaHSL.Y > 0f)
+			{
+				target = deltaHSL.Y;
+				range = target - initialHSL.Y;
+				step = range / steps;
+				hsl.Y = initialHSL.Y + step * current;
+			}
+			if (deltaHSL.Z > 0f)
+			{
+				target = deltaHSL.Z;
+				range = target - initialHSL.Z;
+				step = range / steps;
+				hsl.Z = initialHSL.Z + step * current;
+			}
+			
+			color = ModEntry.ColorConverter.HSLtoRGB(hsl, color);
+		}
+
+		private static void SetEveningTenMinuteColor(ref Color color, Color initialColor, Color targetColor)
+		{
+			// Sample the timespan between evening and night into even increments between our initial and target colours
+			var steps = (int)Math.Round((float)Game1.getTrulyDarkTime() - Game1.getStartingToGetDarkTime());
+			// Current sample is a point at the difference between current time and evening time
+			var current = Game1.timeOfDay - Game1.getStartingToGetDarkTime();
+			// 24-hour time as an integer counts 10, 20, 30, 40, 50, 00 -- add the remainder of the difference for a smooth transition
+			// Also squeeze that normal current sample time arithmetic between min and max values to stop us leaving our colour range
+			current = Math.Max(0, Math.Min(steps, current + Game1.timeOfDay % 100 * 6 / 10));
+			
+			// Each colour channel is set to some point (current sample) along the range for that channel to fit the 24hr time of day
+			float range;
+			
+			range = targetColor.R - initialColor.R;
+			color.R = (byte)(int)Math.Round(initialColor.R + range / steps * current);
+
+			range = targetColor.G - initialColor.G;
+			color.G = (byte)(int)Math.Round(initialColor.G + range / steps * current);
+
+			range = targetColor.B - initialColor.B;
+			color.B = (byte)(int)Math.Round(initialColor.B + range / steps * current);
+
+			if (false)
+				Log.W($"RGB at {Game1.timeOfDay} - Steps: {steps} - Step: {range / steps} - Current: {current}"
+				      + $"\nColour: {color.ToString()} - Target: {targetColor.ToString()}");
+		}
+
 		public override void snapToDefaultClickableComponent()
 		{
 			currentlySnappedComponent = getComponentWithID(0);
@@ -418,7 +506,7 @@ namespace Hikawa.GameObjects.Menus
 
 		public override void receiveKeyPress(Keys key)
 		{
-			Log.D($"receiveKeyPress: {key.ToString()}");
+			//Log.D($"receiveKeyPress: {key.ToString()}");
 
 			if (_stack.Count < 1)
 				return;
@@ -489,11 +577,21 @@ namespace Hikawa.GameObjects.Menus
 			if (_stack.Count < 1)
 				return;
 
-			const float animChance = 0.015f;
+			const float animChance = 0.04f;
 			const int animDuration = 3000;
 			const int frameDuration = 200;
 
 			var state = _stack.Peek();
+			if (Game1.timeOfDay != _lastClockTime)
+			{
+				//Log.W($"Clock ticked to {Game1.timeOfDay}");
+				_lastClockTime = Game1.timeOfDay;
+				//SetEveningTenMinuteHue(ref _skyLowerColour, ref _initialSkyHSL, new Vector3(40, -1, 0.5f));
+				//SetEveningTenMinuteHue(ref _skyHigherColour, ref _initialGradientHSL, new Vector3(20, -1, 0.5f));
+				Log.D($"{Game1.timeOfDay}:");
+				SetEveningTenMinuteColor(ref _skyLowerColour, SkyLowerStartColor, SkyLowerEndColor);
+				SetEveningTenMinuteColor(ref _skyHigherColour, SkyHigherStartColor, SkyHigherEndColor);
+			}
 
 			if (_hoveredButton == -1
 				&& Game1.getOldMouseX() != Game1.getMouseX() || Game1.getOldMouseY() != Game1.getMouseY())
@@ -512,22 +610,20 @@ namespace Hikawa.GameObjects.Menus
 			{
 				_animWhichPieceToAnimate = Game1.random.Next(0, 4);
 				_animTimerForeground = animDuration;
+				//Log.W($"Animating {_animWhichPieceToAnimate} for {_animTimerForeground}");
+			}
+
+			// TODO: DEBUG: Remove this debug timer for ticking the clock in the menu
+			
+			if (_DEBUGtimer > 0)
+				_DEBUGtimer -= time.ElapsedGameTime.Milliseconds;
+			else
+			{
+				_DEBUGtimer = DebugClockTickSeconds * 1000f;
+				Game1.performTenMinuteClockUpdate();
 			}
 
 			return;
-
-			if (_animTimerBackground > 0)
-				_animTimerBackground -= time.ElapsedGameTime.Milliseconds;
-
-			switch (state)
-			{
-				case State.Root:
-					if (_animTimerBackground <= 0 && Game1.random.NextDouble() > animChance)
-					{
-						_animTimerBackground = animDuration;
-					}
-					break;
-			}
 		}
 
 		public override void draw(SpriteBatch b)
@@ -535,7 +631,8 @@ namespace Hikawa.GameObjects.Menus
 			if (_stack.Count < 1)
 				return;
 
-			const float blackoutOpacity = 0.75f;
+			const float blackoutOpacity = 0.4f;
+			const float skyBlackoutMaxOpacity = 0.15f;
 
 			var state = _stack.Peek();
 			var view = Game1.graphics.GraphicsDevice.Viewport.GetTitleSafeArea();
@@ -558,20 +655,11 @@ namespace Hikawa.GameObjects.Menus
 			}
 			var scalePulse = 1f / (Math.Max(300f, Math.Abs(_pulseTimer % 1000 - 500)) / 500f);
 			
-			// Screen blackout
-			if (state == State.Root)
-				b.Draw(
-					Game1.fadeToBlackRect,
-					Game1.graphics.GraphicsDevice.Viewport.Bounds,
-					Color.Black * blackoutOpacity);
-
-			// Menu backgrounds:
-			// TODO: CONTENT: Draw Ema menu background - Shrine
-
 			// Background - Stardew panorama
 			source = StardewPanoramaSourceRect;
+			if (false)
 			b.Draw(
-				_texture,
+				Game1.mouseCursors,
 				new Rectangle(
 					xPositionOnScreen - source.Width / 2 * Scale,
 					yPositionOnScreen - source.Height / 2 * Scale,
@@ -583,6 +671,27 @@ namespace Hikawa.GameObjects.Menus
 				Vector2.Zero,
 				SpriteEffects.None,
 				0.99f);
+
+			// Sky colour fill
+			b.Draw(
+				Game1.fadeToBlackRect,
+				view,
+				_skyLowerColour);
+
+			// Sky colour gradient overlay
+			source = GradientSourceRect;
+			b.Draw(
+				_texture,
+				view,
+				source,
+				_skyHigherColour);
+			
+			// Sky night blackout
+			if (state == State.Root)
+				b.Draw(
+					Game1.fadeToBlackRect,
+					view,
+					Color.Black * skyBlackoutMaxOpacity * ModEntry.GetProgressFromEveningIntoNighttime());
 
 			// Midground - Ema frame
 			source = EmaFrameSourceRect;
@@ -786,6 +895,13 @@ namespace Hikawa.GameObjects.Menus
 					SpriteEffects.None,
 					0.99f + 1f / 10000f + 1f / 10000f + 1f / 10000f);
 			}
+			
+			// Screen blackout for nighttime
+			if (true)
+				b.Draw(
+					Game1.fadeToBlackRect,
+					view,
+					SkyDarkColor * ModEntry.GetProgressFromEveningIntoNighttime() * skyBlackoutMaxOpacity);
 
 			// Debug text
 			if (false)

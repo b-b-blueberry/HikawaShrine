@@ -35,7 +35,7 @@ namespace Hikawa
 		internal static ModEntry Instance;
 		internal ModData SaveData;
 		internal IJsonAssetsApi JaApi;
-		private readonly OverlayEffectControl _overlayEffectControl = new OverlayEffectControl();
+		internal static readonly OverlayEffectControl OverlayEffectControl = new OverlayEffectControl();
 
 		// Mini-Sit
 		private bool _isPlayerAgencySuppressed;
@@ -237,17 +237,17 @@ namespace Hikawa
 						{
 							if (p.Length < 1)
 							{
-								Log.D($"Current effect: {_overlayEffectControl.CurrentEffect()}");
+								Log.D($"Current effect: {OverlayEffectControl.CurrentEffect()}");
 							}
 							else
 							{
 								try
 								{
-									_overlayEffectControl.Enable((OverlayEffectControl.Effect) int.Parse(p[0]));
+									OverlayEffectControl.Enable((OverlayEffectControl.Effect) int.Parse(p[0]));
 									return;
 								}
 								catch (FormatException) {}
-								_overlayEffectControl.Toggle();
+								OverlayEffectControl.Toggle();
 							}
 						};
 						break;
@@ -628,8 +628,8 @@ namespace Hikawa
 
 			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
 
-			if (_overlayEffectControl.IsEnabled())
-				_overlayEffectControl.Disable();
+			if (OverlayEffectControl.IsEnabled())
+				OverlayEffectControl.Disable();
 
 			SetBuddhaMode(CheckInterloper());
 			SetGodMode(false);
@@ -1165,7 +1165,7 @@ namespace Hikawa
 					else if (currentStory.Key == ModData.Chapter.Mist && currentStory.Value == ModData.Progress.Started)
 					{
 						// Eerie effects
-						_overlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
+						OverlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
 						SpawnCrows(
 							where,
 							new Location(
@@ -1390,7 +1390,7 @@ namespace Hikawa
 				case ModConsts.CorridorMapId:
 				{
 					// Haze effect
-					_overlayEffectControl.Enable(OverlayEffectControl.Effect.Haze);
+					OverlayEffectControl.Enable(OverlayEffectControl.Effect.Haze);
 
 					break;
 				}
@@ -1401,7 +1401,7 @@ namespace Hikawa
 				case ModConsts.VortexMapId + "3":
 				{
 					// Obscuring darkness
-					_overlayEffectControl.Enable(OverlayEffectControl.Effect.Dark, 1f);
+					OverlayEffectControl.Enable(OverlayEffectControl.Effect.Dark, 1f);
 
 					break;
 				}
@@ -1759,6 +1759,14 @@ namespace Hikawa
 					true)
 			});
 			_isPlayerAgencySuppressed = true;
+		}
+
+		public static float GetProgressFromEveningIntoNighttime()
+		{
+			var now = Game1.timeOfDay;
+			var start = Game1.getStartingToGetDarkTime();
+			var end = Game1.getTrulyDarkTime();
+			return Math.Min(1f, (float)(now - start) / (end - start));
 		}
 		
 		public static bool IsItObonYet()
@@ -2306,7 +2314,7 @@ namespace Hikawa
 			{
 				if (false)
 				{
-					_overlayEffectControl.Toggle();
+					OverlayEffectControl.Toggle();
 				}
 				else
 				{
@@ -2359,6 +2367,95 @@ namespace Hikawa
 			{
 				return (float)Math.Atan2(vb.Y - va.Y, vb.X - va.X);
 			}
+		}
+
+		#endregion
+
+		#region Colour operations
+
+		internal class ColorConverter
+		{
+			// thanks www.easyrgb.com
+			public static Vector3 RGBtoHSL(Color color)
+			{
+				return RGBtoHSL(color.R, color.G, color.B);
+			}
+
+			public static Vector3 RGBtoHSL(float r, float g, float b)
+			{
+				float h, s, l;
+				r /= 255f;
+				g /= 255f;
+				b /= 255f;
+
+				var min = Math.Min(r, Math.Min(g, b));
+				var max = Math.Max(r, Math.Max(g, b));
+				var range = max - min;
+				l = (max + min) / 2f;
+
+				if (!(Math.Abs(0 - range) > 0.001f))
+					return Vector3.Zero;
+
+				s = l < 0.5 ? range / (max + min) : range / (2 - max - min);
+
+				var deltaR = ((max - r) / 6 + range / 2) / range;
+				var deltaG = ((max - g) / 6 + range / 2) / range;
+				var deltaB = ((max - b) / 6 + range / 2) / range;
+
+				if (Math.Abs(max - r) < 0.001f)
+					h = deltaB - deltaG;
+				else if (Math.Abs(max - g) < 0.001f)
+					h = 1 / 3f + deltaR - deltaB;
+				else if (Math.Abs(max - b) < 0.001f)
+					h = 2 / 3f + deltaG - deltaR;
+				else
+					h = 0f;
+
+				if (h < 0)
+					h += 1;
+				if (h > 1)
+					h -= 1;
+
+				return new Vector3(h, s, l);
+			}
+
+			public static Color HSLtoRGB(Vector3 hsl, Color color)
+			{
+				return HSLtoRGB(hsl.X, hsl.Y, hsl.Z, color);
+			}
+
+			public static Color HSLtoRGB(float h, float s, float l, Color color) {
+				float x, y;
+				int r, g, b;
+
+				y = l < 0.5f ? l * (1 + s) : (l + s) - (s * l);
+				x = 2 * l - y;
+				r = (int)Math.Round(255 * HtoRGB(x, y, h + 1 / 3f));
+				g = (int)Math.Round(255 * HtoRGB(x, y, h));
+				b = (int)Math.Round(255 * HtoRGB(x, y, h - 1 / 3f));
+
+				color.R = (byte) r;
+				color.G = (byte) g;
+				color.B = (byte) b;
+				
+				return color;
+			}
+
+			private static float HtoRGB(float alpha, float beta, float h)
+			{
+				if (h < 0)
+					h += 1;
+				if (h > 1)
+					h -= 1;
+				if (6 * h < 1)
+					return (alpha + (beta - alpha) * 6 * h);
+				if (2 * h < 1)
+					return beta;
+				if (3 * h < 2)
+					return alpha + (beta - alpha) * ((2 / 3f) - h) * 6;
+				return alpha;
+			}
+
 		}
 
 		#endregion
