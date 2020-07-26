@@ -37,6 +37,7 @@ namespace Hikawa.GameObjects
 		private bool _isGluedToViewport;
 		private Effect _previousEffect;
 		private Effect _currentEffect;
+		// TODO: SYSTEM: Have a stack for effects history?
 
 		// Variables changing on-ticked
 		private bool _shouldDrawEffects;

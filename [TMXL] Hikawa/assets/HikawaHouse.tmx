@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="46">
+<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="25" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="55">
  <properties>
   <property name="AmbientLight" value="95 95 95"/>
   <property name="DayTiles" value="AboveBack 3 15 296 AboveBack 3 16 312 Front 3 16 268 Buildings 3 17 284 Back 17 5 671 Back 17 6 703 Buildings 18 1 108 Buildings 18 2 124 Buildings 3 13 282 Buildings 3 14 298 Back 3 15 314 Buildings 1 5 7 Buildings 2 5 8 Buildings 3 5 9 Buildings 4 5 10 Buildings 5 5 7 Buildings 6 5 8 Buildings 7 5 9 Buildings 8 5 10 Buildings 9 5 7 Buildings 10 5 8 Buildings 11 5 9 Buildings 12 5 10 Buildings 1 6 23 Buildings 2 6 24 Buildings 3 6 25 Buildings 4 6 26 Buildings 5 6 23 Buildings 6 6 24 Buildings 7 6 25 Buildings 8 6 53 Buildings 9 6 23 Buildings 10 6 24 Buildings 11 6 25 Buildings 12 6 26 Buildings 1 7 39 Buildings 2 7 40 Buildings 3 7 41 Buildings 4 7 42 Buildings 5 7 39 Buildings 6 7 40 Buildings 7 7 41 Buildings 8 7 42 Buildings 9 7 39 Buildings 10 7 40 Buildings 11 7 41 Buildings 12 7 42 Front 8 12 1 Front 8 13 17 Buildings 19 2 3 AboveBack 4 16 20 AboveBack 2 7 300 AboveBack 3 7 301 AboveBack 2 8 316 AboveBack 3 8 317"/>
@@ -91,13 +91,13 @@
  </tileset>
  <layer id="1" name="Back" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJzNlslKw1AUhpNgSiRRt4o4LBQUX8DqwhGclm4URdtaceFK1J3ghOCwUnTt/AIOO0EFF7rUdxB8C/0PuZdzGhpbmwb84ePcNsn577m5p7eG8f817zEtMXmsesxgGfN2uoaRBN1gx2Oy6rqu68Qr3WMYuUfAGFh2fMYVJF3XdQQPqV6L6bG4BqrrPoLHtM0MYO4py2fW4hpkXaVoxOTxrMq/oaJ+N3oNtd7Aq4qfBaD7HOGxmTCMLbAN+h1/vYi+gAfJNovnSzx3jtwX4BKkRc50Ho+gWs3cNZFyQr7/qygPUYv9WQfqXb42JOYn+1xSTG98KdqQux10CI8F4SH7XBLWG3ovEIsmE9wj8n3IPpeE9QblecZ8L8EK9bCKm26uh3wfcl6SGSu/hwvvd+RLgzmQVeOjgEdrwEP3OMUzFVMhHpXw+EC+Q7CtPJbADXiqyK2jVr2fxwruceqJPoc/h63Vi8p/rNYqqzylh3wf3/g+g+fWLb8nCOr5pxAPmhOt0R24FfEqTx3696rJ9vuI1u8ReU8tjvkk7w/GsDriEtWxZvvnFNHl8pjOrSpQDWrcwrnCRHXoc4oYFWM6txpAI2iK4EF9OYHnJxUPNo+nIuSV6rFye4Jig0BeK1X6XEomuBdklONyaV2dgxQzEc7X3xSsIw410++XyTEO7WIv7YF9cFCmfRWU/r+hYxyS/yfKddb/VT8sm4ML
+   eJzNlstKw1AQhpNgSiR9AEVEFwqKL6B2UauCVpduFMVerLhwJepO8IbgZaXo2vsLeNkJreBCl/oOQt9C/yHnMNPQaG0T8IePOW2S+c+cnOmpYfx/LcaZrog81uPMaIh5+13DGAAJsBdnCuq6russXr/HOHKnwSRYdTymFCRd120DHlJDFpO0uAaq67EBjzmbGcHcs5ZHxuIaZF31KG3yOKPyb6mo341eQ6038Kri5y/QfY7w2I4Zxg7YBcOOt15EyudBss3aKYvnLpH7ClyDnMiZq+LhV7dZuSZSTsD3fxXlIVqwP1tBm8vXxsT8ZJ9LaumNsqIHuXtBn/BYEh6yzyVBvaH3ArFsMv49It+H7HNJUG9QnmfM9xqsUQ+ruO1Wesj3Ieclmbeqe7jwfke+HFgABTU+8Xl0+zx0j1O8UDEb4NEMjw/kOwa7ymMF3IFSU2UdLer9FJu4x6knUg5/DlqrF5X/VK1VQXlKD/k+vvB9Hs9tWl5PENTzpQAPmhOt0QO4F/GmSh3696rD9vqI1q+IvOcWx2qS9/tjUB1RierYsL1zihh0eZxwf3++FlEd+pwiJsR4MiQP6stp5JpRPNk8ng3JI2lV9gTFdoG8Vq/0uTQQ416QUY7D0qY6BynmGzhff5K/jijUSb9fJscotI+9dAAOwVFI+8ov/X9Dxygk/0+Eddb/Vd8AvIJF
   </data>
  </layer>
  <objectgroup id="2" name="Back"/>
  <layer id="13" name="Buildings" width="25" height="32">
   <data encoding="base64" compression="zlib">
-   eJzVljtoFUEUhsd7bx7urGLwgWDlEzHGICZiocRGsVAUtPCBmiZqCo0pEjVGCQHFRjsVxFcjVioWYuUDQbDRSkFjFTFgEix8xCSmybeww87OzuzexG088N2dOXPm/HN2dnavENO3GQ7ytCDfZSnEFdgkI18eeXXOk/sF7ID3Xj51mXPukfu+dI9PVUvFvgzXfhuewFNog5PSrfGRGj9BH3z2svt7ybUPDsjEMsRBfIdkUuMb8wZhCIa9eL9SJsdtdoe4uzLS6C0K8dqPNMaYNw5/YcLL7uvrc9XxpiRET1UU187PLDRnw+MyN0fNnU++m5Z7FtirovsM6TKuMTNuwFLfpVIy10bWUw1SW1fQnxn6bBrloGtsJ89CWKRpPKD9EB45NFrwH4ELcFE770LE86t+f4FnlJg+6Kf2H/CM9nMZz6u3OxjrhKtwLTzvCxzvlaA/zNggDGlr+YJOkX7JUccS/EdhKSyD5bAiRWOCsRo/7j9uOU96ezHjp2AdNEAjrJfR2TA1xrV8A9pZm4t/nlGHejbWwhbYanl+bRofiKuAURgz5nz14ho3wmfjuhb3k/Yv+A17HO+u72F8FXVWw0hYy2radX5cYyWxtcY6CsQUoeS760iz3ca9csWo62lLHS5rJvAYz3RrIZ8zaNN1zdlg2eMmfJsNfzn3yxWzLfxGKbtFeyfsKkMj63us+uo71cT+7g/zHubaDHWwBuqnsCdp61LWRb6zcAZOpLyz/kXDZjWWsx6Yfv5GuP6x3F+TOdr7Z5Wffq8DU+cvsAqulb4lyNDs1tZxbpp7kKUR2Ftyv8vxv6JNI8v3P2jU+klf3hpZ76RJGcFx0g==
+   eJzVlTloFkEUx8fv+3K4s4kJHgii4knIoYgHFkpsFAtFQQsPomk0Wmi08D4QQbHRTgUx0UasVCzEKlEEwUYrBY1VxIBJsPCIJqbxt7DDzs7O7CZxGx/8dud48/7zdo4VYuI2yUGeFsS7KoW4Bmtl1JZHXJ3zxH4Gm+Gtl09e5ph7xL4v3f3j1VK+z8O5d8ITeArtcES6Nd6T4wfogY9edn0HsXbCbpmYhmihbY9ManxhXD8MwKAXr5fLZL/N7uB3V0YaF4tCvPQjjWHGjcAfGPWy6/r8XHm8KglxoSLyO8qjCs1qeDzGxVFjpxPvtuWbBfai6D5Duoyrz/Trs+R3pZSMtYb5VILU5hXUJ4dtNo2xoGtsIs5MmKVpPKD8EB45NPbRvh8uwWXtvAsRj6/qvQX2KD490Evu36CLcreMx9XLx+g7DtfhRnjeZzjulaA+SF8/DGhz+YROkXrJkcd82ttgASyERbA4RWOUvlo/3n7Icp708jz6T8ByWAErYZWMzoapMaLF69PO2lTapxl5qL2xDNbDBsv+tWm8w68MfsOwMeazF9e4Fe6Nm5rfd8o/4Cdsd9xdX0P/CvKshKEwl0bKTX5cow7fBmMeBXyKUPLdeaTZNuNbuXzU+6QlD5e14niAPX2wkM8ZtOm6xqy2rHEzbeugCqphimNNbBq2+sbwH6Wsg/IW2AqzYQ7MTflnpf2PVV39p5pZ312h1l7erdAES2DpONYkLS9lp4l3Bk7B4ZQ76180bFZrOeuB6edviPcvY21t37JGu3/q/fRvHZg6f4GV8S73LU6G5lltHucmuAZZGoG9JvYbx32bl0ZW2/+g0eAn2/LWyLqT/gJFoHKY
   </data>
  </layer>
  <objectgroup id="14" name="Buildings" visible="0">
@@ -234,6 +234,36 @@
   <object id="45" name="TileData" x="336" y="224" width="16" height="16">
    <properties>
     <property name="Action" value="Message &quot;blueberry.Hikawa.House.4&quot;"/>
+   </properties>
+  </object>
+  <object id="46" name="TileData" x="336" y="352" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Wardrobe"/>
+   </properties>
+  </object>
+  <object id="47" name="TileData" x="352" y="352" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Wardrobe"/>
+   </properties>
+  </object>
+  <object id="48" name="TileData" x="368" y="352" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Wardrobe"/>
+   </properties>
+  </object>
+  <object id="49" name="TileData" x="368" y="336" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Wardrobe"/>
+   </properties>
+  </object>
+  <object id="50" name="TileData" x="352" y="336" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Wardrobe"/>
+   </properties>
+  </object>
+  <object id="51" name="TileData" x="336" y="336" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Wardrobe"/>
    </properties>
   </object>
  </objectgroup>

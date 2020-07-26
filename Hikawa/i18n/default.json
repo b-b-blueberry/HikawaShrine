@@ -5,9 +5,9 @@
   "dialogue.response.ok": "OK",
   "dialogue.response.cancel": "Cancel",
   "dialogue.response.ready": "I'm ready!",
-  "dialogue.response.veryready": "I'm sure!",
+  "dialogue.response.veryready": "Yes, I'm sure!",
   "dialogue.response.later": "Not yet",
-  "dialogue.flee_inspect": "Looking into the mirror will escape from the Negaverse, and this chapter will remain open.",
+  "dialogue.flee_inspect": "Looking into the mirror will escape from the Negaverse, but this chapter will remain open.",
   "dialogue.flee_prompt": "Flee and return to the Shrine?",
 
   // World interaction strings
@@ -33,6 +33,10 @@
   "string.shrine.interloper_prompt": "Set off on the next chapter?",
   "string.shrine.interloper_veryprompt": "This action will have consequences. Go ahead?",
 
+  "string.home.wardrobe_inpsect": "It's a closet full of {{season}} clothes.",
+  "string.home.wardrobe_enable_prompt": "Characters aren't wearing any seasonal outfits. Put them on?",
+  "string.home.wardrobe_disable_prompt": "Characters are currently wearing seasonal outfits. Take them off?",
+
   // Bundles menu strings
   "string.menu.bundles.0_inspect": "Bundle of Light",
   "string.menu.bundles.1_inspect": "Artefact Offerings",
@@ -44,7 +48,7 @@
   // Misc character strings
   // TODO: ASSETS: Portrait codes
   "talk.story.stock.chat_first": "Huh? You're a new face in town.$b#If you're looking for the old shrine, you're out of luck.",
-  "talk.story.stock.chat_after": "When that new chain store arrived, they dumped their stock at our steps.$b#I wish someone would just blow it up already.",
+  "talk.story.stock.chat_after": "When that new chain store arrived, they dumped their stock at our steps.$b#I wish someone would just blow it to pieces already.",
   "talk.story.plant.mono1": "Such greed from these hungry townsfolk...",
   "talk.story.plant.mono1plus": "Such energy, what potential!",
   "talk.story.plant.mono2": "Your energy will feed the dark!",

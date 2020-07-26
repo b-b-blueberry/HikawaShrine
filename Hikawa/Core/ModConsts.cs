@@ -53,6 +53,7 @@ namespace Hikawa
 		internal const string ActionShrineShop = ContentPrefix + "OmiyageyaShop";
 		internal const string ActionShrineOffering = ContentPrefix + "Offering";
 		internal const string ActionLockbox = ContentPrefix + "Lockbox";
+		internal const string ActionWardrobe = ContentPrefix + "Wardrobe";
 		internal const string ActionSit = ContentPrefix + "Sit";
 		internal const string ActionVortex = ContentPrefix + "Vortex";
 		internal const string ActionFrogman = ContentPrefix + "Frogman";
@@ -93,6 +94,7 @@ namespace Hikawa
 		};
 
 		// Values and things
+		internal const string CommandPrefix = "bb";
 		internal const int SharedBuffId = 870084643;
 		internal const int BananaBegins = 3;
 		internal const int BigBananaBonanza = 7;

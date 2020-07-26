@@ -24,6 +24,8 @@ using SpaceCore.Events;
 using Hikawa.GameObjects;
 using Hikawa.GameObjects.Menus;
 
+// todo: feature: add a link to sailor styles for hairstyles and clothes
+
 namespace Hikawa
 {
 	public class ModEntry : Mod
@@ -67,6 +69,8 @@ namespace Hikawa
 		private bool _isPlayerBuddhaMode;
 		private int _playerHealthToMaintain;
 		private int _dizzyStack;
+		
+		internal const string Cmd = ModConsts.CommandPrefix;
 
 		internal enum Buffs
 		{
@@ -139,11 +143,11 @@ namespace Hikawa
 			
 			SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
 			SpaceEvents.AfterGiftGiven += HikawaGiftsGiven;
-			
+
+			AddConsoleCommands();
 			if (Config.DebugMode)
 			{
-				// Add debugging commands
-				AddConsoleCommands();
+				AddDeveloperCommands();
 
 				// Add texture render tests
 				//helper.Events.Display.Rendering += OnRendering;
@@ -154,48 +158,137 @@ namespace Hikawa
 
 		private void AddConsoleCommands()
 		{
-			// TODO: METHOD: Find some way to set default warp location, intercept Warped maybe?
-
-			const string cmd = "bb"; // Command prefix
 			var commands = new Dictionary<string, string[]>
 			{
-				{ cmd + "arcade",
-					new[] { cmd + "a", "Start arcade game:"
+				{
+					Cmd + "stuck",
+					new[] {Cmd + "unstuck", "Unstuck the player if Hikawa's trapped them."}
+				},
+			};
+
+			foreach (var command in commands)
+			{
+				Action<string, string[]> callback = (s, p) => { };
+				switch (command.Key)
+				{
+					case Cmd + "stuck":
+						callback = (s, p) =>
+						{
+							// TODO: UPKEEP: Keep on top of the unstuck console command to ensure it matches new problems
+
+							// TODO: FEATURE: Add a check for whether players are stuck, then prompt to use the >stuck command
+
+							var who = Game1.player;
+							var where = Game1.currentLocation;
+							var position = who.Position;
+							var tile = new Location((int) position.X / 64, (int) position.Y / 64);
+							var mapEnd = new Vector2(where.Map.DisplayWidth / 64f, where.Map.DisplayHeight / 64f);
+							var story = GetCurrentStory();
+
+							bool passable = false, outOfBounds = true, notOnBack = true;
+
+							try
+							{
+								passable = where.isTilePassable(tile, Game1.viewport);
+								outOfBounds = tile.X < 0 || tile.Y < 0 || tile.X > mapEnd.X || tile.Y > mapEnd.Y;
+								notOnBack = where.Map.GetLayer("Back").Tiles[tile.X, tile.Y] == null;
+							}
+							catch (Exception e)
+							{
+								Log.E($"Errored out of STUCK helper:\n{e}");
+							}
+							finally
+							{
+								Log.W("KA-POW!");
+								Log.D("Probable results:"
+								      + "\n-------------------------"
+								      + $"\nLocation:    {where.Name} ({where})"
+								      + $"\nPosition:    {tile} ({position})"
+								      + $"\nStory:       {story.Key} - {story.Value}"
+								      + $"\nInterlude:   {SaveData.Interlude}"
+								      + $"\nActive item: {who.ActiveObject?.Name}"
+									  + "\n-------------------------"
+								      + $"\nActions suppressed: {_isPlayerAgencySuppressed}"
+								      + $"\nOut of bounds:      {outOfBounds}"
+								      + $"\nBlocked tile:       {passable}",
+									Config.DebugMode);
+
+								if (_isPlayerAgencySuppressed)
+									Log.D("Reenabling player actions.");
+								if (_animationFlag || _animationTimer > 0 || _animationStage > 0
+								    || _animationExtraInt > 0 || _animationExtraFloat > 0)
+									Log.D("Cancelling custom animations.");
+								if (_isPlayerGodMode || _isPlayerBuddhaMode)
+									Log.D("Cancelling player health guards.");
+
+								_isPlayerAgencySuppressed = false;
+								ResetAnimationVars();
+								SetGodMode(SetBuddhaMode(false));
+
+								if (!passable || outOfBounds || notOnBack)
+								{
+									Log.D("Zipping back to the default warp-in point.");
+									if (ModConsts.DefaultWarps.ContainsKey(where.Name))
+										WarpToDefault(where.Name);
+									else
+										Game1.player.warpFarmer(new Warp(0, 0, where.Name, 0, 0, false));
+								}
+							}
+						};
+						break;
+				}
+				
+				for (var i = 0; i < command.Value.Length - 1; ++i)
+					Helper.ConsoleCommands.Add(command.Value[i], command.Value[command.Value.Length - 1], callback);
+				Helper.ConsoleCommands.Add(command.Key, command.Value[command.Value.Length - 1], callback);
+			}
+		}
+
+		private void AddDeveloperCommands()
+		{
+			// TODO: METHOD: Find some way to set default warp location, intercept Warped maybe?
+
+			var commands = new Dictionary<string, string[]>
+			{
+				{ Cmd + "arcade",
+					new[] { Cmd + "a", "Start arcade game:"
 					                 + " use START, TITLE, RESET." }}, 
-				{ cmd + "overlay",
-					new[] { cmd + "ov", $"Manage screen overlays:"
+				{ Cmd + "overlay",
+					new[] { Cmd + "ov", $"Manage screen overlays:"
 					                  + $" use 0~{OverlayEffectControl.Effect.Count - 1}." }},
-				{ cmd + "offer",
-					new[] { cmd + "of", "Make a shrine offering:"
+				{ Cmd + "offer",
+					new[] { Cmd + "of", "Make a shrine offering:"
 					                  + " use S, M, or L." }},
-				{ cmd + "crows",
-					new[] { cmd + "c", "Respawn twin crows at the shrine." }},
-				{ cmd + "crows2",
-					new[] { cmd + "c2", "Respawn perched crows at the shrine." }},
-				{ cmd + "totem",
-					new[] { cmd + "t", "Fire a totem warp to the Shrine." }},
-				{ cmd + "house",
-					new[] { cmd + "h", "Warp to Rei's house." }},
-				{ cmd + "shrine",
-					new[] { cmd + "s", "Warp to Hikawa Shrine." }},
-				{ cmd + "entry",
-					new[] { cmd + "e", "Warp to the shrine entrance." }},
-				{ cmd + "vortex", 
-					new[] { cmd + "v", "Warp to a Vortex map:"
+				{ Cmd + "crows",
+					new[] { Cmd + "c", "Respawn twin crows at the shrine." }},
+				{ Cmd + "crows2",
+					new[] { Cmd + "c2", "Respawn perched crows at the shrine." }},
+				{ Cmd + "totem",
+					new[] { Cmd + "t", "Fire a totem warp to the Shrine." }},
+				{ Cmd + "house",
+					new[] { Cmd + "h", "Warp to Rei's house." }},
+				{ Cmd + "shrine",
+					new[] { Cmd + "s", "Warp to Hikawa Shrine." }},
+				{ Cmd + "entry",
+					new[] { Cmd + "e", "Warp to the shrine entrance." }},
+				{ Cmd + "vortex", 
+					new[] { Cmd + "v", "Warp to a Vortex map:"
 					                 + " use 1~3." }},
-				{ cmd + "buff", 
-					new[] { cmd + "bf", "Add a Shrine buff:"
+				{ Cmd + "buff", 
+					new[] { Cmd + "bf", "Add a Shrine buff:"
 					                  + $" use 0~{Buffs.Count - 1}." }},
-				{ cmd + "god", 
-					new[] { cmd + "g", "Toggle God mode." }},
-				{ cmd + "buddha", 
-					new[] { cmd + "bd", "Toggle Buddha mode." }},
-				{ cmd + "pain", 
-					new[] { cmd + "p", "Take random damage. Able to kill player from full health." }},
-				{ cmd + "chapter", 
-					new[] { cmd + "ch", $"Set or reset story progress:"
+				{ Cmd + "god", 
+					new[] { Cmd + "g", "Toggle God mode." }},
+				{ Cmd + "buddha", 
+					new[] { Cmd + "bd", "Toggle Buddha mode." }},
+				{ Cmd + "pain", 
+					new[] { Cmd + "p", "Take random damage. Able to kill player from full health." }},
+				{ Cmd + "chapter", 
+					new[] { Cmd + "ch", $"Set or reset story progress:"
 					                  + $" use 0~{ModData.Chapter.End - 1}"
 					                  + $" 0~{ModData.Progress.Complete - 1}." }},
+				{ Cmd + "schedule", 
+					new[] { Cmd + "sc", "Get an NPC's current schedule path." }},
 			};
 
 			foreach (var command in commands)
@@ -203,7 +296,7 @@ namespace Hikawa
 				Action<string, string[]> callback = (s, p) => {};
 				switch (command.Key)
 				{
-					case cmd + "arcade":
+					case Cmd + "arcade":
 						callback = (s, p) =>
 						{
 							var action = p[0].ToLower();
@@ -232,7 +325,7 @@ namespace Hikawa
 						};
 						break;
 
-					case cmd + "overlay":
+					case Cmd + "overlay":
 						callback = (s, p) =>
 						{
 							if (p.Length < 1)
@@ -252,7 +345,7 @@ namespace Hikawa
 						};
 						break;
 						
-					case cmd + "offer":
+					case Cmd + "offer":
 						callback = (s, p) =>
 						{
 							try
@@ -265,21 +358,21 @@ namespace Hikawa
 						};
 						break;
 
-					case cmd + "crows":
+					case Cmd + "crows":
 						callback = (s, p) =>
 						{
 							SpawnCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 						};
 						break;
 
-					case cmd + "crows2":
+					case Cmd + "crows2":
 						callback = (s, p) =>
 						{
 							SpawnPerchedCrows(Game1.getLocationFromName(ModConsts.ShrineMapId));
 						};
 						break;
 
-					case cmd + "totem":
+					case Cmd + "totem":
 						callback = (s, p) =>
 						{
 							StartWarpToShrine(new Object(
@@ -287,28 +380,28 @@ namespace Hikawa
 						};
 						break;
 
-					case cmd + "home":
+					case Cmd + "home":
 						callback = (s, p) =>
 						{
 							WarpToDefault(ModConsts.HouseMapId);
 						};
 						break;
 
-					case cmd + "shrine":
+					case Cmd + "shrine":
 						callback = (s, p) =>
 						{
 							WarpToDefault(ModConsts.ShrineMapId);
 						};
 						break;
 						
-					case cmd + "entry":
+					case Cmd + "entry":
 						callback = (s, p) =>
 						{
 							WarpToDefault("Town");
 						};
 						break;
 						
-					case cmd + "vortex":
+					case Cmd + "vortex":
 						callback = (s, p) =>
 						{
 							var which = p.Length > 0 ? p[0] : "1";
@@ -316,7 +409,7 @@ namespace Hikawa
 						};
 						break;
 						
-					case cmd + "buff":
+					case Cmd + "buff":
 						callback = (s, p) =>
 						{
 							if (p.Length > 0)
@@ -330,39 +423,39 @@ namespace Hikawa
 									return;
 								}
 							}
-							Log.W($"Shrine buffs"
+							Log.D($"Shrine buffs"
 							      + $"\nAwaiting: {SaveData.AwaitingShrineBuff}"
 							      + $" | Current: {SaveData.LastShrineBuffId}"
 							      + $" | Cooldown: {SaveData.ShrineBuffCooldown}");
 						};
 						break;
 						
-					case cmd + "god":
+					case Cmd + "god":
 						callback = (s, p) =>
 						{
 							ToggleGodMode();
-							Log.W($"God mode {(_isPlayerGodMode ? "on" : "off")}");
+							Log.D($"God mode {(_isPlayerGodMode ? "on" : "off")}");
 						};
 						break;
 
-					case cmd + "buddha":
+					case Cmd + "buddha":
 						callback = (s, p) =>
 						{
 							ToggleBuddhaMode();
-							Log.W($"Buddha mode {(_isPlayerBuddhaMode ? "on" : "off")}");
+							Log.D($"Buddha mode {(_isPlayerBuddhaMode ? "on" : "off")}");
 						};
 						break;
 
-					case cmd + "pain":
+					case Cmd + "pain":
 						callback = (s, p) =>
 						{
 							var pain = Game1.random.Next(1, Game1.player.maxHealth * 3 / 2);
 							Game1.player.takeDamage(pain, true, null);
-							Log.W($"Hurt for {pain}");
+							Log.D($"Hurt for {pain}");
 						};
 						break;
 
-					case cmd + "chapter":
+					case Cmd + "chapter":
 						callback = (s, p) =>
 						{
 							// Reset all chapter progress with no args
@@ -379,7 +472,78 @@ namespace Hikawa
 							SaveData.Story[chapter] = progress;
 
 							var currentStory = GetCurrentStory();
-							Log.W($"Current chapter: {currentStory.Key} : {currentStory.Value}");
+							Log.D($"Current chapter: {currentStory.Key} : {currentStory.Value}");
+						};
+						break;
+
+					case Cmd + "schedule":
+						callback = (s, p) =>
+						{
+							if (p.Length < 1)
+							{
+								return;
+							}
+
+							var npc = GetHikawaNpcByName(p[0]);
+							if (npc == null)
+							{
+								Log.D($"No Hikawa NPCs found for '{p[0]}'.");
+								return;
+							}
+
+							var day = p.Length == 2
+								? int.Parse(p[1])
+								: p.Length > 2
+									? int.Parse(p[2])
+									: Game1.dayOfMonth;
+							if (npc.getSchedule(day) == null)
+							{
+								Log.D($"{npc.Name} has no schedule for {Game1.CurrentSeasonDisplayName} {day}.");
+								return;
+							}
+
+							var anim = npc.doingEndOfRouteAnimation.Value
+								? "doingEndOfRoute"
+								: npc.goingToDoEndOfRouteAnimation.Value
+									? "goingToDoEndOfRoute"
+									: npc.isSleeping.Value
+										? "sleeping"
+										: "";
+
+							var time = 0;
+							var dialogues = "";
+							SchedulePathDescription schedule = null;
+							var nearestSchedules = npc.getSchedule(day).Keys.Where(_ => Game1.timeOfDay - _ > 0).ToList();
+							if (!nearestSchedules.Any())
+							{
+								nearestSchedules = npc.getSchedule(day).Keys.Where(_ => Game1.timeOfDay - _ < 0).ToList();
+								time = nearestSchedules.Min();
+							}
+							else {
+								time = nearestSchedules.Max();
+							}
+
+							if (!nearestSchedules.Any())
+							{
+								Log.D($"{npc.Name} has no schedule components for {Game1.CurrentSeasonDisplayName} {day}.");
+								return;
+							}
+
+							schedule = npc.getSchedule(day)[time];
+							dialogues = npc.CurrentDialogue.Aggregate("",
+								(str, dialogue) =>
+									$"{str}\n  " 
+									+ Helper.Reflection.GetField<List<string>>(dialogue, "dialogues").GetValue().Aggregate("",
+										(str, d) => $"{str}\n    " + d));
+								
+							Log.D($"{npc.Name}'s schedule for {Game1.CurrentSeasonDisplayName} {day} at {Game1.timeOfDay}:"
+							      + $"\n\nSchedule:"
+							      + $"\nStarting at {time}, {npc.currentLocation.Name}:"
+							      + $"\n{schedule?.route.Aggregate("", (str, point) => $"{str} ({point.X},{point.Y})")}"
+							      + $"\n\nBehaviour: {schedule?.endOfRouteBehavior}"
+							      + $"\nMessage:   {schedule?.endOfRouteMessage}"
+							      + $"\n\nCurrent animation: {anim}"
+							      + $"\nCurrent dialogue:  {dialogues}");
 						};
 						break;
 				}
@@ -877,10 +1041,35 @@ namespace Hikawa
 				case ModConsts.ActionShrineHall:
 					Log.W("ActionShrineHall!");
 					break;
-
+					
 				// Lockbox
 				case ModConsts.ActionLockbox:
 					Log.W("ActionLockbox!");
+					break;
+
+				// Wardrobe
+				case ModConsts.ActionWardrobe:
+					Log.W("ActionWardrobe!");
+
+					// Offer to toggle seasonal outfits on Hikawa characters
+					Game1.playSound("doorCreak");
+					_isPlayerAgencySuppressed = true;
+					Game1.delayedActions.Add(new DelayedAction(300, () =>
+					{
+						_isPlayerAgencySuppressed = false;
+						CreateInspectThenQuestionDialogue(
+							new List<string>
+							{
+								i18n.Get("string.home.wardrobe_inspect", new {season = Game1.CurrentSeasonDisplayName}),
+								i18n.Get($"string.home.wardrobe_{(Config.SeasonalClothes ? "dis" : "en")}able_inspect")
+							},
+							new List<Response>
+							{
+								new Response("wardrobe_yes", i18n.Get("dialogue.response.yes")),
+								new Response("wardrobe_no", i18n.Get("dialogue.response.no"))
+							});
+					}));
+
 					break;
 
 				// Sit on benches
@@ -1761,6 +1950,27 @@ namespace Hikawa
 			_isPlayerAgencySuppressed = true;
 		}
 
+		internal static NPC GetHikawaNpcByName(string substring) {
+			var charas = new List<string>
+			{
+				ModConsts.ReiNpcId,
+				ModConsts.AmiNpcId,
+				ModConsts.UsaNpcId,
+				ModConsts.GrampsNpcId,
+				ModConsts.YuuichiroNpcId,
+			};
+			var result = charas.FirstOrDefault(c => c.Split('.')[2]
+				.ToLower() == substring.ToLower());
+			if (string.IsNullOrEmpty(result))
+				result = charas.FirstOrDefault(c => c.Split('.')[2]
+					.ToLower().StartsWith(substring.ToLower()));
+			if (string.IsNullOrEmpty(result))
+				result = charas.FirstOrDefault(c => c.Split('.')[2]
+					.ToLower().Contains(substring.ToLower()));
+			
+			return string.IsNullOrEmpty(result) ? null : Game1.getCharacterFromName(result);
+		}
+
 		public static float GetProgressFromEveningIntoNighttime()
 		{
 			var now = Game1.timeOfDay;
@@ -2279,6 +2489,15 @@ namespace Hikawa
 
 				case "interloper":
 					StartMission();
+					break;
+
+				case "wardrobe_yes":
+					Config.SeasonalClothes = !Config.SeasonalClothes;
+					Game1.playSound("doorCreakReverse");
+					break;
+
+				case "wardrobe_no":
+					Game1.playSound("doorCreakReverse");
 					break;
 
 				case "flee":
