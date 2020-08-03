@@ -90,9 +90,9 @@ namespace Hikawa.Editors
 				dest.PatchImage(source, sourceRect, destRect);
 
 				// Update index for our elements in the asset
-				ModEntry.Instance.InitialBuffIconIndex = ypos / spriteSize * texture.Width / spriteSize;
+				ModEntry.InitialBuffIconIndex = ypos / spriteSize * texture.Width / spriteSize;
 
-				Log.D($"New buff icon index: {ModEntry.Instance.InitialBuffIconIndex}",
+				Log.D($"New buff icon index: {ModEntry.InitialBuffIconIndex}",
 					ModEntry.Instance.Config.DebugMode);
 			}
 			else if (asset.AssetNameEquals(@"Characters/schedules/Haley"))

@@ -13,6 +13,10 @@
     },
     {
       "UniqueID": "spacechase0.SpaceCore"
+    },
+    {
+      "UniqueID": "blueberry.SailorStyles",
+      "Required": false 
     }
   ]
 }

@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Netcode;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Events;
 using xTile.Dimensions;
@@ -13,36 +14,6 @@ namespace Hikawa.GameObjects.Events
 {
 	public class RainInTheNight : FarmEvent
 	{
-		private class CustomModSprite : TemporaryAnimatedSprite
-		{
-			public CustomModSprite(
-				string textureName,
-				Texture2D texture,
-				Rectangle sourceRect,
-				float animationInterval,
-				int animationLength,
-				int numberOfLoops,
-				Vector2 position,
-				bool flicker,
-				bool flipped)
-				: base(
-					0,
-					animationInterval,
-					animationLength,
-					numberOfLoops,
-					position,
-					flicker,
-					flipped
-				)
-			{
-				ModEntry.Instance.Helper.Reflection.GetField<string>(this, "textureName").SetValue(textureName);;
-				this.texture = texture;
-				this.sourceRect = sourceRect;
-				sourceRectStartingPos = new Vector2(sourceRect.X, sourceRect.Y);
-				initialPosition = position;
-			}
-		}
-
 		private bool _isBlack;
 		private bool _awaitingInput;
 		private float _crystalGlareOpacity;
@@ -58,7 +29,6 @@ namespace Hikawa.GameObjects.Events
 		private int _fire;
 		private int _timer;
 		private float _cameraSpeedMult;
-		private float _lightOpacity;
 		private bool _terminate;
 
 		private readonly Vector2 _targetLocation;
@@ -70,7 +40,7 @@ namespace Hikawa.GameObjects.Events
 		private static float _yOffset;
 
 		private static readonly Rectangle SourceRectGlare = new Rectangle(
-			96, 144, 112, 32);
+			208, 16, 112, 32);
 		private static readonly List<Rectangle> SourceRects = new List<Rectangle>
 		{
 			// 0 4 3 1 2
@@ -92,6 +62,9 @@ namespace Hikawa.GameObjects.Events
 			new Rectangle(X + 00 * 4, Y + Y / 4, 48 * 4, 64 * 4),
 		};
 
+		private IModHelper Helper => ModEntry.Instance.Helper;
+		private ITranslationHelper i18n => Helper.Translation;
+
 		public NetFields NetFields { get; } = new NetFields();
 
 		public RainInTheNight()
@@ -103,7 +76,7 @@ namespace Hikawa.GameObjects.Events
 			try
 			{
 				var textureName = Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png");
-				_texture = ModEntry.Instance.Helper.Content.Load<Texture2D>(textureName);
+				_texture = Helper.Content.Load<Texture2D>(textureName);
 			}
 			catch (Exception e)
 			{
@@ -112,7 +85,7 @@ namespace Hikawa.GameObjects.Events
 				return;
 			}
 			
-			// Find a decent point on the map to stick the plant, starting with our preferred coordinates
+			// Find a decent point on the map to stick the banana, starting with our preferred coordinates
 			var r = new Random((int)Game1.uniqueIDForThisGame + (int)Game1.stats.DaysPlayed);
 			var whereabouts = ModConsts.StoryPlantPositionsForFarmTypes[Game1.whichFarm];
 			const int acceptableRadius = 2;
@@ -217,7 +190,7 @@ namespace Hikawa.GameObjects.Events
 				{
 					Log.W("Phase 1: Monologue 1");
 					
-					Game1.drawObjectDialogue(ModEntry.Instance.Helper.Translation.Get("string.story.plant.mono1"));
+					Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono1"));
 					_awaitingInput = true;
 				}
 			}
@@ -238,7 +211,7 @@ namespace Hikawa.GameObjects.Events
 				{
 					Log.W("Phase 1 and a bit: Monologue 1 plus");
 					
-					Game1.drawObjectDialogue(ModEntry.Instance.Helper.Translation.Get("string.story.plant.mono1plus"));
+					Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono1plus"));
 					_awaitingInput = true;
 				}
 			}
@@ -318,7 +291,7 @@ namespace Hikawa.GameObjects.Events
 				{
 					Log.W("Phase 3: Monologue 2");
 					
-					Game1.drawObjectDialogue(ModEntry.Instance.Helper.Translation.Get("string.story.plant.mono2"));
+					Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono2"));
 					_timer = 10500;
 					_awaitingInput = true;
 				}
@@ -406,16 +379,14 @@ namespace Hikawa.GameObjects.Events
 				Log.W("Phase 5: Plant");
 
 				_fire = 6;
-				var multiplayer = ModEntry.Instance.Helper.Reflection
-					.GetField<Multiplayer>(typeof(Game1), "multiplayer").GetValue();
 				
 				var textureSource = new Rectangle(
 					0,
 					48,
 					16, 32);
-				multiplayer.broadcastSprites(_farm,
-					new CustomModSprite(
-						_texture.Name, _texture, textureSource, 
+				ModEntry.Multiplayer.broadcastSprites(_farm,
+					new TemporaryAnimatedSprite(
+						_texture.Name, textureSource, 
 						900f, 
 						4, 
 						1, 
@@ -474,7 +445,7 @@ namespace Hikawa.GameObjects.Events
 		{
 			_isBlack = true;
 			Game1.globalFadeToClear();
-			Game1.drawObjectDialogue(ModEntry.Instance.Helper.Translation.Get("string.story.plant.mono3"));
+			Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono3"));
 		}
 
 		public void draw(SpriteBatch b)

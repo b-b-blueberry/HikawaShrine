@@ -7,6 +7,7 @@
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
     <IgnoreModFilePatterns>TMXTile\.(?:dll|pdb)</IgnoreModFilePatterns>
+    <EnableHarmony>true</EnableHarmony>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -26,5 +27,9 @@
       <HintPath>$(GamePath)\Mods\[CORE]\PyTK\PyTK.dll</HintPath>
       <Private>false</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GameObjects\Monsters\" />
   </ItemGroup>
 </Project>

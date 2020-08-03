@@ -15,7 +15,8 @@ namespace Hikawa
 
 		internal const string AssetsPath = "assets";
 		internal static readonly string SpritesPath = Path.Combine(AssetsPath, "LooseSprites");
-		internal static readonly string EventsPath = Path.Combine("Data", "events.json");
+		internal static readonly string EventsPath = Path.Combine("Data", "Events.json");
+		internal static readonly string ForagePath = Path.Combine("Data", "Forage.json");
 		internal static readonly string JaContentPackPath = Path.Combine(AssetsPath, "ContentPack");
 
 		internal const string TilesheetPrefix = "z_hikawa";
@@ -63,7 +64,7 @@ namespace Hikawa
 		internal const int OfferingCostL = 825;
 
 		// Coordinates
-		internal const string DebugDefaultWarpTo = ShrineMapId;
+		internal const string DebugDefaultWarpTo = "Town";
 		
 		// TODO: CONTENT: Fill in default warps for missing maps
 		internal static readonly Dictionary<string, Location> DefaultWarps = new Dictionary<string, Location>
@@ -71,7 +72,7 @@ namespace Hikawa
 			//{ ShrineMapId, new Location(39, 60) },
 			{ ShrineMapId, new Location(45, 45) },
 			{ HouseMapId, new Location(5, 19) },
-			{ "Town", new Location(20, 5) },
+			{ "Town", new Location(39, 15) },
 			{ VortexMapId + 1, new Location(25, 40) },
 		};
 
