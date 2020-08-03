@@ -16,7 +16,7 @@
     },
     {
       "UniqueID": "blueberry.SailorStyles",
-      "Required": false 
+      "IsRequired": false
     }
   ]
 }

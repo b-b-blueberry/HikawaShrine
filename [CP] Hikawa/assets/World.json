@@ -1,0 +1,16 @@
+{
+  "Changes": [
+    {
+      "LogName": "Hikawa World Strings",
+      "Action": "EditData",
+      "Target": "Strings/StringsFromMaps",
+      "FromFile": "assets/StringsFromMaps.json"
+    },
+    {
+      "LogName": "Hikawa Artefact Entries",
+      "Action": "EditData",
+      "Target": "Data/Locations",
+      "FromFile": "assets/Locations.json"
+    }
+  ]
+}

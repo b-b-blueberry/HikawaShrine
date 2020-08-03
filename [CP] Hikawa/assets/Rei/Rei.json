@@ -1,5 +1,4 @@
 {
-  "Format": "1.11.0",
   "Changes": [
     {
       "LogName": "Rei: Disposition",
@@ -21,31 +20,31 @@
       "LogName": "Rei: Portraits",
       "Action": "Load",
       "Target": "Portraits/blueberry.Hikawa.Rei",
-      "FromFile": "assets/Portraits/Portrait.png"
+      "FromFile": "assets/Rei/Portraits/Portrait.png"
     },
     {
       "LogName": "Rei: Sprites",
       "Action": "Load",
       "Target": "Characters/blueberry.Hikawa.Rei",
-      "FromFile": "assets/Sprites/Sprite.png"
+      "FromFile": "assets/Rei/Sprites/Sprite.png"
     },
     {
       "LogName": "Rei: Dialogue",
       "Action": "Load",
       "Target": "Characters/Dialogue/blueberry.Hikawa.Rei",
-      "FromFile": "assets/Dialogue.json"
+      "FromFile": "assets/Rei/Data/Dialogue.json"
     },
     {
       "LogName": "Rei: Schedule",
       "Action": "Load",
       "Target": "Characters/schedules/blueberry.Hikawa.Rei",
-      "FromFile": "assets/Schedule.json"
+      "FromFile": "assets/Rei/Data/Schedule.json"
     },
     {
       "LogName": "Rei: Schedule dialogue",
       "Action": "Load",
       "Target": "Strings/schedules/blueberry.Hikawa.Rei",
-      "FromFile": "assets/ScheduleDialogue.json"
+      "FromFile": "assets/Rei/Data/ScheduleDialogue.json"
     }
   ]
 }

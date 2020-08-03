@@ -1,17 +1,30 @@
 {
-  "Format": "1.11.0",
+  "Format": "1.16.0",
   "Changes": [
     {
-      "LogName": "Hikawa World Strings",
-      "Action": "EditData",
-      "Target": "Strings/StringsFromMaps",
-      "FromFile": "assets/StringsFromMaps.json"
+      "LogName": "Hikawa World Patches",
+      "Action": "Include",
+      "FromFile": "assets/World.json"
     },
     {
-      "LogName": "Hikawa Artefact Entries",
-      "Action": "EditData",
-      "Target": "Data/Locations",
-      "FromFile": "assets/Locations.json"
-    }
+      "LogName": "Hikawa Rei Patches",
+      "Action": "Include",
+      "FromFile": "assets/Rei/Rei.json"
+    },
+    {
+      "LogName": "Hikawa Ami Patches",
+      "Action": "Include",
+      "FromFile": "assets/Ami/Ami.json"
+    },
+    {
+      "LogName": "Hikawa Gramps Patches",
+      "Action": "Include",
+      "FromFile": "assets/Gramps/Gramps.json"
+    },
+    {
+      "LogName": "Hikawa Yuuichiro Patches",
+      "Action": "Include",
+      "FromFile": "assets/Yuuichiro/Yuuichiro.json"
+    },
   ]
 }
