@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="55" height="55" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#010129" nextlayerid="57" nextobjectid="137">
+<map version="1.2" tiledversion="2020.01.22" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="81" height="67" tilewidth="16" tileheight="16" infinite="0" nextlayerid="49" nextobjectid="148">
  <properties>
-  <property name="AmbientLight" value="0 0 0"/>
-  <property name="ViewportFollowPlayer" type="bool" value="true"/>
-  <property name="Warp" value="1 1 Town 1 1"/>
+  <property name="DayTiles" value="AlwaysFront 30 52 13 AlwaysFront 35 40 13 AlwaysFront 42 40 13 AlwaysFront 47 52 13 AlwaysFront 51 27 13 Buildings 57 22 0 Buildings 58 22 0 Buildings 59 22 0 Buildings 60 22 0 Buildings 57 23 0 Buildings 58 23 0 Buildings 59 23 0 Buildings 60 23 0 Buildings 64 26 0 Buildings 65 26 0 Buildings 64 27 0 Buildings 65 27 0 Buildings 64 28 0 Buildings 65 28 0"/>
+  <property name="Light" value="30 52 4 35 40 4 42 40 4 47 52 4 51 27 4"/>
+  <property name="NightTiles" value="AlwaysFront 30 52 70 AlwaysFront 35 40 70 AlwaysFront 42 40 70 AlwaysFront 47 52 70 AlwaysFront 51 27 70 Buildings 57 22 500 Buildings 58 22 501 Buildings 9 22 502 Buildings 60 22 503 Buildings 57 23 557 Buildings 58 23 558 Buildings 59 23 559 Buildings 60 23 560 Buildings 64 26 618 Buildings 65 26 619 Buildings 64 27 675 Buildings 65 27 676 Buildings 64 28 732 Buildings 65 28 733"/>
+  <property name="Outdoors" value="T"/>
+  <property name="Warp" value="37 66 Town 18 0 38 66 Town 19 0 39 66 Town 20 0 40 66 Town 21 0"/>
  </properties>
  <tileset firstgid="1" name="outdoors" tilewidth="16" tileheight="16" tilecount="1975" columns="25">
-  <image source="spring_outdoorsTileSheet.png" width="400" height="1264"/>
+  <image source="fall_outdoorsTileSheet.png" width="400" height="1264"/>
   <tile id="150">
    <properties>
     <property name="Spawnable" value="t"/>
@@ -1311,6 +1313,11 @@
  </tileset>
  <tileset firstgid="2008" name="z_hikawa_outdoors" tilewidth="16" tileheight="16" tilecount="2056" columns="57">
   <image source="z_hikawa_outdoors.png" width="912" height="576"/>
+  <tile id="2">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="386">
    <properties>
     <property name="Passable" type="bool" value="true"/>
@@ -1352,6 +1359,76 @@
    </properties>
   </tile>
   <tile id="448">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="747">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="748">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="749">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="750">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="804">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="805">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="806">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="807">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="860">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="861">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="862">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="863">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="864">
+   <properties>
+    <property name="Passable" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="865">
    <properties>
     <property name="Passable" type="bool" value="true"/>
    </properties>
@@ -1894,111 +1971,386 @@
   </tile>
  </tileset>
  <tileset firstgid="4070" name="town" tilewidth="16" tileheight="16" tilecount="2304" columns="32">
-  <image source="spring_town.png" width="512" height="1152"/>
+  <image source="fall_town.png" width="512" height="1152"/>
  </tileset>
- <tileset firstgid="6374" name="z_hikawa_vortex" tilewidth="16" tileheight="16" tilecount="560" columns="20">
-  <image source="z_hikawa_vortex.png" width="320" height="448"/>
-  <tile id="26">
-   <properties>
-    <property name="Passable" type="bool" value="true"/>
-   </properties>
-   <animation>
-    <frame tileid="26" duration="160"/>
-    <frame tileid="27" duration="160"/>
-    <frame tileid="28" duration="160"/>
-    <frame tileid="29" duration="160"/>
-   </animation>
-  </tile>
-  <tile id="27">
-   <properties>
-    <property name="Passable" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="28">
-   <properties>
-    <property name="Passable" type="bool" value="true"/>
-   </properties>
-  </tile>
-  <tile id="29">
-   <properties>
-    <property name="Passable" type="bool" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <layer id="54" name="Buses" width="55" height="55" visible="0">
+ <layer id="48" name="Back" width="81" height="67">
   <data encoding="base64" compression="zlib">
-   eJzt2McRwjAUhOF3InVALIFUAqkEUguEFjC0QGgBeoDi+NWARwcZhNhvZq8e9vLw2kxERFKzr1u2I1uyId/+PSGd6HMkGTkk1u1Gnyu5kHNi3UTk/zy4Y/dEb9mLXs9Eu4lIGLqBInFhFxv72NjJbi8nhV1s7GNjJ7u9/HFFfn9gFxv72NjJbi8HxY12tzrXr35/4Ea7W51L3x9ERESKVeK/uEwqpEpqCb2DNujSJC3SJp0Iuvm82/no8owe6ZMBGUbQzefdzseIZ4zJhEzJLIJuoczpsiBLsiLrhLqJiIiIiEjx3hG5OWA=
+   eJztwwENAAAMw6D61zkhl3ADkLBqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzwONNuJ7
   </data>
  </layer>
- <objectgroup id="55" name="Buses"/>
- <imagelayer id="56" name="BusImage">
-  <image source="z_hikawa_buses_1.png" width="879" height="879"/>
-  <properties>
-   <property name="DrawBefore" value="Back"/>
-   <property name="ParallaxX" type="int" value="120"/>
-   <property name="ParallaxY" type="int" value="150"/>
-   <property name="WrapAround" value="X"/>
-  </properties>
- </imagelayer>
- <layer id="48" name="Back" width="55" height="55">
-  <data encoding="base64" compression="zlib">
-   eJztmEESgyAMRXuGdoOH8oy9nuAlWhedpjQgECTR+W+GTRX435QAud0AAAAAAOQs7tuC01azT3C/mn1G8xK9awXv/rXRGHC/P6d0HwveOE1rRi+nO9VHGy5GtaTiqs2mYZ5kWqifbaxgxBsAV+Cztu7vtfWYtNXwrIU5LX7HQj6k83PfuFTfynjzhryl9tyauNW2MMA/nadEMz1Lpfbl0uYHeNvTWvptWtsIby1zSzzBWzsl/yfpmPEdKX5+FDlPcX6XjjnKU42uHmNoeqK6pPUMi76oLml/eBtLD2+5moomOQ21+ZPbXzQp8Vaq80xx096fpNAzxJyon16tVmU19/UC3s7JEXcGK3B3hLN7AsASdE1ZroO3wJ1RAAAAANCPF5XFkmM=
-  </data>
- </layer>
- <objectgroup id="2" name="Back"/>
- <layer id="5" name="Buildings" width="55" height="55">
-  <data encoding="base64" compression="zlib">
-   eJztWTtMFEEYXm20ojAUN6uVhUE0aGVhrLSzUPDZqTx8d74AIdr5OMFnZyGJGu1MRKOonYmIgNoZAwpoaYgatfL9/dmZ3M/czN4u7N4cyX7Jl73s/Tf7fzM3M98/63kZMmTIkCFDOhgSnjcsZtZGO35/fIZtpIFx5DQRM685vuedFQG7wG7wfIVoa0Nu7X7w+Tty+gGeAk+DZ8DfOc/Li4Bz/eLfrzLouF4B2qjPu8Bu2fd52fdfLblN4v4yxJ6TV+InQ+wDh9p+Yix+5ewaZopBh9qq6Nkxnt+H8XkEbgTrwXv47QLD/1NhzKE20xwhjIgg915cX+A6CA6Bw+BLsBlsAZ8LSxvy3i3E3A7RnibWa3n5cjw+iyD3flzf4zoGjoMT4Ac/vA2Ox4h94kjbDuS1E2wEm0iP1DSdNnaJYHxVW83gK0e6CIfw/MPgUfBYjLnB9wvVxhERjK9qqxVsq4A9gBDFQ1AMra1qv/iLz/9yhe+T8DNJQK3/+RIeQsWpmCpDXLW8Nx0/Exd52lf9ICfyE39yxX2s52jzEDyOYhYb4mrkPeVnTEjKW16Drh6aDyF9rOdo8xA8btLiVWrwrKVgrfQo3Nsk7S17aV+1rFGqj/V9SeWnvJTyvcsTWuuS8pb9tK+CA36xb6C+r7X4vzSRlLccQe6j4DtwScR+p327gXmpuyLwJfcTyikNb7k6orY6Gae81DMR+JKBhHJKw1vaPKMOW79G7ZtSWONQm61fNzDf3yAZ5v1tqE9BW5iX5bD1axPz/bulpqhzmKDqopYUtHEvS/VKzpJXnH6Noo3qJF4XpQHuZaleuco0VPsFzx61X8mDldo/fFkn2eqiJME97B2WF62NyrNHhclP6qC5Ow9tzy9DjcM97FOWW5R1WfeBJj+pg9pdCF2LyqCNe9g3LDd93Veen/y1zQdG2RNoXVqBuJVlrk35OlCnPdv0f9N9IN8TitYlGevqDIhrexvh/6b7QL4n2MZwLe6vc3CewLVx70+e37T+Kf2m+kuN4SZwM7gF3ApuA7c70BbXQ02G1F9qDPeAe8F94H7wAHjQgTY+X8jnN0q/P1pijpSqvzrQXqfDcy0Cny/9zO9/EeE+kc+7E4g76VhHVHQg704R7qW+4fuL+P4SeBm8Mku0XaC8hVYzhPwHXZ6Fx8UN6LgpStcMytO7PAuPi4fQ1Cem1gzKQ5veddBZ+OtZoK3VL5yB85pBeWjTu46Ps0AXgc5o1Rm4fkZbLi+fFnpMuYvgjLZcXj4NlDqjdeHlkwI/o6U1g787S+N8o5zgZ7S0ZlTiu7MMGTJkyDAV/wEZjBUb
-  </data>
- </layer>
- <objectgroup id="6" name="Buildings">
-  <object id="131" name="TileData" x="160" y="320" width="16" height="16">
+ <objectgroup id="2" name="Back">
+  <object id="135" name="TileData" x="592" y="1056" width="16" height="16">
    <properties>
-    <property name="Action" value="blueberry.Hikawa.Vortex 19 12"/>
+    <property name="TouchAction" value="Game LoadMap Town 18 0"/>
    </properties>
   </object>
-  <object id="132" name="TileData" x="304" y="192" width="16" height="16">
+  <object id="136" name="TileData" x="608" y="1056" width="16" height="16">
    <properties>
-    <property name="Action" value="blueberry.Hikawa.Vortex 10 20"/>
+    <property name="TouchAction" value="Game LoadMap Town 19 0"/>
    </properties>
   </object>
-  <object id="133" name="TileData" x="640" y="208" width="16" height="16">
+  <object id="137" name="TileData" x="624" y="1056" width="16" height="16">
    <properties>
-    <property name="Action" value="blueberry.Hikawa.Vortex 24 45"/>
+    <property name="TouchAction" value="Game LoadMap Town 20 0"/>
    </properties>
   </object>
-  <object id="134" name="TileData" x="400" y="640" width="16" height="16">
+  <object id="138" name="TileData" x="640" y="1056" width="16" height="16">
    <properties>
-    <property name="Action" value="blueberry.Hikawa.Vortex 24 45"/>
-   </properties>
-  </object>
-  <object id="135" name="TileData" x="384" y="720" width="16" height="16">
-   <properties>
-    <property name="Action" value="blueberry.Hikawa.Vortex 25 40"/>
-   </properties>
-  </object>
-  <object id="136" name="TileData" x="608" y="528" width="16" height="16">
-   <properties>
-    <property name="Action" value="blueberry.Hikawa.Vortex 38 33"/>
+    <property name="TouchAction" value="Game LoadMap Town 21 0"/>
    </properties>
   </object>
  </objectgroup>
- <layer id="7" name="Paths" width="55" height="55">
+ <layer id="42" name="DirtDtl B" width="81" height="67">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgiD/r25IQAEAAAAAAAAAAAAAwIcBL0QAAQ==
+   eJztmztywyAQhm3fyIUv4SJt0qdw6/PoFm7iY0R3kJvcItrEO7OzBvEQDA/93wwTC9kgfi2wLGS3AwAAAAAAAAAAAAAAlOJwyFf2fU7TnB75qijO9fDfRuLToOX0mhUE60fpmPFd1YBJK93myfDZV2PS8Dv4qdrBpMM1oc2steXa+TLkXWb9Ro/f9q4NKE/v438s1Pd+9q9ju+yTdF9en5SW4/P7bxvUeJjT7fn3IVLomMbvYUtI/zlEN/aJyd5I92Hn7ydPoo6c/ntuTPMtMRjyXJqy9kvlyrLYrzbV1SI2fWS+XKvYkDY47t0+Jd136V07tjWq7/gnv0fziLYpuqb55mNhLQNACkJtSvuU54bnE8YUh/HF5GPrfqvRa2yuv6X+TX5Izjgd6WqLRVD+kmYt6XjymGNjyyXuGcquAdYsZbxKM3a8NpE2d85gg7nsuiQUL2Dfj2N8uo0p23yx2DbV0XK//tNP9C25Pk0NlcvrZYZjO7eM9ZaA25JrXrbNta1qaNobsl2nQPqKvcQRJK3awRbBu4qHtdN7Ai0T60+sWTsTrrVy77j6oev+Wv23wFGtRa6G2KoPpPV7g7EaGz20oTS0n2baw0ypLdlrj/vMNH/Kvqk18zlHE0vN46Ztj0yeG3SNX64zhlrr0H1hWmPKZ6jpzCbHFtac/XOxphz+7ZuaS2rRULZtUPml5gzfOG/pOY3PBZV+jlCWYiG14+rbIe2JOcPUGyb7jbXppfPYpmuilTNKPnqE7CHZzs5wGdofstXfyrlPH/1ibWHJ/9kC0lbWjmk9/w8EAAAAAAAAAKTgF3smprw=
+  </data>
+ </layer>
+ <layer id="41" name="DirtBld B" width="81" height="67">
+  <data encoding="base64" compression="zlib">
+   eJzt2MENgkAQQFFCGZSBxiYMfVCGJ/qzIyV4EYYEGRJD9r1kLxsP8kEHqCoAAAAAAABK19T//gbnp2FOXx/T8FnweegOanjXMK3khsP72C+zdd3Ro+SGkU7DtOFzLTbBaoNW495Nw4XoNz6u9/4j+OxiD5j0/l/S9sxGvmmYl23ofk3DI2iYp2Gehnka5nUrz/xbl4brz/zR+5R247sBJlFbvYCzm89es/R38/lgNgAAAAAAAGf0AlBWG8I=
+  </data>
+ </layer>
+ <layer id="1" name="Grass B" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Back"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer id="17" name="AboveBack" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Back"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztmLlPFGEYhz8LE5jIEmMlYoHiVRBLj4IObFCEPTAq2BlLj8KIgFB474GxoTAxlh6FiUdiYclR2BAgMf4FAt4xlupj2ETA7PDxYrKZ2d+TPJnJzPcmkyc7+23WOSGEEEIIIYQQQgghhBBCCCGEKD/vq5ybxTmcr1p5/XePNZVGQ7Vz23A7NlavvL7JY02lcZwmJ/AkdmMPngrpdFoNvRgJ6XRfDb2YLHaa4ji9rNlbNfRiqmbhuCFwriZYem9j8O96UZoWerWq2ZoYoN8VHMShiLZ8bfgtZpmJMz8MPSwzcWavYQ+0zMSZM4Yelpk488DQwzITZ94Zelhm4symEr8nNnO9rsS9UjPLueux99yLwf7URo/DeATb8Sh2YCcmMYVpzGAXHgv8P4dvPPrMxKDhVZpcw+t4A2/iLbyNWcxhHgs4jHeK5z6s92id0PdCKM0efQ6pYSgXi30ucezFy9iH/ThQvDeohqE8XdTnGefP8QW+XHT9lRqGMkufOZzHD/gRP+Fn/IJf8ZsaetHIHrQDd+Iu3I17IvofjVg9nbwnSUxhGjPYpXdn1WRplsM8FtTPxCjdxnAcJ/5Tw0LwVyGEEEIIIYQQolKoSzi3Betxa6LcTxNNknRLYRozamgiS7cc5rGghiZG6TaG4zihhiZ+0u3Xn3a1zq2rLffTRJN9dNuPB/CgGpo4S7dzeB4vqKGJh3R7hI/xSQQa/gZ2f1gU
+  </data>
+ </layer>
+ <layer id="46" name="Pavements" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="AboveBack"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2FFKAkEcx/F5qh7cuYISRN2hkpQOYW92htLQ8BB6EMGyDlFWx/CtOkK/ZZWGlpmlEdxivx/48dfFh+XPf2ecNQYAAAAAAAAAAAAAAAAAAAAAAPhcJWXfAQCU41jr34lyqjRZC6Ncq29LZWGNuaGHUcbq3cRmc7hvy76b/+lJfXtW+glzGMtdD8+VM6XlqWna9DnHXQ9HqgNlqBzYrK6/D1a5pYc5dfs9h4/KnXLvqWnm9DAnncNe4l8PX2rGvCpvte3fW1ne1YdDzVZXubTZ5yOn/rz+qd83rP//4Y6u7Sp7FZq/mfPc+Z5Jtz4oF4F9uYpz+Fuhc8p6pn1z/FGh2QwJrYezgjlmf8m4+zLn5TgdG96XUcw9LzOHcTgvby7dl6cJ7202UXROAQAAAP6yL4HkTZ0=
+  </data>
+ </layer>
+ <layer id="5" name="Buildings" width="81" height="67">
+  <data encoding="base64" compression="zlib">
+   eJzt2mlMFGccx/ERicAuojFWwQONxrsxVRFFjRd4Bd/oG6VQtWrTqDXeiS+0aOqNVrRao7bGqCAekGBitU21reIdW4tXVWRBOd54tqmKgvbL+hgwDpNdKTs7u/9f8skM8+yE2R/ss/OwaJpEIpFIJBKJRCKRSCQSiURi7Tgamn0F1k94mNlXIJFIJO+fAcGaNhCDlMEYgqGIRRyGYThGYGSw2Vfs+Xxs17REJOETTEBYvarxBQadLGJsMb5EMpZgqR92+A2dbcJmfIstqsNsxqYGalqWQSeHGfsBR3AUP+InP+zQKPF0WEonfwW97R7H7uMBHuIRHuNv/CMdvpO2Ie922IFjHdEJndEFXdENH4aYfcXel3YGa4tJ9PUpJmMKpuIzL+3wFs8jz6R1UiLfNwmb6GYzJrI/SV3LVr7ehu34Dt9jh5d26G3ZqjrMrfY6v8r+NVyXDl1KLh3abJpmt1V1GMZ+IzS2mX111subDkfQ3UiMsliHX3EfsQzLsQIrsQqrsQYpWIt1+BrrkarO2aBzD5Lgh/clP9fiOZ/3w7708q/q4SnbZyjDc7xAOSrwEq8qH8dcXw8Bas6vL3O/M91VDx+x7YGe6IWoav30Yb8vYtAP/dXYAOnQmc9VD9PYTscMfIGZ1fqZzf4czMU8zFdjC6RDZ3aqHnax3Y09SEM69iID+7AfB3AQmeqcLOnQmRuqh1ts83Ab+XCgAIW4g7soQjFK1Dml0qEzTdS9WFO2H6AZmiMc7dAeLdEKrRGJNuqctha7j6urxNfQQyHriETGklBUwzo7wcUOL/Ke/jv+wCX8iVxcxhUfuD9aVovfpY0untuA13wQghECG+wIRUMfmA+O0cNx/IJf8RtO4CRycAqncQZncQ7n1TkXXOxwED0NxhAMRSziMAzDfaDDJ/TwFM9Qhud4gXJU4CVeVXZl5/4aAahvf31OoN2177HQoKdkH+hQL1F00xvR6IO+iHGxL71k09MhbAmtOraN/SMcO+rlHaYzX+9FBvapufsA24PIrGEuN/qbQeXYjlrMn5eqdXg5tObHeVMcPOcCFOIO7qIIxSh5j/fDa/R3HbuxB2lI9/H7m3BeJxFogZZohdaIRBv1GroZ9Jo7yaO328iHo446jOdnPNrk+57KzyTHGMw142vRoT9lDT2l6PSYyrENb9Z4zEt5JsxNnvq5Wf3/FY0+Syzz0Pux/L+iRCKRSCT+k//j83R//ExeUrdJY72SbrBmyWQsyyJ/bzEr+fTjMOiohLFS6dClFOisz4otvu70dCJ01piRsu50K2N1+honHbqVFJ2+UqVDt5Kj09c56dCtVOj0FdDI89dh5UTr9NVfOnQrs3T6mi8dupUMnb4yvbzD/wCY8Ngw
+  </data>
+ </layer>
+ <objectgroup id="6" name="Buildings" visible="0">
+  <object id="73" name="TileData" x="496" y="736" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.flag.1&quot;"/>
+   </properties>
+  </object>
+  <object id="74" name="TileData" x="512" y="736" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.flag.1&quot;"/>
+   </properties>
+  </object>
+  <object id="79" name="TileData" x="384" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.omiyageya.1&quot;"/>
+   </properties>
+  </object>
+  <object id="80" name="TileData" x="368" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.omiyageya.1&quot;"/>
+   </properties>
+  </object>
+  <object id="81" name="TileData" x="416" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.OmiyageyaShop"/>
+   </properties>
+  </object>
+  <object id="82" name="TileData" x="448" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.omiyageya.1&quot;"/>
+   </properties>
+  </object>
+  <object id="83" name="TileData" x="720" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Ema"/>
+   </properties>
+  </object>
+  <object id="84" name="TileData" x="736" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Ema"/>
+   </properties>
+  </object>
+  <object id="95" name="TileData" x="976" y="752" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.sign.3&quot;"/>
+   </properties>
+  </object>
+  <object id="96" name="TileData" x="1104" y="688" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.totem.1&quot;"/>
+   </properties>
+  </object>
+  <object id="97" name="TileData" x="1104" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.totem.1&quot;"/>
+   </properties>
+  </object>
+  <object id="98" name="TileData" x="944" y="608" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.HallDoor"/>
+   </properties>
+  </object>
+  <object id="99" name="TileData" x="960" y="608" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.HallDoor"/>
+   </properties>
+  </object>
+  <object id="100" name="TileData" x="944" y="624" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.HallDoor"/>
+   </properties>
+  </object>
+  <object id="101" name="TileData" x="960" y="624" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.HallDoor"/>
+   </properties>
+  </object>
+  <object id="102" name="TileData" x="608" y="576" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Offering"/>
+   </properties>
+  </object>
+  <object id="103" name="TileData" x="624" y="576" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Offering"/>
+   </properties>
+  </object>
+  <object id="104" name="TileData" x="608" y="592" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Offering"/>
+   </properties>
+  </object>
+  <object id="105" name="TileData" x="624" y="592" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Offering"/>
+   </properties>
+  </object>
+  <object id="106" name="TileData" x="1040" y="448" width="16" height="16">
+   <properties>
+    <property name="Action" value="LockedDoorWarp 19 30 blueberry.Hikawa.House 0600 2200 blueberry.Hikawa.Rei 500"/>
+   </properties>
+  </object>
+  <object id="107" name="TileData" x="1024" y="448" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 18 30 blueberry.Hikawa.House 0600 2200 blueberry.Hikawa.Rei 500"/>
+   </properties>
+  </object>
+  <object id="108" name="TileData" x="928" y="368" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 5 19 blueberry.Hikawa.House 630 2200 blueberry.Hikawa.Rei 1000"/>
+   </properties>
+  </object>
+  <object id="110" name="TileData" x="944" y="368" width="16" height="16">
+   <properties>
+    <property name="Action" value="LockedDoorWarp 6 19 blueberry.Hikawa.House 630 2200 blueberry.Hikawa.Rei 1000"/>
+   </properties>
+  </object>
+  <object id="111" name="TileData" x="1056" y="448" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 19 30 blueberry.Hikawa.House 0600 2200 blueberry.Hikawa.Rei 500"/>
+   </properties>
+  </object>
+  <object id="113" name="TileData" x="928" y="352" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 5 19 blueberry.Hikawa.House 630 2200 blueberry.Hikawa.Rei 1000"/>
+   </properties>
+  </object>
+  <object id="114" name="TileData" x="944" y="352" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 6 19 blueberry.Hikawa.House 630 2200 blueberry.Hikawa.Rei 1000"/>
+   </properties>
+  </object>
+  <object id="115" name="TileData" x="1040" y="432" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 19 30 blueberry.Hikawa.House 0600 2200 blueberry.Hikawa.Rei 500"/>
+   </properties>
+  </object>
+  <object id="116" name="TileData" x="1024" y="432" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 18 30 blueberry.Hikawa.House 0600 2200 blueberry.Hikawa.Rei 500"/>
+   </properties>
+  </object>
+  <object id="117" name="TileData" x="1056" y="432" width="16" height="16">
+   <properties>
+    <property name="Action" value="Game LockedDoorWarp 19 30 blueberry.Hikawa.House 0600 2200 blueberry.Hikawa.Rei 500"/>
+   </properties>
+  </object>
+  <object id="118" name="TileData" x="976" y="736" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.sign.3&quot;"/>
+   </properties>
+  </object>
+  <object id="119" name="TileData" x="720" y="688" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Ema"/>
+   </properties>
+  </object>
+  <object id="120" name="TileData" x="736" y="688" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Ema"/>
+   </properties>
+  </object>
+  <object id="121" name="TileData" x="400" y="400" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="122" name="TileData" x="416" y="400" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="123" name="TileData" x="864" y="752" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="124" name="TileData" x="880" y="752" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="127" name="TileData" x="592" y="640" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="130" name="TileData" x="640" y="640" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="139" name="TileData" x="608" y="640" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="140" name="TileData" x="624" y="640" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="141" name="TileData" x="928" y="400" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="142" name="TileData" x="944" y="400" width="16" height="16">
+   <properties>
+    <property name="Action" value="blueberry.Hikawa.Sit 2"/>
+   </properties>
+  </object>
+  <object id="143" name="TileData" x="496" y="720" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.flag.1&quot;"/>
+   </properties>
+  </object>
+  <object id="145" name="TileData" x="496" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.flag.1&quot;"/>
+   </properties>
+  </object>
+  <object id="146" name="TileData" x="512" y="704" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.flag.1&quot;"/>
+   </properties>
+  </object>
+  <object id="147" name="TileData" x="512" y="720" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;blueberry.Hikawa.shrine.flag.1&quot;"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="43" name="Mountain BL" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Buildings"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer id="38" name="Fence BL" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Mountain BL"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2k1uwjAQhmGvm+YaLewIF+q1YAucoUuuxbZEqaWRlUSEie2x8z6SFRrUMvlI/ZPEOQAAAAAAAKTw+zFsvxvnzs2w3T3b/tm+mry11YAM9chQ74cM3yL7wxMZAquruX+/fzp3aYd2FS382e/rJvaH++T+WxsvQz8v3Gf8jvoMU6j9PEyh5nlGqgxjzzOObdy/P+eRKMOen7udxXpWzudKleo8HFNLH1lLhjmPI+dnrznObDXDk+gPd/+v3+0Xt5rhmshQL+dxpJzbxJQ6Q79G7texh4xzU1/H2Fo7bDexBu9fh5nlyNACTR1kOCBDPTLUI0M9MtQjQz0y1CNDvZIztLK+KzHD/nOOmdd3UqkZWqL5fwh/d6sZHsR9fH8tYYp8PmDsWkmqY7PSD8YQK0P5HEju61yxxcxwK8hQL1Y/VVOGY9e8LzNjzFpqGkNynQ9y7nCduA9RCkt1W6plCUt1W6plCUt1W6plCUt1lzrOWKrbjzPhPKELtlPPq8+taUOvPAM/do++C96vfY0FAACAfP4A5FmbNw==
+  </data>
+ </layer>
+ <layer id="37" name="Nature BL" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Fence BL"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztnE1uFTEMgA1boK3UQwD7LgAJyXCIFjjFEyzgAlTqDi5QpEosyilJpFrPdePETjIzmdf5JEt9b2by678k8wrwkPMgF0E+Ja5dB/kjvrsN8i/ITrlu4epO6O83pwBvg7w7rSiMtYng5V1pDxmJz+8M9/F7fgX5HeQmyFGQ4yAnQT4H+SLKTnF0d+3E29iBob7+FN/Hz5fingif05dBXgV5HeRrkG+G+vgzLcg5orntjafc68TnaIdR36SOERjkQ5CPjjbVPEPcZK5Je+1Fr3Kljmk6h1A3Pjmf24v3zvtJz3PzVkOL/y21xeKXWzhnf2t2VQKh3oYiFDumIjU/2pyVxrs01yk7uig8w8nNgbzG21qKA7JfsiytXu6zW+wGoawjrXkMkYuf8hrViZBu3y5xr1aWVq/02al+/j1Otzf3TGSqWF0iVa+mQ7Ht1pwmgrCfi5JO8HtrofnJtfHpk7qypc3QGN3AQ73YsTbwXPIS5sdiiwjlsZf90Thj43uV+I7yCV5milQ9tWu4XpCt5Hx7yT5IjxDKY071eHW25M9K/t8TH/g8aT4MYd9Xbiu8npLf1OB9i2XIsfLqmJdSnuGNtdKHaW30+OEl4OOCkNd17zyQnpXKnYJeuY2nLi1fRCj3X7tnqnXtqGj5ogfN76dsvFVP5rDvMyWu1LSddLLU7tJ1hD42Paed1qy3uX+k571t9o61jM/W+hD6+tmU3tXoO7Wf59tW5J7rldIuyUh+s2Yto61DNF34HuSHcg3Brxc0TzXPToXVDshm5TqEn5ukWGptPyLaGYV2BkJjfuuow2LHFqJ9jTp3POaQT0LY2xSNW8xNUvqt+Uutv7XrM96+KUGo90UauX1COR50b9QZyz7UiLS0V1sHl3zjYyMXa7T91ZrzYYTl4iv1oXavNYdnP8XiuxHGyUM0esUzKzK2SNbi1xD2c1vT5pZ+tjwb/UDvs+210DPXWoue9ibmHlF/PO8czLlfsiZq3hPgIKTjy6jrihqsusNzwB79H2kvRlL7Dk4JngPm+j96/ECwnzm35j/SD46c61mh3NoS43rsY/R4N3lEPLo1sr/ZsDHFmvQxc0h5jNzTm6tva/Ur3JY0u7L2bfR8ZUp4DErF88c8Nq1MvQcQfcaI+wwIvn1N3gfvsy1ouj3KmM4RA3rmxgjj7Wdbz8MQxmv7xn2kPZRi1yFTa7drzfeWZu5zsI3DZCo/te0tlLGsZQ51vYOwz282X+bnkPaalmLJ3ONQ3mvgZ3tL+/y12oQ3Bnv1xpObb/l4P6Y69x6tzhpSetb6Wxiu5yVflBsnhPt7L9qZ8bMgz4O8AFsO0/LeuIdU36PPoLZasOgRnxvqP39vV9bX4ltGjpVr/V3yxjiMrN8b8zLq+0EaPeNaLofXfr91KNT+rxHJ0jl8Lsf4D9n5/aE=
+  </data>
+ </layer>
+ <layer id="7" name="Paths" width="81" height="67">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/hAlUBAAAAAAAAAAAAAAAAAAAAAAAAAAB8A1TMAAE=
   </data>
  </layer>
  <objectgroup id="8" name="Paths"/>
- <layer id="9" name="Front" width="55" height="55">
+ <layer id="9" name="Front" width="81" height="67">
   <data encoding="base64" compression="zlib">
-   eJzt18ENgDAIBVDWsDM5k+6g+xpdwB7RlveuXCCB5BMBAEAl1/Je21rE3vJ6yXQ8c52TzjaLtbObAHyjlxuA/3PDecplWb8VAAxNToR85X4GAAAYwA237Agw
+   eJzt2MtOE1Ecx/FjQKatHQg3BZGEyPUFuL6CUQGFlRbYIi33N+FO2OBG5Q1cKF6BPTtUevMR2BX0y6oLQqGZCTMdft/kEyA06eTP6XDOGKOUUkoppZRSSimllFJKKa8qCxlTjruogIUQwojgHqKwUYmqkNdX7I9OvL6AAKQZKqXUxR7bxrTa+Z877Mtfq9SRZcwv/MYfHCOJFNLIIGu5934brMfNgK3JOva29biPB2hAIx6iCY/Q7PL+9zBgM3zKfJ7hOQYxhGG8wEuMYPSKGbbojKEc9In18xm7+IKv+Ibv+IGf2MM+DrTWrl2OWZ1qXo7qDhvTE/b6Kkq7BPOb1gx9Uyv3hDa0owOd6NJ9oqheMa/XiGEM45gI+Azfsfd9jw/YcbgPXmJWy1jBKtawjg1sBnyOSrlVzmKPhzP8O39ewGfnjj4/RdXNvHrQiz70Y8CjGcai+e8nope/zm8lmNc0ZjCLOcwXmGGhZwZ6nsD/WIcz2IoY86TcmEm+vsEU4hF3rk25WzV/6xrUat3fmra5t78tofv7TffRx88Ldn18bUoppZQqzdw4/+oMrdxuivNKvMCZZYHfLepMo26oJGsthTQyyOKv1p9SSimllFK3qv8Xg0Ps
   </data>
  </layer>
  <objectgroup id="10" name="Front"/>
- <layer id="11" name="AlwaysFront" width="55" height="55">
+ <layer id="44" name="Mountain F" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Front"/>
+  </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1kENgDAQRNG1UbHgATxQD1RdN0EBBwJs3lMw/zYRAAAA37O0iLW9veIZW3btRduO7OpF287sGkXbAADu8tf/yV8HAAAAALhMnJALSQ==
+   eJzt2tFtwjAUBdCkozAiQwASO4SyRIuQWIM1WAEhoPVHKuU5kDTxOVIkfpDIzfOzY1NV8B5NXVW7euxfMZ6S751x3GruVeOuUb8/npl+PzJZFZxNeu85dbZNvrOe4Rwx1LjpW4Ml13Dq1c9L34ybWw8Y0zqZp6asqY0lAGBYB2uPsMXH7+cv+WV5rntv16cMQ9RcP/ID5uIU6Ge72p5Tm3OHPMwb/cgvn/e0biK9kHZdeiF3f50vX2QYEj2n38i3VSTHvQxbLQO5HGXIm/kPE5QpPWsCpsG6kP/MXmw+Zyd5Ds6dAABgEPYRgdLoewDA1F0BJuslqQ==
+  </data>
+ </layer>
+ <layer id="39" name="Fence F" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Mountain F"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2t0KgjAUAGCvS9+xW+sZuvRx+7msuxQbjDEqwZ/Q74OxHAqD8LiznaIAAAAA+O686/tr2x/2fX9r271tl92ycwNYUhwPgfGteZ3RlEVRV307Ri29DmOPMj+ejsXjp2q6+Yd1ofgH6/Asl57BPMLaLcSv7jtjPceaNBt5l5lGiIe3d2wUF4E5hRx5yjx2yDxyuXbaTlEO3v32HQYAAOh1+dFWzh1giDrZS/h0X6gPWHqvhGHiOhD/HfAPcnvec9SVMY46OZNwDgHAmHI17CEXTWvW0/uGrCN+qYHPndHHz8ixAADgv70ASuVQEg==
+  </data>
+ </layer>
+ <layer id="36" name="Nature F" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Fence F"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztXMluE0EQHXFhTyAGJDhBCFvYLkQiQMhA2C5cgDgBhe0eJAuECJ+QGxz4AX6FrwJyoBq7Ubmo6qnu6Z7F9pNKTmamt+raZ7neybJFoBtAFPuBDgB9AtpCx+eAzgCd/b/JvzYHyfHe4LcLtAa0zrQti/dAH0q059aUA90BuusYE2MT6B36X+LVEtBtoGWmT9wG83Ma6NDgml4m89qFHvmf7q0GU2gutD8Dbk1lIPEKyxKeE21D9+Aw0AzQNnPOQpLvWDgHdB7oQkDbLvr7OdALZRvLK9rG7iGdE25D92Ae6CLQJeac7V+Sbw2WmX4p8kzWTU4upWuw3cB2ycqG1C/Wv23FONT2rQDdA7oP9ADoIdAjMqdQW2nbaeztd49+feXW7qEFtVkuX4KB+Yv3YAPoJdAroNdAb4Dekrb4+t9gKHam+uNLtstl21xYQn2EYok5Ru0c5RnWE7rf0ho4edX6gmvAoIVpfs/s2FZGNoQ+fHnrizXm2Nzg18gwtS0uPTG84nwt9Tkcesy1m9Nu2ybxJsRXW2jmKkEaV+KZ5JM4Xcf2hK6bypfLP/lC6zdd44dC0lEaO3Io8okUUnyJodFFzdotT01/krzl2bDP1oy9X3GNDzRyg+WDu46z0wZldJQilrwZ0D2n8h+iD0V7Z2MYfJ3EH81ajd2U4NILvDZXHxzw3KU9d9nWIllzxY1FNhvrm+u8FilzczwGNxa3/zF8lo8OxbIzqWObImDeatYfamc4OaF2psn4NZNlu+F3D9BeoH3oXKrcv6h2YiDZGYoQmx0Ldu4nOll2En5PAc0CnUbXYFvsqj/4QiOvXcc5i7r11MLUXhfNL9BNoFuZ3hZfBrriOF/Ea3qe+mctj2LGKqF4AvQU6BnQKjrO8ZKrvVBQ/9MUeUkNTR5iwNVeKOYDxrcy2QSZstDufYr4aSVyf22DK6fS2kmpDhUDMXO+quCbA2NI6/XNrapGWXuiqbm4ck3OhtQZw4WAm68mT6sit2wzpDqoyUmPAB1Fx3xkxrU3dfrXFHKfZ/z9QJOT2jj5Kjmnsd1NikPqgslJ6T1KF9pi1/DehszZp42xgdI9Sl+MSy7CIWas1RY5TQFfnzzqMncsUb9FMib5lzbmFRJCZKfN69fExLYGFXvMUYEm7rI1KIzHU/5j0fslIWhqbqP1cbH0Lc/6cbgvRt2//AiQywmGsVMRD1PWC+vGQsVOos1+nILW9EZpbW3D7K66Z1APUuWs6x3om3kPqIko82wQbavh58+Z/vMiRddvAf8+Ex4am9HEOoNvXROvIaQmerzTf17EoOy7WnQ+daIKH2Df95Le1fNBk+vZobUSLcy9gDbZuSbC3Avg7JyFSx+aorNVQcppNc+nTTBBWZSJk8YZZWOdcYRL1vLM/R79BH1MZK0cJvWYdkB6lm7U7wGURdF7iRxGWSdC8gn6XiJXRxynPCVGLcaAylmsfscJX4C+Kq/VxvaxbCoXm8SwLdrnxn2+c6SFK96KmTuZPWiCTcHvNca6f5JnfGxv1jxq8aypwfp83yWGDOUZz9+Q7381AX9rsOSYqyabUoa03x9KgTL2gHtH2FWTzbN0+bfvN0lCwfmxMjGGqcGuAr+6QGsDvlGdKqNjPu9DFT2LW+RnJR9fhY342Bkeh+pUah3DepQif4wx/6J7Tt86w+NQnUqhY1imYsfqVO5izN9l3wz+AF1M3hk=
+  </data>
+ </layer>
+ <layer id="11" name="AlwaysFront" width="81" height="67">
+  <data encoding="base64" compression="zlib">
+   eJzt2mWsVnUAx/EDCrcxJt0qgmChNI4OY9LpOwkdqDTSYUy6xATUzaKRDmNKh3QYszDoxniDgB+cL7zs7oLAuPe59//dPq8Yd8/5bTznfw43ikKhUCgUCoVCoVAoFAqFQqHM2YnEKDqZmNGfIrYrmxRF5ZIy+lPEbu1s154OdAw7/u8m2WwyU3iTt3g7G+643/fYAQ5yiMPnfa9ttMkmNrOFrWxjOzvYyS6+5Cu+5ptstmNJ13szt3Arpc67/lzJUZSbOOJJIJEkkkkhD9dxPTdwY3LGXEtmrYY9alKL2tShLvWoTwMa8gAP8hAPhw1T1ccefelHfwYwkEEMZghDeZbneJ4XwoapmmuPecxnAQtZxGKWsJRlfMTHfMKnYcNUHbDHQQ5xmCMc5RjHOcFJfuN3/uDPsOEFK50SRWW4nbKU4w7u5C7uTsnoTxgbPWandrSnAx15nCdicL9OziKdeZKneJoudKUb3elBT3rRm2fSOL/tjYuifeyPu/rXkNG9Y493eY/3+YCpTGM6M5jJLGYzhw/T2LB4fBTtsV/J+Kt/DRndt/b4ju/5gR/ZzU/8zC/8yh72so/92ew54kLd5B6Yl3zkpwAFKURhilCUYhSnBCXDfTNVj9ijEY1pQlOa0ZwWtKQVrWlDWx4NG6bqRXsMYzgjGMkoRjOGsYxjPBN4iYlhw1R9Zo/PWc4KVrKK1axhLetYzwa+YONFbjgxMYpe5hVe5TVe5w0mMZkpWez99Snb/MVpznD23FbOaznIeQnnto322cRmtrCVbWxnBzvZlcU2PFdFW1WiMlWoSrVLPPfmcv/OTRzxJJBIEsmkkCeL3uO72qwb3elxGc8NNexTk1rUpg51qUd9GtAwi254pepjn770oz8DGMggBjOEoWHDdJtrn3nMZwELWcRilrCUZWHDi+qQnQ5zhKMc43gm3+5UgvsrpznDWSL3vxzk5BquPe9+mN47gyvxPqGUe/xtlKZMjJwvK9qoEpWpQlWqUZ370zhPpPfOILu+T+hip650ozs96Ekvel/Gmay8v3sv91EhC57t/ttU1zeN6cxgJrOYzZwsfu1Xqt3p7LTv3z+7x/dS+Rj5bsqsdbJf57BhTDYsIaM/QSgUCqVdXs9d+chPAQpSiMIUoSjFKE6JTP6MllE1sktjmtCUZjSnBS1pRWva0DZs+E9pPf8Ot80IRjKK0YxhLOMYz4Sk9H9Gdiqt59/l9lnBSlaxmjWsZR3r2ZCU/s8IRdGpdP6d5gxn8YuqQjo7VQ8bhkIx1dQ0/h9vVgz+TmAoFAqFQqFQKBS69P4G+tftDg==
   </data>
  </layer>
  <objectgroup id="12" name="AlwaysFront"/>
+ <layer id="45" name="Mountain AF" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="AlwaysFront"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2EEKgCAQBVDn8tEpslvU8SoKWhkSLkTeg9kIbj7jDJgS/LPEXfmsNd7zPcp3qDN/ZDjJtwk50ptNTzbhbdfJz/6+9rjeg/GYhQAA0Cd/5wAAAAAAAAAAAAAAAAAAjOIA2XkJ5g==
+  </data>
+ </layer>
+ <layer id="35" name="Nature AF" width="81" height="67">
+  <properties>
+   <property name="DrawAbove" value="Mountain AF"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztXMuSFUUQvTtBmDsywwxbEJyFCIQ8g8cMCxTZ8BQGMHjoWlcaAfoDoHwAH8CPyOM7+AtARRecYqbCvDmZVVmP7r7dwYk4EXNv961HVuaprOyGm/Oj97gCfgteBa+N2sUT4buXM5OfV8Hr4A3wFngbvAPeBb8Hf0jsk7bnsMfQrrvnM3Bp/fOP4E/gb/OJnTeILeBWcGE8Gi2CO8aT389EfjdjuFfDMriy/vd98NfAPafZ90vCvalIHbdbtu3gArhIvnfrfB52uwBeBC+Bl8cb15+DXqd/p4zL+2UM1Hc9qE1T+qT3xuYoYR+4HzxA2nHr/AA2ewj+Dv4BPhpvXH8+Tn99bjS5PqFxWefqQmEW/CTQBu/Xags6Ps3HLWOm7Thf+BODfgo+A5+DL8aydvnfON101z8H94JfjCbXRxsXb8PhJvidYe68Dalfvt4fgZvAzeDH69eo3fgcQ/3x9eH2/xs2+wd8O9bt7n9DdfMMPn8Ffg2eBb8Bzwnjou3xNn7G51/Y3GN+uqL0y2N0J7gL/BTcHWlTg+ar3P5fInAOgodm/++fx4r7jaSbsb2ar6PUhnZvCFK/PEaPgyfAk+ApQ5sSqK3oGnP7cGgxKulmDHwdQ22E9Cnmn9Jva+eOfo01+9AxajEq6aak+xTc56U2tHv52EvymdQ8RvIzv06afegYtbyX6ua/4H+CH8bGammDQ/PPFLukrIPmZ36NNfv4MYbyCqqbh8Ejsxv31dhYpTassPqnZFtLHuOh+VmofcsePw3QclRul9LYTz1/piD3TFcL1rFT21rGHIq9WPuSbob6q6HtJYjFo2Sv3DGHbO/jVtPNUH8pmtIEYprj7UXnnztmyfa8rqXpZqi/pnWzVCu8vaT5bxtNxh23h9aWtwWvazloumm1UaqGWJASd9TWXJMk36NxJ9mDg/pL6GxlQexMUxMpcedtrWkSBfXvmD2k+VrOZ5pPWcZXEyla4W2taZJWJ5TsQe+V5hs6W8UQyzW7hI9jTZO0OqFkD3qvNN+cs5VHjWcoNSDtNUuBaw6aLkj2oPdK8y05W7WJ0B4l7TWnhWsW7Zbs0ZdzWgkkn7rBrrWt3X2DxU9ytFvSgSZytr4gR7u7Prv2DaX1sDbQRQyU1mA1jWjzXNE0YjaS7KLNP8XnhrQ3xfSK2yW0N1vzl2k+V+QgVa9y5s81aFrOFTFY9SbkO1KMW+ffdT2+FKF4i9X0KEpykqHkNDzeLDU9ipKcZNpymlzweCupcaaCvrM3lDxGqunF5laiZV4zhnTG5jU9y9xytczy3lofwWt6lrnlaFnOe2t9Aa/pWXKUnFpfzntrHzCJkucibaCN/a00Ny55LtI02trfSnPjaX4u0tb+ZsmN+5rvNXFOz3nHLzUe+lz3t4w9FreSJg4p36uBWNxKtu1L3aotxOK27/WCruG0csjP09vAnq4H0DFq5B7L9YbTO9TKxVcz++/7MwCHrnMPni/1MR+35B4pz1QkhHyN5ktDqr9SpD5TkRB6l47mS13HRBMofW/cw/ouXW4+3qSmlmpLrfqo97Wm/Ky0dqStQQ1tqV0frXXu83P2KH2uqq1BjTWfpvoo3df4nEvfO6ZrQGsvNdZ8WuqjfF+r/Tx/6O9+S/vaNMy5T2eD2s/9Yvus1TZNvR/0GgN8A/41V6/NmvuaZZ/N+ffYNbGABV4Ed1T8v9NC+1pq7mbZZ622aUpPjmBCR8FjFW2o7Ws5uZtln+1Ka1/NrcWx05BV2O/6ug2b1N2hnQu3z6/FsdOQe8QHnbZIdqxhW82neHwvst/xvi160NQcaBuH59fi2GnIY2JDpy2SRod0e6vwnQTpvtQ9w6oH1jn4eNT2VT5m2sZV2O0a+A4GqpA4
+  </data>
+ </layer>
 </map>
