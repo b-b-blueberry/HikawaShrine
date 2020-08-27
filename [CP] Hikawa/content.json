@@ -1,11 +1,87 @@
 {
   "Format": "1.16.0",
-  "Changes": [
+  "DynamicTokens": [
     {
-      "LogName": "Hikawa World Patches",
-      "Action": "Include",
-      "FromFile": "assets/World.json"
+      "Name": "Outfit",
+      "Value": "default"
     },
+    {
+      "Name": "Outfit",
+      "Value": "casual_{{season}}",
+      "When": {
+        "Year": "9999",
+        "HasFile:assets/Rei/Sprites/casual_{{season}}.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "rain_{{season}}",
+      "When": {
+        "Season": "spring, summer, fall",
+        "Weather": "rain",
+        "IsOutdoors": true,
+        "HasFile:assets/Rei/Sprites/rain_{{season}}.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "snow",
+      "When": {
+        "Weather": "snow",
+        "IsOutdoors": true,
+        "HasFile:assets/Rei/Sprites/snow.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "default",
+      "When": {
+        "blueberry.Hikawa/SeasonalOutfits": false
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "kimono",
+      "When": {
+        "Weather": "wind",
+        "HasFile:assets/Rei/Sprites/kimono.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "bath",
+      "When": {
+        "LocationName": "BathHouse_WomensLocker, BathHouse_MensLocker, BathHouse_Pool",
+        "HasFile:assets/Rei/Sprites/bath.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "beach",
+      "When": {
+        "Season": "summer",
+        "LocationName": "Beach",
+        "HasFile:assets/Rei/Sprites/beach.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "shrine",
+      "When": {
+        "Year": "9999",
+        "HasFile:assets/Rei/Sprites/shrine.png": true
+      }
+    },
+    {
+      "Name": "Outfit",
+      "Value": "special",
+      "When": {
+        "Year": "9999",
+        "HasFile:assets/Rei/Sprites/special.png": true
+      }
+    }
+  ],
+  "Changes": [
     {
       "LogName": "Hikawa Rei Patches",
       "Action": "Include",
@@ -25,6 +101,6 @@
       "LogName": "Hikawa Yuuichiro Patches",
       "Action": "Include",
       "FromFile": "assets/Yuuichiro/Yuuichiro.json"
-    },
+    }
   ]
 }

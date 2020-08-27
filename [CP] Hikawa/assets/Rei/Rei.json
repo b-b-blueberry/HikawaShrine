@@ -1,4 +1,6 @@
 {
+  // Dynamic tokens:
+  // TODO: DEBUG: Remove HasFile and Year:9999 conditions from content packs in progress
   "Changes": [
     {
       "LogName": "Rei: Disposition",
@@ -8,25 +10,40 @@
         "blueberry.Hikawa.Rei": "teen/rude/outgoing/neutral/female/not-datable/null/Other/summer 2/blueberry.Hikawa.Grandpa 'grandpa'/blueberry.Hikawa.House 9 14/Rei"
       }
     },
+    //  Canon like:
+    // blowfish
+    //  Canon hate:
+    // asparagus
+
+    //  Love:
+    // 64 ruby / 82 fire quartz / 104 elven jewelry / 106 ornamental fan / 128 pufferfish / 283 holly / 612 cranberry candy
+    //  Like:
+    // 100 chipped amphora / 103 ancient doll / 109 ancient sword / 113 chicken statue / 115 prehistoric tool / 118 glass shards / 119 bone flute / 120 prehistoric handaxe / 123 ancient drum / 124 golden mask / 125 golden relic / 152 seaweed
+    //  Dislike:
+    // -6 MILK / -5 EGGS / 303 pale ale / 346 beer / 348 wine / 459 mead
+    //  Hate:
+    // -75 VEGETABLES / 207 bean hotpot / 605 artichoke dip
+    //  Neutral:
+    // -4 FISH
     {
       "LogName": "Rei: Gift tastes",
       "Action": "EditData",
       "Target": "Data/NPCGiftTastes",
       "Entries": {
-        "blueberry.Hikawa.Rei": "Wow, it's gorgeous! Thank you so much!/64 82 104 106 128 203 612/What, for me? You shouldn't have!/100 103 109 113 115 118 119 120 123 124 125 152/Oh... I'll give it to Grandpa./-6 -5 303 346 348 459/That's just completely horrible!/-75 207 605/Thanks./-4/ "
+        "blueberry.Hikawa.Rei": "Wow, it's gorgeous! Thank you so much!/64 82 104 106 128 203 612/What, for me? You shouldn't have!/100 103 109 113 115 118 119 120 123 124 125 152/Oh... I'll give it to Grandpa./-6 -5 303 346 348 459/What a completely stupid present!/-75 207 605/Thanks./-4/ "
       }
     },
     {
       "LogName": "Rei: Portraits",
       "Action": "Load",
       "Target": "Portraits/blueberry.Hikawa.Rei",
-      "FromFile": "assets/Rei/Portraits/Portrait.png"
+      "FromFile": "assets/Rei/Portraits/{{outfit}}.png"
     },
     {
-      "LogName": "Rei: Sprites",
+      "LogName": "Rei: World sprite",
       "Action": "Load",
       "Target": "Characters/blueberry.Hikawa.Rei",
-      "FromFile": "assets/Rei/Sprites/Sprite.png"
+      "FromFile": "assets/Rei/Sprites/{{outfit}}.png"
     },
     {
       "LogName": "Rei: Dialogue",
@@ -45,24 +62,32 @@
       "Action": "Load",
       "Target": "Strings/schedules/blueberry.Hikawa.Rei",
       "FromFile": "assets/Rei/Data/ScheduleDialogue.json"
+    },
+    // Patches:
+    // TODO: CONTENT: Shoes and socks sprites for each of Rei and Ami's coniditional world sprites
+    {
+      "LogName": "Rei: World sprite socks",
+      "Action": "EditImage",
+      "PatchMode": "Overlay",
+      "Target": "Characters/blueberry.Hikawa.Rei",
+      "FromFile": "assets/Rei/Sprites/socks.png",
+      "When": {
+        "Season": "fall, winter",
+        "LocationName": "blueberry.Hikawa.House"
+      }
+    },
+    {
+      "LogName": "Rei: World sprite shoes",
+      "Action": "EditImage",
+      "PatchMode": "Overlay",
+      "Target": "Characters/blueberry.Hikawa.Rei",
+      "FromFile": "assets/Rei/Sprites/shoes.png",
+      "When": {
+        "LocationName |contains=blueberry.Hikawa.House": false,
+        "Outfit |contains=beach": false,
+        "Outfit |contains=bath": false,
+        "Outfit |contains=kimono": false
+      }
     }
   ]
 }
-
-// Canon likes:
-// Rei: blowfish
-// Canon hates:
-// Rei: asparagus
-
-// Rei:
-
-// Loves:
-// 64 ruby / 82 fire quartz / 104 elven jewelry / 106 ornamental fan / 128 pufferfish / 283 holly / 612 cranberry candy
-// Likes:
-// 100 chipped amphora / 103 ancient doll / 109 ancient sword / 113 chicken statue / 115 prehistoric tool / 118 glass shards / 119 bone flute / 120 prehistoric handaxe / 123 ancient drum / 124 golden mask / 125 golden relic / 152 seaweed
-// Dislikes:
-// -6 MILK / -5 EGGS / 303 pale ale / 346 beer / 348 wine / 459 mead
-// Hates:
-// -75 VEGETABLES / 207 bean hotpot / 605 artichoke dip
-// Neutral:
-// -4 FISH
