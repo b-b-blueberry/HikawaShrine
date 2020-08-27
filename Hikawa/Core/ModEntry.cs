@@ -28,6 +28,7 @@ using Hikawa.GameObjects;
 using Hikawa.GameObjects.Menus;
 
 using PyTK.Extensions;
+using StardewValley.Characters;
 
 namespace Hikawa
 {
@@ -1057,6 +1058,7 @@ namespace Hikawa
 			
 			Game1.playSound("breathin");
 			
+			Game1.player.mount = null;
 			_playerLastStandingLocation = Game1.player.getTileLocation();
 			IsPlayerSittingDown = true;
 
@@ -1092,6 +1094,7 @@ namespace Hikawa
 			Game1.player.setTileLocation(_playerLastStandingLocation);
 			Game1.player.CanMove = true;
 			
+			Game1.player.mount = null;
 			_playerLastStandingLocation = Vector2.Zero;
 			IsPlayerSittingDown = false;
 

@@ -25,6 +25,7 @@ namespace Hikawa
 			var harmony = HarmonyInstance.Create(ModEntry.Instance.ModManifest.UniqueID);
 
 			// Fix the stupid melee weapon cooldown red-square fill draw that isn't scaled to fit the inventory slot bounds
+			Log.D($"Harmony patching 'Game1._draw()': '{nameof(MeleeWeapon_drawInMenu_Transpiler)}'");
 			harmony.Patch(
 				original: AccessTools.Method(typeof(MeleeWeapon), nameof(MeleeWeapon.drawInMenu),
 					new []
@@ -39,6 +40,7 @@ namespace Hikawa
 				original: AccessTools.Method(typeof(Utility), nameof(Utility.getDefaultWarpLocation)),
 				prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(Utility_getDefaultWarpLocation_Prefix)));
 
+			return;
 			// Mini-sit transpiler for blocking the drawing of player shadows while sitting
 			harmony.Patch(
 				original: AccessTools.Method(typeof(Game1), "_draw"),
@@ -110,7 +112,6 @@ namespace Hikawa
 
 		public static IEnumerable<CodeInstruction> Game1__draw_Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
-			var found = false;
 			var il = instructions.ToList();
 			for (var i = 0; i < il.Count - 5; ++i)
 			{
@@ -132,27 +133,6 @@ namespace Hikawa
 						AccessTools.Field(typeof(ModEntry), nameof(ModEntry.IsPlayerSittingDown)));
 					yield return new CodeInstruction(OpCodes.Brtrue,
 						il[i + 2].operand);
-					found = true;
-				}
-
-				// Try and add some debug prints in there
-				if (found)
-				{
-					if (il[i].opcode == OpCodes.Ldsfld
-					    && il[i].operand.ToString() == AccessTools.Field(typeof(Game1), "spriteBatch").ToString())
-					{
-						yield return new CodeInstruction(OpCodes.Ldstr, $"Reached [{i}] {il[i].opcode} {il[i].operand}");
-						yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Log), nameof(Log.W)));
-					}
-
-					if (il[i].opcode == OpCodes.Callvirt
-					    && il[i].operand.ToString() == AccessTools.Method(typeof(SpriteBatch), nameof(SpriteBatch.Draw),
-							    new []{typeof(Texture2D), typeof(Vector2), typeof(Rectangle), typeof(Color),
-								    typeof(float), typeof(Vector2), typeof(float), typeof(SpriteEffects), typeof(float)})
-						    .ToString())
-					{
-						found = false;
-					}
 				}
 
 				yield return il[i];

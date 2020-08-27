@@ -66,9 +66,9 @@ namespace Hikawa
 		internal const int OfferingCostL = 825;
 
 		// Coordinates
-		internal const string DebugDefaultWarpTo = ShrineMapId;
+		internal const string DebugDefaultWarpTo = HouseMapId;
 		
-		// TODO: CONTENT: Fill in default warps for missing maps
+		// TODO: ONGOING: Fill in default warps for missing maps
 		internal static readonly Dictionary<string, Location> DefaultWarps = new Dictionary<string, Location>
 		{
 			//{ ShrineMapId, new Location(39, 60) },
