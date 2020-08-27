@@ -28,7 +28,6 @@ using Hikawa.GameObjects;
 using Hikawa.GameObjects.Menus;
 
 using PyTK.Extensions;
-using StardewValley.Characters;
 
 namespace Hikawa
 {
@@ -1080,6 +1079,11 @@ namespace Hikawa
 				_playerSittingFrames[direction], 999999, false, direction == 3);
 			Game1.player.FarmerSprite.animateOnce(animFrames);
 			Game1.player.CanMove = false;
+		}
+
+		public static bool CheckForSittingShadow()
+		{
+			return IsPlayerSittingDown || Game1.player.isRidingHorse();
 		}
 
 		/// <summary>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Reflection.Emit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,16 +15,10 @@ namespace Hikawa
 	public static class HarmonyPatches
 	{
 		internal static void PerformHarmonyPatches() {
-			// TODO: Update list of harmony patches as they're added
-			Log.D("Harmony patching methods:"
-			      + $"\n{nameof(MeleeWeapon_drawInMenu_Transpiler)}"
-			      + $"\n{nameof(Game1__draw_Transpiler)}"
-			      + $"\n{nameof(Utility_getDefaultWarpLocation_Prefix)}"
-			      );
 			var harmony = HarmonyInstance.Create(ModEntry.Instance.ModManifest.UniqueID);
 
 			// Fix the stupid melee weapon cooldown red-square fill draw that isn't scaled to fit the inventory slot bounds
-			Log.D($"Harmony patching 'Game1._draw()': '{nameof(MeleeWeapon_drawInMenu_Transpiler)}'");
+			Log.D($"Harmony patching 'MeleeWeapon.drawInMenu': '{nameof(MeleeWeapon_drawInMenu_Transpiler)}'");
 			harmony.Patch(
 				original: AccessTools.Method(typeof(MeleeWeapon), nameof(MeleeWeapon.drawInMenu),
 					new []
@@ -36,24 +29,28 @@ namespace Hikawa
 				prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(MeleeWeapon_drawInMenu_Prefix)));
 
 			// Add default warps for custom locations
+			Log.D($"Harmony patching 'Utility.getDefaultWarpLocation': '{nameof(Utility_getDefaultWarpLocation_Prefix)}'");
 			harmony.Patch(
 				original: AccessTools.Method(typeof(Utility), nameof(Utility.getDefaultWarpLocation)),
 				prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(Utility_getDefaultWarpLocation_Prefix)));
 
-			return;
 			// Mini-sit transpiler for blocking the drawing of player shadows while sitting
+			Log.D($"Harmony patching 'SGame.DrawImpl()': '{nameof(SGame_DrawImpl_Transpiler)}'");
 			harmony.Patch(
-				original: AccessTools.Method(typeof(Game1), "_draw"),
-				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(Game1__draw_Transpiler)));
-			harmony.Patch(
-				original: AccessTools.Method(typeof(Game1), "_draw"),
-				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(Game1__draw_Transpiler_test)));
-		}
+				original: AccessTools.Method(AccessTools.TypeByName("StardewModdingAPI.Framework.SGame"), "DrawImpl"),
+				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(SGame_DrawImpl_Transpiler)));
 
-		public static IEnumerable<CodeInstruction> Game1__draw_Transpiler_test(
+			return;
+			// Check result of previous transpile
+			harmony.Patch(
+				original: AccessTools.Method(AccessTools.TypeByName("StardewModdingAPI.Framework.SGame"), "DrawImpl"),
+				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(SGame_DrawImpl_Transpiler_test)));
+		}
+		
+		public static IEnumerable<CodeInstruction> SGame_DrawImpl_Transpiler_test(
 			IEnumerable<CodeInstruction> instructions)
 		{
-			// Print the CIL we've manipulated in Game1__draw_Transpiler
+			// Print the CIL we've manipulated in SGame_DrawImpl_Transpiler
 
 			Log.W("Draw transpiler test");
 			var start = -1;
@@ -62,10 +59,10 @@ namespace Hikawa
 			for (var i = 0; i < il.Count - 5; ++i)
 			{
 				if (start == -1
-				    && il[i].opcode == OpCodes.Ldloc_S
-				    && il[i + 1].opcode == OpCodes.Callvirt
+				    && il[i].opcode == OpCodes.Nop
+				    && il[i + 1].opcode == OpCodes.Call
 				    && il[i + 1].operand.ToString()
-				    == AccessTools.Method(typeof(Farmer), nameof(Farmer.isRidingHorse)).ToString()
+				    == AccessTools.Method(typeof(ModEntry), nameof(ModEntry.CheckForSittingShadow)).ToString()
 				    && il[i + 2].opcode == OpCodes.Brtrue)
 				{
 					Log.W($"Origin: {i}");
@@ -109,35 +106,36 @@ namespace Hikawa
 			}
 			return il.AsEnumerable();
 		}
-
-		public static IEnumerable<CodeInstruction> Game1__draw_Transpiler(IEnumerable<CodeInstruction> instructions)
+		
+		public static IEnumerable<CodeInstruction> SGame_DrawImpl_Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			var il = instructions.ToList();
 			for (var i = 0; i < il.Count - 5; ++i)
 			{
-				// Identify points in Game1.draw() where the player's shadow would be drawn
-				// Conveniently these are also the only usages of Farmer.isRidingHorse in Game1.draw(), so seek that
+				// Identify points in SGame.DrawImpl() where the player's shadow would be drawn
+				// Conveniently these are also the only usages of Farmer.isRidingHorse in DrawImpl, so seek out these usages to override
+				
 				if (il[i].opcode == OpCodes.Ldloc_S
 				    && il[i + 1].opcode == OpCodes.Callvirt
 				    && il[i + 1].operand.ToString() == AccessTools.Method(typeof(Farmer), nameof(Farmer.isRidingHorse)).ToString()
 				    && il[i + 2].opcode == OpCodes.Brtrue)
 				{
-					Log.W("\nInstruction:"
-					      + $"\nil[{i - 1}]: {il[i - 1].opcode} {il[i - 1].operand}\n({il[i - 1].labels.Aggregate("", (s, label) => $"{s}, {label}")})"
-					      + $"\nil[{i}]: {il[i].opcode} {il[i].operand}\n({il[i].labels.Aggregate("", (s, label) => $"{s}, {label}")})"
-					      + $"\nil[{i + 1}]: {il[i + 1].opcode} {il[i + 1].operand}\n({il[i + 1].labels.Aggregate("", (s, label) => $"{s}, {label}")})"
-					      + $"\nil[{i + 2}]: {il[i + 2].opcode} {il[i + 2].operand}\n({il[i + 2].labels.Aggregate("", (s, label) => $"{s}, {label}")})");
+					Log.T("\nTranspiling instructions:"
+					      + $"\nil[{i - 1}]: {il[i - 1].opcode} {il[i - 1].operand}"
+					      + $"\nil[{i}]: {il[i].opcode} {il[i].operand}"
+					      + $"\nil[{i + 1}]: {il[i + 1].opcode} {il[i + 1].operand}"
+					      + $"\nil[{i + 2}]: {il[i + 2].opcode} {il[i + 2].operand}");
 
 					// Add a check for ModEntry.IsPlayerSittingDown to prevent drawing the player's shadow
-					yield return new CodeInstruction(OpCodes.Ldsfld,
-						AccessTools.Field(typeof(ModEntry), nameof(ModEntry.IsPlayerSittingDown)));
-					yield return new CodeInstruction(OpCodes.Brtrue,
-						il[i + 2].operand);
+					il[i] = new CodeInstruction(OpCodes.Nop);
+					il[i + 1] = new CodeInstruction(OpCodes.Call,
+						AccessTools.Method(typeof(ModEntry), nameof(ModEntry.CheckForSittingShadow)));
+					il[i + 2].opcode = OpCodes.Brtrue;
 				}
-
-				yield return il[i];
 			}
+			return il.AsEnumerable();
 		}
+
 		public static IEnumerable<CodeInstruction> MeleeWeapon_drawInMenu_Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			var il = instructions.ToList();
@@ -150,6 +148,7 @@ namespace Hikawa
 				yield return instruction;
 			}
 		}
+
 		public static bool Utility_getDefaultWarpLocation_Prefix(string location_name, ref int x, ref int y)
 		{
 			try
