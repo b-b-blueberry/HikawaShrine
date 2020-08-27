@@ -11,6 +11,28 @@
   "dialogue.flee_prompt": "Flee and return to the Shrine?",
 
   // World interaction strings
+  "world.house.1": "There's a rice cooker quietly steaming away.",
+  "world.house.2": "The back door's locked.",
+  "world.house.3": "...",
+  "world.house.4": "Even Grandpa's run-down farmhouse didn't have a kitchen this old... or this messy.",
+  "world.house.5": "The shelves are stuffed with.. comic books and figurines?",
+  "world.house.6": "Looks like an old family heirloom. Better not touch it.",
+  "world.house.7": "There's a stack of school books on history, culture, archaeology...",
+  "world.house.8": "It's a huge pile of silly comics.",
+  "world.house.9": "Nothing but trash. Sure are a lot of instant noodle packets in here.",
+  "world.house.10": "It's a big bowl of delicious jelly doughnuts.",
+  "world.house.11": "It's a fresh pot of hot green tea.",
+
+  "world.shrine.sign.1": "Hikawa Shrine^-- Cherry Hill ",
+  "world.shrine.sign.2": "Private property.^Please no entry.",
+  "world.shrine.sign.3": "Sendaizaka Hall^^Out of order.^Regrettably, there is no expected opening date.^Please direct hire enquiries to shrine attendants.",
+  "world.shrine.sign.4": "Heritage temple of Sendaizaka Peak^Established 18XX with the help of our gracious donors and patrons.^^Head priest -- Hino Tomo.^Care of Hino family.",
+  "world.shrine.flag.1": "Souvenirs and specialties",
+  "world.shrine.coop.1": "This house is for chickens, not for people. Go away.",
+  "world.shrine.totem.1": "The stone statue of a crow looks protective, but your crops beg to differ.",
+  "world.shrine.temizuya.1": "It's a basin of pure water. The wood's showing its age, but the water's still perfectly clean.",
+  "world.shrine.omiyageya.1": "The shopfront's adorned with an assortment of trinkets and talismans.",
+
   "string.shrine.shop_closed": "Nobody's attending the souvenir shop at the moment.",
   "string.shrine.offering_prompt": "Make an offering?",
   "string.shrine.offering_awaiting": "You've already paid tribute to the shrine today.",
@@ -33,7 +55,7 @@
   "string.shrine.interloper_prompt": "Set off on the next chapter?",
   "string.shrine.interloper_veryprompt": "This action will have consequences. Go ahead?",
 
-  "string.home.wardrobe_inpsect": "It's a closet full of {{season}} clothes.",
+  "string.home.wardrobe_inspect": "It's a closet full of {{season}} clothes.",
   "string.home.wardrobe_enable_prompt": "Characters aren't wearing any seasonal outfits. Put them on?",
   "string.home.wardrobe_disable_prompt": "Characters are currently wearing seasonal outfits. Take them off?",
 
@@ -43,7 +65,10 @@
   "string.menu.bundles.2_inspect": "Produce Offerings",
   "string.menu.bundles.3_inspect": "??? Offerings",
   "string.menu.bundles.4_inspect": "Bundle of Love",
+
   "string.menu.bundles.any_inspect": "Any {{category}}",
+  "string.menu.bundles.seasonal_inspect": "Seasonal {{category}}",
+  "string.menu.bundles.seasonal_bad": "This {{category}} is out of season.",
 
   // Misc character strings
   // TODO: ASSETS: Portrait codes

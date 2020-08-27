@@ -22,7 +22,7 @@ namespace Hikawa.Editors
 		{
 			var target = asset.AsDictionary<string, string>().Data;
 			var source = ModEntry.Instance.Helper.Content.Load<IDictionary<string, string>>(
-				Path.Combine(ModConsts.AssetsPath, ModConsts.EventsPath));
+				$"{ModConsts.EventsPath}.json");
 
 			if (asset.AssetNameEquals(@"Data/Events/Town"))
 			{

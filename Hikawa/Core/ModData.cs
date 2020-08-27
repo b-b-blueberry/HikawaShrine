@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Hikawa.GameObjects.Menus;
 
 namespace Hikawa
 {
@@ -43,7 +44,7 @@ namespace Hikawa
 		public int BananaBunch { get; set; }
 		public int BananaRepublic { get; set; }
 		public bool HasCheckedBundlesThisSeason { get; set; }
-
-		public List<Dictionary<List<object>, List<bool>>> BundlesThisSeason { get; set; }
+		public int SpecialGiftSentToNpc { get; set; }
+		public List<EmaMenu.Bundle> BundlesThisSeason { get; set; }
 	}
 }

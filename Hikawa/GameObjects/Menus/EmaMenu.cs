@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,22 +12,36 @@ using PyTK.Extensions;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
+using StardewValley.Buildings;
 using StardewValley.Menus;
+using StardewValley.TerrainFeatures;
+using Object = StardewValley.Object;
 
 namespace Hikawa.GameObjects.Menus
 {
 	public class EmaMenu : IClickableMenu
 	{
-		public static readonly List<object> BundleCharacters = new List<object>
+		public class Bundle
 		{
-			ModConsts.ReiNpcId,
-			ModConsts.GrampsNpcId,
-			ModConsts.AmiNpcId,
-			ModConsts.YuuichiroNpcId,
-		};
+			public readonly Bundles bundle;
+			public readonly int flavour;
+			public readonly Dictionary<object, object> items = new Dictionary<object, object>();
+
+			public Bundle() {}
+			public Bundle(Bundles bundle, int flavour)
+			{
+				this.bundle = bundle;
+				this.flavour = flavour;
+			}
+
+			[JsonConstructor]
+			public Bundle(Bundles bundle, int flavour, Dictionary<object, object> items) : this(bundle, flavour)
+			{
+				this.items = items;
+			}
+		}
 
 		public enum State
 		{
@@ -43,6 +59,32 @@ namespace Hikawa.GameObjects.Menus
 			Other, // Right
 			Friendship, // Bottom
 			Count
+		}
+
+		public enum ArtefactBundles
+		{
+			Archaeological,
+			Cultural,
+			Mystery,
+			Nautical,
+			Skeletal,
+			Count
+		}
+
+		public enum ProduceBundles
+		{
+			Fruit,
+			Flowers,
+			Animals,
+			Fish,
+			Food,
+			Preserves,
+			Count
+		}
+
+		public enum MagicBundles
+		{
+
 		}
 		
 		// Source rects for various menu elements
@@ -120,6 +162,8 @@ namespace Hikawa.GameObjects.Menus
 			if (addRootToStack)
 				_stack.Push(State.Root);
 			_stack.Push(state);
+
+			Game1.displayHUD = false;
 			
 			var topLeft = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
 			xPositionOnScreen = (int) topLeft.X;
@@ -147,13 +191,7 @@ namespace Hikawa.GameObjects.Menus
 			// Choose sprite variants
 			var currentStory = ModEntry.GetCurrentStory();
 			var misty = currentStory.Key == ModData.Chapter.Mist && currentStory.Value == ModData.Progress.Started;
-			var season = Game1.currentSeason switch
-			{
-				"spring" => 0,
-				"summer" => 1,
-				"autumn" => 2,
-				_ => 3
-			};
+			var season = Utility.getSeasonNumber(Game1.currentSeason);
 
 			season = 0;
 
@@ -189,62 +227,559 @@ namespace Hikawa.GameObjects.Menus
 			ModEntry.OverlayEffectControl.Set(OverlayEffectControl.Effect.Nighttime);
 		}
 
-		~EmaMenu()
+		protected override void cleanupBeforeExit()
 		{
+			Game1.displayHUD = true;
 			ModEntry.OverlayEffectControl.Previous();
+
+			base.cleanupBeforeExit();
 		}
 
 		internal static void LoadBundlesState()
 		{
 			Log.W("LoadBundlesState");
 
-			// Reload missing data
 			if (Data.BundlesThisSeason != null)
 				return;
-
-			Log.W("Null bundle data");
-			Data.BundlesThisSeason = new List<Dictionary<List<object>, List<bool>>>();
-
-			// Story bundle
-			var bundle = new List<object>();
-			for (var i = ModData.Chapter.None; i < ModData.Chapter.End; ++i)
-				bundle.Add(i);
-			Data.BundlesThisSeason.Add(new Dictionary<List<object>, List<bool>>
-				{{ bundle, new List<bool>() }});
-
-			// Artefacts bundle
-			Data.BundlesThisSeason.Add(new Dictionary<List<object>, List<bool>>
-				{{ new List<object>(), new List<bool>() }});
-
-			// Produce bundle
-			Data.BundlesThisSeason.Add(new Dictionary<List<object>, List<bool>>
-				{{ new List<object>(), new List<bool>() }});
-
-			// ??? bundle
-			Data.BundlesThisSeason.Add(new Dictionary<List<object>, List<bool>>
-				{{ new List<object>(), new List<bool>() }});
-
-			// Friendship bundle
-			Data.BundlesThisSeason.Add(new Dictionary<List<object>, List<bool>>
-				{{ BundleCharacters, new List<bool>() }});
-
+			Data.BundlesThisSeason = new List<Bundle>();
 			ResetBundlesForNewSeason();
 		}
 
 		internal static void ResetBundlesForNewSeason()
 		{
-			Log.W("ResetBundlesForNewSeason");
+			ResetBundlesForNewSeason(true, false);
+		}
 
-			// TODO: CONTENT: Write up data for bundles per season
+		internal static void ResetBundlesForNewSeason(bool actuallyReset, bool ignoreLastSeason)
+		{
+			// TODO: DEBUG: Test ResetBundlesForNewSeason in games spanning more than one season (or year) in a single session
 
+			var season = Game1.dayOfMonth < 27
+				? Game1.currentSeason
+				: Utility.getSeasonNameFromNumber(Utility.getSeasonNumber(Game1.currentSeason) % 4);
+			
+			Log.W($"ResetBundlesForNewSeason(actuallyReset: {actuallyReset}) - season: {season}");
+
+			var locationData = Game1.content.Load<Dictionary<string, string>>
+				("Data\\Locations");
+			var recipeData = Game1.content.Load<Dictionary<string, string>>
+				("Data\\CookingRecipes");
+			var cropData = Game1.content.Load<Dictionary<int, string>>
+				("Data\\Crops");
+			var fruitTreeData = Game1.content.Load<Dictionary<int, string>>
+				("Data\\fruitTrees");
+			var shellfish = new[] {372, 392, 393, 394, 397, 715, 716, 717, 718, 719, 720, 721, 722, 723};
+
+			// All fish available in any location for this season, where seasonal fish ID isn't -1 (none)
+			var seasonalFish = new List<int>();
+			seasonalFish = locationData.Values.Select(data => data
+						.Split('/')[3 + Utility.getSeasonNumber(season)]
+						.Split(' ').ToList().ConvertAll(s => (int)float.Parse(s))
+						.Where(fish => fish > 1))
+					.Aggregate(seasonalFish, (current, dataValues)
+						=> current.Union(dataValues).ToList());
+
+			// Default item IDs for filler items not necessarily tailored to the player's farm
+			var produceFlavourIds = new Dictionary<ProduceBundles, List<int>>
+			{
+				{ ProduceBundles.Animals, new List<int> {186, 424, 426, 428, 438, 444, 446} },
+				{ ProduceBundles.Fish, new List<int> {128, 129, 130, 131, 132, 136, 137,
+					138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 154,
+					155, 156, 158, 159, 160, 161, 162, 164, 165, 267, 269, 698, 699, 700, 701,
+					702, 704, 705, 706, 707, 708, 734, 775, 795, 796, 798, 799} },
+				{ ProduceBundles.Fruit, new List<int> {628, 629, 630, 631, 632, 633} },
+				{ ProduceBundles.Flowers, new List<int> {376, 591, 593, 595, 597} },
+				{ ProduceBundles.Food, new List<int> {} },
+				{ ProduceBundles.Preserves, new List<int> {303, 304, 344, 346, 348, 350, 459} },
+			};
+			var produceQuantities = new Dictionary<ProduceBundles, int>
+			{
+				{ProduceBundles.Animals, 3},
+				{ProduceBundles.Fish, 5},
+				{ProduceBundles.Fruit, 3},
+				{ProduceBundles.Flowers, 9},
+				{ProduceBundles.Food, 1},
+				{ProduceBundles.Preserves, 6},
+			};
+			var artefactFlavourIds = new Dictionary<ArtefactBundles, List<int>>
+			{
+				{ ArtefactBundles.Archaeological, new List<int> {100, 101, 105, 110, 111, 112, 115, 118, 120} },
+				{ ArtefactBundles.Cultural, new List<int> {100, 106, 113, 119, 123,} },
+				{ ArtefactBundles.Mystery, new List<int> {103, 104, 108, 121, 122, 126, 127} },
+				{ ArtefactBundles.Nautical, new List<int> {116, 117, 586, 587, 588, 589} },
+				{ ArtefactBundles.Skeletal, new List<int> {579, 580, 581, 582, 583, 584, 585} },
+			};
+
+			List<Bundle> bundles = new List<Bundle>();
+			Bundle bundle;
+			List<int> ids, uniqueIds = new List<int>();
+			int flavour, itemSlots, quantity, quality, averageAmount;
+			
+			// Story bundle:
+
+			bundle = new Bundle(Bundles.Story, -1);
+			for (var i = ModData.Chapter.None; i < ModData.Chapter.End; ++i)
+				bundle.items.Add(i, null);
+			bundles.Add(bundle);
+
+			// Produce bundle:
+
+			averageAmount = 5;
+			quantity = Game1.random.Next(averageAmount - 2, averageAmount + 1);
+			itemSlots = averageAmount - 1 + (averageAmount - quantity);
+			
+			do flavour = Game1.random.Next(0, (int) ProduceBundles.Count);
+			while (!ignoreLastSeason 
+			       && Data.BundlesThisSeason.Any(bundle => 
+				       bundle.bundle == Bundles.Produce
+				       && Data.BundlesThisSeason[(int) Bundles.Produce].flavour == flavour));
+			switch (flavour)
+			{
+				case (int) ProduceBundles.Food:
+				{
+					flavour = (int) ProduceBundles.Food;
+					bundle = new Bundle(Bundles.Produce, flavour);
+					ids = produceFlavourIds[(ProduceBundles) flavour];
+					quantity = produceQuantities[(ProduceBundles) flavour];
+					quality = Game1.year switch
+					{
+						1 => 0,
+						2 => 2,
+						3 => 2,
+						_ => 4
+					};
+
+					var recipes = Utility.GetAllPlayerUnlockedCookingRecipes();
+					foreach (var data in recipeData.Where((pair, i) => recipes.Contains(pair.Key)))
+					{
+						var ingredients = data.Value.Split('/')[0].Split(' ')
+							.ToList().ConvertAll(int.Parse);
+						// Include categories (<0) and ingredients (>10) values only
+						// hopefully no recipes have a quantity > 10 for some ingredient
+						var seasonalIngredients = ingredients.Where(id => id < 0 || id > 10).ToList();
+						var goodIngredients = seasonalIngredients.ConvertAll(id => id < 0);
+						for (var i = 0; i < seasonalIngredients.Count; ++i)
+						{
+							var id = seasonalIngredients[i];
+							var ingredient = new Object(id, 1);
+
+							Log.D($"{data.Key}: Checking ingredient [{i}] {ingredient.Name} ({id})");
+
+							// Avoid out-of-season vegetables and flowers
+							if (ingredient.Category == -75 || ingredient.Category == -80
+							    && cropData.Values.Any(crop => 
+								    int.Parse(crop.Split('/')[3]) == id 
+								    && crop.Split('/')[1] != season))
+							{
+								Log.D($"{ingredient.Name} was a crop from another season.");
+								break;
+							}
+
+							// Avoid out-of-season fruits
+							if (ingredient.Category == -79
+							    && fruitTreeData.Any(pair =>
+								    int.Parse(pair.Value.Split('/')[2]) == id
+								    && pair.Value.Split('/')[1] != season))
+							{
+								Log.D($"{ingredient.Name} was a fruit tree from another season.");
+								break;
+							}
+
+							// Avoid out-of-season fish
+							if (ingredient.Category == -4
+								&& !seasonalFish.Contains(id)
+								&& (!shellfish.Contains(id)
+								    && (season == "spring"
+								        || season == "summer")))
+							{
+								Log.D($"{ingredient.Name} was a fish from another season.");
+								break;
+							}
+
+							goodIngredients[i] = true;
+						}
+
+						Log.D(goodIngredients.Aggregate("Good ingredients: ", (s, b) => $"{s} {b}"));
+
+						if (!goodIngredients.All(good => good))
+							continue;
+
+						Log.D(seasonalIngredients.Aggregate($"All ingredients for {data.Key} were OK", (s, id) =>
+							$"{s}, {new Object(id, 1).Name} ({id})"));
+						ids.Add(int.Parse(data.Value.Split('/')[2]));
+					}
+
+					if (ids.Count < 4)
+						goto case (int) ProduceBundles.Flowers;
+
+					Utility.Shuffle(Game1.random, ids);
+					foreach (var id in ids)
+					{
+						if (bundle.items.Count >= itemSlots)
+							break;
+						bundle.items.Add(new Object(id,
+							quantity) {quality = {quality}}, null);
+					}
+
+					break;
+				}
+
+				case (int) ProduceBundles.Preserves:
+				{
+					flavour = (int) ProduceBundles.Preserves;
+					bundle = new Bundle(Bundles.Produce, flavour);
+					ids = produceFlavourIds[(ProduceBundles) flavour];
+					quantity = produceQuantities[(ProduceBundles) flavour];
+					quality = Game1.year switch
+					{
+						1 => 0,
+						2 => 2,
+						3 => 2,
+						_ => 4
+					};
+
+					Utility.Shuffle(Game1.random, ids);
+					foreach (var id in ids)
+					{
+						var produce = new Object(id, 1);
+
+						if (bundle.items.Count >= itemSlots - 1)
+							break;
+						
+						if (produce.Price > 500)
+							quantity = Math.Max(1, quantity / 2 + 1);
+						bundle.items.Add(new Object(id,
+							quantity) {quality = {quality}}, null);
+					}
+
+					// Add any unique objects to the bundle
+					if (uniqueIds.Count < 1 || Game1.random.NextDouble() < 0.66f)
+						break;
+					var unique = new Object(uniqueIds[Game1.random.Next(uniqueIds.Count - 1)], 1);
+					unique.Stack = unique.Price < 500 ? 3 : 1;
+					bundle.items.Add(unique, null);
+
+					break;
+				}
+
+				case (int) ProduceBundles.Fish:
+				{
+					flavour = (int) ProduceBundles.Fish;
+					bundle = new Bundle(Bundles.Produce, flavour);
+					ids = produceFlavourIds[(ProduceBundles) flavour];
+					quantity = produceQuantities[(ProduceBundles) flavour];
+					quality = Game1.year switch
+					{
+						1 => 0,
+						2 => 2,
+						3 => 2,
+						_ => 4
+					};
+
+					if (Game1.getFarm().buildings.Any(building => building is FishPond))
+						// Pearl, Aged Roe, Caviar, Squid Ink
+						uniqueIds = new List<int> {797, 447, 445, 814};
+
+					if (season == "winter")
+						// Pearl, Midnight Squid, Spookfish, Blobfish
+						uniqueIds = uniqueIds.Union(new List<int>{797, 798, 799, 800}).ToList();
+					
+					if (Game1.random.NextDouble() < 0.35
+						&& season == "spring" || season == "summer")
+					{
+						// Fetch a selection of items based on shellfish and crabbing loot:
+
+						// Clam, Nautilus Shell, Coral, Rainbow Shell, Sea Urchin
+						var bits = new[] {372, 392, 393, 394, 397};
+						// Cockle, Mussel, Shrimp, Snail, Periwinkle, Oyster
+						var small = new[] {718, 719, 720, 721, 722, 723};
+						// Crayfish, Lobster, Crab
+						var big = new[] {715, 716, 717};
+						// Chowder, Fish Stew, Lobster Bisque, Shrimp Cocktail
+						var foods = new[] {727, 728, 730, 732, 733};
+						for (var i = 0; i < 2; ++i)
+						{
+							var which = Game1.random.Next(small.Length - 1);
+							bundle.items.Add(new Object(small[which], 9)
+								{quality = {quality}}, null);
+							small[which] = small[small.Length - 1 - which];
+						}
+						bundle.items.Add(new Object(bits[Game1.random.Next(bits.Length - 1)], 5),
+							null);
+						bundle.items.Add(new Object(big[Game1.random.Next(big.Length - 1)], 3)
+							{quality = {quality}}, null);
+						bundle.items.Add(new Object(foods[Game1.random.Next(foods.Length - 1)], 1),
+							null);
+					}
+					else
+					{
+						Utility.Shuffle(Game1.random, ids);
+						foreach (var id in ids)
+						{
+							var produce = new Object(id, 1);
+							Log.D($"Checking seasonal fish: {produce.Name} (in season: {seasonalFish.Any(fish => fish == id)})");
+							// Avoid out-of-season fish
+							if (seasonalFish.All(fish => fish != id))
+								continue;
+							if (bundle.items.Count >= itemSlots - 1)
+								break;
+						
+							if (produce.Price > 500)
+								quantity = Math.Max(1, quantity / 2 + 1);
+							bundle.items.Add(new Object(id, quantity)
+								{quality = {quality}}, null);
+						}
+
+						// Add any unique items here, we don't care about them for the shellfish bundle
+						if (uniqueIds.Count < 1 || Game1.random.NextDouble() < 0.66f)
+							break;
+						var unique = new Object(uniqueIds[Game1.random.Next(uniqueIds.Count - 1)],
+							1);
+						unique.Stack = unique.Price < 300 ? 5 : 3;
+						bundle.items.Add(unique, null);
+					}
+
+					break;
+				}
+
+				case (int) ProduceBundles.Animals:
+				{
+					flavour = (int) ProduceBundles.Animals;
+					bundle = new Bundle(Bundles.Produce, flavour);
+					ids = produceFlavourIds[(ProduceBundles) flavour];
+					quantity = produceQuantities[(ProduceBundles) flavour];
+					quality = Game1.year switch
+					{
+						1 => 0,
+						2 => 2,
+						3 => 2,
+						_ => 4
+					};
+
+					// Ask for quality animal products the player is likely to earn without changing their farm goals
+					var animals = Game1.getFarm().getAllFarmAnimals();
+					var buildings = Game1.getFarm().buildings;
+					
+					if (buildings.Any(building => building.buildingType.Value.EndsWith("Coop")))
+						// Mayonnaise
+						uniqueIds = uniqueIds.Union(new[] { 306, 307, 308 }).ToList();
+
+					if (buildings.Any(building => building.buildingType.Value.EndsWith(" Coop")))
+						// Rabbit's Foot
+						uniqueIds.Add(446);
+					
+					if (buildings.Any(building =>
+							building.buildingType.Value.EndsWith(" Coop") 
+							|| animals.Any(animal => animal.type.Contains("Dinosaur"))
+							|| Game1.getAllFarmers().Any(f => f.hasUnlockedSkullDoor 
+							                                  || Game1.player.archaeologyFound.ContainsKey(107))))
+						// Dinosaur Mayonnaise
+						uniqueIds.Add(807);
+
+					if (season != "winter" && animals.Any(animal => animal.type.Contains("Pig")) 
+						|| (buildings.Any(building => building.buildingType.Value.Contains("Deluxe Barn")) 
+						    && !animals.Any(animal => animal.type.Contains("Sheep"))))
+						// Truffle, Truffle Oil
+						uniqueIds = uniqueIds.Union(new []{430, 432}).ToList();
+
+					if (buildings.Any(building => building.buildingType.Value.Contains("Slime")))
+						// Slime
+						uniqueIds.Add(766);
+					
+					var uniqueCount = Math.Min(Game1.random.Next(2, itemSlots), uniqueIds.Count);
+
+					Utility.Shuffle(Game1.random, ids);
+					foreach (var id in ids)
+					{
+						if (bundle.items.Count >= itemSlots - uniqueCount)
+							break;
+						// Please don't ask for iridium quality crafting ingredients
+						bundle.items.Add(new Object(id, quantity)
+							{Quality = new Object(id, 1).Category == -18 ? quality : 0}, null);
+					}
+
+					// Add any unique objects to the bundle
+					for (var i = 0; i < uniqueCount; ++i)
+					{
+						var which = Game1.random.Next(uniqueIds.Count - 1);
+						
+						// Please don't ask for iridium quality crafting ingredients
+						var unique = new Object(uniqueIds[which], 1);
+						unique.Quality = unique.Category == -18 ? quality : 0;
+						unique.Stack = unique.Price < 350 ? 5 : 3;
+						bundle.items.Add(unique, null);
+
+						uniqueIds[which] = uniqueIds[uniqueIds.Count - 1 - which];
+					}
+					
+					if (bundle.items.Count < 4)
+						goto case (int) ProduceBundles.Fish;
+
+					break;
+				}
+
+				case (int) ProduceBundles.Flowers:
+				{
+					flavour = (int) ProduceBundles.Flowers;
+					bundle = new Bundle(Bundles.Produce, flavour);
+					ids = produceFlavourIds[(ProduceBundles) flavour];
+					quantity = produceQuantities[(ProduceBundles) flavour];
+					quality = Game1.year switch
+					{
+						1 => 0,
+						2 => 2,
+						3 => 2,
+						_ => 4
+					};
+
+					foreach (var id in ids)
+					{
+						var seed = cropData.FirstOrDefault(pair =>
+							int.Parse(pair.Value.Split('/')[3]) == id).Key;
+						var flower = new Crop(seed, -1, -1);
+						// Fetch seasonal flowers
+						if (!flower.seasonsToGrowIn.Contains(season))
+							continue;
+						if (bundle.items.Count >= itemSlots - 1)
+							break;
+						bundle.items.Add(new Object(flower.indexOfHarvest.Value,
+							quantity) {quality = {quality}}, null);
+					}
+
+					// Add some seasonal forage flowers, or a sunflower crop for Autumn
+					var which = season switch
+					{
+						"winter" => new [] {283, 418},
+						"fall" => new [] {421},
+						"summer" => new [] {402},
+						_ => new [] {18, 19}
+					};
+					bundle.items.Add(new Object(which[Game1.random.Next(which.Length - 1)], 5), null);
+
+					// Add seasonal honey to the bundle
+					bundle.items.Add(new Object(340,
+						Game1.year < 3 ? 3 : 5) {Name = "Seasonal Honey"}, null);
+
+					// TODO: HINT: Use preservedParentSheetIndex on honey to determine the season of the flower later on
+					// or just honeyType probably really
+
+					if (ids.Count < 4)
+						goto case (int) ProduceBundles.Animals;
+
+					break;
+				}
+
+				case (int) ProduceBundles.Fruit:
+				{
+					flavour = (int) ProduceBundles.Fruit;
+					bundle = new Bundle(Bundles.Produce, flavour);
+					ids = produceFlavourIds[(ProduceBundles) flavour];
+					quantity = produceQuantities[(ProduceBundles) flavour];
+
+					quality = Game1.year switch
+					{
+						1 => 0,
+						2 => 0,
+						3 => 1,
+						4 => 2,
+						_ => 4,
+					};
+					ids = ids.Union(ModEntry.Instance.JaApi.GetAllFruitTreeIds().Values).ToList();
+
+					if (ids.Count < 4)
+						goto case (int) ProduceBundles.Preserves;
+
+					Utility.Shuffle(Game1.random, ids);
+					foreach (var id in ids)
+					{
+						var tree = new FruitTree(id);
+						// Fetch seasonal tree products
+						if (tree.fruitSeason.Value != season)
+							continue;
+						if (bundle.items.Count >= itemSlots)
+							break;
+						bundle.items.Add(new Object(tree.indexOfFruit.Value,
+							quantity) {quality = {quality}}, null);
+					}
+					
+					// Add tapped tree products
+					var tapperProducts = new[] {724, 725, 726};
+					bundle.items.Add(new Object(
+						tapperProducts[Game1.random.Next(0, 3)],
+						3 + Game1.random.Next(2)), null);
+
+					break;
+				}
+			}
+			bundles.Add(bundle);
+
+			// Artefacts bundle:
+
+			do flavour = Game1.random.Next(0, (int) ArtefactBundles.Count);
+			while (!ignoreLastSeason 
+			       && Data.BundlesThisSeason.Any(bundle =>
+				       bundle.bundle == Bundles.Artefacts
+				       && Data.BundlesThisSeason[(int) Bundles.Artefacts].flavour == flavour));
+			bundle = new Bundle(Bundles.Artefacts, flavour);
+			ids = artefactFlavourIds[(ArtefactBundles) flavour];
+
+			itemSlots = Math.Min(6, Game1.random.Next(4, Math.Max(4, ids.Count - 2)));
+			quantity = Game1.year < 5 ? 1 : 2;
+			
+			Utility.Shuffle(Game1.random, ids);
+			foreach (var id in ids)
+			{
+				var obj = new Object(id, quantity);
+				if (bundle.items.Count >= itemSlots)
+					break;
+				bundle.items.Add(obj, null);
+			}
+			bundles.Add(bundle);
+
+			// Other bundle:
+
+			// ...
+
+			bundle = new Bundle(Bundles.Other, -1);
+			bundles.Add(bundle);
+
+			// Friendship bundle:
+			
+			var characters = new List<object>
+			{
+				ModConsts.ReiNpcId,
+				ModConsts.GrampsNpcId,
+				ModConsts.AmiNpcId,
+				ModConsts.YuuichiroNpcId,
+			};
+			bundle = new Bundle(Bundles.Friendship, -1);
+			foreach (var chara in characters.Where(chara => !bundle.items.ContainsKey(chara)))
+				bundle.items.Add(chara, Game1.player.tryGetFriendshipLevelForNPC((string) chara));
+			bundles.Add(bundle);
+
+			// Finally, apply changes to bundles in mod save data
+			if (actuallyReset)
+				Data.BundlesThisSeason = bundles;
+
+			PrintCurrentBundles(bundles);
+		}
+
+		internal static void PrintCurrentBundles(List<Bundle> bundles)
+		{
+			Log.D("Bundles for this season:");
+			foreach (var bung in bundles.Where(b => b.items.Count > 0))
+			{
+				Log.D(bung.items.Aggregate($"\n{bung.bundle} ({bung.flavour}) - ", (s1, pair) 
+					=> s1 + (pair.Key.GetType() == typeof(Object)
+						? (pair.Key as Object).Name
+						: pair.Key) + ", ") );
+			}
 		}
 
 		private void PopMenuStack(bool playSound)
 		{
 			if (_stack.Count < 1)
 				return;
-
-			//Log.W($"Popping {_stack.Peek()}");
 			_stack.Pop();
 
 			if (playSound)
@@ -253,6 +788,7 @@ namespace Hikawa.GameObjects.Menus
 			if (!readyToClose() || _stack.Count > 0)
 				return;
 			Game1.exitActiveMenu();
+			cleanupBeforeExit();
 		}
 
 		private void ClickButton(int button, bool playSound)
@@ -310,7 +846,7 @@ namespace Hikawa.GameObjects.Menus
 
 			var buttonArea = new Rectangle(100, 80, 128, 64);
 			var buttons = new List<Rectangle>();
-			var count = Data.BundlesThisSeason[(int)_currentBundle].Count;
+			var count = Data.BundlesThisSeason[(int)_currentBundle].items.Count;
 			Rectangle source;
 
 			// Reset return button
@@ -588,7 +1124,7 @@ namespace Hikawa.GameObjects.Menus
 				_lastClockTime = Game1.timeOfDay;
 				//SetEveningTenMinuteHue(ref _skyLowerColour, ref _initialSkyHSL, new Vector3(40, -1, 0.5f));
 				//SetEveningTenMinuteHue(ref _skyHigherColour, ref _initialGradientHSL, new Vector3(20, -1, 0.5f));
-				Log.D($"{Game1.timeOfDay}:");
+				//Log.D($"{Game1.timeOfDay}:");
 				SetEveningTenMinuteColor(ref _skyLowerColour, SkyLowerStartColor, SkyLowerEndColor);
 				SetEveningTenMinuteColor(ref _skyHigherColour, SkyHigherStartColor, SkyHigherEndColor);
 			}
@@ -614,7 +1150,7 @@ namespace Hikawa.GameObjects.Menus
 			}
 
 			// TODO: DEBUG: Remove this debug timer for ticking the clock in the menu
-			
+			/*
 			if (_DEBUGtimer > 0)
 				_DEBUGtimer -= time.ElapsedGameTime.Milliseconds;
 			else
@@ -622,6 +1158,7 @@ namespace Hikawa.GameObjects.Menus
 				_DEBUGtimer = DebugClockTickSeconds * 1000f;
 				Game1.performTenMinuteClockUpdate();
 			}
+			*/
 
 			return;
 		}
@@ -672,14 +1209,23 @@ namespace Hikawa.GameObjects.Menus
 				SpriteEffects.None,
 				0.99f);
 
+			// Background blackout
+			b.Draw(
+				Game1.fadeToBlackRect,
+				view,
+				Color.LightGray * 0.5f);
+
 			// Sky colour fill
+			if (false)
 			b.Draw(
 				Game1.fadeToBlackRect,
 				view,
 				_skyLowerColour);
 
 			// Sky colour gradient overlay
+			if (false)
 			source = GradientSourceRect;
+			if (false)
 			b.Draw(
 				_texture,
 				view,
@@ -718,8 +1264,8 @@ namespace Hikawa.GameObjects.Menus
 			for (var i = 0; i < Data.BundlesThisSeason.Count; ++i)
 			{
 				var completed
-					= Data.BundlesThisSeason[i].All(kv
-						=> kv.Value.TrueForAll(v => v));
+					= Data.BundlesThisSeason[i].items.All(kv
+						=> kv.Key is Object a && kv.Value is Object b && a.Stack == b.Stack);
 
 				// Draw question mark over unfinished bundles
 				//if (!completed && state == State.Root)
@@ -816,11 +1362,11 @@ namespace Hikawa.GameObjects.Menus
 							? SpriteEffects.FlipHorizontally
 							: SpriteEffects.None,
 						0.99f + 1f / 10000f);
-
-					var completed
-						= Data.BundlesThisSeason[(int)_currentBundle].All(kv
-							=> kv.Value.TrueForAll(v => v));
 					
+					var completed
+						= Data.BundlesThisSeason[(int)_currentBundle].items.All(kv
+							=> kv.Key is Object a && kv.Value is Object b && a.Stack == b.Stack);
+
 					// Return to Root button
 					source = CloseIconSourceRect;
 					b.Draw(

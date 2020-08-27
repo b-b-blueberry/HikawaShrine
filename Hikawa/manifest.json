@@ -9,10 +9,14 @@
   "UpdateKeys": [ "Nexus:4643" ],
   "Dependencies": [
     {
+      "UniqueID": "spacechase0.SpaceCore"
+    },
+    {
       "UniqueID": "Platonymous.Toolkit"
     },
     {
-      "UniqueID": "spacechase0.SpaceCore"
+      "UniqueID": "Pathoschild.ContentPatcher",
+      "IsRequired": false
     },
     {
       "UniqueID": "blueberry.SailorStyles",

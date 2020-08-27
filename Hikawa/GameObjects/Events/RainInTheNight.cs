@@ -190,7 +190,7 @@ namespace Hikawa.GameObjects.Events
 				{
 					Log.W("Phase 1: Monologue 1");
 					
-					Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono1"));
+					Game1.drawObjectDialogue(i18n.Get("talk.story.plant.mono1"));
 					_awaitingInput = true;
 				}
 			}
@@ -211,7 +211,7 @@ namespace Hikawa.GameObjects.Events
 				{
 					Log.W("Phase 1 and a bit: Monologue 1 plus");
 					
-					Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono1plus"));
+					Game1.drawObjectDialogue(i18n.Get("talk.story.plant.mono1plus"));
 					_awaitingInput = true;
 				}
 			}
@@ -291,7 +291,7 @@ namespace Hikawa.GameObjects.Events
 				{
 					Log.W("Phase 3: Monologue 2");
 					
-					Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono2"));
+					Game1.drawObjectDialogue(i18n.Get("talk.story.plant.mono2"));
 					_timer = 10500;
 					_awaitingInput = true;
 				}
@@ -380,13 +380,15 @@ namespace Hikawa.GameObjects.Events
 
 				_fire = 6;
 				
-				var textureSource = new Rectangle(
-					0,
-					48,
-					16, 32);
+				var assetKey = Helper.Content.GetActualAssetKey(
+					Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
 				ModEntry.Multiplayer.broadcastSprites(_farm,
 					new TemporaryAnimatedSprite(
-						_texture.Name, textureSource, 
+						assetKey,
+						new Rectangle(
+							0,
+							48,
+							16, 32), 
 						900f, 
 						4, 
 						1, 
@@ -445,7 +447,7 @@ namespace Hikawa.GameObjects.Events
 		{
 			_isBlack = true;
 			Game1.globalFadeToClear();
-			Game1.drawObjectDialogue(i18n.Get("string.story.plant.mono3"));
+			Game1.drawObjectDialogue(i18n.Get("talk.story.plant.mono3"));
 		}
 
 		public void draw(SpriteBatch b)

@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Security.Permissions;
 using System.Text.RegularExpressions;
-using Harmony;
+
 using StardewValley;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley.BellsAndWhistles;
+using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Objects;
+using StardewValley.Projectiles;
+using StardewValley.TerrainFeatures;
+using StardewValley.Tools;
 using Object = StardewValley.Object;
 
 using Microsoft.Xna.Framework;
@@ -22,31 +24,31 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 using SpaceCore.Events;
 
-using Hikawa.Core;
 using Hikawa.GameObjects;
 using Hikawa.GameObjects.Menus;
-using StardewValley.TerrainFeatures;
-using StardewValley.Tools;
-using Patches = Hikawa.Core.Patches;
+
+using PyTK.Extensions;
 
 namespace Hikawa
 {
 	public class ModEntry : Mod
 	{
-		internal Config Config;
-		internal ITranslationHelper i18n => Helper.Translation;
-		
 		// Mod objects
 		internal static ModEntry Instance;
+		internal Config Config;
 		internal ModData SaveData;
+		internal static Multiplayer Multiplayer;
+		internal static readonly OverlayEffectControl OverlayEffectControl = new OverlayEffectControl();
+
+		internal ITranslationHelper i18n => Helper.Translation;
+
 		internal IJsonAssetsApi JaApi;
 		internal ISailorStylesAPI SailorApi;
-		internal static readonly OverlayEffectControl OverlayEffectControl = new OverlayEffectControl();
-		internal static Multiplayer Multiplayer;
+		internal IContentPatcherAPI ContentApi;
 
 		// Mini-Sit
-		private static bool _isPlayerAgencySuppressed;
-		private bool _isPlayerSittingDown;
+		internal static bool IsPlayerAgencySuppressed;
+		internal static bool IsPlayerSittingDown;
 		private readonly int[] _playerSittingFrames = {62, 117, 54, 117};
 		private Vector2 _playerLastStandingLocation;
 
@@ -137,6 +139,7 @@ namespace Hikawa
 
 			//helper.Content.AssetEditors.Add(new Editors.TestEditor(helper));
 			helper.Content.AssetEditors.Add(new Editors.WorldEditor(helper));
+			helper.Content.AssetLoaders.Add(new Editors.WorldEditor(helper));
 			//helper.Content.AssetEditors.Add(new Editors.EventEditor(helper));
 			helper.Content.AssetEditors.Add(new Editors.ArcadeEditor(helper));
 
@@ -146,15 +149,13 @@ namespace Hikawa
 			helper.Events.GameLoop.DayEnding += OnDayEnding;
 			helper.Events.GameLoop.Saving += OnSaving;
 			helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
-			helper.Events.Display.RenderedWorld += OnRenderedWorld;
-			
 			helper.Events.Player.Warped += OnWarped;
 			helper.Events.Input.ButtonPressed += OnButtonPressed;
 			
 			SpaceEvents.ChooseNightlyFarmEvent += HikawaFarmEvents;
 			SpaceEvents.AfterGiftGiven += HikawaGiftsGiven;
 
-			PerformHarmonyPatches();
+			HarmonyPatches.PerformHarmonyPatches();
 
 			AddConsoleCommands();
 			if (Config.DebugMode)
@@ -167,23 +168,7 @@ namespace Hikawa
 				_texture = Instance.Helper.Content.Load<Texture2D>(textureName);
 			}
 		}
-		
-		private void PerformHarmonyPatches() {
-			Log.D("Harmony patching methods:"
-			      + $"\n{nameof(MeleeWeapon.drawInMenu)}: Transpiler");
-			var harmony = HarmonyInstance.Create(ModManifest.UniqueID);
-			harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-			// Fix the stupid melee weapon cooldown red-square fill draw that isn't scaled to fit the inventory slot bounds
-			harmony.Patch(
-				original: AccessTools.Method(typeof(MeleeWeapon), nameof(MeleeWeapon.drawInMenu),
-					new []
-					{
-						typeof(SpriteBatch), typeof(Vector2), typeof(float), typeof(float), typeof(float), typeof(StackDrawType), typeof(Color), typeof(bool)
-					}),
-				prefix: new HarmonyMethod(typeof(Patches), nameof(Patches.MeleeWeapon_drawInMenu_Prefix)));
-		}
-		
 		private void AddConsoleCommands()
 		{
 			var commands = new Dictionary<string, string[]>
@@ -236,12 +221,12 @@ namespace Hikawa
 								      + $"\nInterlude:   {SaveData.Interlude}"
 								      + $"\nActive item: {who.ActiveObject?.Name}"
 									  + "\n-------------------------"
-								      + $"\nActions suppressed: {_isPlayerAgencySuppressed}"
+								      + $"\nActions suppressed: {IsPlayerAgencySuppressed}"
 								      + $"\nOut of bounds:      {outOfBounds}"
 								      + $"\nBlocked tile:       {passable}",
 									Config.DebugMode);
 
-								if (_isPlayerAgencySuppressed)
+								if (IsPlayerAgencySuppressed)
 									Log.D("Reenabling player actions.");
 								if (_animationFlag || _animationTimer > 0 || _animationStage > 0
 								    || _animationExtraInt > 0 || _animationExtraFloat > 0)
@@ -249,7 +234,7 @@ namespace Hikawa
 								if (_isPlayerGodMode || _isPlayerBuddhaMode)
 									Log.D("Cancelling player health guards.");
 
-								_isPlayerAgencySuppressed = false;
+								IsPlayerAgencySuppressed = false;
 								ResetAnimationVars();
 								SetGodMode(SetBuddhaMode(false));
 
@@ -274,19 +259,17 @@ namespace Hikawa
 
 		private void AddDeveloperCommands()
 		{
-			// TODO: METHOD: Find some way to set default warp location, intercept Warped maybe?
-
 			var commands = new Dictionary<string, string[]>
 			{
 				{ Cmd + "arcade",
 					new[] { Cmd + "a", "Start arcade game:"
-					                 + " use START, TITLE, RESET." }}, 
+					                 + $" use [START/TITLE/RESET]" }}, 
 				{ Cmd + "overlay",
-					new[] { Cmd + "ov", $"Manage screen overlays:"
-					                  + $" use 0~{OverlayEffectControl.Effect.Count - 1}." }},
+					new[] { Cmd + "ov", "Manage screen overlays:"
+					                  + $" use [0~{OverlayEffectControl.Effect.Count - 1}]" }},
 				{ Cmd + "offer",
 					new[] { Cmd + "of", "Make a shrine offering:"
-					                  + " use S, M, or L." }},
+					                  + $" use [S/M/L]" }},
 				{ Cmd + "crows",
 					new[] { Cmd + "c", "Respawn twin crows at the shrine." }},
 				{ Cmd + "crows2",
@@ -299,26 +282,39 @@ namespace Hikawa
 					new[] { Cmd + "s", "Warp to Hikawa Shrine." }},
 				{ Cmd + "entry",
 					new[] { Cmd + "e", "Warp to the shrine entrance." }},
+				{ Cmd + "pool",
+					new[] { Cmd + "p", "Warp to the bath house pool." }},
 				{ Cmd + "vortex", 
 					new[] { Cmd + "v", "Warp to a Vortex map:"
-					                 + " use 1~3." }},
+					                 + $" use [1~3]" }},
+				{ Cmd + "bananablitz", 
+					new[] { Cmd + "bb", "Clear all HikawaBananas from a map:"
+					                    + $" use [name]" }},
 				{ Cmd + "buff", 
 					new[] { Cmd + "bf", "Add a Shrine buff:"
-					                  + $" use 0~{Buffs.Count - 1}." }},
+					                  + $" use [0~{Buffs.Count - 1}]" }},
 				{ Cmd + "god", 
 					new[] { Cmd + "gm", "Toggle God mode." }},
 				{ Cmd + "buddha", 
 					new[] { Cmd + "bm", "Toggle Buddha mode." }},
 				{ Cmd + "pain", 
-					new[] { Cmd + "p", "Take random damage. Able to kill player from full health." }},
+					new[] { Cmd + "pa", "Take random damage. Able to kill player from full health." }},
 				{ Cmd + "chapter", 
-					new[] { Cmd + "ch", $"Set or reset story progress:"
-					                  + $" use 0~{ModData.Chapter.End - 1}"
-					                  + $" 0~{ModData.Progress.Complete - 1}." }},
+					new[] { Cmd + "ch", "Set or reset story progress:"
+					                  + $" use [0~{ModData.Chapter.End - 1}"
+					                  + $" 0~{ModData.Progress.Complete - 1}]" }},
 				{ Cmd + "schedule", 
 					new[] { Cmd + "sc", "Get an NPC's current schedule path." }},
 				{ Cmd + "give", 
 					new[] { Cmd + "g", "Give a Hikawa item." }},
+				{ Cmd + "goto", 
+					new[] { Cmd + "gt", "Warp to an NPC:"
+					                    + $" use [name]" }},
+				{ Cmd + "fetch", 
+					new[] { Cmd + "f", "Warp an NPC to the current location:"
+					                   + $" use [name]" }},
+				{ Cmd + "bundles", 
+					new[] { Cmd + "bd", "Print Ema bundles for the season." }},
 			};
 
 			foreach (var command in commands)
@@ -405,12 +401,12 @@ namespace Hikawa
 					case Cmd + "totem":
 						callback = (s, p) =>
 						{
-							StartWarpToShrine(new Object(
-								JaApi.GetObjectId("Warp Totem: Shrine"), 1).getOne() as Object, Game1.currentLocation);
+							StartWarpToShrine(new Object(JaApi.GetObjectId("Warp Totem: Shrine"), 1)
+								.getOne() as Object, Game1.currentLocation);
 						};
 						break;
 
-					case Cmd + "home":
+					case Cmd + "house":
 						callback = (s, p) =>
 						{
 							WarpToDefault(ModConsts.HouseMapId);
@@ -431,11 +427,37 @@ namespace Hikawa
 						};
 						break;
 						
+					case Cmd + "pool":
+						callback = (s, p) =>
+						{
+							WarpToDefault("BathHouse_Pool");
+						};
+						break;
+						
 					case Cmd + "vortex":
 						callback = (s, p) =>
 						{
 							var which = p.Length > 0 ? p[0] : "1";
 							WarpToDefault(ModConsts.VortexMapId + which);
+						};
+						break;
+						
+					case Cmd + "bananablitz":
+						callback = (s, p) =>
+						{
+							var where = p.Length == 0
+								? Game1.currentLocation
+								: Utility.fuzzyLocationSearch(p[0]);
+							var bananaId = JaApi.GetCropId("Dark Fruit");
+							var bananas = where.terrainFeatures.Keys.Where(
+								position => where.terrainFeatures[position] is HikawaBanana hb
+								            && hb.indexOfFruit.Value == bananaId).ToList();
+							Log.D($"{(bananas.Count == 0 ? "Found" : "Removing")} {bananas.Count}"
+							      + $" HikawaBananas at {where.Name}.");
+							if (!bananas.Any())
+								return;
+							foreach (var banana in bananas)
+								where.terrainFeatures.Remove(banana);
 						};
 						break;
 						
@@ -514,7 +536,8 @@ namespace Hikawa
 								return;
 							}
 
-							var npc = GetHikawaNpcByName(p[0]);
+							//var npc = GetHikawaNpcByName(p[0]);
+							var npc = Utility.fuzzyCharacterSearch(p[0], false);
 							if (npc == null)
 							{
 								Log.D($"No Hikawa NPCs found for '{p[0]}'.");
@@ -638,6 +661,84 @@ namespace Hikawa
 							Game1.player.addItemByMenuIfNecessary((Item) item);
 						};
 						break;
+
+					case Cmd + "goto":
+						callback = (s, p) =>
+						{
+							if (p.Length < 1 || string.IsNullOrEmpty(p[0]))
+							{
+								return;
+							}
+							var who = Utility.fuzzyCharacterSearch(p[0]);
+							if (who == null)
+							{
+								Log.D($"No NPC found for '{p[0]}'.");
+								return;
+							}
+
+							var position = Utility.getRandomAdjacentOpenTile(who.getTileLocation(), who.currentLocation);
+							if (position == Vector2.Zero)
+								position = who.getTileLocation();
+							Log.D($"Warping to {who.Name} at {who.currentLocation.Name}: {position}");
+							Game1.player.warpFarmer(
+								new Warp(0, 0, 
+									who.currentLocation.Name, 
+									(int)position.X, (int)position.Y, 
+									false));
+						};
+
+						break;
+
+						case Cmd + "fetch":
+							callback = (s, p) =>
+							{
+								var coords = Location.Origin;
+								if (p.Length < 1 || string.IsNullOrEmpty(p[0]))
+								{
+									Log.D($"Not enough parameters: expected [name], received {p.Length} params.");
+									return;
+								}
+								var who = Utility.fuzzyCharacterSearch(p[0]);
+								if (who == null)
+								{
+									Log.D($"No NPC found for '{p[0]}'.");
+									return;
+								}
+
+								Game1.warpCharacter(who, Game1.currentLocation, 
+									Utility.getRandomAdjacentOpenTile(Game1.player.Position, Game1.currentLocation));
+								if (who.Position == Vector2.Zero)
+									who.Position = Game1.player.Position;
+								who.clearSchedule();
+								who.Halt();
+
+								if (IsCharacterInBathHousePool(who))
+								{
+									who.swimming.Value = true;
+								}
+
+								Log.D($"Warped {who.Name} to {who.currentLocation} at {who.Position}");
+
+								// Schedule reassignment
+								if (p.Length == 1)
+									return;
+								
+								Log.D($"Forced schedule for {who.Name}");
+								ForceNpcSchedule(who);
+							};
+
+							break;
+
+					case Cmd + "bundles":
+						callback = (s, p) =>
+						{
+							if (p.Length == 0)
+								EmaMenu.PrintCurrentBundles(SaveData.BundlesThisSeason);
+							else
+								EmaMenu.ResetBundlesForNewSeason(false, true);
+						};
+						break;
+
 				}
 				
 				for (var i = 0; i < command.Value.Length - 1; ++i)
@@ -684,6 +785,29 @@ namespace Hikawa
 		}
 		// SPRITE TESTING
 
+		private void RegisterApis()
+		{
+			ContentApi = Helper.ModRegistry.GetApi<IContentPatcherAPI>("Pathoschild.ContentPatcher");
+			ContentApi.RegisterToken(ModManifest, "SeasonalOutfits", () =>
+			{
+				return Config == null ? null : new [] { Config.SeasonalOutfits.ToString() };
+			});
+
+			JaApi = Helper.ModRegistry.GetApi<IJsonAssetsApi>("spacechase0.JsonAssets");
+			JaApi.LoadAssets(Path.Combine(Helper.DirectoryPath, ModConsts.JaContentPackPath));
+
+			SailorApi = Helper.ModRegistry.GetApi<ISailorStylesAPI>("blueberry.SailorStyles");
+			Log.D($"Sailor Styles API {(SailorApi == null ? "wasn't" : "was")} loaded.",
+				Config.DebugMode);
+
+			if (SailorApi == null)
+				return;
+
+			// TODO: DEBUG: Remove SailorApi test code
+			Log.W($"SailorApi test:"
+			      + $"\nEnabled: {SailorApi.AreHairstylesEnabled()} - Index: {SailorApi.GetHairstylesInitialIndex()}");
+		}
+
 		#region Data Model
 
 		private void LoadModData()
@@ -695,7 +819,7 @@ namespace Hikawa
 		private void UnloadModData()
 		{
 			SaveData = null;
-			_isPlayerSittingDown = false;
+			IsPlayerSittingDown = false;
 		}
 
 		#endregion
@@ -707,16 +831,7 @@ namespace Hikawa
 		/// </summary>
 		private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
 		{
-			SailorApi = Helper.ModRegistry.GetApi<ISailorStylesAPI>("blueberry.SailorStyles");
-			Log.D($"Sailor Styles API {(SailorApi == null ? "wasn't" : "was")} loaded.",
-				Config.DebugMode);
-
-			// TODO: DEBUG: Remove SailorApi test code
-			Log.W($"SailorApi test:"
-			      + $"\nEnabled: {SailorApi.AreHairstylesEnabled()} - Index: {SailorApi.GetHairstylesInitialIndex()}");
-
-			JaApi = Helper.ModRegistry.GetApi<IJsonAssetsApi>("spacechase0.JsonAssets");
-			JaApi.LoadAssets(Path.Combine(Helper.DirectoryPath, ModConsts.JaContentPackPath));
+			RegisterApis();
 		}
 
 		/// <summary>
@@ -742,8 +857,8 @@ namespace Hikawa
 
 			_whatAboutCatsCanTheySpawnToday = true; // TODO: METHOD: caats spawn conditions
 
-			_isPlayerAgencySuppressed = false;
-			_isPlayerSittingDown = false;
+			IsPlayerAgencySuppressed = false;
+			IsPlayerSittingDown = false;
 
 			if (SaveData.AwaitingShrineBuff)
 			{
@@ -866,11 +981,6 @@ namespace Hikawa
 				Game1.player.health = _playerHealthToMaintain = 1;
 				_isPlayerGodMode = true;
 			}
-
-			foreach (var projectile in Projectiles.ToArray())
-			{
-				projectile.Update(e);
-			}
 		}
 		
 		/// <summary>
@@ -878,8 +988,8 @@ namespace Hikawa
 		/// </summary>
 		private void OnWarped(object sender, WarpedEventArgs e)
 		{
-			_isPlayerSittingDown = false;
-			_isPlayerAgencySuppressed = false;
+			IsPlayerSittingDown = false;
+			IsPlayerAgencySuppressed = false;
 
 			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
 
@@ -903,7 +1013,7 @@ namespace Hikawa
 			    || Game1.player.UsingTool || Game1.pickingTool || Game1.numberOfSelectedItems != -1 || Game1.fadeToBlack)
 				return;
 			
-			if (_isPlayerAgencySuppressed)
+			if (IsPlayerAgencySuppressed)
 			{
 				Helper.Input.Suppress(e.Button);
 				return;
@@ -918,14 +1028,14 @@ namespace Hikawa
 					CheckTileAction(e.Cursor.GrabTile);
 
 				// Item actions
-				if (Game1.player.ActiveObject != null && !Game1.player.isRidingHorse() && !_isPlayerSittingDown)
+				if (Game1.player.ActiveObject != null && !Game1.player.isRidingHorse() && !IsPlayerSittingDown)
 					CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation, btn);
 
 				// Tool actions
 				if (Game1.player.CurrentTool != null)
 					TryCheckForToolUse(Game1.player.CurrentTool, btn);
 			}
-			else if (!_isPlayerSittingDown)
+			else if (!IsPlayerSittingDown)
 			{}
 			else
 			{
@@ -934,14 +1044,6 @@ namespace Hikawa
 			}
 		}
 		
-		private void OnRenderedWorld(object sender, RenderedWorldEventArgs e)
-		{
-			foreach (var projectile in Projectiles.ToArray())
-			{
-				projectile.Draw(e);
-			}
-		}
-
 		#endregion
 
 		#region Mini-Sit
@@ -952,22 +1054,30 @@ namespace Hikawa
 		/// <param name="position">Target position in world coordinates to sit at.</param>
 		/// <param name="direction">Value for direction to face, follows standard SDV rules of clockwise-from-zero.</param>
 		private void SitDownStart(Vector2 position, int direction) {
-			_playerLastStandingLocation = Game1.player.getTileLocation();
-
+			
 			Game1.playSound("breathin");
+			
+			_playerLastStandingLocation = Game1.player.getTileLocation();
+			IsPlayerSittingDown = true;
+
+			Game1.player.yOffset = 0f;
+			if (direction != 0)
+			{
+				const int yOffsetTiles = 1;
+				position.Y += yOffsetTiles;
+				Game1.player.yOffset = yOffsetTiles * 64f + 16f;
+			}
 			Game1.player.faceDirection(direction);
 			Game1.player.completelyStopAnimatingOrDoingAction();
 			Game1.player.setTileLocation(position);
-			Game1.player.yOffset = 0f;
-			
-			// TODO: SYSTEM: Consider ways of having the farmer sprite appear above Front tiles on the tile above where they sit
+
+			// TODO: SYSTEM: Disable player shadows while sitting
 
 			var animFrames = new FarmerSprite.AnimationFrame[1];
 			animFrames[0] = new FarmerSprite.AnimationFrame(
 				_playerSittingFrames[direction], 999999, false, direction == 3);
 			Game1.player.FarmerSprite.animateOnce(animFrames);
 			Game1.player.CanMove = false;
-			_isPlayerSittingDown = true;
 		}
 
 		/// <summary>
@@ -975,12 +1085,15 @@ namespace Hikawa
 		/// </summary>
 		private void SitDownEnd() {
 			Game1.playSound("breathout");
+			
+			Game1.player.yOffset = 0f;
 			Game1.player.completelyStopAnimatingOrDoingAction();
 			Game1.player.faceDirection((Game1.player.FacingDirection + 2) % 4);
 			Game1.player.setTileLocation(_playerLastStandingLocation);
 			Game1.player.CanMove = true;
-			_isPlayerSittingDown = false;
+			
 			_playerLastStandingLocation = Vector2.Zero;
+			IsPlayerSittingDown = false;
 
 			// Don't put a butt hole on indoors maps or maps not included in Hikawa
 			// Probably only Hikawa Shrine has snowy benches in winter
@@ -1135,15 +1248,15 @@ namespace Hikawa
 				case ModConsts.ActionWardrobe:
 					// Offer to toggle seasonal outfits on Hikawa characters
 					Game1.playSound("doorCreak");
-					_isPlayerAgencySuppressed = true;
+					IsPlayerAgencySuppressed = true;
 					Game1.delayedActions.Add(new DelayedAction(300, () =>
 					{
-						_isPlayerAgencySuppressed = false;
+						IsPlayerAgencySuppressed = false;
 						CreateInspectThenQuestionDialogue(
 							new List<string>
 							{
 								i18n.Get("string.home.wardrobe_inspect", new {season = Game1.CurrentSeasonDisplayName}),
-								i18n.Get($"string.home.wardrobe_{(Config.SeasonalClothes ? "dis" : "en")}able_inspect")
+								i18n.Get($"string.home.wardrobe_{(Config.SeasonalOutfits ? "dis" : "en")}able_prompt")
 							},
 							new List<Response>
 							{
@@ -1152,6 +1265,18 @@ namespace Hikawa
 							});
 					}));
 
+					break;
+
+				// House back door
+				case ModConsts.ActionBackDoor:
+					if (true)
+					{
+						CreateInspectDialogue(i18n.Get("string.house.2"));
+					}
+					else
+					{
+						// TODO: CONTENT: House back door conditions and content
+					}
 					break;
 
 				// Sit on benches
@@ -1171,7 +1296,7 @@ namespace Hikawa
 				case ModConsts.ActionFrogman:
 					const int delay = 1500;
 					Game1.player.completelyStopAnimatingOrDoingAction();
-					_isPlayerAgencySuppressed = true;
+					IsPlayerAgencySuppressed = true;
 					SetGodMode(true);
 
 					// TODO: CONTENT: Action Frogman: Animate frogman for (delay) duration
@@ -1183,7 +1308,7 @@ namespace Hikawa
 
 						// TODO: CONTENT: Action Frogman: Stop animating frogman and do something
 
-						_isPlayerAgencySuppressed = false;
+						IsPlayerAgencySuppressed = false;
 						SetGodMode(false);
 					})); 
 
@@ -1200,7 +1325,7 @@ namespace Hikawa
 		/// </summary>
 		public void CheckHeldObjectAction(Object o, GameLocation where, SButton btn)
 		{
-			if (!Game1.player.CanMove || o.isTemporarilyInvisible || _isPlayerAgencySuppressed 
+			if (!Game1.player.CanMove || o.isTemporarilyInvisible || IsPlayerAgencySuppressed 
 			    || !Game1.eventUp && !Game1.isFestival() && !Game1.fadeToBlack 
 			    && !Game1.player.swimming.Value && !Game1.player.bathingClothes.Value)
 				return;
@@ -1235,7 +1360,9 @@ namespace Hikawa
 					{
 						// TODO: CONTENT: Have the Crystal Moon Wand shoot stars on leftclick
 						
-						Projectiles.Add(new Projectile(Game1.player, Projectile.Type_.Stars));
+						//var velocity = Utility.getVelocityTowardPlayer(GetBoundingBox().Center, 15f, Player);
+
+						//Projectiles.Add(new HikawaProjectiles(Game1.player, Projectile.Type_.Stars));
 					}
 					else if (btn.IsActionButton())
 					{
@@ -1244,7 +1371,7 @@ namespace Hikawa
 						if (MeleeWeapon.defenseCooldown > 0f)
 							return;
 
-						_isPlayerAgencySuppressed = true;
+						IsPlayerAgencySuppressed = true;
 						SetGodMode(true);
 						ResetAnimationVars();
 						Game1.player.FacingDirection = 2;
@@ -1282,7 +1409,7 @@ namespace Hikawa
 								{
 									Game1.playSound("wand");
 									Game1.screenGlowOnce(Color.White, false, 0.02f);
-									_isPlayerAgencySuppressed = false;
+									IsPlayerAgencySuppressed = false;
 									SetGodMode(false);
 								},
 								true)
@@ -1311,8 +1438,14 @@ namespace Hikawa
 
 		private static void WarpToDefault(string where)
 		{
-			if (string.IsNullOrEmpty(where) || Game1.getLocationFromName(where) == null)
+			if (string.IsNullOrEmpty(where)
+			    || Game1.getLocationFromName(where) == null
+			    || !ModConsts.DefaultWarps.ContainsKey(where))
+			{
+				Log.D($"Bad warp location '{where}'.");
 				return;
+			}
+			
 			Game1.player.warpFarmer(
 				new Warp(0, 0,
 					where,
@@ -1465,25 +1598,21 @@ namespace Hikawa
 			}
 		}
 
-		internal static NPC GetHikawaNpcByName(string substring) {
-			var charas = new List<string>
+		public static bool IsCharacterInBathHousePool(Character who)
+		{
+			return who.currentLocation is BathHousePool && IsPointInBathHousePool(who.Position);
+		}
+
+		public static bool IsPointInBathHousePool(Vector2 position) {
+			var poolArea = new List<Rectangle>
 			{
-				ModConsts.ReiNpcId,
-				ModConsts.AmiNpcId,
-				ModConsts.UsaNpcId,
-				ModConsts.GrampsNpcId,
-				ModConsts.YuuichiroNpcId,
+				new Rectangle(5 * 64, 9 * 64, 3 * 64, 3 * 64),
+				new Rectangle(5 * 64, 20 * 64, 3 * 64, 3 * 64),
+				new Rectangle(5 * 64, 12 * 64, 17 * 64, 6 * 64),
+				new Rectangle(13 * 64, 19 * 64, 2 * 64, 7 * 64),
+				new Rectangle(6 * 64, 27 * 64, 15 * 64, 5 * 64),
 			};
-			var result = charas.FirstOrDefault(c => c.Split('.')[2]
-				.ToLower() == substring.ToLower());
-			if (string.IsNullOrEmpty(result))
-				result = charas.FirstOrDefault(c => c.Split('.')[2]
-					.ToLower().StartsWith(substring.ToLower()));
-			if (string.IsNullOrEmpty(result))
-				result = charas.FirstOrDefault(c => c.Split('.')[2]
-					.ToLower().Contains(substring.ToLower()));
-			
-			return string.IsNullOrEmpty(result) ? null : Game1.getCharacterFromName(result);
+			return Utility.pointInRectangles(poolArea, (int) position.X, (int) position.Y);
 		}
 
 		public static float GetProgressFromEveningIntoNighttime()
@@ -1657,6 +1786,44 @@ namespace Hikawa
 					// Rei's custom door
 					const int doorMarkerIndex = 32;
 					var point = new Point(7, 12);
+					
+					// Seasonal tiles
+					// Butsudan
+					var season = Utility.getSeasonNumber(Game1.currentSeason);
+					var tilesheet = where.Map.GetTileSheet(ModConsts.IndoorsSpritesFile);
+					var buildings = where.Map.GetLayer("Buildings");
+					var front = where.Map.GetLayer("Front");
+					var rowIncrement = tilesheet.SheetWidth;
+					var index = 218;
+					if (IsItObonYet())
+					{
+						// Obon
+						buildings.Tiles[16, 3].TileIndex = index;
+						buildings.Tiles[17, 3].TileIndex = index + 1;
+						buildings.Tiles[16, 4].TileIndex = index + rowIncrement;
+						buildings.Tiles[17, 4].TileIndex = index + rowIncrement + 1;
+					}
+					else
+					{
+						// Seasonal
+						index = 214 + season;
+						buildings.Tiles[17, 3].TileIndex = index;
+						buildings.Tiles[17, 4].TileIndex = index + rowIncrement;
+					}
+					// Window flowers
+					index = 244 + season;
+					buildings.Tiles[3, 15].TileIndex = index;
+					buildings.Tiles[3, 16].TileIndex = index + rowIncrement;
+					// Table or kotatsu
+					index = 276 + season / 2 * 2;
+					front.Tiles[5, 15].TileIndex = index;
+					front.Tiles[6, 15].TileIndex = index + 1;
+					buildings.Tiles[5, 16].TileIndex = index + rowIncrement;
+					buildings.Tiles[6, 16].TileIndex = index + rowIncrement + 1;
+					buildings.Tiles[5, 17].TileIndex = index + rowIncrement * 2;
+					buildings.Tiles[6, 17].TileIndex = index + rowIncrement * 2 + 1;
+					buildings.Tiles[6, 16].Properties.AddOrReplace("Action",
+						$"Message \"{ModConsts.ContentPrefix}house.1{season / 2}\"");
 
 					if (where.Map.GetLayer("Buildings").Tiles[point.X, point.Y].TileIndex == doorMarkerIndex)
 					{
@@ -1690,46 +1857,6 @@ namespace Hikawa
 						{
 							Log.E($"Failed to find a door at marker point {point.ToString()}: No entry!");
 						}
-
-						// Seasonal tiles
-						// Butsudan
-						var tilesheet = where.Map.GetTileSheet(ModConsts.IndoorsSpritesFile);
-						var layer = where.Map.GetLayer("Buildings");
-						var rowIncrement = tilesheet.SheetWidth;
-						var index = 218;
-						if (IsItObonYet())
-						{
-							// Obon
-							layer.Tiles[16, 3].TileIndex = index;
-							layer.Tiles[16, 4].TileIndex = index + rowIncrement;
-							layer.Tiles[17, 3].TileIndex = index + 1;
-							layer.Tiles[17, 4].TileIndex = index + rowIncrement + 1;
-						}
-						else
-						{
-							// Seasonal
-							index = Game1.currentSeason switch
-							{
-								"spring" => 214,
-								"summer" => 215,
-								"fall" => 216,
-								"winter" => 217,
-								_ => index
-							};
-							layer.Tiles[17, 3].TileIndex = index;
-							layer.Tiles[17, 4].TileIndex = index + rowIncrement;
-						}
-						// Window flowers
-						index = Game1.currentSeason switch
-						{
-							"spring" => 244,
-							"summer" => 245,
-							"fall" => 246,
-							"winter" => 247,
-							_ => index
-						};
-						layer.Tiles[3, 15].TileIndex = index;
-						layer.Tiles[3, 16].TileIndex = index + rowIncrement;
 					}
 					else
 					{
@@ -1737,7 +1864,7 @@ namespace Hikawa
 					}
 					break;
 				}
-				
+
 				// Player's farm
 				case "Farm":
 				{
@@ -1747,6 +1874,17 @@ namespace Hikawa
 						// Plant
 					}
 
+					break;
+				}
+
+				// Warping straight into the bathhouse pool
+				case "BathHouse_Pool":
+				{
+					if (IsCharacterInBathHousePool(Game1.player))
+					{
+						Game1.player.swimming.Value = true;
+						Game1.player.changeIntoSwimsuit();
+					}
 					break;
 				}
 				
@@ -2120,11 +2258,11 @@ namespace Hikawa
 							whichSound = ModConsts.ContentPrefix + "rainsound_ahh";
 						Game1.currentLocation.localSound(whichSound);
 						Game1.drawObjectDialogue(i18n.Get("string.shrine.offering_accepted." + whichBuff));
-						_isPlayerAgencySuppressed = false;
+						IsPlayerAgencySuppressed = false;
 					},
 					true)
 			});
-			_isPlayerAgencySuppressed = true;
+			IsPlayerAgencySuppressed = true;
 		}
 		
 		public Dictionary<ISalable, int[]> GetSouvenirShopStock(NPC who)
@@ -2151,7 +2289,7 @@ namespace Hikawa
 		
 		private void TouchVortexWarp(Vector2 fromPosition)
 		{
-			_isPlayerAgencySuppressed = true;
+			IsPlayerAgencySuppressed = true;
 			Helper.Events.GameLoop.UpdateTicked += UpdateVortexWarp;
 			ResetAnimationVars();
 			_animationExtraFloat = Game1.player.FacingDirection;
@@ -2220,7 +2358,7 @@ namespace Hikawa
 		{
 			const int dizzyExtraCooldownTime = 22000;
 
-			_isPlayerAgencySuppressed = false;
+			IsPlayerAgencySuppressed = false;
 			Helper.Events.GameLoop.UpdateTicked -= UpdateVortexWarp;
 			ResetAnimationVars();
 
@@ -2228,7 +2366,7 @@ namespace Hikawa
 			Log.W($"Dizzy up to {_dizzyCount}");
 			if (_dizzyCount > 2)
 			{
-				_isPlayerAgencySuppressed = true;
+				IsPlayerAgencySuppressed = true;
 				SetGodMode(true);
 				
 				Game1.currentLocation.localSound("croak");
@@ -2236,7 +2374,7 @@ namespace Hikawa
 				Game1.player.FarmerSprite.animateOnce(224, 400f, 4, who =>
 				{
 					--_dizzyCount;
-					_isPlayerAgencySuppressed = false;
+					IsPlayerAgencySuppressed = false;
 					SetGodMode(false);
 				});
 				Game1.player.doEmote(12);
@@ -2250,7 +2388,6 @@ namespace Hikawa
 					Log.W($"Dizzy down to {_dizzyCount}");
 				}));
 			}
-			
 		}
 
 		#endregion
@@ -2274,6 +2411,7 @@ namespace Hikawa
 			var itemsToRemove = new[]
 			{
 				"Crystal Mirror",
+				"Crystal Moon Wand",
 			};
 			foreach (var itemToRemove in itemsToRemove)
 			{
@@ -2352,7 +2490,7 @@ namespace Hikawa
 		private void StartBubbleWarpOut()
 		{
 			SetGodMode(true);
-			_isPlayerAgencySuppressed = true;
+			IsPlayerAgencySuppressed = true;
 			ResetAnimationVars();
 			Helper.Events.GameLoop.UpdateTicked += UpdateBubbleWarp;
 			Helper.Events.Display.RenderingWorld += DrawBubbleWarp;
@@ -2425,7 +2563,7 @@ namespace Hikawa
 		{
 			SetBuddhaMode(false);
 			SetGodMode(false);
-			_isPlayerAgencySuppressed = false;
+			IsPlayerAgencySuppressed = false;
 			ResetAnimationVars();
 
 			// Continue to the float-down phase from the float-up phase
@@ -2456,7 +2594,7 @@ namespace Hikawa
 				Game1.playSound("reward");
 
 				Game1.currentLocation.currentEvent = new Event(Helper.Content.Load<string>(
-					Path.Combine(ModConsts.AssetsPath, ModConsts.EventsPath)));
+					$"{ModConsts.EventsPath}.json"));
 
 				// TODO: METHOD: Patch Town at the end of the event
 				//Helper.Content.InvalidateCache(@"Maps/Town");
@@ -2614,7 +2752,7 @@ namespace Hikawa
 			if (string.IsNullOrEmpty(answer) || answer == "cancel")
 				return;
 			var ans = answer.Split(' ');
-			Log.W($"Received dialogue answer \'{ans}\'.");
+			Log.W($"Received dialogue answer \'{ans.Aggregate("", (s, s1) => $"{s} {s1}")}\'.");
 			switch (ans[0])
 			{
 				case "offerS":
@@ -2628,7 +2766,7 @@ namespace Hikawa
 					break;
 
 				case "wardrobe_yes":
-					Config.SeasonalClothes = !Config.SeasonalClothes;
+					Config.SeasonalOutfits = !Config.SeasonalOutfits;
 					Game1.playSound("doorCreakReverse");
 					break;
 
@@ -2753,296 +2891,6 @@ namespace Hikawa
 		}
 
 		#endregion
-
-		public class HikawaProjectiles : StardewValley.Projectiles.Projectile
-		{
-			public HikawaProjectiles(Type_ type)
-			{
-
-			}
-
-			public enum Type_
-			{
-				Stars
-			}
-
-			private void explosionAnimation(GameLocation where)
-			{
-				var sourceRect = 
-				var assetKey = Instance.Helper.Content.GetActualAssetKey(
-					Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
-				Multiplayer.broadcastSprites(
-					where,
-					new TemporaryAnimatedSprite(
-						assetKey,
-						new Rectangle(
-							_sourceRect.X + _sourceRect.Width * _spriteFrames, _sourceRect.Y, 16, 16),
-						100, 8, 0,
-						new Vector2(Collider.X, Collider.Y),
-						false, false)
-					{
-						scale = SpriteScale
-					});
-			}
-
-			public override void behaviorOnCollisionWithPlayer(GameLocation location, Farmer player)
-			{
-				explosionAnimation(location);
-			}
-
-			public override void behaviorOnCollisionWithTerrainFeature(TerrainFeature t, Vector2 tileLocation, GameLocation location)
-			{
-				explosionAnimation(location);
-			}
-
-			public override void behaviorOnCollisionWithMineWall(int tileX, int tileY)
-			{
-				explosionAnimation(location);
-			}
-
-			public override void behaviorOnCollisionWithOther(GameLocation location)
-			{
-				explosionAnimation(location);
-			}
-
-			public override void behaviorOnCollisionWithMonster(NPC n, GameLocation location)
-			{
-				explosionAnimation(location);
-			}
-
-			public override void updatePosition(GameTime time)
-			{
-				position.X += xVelocity;
-				position.Y += yVelocity;
-			}
-			public override Rectangle getBoundingBox()
-			{
-				return base.getBoundingBox();
-			}
-
-			public override void draw(SpriteBatch b)
-			{
-				base.draw(b);
-			}
-		}
-
-		public class Projectile
-		{
-			public enum Type_
-			{
-				Stars
-			}
-			
-			public readonly Character Owner;
-			public readonly Type_ Type;
-			public readonly int Damage, DamageVariance;
-
-			public Rectangle Collider;
-			public Vector2 Origin, Target, Motion;
-			public float Spin, SpinDelta, Rotation, RotationDelta, Velocity, LifeTimer;
-			public bool ReadyToRemove;
-
-			private readonly Texture2D _texture;
-			private readonly Rectangle _sourceRect;
-			private readonly int _spriteFrames;
-			private int _animTimer;
-			private int _uniqueCounter;
-
-			public Projectile() {}
-
-			public Projectile(Character owner, Type_ type) : this(owner, type, Vector2.Zero, Vector2.Zero) {}
-
-			public Projectile(Character owner, Type_ type, Vector2 origin, Vector2 target)
-			{
-				Type = type;
-				switch (Type)
-				{
-					case Type_.Stars:
-
-						_texture = Instance.Helper.Content.Load<Texture2D>(
-							Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
-						_sourceRect = new Rectangle(0, 144, 16, 16);
-						_spriteFrames = 1;
-
-						Damage = 36;
-						DamageVariance = 4;
-
-						if (owner == null && origin == Vector2.Zero)
-						{
-							Log.E($"Can't create projectile '{Type}' with no owner and no origin.");
-							ReadyToRemove = true;
-							return;
-						}
-
-						Log.D($"CursorPosition: {Game1.getMousePosition()}");
-
-						if (origin == Vector2.Zero)
-							origin = new Vector2(owner.Position.X, owner.Position.Y + 32f);
-
-						if (target == Vector2.Zero)
-							target = owner == Game1.player 
-								? origin + new Vector2(
-									owner.getLocalPosition(Game1.viewport).X - Game1.getMousePosition().X,
-									owner.getLocalPosition(Game1.viewport).Y - Game1.getMousePosition().Y) 
-								: Game1.player.Position;
-						
-						Owner = owner;
-						Origin = origin;
-						Target = target;
-
-						Collider = new Rectangle(
-							(int) Origin.X,
-							(int) Origin.Y,
-							_sourceRect.Width * SpriteScale,
-							_sourceRect.Height * SpriteScale);
-						
-						// Rotation to aim towards target
-						Rotation = Vector.RadiansBetween(Target, Origin);
-						//RotationDelta = 0f;
-						Motion = Vector.PointAt(Target, Origin);
-						Motion.Normalize();
-						Velocity = 3f * SpriteScale;
-
-						Spin = Rotation;
-						//SpinDelta = (float)(0.03f / Math.PI * 180d / Game1.currentGameTime.ElapsedGameTime.Milliseconds);
-
-						LifeTimer = 1000f;
-
-						break;
-
-					default:
-						ReadyToRemove = true;
-						throw new NotImplementedException($"No implementation for projectile type '{type}'.");
-				}
-
-				Log.W($"Built projectile '{Type}'"
-				      + $"\nOrigin (X:{Collider.X:.}, Y:{Collider.Y:.})"
-				      + $"\nTarget (X:{Target.X:.}, Y:{Target.Y:.})"
-				      + $"\nSize:  (W:{Collider.Width:.}, H:{Collider.Height:.})"
-				      + $"\nOwner: {owner} {(owner != null ? $"({owner.Name})" : "null")}");
-
-				var motion = Motion;
-				var degreesIn = 180 / Math.PI * Rotation;
-				var degreesOut = 360 - degreesIn;
-				var radians = (float)(Math.PI / 180 * degreesOut);
-				Log.D($"Projectile:"
-				      + $"\nDegrees in: {degreesIn:.00}"
-				      + $"\nRadians in: {Rotation:.00}"
-				      + $"\nMotion in:  (X:{motion.X:.00}, Y:{motion.Y:.00})"
-				      );
-			}
-
-			public virtual void Update(UpdateTickedEventArgs e)
-			{
-				if (ReadyToRemove && Projectiles.Contains(this))
-				{
-					Projectiles.Remove(this);
-					return;
-				}
-				
-				var elapsedTime = Game1.currentGameTime.ElapsedGameTime.Milliseconds;
-				LifeTimer -= elapsedTime;
-				if (_animTimer > 0)
-					_animTimer -= elapsedTime;
-				
-				Collider.X += (int)Math.Round((Motion * Velocity).X);
-				Collider.Y += (int)Math.Round((Motion * Velocity).Y);
-				Rotation += RotationDelta;
-				Spin += SpinDelta;
-
-				switch (Type)
-				{
-					case Type_.Stars:
-						var where = Game1.currentLocation;
-						if (!where.isTilePassable(Collider, Game1.viewport))
-						{
-							Log.D($"Projectile '{Type}' bounced at (X:{Collider.X:.}, Y:{Collider.Y:.})");
-							
-							var oldMotion = Motion;
-							var oldRotation = Rotation;
-							if (Math.PI - Math.Abs(Rotation) < Math.PI / 4f
-							    || Math.PI - Math.Abs(Rotation) > Math.PI / 4f * 3f)
-							{
-								Collider.X -= (int)Math.Round((Motion * Velocity).X);
-								Motion.X *= -1;
-							}
-							else
-							{
-								Collider.Y -= (int)Math.Round((Motion * Velocity).Y);
-								Motion.Y *= -1;
-							}
-
-							Rotation = (float)((oldRotation + Math.PI) % (2 * Math.PI));
-							if (Rotation > Math.PI)
-								Rotation -= (float)Math.PI * 2f;
-							Spin = Rotation;
-							
-							Log.D($"Projectile:"
-							      + $"\nMotion in:   (X:{oldMotion.X:.00}, Y:{oldMotion.Y:.00})" 
-							      + $"\nMotion out:  (X:{Motion.X:.00}, Y:{Motion.Y:.00})"
-							      + $"\nRadians in:  {oldRotation:.00}"
-							      + $"\nRadians out: {Rotation:.00}"
-							);
-						}
-
-						if (LifeTimer <= 0
-							|| Collider.X < 0 || Collider.Y < 0
-							|| Collider.X > where.Map.DisplayWidth || Collider.Y > where.Map.DisplayHeight
-						    || where.damageMonster(
-							    Collider,
-								Damage - DamageVariance,
-								Damage + DamageVariance,
-								false,
-								Owner is Farmer ? (Farmer) Owner : null))
-						{
-							Log.D($"Projectile '{Type}' fizzled out at (X:{Collider.X:.}, Y:{Collider.Y:.})");
-							ReadyToRemove = true;
-						
-							var assetKey = Instance.Helper.Content.GetActualAssetKey(
-								Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
-							Multiplayer.broadcastSprites(
-								where,
-								new TemporaryAnimatedSprite(
-									assetKey,
-									new Rectangle(
-										_sourceRect.X + _sourceRect.Width * _spriteFrames, _sourceRect.Y, 16, 16),
-									100, 8, 0,
-									new Vector2(Collider.X, Collider.Y),
-									false, false)
-								{
-									scale = SpriteScale
-								});
-						}
-						break;
-				}
-			}
-
-			public virtual void Draw(RenderedWorldEventArgs e)
-			{
-				switch (Type)
-				{
-					case Type_.Stars:
-						if (!ReadyToRemove)
-						{
-							e.SpriteBatch.Draw(
-								_texture,
-								new Rectangle(
-									Collider.X - Game1.viewport.X,
-									Collider.Y - Game1.viewport.Y,
-									Collider.Width,
-									Collider.Height), 
-								_sourceRect,
-								Color.White,
-								Spin,
-								new Vector2(Collider.Width / 2f / SpriteScale, Collider.Height / 2f / SpriteScale), 
-								//Vector2.Zero,
-								SpriteEffects.None,
-								1f);
-						}
-						break;
-				}
-			}
-		}
 	}
 }
 

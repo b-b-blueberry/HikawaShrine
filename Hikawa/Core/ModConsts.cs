@@ -13,11 +13,12 @@ namespace Hikawa
 		internal const string ContentPrefix = ModName + ".";
 		internal const string SaveDataKey = ModName;
 
-		internal const string AssetsPath = "assets";
-		internal static readonly string SpritesPath = Path.Combine(AssetsPath, "LooseSprites");
-		internal static readonly string EventsPath = Path.Combine("Data", "Events.json");
-		internal static readonly string ForagePath = Path.Combine("Data", "Forage.json");
-		internal static readonly string JaContentPackPath = Path.Combine(AssetsPath, "ContentPack");
+		internal const string AssetsDir = "assets";
+		internal static readonly string SpritesPath = Path.Combine(AssetsDir, "LooseSprites");
+		internal static readonly string EventsPath = Path.Combine(AssetsDir, "Data", "Events");
+		internal static readonly string ForagePath = Path.Combine(AssetsDir, "Data", "Locations");
+		internal static readonly string JaContentPackPath = Path.Combine(AssetsDir, "ContentPack");
+		internal static readonly string StringsPath = Path.Combine("i18n", "default");
 
 		internal const string TilesheetPrefix = "z_hikawa";
 		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
@@ -53,6 +54,7 @@ namespace Hikawa
 		internal const string ActionShrineHall = ContentPrefix + "HallDoor";
 		internal const string ActionShrineShop = ContentPrefix + "OmiyageyaShop";
 		internal const string ActionShrineOffering = ContentPrefix + "Offering";
+		internal const string ActionBackDoor = ContentPrefix + "BackDoor";
 		internal const string ActionLockbox = ContentPrefix + "Lockbox";
 		internal const string ActionWardrobe = ContentPrefix + "Wardrobe";
 		internal const string ActionSit = ContentPrefix + "Sit";
@@ -64,16 +66,18 @@ namespace Hikawa
 		internal const int OfferingCostL = 825;
 
 		// Coordinates
-		internal const string DebugDefaultWarpTo = "Town";
+		internal const string DebugDefaultWarpTo = ShrineMapId;
 		
 		// TODO: CONTENT: Fill in default warps for missing maps
 		internal static readonly Dictionary<string, Location> DefaultWarps = new Dictionary<string, Location>
 		{
 			//{ ShrineMapId, new Location(39, 60) },
 			{ ShrineMapId, new Location(45, 45) },
-			{ HouseMapId, new Location(5, 19) },
-			{ "Town", new Location(39, 15) },
+			//{ HouseMapId, new Location(5, 19) },
+			{ HouseMapId, new Location(20, 15) },
 			{ VortexMapId + 1, new Location(25, 40) },
+			{ "Town", new Location(39, 15) },
+			{ "BathHouse_Pool", new Location(15, 12) },
 		};
 
 		internal static readonly Location TotemWarpPosition = new Location(69, 45);

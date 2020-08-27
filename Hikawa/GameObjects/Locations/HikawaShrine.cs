@@ -43,7 +43,7 @@ namespace Hikawa.GameObjects
 			const int retries = 10;
 
 			var forageData = ModEntry.Instance.Helper.Content.Load<Dictionary<string, string>>(
-				Path.Combine(ModConsts.AssetsPath, $"{ModConsts.ForagePath}.json"));
+				$"{ModConsts.ForagePath}.json");
 			if (!forageData.ContainsKey(name))
 			{
 				Log.E($"No forage data found for map {name} ({this})");
