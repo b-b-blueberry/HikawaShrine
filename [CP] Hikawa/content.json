@@ -43,6 +43,7 @@
       "Name": "Outfit",
       "Value": "kimono",
       "When": {
+        "Season": "spring",
         "Weather": "wind",
         "HasFile:assets/Rei/Sprites/kimono.png": true
       }

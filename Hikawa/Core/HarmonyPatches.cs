@@ -62,7 +62,7 @@ namespace Hikawa
 				    && il[i].opcode == OpCodes.Nop
 				    && il[i + 1].opcode == OpCodes.Call
 				    && il[i + 1].operand.ToString()
-				    == AccessTools.Method(typeof(ModEntry), nameof(ModEntry.CheckForSittingShadow)).ToString()
+				    == AccessTools.Method(typeof(MiniSit), nameof(MiniSit.CheckToHidePlayerShadow)).ToString()
 				    && il[i + 2].opcode == OpCodes.Brtrue)
 				{
 					Log.W($"Origin: {i}");
@@ -114,24 +114,25 @@ namespace Hikawa
 			{
 				// Identify points in SGame.DrawImpl() where the player's shadow would be drawn
 				// Conveniently these are also the only usages of Farmer.isRidingHorse in DrawImpl, so seek out these usages to override
-				
-				if (il[i].opcode == OpCodes.Ldloc_S
-				    && il[i + 1].opcode == OpCodes.Callvirt
-				    && il[i + 1].operand.ToString() == AccessTools.Method(typeof(Farmer), nameof(Farmer.isRidingHorse)).ToString()
-				    && il[i + 2].opcode == OpCodes.Brtrue)
-				{
-					Log.T("\nTranspiling instructions:"
-					      + $"\nil[{i - 1}]: {il[i - 1].opcode} {il[i - 1].operand}"
-					      + $"\nil[{i}]: {il[i].opcode} {il[i].operand}"
-					      + $"\nil[{i + 1}]: {il[i + 1].opcode} {il[i + 1].operand}"
-					      + $"\nil[{i + 2}]: {il[i + 2].opcode} {il[i + 2].operand}");
 
-					// Add a check for ModEntry.IsPlayerSittingDown to prevent drawing the player's shadow
-					il[i] = new CodeInstruction(OpCodes.Nop);
-					il[i + 1] = new CodeInstruction(OpCodes.Call,
-						AccessTools.Method(typeof(ModEntry), nameof(ModEntry.CheckForSittingShadow)));
-					il[i + 2].opcode = OpCodes.Brtrue;
-				}
+				if (il[i].opcode != OpCodes.Ldloc_S
+				    || il[i + 1].opcode != OpCodes.Callvirt
+				    || il[i + 1].operand.ToString() != AccessTools.Method(
+					    typeof(Farmer), nameof(Farmer.isRidingHorse)).ToString()
+				    || il[i + 2].opcode != OpCodes.Brtrue)
+					continue;
+
+				Log.T("\nTranspiling instructions:"
+				      + $"\nil[{i - 1}]: {il[i - 1].opcode} {il[i - 1].operand}"
+				      + $"\nil[{i}]: {il[i].opcode} {il[i].operand}"
+				      + $"\nil[{i + 1}]: {il[i + 1].opcode} {il[i + 1].operand}"
+				      + $"\nil[{i + 2}]: {il[i + 2].opcode} {il[i + 2].operand}");
+
+				// Add a check for MiniSit.IsPlayerSittingDown to prevent drawing the player's shadow
+				il[i] = new CodeInstruction(OpCodes.Nop);
+				il[i + 1] = new CodeInstruction(OpCodes.Call,
+					AccessTools.Method(typeof(MiniSit), nameof(MiniSit.CheckToHidePlayerShadow)));
+				il[i + 2].opcode = OpCodes.Brtrue;
 			}
 			return il.AsEnumerable();
 		}

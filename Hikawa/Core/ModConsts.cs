@@ -57,7 +57,6 @@ namespace Hikawa
 		internal const string ActionBackDoor = ContentPrefix + "BackDoor";
 		internal const string ActionLockbox = ContentPrefix + "Lockbox";
 		internal const string ActionWardrobe = ContentPrefix + "Wardrobe";
-		internal const string ActionSit = ContentPrefix + "Sit";
 		internal const string ActionVortex = ContentPrefix + "Vortex";
 		internal const string ActionFrogman = ContentPrefix + "Frogman";
 		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;

@@ -46,12 +46,6 @@ namespace Hikawa
 		internal ISailorStylesAPI SailorApi;
 		internal IContentPatcherAPI ContentApi;
 
-		// Mini-Sit
-		internal static bool IsPlayerAgencySuppressed;
-		internal static bool IsPlayerSittingDown;
-		private readonly int[] _playerSittingFrames = {62, 117, 54, 117};
-		private Vector2 _playerLastStandingLocation;
-
 		// Critters
 		private bool _shouldCrowsSpawnToday;
 		private bool _whatAboutCatsCanTheySpawnToday;
@@ -68,6 +62,7 @@ namespace Hikawa
 		private static bool _isInterloper;
 
 		// Others
+		internal static bool IsPlayerAgencySuppressed;
 		private static bool _isPlayerGodMode;
 		private static bool _isPlayerBuddhaMode;
 		private static int _playerHealthToMaintain;
@@ -156,6 +151,8 @@ namespace Hikawa
 			SpaceEvents.AfterGiftGiven += HikawaGiftsGiven;
 
 			HarmonyPatches.PerformHarmonyPatches();
+
+			MiniSit.Setup();
 
 			AddConsoleCommands();
 			if (Config.DebugMode)
@@ -819,7 +816,6 @@ namespace Hikawa
 		private void UnloadModData()
 		{
 			SaveData = null;
-			IsPlayerSittingDown = false;
 		}
 
 		#endregion
@@ -858,7 +854,6 @@ namespace Hikawa
 			_whatAboutCatsCanTheySpawnToday = true; // TODO: METHOD: caats spawn conditions
 
 			IsPlayerAgencySuppressed = false;
-			IsPlayerSittingDown = false;
 
 			if (SaveData.AwaitingShrineBuff)
 			{
@@ -988,7 +983,6 @@ namespace Hikawa
 		/// </summary>
 		private void OnWarped(object sender, WarpedEventArgs e)
 		{
-			IsPlayerSittingDown = false;
 			IsPlayerAgencySuppressed = false;
 
 			if (e.OldLocation.Name.Equals(e.NewLocation.Name)) return;
@@ -1007,10 +1001,11 @@ namespace Hikawa
 		/// </summary>
 		private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
 		{
-			if (Game1.eventUp && !Game1.currentLocation.currentEvent.playerControlSequence
-			    || Game1.currentBillboard != 0 || Game1.activeClickableMenu != null || Game1.menuUp || Game1.nameSelectUp
-			    || Game1.IsChatting || Game1.dialogueTyping || Game1.dialogueUp
-			    || Game1.player.UsingTool || Game1.pickingTool || Game1.numberOfSelectedItems != -1 || Game1.fadeToBlack)
+			if (Game1.eventUp && !Game1.currentLocation.currentEvent.playerControlSequence // No event cutscenes
+			    || Game1.currentBillboard != 0 || Game1.activeClickableMenu != null || Game1.menuUp // No menus
+			    || Game1.nameSelectUp || Game1.IsChatting || Game1.dialogueTyping || Game1.dialogueUp // No text inputs
+			    || Game1.player.UsingTool || Game1.pickingTool || Game1.numberOfSelectedItems != -1 // No tools in use
+			    || Game1.fadeToBlack)
 				return;
 			
 			if (IsPlayerAgencySuppressed)
@@ -1028,133 +1023,23 @@ namespace Hikawa
 					CheckTileAction(e.Cursor.GrabTile);
 
 				// Item actions
-				if (Game1.player.ActiveObject != null && !Game1.player.isRidingHorse() && !IsPlayerSittingDown)
+				if (Game1.player.ActiveObject != null && !Game1.player.isRidingHorse())
 					CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation, btn);
 
 				// Tool actions
 				if (Game1.player.CurrentTool != null)
 					TryCheckForToolUse(Game1.player.CurrentTool, btn);
 			}
-			else if (!IsPlayerSittingDown)
-			{}
-			else
-			{
-				Helper.Input.Suppress(e.Button);
-				SitDownEnd();
-			}
 		}
 		
 		#endregion
 
-		#region Mini-Sit
-
-		/// <summary>
-		/// Lock the player into a sitting-down animation facing a given direction until they press any key.
-		/// </summary>
-		/// <param name="position">Target position in world coordinates to sit at.</param>
-		/// <param name="direction">Value for direction to face, follows standard SDV rules of clockwise-from-zero.</param>
-		private void SitDownStart(Vector2 position, int direction) {
-			
-			Game1.playSound("breathin");
-			
-			Game1.player.mount = null;
-			_playerLastStandingLocation = Game1.player.getTileLocation();
-			IsPlayerSittingDown = true;
-
-			Game1.player.yOffset = 0f;
-			if (direction != 0)
-			{
-				const int yOffsetTiles = 1;
-				position.Y += yOffsetTiles;
-				Game1.player.yOffset = yOffsetTiles * 64f + 16f;
-			}
-			Game1.player.faceDirection(direction);
-			Game1.player.completelyStopAnimatingOrDoingAction();
-			Game1.player.setTileLocation(position);
-
-			// TODO: SYSTEM: Disable player shadows while sitting
-
-			var animFrames = new FarmerSprite.AnimationFrame[1];
-			animFrames[0] = new FarmerSprite.AnimationFrame(
-				_playerSittingFrames[direction], 999999, false, direction == 3);
-			Game1.player.FarmerSprite.animateOnce(animFrames);
-			Game1.player.CanMove = false;
-		}
-
-		public static bool CheckForSittingShadow()
-		{
-			return IsPlayerSittingDown || Game1.player.isRidingHorse();
-		}
-
-		/// <summary>
-		/// Remove restrictions from the player after sitting, and teleport them to their last standing position.
-		/// </summary>
-		private void SitDownEnd() {
-			Game1.playSound("breathout");
-			
-			Game1.player.yOffset = 0f;
-			Game1.player.completelyStopAnimatingOrDoingAction();
-			Game1.player.faceDirection((Game1.player.FacingDirection + 2) % 4);
-			Game1.player.setTileLocation(_playerLastStandingLocation);
-			Game1.player.CanMove = true;
-			
-			Game1.player.mount = null;
-			_playerLastStandingLocation = Vector2.Zero;
-			IsPlayerSittingDown = false;
-
-			// Don't put a butt hole on indoors maps or maps not included in Hikawa
-			// Probably only Hikawa Shrine has snowy benches in winter
-			if (Game1.currentSeason != "winter"
-			    || !Game1.currentLocation.IsOutdoors
-			    || !Game1.currentLocation.Name.StartsWith(ModConsts.ContentPrefix))
-				return;
-
-			var position = new Vector2(
-				Game1.player.lastPosition.X,
-				Game1.player.lastPosition.Y - 32);
-			var id = 87008
-			         + (int)Math.Floor(position.Y / 64)
-			         * Game1.currentLocation.Map.DisplayWidth / 64 
-			         + (int)Math.Floor(position.X / 64);
-
-			if (Game1.currentLocation.getTemporarySpriteByID(id) != null)
-				return;
-
-			var assetKey = Helper.Content.GetActualAssetKey(
-				Path.Combine(ModConsts.SpritesPath, $"{ModConsts.ExtraSpritesFile}.png"));
-			var direction = Game1.player.FacingDirection;
-			var layer = (Game1.player.getStandingY() - 64f) / 10000f - 1f / 1000f;
-			Multiplayer.broadcastSprites(
-				Game1.currentLocation,
-				new TemporaryAnimatedSprite(
-					assetKey, 
-					new Rectangle(64, direction % 2 == 0 ? 0 : 16, 16, 16), 
-					9999, 
-					1,
-					9999, 
-					position, 
-					false, 
-					direction == 3, 
-					layer, 
-					0f, 
-					Color.White,
-					4f, 
-					0f, 
-					direction == 0 ? 0f : (float)Math.PI, 
-					0f) 
-				{
-					id = id, 
-					holdLastFrame = true, 
-					verticalFlipped = direction == 0
-				});
-		}
-
-		#endregion
-		
 		#region Tile Actions
 
-		private string[] GetTileAction(Vector2 position)
+		public static string[] GetTileAction(Vector2 position)
 		{
+			if (Game1.currentLocation == null)
+				return null;
 			var tile = Game1.currentLocation.map.GetLayer("Buildings").PickTile(
 				new Location(
 					(int)position.X * Game1.tileSize, 
@@ -1162,7 +1047,6 @@ namespace Hikawa
 				Game1.viewport.Size);
 			var action = (PropertyValue)null;
 			tile?.Properties.TryGetValue("Action", out action);
-
 			if (action == null)
 				return null;
 
@@ -1176,14 +1060,12 @@ namespace Hikawa
 			return strArray;
 		}
 		
-		private void CheckTileAction(Vector2 position)
+		public void CheckTileAction(Vector2 position)
 		{
 			var where = Game1.currentLocation;
 			var property = GetTileAction(position);
-
 			if (property == null)
 				return;
-
 			var action = property[0];
 			switch (action)
 			{
@@ -1286,14 +1168,6 @@ namespace Hikawa
 					}
 					break;
 
-				// Sit on benches
-				case ModConsts.ActionSit:
-					var tileCoordinates = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
-					var direction = property.Length > 1 ? int.Parse(property[1]) : 2;
-					SitDownStart(tileCoordinates, direction);
-
-					break;
-					
 				// Vortex warps
 				case ModConsts.ActionVortex:
 					TouchVortexWarp(position);
