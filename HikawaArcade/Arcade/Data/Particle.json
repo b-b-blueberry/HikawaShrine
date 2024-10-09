@@ -1,0 +1,16 @@
+﻿{
+	"Petal": {
+		"Speed": 0.35,
+		"SpriteOrigin": {
+			"X": 0,
+			"Y": 48
+		},
+		"SpriteSize": {
+			"X": 16,
+			"Y": 16
+		},
+		"Animation": {
+			"Main": "0 1 0 2"
+		}
+	}
+}

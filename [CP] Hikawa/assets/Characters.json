@@ -1,0 +1,29 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Characters - Rei",
+            "Action": "Include",
+            "FromFile": "assets/Characters/Rei.json"
+        },
+        {
+            "LogName": "Hikawa: Characters - Ami",
+            "Action": "Include",
+            "FromFile": "assets/Characters/Ami.json"
+        },
+        {
+            "LogName": "Hikawa: Characters - Cat",
+            "Action": "Include",
+            "FromFile": "assets/Characters/Cat.json"
+        },
+        {
+            "LogName": "Hikawa: Characters - Gramps",
+            "Action": "Include",
+            "FromFile": "assets/Characters/Gramps.json"
+        } /*,
+        {
+            "LogName": "Hikawa: Characters - Guy",
+            "Action": "Include",
+            "FromFile": "assets/Characters/Guy.json"
+        }*/
+    ]
+}

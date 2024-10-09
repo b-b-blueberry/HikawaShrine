@@ -1,0 +1,13 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Quests - Data",
+            "Action": "EditData",
+            "Target": "Data/Quests",
+            "Entries": {
+                "Custom_Hikawa_LostGlassesQuest": "LostItem/{{i18n:quest.title.glasses}}/{{i18n:quest.subtitle.glasses}}/{{i18n:quest.task.glasses}}/Custom_Hikawa_Ami (O)790 Backwoods 27 27/-1/0/-1/true/{{i18n:quest.reaction.glasses}}",
+                "Custom_Hikawa_LostJewelryQuest": "SecretLostItem/.../.../.../Custom_Hikawa_Rei (O)790 Backwoods 27 27/-1/0/-1/true/{{i18n:quest.reaction.jewelry}}"
+            }
+        }
+    ]
+}

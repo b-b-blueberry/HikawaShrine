@@ -1,6 +1,17 @@
 {
-    "activeFile": "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx",
+    "expandedProjectPaths": [
+    ],
+    "exportAsImage.useCurrentScale": false,
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 2
+        },
         "../HikawaShrine/HikawaShrine/Assets/Maps/HikawaShrine.tbin": {
             "scale": 2,
             "selectedLayer": 0,
@@ -17,6 +28,758 @@
                 "y": 516
             }
         },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.4/Mods/..[TMXL] Hikawa/assets/HikawaShrine.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 728.5,
+                "y": 590.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.4/Mods/..[TMXL] Hikawa/assets/HikawaShrine.tmx#outdoors": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.4/Mods/..[TMXL] Hikawa/assets/HikawaShrine.tmx#paths": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.4/Mods/..[TMXL] Hikawa/assets/HikawaShrine.tmx#town": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.4/Mods/..[TMXL] Hikawa/assets/HikawaShrine.tmx#z_hikawa_outdoors": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Content (unpacked)/Maps/LightTest.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 351,
+                "y": 420.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Content (unpacked)/Maps/LightTest.tmx#LightTest": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 3043.5,
+                "y": 225.75
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#Paths": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#untitled tile sheet": {
+            "scaleInDock": 2
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#untitled tile sheet2": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#z_Blend": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#z_Mountain_Fish": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#z_Warps": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/EverFarm farmhousemove/[CP] EverFarm/assets/Everything Map.tmx#z_Waterfall": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] LightTest/assets/LightTest.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 433,
+                "y": 293.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] LightTest/assets/LightTest.tmx#LightTest": {
+            "scaleInDock": 1.5
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] TownDogHouse/assets/TownDogHouse.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 198.5,
+                "y": 132
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] TownDogHouse/assets/TownDogHouse.tmx#Landscape": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] TownDogHouse/assets/TownDogHouse.tmx#Town": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] TownDogHouse/assets/TownDogHouse.tmx#z_TownDogHouse_DogHouseTiles": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[TMXL] ComfyCave/assets/FarmCave.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 224,
+                "y": 184.16666666666666
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[TMXL] ComfyCave/assets/FarmCave.tmx#cave": {
+            "scaleInDock": 2
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[TMXL] ComfyCave/assets/FarmCave.tmx#zhotspring_mine": {
+            "scaleInDock": 4
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/Backwoods.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 546.5,
+                "y": 387.66666666666663
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/CommunityCenter_Ruins.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 446.66666666666663,
+                "y": 187.33333333333331
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/Farm.tmx": {
+            "scale": 2,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 925,
+                "y": 199.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/FarmHouse.tmx": {
+            "scale": 4.3046875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 96.1742286751361,
+                "y": 96.17422867513612
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/FarmHouse2.tmx": {
+            "scale": 1,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 309,
+                "y": 209
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/FarmHouse2_marriage.tmx": {
+            "scale": 1.2013081395348837,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 344.6243194192378,
+                "y": 288.0193587416818
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/HaleyHouse.tmx": {
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 173.83333333333331,
+                "y": 224.66666666666666
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/Railroad.tmx": {
+            "scale": 0.7379464285714286,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 561.016333938294,
+                "y": 497.32607380520267
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/SeedShop.tmx": {
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 342.83333333333337,
+                "y": 225
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/SlimeHutch.tmx": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 208.5,
+                "y": 150
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/Summit.tmx": {
+            "scale": 1.7891666666666666,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 160.40987424313,
+                "y": 240.33535165346998
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Content (unpacked)/Maps/Town.tmx": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 854.5,
+                "y": 374.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods (BigBunch)/[CP] Lyell/[CP] Lyell/assets/Maps/LyellsHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 37.5,
+                "y": 123
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods (BigBunch)/[CP] Lyell/[CP] Lyell/assets/Maps/ReumiShop.tbin": {
+            "scale": 2.4598214285714284,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 166.67876588021778,
+                "y": 113.2196007259528
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods (BigBunch)/[CP] Lyell/[CP] Lyell/assets/Maps/ZulasRoom.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 40,
+                "y": 55.75
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Draylon Cave Farm/[TMXL] Cave Farm/assets/Cave Farm.tmx": {
+            "scale": 0.7784722222222221,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 664.1213202497771,
+                "y": 491.9892952720786
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/FroststarMap/RomanyForest.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 178.75,
+                "y": 190.25
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/FroststarMap/assets/RomanyForest.tbin": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 186,
+                "y": 128.25
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/FroststarMap/farm.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 260.3333333333333,
+                "y": 227.16666666666663
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/FroststarMap/islands.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 510.5,
+                "y": 86.25
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Greener Beach Farm/[CP] Greener Beach Farm/assets/Farm_Island.tmx": {
+            "scale": 0.5484090909090908,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 860.6713634479901,
+                "y": 745.7936179030253
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/GreenerBeachFarm_Blueberry/[CP] Greener Beach Farm/assets/Farm_Island.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 839.3333333333333,
+                "y": 470
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Pine Mesa City/[CP] Pine Mesa City/assets/Maps/Custom_ApartmentEntry.tmx": {
+            "scale": 4.240364583333333,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 96.10022723085427,
+                "y": 96.10022723085426
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Pine Mesa City/[CP] Pine Mesa City/assets/Maps/Custom_ApartmentFloor5.tmx": {
+            "scale": 4.240364583333333,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 96.10022723085427,
+                "y": 96.10022723085426
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Pine Mesa City/[CP] Pine Mesa City/assets/Maps/Custom_Crossroads.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 254.33333333333331,
+                "y": 293.66666666666663
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Pine Mesa City/[CP] Pine Mesa City/assets/Maps/Custom_MainPlazaBus.tmx": {
+            "scale": 1.2721093749999999,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 304.6121722041393,
+                "y": 208.7084689553522
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Pine Mesa City/[CP] Pine Mesa City/assets/Maps/Custom_TrainStation.tmx": {
+            "scale": 1.0176875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.41761346189276,
+                "y": 184.24123318798746
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Shadow Cove-3 copy-2/[TMX] Shadow Cove/assets/Maps/Junimo_Beach.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 327.33333333333326,
+                "y": 253
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Shadow Cove-3 copy-2/[TMX] Shadow Cove/assets/Maps/Junimo_Beach_Path.tbin": {
+            "scale": 1.4080357142857143,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 295.4470513633481,
+                "y": 281.95307545973367
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/Shadow Cove-3 copy-2/[TMX] Shadow Cove/assets/Maps/Shadow_Cove.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 512,
+                "y": 248.66666666666666
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/SmallBeachFarm/assets/farm.tmx": {
+            "scale": 0.8747916666666665,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 640.1524172422007,
+                "y": 443.5341748035248
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Greener Beach Farm/assets/Farm_Island.tbin": {
+            "scale": 0.33,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1057.5757575757575,
+                "y": 1124.2424242424245
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Greener Beach Farm/assets/Farm_Island.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 880,
+                "y": 860
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Greener Beach Farm/assets/Greener_Beach_Farm.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1474.75,
+                "y": 1152.25
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Howl Castle Map/assets/Map.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 310,
+                "y": 241.75
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Howl Castle Map/assets/Map.tmx#spring_town": {
+            "scaleInDock": 0.75
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Howl Castle Map/assets/Map.tmx#winter_town": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP] Howl Castle Map/assets/spring_outdoorsTileSheet.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[CP]TestCave/assets/Farm.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1111,
+                "y": 294.33333333333337
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/EverFarm Final/[CP] EverFarm/assets/Everything Map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2378.6666666666665,
+                "y": 326.6666666666667
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/ThaiVillage/assets/ShuttleBus.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 113.5,
+                "y": 105.33333333333334
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/ThaiVillage/assets/ThaiVillage.tmx": {
+            "scale": 0.44729112833082696,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 922.2181569738298,
+                "y": 508.6172865734456
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/[CP] Downtown Zuzu/assets/ApartmentLobby.tmx": {
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 256.5,
+                "y": 190
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/[CP] Downtown Zuzu/assets/DowntownZuzuForest.tmx": {
+            "scale": 2,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 270.75,
+                "y": 185
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/[CP] Downtown Zuzu/assets/DowntownZuzuSanctuaryInterior.tmx": {
+            "scale": 3,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 219.83333333333334,
+                "y": 171
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/[CP] Downtown Zuzu/assets/ZuzuApartment1a.tmx": {
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 201.16666666666666,
+                "y": 367
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/[CP] Jeremiah/[CP] Jeremiah/assets/Maps/HaleyHouse.tbin": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 82.16666666666666,
+                "y": 145.66666666666663
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/[cp] stinky mod/assets/newspouserooms.tmx": {
+            "scale": 1,
+            "selectedLayer": 9,
+            "viewCenter": {
+                "x": 247.5,
+                "y": 211
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/arena challenge mod/assets/Mine.tmx": {
+            "scale": 4,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 37.25,
+                "y": 22.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/arena challenge mod/assets/arena counter.tmx": {
+            "scale": 2.4598214285714284,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 180.50090744101635,
+                "y": 130.9038112522686
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/deluxe barn/assets/Barn3.tmx": {
+            "scale": 2.0662499999999997,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 200.3629764065336,
+                "y": 120.02419842710226
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/deluxe barn/assets/Cellar greenhouse.tmx": {
+            "scale": 2.4598214285714284,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 152.04355716878405,
+                "y": 136.18874773139746
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TESTING]/deluxe barn/assets/Cellar.tmx": {
+            "scale": 2.4598214285714284,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 156.92196007259528,
+                "y": 134.96914700544465
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMXL] White Water Farm/assets/WhiteWaterFarm.tbin": {
+            "scale": 0.8802343749999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 674.8202715895981,
+                "y": 503.8430815656342
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMXL] White Water Farm/assets/WhiteWaterFarm.tmx": {
+            "scale": 0.8802343749999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639.6023786278514,
+                "y": 519.7479364515842
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMX] Fancy Mountain/assets/Athanaeri.tbin": {
+            "scale": 1.426290760869565,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 429.08502024291505,
+                "y": 532.1495594189093
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMX] Fancy Mountain/assets/Athanaeri_test.tbin": {
+            "scale": 1,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 375.5,
+                "y": 388
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMX] Fancy Mountain/assets/Farm_Mining.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 536.75,
+                "y": 351.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMX] Fancy Mountain/assets/Farm_Mining.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 205.25,
+                "y": 473.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMX] Fancy Mountain/assets/Farm_Mining_CSV.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 140,
+                "y": 285.75
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods test/[TMX] Fancy Mountain/assets/Farm_Mining_XML.tmx": {
+            "scale": 0.9670703125000001,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 640.594579310902,
+                "y": 378.4626570262956
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/HIKAWA BUNDLE/[TMXL] Hikawa/assets/HikawaHouse.tmx": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 161,
+                "y": 263
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/ImmersiveWindmill/assets/MillIndoors.tmx": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 151.5,
+                "y": 1009
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/SecretBase/assets/Beach.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 663,
+                "y": 162.33333333333331
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/TestModCharlixcx/Farm_Mining.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 636.25,
+                "y": 546.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/TestModCharlixcx/assets/Farm_Mining.tbin": {
+            "scale": 0.9670703125000001,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 731.5910651532898,
+                "y": 419.3076705578219
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/TestModCharlixcx/assets/Farm_Mining.tmx": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 390.25,
+                "y": 468.75
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 868.6666666666666,
+                "y": 377.66666666666663
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#Paths": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#untitled tile sheet": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#untitled tile sheet2": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#volcano_caldera": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#volcano_dungeon": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#z_Craftables": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#z_Spring_DraylonExtras": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#z_Waterfall": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[CP] Test State/assets/Farm_Volcano.tmx#z_spring_town": {
+            "scaleInDock": 1
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/..Immersive Farm 2 Remastered/[CP] Immersive Farm 2 Remastered/assets/Farm.tbin": {
+            "scale": 0.42057291666666663,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1304.1733746130033,
+                "y": 924.9287925696595
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/Stardew Valley Expanded/[CP] Stardew Valley Expanded/assets/Maps/Locations/HaleyHouse.tbin": {
+            "scale": 1.4289583333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 200.14579384749965,
+                "y": 240.03499052339996
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/Stardew Valley Expanded/[CP] Stardew Valley Expanded/assets/Maps/MapPatches/CommunityCenter_Refurbished.tbin": {
+            "scale": 0.7192857142857142,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 560.2780536246275,
+                "y": -140.41708043694143
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/[TMX] Arbor Buildables/assets/ash.tmx": {
+            "scale": 10.311458333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 30.306091524396404,
+                "y": 40.00404081220325
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/[TMX] Buildable Greenhouse/assets/GreenhouseOutdoors.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 65.36363636363637,
+                "y": 127.9090909090909
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/[TMX] Fancy Mountain/assets/Farm_Mining.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 642.5,
+                "y": 538.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TESTING]/[TMX] Fancy Mountain/assets/Farm_Mining.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 642.5,
+                "y": 544.5
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TMXL] Hikawa/assets/HikawaHouse.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 148.5,
+                "y": 196.83333333333331
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TMX]ImmersiveWindmill/assets/MillBuildable.tmx": {
+            "scale": 8,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 11.0625,
+                "y": 15.8125
+            }
+        },
+        "C:/SteamSSD/steamapps/common/Stardew Valley/Mods/[TMX]ImmersiveWindmill/assets/MillInterior.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 270,
+                "y": 436.5
+            }
+        },
+        "C:/Users/alex/AppData/Local/Temp/7zO4556E54B/ProFarm.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 639,
+                "y": 500
+            }
+        },
         "C:/Users/alex/AppData/Local/Temp/FarmCave.tmx": {
             "scale": 1,
             "selectedLayer": 0,
@@ -25,12 +788,802 @@
                 "y": 117
             }
         },
-        "C:\\Users\\alex\\AppData\\Local\\Temp\\7zO4556E54B\\ProFarm.tbin": {
+        "C:/Users/alex/AppData/Local/Temp/TFSTemp/vctmp16392_495205.HikawaHouse.05c5650e.tmx": {
+            "scale": 2.05029296875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 261.1821862348178,
+                "y": 231.1864729697547
+            }
+        },
+        "E:/Dev/Games/pkbm/untitled.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 108.875,
+                "y": 88.875
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Beach-NightMarket.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 895.375,
+                "y": 578
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Beach.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 615.875,
+                "y": 464.875
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/CommunityCenter_Refurbished.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 86.75,
+                "y": 151.625
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/CommunityCenter_Refurbished_SVE.tbin": {
+            "scale": 5.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 102,
+                "y": 95.0909090909091
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/CommunityCenter_Ruins.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 6.666666666666686,
+                "y": 123.66666666666669
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Farm_Community.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 905.25,
+                "y": 1913.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/HaleyHouse_SVE.tbin": {
+            "scale": 5.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 300.72727272727275,
+                "y": 268.1818181818182
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/SamHouse.tbin": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 204.5,
+                "y": 175.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/ScienceHouse.tbin": {
+            "scale": 1.5734374999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 256.12711022840125,
+                "y": 200.51638530287988
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Shed.tbin": {
+            "scale": 3.8730769230769226,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 104.051638530288,
+                "y": 112.1847070506455
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/TourismDock.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 319.5,
+                "y": 118.66666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Town-EggFestival.tbin": {
+            "scale": 2,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 514,
+                "y": 900.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Town.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 655.6666666666667,
+                "y": 920
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/Town_SVE.tbin": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 797,
+                "y": 770
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.4/Maps/skrillz_farm.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 735.5,
+                "y": 566.1666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/AbandonedJojaMart.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 146.66666666666669,
+                "y": 123.33333333333334
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Barn.tmx": {
+            "scale": 2.7972222222222225,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 144.07149950347565,
+                "y": 120.11916583912613
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/BathHouse_Entry.tmx": {
+            "scale": 5.034999999999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 79.84111221449851,
+                "y": 25.12413108242304
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Beach.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 811.6666666666666,
+                "y": 324
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Cellar - Copy.tmx": {
+            "scale": 3.0221875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 61.04849550201634,
+                "y": 77.42736014889877
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 661.6666666666666,
+                "y": 243.66666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished.tmx#indoors": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished.tmx#indoors2": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished.tmx#paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 500.3333333333333,
+                "y": -164.16666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#indoors": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#indoors2": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zVanillaCraftables": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zVanillaFurniture": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zVanillaSpringObjects": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zVanillaWallsAndFloors": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zindoors": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zspring_outdoorsTileSheet": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Refurbished_SVE.tbin#zspring_z_extras": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Ruins.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 525.6666666666666,
+                "y": 210
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Ruins.tmx#indoors": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Ruins.tmx#indoors2": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/CommunityCenter_Ruins.tmx#paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Farm.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 640,
+                "y": 519.75
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Farm.tmx#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Farm.tmx#untitled tile sheet": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/FarmHouse.tmx": {
+            "scale": 4.359114583333334,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 95.89103291713961,
+                "y": 127.3194336579246
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/FarmHouse1.tmx": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 94.5,
+                "y": 90
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/FarmHouse1_marriage.tmx": {
+            "scale": 1.5322048611111112,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 288.1468472041244,
+                "y": 96.59282760183558
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/FarmHouse2.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 134,
+                "y": 189.8181818181818
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Farm_FourCorners.tmx": {
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 778.75,
+                "y": 807
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Farm_FourCorners_Rei.tbin": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 710.25,
+                "y": 899
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Farm_Island.tmx": {
+            "scale": 3,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1138.5,
+                "y": 255.66666666666666
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Forest-FlowerFestival.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 451,
+                "y": 606.75
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Forest.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 114.66666666666666,
+                "y": 1222
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/HaleyHouse_SVE.tbin": {
+            "scale": 1.9732291666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 200.17948582589875,
+                "y": 170.78604233753896
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/IslandFarmHouse.tmx": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 339,
+                "y": 152.83333333333334
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Island_N.tmx": {
+            "scale": 0.5963888888888889,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 560.0372612948302,
+                "y": 721.0060549604099
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/MarnieBarn.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 217.5,
+                "y": 201
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/MiloRoom.tmx": {
+            "scale": 3,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 95.33333333333331,
+                "y": 232.33333333333331
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mine.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 504,
+                "y": 127
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/10.tmx": {
+            "scale": 1.92671875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.1167788500527,
+                "y": 128.45673505798393
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/10.tmx#mine": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/19.tmx": {
+            "scale": 0.7706875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 401.5894899034953,
+                "y": 401.5894899034953
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/19.tmx#mine": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/20.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 387.75,
+                "y": 187.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/20.tmx#mine": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/4.tmx": {
+            "scale": 1.100982142857143,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 280.20436298759216,
+                "y": 280.20436298759216
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/4.tmx#mine": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/9.tmx": {
+            "scale": 0.8563194444444444,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 361.43054091314576,
+                "y": 282.02092287730113
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/9.tmx#mine": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mountain.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 890,
+                "y": 283.75
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mountain.tmx#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mountain.tmx#outdoors": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mountain.tmx#untitled tile sheet2": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mountain_SVE.tbin": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 420.25,
+                "y": 161
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/MovieTheater.tmx": {
+            "scale": 2.6279891304347824,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 184.1712335849447,
+                "y": 136.22582980043427
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/MyCustomCellar.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 221.5,
+                "y": 205
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx": {
+            "scale": 0.0629375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 7849.056603773586,
+                "y": 6045.680238331679
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx#Characters": {
+            "scaleInDock": 1.5
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx#fest": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx#outdoors": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Sewer.tmx": {
+            "scale": 2,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 86,
+                "y": 288.75
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Sewer.tmx#p": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Sewer.tmx#st": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Shed.tmx": {
+            "scale": 3.8730769230769226,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 104.051638530288,
+                "y": 112.1847070506455
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Summit.tmx": {
+            "scale": 1.7891666666666666,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 246.48346530041923,
+                "y": 277.2240335351654
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town-DogHouse.tmx": {
+            "scale": 8,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.5,
+                "y": 49.875
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town-Fair.tmx": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1061.8333333333333,
+                "y": 1122.3333333333333
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town-Halloween.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 771,
+                "y": 1170
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town-TheaterCC.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 808.6666666666666,
+                "y": 257.33333333333337
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town-TrashGone.tmx": {
+            "scale": 3.18125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 136.11001964636543,
+                "y": 40.235756385068754
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1255.3333333333333,
+                "y": 1115.6666666666665
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town.tmx#Landscape": {
+            "scaleInDock": 1.5
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town.tmx#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town.tmx#Town": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/TownDogHouse.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 75,
+                "y": 99.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/TownDogHouse.tmx#Landscape": {
+            "scaleInDock": 1.5
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/TownDogHouse.tmx#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/TownDogHouse.tmx#Town": {
+            "scaleInDock": 2
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/WitchSwamp.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 325,
+                "y": 432.75
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/furniture.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/paths.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/spouseRooms.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 274.5,
+                "y": 268
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/townInterior.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/walls_and_floors.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/AnimalShop.tbin": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 383.33333333333326,
+                "y": 219.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/BathHouse_Pool.tbin": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 212.75,
+                "y": 350.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Beach.tbin": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 417.5,
+                "y": 543.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/CommunityCenter_Refurbished.tbin": {
+            "scale": 3,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 141.83333333333331,
+                "y": 232.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/CommunityCenter_Ruins.tbin": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 171.5,
+                "y": 123.83333333333334
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Desert.tbin": {
+            "scale": 0.8223437499999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.0760022800684,
+                "y": 647.5394261827855
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/ElliottHouse.tbin": {
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 639,
-                "y": 500
+                "x": 74.5,
+                "y": 4.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/FarmHouse2.tbin": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 212.66666666666663,
+                "y": 208.16666666666663
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Forest.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 769.875,
+                "y": 1320.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/HaleyHouse.tbin": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 261.3333333333333,
+                "y": 228.83333333333331
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/MarnieBarn.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 159,
+                "y": 115.875
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/MillBuildable.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 66.0909090909091,
+                "y": 39.72727272727273
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Mountain.tbin": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 294.33333333333326,
+                "y": 301.6666666666667
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Saloon.tbin": {
+            "scale": 5.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 268.8181818181818,
+                "y": 287.1818181818182
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/SamHouse.tbin": {
+            "scale": 2.624375,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 174.5177423195999,
+                "y": 175.85139318885447
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Tent.tbin": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 24.75,
+                "y": 9.375
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Town-EggFestival.tbin": {
+            "scale": 2,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": 537.75,
+                "y": 1095.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/Town.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1136,
+                "y": 867.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/[TMX] Arbor Buildables/assets/ash.tmx": {
+            "scale": 10.311458333333333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 30.306091524396404,
+                "y": 40.00404081220325
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/isles.tbin": {
+            "scale": 0.46349321705426355,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1017.2748654157735,
+                "y": 577.138974546595
+            }
+        },
+        "E:/Dev/Projects/SDV/Decompiled/Content/Maps/test/assets/ash.tmx": {
+            "scale": 10.311458333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.003232649762595,
+                "y": 40.00404081220325
             }
         },
         "E:/Dev/Projects/SDV/Mods_Decompiled/SundropCity/assets/Maps/SundropHotelLobby.tbin": {
@@ -122,11 +1675,67 @@
             }
         },
         "E:/Dev/Projects/SDV/Projects/ComfyCave/[TM]ComfyCave/assets/Maps/FarmCave.tmx": {
-            "scale": 1,
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 275.25,
+                "y": 237.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/CooksAssistant/CooksAssistant/assets/MillInterior.tbin": {
+            "scale": 2.902389705882353,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 255,
-                "y": 255
+                "x": 152.2883019823928,
+                "y": 182.43587307619228
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/CooksAssistant/CooksAssistant/assets/MillInterior.tmx": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 131.25,
+                "y": 148.875
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/CooksAssistant/[TMX]CooksAssistant/assets/MillInterior.tmx": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 136.5,
+                "y": 242.25
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/ImmersiveWindmill/ImmersiveWindmill/assets/MillIndoors.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 124,
+                "y": 555
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/ImmersiveWindmill/[TMX]ImmersiveWindmill/assets/MillBuildable.tmx": {
+            "scale": 11,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 16.81818181818182,
+                "y": 15.31818181818182
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/ImmersiveWindmill/[TMX]ImmersiveWindmill/assets/MillIndoors.tmx": {
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 116,
+                "y": 65.83333333333334
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/ImmersiveWindmill/[TMX]ImmersiveWindmill/assets/MillInterior.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 160.25,
+                "y": 274.75
             }
         },
         "E:/Dev/Projects/SDV/Projects/Juuban/HikawaShrine/HikawaShrine/assets/Maps/HikawaShrine.tbin": {
@@ -377,6 +1986,150 @@
                 "y": 132
             }
         },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Bush0.tmx": {
+            "scale": 4.0041015625,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 120.00195112433539,
+                "y": 128.24350031705774
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Desert0.tmx": {
+            "scale": 3.5592013888888885,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 128.2591093117409,
+                "y": 144.27393785668994
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Desert1.tmx": {
+            "scale": 3.5592013888888885,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 120.1112140871177,
+                "y": 144.27393785668994
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Desert2.tmx": {
+            "scale": 2.785461956521739,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 176.09287351836497,
+                "y": 184.35003170577045
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Rock0.tmx": {
+            "scale": 4.271041666666667,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 112.03355933856884,
+                "y": 120.22828154724158
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Rock1.tmx": {
+            "scale": 3.768566176470588,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 112.11160431198479,
+                "y": 136.2587190868738
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Rock2.tmx": {
+            "scale": 4.271041666666667,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 128.18886883566654,
+                "y": 120.22828154724158
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Rock3.tmx": {
+            "scale": 3.5592013888888885,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 144.27393785668994,
+                "y": 144.27393785668994
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/SecretBaseBush0.tmx": {
+            "scale": 4.0041015625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.00195112433539,
+                "y": 128.24350031705774
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/SecretBaseRock2.tmx": {
+            "scale": 4.271041666666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 128.18886883566654,
+                "y": 120.22828154724158
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/SecretBaseTree0.tmx": {
+            "scale": 3,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 196.5,
+                "y": 137.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/SecretBaseTree1.tmx": {
+            "scale": 3,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 152.16666666666663,
+                "y": 239.83333333333331
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/SecretBaseTree2.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 152.5,
+                "y": 134.83333333333331
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/SecretBaseTree3.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 185.16666666666663,
+                "y": 182.5
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Tree0.tmx": {
+            "scale": 3.768566176470588,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 128.0327788888347,
+                "y": 136.2587190868738
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Tree1.tmx": {
+            "scale": 2.6694010416666667,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 112.19745378274231,
+                "y": 192.36525047558655
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Tree2.tmx": {
+            "scale": 3.3637228260869563,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 168.11730015753122,
+                "y": 120.25366562992284
+            }
+        },
+        "E:/Dev/Projects/SDV/Projects/SecretBase/[TMX] SecretBase_Locations/assets/Tree3.tmx": {
+            "scale": 2.9120738636363637,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 152.2969611238476,
+                "y": 176.33481293595435
+            }
+        },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Assets/Maps/Backwoods.tbin": {
             "scale": 1,
             "selectedLayer": 0,
@@ -538,11 +2291,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin": {
-            "scale": 1,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 491.5,
-                "y": 315.5
+                "x": 384.375,
+                "y": 177.375
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods_GraveSite.tbin": {
@@ -573,8 +2326,8 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 430.33333333333337,
-                "y": 587.6666666666666
+                "x": 524.3333333333333,
+                "y": 636.3333333333333
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach.tbin": {
@@ -582,15 +2335,15 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 383,
-                "y": 519.6666666666666
+                "y": 519.6666666666667
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/BusStop.tbin": {
             "scale": 2,
-            "selectedLayer": 0,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 230.75,
-                "y": 164.75
+                "x": 390.25,
+                "y": 201.25
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Cabin.tbin": {
@@ -698,11 +2451,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin": {
-            "scale": 2,
-            "selectedLayer": 3,
+            "scale": 0.75,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1650.75,
-                "y": 272
+                "x": 1134,
+                "y": -321.33333333333337
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/HaleyHouse.tbin": {
@@ -807,6 +2560,14 @@
             "viewCenter": {
                 "x": 217.25,
                 "y": 137.75
+            }
+        },
+        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/LostWoods.tbin": {
+            "scale": 1.2894270833333332,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 435.4647170497234,
+                "y": 260.1930767055782
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ManorHouse.tbin": {
@@ -1074,11 +2835,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin": {
-            "scale": 1,
-            "selectedLayer": 2,
+            "scale": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 268.5,
-                "y": 404.5
+                "x": 314.75,
+                "y": 422.75
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Railroad.tbin": {
@@ -1098,11 +2859,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SamHouse.tbin": {
-            "scale": 2,
-            "selectedLayer": 0,
+            "scale": 3,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 235.25,
-                "y": 193.75
+                "x": 255.5,
+                "y": 172.16666666666666
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SandyHouse.tbin": {
@@ -1114,11 +2875,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/ScienceHouse.tbin": {
-            "scale": 4,
+            "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 459.125,
-                "y": 217.625
+                "x": 351.25,
+                "y": 194.25
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/SebastianMountain.tbin": {
@@ -1210,11 +2971,11 @@
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin": {
-            "scale": 2,
-            "selectedLayer": 3,
+            "scale": 3,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 1458.75,
-                "y": 1433.25
+                "x": 9.5,
+                "y": 246.5
             }
         },
         "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/TownFairClean.tbin": {
@@ -1233,6 +2994,14 @@
                 "y": 242.5
             }
         },
+        "E:/Dev/Projects/SDV/XNBCLI/unpacked/Maps/Farm_Mining.tbin": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 484.66666666666663,
+                "y": 240.33333333333334
+            }
+        },
         "E:/Dev/Projects/SDV/XNBCLI/unpacked/testXNB/HikawaShrine.tbin": {
             "scale": 1,
             "selectedLayer": 0,
@@ -1242,11 +3011,11 @@
             }
         },
         "E:/Dev/Projects/SVM/Cave/Resources/FarmCave.tbin": {
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 218,
-                "y": 233.33333333333331
+                "x": 255,
+                "y": 253
             }
         },
         "E:/Dev/Projects/SVM/Cave/Resources/FarmHouse2.tbin": {
@@ -1346,11 +3115,11 @@
             }
         },
         "E:/Dev/Projects/SVM/Juuban/[TM]JuubanCity/assets/Woods.tbin": {
-            "scale": 2,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 728,
-                "y": 196.5
+                "x": 511,
+                "y": 255
             }
         },
         "E:/Dev/Projects/SVM/Shrine/Resources/Railroad.tbin": {
@@ -1375,6 +3144,14 @@
             "viewCenter": {
                 "x": 384,
                 "y": 118
+            }
+        },
+        "E:/Dev/Projects/SVM/XNBCLI/unpacked/Desert.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400,
+                "y": 590
             }
         },
         "E:/Dev/Projects/SVM/XNBCLI/unpacked/Farm.tbin": {
@@ -1439,6 +3216,54 @@
             "viewCenter": {
                 "x": 253,
                 "y": 245
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Stardew Valley Expanded/[CP] Stardew Valley Expanded/assets/Town/Town.tbin": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 879.5,
+                "y": 704
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/Stardew Valley Expanded/[TMX] Stardew Valley Expanded Locations/assets/Summit.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 285.5,
+                "y": -286.5
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/StardewAquarium/[TMXL] Stardew Aquarium/assets/Maps/ExteriorMuseum_Spring.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 437.83333333333326,
+                "y": 117
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/StardewAquarium/[TMXL] Stardew Aquarium/assets/Maps/FishMuseumSVE.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 519.6666666666666,
+                "y": 441.3333333333333
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/StardewAquarium/[TMXL] Stardew Aquarium/assets/Maps/Rain_Spring.tmx": {
+            "scale": 0.616015625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 680.989220038047,
+                "y": 641.2175015852885
+            }
+        },
+        "E:/Libraries/Downloads/Mods/STARDEW/StardewAquarium/[TMXL] Stardew Aquarium/assets/Maps/SVE.tmx": {
+            "scale": 0.49281250000000004,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 800.5072923272033,
+                "y": 801.5218769816105
             }
         },
         "E:/Libraries/Downloads/Mods/STARDEW/TMX Loader Examples/[BH] Boarding House/[TMX] Boarding House/assets/BusStop.tbin": {
@@ -1641,6 +3466,22 @@
                 "y": 1559
             }
         },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TMXL] Hikawa/assets/HikawaHouse.tmx": {
+            "scale": 1.7831054687499999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 245.91927268744186,
+                "y": 220.96281285941183
+            }
+        },
+        "E:/Steam/steamapps/common/Stardew Valley/Mods/[TMXL] Hikawa/assets/LightTest.tmx": {
+            "scale": 0.8058919270833332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 752.5822999555683,
+                "y": 149.52377105465126
+            }
+        },
         "E:/Steam/steamapps/common/Stardew Valley/Mods/[TM]ComfyCave/assets/FarmCave.tbin": {
             "scale": 1,
             "selectedLayer": 0,
@@ -1713,30 +3554,6 @@
                 "y": 94
             }
         },
-        "E:\\Dev\\Projects\\SVM\\Cave\\Resources\\FarmCave.tbin": {
-            "scale": 1,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 255,
-                "y": 253
-            }
-        },
-        "E:\\Dev\\Projects\\SVM\\Juuban\\[TM]JuubanCity\\assets\\Woods.tbin": {
-            "scale": 1,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 511,
-                "y": 255
-            }
-        },
-        "E:\\Dev\\Projects\\SVM\\XNBCLI\\unpacked\\Desert.tbin": {
-            "scale": 1,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 400,
-                "y": 590
-            }
-        },
         "H:/SDV/Projects old 2/HikawaShrine/HikawaShrine/Assets/Maps/HikawaShrine.tbin": {
             "scale": 0.9353995901639344,
             "selectedLayer": 0,
@@ -1801,6 +3618,46 @@
                 "y": 392.89263157894743
             }
         },
+        "[CP] Hikawa/assets/Locations/HikawaHouse.tmx": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 347.66666666666663,
+                "y": 373.83333333333326
+            }
+        },
+        "[CP] Hikawa/assets/Locations/HikawaHouse.tmx#paths": {
+            "scaleInDock": 1
+        },
+        "[CP] Hikawa/assets/Locations/HikawaHouse.tmx#townInterior": {
+            "scaleInDock": 1
+        },
+        "[CP] Hikawa/assets/Locations/HikawaHouse.tmx#walls_and_floors": {
+            "scaleInDock": 1
+        },
+        "[CP] Hikawa/assets/Locations/HikawaShrine - Copy (4).tmx": {
+            "scale": 2,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": 789.5,
+                "y": 664.75
+            }
+        },
+        "[CP] Hikawa/assets/Locations/HikawaShrine - Copy (4).tmx#outdoors": {
+            "scaleInDock": 1
+        },
+        "[CP] Hikawa/assets/Locations/HikawaShrine - Copy (4).tmx#paths": {
+            "scaleInDock": 1
+        },
+        "[CP] Hikawa/assets/Locations/HikawaShrine - Copy (4).tmx#town": {
+            "scaleInDock": 1
+        },
+        "[CP] Hikawa/assets/Locations/z_Custom_Hikawa_ShrineIndoors.tsx": {
+            "scaleInDock": 2
+        },
+        "[CP] Hikawa/assets/Locations/z_Custom_Hikawa_ShrineOutdoors.tsx": {
+            "scaleInDock": 2
+        },
         "[TMXL] Hikawa/assets/HikawaHouse.tbin": {
             "scale": 2,
             "selectedLayer": 0,
@@ -1810,12 +3667,73 @@
             }
         },
         "[TMXL] Hikawa/assets/HikawaHouse.tmx": {
-            "scale": 3,
-            "selectedLayer": 4,
+            "scale": 2,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 178.83333333333331,
-                "y": 217.83333333333331
+                "x": 199.75,
+                "y": 255.5
             }
+        },
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx#paths": {
+            "scaleInDock": 2
+        },
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx#shrine-indoors": {
+            "scaleInDock": 2,
+            "scaleInEditor": 2
+        },
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx#townInterior": {
+            "scaleInDock": 2
+        },
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx#walls_and_floors": {
+            "scaleInDock": 1.5
+        },
+        "[TMXL] Hikawa/assets/HikawaHouse.tmx#z_hikawa_indoors": {
+            "scaleInDock": 2
+        },
+        "[TMXL] Hikawa/assets/HikawaNegative.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 467.75,
+                "y": 346.25
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy (4).tmx": {
+            "scale": 0.25,
+            "selectedLayer": 84,
+            "viewCenter": {
+                "x": 786,
+                "y": 388
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy (4).tmx#outdoors": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy (4).tmx#paths": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy (4).tmx#town": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 729.5,
+                "y": 617
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy.tmx#outdoors": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy.tmx#paths": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy.tmx#town": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy.tmx#z_hikawa_outdoors": {
+            "scaleInDock": 1
         },
         "[TMXL] Hikawa/assets/HikawaShrine.tbin": {
             "scale": 1,
@@ -1827,11 +3745,36 @@
         },
         "[TMXL] Hikawa/assets/HikawaShrine.tmx": {
             "scale": 2,
-            "selectedLayer": 3,
+            "selectedLayer": 11,
             "viewCenter": {
-                "x": 850.75,
-                "y": 450.75
+                "x": 636.25,
+                "y": 517
             }
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#Outdoors": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#ShrineOutdoors": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#outdoors": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#paths": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#shrine-outdoors": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#town": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/HikawaShrine.tmx#z_hikawa_outdoors": {
+            "scaleInDock": 2
         },
         "[TMXL] Hikawa/assets/HikawaShrine0.tmx": {
             "scale": 2,
@@ -1857,12 +3800,36 @@
                 "y": 519.5
             }
         },
+        "[TMXL] Hikawa/assets/HikawaShrine_split_a.tmx": {
+            "scale": 2,
+            "selectedLayer": 22,
+            "viewCenter": {
+                "x": 992.75,
+                "y": 476.25
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaTemizuya.tmx": {
+            "scale": 1,
+            "selectedLayer": 16,
+            "viewCenter": {
+                "x": 944,
+                "y": 424
+            }
+        },
         "[TMXL] Hikawa/assets/HikawaTown.tbin": {
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 216,
                 "y": 154.75
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaTown.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 209,
+                "y": 197.5
             }
         },
         "[TMXL] Hikawa/assets/HikawaTownJoja.tbin": {
@@ -1880,29 +3847,90 @@
                 "x": 59.909090909090914,
                 "y": 73.18181818181817
             }
+        },
+        "[TMXL] Hikawa/assets/HikawaVortex.tmx": {
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 482.75,
+                "y": 540.25
+            }
+        },
+        "[TMXL] Hikawa/assets/HikawaVortex1.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 478.6666666666667,
+                "y": 391.3333333333333
+            }
+        },
+        "[TMXL] Hikawa/assets/LightTest.tmx": {
+            "scale": 0.8542910447761194,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 770.8145883380649,
+                "y": 364.04455121205507
+            }
+        },
+        "[TMXL] Hikawa/assets/spring_outdoorsTileSheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "[TMXL] Hikawa/assets/spring_outdoorsTileSheet2.tsx": {
+            "scaleInDock": 1
+        },
+        "[TMXL] Hikawa/assets/z_Custom_Hikawa_ShrineIndoors.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "[TMXL] Hikawa/assets/z_Custom_Hikawa_ShrineOutdoors.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 2
         }
     },
+    "frame.defaultDuration": 550,
+    "last.externalTilesetPath": "E:/Dev/Projects/SDV/Projects/Hikawa/[TMXL] Hikawa/assets",
+    "last.imagePath": "C:/SteamSSD/steamapps/common/Stardew Valley 1.5.4/Mods test/[TESTING]/[CP] TownDogHouse/assets",
+    "map.fixedSize": true,
+    "map.height": 20,
+    "map.lastUsedExportFilter": "Tiled map files (*.tmx *.xml)",
+    "map.lastUsedFormat": "tmx",
+    "map.orientation": 3,
+    "map.tileHeight": 18,
+    "map.tileWidth": 36,
+    "map.width": 20,
     "openFiles": [
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
-        "[TMXL] Hikawa/assets/HikawaHouse.tmx",
-        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach-NightMarket.tbin"
+        "[CP] Hikawa/assets/Locations/HikawaShrine - Copy (4).tmx",
+        "[CP] Hikawa/assets/Locations/HikawaHouse.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx"
     ],
     "project": "Hikawa.tiled-project",
+    "property.type": "string",
     "recentFiles": [
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Beach-NightMarket.tbin",
-        "[TMXL] Hikawa/assets/HikawaShrine.tmx",
+        "[CP] Hikawa/assets/Locations/HikawaShrine - Copy (4).tmx",
+        "[CP] Hikawa/assets/Locations/HikawaHouse.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Town.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Pinesweeper_Stage.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/10.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/9.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/4.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/19.tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mines/20.tmx",
         "[TMXL] Hikawa/assets/HikawaHouse.tmx",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Town.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Backwoods.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Mountain.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Forest.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_FourCorners.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Combat.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Mining.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm_Fishing.tbin",
-        "E:/Dev/Projects/SDV/SDV_Decompiled/Content/Maps/Farm.tbin"
-    ]
+        "[TMXL] Hikawa/assets/HikawaShrine - Copy (4).tmx",
+        "E:/Dev/Projects/SDV/Decompiled/Content 1.5/Maps/Mountain.tmx"
+    ],
+    "resizeMap.removeObjects": false,
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "All Files (*)",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.transparentColor": "#ff00ff",
+    "tileset.type": 0,
+    "tileset.useTransparentColor": false
 }

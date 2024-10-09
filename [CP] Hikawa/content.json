@@ -1,107 +1,139 @@
 {
-  "Format": "1.16.0",
-  "DynamicTokens": [
-    {
-      "Name": "Outfit",
-      "Value": "default"
-    },
-    {
-      "Name": "Outfit",
-      "Value": "casual_{{season}}",
-      "When": {
-        "Year": "9999",
-        "HasFile:assets/Rei/Sprites/casual_{{season}}.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "rain_{{season}}",
-      "When": {
-        "Season": "spring, summer, fall",
-        "Weather": "rain",
-        "IsOutdoors": true,
-        "HasFile:assets/Rei/Sprites/rain_{{season}}.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "snow",
-      "When": {
-        "Weather": "snow",
-        "IsOutdoors": true,
-        "HasFile:assets/Rei/Sprites/snow.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "default",
-      "When": {
-        "blueberry.Hikawa/SeasonalOutfits": false
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "kimono",
-      "When": {
-        "Season": "spring",
-        "Weather": "wind",
-        "HasFile:assets/Rei/Sprites/kimono.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "bath",
-      "When": {
-        "LocationName": "BathHouse_WomensLocker, BathHouse_MensLocker, BathHouse_Pool",
-        "HasFile:assets/Rei/Sprites/bath.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "beach",
-      "When": {
-        "Season": "summer",
-        "LocationName": "Beach",
-        "HasFile:assets/Rei/Sprites/beach.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "shrine",
-      "When": {
-        "Year": "9999",
-        "HasFile:assets/Rei/Sprites/shrine.png": true
-      }
-    },
-    {
-      "Name": "Outfit",
-      "Value": "special",
-      "When": {
-        "Year": "9999",
-        "HasFile:assets/Rei/Sprites/special.png": true
-      }
-    }
-  ],
-  "Changes": [
-    {
-      "LogName": "Hikawa Rei Patches",
-      "Action": "Include",
-      "FromFile": "assets/Rei/Rei.json"
-    },
-    {
-      "LogName": "Hikawa Ami Patches",
-      "Action": "Include",
-      "FromFile": "assets/Ami/Ami.json"
-    },
-    {
-      "LogName": "Hikawa Gramps Patches",
-      "Action": "Include",
-      "FromFile": "assets/Gramps/Gramps.json"
-    },
-    {
-      "LogName": "Hikawa Yuuichiro Patches",
-      "Action": "Include",
-      "FromFile": "assets/Yuuichiro/Yuuichiro.json"
-    }
-  ]
+    "Format": "2.3.0",
+    "Changes": [
+        {
+            "LogName": "Hikawa: Data",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Data/Data",
+            "FromFile": "assets/Data.json"
+        },
+        {
+            "LogName": "Hikawa: Audio",
+            "Action": "Include",
+            "FromFile": "assets/Audio.json"
+        },
+        {
+            "LogName": "Hikawa: Characters",
+            "Action": "Include",
+            "FromFile": "assets/Characters.json"
+        },
+        {
+            "LogName": "Hikawa: Locations",
+            "Action": "Include",
+            "FromFile": "assets/Locations.json"
+        },
+        {
+            "LogName": "Hikawa: Objects",
+            "Action": "Include",
+            "FromFile": "assets/Objects.json"
+        },
+        {
+            "LogName": "Hikawa: Quests",
+            "Action": "Include",
+            "FromFile": "assets/Quests.json"
+        },
+        {
+            "LogName": "Hikawa: Shops",
+            "Action": "Include",
+            "FromFile": "assets/Shops.json"
+        },
+        {
+            "LogName": "Hikawa: Sprites",
+            "Action": "Include",
+            "FromFile": "assets/Sprites.json"
+        },
+        {
+            "LogName": "Hikawa: Strings",
+            "Action": "Include",
+            "FromFile": "assets/Strings.json"
+        },
+        // Match3
+        {
+            "LogName": "Hikawa: Match3",
+            "Action": "Include",
+            "FromFile": "assets/Match3/content.json"
+        }
+    ],
+    "DynamicTokens": [
+        {
+            "Name": "Outfit",
+            "Value": "Default"
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Casual_{{season}}",
+            "When": {
+                "Year": "9999",
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Casual_{{season}}.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Rain_{{season}}",
+            "When": {
+                "Season": "spring, summer, fall",
+                "Weather": "rain",
+                "IsOutdoors": true,
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Rain.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Snow",
+            "When": {
+                "Weather": "snow",
+                "IsOutdoors": true,
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Snow.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Default",
+            "When": {
+                "blueberry.Hikawa/SeasonalOutfits": false
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Kimono",
+            "When": {
+                "Season": "spring",
+                "Weather": "wind",
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Kimono.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Bath",
+            "When": {
+                "LocationName": "BathHouse_WomensLocker, BathHouse_MensLocker, BathHouse_Pool",
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Bath.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Beach",
+            "When": {
+                "Season": "summer",
+                "LocationName": "Beach",
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Beach.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Shrine",
+            "When": {
+                "Year": "9999",
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Shrine.png": true
+            }
+        },
+        {
+            "Name": "Outfit",
+            "Value": "Special",
+            "When": {
+                "Year": "9999",
+                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Special.png": true
+            }
+        }
+    ]
 }

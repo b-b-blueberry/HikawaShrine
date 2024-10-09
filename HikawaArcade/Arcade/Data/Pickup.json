@@ -1,0 +1,104 @@
+﻿{
+    "Life": {
+        "Duration": 3,
+        "Chance": 0.1,
+        "ChanceOverTime": 0.1,
+        "SpawnSound": "coin",
+        "PickupSound": "powerup",
+        "Size": 8,
+        "Speed": 4,
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Energy": {
+        "Duration": 3,
+        "Chance": 0.1,
+        "ChanceOverTime": 1,
+        "SpawnSound": "coin",
+        "PickupSound": "powerup",
+        "Size": 8,
+        "Speed": 4,
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Cake": {
+        "Duration": 5,
+        "Chance": 0.3,
+        "ChanceOverTime": 1,
+        "SpawnSound": "coin",
+        "PickupSound": "reward",
+        "Size": 8,
+        "Speed": 4,
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Time": {
+        "Duration": 5,
+        "Chance": 0.3,
+        "ChanceOverTime": 0.1,
+        "SpawnSound": "coin",
+        "PickupSound": "reward",
+        "Size": 8,
+        "Speed": 4,
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Bread": {
+        "Duration": 5,
+        "Chance": 0.025,
+        "ChanceOverTime": 1,
+        "SpawnSound": "coin",
+        "PickupSound": "crystal",
+        "Size": 8,
+        "Speed": 4,
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Megahealth": {
+        "Duration": 3,
+        "Chance": 0.01,
+        "ChanceOverTime": 0.1,
+        "SpawnSound": "coin",
+        "PickupSound": "reward",
+        "Size": 8,
+        "Speed": 4,
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    }
+}

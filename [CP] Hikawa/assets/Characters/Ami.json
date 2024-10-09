@@ -1,0 +1,121 @@
+{
+    // Dynamic tokens:
+    // TODO: DEBUG: Remove HasFile and Year:9999 conditions from content packs in progress
+    // TODO: CONTENT: Shoes and socks sprites for each of Rei and Ami's conditional world sprites
+
+    //  Canon like:
+    // sandwiches
+    //  Canon hate:
+    // yellow-tail tuna
+
+    // Loves:
+    // 62 aquamarine / 206 pizza / 234 blueberry tart / 241 survival burger
+
+    // Likes:
+    // 152 seaweed
+
+    // Dislikes:
+    // -6 MILK
+
+    // Hates:
+    // -4 FISH / 303 pale ale / 346 beer / 348 wine / 459 mead
+
+    // Neutral:
+    // -80 FLOWERS
+
+    "Changes": [
+        {
+            "LogName": "Hikawa: Ami - Definition",
+            "Action": "EditData",
+            "Target": "Data/Characters",
+            "Entries": {
+                "Custom_Hikawa_Ami": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Ami]",
+                    "BirthSeason": "Fall",
+                    "BirthDay": 26,
+                    "HomeRegion": "Other",
+                    "Gender": "Female",
+                    "Age": "Teen",
+                    "Manner": "Polite",
+                    "SocialAnxiety": "Shy",
+                    "Optimism": "Positive",
+                    "IsDarkSkinned": false,
+                    "CanBeRomanced": false,
+                    "SocialTab": "HiddenUntilMet",
+                    "SocializeConditions": null,
+                    "ExcludeFromIntroductionsQuest": true,
+                    "ExcludeFromPerfectionScore": true,
+                    "EndSlideShow": "TrailingGroup",
+                    "FriendsAndFamily": {
+                        "Custom_Hikawa_Rei": null,
+                        "Custom_Hikawa_Usagi": null
+                    },
+                    "UnlockConditions": null,
+                    "SpawnIfMissing": true,
+                    "Home": [
+                        {
+                            "Id": "Default",
+                            "Location": "Custom_Hikawa_Shrine", // "Custom_Hikawa_House"
+                            "Tile": {
+                                "X": 36, // ??
+                                "Y": 36 // ??
+                            },
+                            "Direction": "Down"
+                        }
+                    ],
+                    "TextureName": null,
+                    "Size": {
+                        "X": 16,
+                        "Y": 32
+                    },
+                    "Breather": true,
+                    "HiddenProfileEmoteSound": null,
+                    "HiddenProfileEmoteDuration": -1,
+                    "HiddenProfileEmoteStartFrame": 16,
+                    "HiddenProfileEmoteFrameCount": 4,
+                    "HiddenProfileEmoteFrameDuration": 200.0,
+                    "FestivalVanillaActorIndex": 0,
+                    "CustomFields": {}
+                }
+                }
+        },
+        {
+            "LogName": "Hikawa: Ami - Gift tastes",
+            "Action": "EditData",
+            "Target": "Data/NPCGiftTastes",
+            "Entries": {
+                "Custom_Hikawa_Ami": "{{i18n:npc.ami.gift.love}}//{{i18n:npc.ami.gift.like}}//{{i18n:npc.ami.gift.dislike}}//{{i18n:npc.ami.gift.hate}}//{{i18n:npc.ami.gift.neutral}}//"
+            }
+        },
+        {
+            "LogName": "Hikawa: Ami - Portrait sprites",
+            "Action": "Load",
+            "Target": "Portraits/Custom_Hikawa_Ami",
+            "FromFile": "assets/Characters/Ami/Portraits/Default.png"
+        },
+        {
+            "LogName": "Hikawa: Ami - World sprites",
+            "Action": "Load",
+            "Target": "Characters/Custom_Hikawa_Ami",
+            "FromFile": "assets/Characters/Ami/Sprites/Default.png"
+        },
+        {
+            "LogName": "Hikawa: Ami - Dialogue",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/Custom_Hikawa_Ami",
+            "FromFile": "assets/Characters/Ami/Data/Dialogue.json"
+        },
+        {
+            "LogName": "Hikawa: Ami - Schedule",
+            "Action": "Load",
+            "Target": "Characters/schedules/Custom_Hikawa_Ami",
+            "FromFile": "assets/Characters/Ami/Data/Schedule.json"
+        },
+        {
+            "LogName": "Hikawa: Ami - Schedule dialogue",
+            "Action": "Load",
+            "Target": "Strings/schedules/Custom_Hikawa_Ami",
+            "FromFile": "assets/Characters/Ami/Data/ScheduleDialogue.json"
+        }
+    ]
+}

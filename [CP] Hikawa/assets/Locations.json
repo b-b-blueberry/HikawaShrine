@@ -1,0 +1,324 @@
+{
+	"Changes": [
+		// Map loading
+		{
+			"LogName": "Hikawa: Locations - Shrine map",
+			"Action": "Load",
+			"Target": "Maps/Custom_Hikawa_Shrine",
+			"FromFile": "assets/Locations/HikawaShrine.tmx"
+		},
+		{
+			"LogName": "Hikawa: Locations - House map",
+			"Action": "Load",
+			"Target": "Maps/Custom_Hikawa_House",
+			"FromFile": "assets/Locations/HikawaHouse.tmx"
+		},
+		{
+			"LogName": "Hikawa: Locations - Hall map",
+			"Action": "Load",
+			"Target": "Maps/Custom_Hikawa_Hall",
+			"FromFile": "assets/Locations/HikawaHall.tmx"
+		},
+		{
+			"LogName": "Hikawa: Locations - Volleyball map",
+			"Action": "Load",
+			"Target": "Maps/Custom_Hikawa_Volleyball",
+			"FromFile": "assets/Locations/HikawaVolleyball.tmx"
+		},
+		// Location data
+		{
+			"LogName": "Hikawa: Locations - Data",
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"Entries": {
+				"Custom_Hikawa_Shrine": {
+					"DisplayName": "{{i18n:world.shrine.map}}",
+					"DefaultArrivalTile": {
+						"X": 35, // 37,
+						"Y": 37 // 14
+					},
+					"CreateOnLoad": {
+						"MapPath": "Maps/Custom_Hikawa_Shrine",
+						"Type": "Hikawa.Objects.Locations.Shrine, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+					},
+					"ExcludeFromNpcPathfinding": false,
+					"ArtifactSpots": [],
+					"FishAreas": {},
+					"Fish": [],
+					"Forage": []
+				},
+				"Custom_Hikawa_House": {
+					"DisplayName": "{{i18n:world.house.map}}",
+					"DefaultArrivalTile": {
+						"X": 19, // 15
+						"Y": 16 // 7
+					},
+					"CreateOnLoad": {
+						"MapPath": "Maps/Custom_Hikawa_House",
+						"Type": "Hikawa.Objects.Locations.House, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+					},
+					"ExcludeFromNpcPathfinding": false
+				},
+				"Custom_Hikawa_Hall": {
+					"DisplayName": "{{i18n:world.hall.map}}",
+					"DefaultArrivalTile": {
+						"X": 6,
+						"Y": 10
+					},
+					"CreateOnLoad": {
+						"MapPath": "Maps/Custom_Hikawa_Hall",
+						"Type": "Hikawa.Objects.Locations.Hall, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+					},
+					"ExcludeFromNpcPathfinding": false
+				}
+			}
+		},
+		// World map
+		{
+			"LogName": "Hikawa: Locations - World map",
+			"Action": "EditData",
+			"Target": "Data/WorldMap",
+			"TargetField": [ "Valley", "MapAreas" ],
+			"Entries": {
+				"Custom_Hikawa_Shrine": {
+					"Id": "Custom_Hikawa_Shrine",
+					"Condition": null,
+					"PixelArea": {
+						"X": 148,
+						"Y": 38,
+						"Width": 24,
+						"Height": 16
+					},
+					"ScrollText": "{{i18n:world.shrine.map}}",
+					"Textures": [],
+					"Tooltips": [
+						{
+							"Id": "Default",
+							"Condition": null,
+							"KnownCondition": null,
+							"PixelArea": {
+								"X": 0,
+								"Y": 0,
+								"Width": 0,
+								"Height": 0
+							},
+							// TODO: UPDATE THESE
+							"Text": "{{i18n:world.shrine.map}}",
+							"LeftNeighbor": "Backwoods/Default",
+							"RightNeighbor": "Town/Hospital",
+							"UpNeighbor": "Backwoods/Default",
+							"DownNeighbor": "Forest/MarnieRanch"
+						}
+					]
+				}
+			}
+		},
+		// Map warps
+		{
+			"LogName": "Hikawa: Locations - Shrine warps",
+			"Action": "EditMap",
+			"Target": "Maps/Custom_Hikawa_Shrine",
+			"AddWarps": [
+				"33 64 Town 18 0",
+				"34 64 Town 19 0",
+				"35 64 Town 20 0",
+				"36 64 Town 21 0"
+			]
+		},
+		{
+			"LogName": "Hikawa: Locations - Town warps",
+			"Action": "EditMap",
+			"Target": "Maps/Town",
+			"AddWarps": [
+				"18 -1 Custom_Hikawa_Shrine 33 63",
+				"19 -1 Custom_Hikawa_Shrine 34 63",
+				"20 -1 Custom_Hikawa_Shrine 35 63",
+				"21 -1 Custom_Hikawa_Shrine 36 63"
+			]
+		},
+		// Shrine - Map actions
+		{
+			"LogName": "Hikawa: Locations - Shrine actions",
+			"Action": "EditMap",
+			"Target": "Maps/Custom_Hikawa_Shrine",
+			"MapTiles": [
+				// Hop: Left-to-right
+				// Top
+				{
+					"Position": {
+						"X": 27,
+						"Y": 20
+					},
+					"Layer": "Back",
+					"SetProperties": {
+						"TouchAction": "Custom_Hikawa_Hop 28 21 1 Custom_Hikawa_Hop 29 21.5 1 Custom_Hikawa_Hop 30 22 1 Custom_Hikawa_Hop"
+					}
+				},
+				//Bot
+				{
+					"Position": {
+						"X": 27,
+						"Y": 21
+					},
+					"Layer": "Back",
+					"SetProperties": {
+						"TouchAction": "Custom_Hikawa_Hop 28 21.33 1 Custom_Hikawa_Hop 29 21.66 1 Custom_Hikawa_Hop 30 22 1 Custom_Hikawa_Hop"
+					}
+				},
+				// Hop: Right-to-left
+				// Top
+				{
+					"Position": {
+						"X": 29,
+						"Y": 21
+					},
+					"Layer": "Back",
+					"SetProperties": {
+						"TouchAction": "Custom_Hikawa_Hop 28 20.8 3 Custom_Hikawa_Hop 27 20.7 3 Custom_Hikawa_Hop 26 20.5 3 Custom_Hikawa_Hop"
+					}
+				},
+				// Mid
+				{
+					"Position": {
+						"X": 29,
+						"Y": 22
+					},
+					"Layer": "Back",
+					"SetProperties": {
+						"TouchAction": "Custom_Hikawa_Hop 28 21.5 3 Custom_Hikawa_Hop 27 21 3 Custom_Hikawa_Hop 26 20.5 3 Custom_Hikawa_Hop"
+					}
+				},
+				// Bot
+				{
+					"Position": {
+						"X": 29,
+						"Y": 23
+					},
+					"Layer": "Back",
+					"SetProperties": {
+						"TouchAction": "Custom_Hikawa_Hop 28 22 3 Custom_Hikawa_Hop 27 21 3 Custom_Hikawa_Hop 26 20.5 3 Custom_Hikawa_Hop"
+					}
+				}
+			]
+		},
+		// House - Bedroom changes
+		{
+			"LogName": "Hikawa: Locations - House bedroom block",
+			"Action": "EditMap",
+			"Target": "Maps/Custom_Hikawa_House",
+			"FromFile": "assets/Locations/HikawaHouse.tmx",
+			"FromArea": {
+				"X": 18,
+				"Y": 1,
+				"Width": 4,
+				"Height": 3
+			},
+			"ToArea": {
+				"X": 22,
+				"Y": 1,
+				"Width": 4,
+				"Height": 3
+			}
+		},
+		{
+			"LogName": "Hikawa: Locations - House bedroom table",
+			"Action": "EditMap",
+			"Target": "Maps/Custom_Hikawa_House",
+			"FromFile": "assets/Locations/HikawaHouse.tmx",
+			"FromArea": {
+				"X": 22,
+				"Y": 1,
+				"Width": 4,
+				"Height": 3
+			},
+			"ToArea": {
+				"X": 19,
+				"Y": 16,
+				"Width": 4,
+				"Height": 3
+			},
+			"When": {
+				"Season": "fall, winter"
+			}
+		},
+		// Other map edits
+		// Town - Shrine entrance
+		// Merged in vertical stripes to maximise compatibility between this mod, SDV, and SVE
+		{
+			"LogName": "Hikawa: Locations - Town patch 1",
+			"Action": "EditMap",
+			"Target": "Maps/Town",
+			"FromFile": "assets/Locations/HikawaTown.tmx",
+			"FromArea": {
+				"X": 0,
+				"Y": 0,
+				"Width": 17,
+				"Height": 20
+			},
+			"ToArea": {
+				"X": 7,
+				"Y": 0,
+				"Width": 17,
+				"Height": 20
+			},
+			"PatchMode": "ReplaceByLayer"
+		},
+		{
+			"LogName": "Hikawa: Locations - Town patch 2",
+			"Action": "EditMap",
+			"Target": "Maps/Town",
+			"FromFile": "assets/Locations/HikawaTown.tmx",
+			"FromArea": {
+				"X": 17,
+				"Y": 0,
+				"Width": 3,
+				"Height": 17
+			},
+			"ToArea": {
+				"X": 24,
+				"Y": 0,
+				"Width": 3,
+				"Height": 17
+			},
+			"PatchMode": "ReplaceByLayer"
+		},
+		{
+			"LogName": "Hikawa: Locations - Town patch 3",
+			"Action": "EditMap",
+			"Target": "Maps/Town",
+			"FromFile": "assets/Locations/HikawaTown.tmx",
+			"FromArea": {
+				"X": 20,
+				"Y": 0,
+				"Width": 3,
+				"Height": 16
+			},
+			"ToArea": {
+				"X": 27,
+				"Y": 0,
+				"Width": 3,
+				"Height": 16
+			},
+			"PatchMode": "ReplaceByLayer"
+		},
+		{
+			"LogName": "Hikawa: Locations - Town patch 4",
+			"Action": "EditMap",
+			"Target": "Maps/Town",
+			"FromFile": "assets/Locations/HikawaTown.tmx",
+			"FromArea": {
+				"X": 23,
+				"Y": 0,
+				"Width": 5,
+				"Height": 15
+			},
+			"ToArea": {
+				"X": 30,
+				"Y": 0,
+				"Width": 5,
+				"Height": 15
+			},
+			"PatchMode": "ReplaceByLayer"
+		}
+	]
+}

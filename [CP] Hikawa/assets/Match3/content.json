@@ -1,0 +1,61 @@
+﻿{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Match3Data",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Match3Data",
+            "FromFile": "assets/Match3/data.json"
+        },
+        {
+            "LogName": "Hikawa: Match3Sprites",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Match3Sprites",
+            "FromFile": "assets/Match3/match3.png"
+        },
+        {
+            "LogName": "Hikawa: Match3Audio",
+            "Target": "Data/AudioChanges",
+            "Action": "EditData",
+            "Entries": {
+                "Custom_Hikawa_Match3_intro": {
+                    "ID": "Custom_Hikawa_Match3_intro",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Match3/intro.wav}}"
+                    ],
+                    "Category": "Music",
+                    "Looped": true
+                },
+                "Custom_Hikawa_Match3_bgm": {
+                    "ID": "Custom_Hikawa_Match3_bgm",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Match3/bgm.wav}}"
+                    ],
+                    "Category": "Music",
+                    "Looped": true
+                },
+                "Custom_Hikawa_Match3_pause": {
+                    "ID": "Custom_Hikawa_Match3_pause",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Match3/pause.wav}}"
+                    ],
+                    "Category": "Music",
+                    "Looped": true
+                },
+                "Custom_Hikawa_Match3_stage": {
+                    "ID": "Custom_Hikawa_Match3_stage",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Match3/stage.wav}}"
+                    ],
+                    "Category": "Sound"
+                },
+                "Custom_Hikawa_Match3_chapter": {
+                    "ID": "Custom_Hikawa_Match3_chapter",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Match3/chapter.wav}}"
+                    ],
+                    "Category": "Sound"
+                }
+            }
+        }
+    ]
+}

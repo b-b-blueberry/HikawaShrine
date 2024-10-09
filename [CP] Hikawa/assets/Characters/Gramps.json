@@ -1,0 +1,105 @@
+{
+    //  Canon like:
+    //  Canon hate:
+
+    //  Love:
+    //  Like:
+    //  Dislike:
+    //  Hate:
+    //  Neutral:
+
+    "Changes": [
+        {
+            "LogName": "Hikawa: Gramps - Definition",
+            "Action": "EditData",
+            "Target": "Data/Characters",
+            "Entries": {
+                "Custom_Hikawa_Gramps": {
+                    "DisplayName": "{{i18n:npc.gramps.name}}",
+                    "BirthSeason": "Summer",
+                    "BirthDay": 26,
+                    "HomeRegion": "Other",
+                    "Gender": "Male",
+                    "Age": "Adult",
+                    "Manner": "Rude",
+                    "SocialAnxiety": "Outgoing",
+                    "Optimism": "Neutral",
+                    "IsDarkSkinned": false,
+                    "CanBeRomanced": false,
+                    "SocialTab": "HiddenUntilMet",
+                    "SocializeConditions": null,
+                    "ExcludeFromIntroductionsQuest": true,
+                    "ExcludeFromPerfectionScore": true,
+                    "EndSlideShow": "TrailingGroup",
+                    "FriendsAndFamily": {
+                        "Custom_Hikawa_Rei": "[LocalizedText Strings/Characters:Relative_Granddaughter]"
+                    },
+                    "UnlockConditions": null,
+                    "SpawnIfMissing": true,
+                    "Home": [
+                        {
+                            "Id": "Default",
+                            "Location": "Custom_Hikawa_House",
+                            "Tile": {
+                                "X": 11, // ??
+                                "Y": 7 // ??
+                            },
+                            "Direction": "Left"
+                        }
+                    ],
+                    "TextureName": null,
+                    "Size": {
+                        "X": 16,
+                        "Y": 32
+                    },
+                    "Breather": false,
+                    "HiddenProfileEmoteSound": null,
+                    "HiddenProfileEmoteDuration": -1,
+                    "HiddenProfileEmoteStartFrame": 16,
+                    "HiddenProfileEmoteFrameCount": 4,
+                    "HiddenProfileEmoteFrameDuration": 200.0,
+                    "FestivalVanillaActorIndex": 0,
+                    "CustomFields": {}
+                }
+            }
+        },
+        {
+            "LogName": "Hikawa: Gramps - Gift tastes",
+            "Action": "EditData",
+            "Target": "Data/NPCGiftTastes",
+            "Entries": {
+                "Custom_Hikawa_Gramps": "{{i18n:npc.gramps.gift.love}}//{{i18n:npc.gramps.gift.like}}//{{i18n:npc.gramps.gift.dislike}}//{{i18n:npc.gramps.gift.hate}}//{{i18n:npc.gramps.gift.neutral}}//"
+            }
+        },
+        {
+            "LogName": "Hikawa: Gramps - Portrait sprites",
+            "Action": "Load",
+            "Target": "Portraits/Custom_Hikawa_Gramps",
+            "FromFile": "assets/Characters/Gramps/Portraits/Default.png"
+        },
+        {
+            "LogName": "Hikawa: Gramps - World sprites",
+            "Action": "Load",
+            "Target": "Characters/Custom_Hikawa_Gramps",
+            "FromFile": "assets/Characters/Gramps/Sprites/Default.png"
+        },
+        {
+            "LogName": "Hikawa: Gramps - Dialogue",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/Custom_Hikawa_Gramps",
+            "FromFile": "assets/Characters/Gramps/Data/Dialogue.json"
+        },
+        {
+            "LogName": "Hikawa: Gramps - Schedule",
+            "Action": "Load",
+            "Target": "Characters/schedules/Custom_Hikawa_Gramps",
+            "FromFile": "assets/Characters/Gramps/Data/Schedule.json"
+        },
+        {
+            "LogName": "Hikawa: Gramps - Schedule dialogue",
+            "Action": "Load",
+            "Target": "Strings/schedules/Custom_Hikawa_Gramps",
+            "FromFile": "assets/Characters/Gramps/Data/ScheduleDialogue.json"
+        }
+    ]
+}

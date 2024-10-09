@@ -1,0 +1,56 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Objects - Sprites",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Objects/Sprites",
+            "FromFile": "assets/Objects/Sprites.png"
+        },
+        {
+            "LogName": "Hikawa: Objects - Data",
+            "Action": "EditData",
+            "Target": "Data/ObjectInformation",
+            "Entries": {
+                /*  Fields:
+                    0   ID
+                    1   Price
+                    2   Edibility
+                    3   Type & Category
+                    4   Display name
+                    5   Description
+                    6   Misc
+                    7   Buff values
+                    8   Buff duration
+                    9   Texture index
+                    10  Texture asset
+                */
+                "Custom_Hikawa_Totem": "Custom_Hikawa_Totem/50/-300/Junk/{{i18n:item.totem.name}}/{{i18n:item.totem.description}}////0/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_Mirror": "Custom_Hikawa_Mirror/50/-300/Junk/{{i18n:item.mirror.name}}/{{i18n:item.mirror.description}}////1/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_Wand": "Custom_Hikawa_Wand/50/-300/Junk/{{i18n:item.wand.name}}/{{i18n:item.wand.description}}////2/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_DarkFruit": "Custom_Hikawa_DarkFruit/50/15/Junk/{{i18n:item.darkfruit.name}}/{{i18n:item.darkfruit.description}}////3/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_DarkFood": "Custom_Hikawa_DarkFood/20/18/Junk/{{i18n:item.darkfood.name}}/{{i18n:item.darkfood.description}}////4/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_DarkCream": "Custom_Hikawa_DarkCream/250/32/Junk/{{i18n:item.darkcream.name}}/{{i18n:item.darkcream.description}}////5/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_DarkMacaron": "Custom_Hikawa_DarkMacaron/300/32/Junk/{{i18n:item.darkmacaron.name}}/{{i18n:item.darkmacaron.description}}////6/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_DarkParfait": "Custom_Hikawa_DarkParfait/450/32/Junk/{{i18n:item.darkparfait.name}}/{{i18n:item.darkparfait.description}}////7/Mods\\blueberry\\Hikawa\\Objects\\Sprites",
+                "Custom_Hikawa_DarkPie": "Custom_Hikawa_DarkPie/375/32/Junk/{{i18n:item.darkpie.name}}/{{i18n:item.darkpie.description}}////8/Mods\\blueberry\\Hikawa\\Objects\\Sprites"
+            }
+        },
+        {
+            "LogName": "Hikawa: Objects - Recipes",
+            "Action": "EditData",
+            "Target": "Data/CraftingRecipes",
+            "Entries": {
+                /*  Fields
+                    0   Ingredients (ID & Yield)+
+                    1   Unused
+                    2   Yield
+                    2.5 BigCraftable (if not cooking)
+                    3   Preconditions
+                    4   Display name
+                */
+                "Custom_Hikawa_Totem": "298 1 638 1 334 3//1/false/y 999/{{i18n: item.totem.name}}",
+                "Custom_Hikawa_DarkFood": "(O) Dark Fruit 1//1/default/{{i18n: item.darkfood.name}}"
+            }
+        }
+    ]
+}

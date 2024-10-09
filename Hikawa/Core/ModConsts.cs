@@ -1,106 +1,95 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using xTile.Dimensions;
 
 namespace Hikawa
 {
-	internal class ModConsts
+	public class ModConsts
 	{
 		/* Mod data */
+		// IDs
+		public static string CoreModID => ModEntry.Instance.ModManifest.UniqueID;
+		public static string ContentModID => string.Join(".", CoreModID, "CP");
+		public static string ArcadeModID => string.Join(".", CoreModID, "Arcade");
 		// Directories
-		internal const string ModName = "blueberry.Hikawa";
-		internal const string ContentPrefix = ModName + ".";
-		internal const string SaveDataKey = ModName;
-
-		internal const string AssetsDir = "assets";
-		internal static readonly string SpritesPath = Path.Combine(AssetsDir, "LooseSprites");
-		internal static readonly string EventsPath = Path.Combine(AssetsDir, "Data", "Events");
-		internal static readonly string ForagePath = Path.Combine(AssetsDir, "Data", "Locations");
-		internal static readonly string JaContentPackPath = Path.Combine(AssetsDir, "ContentPack");
-		internal static readonly string StringsPath = Path.Combine("i18n", "default");
-
-		internal const string TilesheetPrefix = "z_hikawa";
-		internal const string ExtraSpritesFile = TilesheetPrefix + "_extras";
-		internal const string BuffIconSpritesFile = TilesheetPrefix + "_bufficons";
-		internal const string ArcadeSpritesFile = TilesheetPrefix + "_arcade";
-		internal const string IndoorsSpritesFile = TilesheetPrefix + "_indoors";
-		internal const string BundlesSpritesFile = TilesheetPrefix + "_bundles";
-		internal const string CrowSpritesFile = TilesheetPrefix + "_crows";
-		internal const string CatSpritesFile = TilesheetPrefix + "_cats";
-		internal const string BusSpritesFile = TilesheetPrefix + "_buses";
-
+		public const string ContentPrefix = "Custom_Hikawa_";
+		public const string SaveDataKey = ContentPrefix + "SaveData";
 
 		/* Game objects */
-		// Objects
-		private const string ArcadeMinigameName = "LightGun";
-		internal const string ArcadeMinigameId = ModName + ArcadeMinigameName;
-		internal const string ArcadeObjectName = "Sailor V Arcade System";
 		// NPCs
-		internal const string ReiNpcId = ContentPrefix + "Rei";
-		internal const string AmiNpcId = ContentPrefix + "Ami";
-		internal const string UsaNpcId = ContentPrefix + "Usagi";
-		internal const string GrampsNpcId = ContentPrefix + "Grandpa";
-		internal const string YuuichiroNpcId = ContentPrefix + "Yuuichiro";
+		public const string NpcRei = ContentPrefix + "Rei";
+		public const string NpcAmi = ContentPrefix + "Ami";
+		public const string NpcCat = ContentPrefix + "Cat";
+		public const string NpcUsa = ContentPrefix + "Usagi";
+		public const string NpcMakoto = ContentPrefix + "Makoto";
+		public const string NpcMinako = ContentPrefix + "Minako";
+		public const string NpcGuy = ContentPrefix + "Yuichiro";
+		public const string NpcGramps = ContentPrefix + "Gramps";
+		public const string NpcVolleyballSuffix = "_Volleyball";
 		// Maps
-		internal const string ShrineMapId = ContentPrefix + "Shrine";
-		internal const string HouseMapId = ContentPrefix + "House";
-		internal const string TownSnippetId = ContentPrefix + "Town";
-		internal const string TownJojaSnippetId = TownSnippetId + "." + "Joja";
-		internal const string CorridorMapId = ContentPrefix + "Corridor";
-		internal const string VortexMapId = ContentPrefix + "Vortex";
+		public const string MapShrine = ContentPrefix + "Shrine";
+		public const string MapHouse = ContentPrefix + "House";
+		public const string MapHall = ContentPrefix + "Hall";
+		public const string MapTown = ContentPrefix + "Town";
+		public const string MapTownJoja = MapTown + "Joja";
+		public const string MapTime = ContentPrefix + "Corridor";
+		public const string MapVortex = ContentPrefix + "Vortex";
+		public const string MapRoof = ContentPrefix + "Roof";
+		public const string MapVolleyball = ContentPrefix + "Volleyball";
+		// Map properties
+		public const string PropertyAnimals = ContentPrefix + "Animals";
+		public const string PropertyLantern = ContentPrefix + "Lantern";
+		public const string PropertyTotem = ContentPrefix + "Totem";
+		public const string PropertyShop = ContentPrefix + "Shop";
+		public const string PropertyChest = ContentPrefix + "Chest";
+		public const string PropertyHearth = ContentPrefix + "Hearth";
+		public const string PropertyLamps = ContentPrefix + "Lamps";
 		// Tile actions
-		internal const string ActionEma = ContentPrefix + "Ema";
-		internal const string ActionShrineHall = ContentPrefix + "HallDoor";
-		internal const string ActionShrineShop = ContentPrefix + "OmiyageyaShop";
-		internal const string ActionShrineOffering = ContentPrefix + "Offering";
-		internal const string ActionBackDoor = ContentPrefix + "BackDoor";
-		internal const string ActionLockbox = ContentPrefix + "Lockbox";
-		internal const string ActionWardrobe = ContentPrefix + "Wardrobe";
-		internal const string ActionVortex = ContentPrefix + "Vortex";
-		internal const string ActionFrogman = ContentPrefix + "Frogman";
-		internal const string ActionArcade = ContentPrefix + ArcadeMinigameName;
-		internal const int OfferingCostS = 75;
-		internal const int OfferingCostM = 330;
-		internal const int OfferingCostL = 825;
-
+		public const string ActionShrineHall = ContentPrefix + "HallDoor";
+		public const string ActionShrineOffering = ContentPrefix + "Offering";
+		public const string ActionBackDoor = ContentPrefix + "BackDoor";
+		public const string ActionLockbox = ContentPrefix + "Lockbox";
+		public const string ActionWardrobe = ContentPrefix + "Wardrobe";
+        public const string ActionEma = ContentPrefix + "Ema";
+        public const string ActionVortex = ContentPrefix + "Vortex";
+		// Tile properties
+		public const string PropertyDummy = ContentPrefix + "Dummy";
+		public const string TilePetalSpawner = ContentPrefix + "PetalSpawner";
+		// Touch actions
+		public const string TouchHop = ContentPrefix + "Hop";
+		// Custom fields
+		public const string FieldLights = ContentPrefix + "Lights";
+		// Event commands
+		public const string EventCommandCrystalBall = ContentPrefix + "CrystalBall";
+		// Items
+		public const string ItemWand = ContentPrefix + "Wand";
+        public const string ItemMirror = ContentPrefix + "Mirror";
+        public const string ItemTotem = ContentPrefix + "Totem";
+        public const string ItemLostGlasses = ContentPrefix + "LostGlasses";
+        public const string ItemLostJewelry = ContentPrefix + "LostJewelry";
+		// Tilesheets
+		public const string HouseTilesheetName = "z_Custom_Hikawa_House";
 		// Coordinates
-		internal const string DebugDefaultWarpTo = HouseMapId;
-		
-		// TODO: ONGOING: Fill in default warps for missing maps
-		internal static readonly Dictionary<string, Location> DefaultWarps = new Dictionary<string, Location>
-		{
-			//{ ShrineMapId, new Location(39, 60) },
-			{ ShrineMapId, new Location(45, 45) },
-			//{ HouseMapId, new Location(5, 19) },
-			{ HouseMapId, new Location(20, 15) },
-			{ VortexMapId + 1, new Location(25, 40) },
-			{ "Town", new Location(39, 15) },
-			{ "BathHouse_Pool", new Location(15, 12) },
+		public static readonly Vector2 HouseChimneyTile = new(x: 53, y: 22);
+		public static readonly Location CrowSpawnRadius = new(x: 2, y: 2);
+		public static readonly xTile.Dimensions.Rectangle CrowSpawnArea = new(x: 23, y: 31, width: 30, height: 20);
+		public static readonly Vector2[] CrowTopOfStairsSpawn = [new(33.5f, 53f), new(35f, 54f)];
+		public static readonly Dictionary<float, Vector2[]> CrowPerches = new()
+		{   // Keyed by chance to appear, chance is measured by whether key is higher than the random roll
+			// Paired by spawn positions for Phobos, Deimos
+			// Third value in list is hop-range for crow critters
+			{ 0.2f, new Vector2[] { new(33.8f, 29.6f), new(35.2f, 29.6f) } },		// Shrine front
+			{ 0.3f, new Vector2[] { new(30f, 29f), new(32f, 29.25f) } },			// Shrine left
+			{ 0.4f, new Vector2[] { new(37f, 29.25f), new(39f, 29f) } },			// Shrine right
+			{ 0.5f, new Vector2[] { new(45f, 27f), new(47f, 26.75f), new(2f) } },	// House
+			{ 0.65f, new Vector2[] { new(31f, 37.2f), new(38f, 37.2f) } },			// Tourou
+			{ 0.8f, new Vector2[] { new(33f, 45.5f), new(36f, 45.5f), new(2f) } },	// Torii
+			{ 0.9f, new Vector2[] { new(21.5f, 17.5f), new(23.5f, 18.5f) } },		// Torii back
+			{ 0.95f, new Vector2[] { new(25f, 40.3f), new(27.075f, 40.125f) } },	// Omiyageya
+			{ 1f, new Vector2[] { new(50f, 40f), new(52f, 41f) } },					// Hall
 		};
-
-		internal static readonly Location TotemWarpPosition = new Location(69, 45);
-		internal static readonly Vector2 StoryStockPosition = new Vector2(20, 10);
-		internal static readonly Vector2 ShrineSouvenirShopPosition = new Vector2(28, 42) * 64f;
-		internal static readonly Location ArcadeMachinePosition = new Location(40, 16);
-		internal static readonly List<Location> CrowTilePositions = new List<Location>
-		{
-			new Location()
-		};
-		internal static readonly List<Vector2> StoryPlantPositionsForFarmTypes = new List<Vector2>
-		{
-			new Vector2(42, 27), // Standard
-			new Vector2(22, 31), // River
-			new Vector2(38, 16), // Forest
-			new Vector2(61, 30), // Hilltop
-			new Vector2(47, 18), // Wilderness
-			new Vector2(38, 40)  // Four Corners
-		};
-
 		// Values and things
-		internal const string CommandPrefix = "bb";
-		internal const int SharedBuffId = 870084643;
-		internal const int BananaBegins = 3;
-		internal const int BigBananaBonanza = 7;
-	}
+		public const string CommandPrefix = "bb";
+        public const int GenericID = 87008;
+    }
 }

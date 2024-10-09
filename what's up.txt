@@ -1,0 +1,377 @@
+
+=======================================================================================
+	HIKAWA SHRINE
+=======================================================================================
+
+--------------------------------------------------------------------------------------
+
+	little things to do:
+		✔
+		
+--------------------------------------------------------------------------------------
+
+	furniture and homewares references
+		forget about all the requirements and todos and plans. this is furniture hours.
+
+		tsuitate : free-standing panel dividers or screens
+			can incorporate a variety of materials, such as paper, shouji, straw, bamboo, cloth, reeds, panel or carved wood, ..
+			often purely decorative, if not to deter or direct vagrants in the home, or simply as a gate if outside
+			often placed at points where visitors should note to remove their shoes, such as at engawa verandah entries or genkan steps
+			outdoors varieties will use weatherproof materials
+
+		noren : fabric curtains
+			found in sizes ranging from short runners, half-length panels, full-length curtains, or sail-sized spreads
+			may be decorated with calligraphy, iconography, or logography
+			coloured in a variety of styles, traditionally blue or red
+			often placed in back-doors, as well as kitchen, bedroom, or shop entry doorways
+
+		sudare : bamboo-fibre outdoor blinds
+			used in summer to shield from the sun, likely unused in other seasons
+			pleasant, light colour
+			thin craft, may be spaced to allow some light to pass through
+			with borders, becomes misu, an article found in shrines and temples, occasionally in tassles
+
+		hi-mousen : red felt spreads
+			used to cover tables and benches for gifts, offerings, presentations, ..
+			may be seen under home dolls, important wares, treasures, butsudan, ..
+			may also be found in more colloquial settings, such as mats or picnic blankets
+			bold crimson-vermillion colour
+			
+		komo : simple mats
+			made of a rush, similar in appearance to straw/burlap or bamboo fibre
+			coloured in beige
+			coarse edges, often bare rush ends
+			spartan and basic, largely undecorated and outmoded by mushiro
+
+		mushiro : quality mats
+			often patterned, colour including beige and faded reds, greens, and orange tones
+			clean, lined edges
+
+		enza : simple cushions
+			basic unfilled straw cushions of coarse material
+			raw material, beige colour
+			often limited to shrines and temples, places of reserved comfort
+			shaped as a rounded coaster or placemat
+
+		zabuton : quality cushions
+			stuffed cotton cushions
+			surface often patterned and lined
+			found in all homes in place of chairs or raised seating
+			
+		endai : benches
+			used as table surfaces as often as seating, and often seating kneeled
+			popular in bamboo or cut wood
+			described as having use as a portable verandah
+
+		ton : stools
+			acceptable raised seating, often as a simple, single shape
+			traditionally found as featureless rope-wound cylinders, enduring to the modern day
+
+--------------------------------------------------------------------------------------
+
+	npc behaviours
+		rei
+			stand - shrine broom
+			stand - shrine talisman toss
+		✔	kneel - hearth tea
+			kneel - facing fire
+		✔	sit - book nook
+			sit - quilted table
+			sit - summer floor
+			lay - beach sunnies
+		ami
+			stand - blush
+		✔	kneel - hearth tea
+			kneel - bedroom book
+		✔	sit - shrine book
+			sit - quilted table
+			lay - beach book
+		cat
+		✔	groom
+		✔	run
+		✔	sleep
+		yuu
+
+		gramps
+
+
+--------------------------------------------------------------------------------------
+
+	npc things
+
+		schedule animations
+		schedule dialogue
+
+		daily dialogue
+
+		story events
+		heart events
+
+		update gift tastes with any new items
+
+		unique food/cooking/minigame from gramps
+
+		you've been acting like a granola bar
+
+		obon festival lanterns
+		obon festival yagura
+
+		yuuichiro working the shrine shop instead of rei
+		
+		trade with the crows
+			trade for your stolen crops by offering minerals, similar to fishpond interface
+
+		have yuuichiro sleeping at the shrine every once in a while
+		
+--------------------------------------------------------------------------------------
+
+	heart events
+
+		rei: skiing
+			4 hearts, question, winter
+			custom map
+
+		either: flower dance
+			4 hearts, question, will attend the flower dance
+
+		rei: christmas shopping
+			6 hearts, winter, 16th-25th
+			unique map
+
+		ami:
+			6 hearts
+
+		both: hot springs
+			6 hearts, and variants for who has more/less/equal hearts
+			unique wallpaper
+
+		rei: singing in the shrine hall
+			10 hearts, any season, shrine
+			unique wallpaper
+
+		ami: ferris wheel
+			10 hearts, question, any season, bus stop
+			unique wallpaper
+			
+		gramps: cooking/brewing/other
+			2 hearts, any season, shrine
+			refer to StardewValley.EventScript_GreenTea
+
+		gramps: shrine roof
+			8 hearts, spring/summer/autumn, shrine
+		✔	unique wallpaper
+
+--------------------------------------------------------------------------------------
+
+	character and portrait sprites
+
+		Portraits
+			Mars
+			- general
+			✔	Bitchy
+			✔	Usual
+			✔	Super bitchy
+			✔	Pensive
+				Happy
+			- specific
+			✔	Beside-happy
+			✔	Beside-blush
+			✔	Swoon
+			✔	Talisman
+				Praying
+			✔	Nuclear
+			- sheets
+				Daily
+				Bath
+
+			Mercury
+			- general
+			✔	Usual
+			✔	Happy
+			✔	Sad
+			- specific
+			✔	Surprise
+			✔	Blush
+			✔	Burger
+			✔	Riceball
+			✔	Book
+			- sheets
+				Daily
+				Bath
+
+		moon
+			hairstyles
+				usual
+				pinned
+			outfits
+				casual
+					spring
+						pink shirt white details, pants
+					summer
+						white coat, pink dress
+					autumn
+						purple jacket pink shirt, pants
+					winter
+						pink ski coat white fluffy trim
+					rain
+						pea-green raincoat pink top
+					snow
+						?
+				other
+					bathwear
+					miko
+					swimwear
+						pink one-piece
+					kimono
+						pink
+					summer uniform
+					winter uniform
+
+--------------------------------------------------------------------------------------
+
+	items
+
+		boomerang weapons
+			crescent moon
+			crystal wind
+
+	✔	shrine warp totem
+
+	a couple secret notes
+		burger
+		old photo of the shrine
+
+--------------------------------------------------------------------------------------
+
+	tilesheet variants
+
+		spring / summer / autumn / winter
+		festivals
+			obon
+
+--------------------------------------------------------------------------------------
+
+	custom festivals
+
+		obon
+			walk-in walk-out
+			anime food
+			free talisman
+
+		new year
+			locked-in
+			mochi mashing
+
+--------------------------------------------------------------------------------------
+
+	existing festivals
+		luau
+			taking a break from studies (with book)
+			shoo, getting a tan
+			blueberry pie and bowl
+		stardew valley fair
+			jinja stall
+			tagging along
+			-
+		halloween
+			?
+		night markets
+			travelling merchant, you wouldnt believe the things you can get
+			tagging along
+			-
+		ice festival
+			ice sculpture
+			going skiing
+			-
+		christmas
+			table for three
+
+--------------------------------------------------------------------------------------
+
+	arcades
+		light-gun game
+			v-chan
+			copy code from the stardew valley fair slingshot game
+				point-and-click, no windup
+				cooldown between clicks
+			consider this:
+				hitboxes accurately matching sprites, either by downsizing or upscaling
+			plays like cabal
+				on tutorial:
+					movement
+					dodge
+					shoot
+				on active game:
+				✔	locked camera
+				✔	player moves along X-axis on the bottom of the screen
+				✔	player may run left-right
+					player may dodge
+					HUD on the sides of the screen
+					enemies spawn along 3 lanes along X-axis
+					enemies may drop health packs on death
+					continues granted after a world
+				on damage taken:
+					energy meter builds
+					release energy meter to perform a special attack
+						crescent beam slowly tracking cursor
+						venus love shower
+						venus love megaton shower
+						mosquito incense typhoon against chuu-chuu
+				on health empty:
+					animate one frame
+					silhouette white-on-black
+					if lives remain:
+						shoot a life to continue
+						return to gameplay after a grace period
+					else:
+						banner-roll in a V pattern, in three stripes
+				on special:
+					pause game
+				✔	animate windup frame pair
+					decide which power to use
+					animate one frame
+					silhouette black-on-white
+					perform effects for the power
+					animate second frame
+					damage onscreen enemies
+					unpause game
+				on stage complete:
+					strike a pose
+					run rightwards offscreen after a stage
+					running cutscene between stages shows stats
+				on world complete:
+					card and title for world, fade to black, fade into game
+				on game complete:
+					???
+					stats
+
+			enemies throwing projectiles at the player
+				fx onscreen when hit
+				cans, rocks, bricks, bombs
+				bullets, rockets
+				dark energy, lightning balls
+				projectiles rotate during trajectory
+			enemies
+				gangsters
+				mobsters
+				youma
+			bosses
+				chuu-chuu
+					summon mosquitoes
+				founda/founde
+					multiple bosses
+				impostor V/dark V
+					mirror moves
+					multi-phase into ..?
+				danburite-sama
+					???
+			add a reward for completion..
+			add another reward for high scores...
+			
+--------------------------------------------------------------------------------------
+
+	music refs
+		(vortex/corridor) hiroshi yoshimura - green - ~20:00
+		(event) f.s. blumm - neumittag
+		
+--------------------------------------------------------------------------------------

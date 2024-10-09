@@ -1,0 +1,146 @@
+{
+    // Dynamic tokens:
+    // TODO: DEBUG: Remove HasFile and Year:9999 conditions from content packs in progress
+    // TODO: CONTENT: Shoes and socks sprites for each of Rei and Ami's conditional world sprites
+
+    //  Canon like:
+    // blowfish
+    //  Canon hate:
+    // asparagus
+
+    //  Love:
+    // 64 ruby / 82 fire quartz / 104 elven jewelry / 106 ornamental fan / 128 pufferfish / 283 holly / 612 cranberry candy
+    //  Like:
+    // 100 chipped amphora / 103 ancient doll / 109 ancient sword / 113 chicken statue / 115 prehistoric tool / 118 glass shards / 119 bone flute / 120 prehistoric handaxe / 123 ancient drum / 124 golden mask / 125 golden relic / 152 seaweed
+    //  Dislike:
+    // -6 MILK / -5 EGGS / 303 pale ale / 346 beer / 348 wine / 459 mead
+    //  Hate:
+    // -75 VEGETABLES / 207 bean hotpot / 605 artichoke dip
+    //  Neutral:
+    // -4 FISH
+
+    "Changes": [
+        {
+            "LogName": "Hikawa: Rei - Definition",
+            "Action": "EditData",
+            "Target": "Data/Characters",
+            "Entries": {
+                "Custom_Hikawa_Rei": {
+                    "DisplayName": "{{i18n:npc.rei.name}}",
+                    "BirthSeason": "Summer",
+                    "BirthDay": 2,
+                    "HomeRegion": "Other",
+                    "Gender": "Female",
+                    "Age": "Teen",
+                    "Manner": "Rude",
+                    "SocialAnxiety": "Outgoing",
+                    "Optimism": "Neutral",
+                    "IsDarkSkinned": false,
+                    "CanBeRomanced": false,
+                    "SocialTab": "HiddenUntilMet",
+                    "SocializeConditions": null,
+                    "ExcludeFromIntroductionsQuest": true,
+                    "ExcludeFromPerfectionScore": true,
+                    "EndSlideShow": "TrailingGroup",
+                    "FriendsAndFamily": {
+                        "Custom_Hikawa_Ami": null,
+                        "Custom_Hikawa_Usa": null,
+                        "Custom_Hikawa_Guy": null,
+                        "Custom_Hikawa_Gramps": "[LocalizedText Strings/Characters:Relative_Grandpa]"
+                    },
+                    "UnlockConditions": null,
+                    "SpawnIfMissing": true,
+                    "Home": [
+                        {
+                            "Id": "Default",
+                            "Location": "Custom_Hikawa_House", // "Custom_Hikawa_House"
+                            "Tile": {
+                                "X": 21, // 9
+                                "Y": 14 // 14
+                            },
+                            "Direction": "Down"
+                        }
+                    ],
+                    "TextureName": null,
+                    "Size": {
+                        "X": 16,
+                        "Y": 32
+                    },
+                    "Breather": true,
+                    "HiddenProfileEmoteSound": null,
+                    "HiddenProfileEmoteDuration": -1,
+                    "HiddenProfileEmoteStartFrame": 16,
+                    "HiddenProfileEmoteFrameCount": 4,
+                    "HiddenProfileEmoteFrameDuration": 200.0,
+                    "FestivalVanillaActorIndex": 0,
+                    "CustomFields": {}
+                }
+            }
+        },
+        {
+            "LogName": "Hikawa: Rei - Gift tastes",
+            "Action": "EditData",
+            "Target": "Data/NPCGiftTastes",
+            "Entries": {
+                "Custom_Hikawa_Rei": "{{i18n:npc.rei.gift.love}}/64 82 104 106 128 203 612/{{i18n:npc.rei.gift.like}}/100 103 109 113 115 118 119 120 123 124 125 152/{{i18n:npc.rei.gift.dislike}}/-6 -5 303 346 348 459/{{i18n:npc.rei.gift.hate}}/-75 207 605/{{i18n:npc.rei.gift.neutral}}/-4/"
+            }
+        },
+        {
+            "LogName": "Hikawa: Rei - Portrait sprites",
+            "Action": "Load",
+            "Target": "Portraits/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Portraits/{{outfit}}.png"
+        },
+        {
+            "LogName": "Hikawa: Rei - World sprites",
+            "Action": "Load",
+            "Target": "Characters/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Sprites/{{outfit}}.png"
+        },
+        {
+            "LogName": "Hikawa: Rei - Dialogue",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Data/Dialogue.json"
+        },
+        {
+            "LogName": "Hikawa: Rei - Schedule",
+            "Action": "Load",
+            "Target": "Characters/schedules/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Data/Schedule.json"
+        },
+        {
+            "LogName": "Hikawa: Rei - Schedule dialogue",
+            "Action": "Load",
+            "Target": "Strings/schedules/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Data/ScheduleDialogue.json"
+        }/*,
+        // Patches:
+        {
+            "LogName": "Hikawa: Rei - World sprite socks",
+            "Action": "EditImage",
+            "PatchMode": "Overlay",
+            "Target": "Characters/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Sprites/Socks.png",
+            "When": {
+                "Season": "fall, winter",
+                "LocationName": "Custom_Hikawa_House"
+            },
+            "Update": "OnLocationChange"
+        },
+        {
+            "LogName": "Hikawa: Rei - World sprite shoes",
+            "Action": "EditImage",
+            "PatchMode": "Overlay",
+            "Target": "Characters/Custom_Hikawa_Rei",
+            "FromFile": "assets/Characters/Rei/Sprites/Shoes.png",
+            "When": {
+                "LocationName |contains=Custom_Hikawa_House": false,
+                "Outfit |contains=beach": false,
+                "Outfit |contains=bath": false,
+                "Outfit |contains=kimono": false
+            },
+            "Update": "OnLocationChange"
+        }*/
+    ]
+}

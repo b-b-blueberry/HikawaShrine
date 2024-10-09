@@ -1,0 +1,33 @@
+﻿{
+    "Monsters": {
+        "Mafia": {
+            "Type": "Monster",
+            "Health": 1,
+            "Speed": 1,
+            "Size": 16,
+            "Score": 10,
+            "Flying": false,
+            "HurtInvincibleTime": 500,
+            "SpriteOrigin": {
+                "X": 0,
+                "Y": 384
+            },
+            "SpriteSize": {
+                "X": 16,
+                "Y": 24
+            },
+            "FireRate": 1,
+            "FireCount": 1,
+            "FireTime": 1600,
+            "FireSpread": 32,
+            "FireType": "Bullet",
+            "FireName": "Gun",
+            "ImpactDamage": 0,
+            "IdleTime": 1600,
+            "LootRate": 0.5,
+            "HurtSound": "cowboy_monsterhit",
+            "DieSound": "Cowboy_monsterDie",
+            "SpawnSound": "pullItemFromWater"
+        }
+    }
+}

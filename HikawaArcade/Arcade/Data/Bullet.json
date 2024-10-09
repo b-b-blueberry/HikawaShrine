@@ -1,0 +1,72 @@
+﻿{
+    "Player": {
+        "Speed": 3.0,
+        "Size": 8,
+        "BulletDamage": 1,
+        "Animation": "0/0/0",
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Gun": {
+        "Speed": 3.0,
+        "Size": 8,
+        "BulletDamage": 1,
+        "Animation": "0/0/0",
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 8,
+            "Y": 8
+        }
+    },
+    "Junk": {
+        "Speed": 1.5,
+        "Size": 12,
+        "BulletDamage": 1,
+        "Animation": "0/0/0",
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 12,
+            "Y": 12
+        }
+    },
+    "Bomb": {
+        "Speed": 2.0,
+        "Size": 16,
+        "BulletDamage": 1,
+        "Animation": "0/0/0",
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 16,
+            "Y": 16
+        }
+    },
+    "Beam": {
+        "Speed": 3.0,
+        "Size": 12,
+        "BulletDamage": 1,
+        "Animation": "0/0/0",
+        "SpriteOrigin": {
+            "X": 0,
+            "Y": 0
+        },
+        "SpriteSize": {
+            "X": 12,
+            "Y": 12
+        }
+    }
+}

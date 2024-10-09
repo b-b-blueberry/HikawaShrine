@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Arcade\Data\Bullet.json" />
+		<None Remove="Arcade\Data\Monster.json" />
+		<None Remove="Arcade\Data\Particle.json" />
+		<None Remove="Arcade\Data\Pickup.json" />
+		<None Remove="Arcade\Data\Player.json" />
+		<None Remove="Arcade\Data\Scene.json" />
+		<None Remove="Arcade\Data\Stage.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Arcade\Data\Bullet.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Arcade\Data\Monster.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Arcade\Data\Particle.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Arcade\Data\Pickup.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Arcade\Data\Player.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Arcade\Data\Scene.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Arcade\Data\Stage.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.0" />
+	</ItemGroup>
+
+</Project>

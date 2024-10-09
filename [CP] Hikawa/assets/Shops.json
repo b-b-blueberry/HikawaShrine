@@ -1,0 +1,117 @@
+﻿{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Shops - Souvenirs",
+            "Action": "EditData",
+            "Target": "Data/Shops",
+            "Entries": {
+                "Custom_Hikawa_Shop": {
+                    "Currency": 0,
+                    "StackSizeVisibility": null,
+                    "OpenSound": null,
+                    "PurchaseSound": null,
+                    "PurchaseRepeatSound": null,
+                    "PriceModifiers": [
+                        {
+                            "Id": "DefaultMarkup",
+                            "Condition": null,
+                            "Modification": "Multiply",
+                            "Amount": 2.0,
+                            "RandomAmount": null
+                        }
+                    ],
+                    "PriceModifierMode": "Stack",
+                    "Owners": [
+                        {
+                            "Name": "AnyOrNone",
+                            "Id": "AnyOrNone",
+                            "Condition": null,
+                            "Portrait": null,
+                            "Dialogues": [
+                                {
+                                    "Id": "Default",
+                                    "Condition": null,
+                                    "Dialogue": "[LocalizedText Strings/StringsFromCSFiles:ShopMenu.cs.11489]",
+                                    "RandomDialogue": null
+                                }
+                            ]
+                        }
+                    ],
+                    "VisualTheme": [
+                        {
+                            "Condition": null,
+                            "WindowBorderTexture": "LooseSprites/Cursors2",
+                            "WindowBorderSourceRect": {
+                                "X": 0,
+                                "Y": 256,
+                                "Width": 18,
+                                "Height": 18
+                            },
+                            "PortraitBackgroundTexture": null,
+                            "PortraitBackgroundSourceRect": null,
+                            "DialogueBackgroundTexture": null,
+                            "DialogueBackgroundSourceRect": null,
+                            "DialogueColor": null,
+                            "DialogueShadowColor": null,
+                            "ItemRowBackgroundTexture": "LooseSprites/Cursors2",
+                            "ItemRowBackgroundSourceRect": {
+                                "X": 18,
+                                "Y": 256,
+                                "Width": 15,
+                                "Height": 15
+                            },
+                            "ItemRowBackgroundHoverColor": "Blue",
+                            "ItemRowTextColor": "White",
+                            "ItemIconBackgroundTexture": "LooseSprites/Cursors2",
+                            "ItemIconBackgroundSourceRect": {
+                                "X": 33,
+                                "Y": 256,
+                                "Width": 18,
+                                "Height": 18
+                            },
+                            "ScrollUpTexture": null,
+                            "ScrollUpSourceRect": null,
+                            "ScrollDownTexture": null,
+                            "ScrollDownSourceRect": null,
+                            "ScrollBarFrontTexture": null,
+                            "ScrollBarFrontSourceRect": null,
+                            "ScrollBarBackTexture": null,
+                            "ScrollBarBackSourceRect": null
+                        }
+                    ],
+                    "SalableItemTags": null,
+                    "Items": [
+                        {
+                            "TradeItemId": null,
+                            "TradeItemAmount": 1,
+                            "Price": -1,
+                            "ApplyDifficultyModifier": null,
+                            "AvailableStock": -1,
+                            "AvailableStockLimit": "Global",
+                            "AvoidRepeat": false,
+                            "IgnoreShopPriceModifiers": true,
+                            "PriceModifiers": null,
+                            "PriceModifierMode": "Stack",
+                            "AvailableStockModifiers": null,
+                            "AvailableStockModifierMode": "Stack",
+                            "Condition": null,
+                            "Id": "(O)472",
+                            "ItemId": "(O)472",
+                            "RandomItemId": null,
+                            "MinStack": -1,
+                            "MaxStack": -1,
+                            "Quality": -1,
+                            "ObjectDisplayName": null,
+                            "ToolUpgradeLevel": -1,
+                            "IsRecipe": false,
+                            "StackModifiers": null,
+                            "StackModifierMode": "Stack",
+                            "QualityModifiers": null,
+                            "QualityModifierMode": "Stack"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

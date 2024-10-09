@@ -1,0 +1,88 @@
+﻿{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Strings - Load strings",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Strings/Strings",
+            "FromFile": "{{FirstValidFile: i18n/{{language}}.json, i18n/default.json }}"
+        },
+        {
+            "LogName": "Hikawa: Strings - NPC names",
+            "Action": "EditData",
+            "Target": "Strings/NPCNames",
+            "Entries": {
+                "Custom_Hikawa_Rei": "{{i18n:npc.rei.name}}",
+                "Custom_Hikawa_Ami": "{{i18n:npc.ami.name}}",
+                "Custom_Hikawa_Cat": "{{i18n:npc.cat.name}}",
+                "Custom_Hikawa_Usagi": "{{i18n:npc.usagi.name}}",
+                "Custom_Hikawa_Makoto": "{{i18n:npc.makoto.name}}",
+                "Custom_Hikawa_Minako": "{{i18n:npc.minako.name}}",
+                "Custom_Hikawa_Guy": "{{i18n:npc.guy.name}}",
+                "Custom_Hikawa_Gramps": "{{i18n:npc.gramps.name}}"
+            }
+        },
+        {
+            "LogName": "Hikawa: Strings - Messages",
+            "Action": "EditData",
+            "Target": "Strings/StringsFromMaps",
+            "Entries": {
+                "Custom_Hikawa_House_Blank": "{{i18n:world.house.blank}}",
+                "Custom_Hikawa_House_Hearth": "{{i18n:world.house.hearth}}",
+                "Custom_Hikawa_House_Logpile": "{{i18n:world.house.logpile}}",
+                "Custom_Hikawa_House_Backdoor": "{{i18n:world.house.backdoor}}",
+                "Custom_Hikawa_House_Kitchen": "{{i18n:world.house.kitchen}}",
+                "Custom_Hikawa_House_KitchenShelf": "{{i18n:world.house.kitchenshelf}}",
+                "Custom_Hikawa_House_Memorial": "{{i18n:world.house.memorial}}",
+                "Custom_Hikawa_House_Bear": "{{i18n:world.house.bear}}",
+                "Custom_Hikawa_House_Comics": "{{i18n:world.house.comics}}",
+                "Custom_Hikawa_House_Bookshelf": "{{i18n:world.house.bookshelf}}",
+                "Custom_Hikawa_House_Window": "{{i18n:world.house.window}}",
+                "Custom_Hikawa_House_Photos": "{{i18n:world.house.photos}}"
+            }
+        },
+        {
+            "LogName": "Hikawa: Strings - Animation data",
+            "Action": "EditData",
+            "Target": "Data/animationDescriptions",
+            "Entries": {
+                "custom_hikawa_rei_book": "16/16/16",
+                "custom_hikawa_rei_busy": "",
+                "custom_hikawa_rei_bath": "",
+                "custom_hikawa_rei_beach": "",
+                "custom_hikawa_rei_comic": "",
+                "custom_hikawa_rei_study": "",
+                "custom_hikawa_rei_sleep": "",
+
+                "custom_hikawa_ami_book": "16/16/16",
+                "custom_hikawa_ami_busy": "",
+                "custom_hikawa_ami_beach": "",
+                "custom_hikawa_ami_sleep": "",
+
+                "custom_hikawa_gramps_tea": "16/16 16 16 16 16 16 16 16 16 16 16 16 16 16 17 17 17 17 17 17/17",
+                "custom_hikawa_gramps_sleep": "18/18/18"
+            }
+        },
+        {
+            "LogName": "Hikawa: Strings - Animation strings",
+            "Action": "EditData",
+            "Target": "Strings/animationDescriptions",
+            "Entries": {
+                "custom_hikawa_rei_busy": "{{i18n:anim.rei.busy}}",
+                "custom_hikawa_rei_book": "{{i18n:anim.rei.busy}}",
+                "custom_hikawa_rei_bath": "{{i18n:anim.rei.busy}}",
+                "custom_hikawa_rei_beach": "{{i18n:anim.rei.busy}}",
+                "custom_hikawa_rei_comic": "{{i18n:anim.rei.busy}}",
+                "custom_hikawa_rei_study": "{{i18n:anim.rei.busy}}",
+                "custom_hikawa_rei_sleep": "{{i18n:anim.rei.busy}}",
+
+                "custom_hikawa_ami_book": "{{i18n:anim.ami.busy}}",
+                "custom_hikawa_ami_busy": "{{i18n:anim.ami.busy}}",
+                "custom_hikawa_ami_beach": "{{i18n:anim.ami.busy}}",
+                "custom_hikawa_ami_sleep": "{{i18n:anim.ami.busy}}",
+
+                "custom_hikawa_gramps_tea": "{{i18n:anim.gramps.sleep}}",
+                "custom_hikawa_gramps_sleep": "{{i18n:anim.gramps.sleep}}"
+            }
+        }
+    ]
+}

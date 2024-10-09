@@ -1,0 +1,20 @@
+﻿{
+    "V1": {
+        "Type": "Player",
+        "Health": 4,
+        "Energy": 7,
+        "Lives": 3,
+        "Speed": 5,
+        "Size": 16,
+        "HurtInvincibleTime": 1250,
+        "FireRate": 1,
+        "FireCount": 1,
+        "FireTime": 0,
+        "FireInaccuracy": 0,
+        "FireType": "Bullet",
+        "FireName": "Player",
+        "HurtSound": "breakingGlass",
+        "DieSound": "cowboy_dead",
+        "SpawnSound": "pullItemFromWater"
+    }
+}

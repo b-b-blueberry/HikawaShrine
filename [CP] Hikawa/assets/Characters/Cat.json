@@ -1,0 +1,63 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Cat - Definition",
+            "Action": "EditData",
+            "Target": "Data/Characters",
+            "Entries": {
+                "Custom_Hikawa_Cat": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Cat]",
+                    "BirthSeason": null,
+                    "BirthDay": 0,
+                    "HomeRegion": "Other",
+                    "Gender": "Female",
+                    "Age": "Adult",
+                    "Manner": "Neutral",
+                    "SocialAnxiety": "Neutral",
+                    "Optimism": "Neutral",
+                    "IsDarkSkinned": false,
+                    "CanBeRomanced": false,
+                    "LoveInterest": null,
+                    "SocialTab": "HiddenAlways",
+                    "SocializeConditions": "FALSE",
+                    "ExcludeFromIntroductionsQuest": true,
+                    "ExcludeFromPerfectionScore": true,
+                    "EndSlideShow": "Hidden",
+                    "FriendsAndFamily": {},
+                    "UnlockConditions": null,
+                    "SpawnIfMissing": false,
+                    "Home": [
+                        {
+                            "Id": "Default",
+                            "Location": "Custom_Hikawa_Shrine",
+                            "Tile": {
+                                "X": -99,
+                                "Y": -99
+                            },
+                            "Direction": "Up"
+                        }
+                    ],
+                    "TextureName": null,
+                    "Size": {
+                        "X": 16,
+                        "Y": 32
+                    },
+                    "Breather": false,
+                    "HiddenProfileEmoteSound": null,
+                    "HiddenProfileEmoteDuration": -1,
+                    "HiddenProfileEmoteStartFrame": -1,
+                    "HiddenProfileEmoteFrameCount": 1,
+                    "HiddenProfileEmoteFrameDuration": 200.0,
+                    "FestivalVanillaActorIndex": -1,
+                    "CustomFields": {}
+                }
+            }
+        },
+        {
+            "LogName": "Hikawa: Cat - Portrait sprites",
+            "Action": "Load",
+            "Target": "Portraits/Custom_Hikawa_Cat",
+            "FromFile": "assets/Characters/Cat/Portraits.png"
+        }
+    ]
+}

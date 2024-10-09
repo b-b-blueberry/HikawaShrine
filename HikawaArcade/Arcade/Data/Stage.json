@@ -1,0 +1,15 @@
+﻿{
+    "1-1": {
+        "PlayerHeightFromBottom": 220,
+        "Score": 300,
+        "Time": 60,
+        /*"Spawners": [
+            {
+                "X": 0,
+                "Y": 0,
+                "Type": "Monster",
+                "Name": "Mafia"
+            }
+        ]*/
+    }
+}

@@ -1,0 +1,686 @@
+﻿{
+    "UIData": {
+        "TokenSize": {
+            "X": 16,
+            "Y": 16
+        },
+        "Scale": 4,
+        "ScoreTickRate": 0.2,
+        "ParticleCount": 24,
+        "ParticleFadeRate": 0.0015,
+        "TokenScaleDefault": 1,
+        "TokenScaleActive": 1.5,
+        "TokenScaleHovered": 1.25,
+        "TokenScaleRate": 0.0033,
+        "TokenMotionRate": 0.01,
+        "TokenMotionMax": 0.2,
+        "LandSound": "skeletonStep",
+        "SwapSound": "shwip",
+        "MatchSmallSound": "moneyDial",
+        "MatchMediumSound": "purchase",
+        "MatchLargeSound": "coldSpell",
+        "IntroMusic": "Custom_Hikawa_Match3_intro",
+        "PauseMusic": "Custom_Hikawa_Match3_pause",
+        "CursorScale": 4,
+        "CursorTextureId": "LooseSprites/Cursors",
+        "CursorTextureRegion": {
+            "X": 0,
+            "Y": 16,
+            "Width": 10,
+            "Height": 10
+        },
+        "MenuTextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+        "DialogueIgnoreInputTime": 1000,
+        "DialogueAdvanceTextureRegion": {
+            "X": 80,
+            "Y": 48,
+            "Width": 16,
+            "Height": 16
+        },
+        "DialogueEndTextureRegion": {
+            "X": 96,
+            "Y": 48,
+            "Width": 16,
+            "Height": 16
+        },
+        "CharacterMeterOffset": {
+            "X": -32,
+            "Y": 8
+        },
+        "EnemyMeterOffset": {
+            "X": 16,
+            "Y": 8
+        },
+        "CharacterLifeFillRegion": {
+            "X": 5,
+            "Y": 9,
+            "Width": 7,
+            "Height": 60
+        },
+        "CharacterPowerFillRegion": {
+            "X": 5,
+            "Y": 9,
+            "Width": 7,
+            "Height": 60
+        },
+        "EnemyLifeFillRegion": {
+            "X": 4,
+            "Y": 9,
+            "Width": 7,
+            "Height": 60
+        },
+        "EnemyPowerFillRegion": {
+            "X": 4,
+            "Y": 9,
+            "Width": 7,
+            "Height": 60
+        },
+        "CharacterLifeTextureRegion": {
+            "X": 176,
+            "Y": 32,
+            "Width": 16,
+            "Height": 80
+        },
+        "CharacterPowerTextureRegion": {
+            "X": 160,
+            "Y": 32,
+            "Width": 16,
+            "Height": 80
+        },
+        "CharacterPowerMinorTextureRegion": {
+            "X": 160,
+            "Y": 16,
+            "Width": 16,
+            "Height": 16
+        },
+        "CharacterPowerMajorTextureRegion": {
+            "X": 160,
+            "Y": 0,
+            "Width": 16,
+            "Height": 16
+        },
+        "EnemyLifeTextureRegion": {
+            "X": 192,
+            "Y": 32,
+            "Width": 16,
+            "Height": 80
+        },
+        "EnemyPowerTextureRegion": {
+            "X": 208,
+            "Y": 32,
+            "Width": 16,
+            "Height": 80
+        },
+        "DigitRectangles": [
+            { // 0
+                "X": 160,
+                "Y": 224,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 1
+                "X": 160,
+                "Y": 176,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 2
+                "X": 176,
+                "Y": 176,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 3
+                "X": 192,
+                "Y": 176,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 4
+                "X": 160,
+                "Y": 192,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 5
+                "X": 176,
+                "Y": 192,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 6
+                "X": 192,
+                "Y": 192,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 7
+                "X": 160,
+                "Y": 208,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 8
+                "X": 176,
+                "Y": 208,
+                "Width": 16,
+                "Height": 16
+            },
+            { // 9
+                "X": 192,
+                "Y": 208,
+                "Width": 16,
+                "Height": 16
+            },
+            { // x
+                "X": 176,
+                "Y": 224,
+                "Width": 16,
+                "Height": 16
+            }
+        ]
+    },
+    "GameData": {
+        "InitialLife": 99,
+        "LifeMax": 99,
+        "PowerMax": 99,
+        "ScorePerToken": [ 0, 0, 0, 25, 75, 150, 250, 500, 1000 ],
+        "PowerPerToken": [ 0, 3, 9, 18, 36, 63, 99 ],
+        "InitialStage": "2"
+    },
+    "StageData": {
+        "1": {
+            "DisplayName": "Basics 1",
+            "Match": 3,
+            "GameSize": {
+                "X": 5,
+                "Y": 5
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B"
+            ],
+            "Character": "TestChara",
+            "Music": "Custom_Hikawa_Match3_intro",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 1000,
+            "TimeGoal": 0,
+            "StartDelay": 3999,
+            "EndDelay": 3999,
+            "Dialogue": [
+                "Cat:0:aaaa game",
+                "Cat:1:egg egg",
+                "Cat:0:match 3 $ to win!!"
+            ],
+            "NoTokenUpgrades": true,
+            "ResetTokens": true,
+            "NextStage": "2"
+        },
+        "2": {
+            "DisplayName": "Basics 2",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P"
+            ],
+            "Character": "TestChara",
+            "Enemy": "TestEnemy",
+            "Music": "Custom_Hikawa_Match3_intro",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 3000,
+            "TimeGoal": 0,
+            "StartDelay": 3999,
+            "EndDelay": 3999,
+            "Dialogue": [
+                "Cat:0:wow! so pro",
+                "Cat:1:let's big the board",
+                "Cat:0:match 4 $ for a power match!"
+            ],
+            "ResetTokens": true,
+            "NextStage": "3"
+        },
+        "3": {
+            "DisplayName": "Basics 3",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P",
+                "Y"
+            ],
+            "AddedTokens": [
+                "BLOCK"
+            ],
+            "AddedTokenRate": 15,
+            "Character": "TestChara",
+            "Enemy": "TestEnemy",
+            "Music": "Custom_Hikawa_Match3_bgm",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 3000,
+            "TimeGoal": 0,
+            "StartDelay": 3999,
+            "EndDelay": 3999,
+            "ResetTokens": false,
+            "NextStage": "4"
+        },
+        "4": {
+            "DisplayName": "Basics 4",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P",
+                "Y"
+            ],
+            "AddedTokens": [
+                "BLOCK"
+            ],
+            "AddedTokenRate": 15,
+            "Character": "TestChara",
+            "Enemy": "TestEnemy",
+            "Music": "Custom_Hikawa_Match3_bgm",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 5000,
+            "TimeGoal": 0,
+            "StartDelay": 3999,
+            "EndDelay": 3999,
+            "ResetTokens": false,
+            "NextStage": null
+        }
+    },
+    "TokenData": {
+        "R": {
+            "Char": " ",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 0,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "TokenUpgrade": "R+"
+        },
+        "G": {
+            "Char": "░",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 16,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "TokenUpgrade": "G+"
+        },
+        "B": {
+            "Char": "▓",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 32,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "TokenUpgrade": "B+"
+        },
+        "P": {
+            "Char": "P",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 48,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "TokenUpgrade": "P+"
+        },
+        "Y": {
+            "Char": "█",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 64,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "TokenUpgrade": "Y+"
+        },
+        "R+": {
+            "Char": " ",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 0,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true,
+            "ExplodeTextureRegion": {
+                "X": 128,
+                "Y": 32,
+                "Width": 32,
+                "Height": 32
+            },
+            "ExplodeColour": {
+                "R": 191,
+                "G": 0,
+                "B": 0,
+                "A": 255
+            },
+            "ExplodeScale": 2
+        },
+        "G+": {
+            "Char": "░",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 16,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true,
+            "ExplodeTextureRegion": {
+                "X": 128,
+                "Y": 32,
+                "Width": 32,
+                "Height": 32
+            },
+            "ExplodeColour": {
+                "R": 0,
+                "G": 124,
+                "B": 57,
+                "A": 255
+            },
+            "ExplodeScale": 2
+        },
+        "B+": {
+            "Char": "▓",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 32,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true,
+            "ExplodeTextureRegion": {
+                "X": 128,
+                "Y": 32,
+                "Width": 32,
+                "Height": 32
+            },
+            "ExplodeColour": {
+                "R": 15,
+                "G": 140,
+                "B": 255,
+                "A": 255
+            },
+            "ExplodeScale": 2
+        },
+        "P+": {
+            "Char": "P",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 48,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true,
+            "ExplodeTextureRegion": {
+                "X": 128,
+                "Y": 32,
+                "Width": 32,
+                "Height": 32
+            },
+            "ExplodeColour": {
+                "R": 221,
+                "G": 0,
+                "B": 209,
+                "A": 255
+            },
+            "ExplodeScale": 2
+        },
+        "Y+": {
+            "Char": "█",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 64,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": false,
+            "ExplodeTextureRegion": {
+                "X": 128,
+                "Y": 32,
+                "Width": 32,
+                "Height": 32
+            },
+            "ExplodeColour": {
+                "R": 48,
+                "G": 182,
+                "B": 244,
+                "A": 255
+            },
+            "ExplodeScale": 2
+        },
+        "R++": {
+            "Char": " ",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 0,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true
+        },
+        "G++": {
+            "Char": "░",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 16,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true
+        },
+        "B++": {
+            "Char": "▓",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 32,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true
+        },
+        "P++": {
+            "Char": "P",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 48,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": true
+        },
+        "Y++": {
+            "Char": "█",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 64,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsPowerToken": false
+        },
+        "BLOCK": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 80,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BLOCK_ICE": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 80,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BONUS1": {
+            "Char": "+",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 0,
+                "Y": 48,
+                "Width": 16,
+                "Height": 16
+            }
+        }
+    },
+    "CharacterData": {
+        "Cat": {
+            "FrameTextureRegion": {
+                "X": 0,
+                "Y": 64,
+                "Width": 48,
+                "Height": 48
+            },
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegions": [
+                {
+                    "X": 160,
+                    "Y": 112,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 160,
+                    "Y": 144,
+                    "Width": 32,
+                    "Height": 32
+                }
+            ]
+        },
+        "TestChara": {
+            "MatchToken": "Y",
+            "MinorToken": "Y+",
+            "MajorToken": "Y++",
+            "FrameTextureRegion": {
+                "X": 0,
+                "Y": 64,
+                "Width": 48,
+                "Height": 48
+            },
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegions": [
+                {
+                    "X": 0,
+                    "Y": 112,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 0,
+                    "Y": 144,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 0,
+                    "Y": 176,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 0,
+                    "Y": 208,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 0,
+                    "Y": 240,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 0,
+                    "Y": 272,
+                    "Width": 32,
+                    "Height": 32
+                }
+            ]
+        }
+    },
+    "EnemyData": {
+        "TestEnemy": {
+            "LifeMax": 50,
+            "LifeInitial": 50,
+            "PowerMax": 50,
+            "PowerInitial": 0,
+            "AttackRate": 5,
+            "AttackValue": 5,
+            "AttackDuration": 1000,
+            "AttackScale": 3,
+            "AttackTextureRegion": {
+                "X": 96,
+                "Y": 64,
+                "Width": 32,
+                "Height": 32
+            },
+            "FrameTextureRegion": {
+                "X": 48,
+                "Y": 64,
+                "Width": 48,
+                "Height": 48
+            },
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegions": [
+                {
+                    "X": 32,
+                    "Y": 112,
+                    "Width": 32,
+                    "Height": 32
+                },
+                {
+                    "X": 32,
+                    "Y": 144,
+                    "Width": 32,
+                    "Height": 32
+                }
+            ]
+        }
+    }
+}

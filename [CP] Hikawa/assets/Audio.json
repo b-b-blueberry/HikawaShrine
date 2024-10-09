@@ -1,0 +1,29 @@
+{
+    "Changes": [
+        // Audio definitions
+        {
+            "LogName": "Hikawa: Audio - Cue definitions",
+            "Target": "Data/AudioChanges",
+            "Action": "EditData",
+            "Entries": {
+                "Custom_Hikawa_Hop": {
+                    "ID": "Custom_Hikawa_Hop",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/hop.wav}}"
+                    ],
+                    "Category": "Sound"
+                } /*,
+                "Custom_Hikawa_Arcade_Theme": {
+                    "ID": "Custom_Hikawa_Arcade_Theme",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/PrincessRemedySong2.wav}}"
+                    ],
+                    "Category": "Music",
+                    "StreamedVorbis": false,
+                    "Looped": true,
+                    "UseReverb": false
+                }*/
+            }
+        }
+    ]
+}

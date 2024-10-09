@@ -1,0 +1,52 @@
+﻿{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Sprites - Outdoors",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+            "FromFile": "assets/Locations/z_hikawa_outdoors.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Indoors",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Intdoors",
+            "FromFile": "assets/Locations/z_hikawa_indoors.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Extras",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Extras",
+            "FromFile": "assets/Sprites/z_hikawa_extras.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Lights",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Lights",
+            "FromFile": "assets/Sprites/z_hikawa_lights.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Cats",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Cats",
+            "FromFile": "assets/Sprites/z_hikawa_cats.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Crows",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Crows",
+            "FromFile": "assets/Sprites/z_hikawa_crows.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Events",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Events",
+            "FromFile": "assets/Sprites/z_hikawa_events.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Arcade",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Arcades",
+            "FromFile": "assets/Sprites/z_hikawa_arcade.png"
+        }
+    ]
+}

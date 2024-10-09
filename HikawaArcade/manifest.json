@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Hikawa: Arcade",
+  "Author": "blueberry",
+  "Version": "1.0.0",
+  "Description": "What the ..?",
+  "UniqueID": "blueberry.Hikawa.Arcade",
+  "EntryDll": "HikawaArcade.dll",
+  "UpdateKeys": [ "Nexus:????" ],
+  "Dependencies": [
+    {
+      "UniqueID": "blueberry.Hikawa",
+      "IsRequired": true
+    }
+  ]
+}
