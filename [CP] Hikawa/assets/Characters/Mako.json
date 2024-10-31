@@ -1,0 +1,105 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Mako - Definition",
+            "Action": "EditData",
+            "Target": "Data/Characters",
+            "Entries": {
+                "Custom_Hikawa_Mako": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Mako]",
+                    "BirthSeason": "Winter",
+                    "BirthDay": 2,
+                    "HomeRegion": "Other",
+                    "Gender": "Female",
+                    "Age": "Teen",
+                    "Manner": "Polite",
+                    "SocialAnxiety": "Outgoing",
+                    "Optimism": "Positive",
+                    "IsDarkSkinned": false,
+                    "CanBeRomanced": false,
+                    "SocialTab": "HiddenUntilMet",
+                    "SocializeConditions": null,
+                    "ExcludeFromIntroductionsQuest": true,
+                    "ExcludeFromPerfectionScore": true,
+                    "EndSlideShow": "TrailingGroup",
+                    "FriendsAndFamily": {
+                        "Custom_Hikawa_Ami": ""
+                    },
+                    "UnlockConditions": null,
+                    "SpawnIfMissing": true,
+                    "Home": [
+                        {
+                            "Id": "Default",
+                            "Location": "Custom_Hikawa_Shrine", // "Custom_Hikawa_House"
+                            "Tile": {
+                                "X": 33, // ??
+                                "Y": 36 // ??
+                            },
+                            "Direction": "Down"
+                        }
+                    ],
+                    "TextureName": null,
+                    "Size": {
+                        "X": 16,
+                        "Y": 32
+                    },
+                    "Breather": true,
+                    "BreathChestRect": {
+                        "X": 5,
+                        "Y": 16,
+                        "Width": 6,
+                        "Height": 4
+                    },
+                    "BreathChestPosition": {
+                        "X": 32,
+                        "Y": -4
+                    },
+                    "Shadow": null,
+                    "EmoteOffset": {
+                        "X": 0,
+                        "Y": 0
+                    },
+                    "HiddenProfileEmoteSound": null,
+                    "HiddenProfileEmoteDuration": -1,
+                    "HiddenProfileEmoteStartFrame": 16,
+                    "HiddenProfileEmoteFrameCount": 4,
+                    "HiddenProfileEmoteFrameDuration": 200.0,
+                    "FestivalVanillaActorIndex": 0,
+                    "CustomFields": {}
+                }
+            }
+        },
+        {
+            "LogName": "Hikawa: Mako - Gift tastes",
+            "Action": "EditData",
+            "Target": "Data/NPCGiftTastes",
+            "Entries": {
+                "Custom_Hikawa_Mako": "{{i18n:npc.mako.gift.love}}//{{i18n:npc.mako.gift.like}}//{{i18n:npc.mako.gift.dislike}}//{{i18n:npc.mako.gift.hate}}//{{i18n:npc.mako.gift.neutral}}//"
+            }
+        },
+        {
+            "LogName": "Hikawa: Mako - Portrait sprites",
+            "Action": "Load",
+            "Target": "Portraits/Custom_Hikawa_Mako",
+            "FromFile": "assets/Characters/Mako/Portraits/Default.png"
+        },
+        {
+            "LogName": "Hikawa: Mako - World sprites",
+            "Action": "Load",
+            "Target": "Characters/Custom_Hikawa_Mako",
+            "FromFile": "assets/Characters/Mako/Sprites/Default.png"
+        },
+        {
+            "LogName": "Hikawa: Mako - Dialogue",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/Custom_Hikawa_Mako",
+            "FromFile": "assets/Characters/Mako/Data/Dialogue.json"
+        },
+        {
+            "LogName": "Hikawa: Mako - Schedule",
+            "Action": "Load",
+            "Target": "Characters/schedules/Custom_Hikawa_Mako",
+            "FromFile": "assets/Characters/Mako/Data/Schedule.json"
+        }
+    ]
+}

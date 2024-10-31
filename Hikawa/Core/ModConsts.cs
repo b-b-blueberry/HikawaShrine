@@ -21,8 +21,8 @@ namespace Hikawa
 		public const string NpcAmi = ContentPrefix + "Ami";
 		public const string NpcCat = ContentPrefix + "Cat";
 		public const string NpcUsa = ContentPrefix + "Usagi";
-		public const string NpcMakoto = ContentPrefix + "Makoto";
-		public const string NpcMinako = ContentPrefix + "Minako";
+		public const string NpcMako = ContentPrefix + "Mako";
+		public const string NpcMina = ContentPrefix + "Mina";
 		public const string NpcGuy = ContentPrefix + "Yuichiro";
 		public const string NpcGramps = ContentPrefix + "Gramps";
 		public const string NpcVolleyballSuffix = "_Volleyball";

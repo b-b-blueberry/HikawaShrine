@@ -11,6 +11,11 @@
             "FromFile": "assets/Characters/Ami.json"
         },
         {
+            "LogName": "Hikawa: Characters - Mako",
+            "Action": "Include",
+            "FromFile": "assets/Characters/Mako.json"
+        },
+        {
             "LogName": "Hikawa: Characters - Cat",
             "Action": "Include",
             "FromFile": "assets/Characters/Cat.json"

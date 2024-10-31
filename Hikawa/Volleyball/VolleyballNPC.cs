@@ -31,8 +31,8 @@ namespace Hikawa.Volleyball
 				ModConsts.NpcRei => "npc.rei.name",
 				ModConsts.NpcAmi => "npc.ami.name",
 				ModConsts.NpcUsa => "npc.usagi.name",
-				ModConsts.NpcMakoto => "npc.makoto.name",
-				ModConsts.NpcMinako => "npc.minako.name"
+				ModConsts.NpcMako => "npc.makoto.name",
+				ModConsts.NpcMina => "npc.minako.name"
 			};
 			return new VolleyballNPC(
 				name: baseName + ModConsts.NpcVolleyballSuffix,
