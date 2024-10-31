@@ -1,26 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>Hikawa_CP</AssemblyName>
-		<RootNamespace>Hikawa_CP</RootNamespace>
-		<Version>1.0.0</Version>
 		<TargetFramework>net6.0</TargetFramework>
-		<Platforms>AnyCPU</Platforms>
-		<PlatformTarget>AnyCPU</PlatformTarget>
 		<IgnoreModFilePatterns>\.dll$, \.pdb$</IgnoreModFilePatterns>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<Optimize>False</Optimize>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<Optimize>False</Optimize>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.0" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="content.json">
@@ -35,4 +18,7 @@
 		<Folder Include="assets\Match3\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.0" />
+	</ItemGroup>
 </Project>

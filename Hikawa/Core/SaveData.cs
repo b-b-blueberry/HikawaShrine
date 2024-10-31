@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Hikawa
+﻿namespace Hikawa
 {
-    public class SaveData
+	public record class SaveData
     {
+        public int BellRingCount;
         public Vector2 LostGlassesQuestTile;
         public Vector2 LostJewelryQuestTile;
 	}

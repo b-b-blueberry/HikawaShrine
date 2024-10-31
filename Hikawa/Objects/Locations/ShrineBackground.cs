@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -8,8 +9,26 @@ namespace Hikawa.Objects.Locations
 {
 	public class ShrineBackground : Background
 	{
+		public class Cloud
+		{
+			public static float Wind;
+			public static float RandomScale => (float)(Game1.random.NextDouble() * 3f + 1f);
+			public bool IsOffScreen => this.X < -149 * Game1.pixelZoom;
+
+			public float X;
+			public float Scale;
+
+			public void Move(float dt)
+			{
+				float idle = dt * 0.6f;
+				this.X += -(idle + Cloud.Wind) * this.Scale / Game1.pixelZoom;
+			}
+		}
+
+		public bool IsWindy;
 		public float AdjustedTime;
 		public float DarknessRatio;
+		public List<Cloud> Clouds;
 
 		public ShrineBackground(GameLocation location) : base(location, color: Color.White, onlyMapBG: false)
 		{
@@ -17,10 +36,34 @@ namespace Hikawa.Objects.Locations
 			this.initialViewportY = Game1.viewport.Y;
 			this.tempSprites = [];
 			this.cloudsTexture = Game1.content.Load<Texture2D>("Minigames\\Clouds");
+
+			this.IsWindy = Game1.currentLocation.IsDebrisWeatherHere();
+			this.Clouds = new((3 + Game1.dayOfMonth % 3) * (this.IsWindy ? 2 : 1));
+			for (int i = 0; i < this.Clouds.Capacity; ++i)
+			{
+				this.Clouds.Add(new()
+				{
+					X = Game1.random.Next(location.Map.DisplayWidth),
+					Scale = Cloud.RandomScale
+				});
+			}
 		}
 
 		public override void update(xTile.Dimensions.Rectangle viewport)
 		{
+			float dt = Game1.currentGameTime.ElapsedGameTime.Milliseconds / 50f; // Elapsed time
+			float decay = -0.0035f;
+			Cloud.Wind = Math.Max(0, Cloud.Wind + dt * (decay - Game1.windGust / 350f));
+			foreach (Cloud cloud in this.Clouds)
+			{
+				cloud.Move(dt);
+				if (cloud.IsOffScreen)
+				{
+					cloud.X = this.location.Map.DisplayWidth;
+					cloud.Scale = Cloud.RandomScale;
+				}
+			}
+
 			base.update(viewport);
 		}
 
@@ -31,7 +74,7 @@ namespace Hikawa.Objects.Locations
 
 			bool isRain = Game1.isRaining;
 			bool isGreenRain = Utility.isGreenRainDay(Game1.dayOfMonth, Game1.season);
-			bool isWindy = Game1.currentLocation.IsDebrisWeatherHere();
+			bool isWindy = this.IsWindy;
 			bool isWinter = Game1.IsWinter;
 			bool isDark = Game1.isStartingToGetDarkOut(Game1.currentLocation);
 
@@ -47,14 +90,15 @@ namespace Hikawa.Objects.Locations
 			Color fgEndColor = isRain || isWinter ? Color.DarkSlateGray : Color.Blue;
 			Rectangle source;
 			Vector2 zero = new Vector2(x: Game1.viewport.X, y: Game1.viewport.Y) * -1f;
+			Vector2 offset = new Vector2(0, 2) * Game1.tileSize;
 
 			if (isDark)
 			{
-				c = new Color(
+				this.c = new Color(
 					r: 255f,
 					g: 255f - Math.Max(100f, preciseTime - 1800f),
 					b: 255f - Math.Max(100f, (preciseTime - 1800f) / 2f));
-				cloudAlpha = Math.Clamp((2000f - preciseTime) / 500f, 0, 1);
+				cloudAlpha = 1f - Utils.RatioFromPreciseTime(startTime: Game1.getStartingToGetDarkTime(Game1.currentLocation), endTime: 2100);
 				skyAlpha = Math.Clamp((2200f - preciseTime) / 200f, 0, 1);
 				alpha = Math.Clamp((2000f - preciseTime) / 100f, 0, 1);
 				bgColor = Color.Lerp(bgColor, bgEndColor, 1 - alpha);
@@ -62,6 +106,8 @@ namespace Hikawa.Objects.Locations
 				bgColor.A = (byte)(255 * Math.Max(alpha, 0.5f));
 				fgColor.A = 255;
 			}
+
+			Color cloudColor = Color.White;
 
 			Rectangle display = new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height);
 
@@ -112,7 +158,7 @@ namespace Hikawa.Objects.Locations
 			else
 			{
 				// light skies
-				int skyH = 20 * Game1.tileSize;
+				int skyH = (int)offset.Y + 20 * Game1.tileSize;
 				int skyY = 6 * Game1.tileSize;
 				// fill colour
 				b.Draw(
@@ -157,7 +203,9 @@ namespace Hikawa.Objects.Locations
 						float scale = 2f;
 						b.Draw(
 							texture: Game1.mouseCursors,
-							position: zero + new Vector2(i * scale, 0),
+							position: zero
+								+ offset
+								+ new Vector2(i * scale, -1.5f * Game1.tileSize),
 							sourceRectangle: source,
 							color: Color.White * (1f - skyAlpha),
 							rotation: 0f,
@@ -178,10 +226,12 @@ namespace Hikawa.Objects.Locations
 						eveningRange = eveningRange / 4 * 5;
 						float eveningRatio = Math.Clamp((preciseTime - eveningStartTime) / eveningRange, 0, 1);
 						float eveningAlpha = Utils.CircularFromRatio(eveningRatio);
+						cloudColor = Color.Lerp(Color.White, Color.Salmon, eveningAlpha);
+						cloudAlpha += eveningAlpha * 0.75f;
 						source = new(544, 208, 16, 240);
 						b.Draw(
 							texture: ModEntry.Sprites,
-							destinationRectangle: new Rectangle(0, (int)(-skyY * eveningAlpha), Game1.viewport.Width, skyH),
+							destinationRectangle: new Rectangle(0, (int)(zero.Y - skyY * eveningAlpha), Game1.viewport.Width, skyH),
 							sourceRectangle: source,
 							color: Color.White * eveningAlpha,
 							rotation: 0f,
@@ -192,22 +242,25 @@ namespace Hikawa.Objects.Locations
 				}
 
 				// clouds
-				if (!isWinter && isWindy)
+				if (!isWinter && cloudAlpha > 0.075f)
 				{
-					// StardewValley.Background.cs
-					Vector2 cloudPosition = new Vector2(
-						x: preciseTime / 2600f * (Game1.viewport.Width + 2048),
-						y: 0);
-					b.Draw(
-						texture: this.cloudsTexture,
-						position: zero + cloudPosition,
-						sourceRectangle: new Rectangle(0, 0, 512, 340),
-						color: Color.White * cloudAlpha,
-						rotation: 0f,
-						origin: Vector2.Zero,
-						scale: Game1.pixelZoom,
-						effects: SpriteEffects.None,
-						layerDepth: 0.000025f);
+					// StardewValley.Menus.TitleMenu.cs
+					float height = 2.75f * Game1.tileSize;
+					for (int i = 0; i < this.Clouds.Count; i++)
+					{
+						b.Draw(
+							texture: this.cloudsTexture,
+							position: zero
+								+ offset
+								+ new Vector2(x: this.Clouds[i].X, y: height - i * 12 * Game1.pixelZoom),
+							sourceRectangle: (i % 3 == 0) ? new Rectangle(152, 447, 123, 55) : ((i % 3 == 1) ? new Rectangle(0, 471, 149, 66) : new Rectangle(410, 467, 63, 37)),
+							color: cloudColor * cloudAlpha * (this.Clouds[i].Scale / Game1.pixelZoom),
+							rotation: 0f,
+							origin: Vector2.Zero,
+							scale: this.Clouds[i].Scale,
+							effects: SpriteEffects.None,
+							layerDepth: 0.000025f + i / 100000f);
+					}
 				}
 			}
 
@@ -226,9 +279,10 @@ namespace Hikawa.Objects.Locations
 				bool isUpper = row == 0;
 				b.Draw(
 					texture: Game1.mouseCursors,
-					position: new Vector2(0, yOffset / (row == 0 ? 2.5f : 4f)) + Game1.GlobalToLocal(new Vector2(
-						x: (col == 0 ? 0 : source.Width * Game1.pixelZoom * col) + (row % 2 == 0 ? 0 : -source.Width * Game1.pixelZoom / 2),
-						y: row == 0 ? source.Height * 1.25f : source.Height * 4.25f)),
+					position: offset +
+						new Vector2(0, yOffset / (row == 0 ? 2.5f : 4f)) + Game1.GlobalToLocal(new Vector2(
+							x: (col == 0 ? 0 : source.Width * Game1.pixelZoom * col) + (row % 2 == 0 ? 0 : -source.Width * Game1.pixelZoom / 2),
+							y: row == 0 ? source.Height * 1.25f : source.Height * 4.25f)),
 					sourceRectangle: new Rectangle(
 						x: source.X,
 						y: source.Y + (seasonOffset * source.Height),
@@ -252,12 +306,13 @@ namespace Hikawa.Objects.Locations
 					height: 208);
 				b.Draw(
 					texture: ModEntry.Sprites,
-					position: new Vector2(0, yOffset / 5f) + Game1.GlobalToLocal(new Vector2(
-						x: i == 0 ? 0 : Game1.currentLocation.Map.DisplayWidth - fillSource.Width * Game1.pixelZoom,
-						y: source.Height * 7.5f)),
+					position: offset + 
+						new Vector2(0, yOffset / 5f) + Game1.GlobalToLocal(new Vector2(
+							x: i == 0 ? 0 : Game1.currentLocation.Map.DisplayWidth - fillSource.Width * Game1.pixelZoom,
+							y: source.Height * 7.5f)),
 					sourceRectangle: new Rectangle(
 						x: fillSource.X,
-						y: fillSource.Y + (seasonOffset * fillSource.Width),
+						y: fillSource.Y/* + (seasonOffset * fillSource.Width)*/,
 						width: fillSource.Width,
 						height: fillSource.Height),
 					color: Color.White,
@@ -265,7 +320,7 @@ namespace Hikawa.Objects.Locations
 					origin: Vector2.Zero,
 					scale: Game1.pixelZoom,
 					effects: i == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
-					layerDepth: 0.0005f);
+					layerDepth: 0.0005f * i);
 			}
 		}
 	}

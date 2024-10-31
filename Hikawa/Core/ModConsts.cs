@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using xTile.Dimensions;
-
-namespace Hikawa
+﻿namespace Hikawa
 {
 	public class ModConsts
 	{
@@ -14,6 +10,7 @@ namespace Hikawa
 		// Directories
 		public const string ContentPrefix = "Custom_Hikawa_";
 		public const string SaveDataKey = ContentPrefix + "SaveData";
+		public const string SpaceCoreXmlPrefix = "Mods_Blueberry_Hikawa_";
 
 		/* Game objects */
 		// NPCs
@@ -52,11 +49,13 @@ namespace Hikawa
 		public const string ActionWardrobe = ContentPrefix + "Wardrobe";
         public const string ActionEma = ContentPrefix + "Ema";
         public const string ActionVortex = ContentPrefix + "Vortex";
+        public const string ActionCrowTrade = ContentPrefix + "CrowTrade";
 		// Tile properties
-		public const string PropertyDummy = ContentPrefix + "Dummy";
 		public const string TilePetalSpawner = ContentPrefix + "PetalSpawner";
 		// Touch actions
 		public const string TouchHop = ContentPrefix + "Hop";
+		// Trigger actions
+		public const string TriggerDialogueEffects = "DialogueEffects";
 		// Custom fields
 		public const string FieldLights = ContentPrefix + "Lights";
 		// Event commands
@@ -69,25 +68,6 @@ namespace Hikawa
         public const string ItemLostJewelry = ContentPrefix + "LostJewelry";
 		// Tilesheets
 		public const string HouseTilesheetName = "z_Custom_Hikawa_House";
-		// Coordinates
-		public static readonly Vector2 HouseChimneyTile = new(x: 53, y: 22);
-		public static readonly Location CrowSpawnRadius = new(x: 2, y: 2);
-		public static readonly xTile.Dimensions.Rectangle CrowSpawnArea = new(x: 23, y: 31, width: 30, height: 20);
-		public static readonly Vector2[] CrowTopOfStairsSpawn = [new(33.5f, 53f), new(35f, 54f)];
-		public static readonly Dictionary<float, Vector2[]> CrowPerches = new()
-		{   // Keyed by chance to appear, chance is measured by whether key is higher than the random roll
-			// Paired by spawn positions for Phobos, Deimos
-			// Third value in list is hop-range for crow critters
-			{ 0.2f, new Vector2[] { new(33.8f, 29.6f), new(35.2f, 29.6f) } },		// Shrine front
-			{ 0.3f, new Vector2[] { new(30f, 29f), new(32f, 29.25f) } },			// Shrine left
-			{ 0.4f, new Vector2[] { new(37f, 29.25f), new(39f, 29f) } },			// Shrine right
-			{ 0.5f, new Vector2[] { new(45f, 27f), new(47f, 26.75f), new(2f) } },	// House
-			{ 0.65f, new Vector2[] { new(31f, 37.2f), new(38f, 37.2f) } },			// Tourou
-			{ 0.8f, new Vector2[] { new(33f, 45.5f), new(36f, 45.5f), new(2f) } },	// Torii
-			{ 0.9f, new Vector2[] { new(21.5f, 17.5f), new(23.5f, 18.5f) } },		// Torii back
-			{ 0.95f, new Vector2[] { new(25f, 40.3f), new(27.075f, 40.125f) } },	// Omiyageya
-			{ 1f, new Vector2[] { new(50f, 40f), new(52f, 41f) } },					// Hall
-		};
 		// Values and things
 		public const string CommandPrefix = "bb";
         public const int GenericID = 87008;

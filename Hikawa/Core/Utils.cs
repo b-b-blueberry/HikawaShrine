@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Hikawa.Modules;
+using Hikawa.Objects.Critters;
 using Hikawa.Objects.Locations;
-using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
-using StardewValley.GameData.Locations;
 using StardewValley.Locations;
 using xTile.ObjectModel;
-using static StardewValley.Menus.CharacterCustomization;
-using xTile.Tiles;
-using Microsoft.Xna.Framework.Graphics;
-using Hikawa.Objects.Critters;
 
 namespace Hikawa
 {
@@ -168,10 +162,23 @@ namespace Hikawa
 		{
 			if (string.IsNullOrEmpty(answer) || answer == "cancel")
 				return;
-			var ans = answer.Split(' ');
-			Log.W($"Received dialogue answer \'{ans.Aggregate("", (s, s1) => $"{s} {s1}")}\'.");
-			switch (ans[0])
+
+			string[] split = answer.Split(' ');
+			Log.W($"Response: {answer}");
+			switch (split[0])
 			{
+				case "offer_yes":
+				{
+					if (Game1.currentLocation is Shrine shrine)
+					{
+						shrine.StartBellSequence(who: who);
+					}
+					break;
+				}
+				case "offer_no":
+				{
+					break;
+				}
 				case "wardrobe_yes":
 					Game1.playSound("doorCreakReverse");
 					break;
@@ -190,7 +197,7 @@ namespace Hikawa
 
 		#region Map operations
 
-		public static List<Vector2> GetTilesWithProperty(GameLocation where, string layer, string property, PropertyValue value = null)
+		public static List<Vector2> GetTilesWithProperty(GameLocation where, string layer, string property, PropertyValue value = null, bool onlyOne = false)
 		{
 			List<Vector2> tiles = [];
 			var l = where?.Map?.GetLayer(layer);
@@ -203,26 +210,45 @@ namespace Hikawa
 					if (l.Tiles[x, y]?.Properties?.TryGetValue(property, out var v) is bool b && b && (value is null || v == value))
 					{
 						tiles.Add(new(x, y));
+						if (onlyOne)
+							return tiles;
 					}
 				}
 			}
 			return tiles;
 		}
 
+		public static void ResetCustomSharedMapProperties(GameLocation where)
+		{
+			where.critters?.RemoveAll(c => c is HangingSprite);
+			where.critters?.RemoveAll(c => c is LightTile);
+			where.sharedLights?.RemoveWhere(pair => pair.Key.StartsWith(HearthLight.BaseId));
+		}
+
 		public static void ApplyCustomSharedMapProperties(GameLocation where)
 		{
+			// Hanging sprites
+			if (ModEntry.ModData.HangingSprites.TryGetValue(where.Name, out List<HangingSpriteEntry> sprites))
+			{
+				foreach (HangingSpriteEntry entry in sprites)
+				{
+					where.addCritter(new HangingSprite(entry));
+				}
+			}
+
+			// Light tiles
 			if (ModEntry.ModData.LightTiles.TryGetValue(where.Name, out List<LightTileEntry> lightTiles))
 			{
-				where.critters.RemoveAll(c => c is LightTile);
 				foreach (LightTileEntry entry in lightTiles)
 				{
 					where.addCritter(new LightTile(entry));
 				}
 			}
+
+			// Lights
 			if (ModEntry.ModData.Lights.TryGetValue(where.Name, out List<LightEntry> lights))
 			{
 				int i = 0, j = 0;
-				where.sharedLights.RemoveWhere(pair => pair.Key.StartsWith(HearthLight.BaseId));
 				foreach (LightEntry entry in lights)
 				{
 					LightSource light;
@@ -248,6 +274,30 @@ namespace Hikawa
 					where.sharedLights.Add(key: light.Id, value: light);
 				}
 			}
+		}
+
+		#endregion
+
+		#region Special effects
+
+		public static void CreateSparkleAtTile(GameLocation where, Vector2 tile)
+		{
+			Rectangle source = new(272, 0, 16, 16);
+			var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
+				textureName: AssetManager.ExtraSpritesAssetName,
+				sourceRect: source,
+				position: tile * Game1.tileSize,
+				flipped: false,
+				alphaFade: 0f,
+				color: Color.White);
+			sprite.alpha = 0f;
+			sprite.alphaFade = -0.035f;
+			sprite.alphaFadeFade = -0.00075f;
+			sprite.interval = 1500f;
+			sprite.layerDepth = 0f;
+			sprite.scale = Game1.pixelZoom;
+			sprite.rotationChange = (float)(Math.PI * 2f / 10f * sprite.interval);
+			where.TemporarySprites.Add(sprite);
 		}
 
 		#endregion
@@ -307,8 +357,10 @@ namespace Hikawa
 
 		internal static string GetContentPackId(string name)
 		{
-			return Regex.Replace(ModConsts.ContentPrefix + name,
-				"[^a-zA-Z0-9_.]", "");
+			return Regex.Replace(
+				input: ModConsts.ContentPrefix + name,
+				pattern: "[^a-zA-Z0-9_.]",
+				replacement: "");
 		}
 
 		internal static bool TryPlaySound(string cueName)
@@ -318,7 +370,14 @@ namespace Hikawa
 
 		internal static float CircularFromRatio(float ratio)
 		{
-			return 0.5f + 0.5f * (float)(Math.Sin(-Math.PI * 0.5f + ratio * Math.PI * 2f));
+			return 0.5f + 0.5f * MathF.Sin(-MathF.PI * 0.5f + ratio * MathF.PI * 2f);
+		}
+
+		internal static float RatioFromPreciseTime(int startTime, int endTime, bool isCircular = false)
+		{
+			int range = endTime - startTime;
+			float ratio = Math.Clamp((ModEntry.State.Value.PreciseTime - startTime) / range, 0f, 1f);
+			return isCircular ? Utils.CircularFromRatio(ratio) : ratio;
 		}
 
 		#endregion

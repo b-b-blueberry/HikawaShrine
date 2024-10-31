@@ -3,7 +3,7 @@ using StardewValley;
 
 namespace Hikawa.Objects.Locations
 {
-	[XmlType($"Mods_Blueberry_Hikawa_{nameof(Hall)}")] // SpaceCore serialisation signature
+	[XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(Hall)}")] // SpaceCore serialisation signature
 	public class Hall : GameLocation
 	{
 		public Hall() : base() {}
@@ -30,6 +30,7 @@ namespace Hikawa.Objects.Locations
 
 		public override void cleanupBeforePlayerExit()
 		{
+			Utils.ResetCustomSharedMapProperties(this);
 			Game1.player.canOnlyWalk = false;
 
 			base.cleanupBeforePlayerExit();

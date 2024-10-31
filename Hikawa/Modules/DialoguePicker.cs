@@ -1,13 +1,14 @@
-﻿using StardewValley;
-using StardewValley.Extensions;
-using StardewValley.Mods;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using StardewModdingAPI;
+using StardewValley;
+using StardewValley.Extensions;
+using StardewValley.Mods;
 
 namespace Hikawa.Modules
 {
-    public static class DialoguePicker
+	public static class DialoguePicker
     {
         private static ModDataDictionary Data => Game1.player.modData;
 
@@ -25,7 +26,8 @@ namespace Hikawa.Modules
 			Sessions[Game1.player.UniqueMultiplayerID] = Game1.player.Name;
 
 			UsedKeys.Clear();
-			UsedKeys.AddRange(Data[DataKeyUsedKeys]?.Split(',') ?? []);
+			if (Data.TryGetValue(DataKeyUsedKeys, out string value) && value.Split(',') is string[] split && split.Length > 0)
+				UsedKeys.AddRange(split);
 		}
 
         public static void SaveData()
@@ -36,16 +38,13 @@ namespace Hikawa.Modules
 			Data[DataKeyUsedKeys] = string.Join(',', UsedKeys);
         }
         
-		public static Dialogue GetDailyUnique(NPC who)
+		public static Dialogue GetDailyUnique(NPC npc, Farmer who)
 		{
-			Dialogue dialogue = null;
-			string key = null;
-			object tokens = null;
-
 			int i;
 			string s;
+			string key = null;
 
-			if (who.Name == ModConsts.NpcRei)
+			if (npc.Name == ModConsts.NpcRei)
 			{
 				// Locations
 				if (key is null
@@ -78,13 +77,21 @@ namespace Hikawa.Modules
 				}
 
 				// Viewers
-				if (key is null
-					&& Steamworks.SteamVideo.IsBroadcasting(out i) && i > 0
-					&& !UsedKeys.Contains("psych.system.broadcast"))
+				/*
+				try
 				{
-					key = "psych.system.broadcast";
+					if (key is null
+						&& Steamworks.SteamVideo.IsBroadcasting(out i) && i > 0
+						&& !UsedKeys.Contains("psych.system.broadcast"))
+					{
+						key = "psych.system.broadcast";
+					}
 				}
-
+				catch (Exception)
+				{
+					// Don't care
+				}
+				*/
 				// Splitscreen
 				if (key is null
 					&& StardewModdingAPI.Context.IsSplitScreen)
@@ -161,34 +168,71 @@ namespace Hikawa.Modules
 						key = $"psych.session.{Sessions.Count}";
 					}
 				}
+
+				// Debug - test
+				key ??= "rei.test";
+			}
+			else if (npc.Name == ModConsts.NpcAmi)
+			{
+				key ??= "rei.test";// "ami.chat.24";
 			}
 
+			return DialoguePicker.GetTokenisedDialogue(npc, who, key);
+		}
+
+		public static Dialogue GetFortune(NPC npc, Farmer who)
+		{
+			int i;
+			string s;
+			string key = null;
+
+			if (who.hasQuest("100"))
+			{
+				key = "fortune.quest.robin";
+			}
+			else if (who.hasQuest("102"))
+			{
+				key = "fortune.quest.lewis";
+			}
+			else if (who.hasQuest("107"))
+			{
+				key = "fortune.quest.linus";
+			}
+
+			return DialoguePicker.GetTokenisedDialogue(npc, who, key);
+		}
+
+		private static Dialogue GetTokenisedDialogue(NPC npc, Farmer who, string key)
+		{
 			if (key is not null)
 			{
 				UsedKeys.Add(key);
-				var otherNames = Sessions.Values.Where(s => s != Game1.player.Name).ToList();
-				tokens = new
+				List<string> otherNames = Sessions.Values.Where(s => s != who.Name).ToList();
+				object tokens = new
 				{
-					Name = Game1.player.Name,
+					Name = who.Name,
 					HostName = Game1.MasterPlayer.Name,
 					PreviousName = Sessions.GetValueOrDefault(PreviousSessionId),
-					OtherName = otherNames?.Count > 0 ? otherNames[Game1.random.Next(otherNames.Count)] : string.Empty,
-					FarmName = Game1.player.farmName
+					OtherName = otherNames.Count > 0 ? otherNames[Game1.random.Next(otherNames.Count)] : null,
+					FarmName = who.farmName
 				};
-				var k = ModEntry.I18n.Get(key);
+				Translation k = ModEntry.I18n.Get(key);
+				string text;
 				if (k.HasValue())
 				{
-					key = k;
+					// Pick specific entry if it exists
+					text = k;
 				}
 				else
 				{
-					var matches =  ModEntry.I18n.GetTranslations().Where(t => t.Key.StartsWith(key)).ToList();
+					// Pick random entry from group
+					List<Translation> matches = ModEntry.I18n.GetTranslations().Where(t => t.Key.StartsWith(key)).ToList();
 					key = matches[Game1.random.Next(matches.Count)];
+					text = ModEntry.I18n.Get(key, tokens);
 				}
-				dialogue = new Dialogue(speaker: who, translationKey: null, dialogueText: ModEntry.I18n.Get(key, tokens));
-				who.setNewDialogue(dialogue);
+				return new Dialogue(speaker: npc, translationKey: null, dialogueText: text);
 			}
-			return dialogue;
+			return null;
 		}
-    }
+	}
 }

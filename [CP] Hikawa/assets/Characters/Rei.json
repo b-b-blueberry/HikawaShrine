@@ -67,6 +67,9 @@
                         "Y": 32
                     },
                     "Breather": true,
+                    "ShakePortraits": [
+                        7
+                    ],
                     "HiddenProfileEmoteSound": null,
                     "HiddenProfileEmoteDuration": -1,
                     "HiddenProfileEmoteStartFrame": 16,

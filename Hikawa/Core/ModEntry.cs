@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using HarmonyLib; // el diavolo nuevo
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Locations;
 using Hikawa.Objects.Menus;
 using Hikawa.Volleyball;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Locations;
 using Object = StardewValley.Object;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
-using HarmonyLib; // el diavolo nuevo
 
 namespace Hikawa
 {
@@ -61,8 +57,9 @@ namespace Hikawa
 		{
 			ModEntry.Instance = this;
 			ModEntry.Config = helper.ReadConfig<Config>();
-			ModEntry.State = new PerScreen<ModState>(() => new ModState());
-			ModEntry.OverlayEffectControl = new Modules.OverlayEffectControl();
+			ModEntry.State = new PerScreen<ModState>(() => new());
+			ModEntry.OverlayEffectControl = new();
+			Modules.DialogueEffects.State = new PerScreen<Modules.DialogueEffects.DialogueEffectsState>(() => new());
 
 			helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
 		}
@@ -84,6 +81,7 @@ namespace Hikawa
 			this.RegisterEventCommands();
 
 			Modules.MiniSit.Init();
+			Modules.DialogueEffects.Init();
 
 			// Assets handled here
 			helper.Events.Content.AssetRequested += (sender, e) => AssetManager.TryEdit(e: e);
@@ -125,6 +123,7 @@ namespace Hikawa
 		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
 		{
 			ModEntry.State.Value.PreciseTime = Utils.GetPreciseTimeOfDay(Game1.timeOfDay);
+			Modules.DialogueEffects.Update(e.Ticks);
 		}
 
 		/// <summary>
@@ -212,7 +211,12 @@ namespace Hikawa
 					case "bbb":
 						callback = (s, p) =>
 						{
+							// Fix hanging sprites
+							// foreach (HangingSprite sprite in Game1.currentLocation.critters.Where(c => c is HangingSprite)) sprite.ResetRotation();
+
+							// Spawn crows
 							// Game1.getFarm().addCrows();
+
 							return;
 						};
 						break;
@@ -321,10 +325,10 @@ namespace Hikawa
 						callback = (s, p) =>
 						{
 							Shrine shrine = Shrine.Get();
-							int which = p.Length > 0 ? int.Parse(p[0]) : Game1.random.Next(0, ModConsts.CrowPerches.Keys.Count);
-							Vector2[] position = ModConsts.CrowPerches[ModConsts.CrowPerches.Keys.ToArray()[which]];
+							int which = p.Length > 0 ? int.Parse(p[0]) : Game1.random.Next(0, ModEntry.ModData.CrowPerches.Keys.Count);
+							CrowSpawnEntry entry = ModEntry.ModData.CrowPerches[ModEntry.ModData.CrowPerches.Keys.ToArray()[which]];
 							shrine.ClearCrows();
-							shrine.SpawnPerchedCrowsAt(phobos: position[0], deimos: position[1]);
+							shrine.SpawnPerchedCrowsAt(phobos: entry.V1, deimos: entry.V2, hopRange: entry.R);
 						};
 						break;
 
@@ -383,6 +387,7 @@ namespace Hikawa
 		{
 			ModEntry.ModData = ModEntry.Instance.Helper.GameContent.Load<ModData>(AssetManager.DataAssetName);
 			ModEntry.Sprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.ExtraSpritesAssetName);
+			Shrine.OutdoorsSprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.OutdoorsSpritesAssetName);
 		}
 
 		/// <summary>
@@ -477,7 +482,7 @@ namespace Hikawa
 
 			this.CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation, e.Button);
 		}
-
+		
 		#endregion
 
 		#region Map Actions
@@ -490,7 +495,23 @@ namespace Hikawa
 					ModConsts.ActionShrineOffering, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Using the Shrine offertory box
+						Utils.CreateInspectThenQuestionDialogue(
+							[
+								ModEntry.I18n.Get("world.shrine.offer.inspect"),
+								ModEntry.I18n.Get($"world.shrine.offer.prompt")
+							],
+							[
+								new Response("offer_yes", ModEntry.I18n.Get("ui.menu.yes")),
+								new Response("offer_no", ModEntry.I18n.Get("ui.menu.no"))
+							]);
 						return true;
+					}
+				},
+				{
+					ModConsts.ActionCrowTrade, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					{
+						// Interactions with the crow trade tile at the Shrine
+						return where is Shrine shrine && shrine.HandleCrowTradeAction(who);
 					}
 				},
 				{
@@ -531,8 +552,8 @@ namespace Hikawa
 									I18n.Get($"world.house.wardrobe.{(false ? "disable" : "enable")}")
 								],
 								[
-									new Response("wardrobe_yes", I18n.Get("dialogue.response.yes")),
-									new Response("wardrobe_no", I18n.Get("dialogue.response.no"))
+									new Response("wardrobe_yes", I18n.Get("ui.menu.yes")),
+									new Response("wardrobe_no", I18n.Get("ui.menu.no"))
 								]);
 						}));
 						return true;

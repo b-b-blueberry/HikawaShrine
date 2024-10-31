@@ -30,13 +30,7 @@ namespace Hikawa.Objects.Critters
 
 		public override bool update(GameTime time, GameLocation environment)
 		{
-			float preciseTime = ModEntry.State.Value.PreciseTime;
-			int startTime = Game1.getStartingToGetDarkTime(Game1.currentLocation);
-			int endTime = 2630;
-			int range = endTime - startTime;
-			float ratio = Math.Clamp((preciseTime - startTime) / range, 0, 1);
-			float alpha = Utils.CircularFromRatio(ratio);
-			this.Alpha = alpha;
+			this.Alpha = Utils.RatioFromPreciseTime(startTime: Game1.getStartingToGetDarkTime(Game1.currentLocation), endTime: 2630, isCircular: true);
 
 			return base.update(time, environment);
 		}

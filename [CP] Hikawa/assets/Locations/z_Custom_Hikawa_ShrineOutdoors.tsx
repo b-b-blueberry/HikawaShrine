@@ -1,285 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="z_Custom_Hikawa_ShrineOutdoors" tilewidth="16" tileheight="16" tilecount="2166" columns="57">
- <image source="z_hikawa_outdoors.png" width="912" height="608"/>
+<tileset version="1.10" tiledversion="1.11.0" name="z_Custom_Hikawa_ShrineOutdoors" tilewidth="16" tileheight="16" tilecount="2356" columns="62">
+ <image source="z_hikawa_outdoors.png" width="992" height="608"/>
  <tile id="2">
   <properties>
    <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="368">
+ <tile id="398">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="369">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="370">
+ <tile id="399">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="371">
+ <tile id="400">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="372">
+ <tile id="401">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="373">
+ <tile id="402">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="374">
+ <tile id="403">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="375">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="425">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="426">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="427">
+ <tile id="404">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="428">
+ <tile id="405">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="460">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="461">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="462">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="429">
+ <tile id="463">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="430">
+ <tile id="464">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="431">
+ <tile id="465">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="466">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="432">
+ <tile id="467">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="472">
+ <tile id="512">
   <properties>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="473">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Wood"/>
-  </properties>
- </tile>
- <tile id="474">
+ <tile id="513">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="475">
+ <tile id="514">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="476">
+ <tile id="515">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="477">
+ <tile id="516">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="478">
+ <tile id="517">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="479">
-  <properties>
-   <property name="Type" value="Wood"/>
-  </properties>
- </tile>
- <tile id="532">
+ <tile id="518">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="533">
+ <tile id="519">
+  <properties>
+   <property name="Type" value="Wood"/>
+  </properties>
+ </tile>
+ <tile id="577">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="589">
+ <tile id="578">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="590">
+ <tile id="639">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Wood"/>
   </properties>
  </tile>
- <tile id="631">
+ <tile id="640">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Wood"/>
+  </properties>
+ </tile>
+ <tile id="686">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="632">
+ <tile id="687">
   <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="637">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="638">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="644">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="645">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="646">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="647">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="648">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="649">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="688">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="689">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="690">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="691">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="692">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="693">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="694">
+ <tile id="699">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="695">
+ <tile id="700">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="745">
+ <tile id="701">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="746">
+ <tile id="702">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="747">
+ <tile id="703">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="704">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="748">
@@ -312,634 +246,586 @@
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="759">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="760">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="761">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="762">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="763">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="764">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="765">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="766">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="804">
+ <tile id="753">
   <properties>
    <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="805">
+ <tile id="754">
   <properties>
    <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="806">
+ <tile id="755">
   <properties>
    <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="807">
+ <tile id="810">
   <properties>
    <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="811">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="812">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="813">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="814">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="815">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="816">
   <properties>
+   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="817">
   <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="818">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="819">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="820">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="821">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="822">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="823">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="860">
-  <properties>
    <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="861">
+ <tile id="824">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="862">
+ <tile id="825">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="863">
+ <tile id="826">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="864">
+ <tile id="827">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="865">
+ <tile id="828">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="873">
+ <tile id="829">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="830">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="831">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="874">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="875">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="876">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="877">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="878">
+ <tile id="886">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="879">
+ <tile id="887">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="880">
+ <tile id="888">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="930">
+ <tile id="889">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="931">
+ <tile id="890">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="932">
+ <tile id="891">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="933">
+ <tile id="892">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="934">
+ <tile id="893">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="935">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="936">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="937">
   <properties>
-   <property name="Type" value="Stone"/>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="987">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="988">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="989">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="990">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="991">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="992">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="993">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="994">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1044">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1045">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1046">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1047">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1048">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1049">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1050">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1051">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1101">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1103">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1157">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1160">
-  <properties>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1202">
+ <tile id="938">
   <properties>
    <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1205">
+ <tile id="939">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="940">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="948">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="949">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="950">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="951">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="952">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="953">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="954">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="955">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1010">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1011">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1012">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1013">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1014">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1015">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1016">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1017">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1072">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1073">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1074">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1075">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1076">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1077">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1078">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1079">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1134">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1135">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1136">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1137">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1138">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1139">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1140">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1141">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1196">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1198">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1257">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1260">
+  <properties>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1307">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="1310">
   <properties>
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1206">
+ <tile id="1311">
   <properties>
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1207">
+ <tile id="1312">
   <properties>
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1208">
+ <tile id="1313">
   <properties>
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1215">
+ <tile id="1320">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1272">
+ <tile id="1382">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1296">
+ <tile id="1406">
   <properties>
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1330">
+ <tile id="1445">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1331">
+ <tile id="1446">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1332">
+ <tile id="1447">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1333">
+ <tile id="1448">
   <properties>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1353">
+ <tile id="1468">
   <properties>
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="1540">
+ <tile id="1675">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1541">
+ <tile id="1676">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1542">
+ <tile id="1677">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1543">
+ <tile id="1678">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1597">
+ <tile id="1737">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1598">
+ <tile id="1738">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1599">
+ <tile id="1739">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1600">
+ <tile id="1740">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1654">
+ <tile id="1799">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1655">
+ <tile id="1800">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1656">
+ <tile id="1801">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1657">
+ <tile id="1802">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1711">
+ <tile id="1861">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1712">
+ <tile id="1862">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1713">
+ <tile id="1863">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1714">
+ <tile id="1864">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1768">
+ <tile id="1923">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1769">
+ <tile id="1924">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1770">
+ <tile id="1925">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1771">
+ <tile id="1926">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1825">
+ <tile id="1985">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1826">
+ <tile id="1986">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1827">
+ <tile id="1987">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="1828">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1837">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1839">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1842">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1844">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1882">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1883">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1884">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1885">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1887">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1888">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1889">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1890">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1939">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1940">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1941">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1942">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1944">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1945">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1946">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1947">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1996">
+ <tile id="1988">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
@@ -948,22 +834,9 @@
  <tile id="1997">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1998">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="1999">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="2001">
   <properties>
    <property name="Passable" type="bool" value="true"/>
   </properties>
@@ -973,12 +846,36 @@
    <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="2003">
+ <tile id="2004">
   <properties>
    <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="2004">
+ <tile id="2047">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2048">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2049">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2050">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2052">
   <properties>
    <property name="Passable" type="bool" value="true"/>
   </properties>
@@ -986,45 +883,22 @@
  <tile id="2053">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="2054">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="2055">
   <properties>
    <property name="Passable" type="bool" value="true"/>
-   <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="2056">
+ <tile id="2109">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="2058">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="2059">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="2060">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="2061">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="2110">
@@ -1045,7 +919,133 @@
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
- <tile id="2113">
+ <tile id="2114">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2115">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2116">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2117">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2171">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2172">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2173">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2174">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2176">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2177">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2178">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2179">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2233">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2234">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2235">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2236">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2238">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2239">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2240">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2241">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="2295">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2296">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2297">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+   <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="2298">
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>

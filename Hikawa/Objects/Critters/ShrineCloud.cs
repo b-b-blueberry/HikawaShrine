@@ -5,14 +5,14 @@ using StardewValley;
 
 namespace Hikawa.Objects.Critters
 {
-	public class Cloud : StardewValley.BellsAndWhistles.Cloud
+	public class ShrineCloud : StardewValley.BellsAndWhistles.Cloud
     {
 		public float alpha = 1f;
 		public float scale = 1f;
 
 		public readonly SpriteEffects effects;
 
-		public Cloud(Vector2 position) : base(position)
+		public ShrineCloud(Vector2 position) : base(position)
 		{
 			// demetriums
 			this.effects = (SpriteEffects)(0x1 << (Game1.random.Next(Enum.GetValues(typeof(SpriteEffects)).Length)));

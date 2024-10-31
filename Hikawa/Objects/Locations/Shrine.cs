@@ -3,35 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Hikawa.Modules;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Hikawa.Objects.Critters;
+using Hikawa.Objects.Menus;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Monsters;
-using StardewValley.Objects;
-using xTile.Dimensions;
-using Color = Microsoft.Xna.Framework.Color;
 using Object = StardewValley.Object;
-using Point = Microsoft.Xna.Framework.Point;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.Objects.Locations
 {
-	[XmlType($"Mods_Blueberry_Hikawa_{nameof(Shrine)}")] // SpaceCore serialisation signature
+	[XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(Shrine)}")] // SpaceCore serialisation signature
 	public class Shrine : GameLocation
-    {
+	{
+		/** PERSISTENT **/
+
+		// Items
+		public Item CrowTradeItem;
+
+		/** TEMPORARY **/
+
 		// Values
-		public static readonly Vector2 StorageTileLocation = new Vector2(-100, -100);
+		[XmlIgnore]
+		public static Texture2D OutdoorsSprites { get; internal set; }
 
 		// Animations
+		[XmlIgnore]
 		public int PetalIndex;
-		public List<Vector2> PetalSpawnTiles = [];
+		[XmlIgnore]
+		public Dictionary<Vector2, Vector2> PetalSpawnTiles = [];
+		[XmlIgnore]
+		public int BellTimer;
+		[XmlIgnore]
+		public int BellTimerMax = 1500;
+		[XmlIgnore]
+		public (Vector2, Vector2) BellShake = new();
+		[XmlIgnore]
+		public Vector2 CrowTradeTile;
+		[XmlIgnore]
+		public bool IsCrowTradeUsedToday;
 
 		// Critters
+		[XmlIgnore]
 		public bool ShouldCrowsSpawnToday;
+		[XmlIgnore]
 		public bool WhatAboutCatsCanTheySpawnToday;
+		[XmlIgnore]
+		public ShrineBabyCrowController BabyCrows;
 
 		public Shrine() : base() {}
 
@@ -39,126 +58,150 @@ namespace Hikawa.Objects.Locations
 
 		public static Shrine Get()
 		{
-			return Game1.getLocationFromName(ModConsts.MapShrine) as Shrine;
+			return Game1.RequireLocation<Shrine>(ModConsts.MapShrine);
 		}
 
 		#region Location methods
+
+		protected override void drawCharacters(SpriteBatch b)
+		{
+			base.drawCharacters(b);
+
+			if (this.BabyCrows is ShrineBabyCrowController c)
+			{
+				c.IsDrawingAboveAlwaysFront = false;
+				c.Draw(b);
+			}
+		}
+
+		public override void drawAboveFrontLayer(SpriteBatch b)
+		{
+			base.drawAboveFrontLayer(b);
+
+			float layerDepth = 0.0001f;
+			float bellRatioRaw = 1f - (float)this.BellTimer / this.BellTimerMax;
+			float bellRatio = -MathF.Sin(-MathF.PI + bellRatioRaw * MathF.PI * 3f);
+
+			Vector2 zero = new Vector2(x: Game1.viewport.X, y: Game1.viewport.Y) * -1f;
+			Vector2 position = new(34.5f + 2f / Game1.smallestTileSize, 32f + 2f / Game1.smallestTileSize);
+			b.Draw(
+				texture: Shrine.OutdoorsSprites,
+				position: zero
+					+ position * Game1.tileSize
+					+ new Vector2(0f, -3f / Game1.smallestTileSize) * Game1.tileSize
+					+ new Vector2(this.BellShake.Item1.X * bellRatio * 0.5f, bellRatio * 0.15f * Game1.tileSize)
+					,
+				color: Color.White,
+				sourceRectangle: new(240, 128, 16, 48),
+				rotation: 0f,
+				origin: Vector2.Zero,
+				scale: Game1.pixelZoom,
+				effects: SpriteEffects.None,
+				layerDepth: layerDepth * 1);
+			b.Draw(
+				texture: Shrine.OutdoorsSprites,
+				position: zero
+					+ position * Game1.tileSize
+					+ new Vector2(0f, 0f) * Game1.tileSize
+					+ this.BellShake.Item1 * bellRatio * 0.5f
+					,
+				color: Color.White,
+				sourceRectangle: new(240, 176, 16, 16),
+				rotation: 0f,
+				origin: Vector2.Zero,
+				scale: Game1.pixelZoom,
+				effects: SpriteEffects.None,
+				layerDepth: layerDepth * 2);
+			b.Draw(
+				texture: Shrine.OutdoorsSprites,
+				position: zero
+					+ position * Game1.tileSize
+					+ new Vector2(8f, 8f) * Game1.pixelZoom
+					+ this.BellShake.Item2 * bellRatio * 0.5f
+					,
+				color: Color.White,
+				sourceRectangle: new(256, 176, 16, 16),
+				rotation: 0f * bellRatio * MathF.PI * 0.5f,
+				origin: new(8, 8),
+				scale: Game1.pixelZoom,
+				effects: SpriteEffects.None,
+				layerDepth: layerDepth * 3);
+		}
+
+		public override void drawAboveAlwaysFrontLayer(SpriteBatch b)
+		{
+			base.drawAboveAlwaysFrontLayer(b);
+
+			if (this.BabyCrows is ShrineBabyCrowController c)
+			{
+				c.IsDrawingAboveAlwaysFront = true;
+				c.Draw(b);
+			}
+		}
 
 		public override void UpdateWhenCurrentLocation(GameTime time)
 		{
 			base.UpdateWhenCurrentLocation(time);
 
-			// House chimney smoke puffs
-			if (// Poll rate
-				time.TotalGameTime.Ticks % 125 == 0
-				// World state
-				&& Game1.timeOfDay > 1100
-				&& House.Get() is GameLocation house && house.characters.Any())
-			{
-				// StardewValley.Building.cs:Update
-				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
-					textureName: "LooseSprites/Cursors",
-					sourceRect: new Rectangle(372, 1956, 10, 10),
-					position: ModConsts.HouseChimneyTile * Game1.tileSize,
-					flipped: false,
-					alphaFade: 0.002f,
-					color: Color.Gray);
-				sprite.alpha = 0.75f;
-				sprite.motion = new Vector2(
-					x: WeatherDebris.globalWind,
-					y: -0.5f);
-				sprite.acceleration = new Vector2(
-					x: 0.002f,
-					y: 0f);
-				sprite.interval = 99999f;
-				sprite.layerDepth = 1f;
-				sprite.scale = 3f;
-				sprite.scaleChange = 0.03f;
-				sprite.rotationChange = (float)(Game1.random.Next(-3, 4) * Math.PI / 256f);
-				sprite.drawAboveAlwaysFront = true;
-				this.TemporarySprites.Add(sprite);
-			}
+			int ms = time.ElapsedGameTime.Milliseconds;
+			long ticks = time.TotalGameTime.Ticks;
+			const int sparkleInterval = 600;
 
-			// Falling petals
-			if (// Poll rate
-				time.TotalGameTime.Ticks % 13 == 0
-				// Game state
-				&& this.PetalSpawnTiles.Any()
-				// World state
-				//&& Game1.IsSpring && Game1.dayOfMonth > WorldDate.DaysPerMonth / 2
-				)
+			this.BabyCrows?.Update(time);
+			this.UpdateWindEffects(ticks);
+
+			// Bell animation sequence
+			if (this.BellTimer > 0)
 			{
-				Vector2 tile = this.PetalSpawnTiles[this.PetalIndex];
-				++this.PetalIndex;
-				this.PetalIndex %= this.PetalSpawnTiles.Count;
-				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
-					textureName: AssetManager.ExtraSpritesAssetName,
-					sourceRect: new Rectangle(320, 208, 16, 16),
-					position: tile * Game1.tileSize
-						+ new Vector2(
-							x: (float)(-2.5f + 5f * Game1.random.NextDouble()),
-							y: (float)(-0.5f + 1f * Game1.random.NextDouble())) * Game1.tileSize,
-					flipped: Game1.random.NextDouble() > 0.5d,
-					alphaFade: 0f,
-					color: Color.White);
-				sprite.motion = new Vector2(
-					x: WeatherDebris.globalWind,
-					y: 0.5f);
-				sprite.acceleration = new Vector2(
-					x: 0.002f,
-					y: 0f);
-				sprite.alphaFadeFade = -0.00001f;
-				sprite.animationLength = 11;
-				sprite.totalNumberOfLoops = 8;
-				sprite.interval = (float)(100f + 100f * Game1.random.NextDouble());
-				sprite.layerDepth = 1f;
-				sprite.scale = (float)(3f + 0.5f * Game1.random.NextDouble());
-				sprite.scaleChange = -0.0025f;
-				this.TemporarySprites.Add(sprite);
+				this.BellTimer = Math.Max(0, this.BellTimer - ms);
+				int i = 4;
+				if (ticks % 2 == 0)
+					this.BellShake = (new(Game1.random.Next(-i, i), Game1.random.Next(-i, i)), new(Game1.random.Next(-i, i), Game1.random.Next(-i, i)));
 			}
 
 			// Lost item quest sparkles
 			if (// Quest flag
-				(ModEntry.SaveData.LostJewelryQuestTile != Vector2.Zero || ModEntry.SaveData.LostGlassesQuestTile != Vector2.Zero)
+				(ModEntry.SaveData.LostJewelryQuestTile != default || ModEntry.SaveData.LostGlassesQuestTile != default)
 				// Poll rate
-				&& time.TotalGameTime.Ticks % 600 == 0 && Game1.random.NextDouble() < 0.5f
+				&& ticks % sparkleInterval == 0 && Game1.random.NextDouble() < 0.5f
 				// Game state
 				&& Context.IsPlayerFree
 				// World state
 				&& !Game1.IsWinter && !Game1.isStartingToGetDarkOut(this) && !Game1.IsRainingHere(this))
 			{
-				Rectangle source = new(272, 0, 16, 16);
-				Vector2 tile = ModEntry.SaveData.LostJewelryQuestTile != Vector2.Zero ? ModEntry.SaveData.LostJewelryQuestTile : ModEntry.SaveData.LostGlassesQuestTile;
-				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
-					textureName: AssetManager.ExtraSpritesAssetName,
-					sourceRect: source,
-					position: tile * Game1.tileSize,
-					flipped: false,
-					alphaFade: 0f,
-					color: Color.White);
-				sprite.alpha = 0f;
-				sprite.alphaFade = -0.035f;
-				sprite.alphaFadeFade = -0.00075f;
-				sprite.interval = 1500f;
-				sprite.layerDepth = 0f;
-				sprite.scale = Game1.pixelZoom;
-				sprite.rotationChange = (float)(Math.PI * 2f / 10f * sprite.interval);
-				this.TemporarySprites.Add(sprite);
+				Vector2 tile = ModEntry.SaveData.LostJewelryQuestTile != default ? ModEntry.SaveData.LostJewelryQuestTile : ModEntry.SaveData.LostGlassesQuestTile; 
+				Utils.CreateSparkleAtTile(where: this, tile: tile);
 			}
+
+			// Crow trade item sparkles
+			if (// Ready flag
+				this.IsCrowTradeItemReady
+				// Poll rate
+				&& ticks % sparkleInterval == 0 && Game1.random.NextDouble() < 0.5f)
+			{
+				Utils.CreateSparkleAtTile(where: this, tile: this.CrowTradeTile);
+			}
+		}
+
+		public override void performTenMinuteUpdate(int timeOfDay)
+		{
+			base.performTenMinuteUpdate(timeOfDay);
+
+			if (this.BabyCrows is ShrineBabyCrowController c)
+				c.roosting = Game1.isDarkOut(this);
 		}
 
 		public override void DayUpdate(int dayOfMonth)
 		{
 			base.DayUpdate(dayOfMonth);
 
+			ModEntry.Instance.Helper.GameContent.InvalidateCache(Shrine.OutdoorsSprites.Name);
+
 			// TODO: METHOD: caats spawn conditions
-			if (this.CanItemBePlacedHere(Shrine.StorageTileLocation))
-			{
-				this.Objects.Add(Shrine.StorageTileLocation, new Chest(playerChest: true, tileLocation: Shrine.StorageTileLocation));
-			}
+
 			this.SpawnForage();
-			this.ShouldCrowsSpawnToday = (!Game1.IsWinter && !Game1.isRaining) || (Game1.IsWinter && Game1.random.NextDouble() < 0.3d);
-			this.WhatAboutCatsCanTheySpawnToday = false;
+
+			this.IsCrowTradeUsedToday = false;
 		}
 
 		protected override void resetLocalState()
@@ -168,12 +211,24 @@ namespace Hikawa.Objects.Locations
 			Utils.ApplyCustomSharedMapProperties(this);
 
 			Game1.background = new ShrineBackground(location: this);
-			this.PetalSpawnTiles = Utils.GetTilesWithProperty(where: this, layer: "AlwaysFront", property: ModConsts.TilePetalSpawner);
+			var tiles = Utils.GetTilesWithProperty(where: this, layer: "AlwaysFront", property: ModConsts.TilePetalSpawner);
+			this.PetalSpawnTiles = tiles.ToDictionary(
+				key => key, 
+				key => ArgUtility.TryGetVector2(
+					array: this.GetTilePropertySplitBySpaces(ModConsts.TilePetalSpawner, "AlwaysFront", (int)key.X, (int)key.Y),
+					index: 0,
+					out Vector2 value,
+					out string error) && string.IsNullOrEmpty(error) ? value : default);
+			tiles = Utils.GetTilesWithProperty(where: this, layer: "Buildings", property: "Action", value: ModConsts.ActionCrowTrade, onlyOne: true);
+			this.CrowTradeTile = tiles.FirstOrDefault();
 		}
 
 		protected override void resetSharedState()
 		{
 			base.resetSharedState();
+
+			this.ShouldCrowsSpawnToday = (!Game1.IsWinter && !Game1.isRaining) || (Game1.IsWinter && Game1.random.NextDouble() < 0.3d);
+			this.WhatAboutCatsCanTheySpawnToday = false;
 
 			this.critters = [];
 			if (Utils.IsItObonYet())
@@ -189,12 +244,12 @@ namespace Hikawa.Objects.Locations
 				// Eerie effects
 				ModEntry.OverlayEffectControl.Enable(OverlayEffectControl.Effect.Mist);
 				this.SpawnGenericCrowsAt(
-				new Location(
-					this.Map.Layers[0].LayerWidth / 2 - 1,
-					this.Map.Layers[0].LayerHeight / 10 * 9),
-				new Location(
-					this.Map.Layers[0].LayerWidth / 2 + 1,
-					this.Map.Layers[0].LayerHeight / 10 * 9));
+				new Vector2(
+					x: this.Map.Layers[0].LayerWidth / 2 - 1,
+					y: this.Map.Layers[0].LayerHeight / 10 * 9),
+				new Vector2(
+					x: this.Map.Layers[0].LayerWidth / 2 + 1,
+					y: this.Map.Layers[0].LayerHeight / 10 * 9));
 				if (!Game1.isRaining)
 				{
 					Game1.changeMusicTrack("communityCenter");
@@ -212,7 +267,9 @@ namespace Hikawa.Objects.Locations
 
 		public override void cleanupBeforePlayerExit()
 		{
+			Utils.ResetCustomSharedMapProperties(this);
 			Game1.background = null;
+			this.BabyCrows = null;
 
 			base.cleanupBeforePlayerExit();
 		}
@@ -224,7 +281,7 @@ namespace Hikawa.Objects.Locations
 			base.cleanupBeforeSave();
 		}
 
-		public override bool checkAction(Location tileLocation, xTile.Dimensions.Rectangle viewport, Farmer who)
+		public override bool checkAction(xTile.Dimensions.Location tileLocation, xTile.Dimensions.Rectangle viewport, Farmer who)
 		{
 			if (tileLocation.X == ModEntry.SaveData.LostJewelryQuestTile.X && tileLocation.Y == ModEntry.SaveData.LostJewelryQuestTile.Y)
 			{
@@ -244,10 +301,217 @@ namespace Hikawa.Objects.Locations
 			base.tryToAddCritters(onlyIfOnScreen);
 
 			// Replace clouds with custom clouds to fade out over open sky
-			foreach (Critter c in this.critters.Where(c => c is Cloud and not Hikawa.Objects.Critters.Cloud).ToList())
+			foreach (Critter c in this.critters.Where(c => c is Cloud and not ShrineCloud).ToList())
 			{
 				this.critters.Remove(c);
-				this.critters.Add(new Objects.Critters.Cloud(c.position / Game1.tileSize));
+				this.critters.Add(new ShrineCloud(c.position / Game1.tileSize));
+			}
+		}
+
+		#endregion
+
+		#region Shrine methods
+
+		public bool IsCrowTradeItemReady => this.CrowTradeTile != default && !this.IsCrowTradeUsedToday && this.CrowTradeItem is not null;
+
+		public bool HandleCrowTradeAction(Farmer who)
+		{
+			if (this.IsCrowTradeItemReady)
+			{
+				Game1.playSound("getNewSpecialItem");
+				who.addItemByMenuIfNecessaryElseHoldUp(this.CrowTradeItem);
+			}
+			else
+			{
+				Game1.playSound("grassyStep");
+				CrowTradeMenu menu = new(shrine: this);
+				Game1.activeClickableMenu = menu;
+				menu.exitFunction += () =>
+				{
+					this.CrowTradeItem = menu.ItemSlot.item;
+				};
+			}
+
+			return true;
+		}
+
+		public void StartBellSequence(Farmer who)
+		{
+			if (who.FacingDirection == Game1.down)
+				who.FacingDirection = Game1.up;
+
+			// Pay tribute
+			Vector2 from = Game1.player.StandingPixel.ToVector2() - new Vector2(Game1.tileSize * 0.5f, Game1.tileSize);
+			Vector2 to = new Vector2(34.5f + 2f / Game1.smallestTileSize, 34f + 2f / Game1.smallestTileSize) * Game1.tileSize;
+
+			int cost = 50;
+			who.Money -= cost;
+			int coins = cost / 8 + 2;
+			for (int j = 0; j < coins; j++)
+			{
+				float speed = 6f;
+				int range = 14;
+				var offset = new Vector2(x: Game1.random.Next(-range, range), y: 0) * Game1.pixelZoom;
+				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
+					textureName: "TileSheets\\debris",
+					sourceRect: new Rectangle(x: Game1.random.Next(2) * 16, y: 64, width: 16, height: 16),
+					position: from,
+					flipped: false,
+					alphaFade: 0f,
+					color: Color.White);
+				sprite.alpha = 4f;
+				sprite.alphaFadeFade = -speed / 5000f;
+				sprite.scale = 4f;
+				sprite.delayBeforeAnimationStart = j * 50;
+				sprite.motion = Utility.getVelocityTowardPoint(startingPoint: from.ToPoint(), endingPoint: to + offset, speed: speed);
+				sprite.acceleration = -Utility.getVelocityTowardPoint(startingPoint: from.ToPoint(), endingPoint: to + offset, speed: speed / 50f);
+				sprite.drawAboveAlwaysFront = who.FacingDirection != Game1.up;
+				this.TemporarySprites.Add(sprite);
+			}
+
+			// Animate player
+			int[] frames = new int[][] { [62, 62, 63, 46], [58, 58, 59, 45], [54, 54, 55, 25], [58, 58, 59, 45] }[who.FacingDirection];
+			int[] durations = [0, 75, 100, 500];
+			int delay = 1500;
+			who.freezePause = durations.Sum() + delay;
+			bool flip = who.FacingDirection == Game1.left;
+			who.FarmerSprite.animateOnce([
+				new(frames[0], 0, secondaryArm: false, flip: flip),
+				new(frames[1], 75, secondaryArm: false, flip: flip),
+				new(frames[2], 100, secondaryArm: false, flip: flip),
+				new(frames[3], 500, secondaryArm: true, flip: flip),
+				new(who.FarmerSprite.CurrentFrame, delay, secondaryArm: false, flip: flip, frameBehavior: this.ContinueBellSequence, behaviorAtEndOfFrame: true)
+			]);
+		}
+
+		public void ContinueBellSequence(Farmer who)
+		{
+			// Play sounds
+			for (int i = 0; i < 7; ++i)
+				DelayedAction.functionAfterDelay(() => who.playNearbySoundAll("skeletonHit"), this.BellTimerMax / 8 * (i + 1));
+
+			// Animate player
+			who.freezePause = this.BellTimer = this.BellTimerMax;
+			who.FarmerSprite.animateOnce(
+			[
+				new FarmerSprite.AnimationFrame(
+					frame: 57,
+					milliseconds: this.BellTimerMax,
+					secondaryArm: false,
+					flip: false),
+				new FarmerSprite.AnimationFrame(
+					frame: (short)who.FarmerSprite.CurrentFrame,
+					milliseconds: 0,
+					secondaryArm: false,
+					flip: false,
+					frameBehavior: this.EndBellSequence,
+					behaviorAtEndOfFrame: true)
+			]);
+		}
+
+		public void EndBellSequence(Farmer who)
+		{
+			++ModEntry.SaveData.BellRingCount;
+
+			// TODO: Apply shrine effects
+		}
+
+		public void UpdateWindEffects(long ticks)
+		{
+			// Idle windy weather
+			float baseWind = -0.25f;
+			float startChance = 0.01f;
+			float endChance = 0.007f;
+			if (WeatherDebris.globalWind == 0f)
+			{
+				WeatherDebris.globalWind = baseWind;
+			}
+			if (Game1.windGust == 0f && WeatherDebris.globalWind >= baseWind && Game1.random.NextDouble() < startChance)
+			{
+				Game1.windGust += Game1.random.Next(-5, -1) / 100f;
+			}
+			else if (Game1.windGust != 0f)
+			{
+				Game1.windGust = Math.Max(-5f, Game1.windGust * 1.02f);
+				WeatherDebris.globalWind = baseWind + Game1.windGust;
+				if (Game1.windGust < -0.2f && Game1.random.NextDouble() < endChance)
+				{
+					Game1.windGust = 0f;
+				}
+			}
+			if (WeatherDebris.globalWind < baseWind)
+			{
+				WeatherDebris.globalWind = Math.Min(baseWind, WeatherDebris.globalWind + 0.015f);
+			}
+
+			// House chimney smoke puffs
+			if (// Poll rate
+				ticks % 125 == 0
+				// World state
+				&& Game1.timeOfDay > 1100
+				&& House.Get() is GameLocation house && house.characters.Any())
+			{
+				// StardewValley.Building.cs:Update
+				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
+					textureName: "LooseSprites/Cursors",
+					sourceRect: new Rectangle(372, 1956, 10, 10),
+					position: ModEntry.ModData.HouseChimneyTile * Game1.tileSize,
+					flipped: false,
+					alphaFade: 0.002f,
+					color: Color.Gray);
+				sprite.alpha = 0.95f;
+				sprite.motion = new Vector2(
+					x: WeatherDebris.globalWind * 0.25f,
+					y: -0.5f);
+				sprite.acceleration = new Vector2(
+					x: sprite.motion.X / 250f,
+					y: 0f);
+				sprite.interval = 99999f;
+				sprite.layerDepth = 1f;
+				sprite.scale = 3f;
+				sprite.scaleChange = 0.03f;
+				sprite.rotationChange = (float)(Game1.random.Next(-3, 4) * Math.PI / 256f);
+				sprite.drawAboveAlwaysFront = true;
+				this.TemporarySprites.Add(sprite);
+			}
+
+			// Falling petals
+			if (// Poll rate
+				ticks % 15 == 0
+				// Game state
+				&& this.PetalSpawnTiles.Any()
+				// World state
+				//&& Game1.dayOfMonth > WorldDate.DaysPerMonth / 2
+				)
+			{
+				Vector2 tile = this.PetalSpawnTiles.Keys.ToArray()[this.PetalIndex];
+				Vector2 radius = this.PetalSpawnTiles[tile];
+				++this.PetalIndex;
+				this.PetalIndex %= this.PetalSpawnTiles.Count;
+				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
+					textureName: AssetManager.ExtraSpritesAssetName,
+					sourceRect: new Rectangle(320, 208, 16, 16),
+					position: tile * Game1.tileSize
+						+ new Vector2(
+							x: (float)(-radius.X + radius.X * 2f * Game1.random.NextDouble()),
+							y: (float)(-radius.Y + radius.Y * 2f * Game1.random.NextDouble())) * Game1.tileSize,
+					flipped: Game1.random.NextDouble() < 0.5d,
+					alphaFade: 0f,
+					color: Color.White);
+				sprite.motion = new Vector2(
+					x: WeatherDebris.globalWind * 0.25f,
+					y: 0.5f);
+				sprite.acceleration = new Vector2(
+					x: sprite.motion.X / 250f,
+					y: 0f);
+				sprite.alphaFadeFade = -0.00001f;
+				sprite.animationLength = 11;
+				sprite.totalNumberOfLoops = 8;
+				sprite.interval = (float)(100f + 100f * Game1.random.NextDouble());
+				sprite.layerDepth = 1f;
+				sprite.scale = (float)(3f + 0.5f * Game1.random.NextDouble());
+				sprite.scaleChange = -0.0025f;
+				this.TemporarySprites.Add(sprite);
 			}
 		}
 
@@ -281,15 +545,15 @@ namespace Hikawa.Objects.Locations
 
 		public void SpawnAnimals()
 		{
-			foreach (NPC chicken in this.characters.Where(c => c is Critters.Chicken).ToList())
+			foreach (NPC chicken in this.characters.Where(c => c is ShrineChicken).ToList())
 			{
 				this.characters.Remove(chicken);
 			}
 			if (Game1.timeOfDay < 1800)
 			{
-				this.addCharacter(new Critters.Chicken(where: this, position: new Vector2(53, 33) * Game1.tileSize));
-				this.addCharacter(new Critters.Chicken(where: this, position: new Vector2(47, 49) * Game1.tileSize));
-				this.addCharacter(new Critters.Chicken(where: this, position: new Vector2(52, 50) * Game1.tileSize, isBrown: true));
+				this.addCharacter(new ShrineChicken(where: this, position: new Vector2(53, 33) * Game1.tileSize));
+				this.addCharacter(new ShrineChicken(where: this, position: new Vector2(47, 49) * Game1.tileSize));
+				this.addCharacter(new ShrineChicken(where: this, position: new Vector2(52, 50) * Game1.tileSize, isBrown: true));
 			}
 		}
 		
@@ -384,12 +648,11 @@ namespace Hikawa.Objects.Locations
 				double roll = Game1.random.NextDouble();
 				if (Game1.IsWinter)
 					roll *= 0.5f;
-				Vector2[] positions = ModConsts.CrowPerches[ModConsts.CrowPerches.Keys.First(key => roll < key)];
-				int hopRange = Game1.IsWinter || positions.Length < 3
-					? 0
-					: (int)positions[2].X;
+				CrowSpawnEntry entry = ModEntry.ModData.CrowPerches[ModEntry.ModData.CrowPerches.Keys.First(key => roll < key)];
+				this.SpawnPerchedCrowsAt(phobos: entry.V1, deimos: entry.V2, Game1.IsWinter ? 0 : entry.R);
 
-				this.SpawnPerchedCrowsAt(phobos: positions[0], deimos: positions[1], hopRange);
+				// Spawn little crows
+				this.SpawnBabyCrows();
 			}
 		}
 
@@ -399,25 +662,22 @@ namespace Hikawa.Objects.Locations
 		public void TrySpawnGenericCrows()
 		{
 			const int retries = 25;
-			Location radius = ModConsts.CrowSpawnRadius;
-			Location diameter = radius * 2;
-			xTile.Dimensions.Rectangle spawnArea = ModConsts.CrowSpawnArea;
+			Point radius = ModEntry.ModData.CrowSpawnRadius;
+			Point diameter = radius + radius;
+			Rectangle spawnArea = ModEntry.ModData.CrowSpawnArea;
 
 			for (int attempts = 0; attempts < retries; ++attempts)
 			{
 				// Identify two separate nearby spawn positions for the crows around the map's middle
-				Location target = new Location(
+				Vector2 target = new Vector2(
 					x: spawnArea.X + Game1.random.Next(spawnArea.Width),
 					y: spawnArea.Y + Game1.random.Next(spawnArea.Height));
-				Location phobos = target - radius + new Location(
+				Vector2 phobos = target - radius.ToVector2() + new Vector2(
 					x: Game1.random.Next(diameter.X),
 					y: Game1.random.Next(diameter.Y));
-				Location deimos = target - radius + new Location(
+				Vector2 deimos = target - radius.ToVector2() + new Vector2(
 					x: Game1.random.Next(diameter.X),
 					y: Game1.random.Next(diameter.Y));
-
-				Log.D($"Checking crow spawns at {phobos} and {deimos}",
-					ModEntry.Config.DebugMode);
 
 				if (phobos == deimos || !this.isTileLocationOpen(phobos) || !this.isTileLocationOpen(deimos))
 					continue;
@@ -425,19 +685,16 @@ namespace Hikawa.Objects.Locations
 				this.SpawnGenericCrowsAt(phobos, deimos);
 				return;
 			}
-
-			Log.D($"Failed to add crows after {retries} attempts.",
-				ModEntry.Config.DebugMode);
 		}
 
 		public void ClearCrows()
 		{
-			this.critters.RemoveAll(critter => critter is Hikawa.Objects.Critters.Crow or StardewValley.BellsAndWhistles.Crow);
+			this.critters.RemoveAll(critter => critter is ShrineCrow or Crow);
 		}
 
 		public void ClearCats()
 		{
-			this.critters.RemoveAll(critter => critter is Hikawa.Objects.Critters.Cat);
+			this.critters.RemoveAll(critter => critter is ShrineCat);
 		}
 
 		public void ClearTempCharacters()
@@ -448,12 +705,10 @@ namespace Hikawa.Objects.Locations
 		/// <summary>
 		/// Attempts to add twin crows to the map as default Crow critters.
 		/// </summary>
-		public void SpawnGenericCrowsAt(Location phobos, Location deimos)
+		public void SpawnGenericCrowsAt(Vector2 phobos, Vector2 deimos)
 		{
-			Log.D($"Adding generic crows at {phobos} and {deimos}",
-				ModEntry.Config.DebugMode);
-			this.addCritter(new StardewValley.BellsAndWhistles.Crow(phobos.X, phobos.Y));
-			this.addCritter(new StardewValley.BellsAndWhistles.Crow(deimos.X, deimos.Y));
+			this.addCritter(new Crow((int)phobos.X, (int)phobos.Y));
+			this.addCritter(new Crow((int)deimos.X, (int)deimos.Y));
 		}
 
 		/// <summary>
@@ -465,21 +720,28 @@ namespace Hikawa.Objects.Locations
 		/// <param name="phobos">Tile coordinates for the left-side crow.</param>
 		/// <param name="deimos">Tile coordinates for the right-side crow.</param>
 		/// <param name="hopRange">Distance to each side the crows can hop. 0 to disable.</param>
-		public void SpawnPerchedCrowsAt(Vector2 phobos, Vector2 deimos, int hopRange = 2)
+		public void SpawnPerchedCrowsAt(Vector2 phobos, Vector2 deimos, float hopRange = 2)
 		{
-			Log.W($"Adding perched crows at {phobos} and {deimos}");
 			this.ClearCrows();
 
 			bool isDeimos = Game1.dayOfMonth % 3 == 0;   // Swap crow roles once every few days
-			this.addCritter(new Critters.Crow(isDeimos: isDeimos, position: new Vector2(phobos.X, phobos.Y), hopRange: hopRange));
-			this.addCritter(new Critters.Crow(isDeimos: !isDeimos, position: new Vector2(deimos.X, deimos.Y), hopRange: hopRange));
+			this.addCritter(new ShrineCrow(isDeimos: isDeimos, position: new Vector2(phobos.X, phobos.Y), hopRange: hopRange));
+			this.addCritter(new ShrineCrow(isDeimos: !isDeimos, position: new Vector2(deimos.X, deimos.Y), hopRange: hopRange));
+		}
+
+		public void SpawnBabyCrows()
+		{
+			this.BabyCrows = new ShrineBabyCrowController(
+				count: Game1.random.Next(0, 5),
+				perches: ModEntry.ModData.BabyCrowPerches,
+				roosts: ModEntry.ModData.BabyCrowRoosts);
 		}
 
 		public void TrySpawnDailyCats()
 		{
 			double roll = Game1.random.NextDouble();
 			Vector2 position = Vector2.Zero;
-			int baseFrame = Critters.Cat.StandingBaseFrame;
+			int baseFrame = ShrineCat.StandingBaseFrame;
 			int scareRange = 0;
 			bool flip = false;
 
@@ -488,7 +750,7 @@ namespace Hikawa.Objects.Locations
 				// Test animation: Grooming
 				//position = new Vector2(28, 48);
 				position = new Vector2(23, 45);
-				baseFrame = Critters.Cat.StandingBaseFrame;
+				baseFrame = ShrineCat.StandingBaseFrame;
 				scareRange = 3;
 				flip = false;
 			}
@@ -498,9 +760,8 @@ namespace Hikawa.Objects.Locations
 
 		public void SpawnCatsAt(Vector2 position, int baseFrame, int scareRange, bool flip)
 		{
-			Log.W($"Adding cat at {position}");
 			this.ClearCats();
-			this.addCritter(new Critters.Cat(position: position, baseFrame: baseFrame, scareRange: scareRange, flip: flip));
+			this.addCritter(new ShrineCat(position: position, baseFrame: baseFrame, scareRange: scareRange, flip: flip));
 		}
 
 		#endregion

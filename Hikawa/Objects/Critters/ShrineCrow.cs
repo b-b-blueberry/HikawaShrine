@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 
@@ -11,7 +9,7 @@ namespace Hikawa.Objects.Critters
 	/// Mostly a very mangled version of the StardewValley.BellsAndWhistles.Crow object.
 	/// Not so impressive, but it's a dancing crow i guess?
 	/// </summary>
-	public class Crow : Critter
+	public class ShrineCrow : Critter
 	{
 		private enum State
 		{
@@ -21,22 +19,20 @@ namespace Hikawa.Objects.Critters
 			Looking
 		}
 		private State _state;
-		private readonly int _hopRange;
+		private readonly float _hopRange;
 		private readonly int _crowBaseFrame;
 		private readonly bool _isDeimos;
 
 		private enum Frame
 		{
-			IdlePhobos = 0,
+			IdleA = 0,
 			Sleep = 3,
-			IdleDeimos = 4,
+			IdleB = 4,
 			HopLow = 8,
 			HopHigh = 9
 		}
 
-		private string Name => this._isDeimos ? "Deimos" : "Phobos";
-
-		public Crow(bool isDeimos, Vector2 position, int hopRange = 0)
+		public ShrineCrow(bool isDeimos, Vector2 position, float hopRange = 0)
 		{
 			this.sprite = new AnimatedSprite(
 				textureName: AssetManager.CrowSpritesAssetName,
@@ -49,10 +45,8 @@ namespace Hikawa.Objects.Critters
 			this._state = State.Idle;
 
 			this.startingPosition = this.position = (position * Game1.tileSize) + (new Vector2(x: 0.5f, y: 0.5f) * Game1.tileSize);
-			this.baseFrame = this._crowBaseFrame = this._isDeimos ? (int)Frame.IdleDeimos : (int)Frame.IdlePhobos;
+			this.baseFrame = this._crowBaseFrame = this._isDeimos ? (int)Frame.IdleB : (int)Frame.IdleA;
 			this.flip = this._isDeimos;
-
-			Log.D($"Perched crow {this.Name} generated at {this.startingPosition}");
 		}
 
 		public void Hop(Farmer who)
@@ -69,11 +63,10 @@ namespace Hikawa.Objects.Critters
 		{
 			if (this._state == State.Looking && this.IsFarmerInRange(environment: environment, range: 16) is Farmer farmer)
 			{
-				double angle = Utils.Vector.RadiansBetween(va: this.position, vb: farmer.Position);
-				Log.D($"LookAt angle between crow ({this.position}) and {farmer.Name} ({farmer.Position}) == {angle}f");
+				// double angle = Utils.Vector.RadiansBetween(va: this.position, vb: farmer.Position);
 
 				// TODO: METHOD: Select current frame based on angle, consider 'flip'
-				this.sprite.currentFrame = (int)Frame.IdlePhobos;
+				this.sprite.currentFrame = (int)Frame.IdleA;
 			}
 		}
 		
@@ -117,35 +110,29 @@ namespace Hikawa.Objects.Critters
 				case State.Idle:
 					if (this.sprite.CurrentAnimation is null && this.yJumpOffset >= 0f && Game1.random.NextDouble() < 0.002d)
 					{
-						Log.D($"{this.Name}: Idle reroll");
 						switch (Game1.random.Next(4))
 						{
 							case 0:
-								Log.D($"{this.Name}: Picking Sleeping from Idle");
 								this._state = State.Sleeping;
 								break;
 							case 1:
-								Log.D($"{this.Name}: Picking Animating from Idle");
 								this._state = State.Animating;
 								break;
 							case 2:
 							case 3:
 								if (this._hopRange > 0)
 								{
-									Log.D($"{this.Name}: Picking Hop from Idle");
 									this.Hop(null);
 								}
 								break;
 							case 4:
-								Log.D($"{this.Name}: Picking Looking from Idle");
 								if (this.IsFarmerInRange(environment: environment, range: 16) != null)
 								{
-									Log.D("Success.");
 									this._state = State.Looking;
 								}
 								else
 								{
-									Log.D("Missed.");
+									// ca-caw
 								}
 								break;
 						}
@@ -159,8 +146,7 @@ namespace Hikawa.Objects.Critters
 				case State.Animating:
 					if (this.sprite.CurrentAnimation is null)
 					{
-						Log.D($"Animating {this.Name}");
-						List<FarmerSprite.AnimationFrame> animFrames = new();
+						List<FarmerSprite.AnimationFrame> animFrames = [];
 						int frame = this._crowBaseFrame;
 						if (this._isDeimos)
 						{
@@ -179,7 +165,6 @@ namespace Hikawa.Objects.Critters
 								animFrames.Add(new (frame + 2, Game1.random.Next(200, 600) * 8, false, this.flip));
 							}
 							animFrames.Add(new (frame + 1, 360, false, this.flip, this.DoneAnimating));
-							Log.D($"Looping for {loops}, with {loops * (loops / 2)} subloops");
 						}
 						else
 						{
@@ -192,7 +177,6 @@ namespace Hikawa.Objects.Critters
 							animFrames.Add(new (frame + 2, 160, false, this.flip));
 							animFrames.Add(new (frame + 1, 320, false, this.flip));
 							animFrames.Add(new (frame, 3600, false, this.flip, this.DoneAnimating));
-							Log.D($"Shuteye: {shuteye}");
 						}
 						this.sprite.setCurrentAnimation(animFrames);
 						this.sprite.loop = false;
@@ -206,7 +190,6 @@ namespace Hikawa.Objects.Critters
 					}
 					if (Game1.random.NextDouble() < 0.002 && this.sprite.CurrentAnimation is null)
 					{
-						Log.D($"{this.Name}: Picking Idle from Sleeping");
 						this._state = State.Idle;
 					}
 					break;

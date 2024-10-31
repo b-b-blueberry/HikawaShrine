@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Hikawa.Objects.Critters
 {
-	public class Chicken : Monster
+	public class ShrineChicken : Monster
 	{
 		private Farmer _angryAtFarmer;
 		public Farmer AngryAtFarmer
@@ -37,7 +37,7 @@ namespace Hikawa.Objects.Critters
 		public bool CanAnimate => this.AngryAtFarmer is null && this.controller is null && !this.IsAnimating && this.timeBeforeAIMovementAgain <= 0;
 		public string Colour => this.IsBrown ? "Brown" : "White";
 
-		public Chicken(GameLocation where, Vector2 position, bool isBrown = false)
+		public ShrineChicken(GameLocation where, Vector2 position, bool isBrown = false)
 		{
 			this.Name = ModConsts.ContentPrefix + "Chicken";
 			this.displayName = Game1.content.LoadString($"Strings/FarmAnimals:DisplayType_Chicken_{this.Colour}");
@@ -108,10 +108,10 @@ namespace Hikawa.Objects.Critters
 					new (frame: 25, milliseconds: interval),
 					new (frame: 26, milliseconds: interval),
 					new (frame: 27, milliseconds: interval, secondaryArm: false, flip: false, frameBehavior: (Farmer who) => {
-						if (Utility.isOnScreen(positionNonTile: this.Position, acceptableDistanceFromScreen: Game1.tileSize))
+						/*if (Utility.isOnScreen(positionNonTile: this.Position, acceptableDistanceFromScreen: Game1.tileSize))
 						{
 							Game1.playSound("sandyStep");
-						}
+						}*/
 						if (Game1.random.NextDouble() < 0.3)
 						{
 							this.timeBeforeAIMovementAgain = 1100;
@@ -218,7 +218,7 @@ namespace Hikawa.Objects.Critters
 				}
 
 				// Alert this chicken and all others
-				foreach (Chicken chicken in this.currentLocation.characters.Where(c => c is Chicken).Cast<Chicken>())
+				foreach (ShrineChicken chicken in this.currentLocation.characters.Where(c => c is ShrineChicken).Cast<ShrineChicken>())
 				{
 					chicken.AngryAtFarmer = who;
 				}

@@ -3,23 +3,13 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<EnableHarmony>true</EnableHarmony>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.0" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="Steamworks.NET">
 			<HintPath>$(GamePath)\Steamworks.NET.dll</HintPath>
 		</Reference>
-	</ItemGroup>
-	
-	<ItemGroup>
 		<Reference Include="ContentPatcher">
 			<HintPath>$(GamePath)\Mods\ContentPatcher\ContentPatcher.dll</HintPath>
 			<Private>false</Private>
@@ -31,8 +21,12 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<ContentPacks Include="E:\Dev\Projects\SDV\Projects\Hikawa\[CP] Hikawa" Version="$(Version)">
-			<IgnoreModFilePatterns>"\.csproj$, bin\\*, obj\\*"</IgnoreModFilePatterns>
-		</ContentPacks>
+	  <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.0" />
 	</ItemGroup>
+	
+	<ItemGroup>
+		<Using Include="Microsoft.Xna.Framework" />
+		<Using Include="Microsoft.Xna.Framework.Graphics" />
+	</ItemGroup>
+
 </Project>

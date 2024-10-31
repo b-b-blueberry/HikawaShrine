@@ -2,7 +2,36 @@
 
 namespace Hikawa.Objects.Locations
 {
-	public class LightTileEntry
+	public record class CrowSpawnEntry
+	{
+		// Paired by spawn positions for Phobos and Deimos
+		// R value is hop range/radius
+		public float X1, X2, Y1, Y2, R;
+		/// <summary>
+		/// Phobos
+		/// </summary>
+		public Vector2 V1 => new Vector2(X1, Y1);
+		/// <summary>
+		/// Deimos
+		/// </summary>
+		public Vector2 V2 => new Vector2(X2, Y2);
+	}
+
+	public record class HangingSpriteEntry
+	{
+		public Vector2 Tile;
+		public string TextureId;
+		public Rectangle TextureRegion;
+		public Vector2 TextureOrigin;
+		public float Resistance;
+		public float Limit;
+		public bool DrawBehind = false;
+
+		public int AnimationFrames;
+		public float AnimationSpeed;
+	}
+
+	public record class LightTileEntry
 	{
 		public Vector2 Tile = Vector2.Zero;
 		public int TileId = 0;
@@ -11,7 +40,7 @@ namespace Hikawa.Objects.Locations
 		public bool DrawAbove = false;
 	}
 
-	public class LightEntry
+	public record class LightEntry
 	{
 		// Base
 		public Vector2 Tile;

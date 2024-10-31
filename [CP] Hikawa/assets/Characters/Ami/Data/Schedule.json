@@ -4,5 +4,6 @@
     "wed": "GOTO mon",
     "thu": "GOTO mon",
     "fri": "GOTO mon",
-    "sat": "GOTO mon"
+    "sat": "GOTO mon",
+    "sun": "GOTO mon"
 }

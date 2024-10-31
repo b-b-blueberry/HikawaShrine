@@ -7,7 +7,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.Objects.Locations
 {
-	[XmlType($"Mods_Blueberry_Hikawa_{nameof(House)}")] // SpaceCore serialisation signature
+	[XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(House)}")] // SpaceCore serialisation signature
 	public class House : GameLocation
 	{
 		[XmlIgnore]
@@ -211,6 +211,13 @@ namespace Hikawa.Objects.Locations
 			buildings.Tiles[6, 17].TileIndex = index + rowIncrement * 2 + 1;
 			buildings.Tiles[6, 16].Properties["Action"] = $"Message \"{ModConsts.ContentPrefix}house.1{season / 2}\"";
 			break;*/
+		}
+
+		public override void cleanupBeforePlayerExit()
+		{
+			Utils.ResetCustomSharedMapProperties(this);
+
+			base.cleanupBeforePlayerExit();
 		}
 	}
 }

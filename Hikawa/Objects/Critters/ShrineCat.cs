@@ -8,7 +8,7 @@ using StardewValley.BellsAndWhistles;
 
 namespace Hikawa.Objects.Critters
 {
-	public class Cat : Critter
+	public class ShrineCat : Critter
 	{
 		// Animation keys
 		private enum State
@@ -45,7 +45,7 @@ namespace Hikawa.Objects.Critters
 		internal static readonly int StandingBaseFrame = 0;
 		internal static readonly int SittingBaseFrame = 16;
 
-		public Cat(Vector2 position, int baseFrame, int scareRange, bool flip)
+		public ShrineCat(Vector2 position, int baseFrame, int scareRange, bool flip)
 		{
 			this.sprite = new AnimatedSprite(AssetManager.CatSpritesAssetName, baseFrame, 32, 32);
 
@@ -193,7 +193,7 @@ namespace Hikawa.Objects.Critters
 					
 				case State.Sitting:
 					if (this.sprite.CurrentAnimation is null)
-						this.sprite.CurrentFrame = Cat.SittingBaseFrame;
+						this.sprite.CurrentFrame = ShrineCat.SittingBaseFrame;
 
 					if (Game1.random.NextDouble() < 0.008d)
 					{
@@ -217,7 +217,7 @@ namespace Hikawa.Objects.Critters
 					if (this.sprite.CurrentAnimation is null)
 					{
 						Log.W("Cat: Into StopSitting");
-						int num = Cat.SitDownFrameCount;
+						int num = ShrineCat.SitDownFrameCount;
 						frame = (int)Frame.SitDown;
 						frames = new[] { (frame + num - 1, 120), (frame + num - 2, 120), (frame + num - 3, 120), (frame + num - 4, 120) }; 
 						loop = false;
