@@ -373,6 +373,11 @@ namespace Hikawa
 			return 0.5f + 0.5f * MathF.Sin(-MathF.PI * 0.5f + ratio * MathF.PI * 2f);
 		}
 
+		internal static float SharpCircularFromRatio(float ratio)
+		{
+			return MathF.Cos(-MathF.PI * 0.5f + ratio * MathF.PI);
+		}
+
 		internal static float RatioFromPreciseTime(int startTime, int endTime, bool isCircular = false)
 		{
 			int range = endTime - startTime;

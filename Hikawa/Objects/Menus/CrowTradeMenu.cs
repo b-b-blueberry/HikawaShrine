@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hikawa.Objects.Locations;
 using StardewModdingAPI;
@@ -7,6 +8,9 @@ using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
 
+/**
+cs Game1.activeClickableMenu = new StardewValley.Menus.FieldOfficeMenu(Game1.getLocationFromName(`IslandFieldOffice`) as StardewValley.Locations.IslandFieldOffice);
+*/
 namespace Hikawa.Objects.Menus
 {
 	public class CrowTradeMenu : MenuWithInventory
@@ -15,39 +19,44 @@ namespace Hikawa.Objects.Menus
 
 		public readonly int Scale = 4;
 		public readonly Point BorderSize = new(4, 4);
-		public readonly Rectangle SceneBackgroundSource = new(0, 0, 200, 120);
-		public readonly Rectangle ItemSlotSource = new(0, 0, 16, 16);
+		public readonly Point ItemSlotSize = new(18, 18);
+		public readonly Rectangle SceneBackgroundSource = new(0, 336, 144, 80);
 
-		public Rectangle _infoArea;
+		public Rectangle _sceneArea;
 		public Rectangle _inventoryArea;
 		public Rectangle _displayArea;
 
-		public ClickableTextureComponent ItemSlot;
+		public ClickableComponent ItemSlot;
+		public ClickableComponent ItemInventorySlot;
 		public Texture2D CrowTradeMenuTexture;
+
+		public bool IsAnimating;
+		public Vector2 AnimStartPosition;
+		public Vector2 AnimEndPosition;
+		public double AnimStartTime;
+		public double AnimEndTime;
 
 		private readonly Point _borderScaled;
 
 		public bool IsCloseButtonAllowed => !Game1.options.SnappyMenus;
+		public double AnimTime => Game1.currentGameTime.TotalGameTime.TotalMilliseconds;
+		public double AnimRatio => this.IsAnimating ? (this.AnimTime - this.AnimStartTime) / (this.AnimEndTime - this.AnimStartTime) : 0;
 
 		public CrowTradeMenu(Shrine shrine) : base(
 			highlighterMethod: CrowTradeMenu.HighlightItems,
 			okButton: false,
 			trashCan: false,
-			inventoryXOffset: InventoryOffset.X,
-			inventoryYOffset: InventoryOffset.Y)
+			inventoryXOffset: CrowTradeMenu.InventoryOffset.X,
+			inventoryYOffset: CrowTradeMenu.InventoryOffset.Y)
 		{
 			this._borderScaled = new(x: this.BorderSize.X * this.Scale, y: this.BorderSize.Y * this.Scale);
 
 			this.initializeUpperRightCloseButton();
-			this.CrowTradeMenuTexture = Game1.temporaryContent.Load<Texture2D>("LooseSprites\\FieldOfficeDonationMenu");
-			this.ItemSlot = new ClickableTextureComponent(
+			this.CrowTradeMenuTexture = ModEntry.Sprites;
+			this.ItemSlot = new ClickableComponent(
+				bounds: Rectangle.Empty,
 				name: null,
-				label: null,
-				hoverText: null,
-				texture: Game1.birdsSpriteSheet,
-				sourceRect: new(0, 0, 16, 16),
-				scale: Game1.pixelZoom,
-				bounds: Rectangle.Empty)
+				label: null)
 			{
 				item = shrine.CrowTradeItem
 			};
@@ -90,23 +99,29 @@ namespace Hikawa.Objects.Menus
 			}
 		}
 
-		public void DonateItem()
+		public void DonateItem(Item item)
 		{
 			Game1.playSound("grassyStep");
-			this.ItemSlot.item = ItemRegistry.Create(this.heldItem.QualifiedItemId);
-			this.heldItem = this.heldItem.ConsumeStack(1);
+			int index = Game1.player.Items.IndexOf(item);
+			this.ItemInventorySlot = this.inventory.inventory.Find(c => c.myID == index);
+			this.ItemSlot.item = item.getOne();
+			if (item.ConsumeStack(1) is null)
+				Utility.removeItemFromInventory(index, this.inventory.actualInventory);
 		}
 
 		public void UndonateItem()
 		{
-			Game1.playSound("pickUpItem");
-			this.heldItem = this.ItemSlot.item;
-			this.ItemSlot.item = null;
+			if (this.ItemSlot.item is not null)
+			{
+				Game1.playSound("pickUpItem");
+				Game1.player.addItemToInventory(this.ItemSlot.item);
+				this.ItemSlot.item = null;
+			}
 		}
 
 		public static bool HighlightItems(Item i)
 		{
-			return i is Object o && !o.bigCraftable.Value && !o.questItem.Value && o is not (Wallpaper or Trinket);
+			return i is StardewValley.Object o && !o.bigCraftable.Value && !o.questItem.Value && o is not (Wallpaper or Trinket or Furniture);
 		}
 
 		public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
@@ -125,44 +140,49 @@ namespace Hikawa.Objects.Menus
 				centre.X = centre.X / 3 * 2;
 			}
 
-			int yOffset = -8 * this.Scale;
+			int yOffset = -8;
+			int inventorySpacing = 2;
+			Point inventorySize = new(x: 6, y: 6);
+			Point scaledInventorySize = new(
+				x: inventorySize.X * ((Game1.smallestTileSize + inventory.horizontalGap) * this.Scale),
+				y: inventorySize.Y * (int)((Game1.smallestTileSize + inventory.verticalGap + 0.5f) * this.Scale));
 
 			// Menu visible area
 			Point displaySize = new(
-				x: (this.SceneBackgroundSource.Width + this.BorderSize.X) * this.Scale,
-				y: this.SceneBackgroundSource.Height * this.Scale + this.inventory.height);
+				x: (this.SceneBackgroundSource.Width + this.BorderSize.X * 2 + inventorySpacing) * this.Scale + scaledInventorySize.X,
+				y: Math.Max(scaledInventorySize.Y, this.SceneBackgroundSource.Height * this.Scale) + (this.BorderSize.Y * 2 * this.Scale));
 			this._displayArea = new(
 				x: centre.X - displaySize.X / 2,
-				y: centre.Y - displaySize.Y / 2 + yOffset,
+				y: centre.Y - displaySize.Y / 2 + yOffset * this.Scale,
 				width: displaySize.X,
 				height: displaySize.Y
 			);
 
 			// Info area
-			this._infoArea = new(
-				x: this._displayArea.X,
-				y: this._displayArea.Y,
+			this._sceneArea = new(
+				x: this._displayArea.Right - this.SceneBackgroundSource.Width * this.Scale - this._borderScaled.X,
+				y: this._displayArea.Center.Y - (this.SceneBackgroundSource.Height * this.Scale / 2),
 				width: this.SceneBackgroundSource.Width * this.Scale,
 				height: this.SceneBackgroundSource.Height * this.Scale);
 
 			// Inventory area
 			this._inventoryArea = new(
-				x: centre.X - this.inventory.width / 2,
-				y: this._infoArea.Bottom + this._borderScaled.Y / 7 * 13,
-				width: Game1.tileSize * 12,
-				height: Game1.tileSize * this.inventory.rows);
+				x: this._displayArea.Left + this.BorderSize.Y * this.Scale,
+				y: this._displayArea.Center.Y - scaledInventorySize.Y / 2,
+				width: scaledInventorySize.X,
+				height: scaledInventorySize.Y);
 
 			// Item slot
 			this.ItemSlot.bounds = new Rectangle(
-				x: this._infoArea.Left + this._infoArea.Width / 7 * 4,
-				y: this._infoArea.Top + this._infoArea.Height / 3 - this.ItemSlotSource.Width * this.Scale / 2,
-				width: this.ItemSlotSource.Width * this.Scale,
-				height: this.ItemSlotSource.Height * this.Scale);
+				x: this._sceneArea.Center.X - this.ItemSlotSize.X * this.Scale / 2,
+				y: this._sceneArea.Center.Y - this.ItemSlotSize.Y * this.Scale / 2,
+				width: this.ItemSlotSize.X * this.Scale,
+				height: this.ItemSlotSize.Y * this.Scale);
 
 			// Close button
 			this.upperRightCloseButton.setPosition(
-				x: this._infoArea.X + this._infoArea.Width - 2 * this.Scale,
-				y: this._infoArea.Y - this.BorderSize.Y * this.Scale);
+				x: this._displayArea.Right - this.BorderSize.X * this.Scale,
+				y: this._displayArea.Y - this.BorderSize.Y * this.Scale);
 
 			// Evidently this was good enough for the base game
 			this.inventory = new(
@@ -170,7 +190,8 @@ namespace Hikawa.Objects.Menus
 				yPosition: this._inventoryArea.Y,
 				playerInventory: false,
 				actualInventory: null,
-				highlightMethod: this.inventory.highlightMethod)
+				highlightMethod: this.inventory.highlightMethod,
+				rows: inventorySize.X)
 			{
 				width = this._inventoryArea.Width,
 				height = this._inventoryArea.Height
@@ -179,20 +200,28 @@ namespace Hikawa.Objects.Menus
 
 		public override void receiveLeftClick(int x, int y, bool playSound = true)
 		{
-			base.receiveLeftClick(x, y, playSound);
+			if (this.IsAnimating)
+				return;
 
-			if (this.ItemSlot.containsPoint(x, y))
+			// Item interactions
+			if (this.inventory.getItemAt(x, y) is Item item && this.inventory.highlightMethod(item))
 			{
-				if (this.heldItem is not null && this.ItemSlot.item is null)
-				{
-					this.DonateItem();
-				}
-				else if (this.heldItem is null && this.ItemSlot.item is not null)
-				{
-					this.UndonateItem();
-				}
+				this.UndonateItem();
+				this.DonateItem(item);
+
+				this.AnimStartPosition = this.ItemInventorySlot.bounds.Location.ToVector2();
+				this.AnimEndPosition = Utility.PointToVector2(this.ItemSlot.bounds.Location);
+				this.AnimStartTime = this.AnimTime;
+				this.AnimEndTime = this.AnimStartTime + 300 + Math.Abs(this.AnimEndPosition.X - this.AnimStartPosition.X) / this.Scale;
+				this.IsAnimating = true;
 			}
-			else if (this.IsCloseButtonAllowed && this.upperRightCloseButton.containsPoint(x, y))
+			else if (this.ItemSlot.containsPoint(x, y))
+			{
+				this.UndonateItem();
+			}
+
+			// Close menu
+			if (this.IsCloseButtonAllowed && this.upperRightCloseButton.containsPoint(x, y))
 			{
 				this.exitThisMenu();
 			}
@@ -206,7 +235,6 @@ namespace Hikawa.Objects.Menus
 			this.inventory?.hover(x, y, null);
 
 			const float scale = 0.25f;
-			this.ItemSlot.tryHover(x, y, maxScaleIncrease: scale);
 
 			if (this.IsCloseButtonAllowed)
 			{
@@ -228,6 +256,9 @@ namespace Hikawa.Objects.Menus
 		public override void update(GameTime time)
 		{
 			base.update(time);
+
+			if (this.IsAnimating && this.AnimTime > this.AnimEndTime)
+				this.IsAnimating = false;
 		}
 
 		public override void draw(SpriteBatch b)
@@ -237,36 +268,89 @@ namespace Hikawa.Objects.Menus
 				offsetX: -screen.X,
 				offsetY: -screen.Y);
 
+			float ratio = (float)this.AnimRatio;
+			float circular = Utils.SharpCircularFromRatio(ratio);
+
 			// Blackout
 			b.Draw(
 				texture: Game1.fadeToBlackRect,
 				destinationRectangle: screen,
 				color: Color.Black * 0.5f);
 
+			// Card
+			Point cardOffset = new(0 * this.Scale, -6 * this.Scale);
+			Point cardPadding = new(12 * this.Scale, 28 * this.Scale);
+			Game1.drawDialogueBox(
+				x: this._displayArea.X - cardOffset.X - cardPadding.X,
+				y: this._displayArea.Y - cardOffset.Y - cardPadding.Y - 32,
+				width: this._displayArea.Width + cardPadding.X * 2,
+				height: this._displayArea.Height + cardPadding.Y * 2,
+				speaker: false,
+				drawOnlyBox: true,
+				message: null,
+				objectDialogueWithPortrait: false,
+				ignoreTitleSafe: false,
+				r: 100,
+				g: 50,
+				b: 0);
+			
+			// Scene
 			b.Draw(
-				texture: Game1.fadeToBlackRect,
-				destinationRectangle: this._infoArea,
-				color: Color.Red * 0.5f);
+				texture: this.CrowTradeMenuTexture,
+				sourceRectangle: this.SceneBackgroundSource,
+				destinationRectangle: this._sceneArea,
+				color: Color.White);
 
-			b.Draw(
-				texture: Game1.fadeToBlackRect,
-				destinationRectangle: this._inventoryArea,
-				color: Color.Blue * 0.5f);
+			// Text
+			if (false)
+			{
+				SpriteFont font = Game1.dialogueFont;
+				string text = Game1.parseText("Leave something in the nest?", font, int.MaxValue);
+				Vector2 textSize = font.MeasureString(text);
+				Vector2 textPosition = new(x: this._sceneArea.Center.X - textSize.X / 2, y: this._displayArea.Bottom);
+				Utility.drawTextWithColoredShadow(
+					b: b,
+					text: text,
+					font: font,
+					position: textPosition,
+					color: Game1.textColor,
+					shadowColor: Color.SaddleBrown * 0.333f);
+			}
 
+			// Components
+			this.upperRightCloseButton?.draw(b);
 			this.okButton?.draw(b);
-			this.inventory?.draw(b, 0, 0, 0);
-
-			this.ItemSlot.draw(b);
+			this.trashCan?.draw(b);
+			this.inventory?.draw(b, 150, 75, 25);
 			this.ItemSlot.item?.drawInMenu(
 				spriteBatch: b,
-				location: Utility.PointToVector2(this.ItemSlot.bounds.Location),
-				scaleSize: 1f);
-
+				location: this.IsAnimating
+					? Vector2.Lerp(this.AnimStartPosition, this.AnimEndPosition, ratio) + new Vector2(x: 0, (this.AnimStartPosition.Y - this.AnimEndPosition.Y) / 2 * circular)
+					: Utility.PointToVector2(this.ItemSlot.bounds.Location),
+				scaleSize: 1f + 0.75f * circular);
 			this.drawMouse(b);
-			this.heldItem?.drawInMenu(
-				spriteBatch: b,
-				location: new Vector2(Game1.getOldMouseX() + 16, Game1.getOldMouseY() + 16),
-				scaleSize: 1f);
+
+			// Test
+			if (false)
+			{
+				float a = 0.2f;
+				b.Draw(
+					texture: Game1.fadeToBlackRect,
+					destinationRectangle: this._displayArea,
+					color: Color.Black * a);
+				b.Draw(
+					texture: Game1.fadeToBlackRect,
+					destinationRectangle: this._sceneArea,
+					color: Color.Red * a);
+				b.Draw(
+					texture: Game1.fadeToBlackRect,
+					destinationRectangle: this._inventoryArea,
+					color: Color.Blue * a);
+				b.Draw(
+					texture: Game1.fadeToBlackRect,
+					destinationRectangle: this.ItemSlot.bounds,
+					color: Color.Green * a);
+			}
 		}
 
 		public override bool IsAutomaticSnapValid(int direction, ClickableComponent a, ClickableComponent b)
