@@ -1,10 +1,9 @@
-﻿using StardewModdingAPI.Events;
-using System.IO;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
+﻿using System.IO;
+using StardewModdingAPI.Events;
 
 namespace Hikawa
 {
-    internal static class AssetManager
+	internal static class AssetManager
     {
         internal static readonly string RootAssetDir = Path.Combine("Mods", "blueberry", "Hikawa");
 

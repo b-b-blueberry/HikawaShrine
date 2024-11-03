@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
 using StardewValley;
-using System;
-using Color = Microsoft.Xna.Framework.Color;
 
 namespace Hikawa.Objects.Locations
 {

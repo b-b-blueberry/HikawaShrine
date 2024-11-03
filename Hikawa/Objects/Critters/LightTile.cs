@@ -1,7 +1,5 @@
 ﻿using System;
 using Hikawa.Objects.Locations;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 

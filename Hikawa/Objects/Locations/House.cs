@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
-using Microsoft.Xna.Framework;
 using StardewValley;
-using Color = Microsoft.Xna.Framework.Color;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.Objects.Locations
 {

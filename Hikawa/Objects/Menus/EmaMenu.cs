@@ -1,24 +1,15 @@
-﻿using Hikawa.Objects.Locations;
+﻿using System;
+using System.Collections.Generic;
 using Hikawa.Modules;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
-using StardewValley.Buildings;
 using StardewValley.Menus;
-using StardewValley.TerrainFeatures;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Object = StardewValley.Object;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.Objects.Menus
 {
-    public class EmaMenu : IClickableMenu
+	public class EmaMenu : IClickableMenu
 	{
 		public class Bundle
 		{

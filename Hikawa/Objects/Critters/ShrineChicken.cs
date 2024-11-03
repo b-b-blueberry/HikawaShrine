@@ -1,10 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Linq;
 using StardewValley;
 using StardewValley.Monsters;
 using StardewValley.Pathfinding;
-using System;
-using System.Linq;
 
 namespace Hikawa.Objects.Critters
 {

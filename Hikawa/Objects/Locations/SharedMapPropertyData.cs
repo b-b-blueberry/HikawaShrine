@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Hikawa.Objects.Locations
+﻿namespace Hikawa.Objects.Locations
 {
 	public record class ShrineTreeDefinitionsEntry
 	{

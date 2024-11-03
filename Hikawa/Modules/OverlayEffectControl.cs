@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace Hikawa.Modules
 {
-    // TODO: SYSTEM: Consider adding List<OverlayEffect> for stacking effects
-    // eg. shadow under player + haze
+	// TODO: SYSTEM: Consider adding List<OverlayEffect> for stacking effects
+	// eg. shadow under player + haze
 
-    public class OverlayEffectControl
+	public class OverlayEffectControl
     {
         public enum Effect
         {

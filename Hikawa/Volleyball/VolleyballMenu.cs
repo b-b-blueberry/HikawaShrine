@@ -1,14 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
+using System.Linq;
 using StardewValley;
 using StardewValley.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq; 
 
 namespace Hikawa.Volleyball
 {
-    public class VolleyballMenu : IClickableMenu
+	public class VolleyballMenu : IClickableMenu
 	{
         // Structures
 		public enum Team

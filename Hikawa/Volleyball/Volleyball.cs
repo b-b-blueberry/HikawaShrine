@@ -1,16 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Linq;
 using Netcode;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Network;
-using System;
-using System.Linq;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa.Volleyball
 {
-    public class Volleyball : INetObject<NetFields>
+	public class Volleyball : INetObject<NetFields>
 	{
         public enum Style
         {

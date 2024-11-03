@@ -1,12 +1,11 @@
-﻿using Hikawa.Modules;
-using Microsoft.Xna.Framework;
+﻿using System;
+using Hikawa.Modules;
 using StardewModdingAPI.Events;
 using StardewValley;
-using System;
 
 namespace Hikawa.Objects.Locations
 {
-    public class Vortex : GameLocation
+	public class Vortex : GameLocation
     {
 		protected override void resetLocalState()
 		{

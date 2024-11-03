@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using HarmonyLib; // el diavolo nuevo
 using Hikawa.Modules;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
-using HarmonyLib; // el diavolo nuevo
 
 namespace Hikawa
 {

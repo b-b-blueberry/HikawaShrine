@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
 using Netcode;
 using StardewModdingAPI;
 using StardewValley;
-using System;
 
 namespace Hikawa.Volleyball
 {

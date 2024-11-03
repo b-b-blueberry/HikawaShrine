@@ -98,7 +98,7 @@ namespace Hikawa
 			helper.Events.Display.RenderedStep += this.OnRenderedStep;
 			helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
-			if (Config.DebugMode)
+			if (ModEntry.Config.DebugMode)
 			{
 				this.AddDeveloperCommands(helper: helper);
 

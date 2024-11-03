@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.Xna.Framework;
 
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -8,7 +7,7 @@ using StardewValley;
 
 namespace Hikawa.Modules
 {
-    public static class MiniSit
+	public static class MiniSit
     {
         private static IModHelper Helper => ModEntry.Instance.Helper;
 

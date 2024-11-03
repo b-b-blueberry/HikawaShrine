@@ -1,14 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using System;
-using System.Collections.Generic;
 
 namespace Hikawa.Modules
 {
-    internal static class SpriteTest
+	internal static class SpriteTest
     {
         private static Texture2D _texture => ModEntry.Sprites;
         private static readonly int X = Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea.Center.X;

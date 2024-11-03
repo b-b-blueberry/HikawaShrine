@@ -1,14 +1,10 @@
-﻿using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardewValley;
+﻿using StardewValley;
 using StardewValley.Projectiles;
 using StardewValley.TerrainFeatures;
 
 namespace Hikawa.Objects.Projectiles
 {
-    class WandProjectile : BasicProjectile
+	class WandProjectile : BasicProjectile
     {
         public enum Type_
         {
