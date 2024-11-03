@@ -53,10 +53,10 @@
         },
         "0.8": { // Main gate
             "X1": 33,
-            "Y1": 45.5,
+            "Y1": 45,
             "X2": 36,
-            "Y2": 45.5,
-            "R": 2
+            "Y2": 45,
+            "R": 1
         },
         "0.9": { // Cemetery gate
             "X1": 21.5,
@@ -906,7 +906,7 @@
             },
             { // Garden (small)
                 "Tile": {
-                    "X": 57,
+                    "X": 56,
                     "Y": 20
                 },
                 "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
@@ -1212,7 +1212,7 @@
             },
             { // Garden (small)
                 "Tile": {
-                    "X": 57,
+                    "X": 56,
                     "Y": 19.5
                 },
                 "Color": {
