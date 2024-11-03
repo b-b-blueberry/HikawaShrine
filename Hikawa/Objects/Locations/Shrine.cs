@@ -47,6 +47,10 @@ namespace Hikawa.Objects.Locations
 		[XmlIgnore]
 		public bool WhatAboutCatsCanTheySpawnToday;
 		[XmlIgnore]
+		public bool ShouldChickenSpawnToday;
+		[XmlIgnore]
+		public bool IsCrowTradeAvailableToday;
+		[XmlIgnore]
 		public ShrineBabyCrowController BabyCrows;
 
 		public Shrine() : base() {}
@@ -88,11 +92,33 @@ namespace Hikawa.Objects.Locations
 				}
 			}
 
+			Vector2 zero = new Vector2(x: Game1.viewport.X, y: Game1.viewport.Y) * -1f;
+			/*
+			// Crow trade stump
+			if (this.IsCrowTradeItemReady)
+			{
+				float yOffset = Game1.pixelZoom * (float)MathF.Round(MathF.Sin((float)Game1.currentGameTime.TotalGameTime.TotalMilliseconds / 250), 2);
+				Vector2 local = zero
+					+ this.CrowTradeTile * Game1.tileSize
+					+ new Vector2(0, -2) * Game1.tileSize
+					+ new Vector2(0, yOffset);
+				b.Draw(
+					texture: Game1.emoteSpriteSheet,
+					position: local,
+					sourceRectangle: new Rectangle(0, 32, 16, 16),
+					color: Color.White * 0.85f,
+					rotation: 0f,
+					origin: Vector2.Zero,
+					scale: Game1.pixelZoom,
+					effects: SpriteEffects.None,
+					layerDepth: 0.98f);
+			}
+			*/
+			// Shrine bell
 			float layerDepth = 0.0001f;
 			float bellRatioRaw = 1f - (float)this.BellTimer / this.BellTimerMax;
 			float bellRatio = -MathF.Sin(-MathF.PI + bellRatioRaw * MathF.PI * 3f);
 
-			Vector2 zero = new Vector2(x: Game1.viewport.X, y: Game1.viewport.Y) * -1f;
 			Vector2 position = new(34.5f + 2f / Game1.smallestTileSize, 32f + 2f / Game1.smallestTileSize);
 			b.Draw(
 				texture: Shrine.OutdoorsSprites,
@@ -177,19 +203,24 @@ namespace Hikawa.Objects.Locations
 				// Game state
 				&& Context.IsPlayerFree
 				// World state
-				&& !Game1.IsWinter && !Game1.isStartingToGetDarkOut(this) && !Game1.IsRainingHere(this))
+				&& !Game1.IsWinter && !Game1.isStartingToGetDarkOut(this) && !Game1.IsRainingHere(this)
+				)
 			{
 				Vector2 tile = ModEntry.SaveData.LostJewelryQuestTile != default ? ModEntry.SaveData.LostJewelryQuestTile : ModEntry.SaveData.LostGlassesQuestTile; 
 				Utils.CreateSparkleAtTile(where: this, tile: tile);
 			}
 
-			// Crow trade item sparkles
+			// Crow trade item
 			if (// Ready flag
 				this.IsCrowTradeItemReady
 				// Poll rate
-				&& ticks % sparkleInterval == 0 && Game1.random.NextDouble() < 0.5f)
+				&& ticks % sparkleInterval == 0 //&& Game1.random.NextDouble() < 0.5f
+				// Game state
+				&& Context.IsPlayerFree
+				)
 			{
-				Utils.CreateSparkleAtTile(where: this, tile: this.CrowTradeTile);
+				Vector2 tile = this.CrowTradeTile + new Vector2(x: -0.0333f, y: -1.333f);
+				Utils.CreateSparkleAtTile(where: this, tile: tile);
 			}
 		}
 
@@ -222,8 +253,18 @@ namespace Hikawa.Objects.Locations
 			var tiles = Utils.GetTilesWithProperty(where: this, layer: "Buildings", property: "Action", value: new(ModConsts.ActionCrowTrade), onlyOne: true);
 			this.CrowTradeTile = tiles.FirstOrDefault();
 
+			// Critters
+			this.critters.Clear();
+			if (this.ShouldCrowsSpawnToday)
+				this.TrySpawnDailyCrows();
+			if (this.WhatAboutCatsCanTheySpawnToday)
+				this.TrySpawnDailyCats();
+			if (this.IsCrowTradeAvailableToday && this.CrowTradeItem is null)
+				this.addCritter(new ShrineCrowTradeCrow(this.CrowTradeTile * Game1.tileSize + new Vector2(Game1.tileSize, -Game1.tileSize / 2f)));
+
 			Utils.ApplyCustomSharedMapProperties(this);
 
+			// Effects
 			Game1.background = new ShrineBackground(location: this);
 		}
 
@@ -233,15 +274,16 @@ namespace Hikawa.Objects.Locations
 
 			this.ShouldCrowsSpawnToday = (!Game1.IsWinter && !Game1.isRaining) || (Game1.IsWinter && Game1.random.NextDouble() < 0.3d);
 			this.WhatAboutCatsCanTheySpawnToday = false;
+			this.ShouldChickenSpawnToday = false;
+			this.IsCrowTradeAvailableToday = !Game1.IsWinter && !Game1.isRaining;
 
-			this.critters = [];
-			if (Utils.IsItObonYet())
+            if (Utils.IsItObonYet())
 			{
 				// Nice one
 
 				// TODO: ASSETS: Obon decorations for the shrine
 
-				//SpawnPerchedCrows(where, Vector2.Zero, Vector2.Zero);
+				// SpawnPerchedCrows(where, Vector2.Zero, Vector2.Zero);
 			}
 			else if (false)
 			{
@@ -262,10 +304,6 @@ namespace Hikawa.Objects.Locations
 			else
 			{
 				this.SpawnAnimals();
-				if (this.ShouldCrowsSpawnToday)
-					this.TrySpawnDailyCrows();
-				if (this.WhatAboutCatsCanTheySpawnToday)
-					this.TrySpawnDailyCats();
 			}
 		}
 
@@ -324,16 +362,13 @@ namespace Hikawa.Objects.Locations
 			{
 				Game1.playSound("getNewSpecialItem");
 				who.addItemByMenuIfNecessaryElseHoldUp(this.CrowTradeItem);
+				this.CrowTradeItem = null;
 			}
 			else
 			{
 				Game1.playSound("grassyStep");
 				CrowTradeMenu menu = new(shrine: this);
 				Game1.activeClickableMenu = menu;
-				menu.exitFunction += () =>
-				{
-					this.CrowTradeItem = menu.ItemSlot.item;
-				};
 			}
 
 			return true;
@@ -510,15 +545,15 @@ namespace Hikawa.Objects.Locations
 
 		public void SpawnAnimals()
 		{
-			foreach (NPC chicken in this.characters.Where(c => c is ShrineChicken).ToList())
+			if (this.ShouldChickenSpawnToday)
 			{
-				this.characters.Remove(chicken);
-			}
-			if (Game1.timeOfDay < 1800)
-			{
-				this.addCharacter(new ShrineChicken(where: this, position: new Vector2(53, 33) * Game1.tileSize));
-				this.addCharacter(new ShrineChicken(where: this, position: new Vector2(47, 49) * Game1.tileSize));
-				this.addCharacter(new ShrineChicken(where: this, position: new Vector2(52, 50) * Game1.tileSize, isBrown: true));
+				this.characters.RemoveWhere(c => c is ShrineChicken);
+				if (Game1.timeOfDay < 1800)
+				{
+					this.addCharacter(new ShrineChicken(where: this, position: new Vector2(53, 33) * Game1.tileSize));
+					this.addCharacter(new ShrineChicken(where: this, position: new Vector2(47, 49) * Game1.tileSize));
+					this.addCharacter(new ShrineChicken(where: this, position: new Vector2(52, 50) * Game1.tileSize, isBrown: true));
+				}
 			}
 		}
 		

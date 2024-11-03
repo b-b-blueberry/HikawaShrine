@@ -207,7 +207,7 @@ namespace Hikawa
 			{
 				for (int y = 0; y < l.LayerHeight; ++y)
 				{
-					if (l.Tiles[x, y]?.Properties?.TryGetValue(property, out var v) is bool b && b && (value is null || v == value))
+					if (l.Tiles[x, y]?.Properties?.TryGetValue(property, out PropertyValue v) is bool b && b && (value is null || v.ToString() == value.ToString()))
 					{
 						tiles.Add(new(x, y));
 						if (onlyOne)
