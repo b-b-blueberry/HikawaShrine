@@ -687,6 +687,16 @@
    <property name="Shadow" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="1625">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="1626">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="1675">
   <properties>
    <property name="Passable" type="bool" value="true"/>
@@ -709,6 +719,16 @@
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
+  </properties>
+ </tile>
+ <tile id="1687">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="1688">
+  <properties>
+   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="1737">
@@ -829,26 +849,6 @@
   <properties>
    <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
-  </properties>
- </tile>
- <tile id="1997">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="1999">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="2002">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="2004">
-  <properties>
-   <property name="Passable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="2047">

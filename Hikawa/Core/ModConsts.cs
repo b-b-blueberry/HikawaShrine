@@ -50,8 +50,6 @@
         public const string ActionEma = ContentPrefix + "Ema";
         public const string ActionVortex = ContentPrefix + "Vortex";
         public const string ActionCrowTrade = ContentPrefix + "CrowTrade";
-		// Tile properties
-		public const string TilePetalSpawner = ContentPrefix + "PetalSpawner";
 		// Touch actions
 		public const string TouchHop = ContentPrefix + "Hop";
 		// Trigger actions

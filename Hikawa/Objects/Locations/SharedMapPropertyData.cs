@@ -2,6 +2,36 @@
 
 namespace Hikawa.Objects.Locations
 {
+	public record class ShrineTreeDefinitionsEntry
+	{
+		/// <summary>
+		/// Custom source area of tree texture used to draw entire tree.
+		/// </summary>
+		public Rectangle TextureRegion;
+		public Vector2 TextureOrigin;
+		public bool HasShadow;
+		public bool CanShake;
+		/// <summary>
+		/// Area relative to unscaled sprite that can spawn petals.
+		/// </summary>
+		public Rectangle? LeafRegion;
+	}
+
+	public record class ShrineTreesEntry
+	{
+		/// <summary>
+		/// Tile position of base of tree.
+		/// </summary>
+		public Vector2 Tile;
+		/// <summary>
+		/// Key of entry in base game WildTrees data model.
+		/// </summary>
+		public string Id;
+		public bool Flip;
+		public bool Leaves;
+		public bool Shadow;
+	}
+
 	public record class CrowSpawnEntry
 	{
 		// Paired by spawn positions for Phobos and Deimos

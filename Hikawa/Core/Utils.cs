@@ -227,6 +227,18 @@ namespace Hikawa
 
 		public static void ApplyCustomSharedMapProperties(GameLocation where)
 		{
+			// Shrine trees
+			if (ModEntry.ModData.ShrineTrees.TryGetValue(where.Name, out List<ShrineTreesEntry> trees))
+			{
+				foreach (ShrineTreesEntry entry in trees)
+				{
+					if (ModEntry.ModData.ShrineTreeDefinitions.TryGetValue(entry.Id, out ShrineTreeDefinitionsEntry definition))
+					{
+						where.terrainFeatures.TryAdd(entry.Tile, new ShrineTree(entry, definition));
+					}
+				}
+			}
+
 			// Hanging sprites
 			if (ModEntry.ModData.HangingSprites.TryGetValue(where.Name, out List<HangingSpriteEntry> sprites))
 			{

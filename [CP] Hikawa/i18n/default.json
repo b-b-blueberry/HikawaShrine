@@ -94,6 +94,7 @@
     "world.shrine.offer.prompt": "Make an offering?",
     "world.shrine.offer.awaiting": "You've already paid tribute recently.",
     "world.shrine.offer.cooldown": "You still feel a little peculiar from your last visit.",
+    "world.shrine.tree.warning": "You shouldn't cut down trees at the Shrine.",
 
     "world.house.blank": "...",
     "world.house.hearth": "The lid's rattling on an old kettle, quietly steaming away. Smells nice.",

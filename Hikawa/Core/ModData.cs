@@ -14,6 +14,8 @@ namespace Hikawa
 		public Dictionary<float, CrowSpawnEntry> CrowPerches;
 		public Point[] BabyCrowPerches;
 		public Point[] BabyCrowRoosts;
+		public Dictionary<string, ShrineTreeDefinitionsEntry> ShrineTreeDefinitions;
+		public Dictionary<string, List<ShrineTreesEntry>> ShrineTrees;
 		public Dictionary<string, List<HangingSpriteEntry>> HangingSprites;
 		public Dictionary<string, List<LightTileEntry>> LightTiles;
 		public Dictionary<string, List<LightEntry>> Lights;

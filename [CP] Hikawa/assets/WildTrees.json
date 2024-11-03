@@ -1,0 +1,215 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: WildTrees - Data",
+            "Action": "EditData",
+            "Target": "Data/WildTrees",
+            "Entries": {
+                "Custom_Hikawa_Cherry_S": {
+                    "Textures": [
+                        {
+                            "Condition": null,
+                            "Season": null,
+                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                        }
+                    ],
+                    "SeedItemId": null,
+                    "SeedPlantable": false,
+                    "GrowthChance": 0,
+                    "FertilizedGrowthChance": 0,
+                    "SeedSpreadChance": 0,
+                    "SeedOnShakeChance": 0,
+                    "SeedOnChopChance": 0,
+                    "DropWoodOnChop": false,
+                    "DropHardwoodOnLumberChop": false,
+                    "IsLeafy": false,
+                    "IsLeafyInWinter": false,
+                    "IsLeafyInFall": false,
+                    "PlantableLocationRules": null,
+                    "GrowsInWinter": false,
+                    "IsStumpDuringWinter": false,
+                    "AllowWoodpeckers": false,
+                    "UseAlternateSpriteWhenNotShaken": false,
+                    "UseAlternateSpriteWhenSeedReady": false,
+                    "DebrisColor": null,
+                    "SeedDropItems": null,
+                    "ChopItems": null,
+                    "TapItems": null,
+                    "ShakeItems": null,
+                    "GrowsMoss": false,
+                    "CustomFields": null
+                },
+                "Custom_Hikawa_Cherry_M": {
+                    "Textures": [
+                        {
+                            "Condition": null,
+                            "Season": null,
+                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                        }
+                    ],
+                    "SeedItemId": null,
+                    "SeedPlantable": false,
+                    "GrowthChance": 0,
+                    "FertilizedGrowthChance": 0,
+                    "SeedSpreadChance": 0,
+                    "SeedOnShakeChance": 0,
+                    "SeedOnChopChance": 0,
+                    "DropWoodOnChop": false,
+                    "DropHardwoodOnLumberChop": false,
+                    "IsLeafy": true,
+                    "IsLeafyInWinter": false,
+                    "IsLeafyInFall": true,
+                    "PlantableLocationRules": null,
+                    "GrowsInWinter": false,
+                    "IsStumpDuringWinter": false,
+                    "AllowWoodpeckers": false,
+                    "UseAlternateSpriteWhenNotShaken": false,
+                    "UseAlternateSpriteWhenSeedReady": false,
+                    "DebrisColor": null,
+                    "SeedDropItems": null,
+                    "ChopItems": null,
+                    "TapItems": null,
+                    "ShakeItems": null,
+                    "GrowsMoss": false,
+                    "CustomFields": null
+                },
+                "Custom_Hikawa_Cherry_L": {
+                    "Textures": [
+                        {
+                            "Condition": null,
+                            "Season": null,
+                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                        }
+                    ],
+                    "SeedItemId": null,
+                    "SeedPlantable": false,
+                    "GrowthChance": 0,
+                    "FertilizedGrowthChance": 0,
+                    "SeedSpreadChance": 0,
+                    "SeedOnShakeChance": 0,
+                    "SeedOnChopChance": 0,
+                    "DropWoodOnChop": false,
+                    "DropHardwoodOnLumberChop": false,
+                    "IsLeafy": true,
+                    "IsLeafyInWinter": false,
+                    "IsLeafyInFall": true,
+                    "PlantableLocationRules": null,
+                    "GrowsInWinter": false,
+                    "IsStumpDuringWinter": false,
+                    "AllowWoodpeckers": false,
+                    "UseAlternateSpriteWhenNotShaken": false,
+                    "UseAlternateSpriteWhenSeedReady": false,
+                    "DebrisColor": null,
+                    "SeedDropItems": null,
+                    "ChopItems": null,
+                    "TapItems": null,
+                    "ShakeItems": null,
+                    "GrowsMoss": false,
+                    "CustomFields": null
+                },
+                "Custom_Hikawa_Boxwood": {
+                    "Textures": [
+                        {
+                            "Condition": null,
+                            "Season": null,
+                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                        }
+                    ],
+                    "SeedItemId": null,
+                    "SeedPlantable": false,
+                    "GrowthChance": 0,
+                    "FertilizedGrowthChance": 0,
+                    "SeedSpreadChance": 0,
+                    "SeedOnShakeChance": 0,
+                    "SeedOnChopChance": 0,
+                    "DropWoodOnChop": false,
+                    "DropHardwoodOnLumberChop": false,
+                    "IsLeafy": true,
+                    "IsLeafyInWinter": true,
+                    "IsLeafyInFall": true,
+                    "PlantableLocationRules": null,
+                    "GrowsInWinter": false,
+                    "IsStumpDuringWinter": false,
+                    "AllowWoodpeckers": false,
+                    "UseAlternateSpriteWhenNotShaken": false,
+                    "UseAlternateSpriteWhenSeedReady": false,
+                    "DebrisColor": null,
+                    "SeedDropItems": null,
+                    "ChopItems": null,
+                    "TapItems": null,
+                    "ShakeItems": null,
+                    "GrowsMoss": false,
+                    "CustomFields": null
+                },
+                "Custom_Hikawa_Maple_1": {
+                    "Textures": [
+                        {
+                            "Condition": null,
+                            "Season": null,
+                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                        }
+                    ],
+                    "SeedItemId": null,
+                    "SeedPlantable": false,
+                    "GrowthChance": 0,
+                    "FertilizedGrowthChance": 0,
+                    "SeedSpreadChance": 0,
+                    "SeedOnShakeChance": 0,
+                    "SeedOnChopChance": 0,
+                    "DropWoodOnChop": false,
+                    "DropHardwoodOnLumberChop": false,
+                    "IsLeafy": true,
+                    "IsLeafyInWinter": false,
+                    "IsLeafyInFall": true,
+                    "PlantableLocationRules": null,
+                    "GrowsInWinter": false,
+                    "IsStumpDuringWinter": false,
+                    "AllowWoodpeckers": false,
+                    "UseAlternateSpriteWhenNotShaken": false,
+                    "UseAlternateSpriteWhenSeedReady": false,
+                    "DebrisColor": null,
+                    "SeedDropItems": null,
+                    "ChopItems": null,
+                    "TapItems": null,
+                    "ShakeItems": null,
+                    "GrowsMoss": false,
+                    "CustomFields": null
+                },
+                "Custom_Hikawa_Maple_2": {
+                    "Textures": [
+                        {
+                            "Condition": null,
+                            "Season": null,
+                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                        }
+                    ],
+                    "SeedItemId": null,
+                    "SeedPlantable": false,
+                    "GrowthChance": 0,
+                    "FertilizedGrowthChance": 0,
+                    "SeedSpreadChance": 0,
+                    "SeedOnShakeChance": 0,
+                    "SeedOnChopChance": 0,
+                    "DropWoodOnChop": false,
+                    "DropHardwoodOnLumberChop": false,
+                    "IsLeafy": true,
+                    "IsLeafyInWinter": false,
+                    "IsLeafyInFall": true,
+                    "PlantableLocationRules": null,
+                    "GrowsInWinter": false,
+                    "IsStumpDuringWinter": false,
+                    "AllowWoodpeckers": false,
+                    "UseAlternateSpriteWhenNotShaken": false,
+                    "UseAlternateSpriteWhenSeedReady": false,
+                    "DebrisColor": null,
+                    "SeedDropItems": null,
+                    "ChopItems": null,
+                    "TapItems": null,
+                    "ShakeItems": null,
+                    "GrowsMoss": false,
+                    "CustomFields": null
+                }
+            }
+        }
+    ]
+}

@@ -47,6 +47,11 @@
             "Action": "Include",
             "FromFile": "assets/Strings.json"
         },
+        {
+            "LogName": "Hikawa: WildTrees",
+            "Action": "Include",
+            "FromFile": "assets/WildTrees.json"
+        },
         // Match3
         {
             "LogName": "Hikawa: Match3",

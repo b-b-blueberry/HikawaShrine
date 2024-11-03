@@ -10,6 +10,7 @@ using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Monsters;
+using StardewValley.TerrainFeatures;
 using Object = StardewValley.Object;
 
 namespace Hikawa.Objects.Locations
@@ -29,10 +30,6 @@ namespace Hikawa.Objects.Locations
 		public static Texture2D OutdoorsSprites { get; internal set; }
 
 		// Animations
-		[XmlIgnore]
-		public int PetalIndex;
-		[XmlIgnore]
-		public Dictionary<Vector2, Vector2> PetalSpawnTiles = [];
 		[XmlIgnore]
 		public int BellTimer;
 		[XmlIgnore]
@@ -76,7 +73,20 @@ namespace Hikawa.Objects.Locations
 
 		public override void drawAboveFrontLayer(SpriteBatch b)
 		{
-			base.drawAboveFrontLayer(b);
+			// Generous draw bounds for large ShrineTree sprites
+			Vector2 tile = Vector2.Zero;
+			Point min = new(x: -3, y: -3);
+			Point max = new(x: 5, y: 9);
+			for (int x = Game1.viewport.X / Game1.tileSize + min.X; x < (Game1.viewport.X + Game1.viewport.Width) / Game1.tileSize + max.X; x++)
+			{
+				for (int y = Game1.viewport.Y / Game1.tileSize + min.Y; y < (Game1.viewport.Y + Game1.viewport.Height) / Game1.tileSize + max.Y; y++)
+				{
+					tile.X = x;
+					tile.Y = y;
+					if (this.terrainFeatures.TryGetValue(tile, out var tf) && tf is not Flooring)
+						tf.draw(b);
+				}
+			}
 
 			float layerDepth = 0.0001f;
 			float bellRatioRaw = 1f - (float)this.BellTimer / this.BellTimerMax;
@@ -208,19 +218,13 @@ namespace Hikawa.Objects.Locations
 		{
 			base.resetLocalState();
 
+			// Properties
+			var tiles = Utils.GetTilesWithProperty(where: this, layer: "Buildings", property: "Action", value: new(ModConsts.ActionCrowTrade), onlyOne: true);
+			this.CrowTradeTile = tiles.FirstOrDefault();
+
 			Utils.ApplyCustomSharedMapProperties(this);
 
 			Game1.background = new ShrineBackground(location: this);
-			var tiles = Utils.GetTilesWithProperty(where: this, layer: "AlwaysFront", property: ModConsts.TilePetalSpawner);
-			this.PetalSpawnTiles = tiles.ToDictionary(
-				key => key, 
-				key => ArgUtility.TryGetVector2(
-					array: this.GetTilePropertySplitBySpaces(ModConsts.TilePetalSpawner, "AlwaysFront", (int)key.X, (int)key.Y),
-					index: 0,
-					out Vector2 value,
-					out string error) && string.IsNullOrEmpty(error) ? value : default);
-			tiles = Utils.GetTilesWithProperty(where: this, layer: "Buildings", property: "Action", value: ModConsts.ActionCrowTrade, onlyOne: true);
-			this.CrowTradeTile = tiles.FirstOrDefault();
 		}
 
 		protected override void resetSharedState()
@@ -472,45 +476,6 @@ namespace Hikawa.Objects.Locations
 				sprite.scaleChange = 0.03f;
 				sprite.rotationChange = (float)(Game1.random.Next(-3, 4) * Math.PI / 256f);
 				sprite.drawAboveAlwaysFront = true;
-				this.TemporarySprites.Add(sprite);
-			}
-
-			// Falling petals
-			if (// Poll rate
-				ticks % 15 == 0
-				// Game state
-				&& this.PetalSpawnTiles.Any()
-				// World state
-				//&& Game1.dayOfMonth > WorldDate.DaysPerMonth / 2
-				)
-			{
-				Vector2 tile = this.PetalSpawnTiles.Keys.ToArray()[this.PetalIndex];
-				Vector2 radius = this.PetalSpawnTiles[tile];
-				++this.PetalIndex;
-				this.PetalIndex %= this.PetalSpawnTiles.Count;
-				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
-					textureName: AssetManager.ExtraSpritesAssetName,
-					sourceRect: new Rectangle(320, 208, 16, 16),
-					position: tile * Game1.tileSize
-						+ new Vector2(
-							x: (float)(-radius.X + radius.X * 2f * Game1.random.NextDouble()),
-							y: (float)(-radius.Y + radius.Y * 2f * Game1.random.NextDouble())) * Game1.tileSize,
-					flipped: Game1.random.NextDouble() < 0.5d,
-					alphaFade: 0f,
-					color: Color.White);
-				sprite.motion = new Vector2(
-					x: WeatherDebris.globalWind * 0.25f,
-					y: 0.5f);
-				sprite.acceleration = new Vector2(
-					x: sprite.motion.X / 250f,
-					y: 0f);
-				sprite.alphaFadeFade = -0.00001f;
-				sprite.animationLength = 11;
-				sprite.totalNumberOfLoops = 8;
-				sprite.interval = (float)(100f + 100f * Game1.random.NextDouble());
-				sprite.layerDepth = 1f;
-				sprite.scale = (float)(3f + 0.5f * Game1.random.NextDouble());
-				sprite.scaleChange = -0.0025f;
 				this.TemporarySprites.Add(sprite);
 			}
 		}
