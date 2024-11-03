@@ -18,16 +18,17 @@ namespace Hikawa.Objects.Critters
 				Vector2 local = Game1.GlobalToLocal(Game1.viewport, this.position);
 				Vector2 birdSize = new Vector2(x: context.GetBirdWidth(), y: context.GetBirdHeight());
 				Vector2 shadowSize = new Vector2(x: Game1.shadowTexture.Width, y: Game1.shadowTexture.Height);
+				float inverseRatio = 1f - Utils.CircularFromRatio(this.pathPosition);
 				b.Draw(
 					texture: Game1.shadowTexture,
 					sourceRectangle: Game1.shadowTexture.Bounds,
 					position: local
 						+ new Vector2(x: -birdSize.X * Game1.pixelZoom / 16, y: birdSize.Y * Game1.pixelZoom / 8)
 						,
-					color: Color.White,
+					color: Color.White * 0.666f * inverseRatio,
 					rotation: 0f,
 					origin: shadowSize / 2,
-					scale: 3f,
+					scale: 3f * inverseRatio,
 					effects: SpriteEffects.None,
 					layerDepth: (this.position.Y - 1) / 10000f);
 
