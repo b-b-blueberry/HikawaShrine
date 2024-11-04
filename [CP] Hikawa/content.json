@@ -3,8 +3,7 @@
     "Changes": [
         {
             "LogName": "Hikawa: Data",
-            "Action": "Load",
-            "Target": "{{PATH}}/Data/Data",
+            "Action": "Include",
             "FromFile": "assets/Data.json"
         },
         {

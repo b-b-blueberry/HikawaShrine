@@ -1,1468 +1,1483 @@
 {
-    "HouseChimneyTile": {
-        "X": 53,
-        "Y": 22
-    },
-    "CrowSpawnRadius": {
-        "X": 2,
-        "Y": 2
-    },
-    "CrowSpawnArea": {
-        "X": 23,
-        "Y": 31,
-        "Width": 30,
-        "Height": 20
-    },
-    "CrowPerches": {
-        "0": { // Entry
-            "X1": 33.5,
-            "Y1": 53,
-            "X2": 35,
-            "Y2": 54
-        },
-        "0.2": { // Shrine front
-            "X1": 33.8,
-            "Y1": 29.6,
-            "X2": 35.2,
-            "Y2": 29.6
-        },
-        "0.3": { // Shrine left
-            "X1": 30,
-            "Y1": 29,
-            "X2": 32,
-            "Y2": 29.25
-        },
-        "0.4": { // Shrine right
-            "X1": 37,
-            "Y1": 29.25,
-            "X2": 39,
-            "Y2": 29
-        },
-        "0.5": { // House
-            "X1": 45,
-            "Y1": 27,
-            "X2": 47,
-            "Y2": 26.75,
-            "R": 2
-        },
-        "0.65": { // Wood lanterns
-            "X1": 31,
-            "Y1": 37.2,
-            "X2": 38,
-            "Y2": 37.2
-        },
-        "0.8": { // Main gate
-            "X1": 33,
-            "Y1": 45,
-            "X2": 36,
-            "Y2": 45,
-            "R": 1
-        },
-        "0.9": { // Cemetery gate
-            "X1": 21.5,
-            "Y1": 17.5,
-            "X2": 23.5,
-            "Y2": 18.5
-        },
-        "0.95": { // Omiyageya
-            "X1": 25,
-            "Y1": 40.3,
-            "X2": 27.075,
-            "Y2": 40.125
-        },
-        "1": { // Hall
-            "X1": 50,
-            "Y1": 40,
-            "X2": 52,
-            "Y2": 41
-        }
-    },
-    "BabyCrowPerches": [
-        // Shrine
+    "Changes": [
         {
-            "X": 32,
-            "Y": 43
+            "LogName": "Hikawa: Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Data",
+            "FromFile": "assets/Blank.json"
         },
         {
-            "X": 35,
-            "Y": 41
-        },
-        {
-            "X": 38,
-            "Y": 44
-        },
-        // House
-        {
-            "X": 57,
-            "Y": 27
-        },
-        {
-            "X": 58,
-            "Y": 29
-        },
-        // Cemetery
-        {
-            "X": 36,
-            "Y": 16
-        },
-        {
-            "X": 32,
-            "Y": 21
-        },
-        {
-            "X": 39,
-            "Y": 19
-        },
-        {
-            "X": 49,
-            "Y": 14
-        }
-    ],
-    "BabyCrowRoosts": [
-        {
-            "X": -100,
-            "Y": -100
-        }
-    ],
-    "ShrineTreeDefinitions": {
-        "{{ID}}_Cherry_S": {
-            "TextureRegion": {
-                "X": 656,
-                "Y": 464,
-                "Width": 48,
-                "Height": 64
-            },
-            "TextureOrigin": {
-                "X": 24,
-                "Y": 64
-            },
-            "HasShadow": false,
-            "CanShake": true,
-            "LeafRegion": {
-                "X": 24,
-                "Y": 24,
-                "Width": 48,
-                "Height": 24
-            }
-        },
-        "{{ID}}_Cherry_M": {
-            "TextureRegion": {
-                "X": 704,
-                "Y": 448,
-                "Width": 112,
-                "Height": 80
-            },
-            "TextureOrigin": {
-                "X": 56,
-                "Y": 80
-            },
-            "HasShadow": true,
-            "CanShake": true,
-            "LeafRegion": {
-                "X": 24,
-                "Y": 24,
-                "Width": 80,
-                "Height": 32
-            }
-        },
-        "{{ID}}_Cherry_L": {
-            "TextureRegion": {
-                "X": 816,
-                "Y": 432,
-                "Width": 96,
-                "Height": 96
-            },
-            "TextureOrigin": {
-                "X": 56,
-                "Y": 96
-            },
-            "HasShadow": true,
-            "CanShake": true,
-            "LeafRegion": {
-                "X": 40,
-                "Y": 40,
-                "Width": 80,
-                "Height": 32
-            }
-        },
-        "{{ID}}_Boxwood": {
-            "TextureRegion": {
-                "X": 912,
-                "Y": 368,
-                "Width": 80,
-                "Height": 160
-            },
-            "TextureOrigin": {
-                "X": 40,
-                "Y": 160
-            },
-            "HasShadow": true,
-            "CanShake": false,
-            "LeafRegion": null
-        },
-        "{{ID}}_Maple_1": {
-            "TextureRegion": {
-                "X": 480,
-                "Y": 400,
-                "Width": 80,
-                "Height": 128
-            },
-            "TextureOrigin": {
-                "X": 24,
-                "Y": 128
-            },
-            "HasShadow": true,
-            "CanShake": true,
-            "LeafRegion": {
-                "X": 40,
-                "Y": 80,
-                "Width": 64,
-                "Height": 24
-            }
-        },
-        "{{ID}}_Maple_2": {
-            "TextureRegion": {
-                "X": 560,
-                "Y": 416,
-                "Width": 96,
-                "Height": 112
-            },
-            "TextureOrigin": {
-                "X": 56,
-                "Y": 112
-            },
-            "HasShadow": true,
-            "CanShake": true,
-            "LeafRegion": {
-                "X": 40,
-                "Y": 48,
-                "Width": 80,
-                "Height": 32
-            }
-        }
-    },
-    "ShrineTrees": {
-        "{{SHRINE}}": [
-            /** Small Cherry **/
-            { // Graveyard shrine
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 34,
-                    "Y": 11
-                },
-                "Flip": false,
-                "Leaves": true
-            },
-            { // House rear
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 48,
-                    "Y": 22
-                },
-                "Flip": true,
-                "Leaves": false
-            },
-            { // Garden
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 62,
-                    "Y": 25
-                },
-                "Flip": false,
-                "Leaves": true
-            },
-            { // Souvenir shop
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 17,
-                    "Y": 43
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Hall rear
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
+            "LogName": "Hikawa: Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Data",
+            "Entries": {
+                "HouseChimneyTile": {
                     "X": 53,
-                    "Y": 37
-                },
-                "Flip": false,
-                "Leaves": true
-            },
-            { // Hall side
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 44,
-                    "Y": 42
-                },
-                "Flip": false,
-                "Leaves": true
-            },
-            { // Main gate
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 40,
-                    "Y": 54
-                },
-                "Flip": false,
-                "Leaves": true
-            },
-            { // Backyard
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 15,
-                    "Y": 16
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Backyard
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 13,
-                    "Y": 24
-                },
-                "Flip": true,
-                "Leaves": false
-            },
-            { // Frontyard
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 58,
-                    "Y": 51
-                },
-                "Flip": true,
-                "Leaves": false
-            },
-            { // West cliff
-                "Id": "{{ID}}_Cherry_S",
-                "Tile": {
-                    "X": 12,
-                    "Y": 61
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            /** Medium Cherry **/
-            { // Hall
-                "Id": "{{ID}}_Cherry_M",
-                "Tile": {
-                    "X": 55,
-                    "Y": 46
-                },
-                "Flip": false,
-                "Leaves": true
-            },
-            { // Souvenir shop
-                "Id": "{{ID}}_Cherry_M",
-                "Tile": {
-                    "X": 17,
-                    "Y": 49
-                },
-                "Flip": true,
-                "Leaves": true
-            },
-            /** Large Cherry **/
-            { // Graveyard
-                "Id": "{{ID}}_Cherry_L",
-                "Tile": {
-                    "X": 43,
-                    "Y": 15
-                },
-                "Flip": true,
-                "Leaves": true
-            },
-            { // Backyard
-                "Id": "{{ID}}_Cherry_L",
-                "Tile": {
-                    "X": 16,
-                    "Y": 28
-                },
-                "Flip": true,
-                "Leaves": true
-            },
-            { // Main gate
-                "Id": "{{ID}}_Cherry_L",
-                "Tile": {
-                    "X": 44,
-                    "Y": 53
-                },
-                "Flip": true,
-                "Leaves": true
-            },
-            { // East cliff
-                "Id": "{{ID}}_Cherry_L",
-                "Tile": {
-                    "X": 59,
-                    "Y": 37
-                },
-                "Flip": true,
-                "Leaves": false
-            },
-            /** Boxwood **/
-            { // Garden
-                "Id": "{{ID}}_Boxwood",
-                "Tile": {
-                    "X": 54,
                     "Y": 22
                 },
-                "Flip": false
-            },
-            { // Hall
-                "Id": "{{ID}}_Boxwood",
-                "Tile": {
-                    "X": 56,
-                    "Y": 40
-                },
-                "Flip": false
-            },
-            { // Souvenir shop
-                "Id": "{{ID}}_Boxwood",
-                "Tile": {
-                    "X": 19,
-                    "Y": 39
-                },
-                "Flip": false
-            },
-            { // Graveyard gate
-                "Id": "{{ID}}_Boxwood",
-                "Tile": {
-                    "X": 24,
-                    "Y": 19
-                },
-                "Flip": false
-            },
-            /** Maple 1 **/
-            { // Main gate
-                "Id": "{{ID}}_Maple_1",
-                "Tile": {
-                    "X": 26,
-                    "Y": 55
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Souvenir shop
-                "Id": "{{ID}}_Maple_1",
-                "Tile": {
-                    "X": 16,
-                    "Y": 40
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Graveyard gate
-                "Id": "{{ID}}_Maple_1",
-                "Tile": {
-                    "X": 18,
-                    "Y": 16
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // East cliff
-                "Id": "{{ID}}_Maple_1",
-                "Tile": {
-                    "X": 62,
-                    "Y": 37
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // South-east cliff
-                "Id": "{{ID}}_Maple_1",
-                "Tile": {
-                    "X": 55,
-                    "Y": 61
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            /** Maple 2 **/
-            { // Souvenir shop
-                "Id": "{{ID}}_Maple_2",
-                "Tile": {
-                    "X": 15,
-                    "Y": 46
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Backyard
-                "Id": "{{ID}}_Maple_2",
-                "Tile": {
-                    "X": 10,
-                    "Y": 27
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Graveyard
-                "Id": "{{ID}}_Maple_2",
-                "Tile": {
-                    "X": 31,
-                    "Y": 16
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // East cliff
-                "Id": "{{ID}}_Maple_2",
-                "Tile": {
-                    "X": 64,
-                    "Y": 52
-                },
-                "Flip": false,
-                "Leaves": false
-            },
-            { // Garden
-                "Id": "{{ID}}_Maple_2",
-                "Tile": {
-                    "X": 45,
-                    "Y": 24
-                },
-                "Flip": true,
-                "Leaves": false
-            }
-        ]
-    },
-    "HangingSprites": {
-        "{{SHRINE}}": [
-            { // Main gate (big rope tassle)
-                "Tile": {
-                    "X": 34.75,
-                    "Y": 48.6
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 416,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.005,
-                "Limit": 0.3,
-                "DrawBehind": false
-            },
-            { // Main gate (small rope tassle)
-                "Tile": {
-                    "X": 33.3,
-                    "Y": 48.3
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 432,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.004,
-                "Limit": 0.225,
-                "DrawBehind": false
-            },
-            { // Main gate (small rope tassle)
-                "Tile": {
-                    "X": 36.3,
-                    "Y": 48.3
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 432,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.0035,
-                "Limit": 0.25,
-                "DrawBehind": false
-            },
-            { // Souvenir shop (paper lantern)
-                "Tile": {
-                    "X": 22,
-                    "Y": 46
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 528,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.005,
-                "Limit": 0.3,
-                "DrawBehind": false
-            },
-            { // Shrine (paper lantern)
-                "Tile": {
-                    "X": 30.5,
-                    "Y": 30.75
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 512,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.00375,
-                "Limit": 0.35,
-                "DrawBehind": false
-            },
-            { // Shrine (paper lantern)
-                "Tile": {
-                    "X": 31.5,
-                    "Y": 30.75
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 512,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.005,
-                "Limit": 0.35,
-                "DrawBehind": false
-            },
-            { // Shrine (paper lantern)
-                "Tile": {
-                    "X": 38,
-                    "Y": 30.75
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 528,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.0045,
-                "Limit": 0.35,
-                "DrawBehind": false
-            },
-            { // Shrine (paper lantern)
-                "Tile": {
-                    "X": 39,
-                    "Y": 30.75
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 544,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.004,
-                "Limit": 0.35,
-                "DrawBehind": false
-            },
-            { // Shrine (paper tassles)
-                "Tile": {
-                    "X": 33.75,
-                    "Y": 33.5
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 448,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.00355,
-                "Limit": 0.25,
-                "DrawBehind": false
-            },
-            { // Shrine (paper tassles)
-                "Tile": {
-                    "X": 34.25,
-                    "Y": 33.5
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 464,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.0038,
-                "Limit": 0.3,
-                "DrawBehind": false
-            },
-            { // Shrine (paper tassles)
-                "Tile": {
-                    "X": 35.25,
-                    "Y": 33.5
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 480,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.004,
-                "Limit": 0.3,
-                "DrawBehind": false
-            },
-            { // Shrine (paper tassles)
-                "Tile": {
-                    "X": 35.75,
-                    "Y": 33.5
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 496,
-                    "Y": 192,
-                    "Width": 16,
-                    "Height": 16
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.00375,
-                "Limit": 0.25,
-                "DrawBehind": false
-            },
-            { // Construction (rope)
-                "Tile": {
-                    "X": 51,
-                    "Y": 42
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 240,
-                    "Y": 80,
-                    "Width": 16,
-                    "Height": 32
-                },
-                "TextureOrigin": {
-                    "X": 4,
-                    "Y": -4
-                },
-                "Resistance": 0.00375,
-                "Limit": 0.25,
-                "DrawBehind": false
-            },
-            { // Verandah (wind chime)
-                "Tile": {
-                    "X": 53.5,
-                    "Y": 30.25
-                },
-                "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TextureRegion": {
-                    "X": 544,
-                    "Y": 352,
-                    "Width": 16,
-                    "Height": 32
-                },
-                "TextureOrigin": {
-                    "X": 8,
-                    "Y": 0
-                },
-                "Resistance": 0.00375,
-                "Limit": 0.25,
-                "DrawBehind": true,
-                "AnimationFrames": 8,
-                "AnimationSpeed": 1.0
-            }
-        ]
-    },
-    "LightTiles": {
-        "{{SHRINE}}": [
-            { // Shrine left (wood)
-                "Tile": {
-                    "X": 31,
-                    "Y": 38
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 651,
-                "DrawAbove": true
-            },
-            { // Shrine right (wood)
-                "Tile": {
-                    "X": 38,
-                    "Y": 38
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 651,
-                "DrawAbove": true
-            },
-            { // Shrine gate left (stone)
-                "Tile": {
-                    "X": 29,
-                    "Y": 55
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1553,
-                "Size": {
+                "CrowSpawnRadius": {
                     "X": 2,
-                    "Y": 1
+                    "Y": 2
+                },
+                "CrowSpawnArea": {
+                    "X": 23,
+                    "Y": 31,
+                    "Width": 30,
+                    "Height": 20
+                },
+                "CrowPerches": {
+                    "0": { // Entry
+                        "X1": 33.5,
+                        "Y1": 53,
+                        "X2": 35,
+                        "Y2": 54
+                    },
+                    "0.2": { // Shrine front
+                        "X1": 33.8,
+                        "Y1": 29.6,
+                        "X2": 35.2,
+                        "Y2": 29.6
+                    },
+                    "0.3": { // Shrine left
+                        "X1": 30,
+                        "Y1": 29,
+                        "X2": 32,
+                        "Y2": 29.25
+                    },
+                    "0.4": { // Shrine right
+                        "X1": 37,
+                        "Y1": 29.25,
+                        "X2": 39,
+                        "Y2": 29
+                    },
+                    "0.5": { // House
+                        "X1": 45,
+                        "Y1": 27,
+                        "X2": 47,
+                        "Y2": 26.75,
+                        "R": 2
+                    },
+                    "0.65": { // Wood lanterns
+                        "X1": 31,
+                        "Y1": 37.2,
+                        "X2": 38,
+                        "Y2": 37.2
+                    },
+                    "0.8": { // Main gate
+                        "X1": 33,
+                        "Y1": 45,
+                        "X2": 36,
+                        "Y2": 45,
+                        "R": 1
+                    },
+                    "0.9": { // Cemetery gate
+                        "X1": 21.5,
+                        "Y1": 17.5,
+                        "X2": 23.5,
+                        "Y2": 18.5
+                    },
+                    "0.95": { // Omiyageya
+                        "X1": 25,
+                        "Y1": 40.3,
+                        "X2": 27.075,
+                        "Y2": 40.125
+                    },
+                    "1": { // Hall
+                        "X1": 50,
+                        "Y1": 40,
+                        "X2": 52,
+                        "Y2": 41
+                    }
+                },
+                "BabyCrowPerches": [
+                    // Shrine
+                    {
+                        "X": 32,
+                        "Y": 43
+                    },
+                    {
+                        "X": 35,
+                        "Y": 41
+                    },
+                    {
+                        "X": 38,
+                        "Y": 44
+                    },
+                    // House
+                    {
+                        "X": 57,
+                        "Y": 27
+                    },
+                    {
+                        "X": 58,
+                        "Y": 29
+                    },
+                    // Cemetery
+                    {
+                        "X": 36,
+                        "Y": 16
+                    },
+                    {
+                        "X": 32,
+                        "Y": 21
+                    },
+                    {
+                        "X": 39,
+                        "Y": 19
+                    },
+                    {
+                        "X": 49,
+                        "Y": 14
+                    }
+                ],
+                "BabyCrowRoosts": [
+                    {
+                        "X": -100,
+                        "Y": -100
+                    }
+                ],
+                "ShrineTreeDefinitions": {
+                    "{{ID}}_Cherry_S": {
+                        "TextureRegion": {
+                            "X": 656,
+                            "Y": 464,
+                            "Width": 48,
+                            "Height": 64
+                        },
+                        "TextureOrigin": {
+                            "X": 24,
+                            "Y": 64
+                        },
+                        "HasShadow": false,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 24,
+                            "Y": 24,
+                            "Width": 48,
+                            "Height": 24
+                        }
+                    },
+                    "{{ID}}_Cherry_M": {
+                        "TextureRegion": {
+                            "X": 704,
+                            "Y": 448,
+                            "Width": 112,
+                            "Height": 80
+                        },
+                        "TextureOrigin": {
+                            "X": 56,
+                            "Y": 80
+                        },
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 24,
+                            "Y": 24,
+                            "Width": 80,
+                            "Height": 32
+                        }
+                    },
+                    "{{ID}}_Cherry_L": {
+                        "TextureRegion": {
+                            "X": 816,
+                            "Y": 432,
+                            "Width": 96,
+                            "Height": 96
+                        },
+                        "TextureOrigin": {
+                            "X": 56,
+                            "Y": 96
+                        },
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 40,
+                            "Y": 40,
+                            "Width": 80,
+                            "Height": 32
+                        }
+                    },
+                    "{{ID}}_Boxwood": {
+                        "TextureRegion": {
+                            "X": 912,
+                            "Y": 368,
+                            "Width": 80,
+                            "Height": 160
+                        },
+                        "TextureOrigin": {
+                            "X": 40,
+                            "Y": 160
+                        },
+                        "HasShadow": true,
+                        "CanShake": false,
+                        "LeafRegion": null
+                    },
+                    "{{ID}}_Maple_1": {
+                        "TextureRegion": {
+                            "X": 480,
+                            "Y": 400,
+                            "Width": 80,
+                            "Height": 128
+                        },
+                        "TextureOrigin": {
+                            "X": 24,
+                            "Y": 128
+                        },
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 40,
+                            "Y": 80,
+                            "Width": 64,
+                            "Height": 24
+                        }
+                    },
+                    "{{ID}}_Maple_2": {
+                        "TextureRegion": {
+                            "X": 560,
+                            "Y": 416,
+                            "Width": 96,
+                            "Height": 112
+                        },
+                        "TextureOrigin": {
+                            "X": 56,
+                            "Y": 112
+                        },
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 40,
+                            "Y": 48,
+                            "Width": 80,
+                            "Height": 32
+                        }
+                    }
+                },
+                "ShrineTrees": {
+                    "{{SHRINE}}": [
+                        /** Small Cherry **/
+                        { // Graveyard shrine
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 34,
+                                "Y": 11
+                            },
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        { // House rear
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 48,
+                                "Y": 22
+                            },
+                            "Flip": true,
+                            "Leaves": false
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 62,
+                                "Y": 25
+                            },
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 17,
+                                "Y": 43
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Hall rear
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 53,
+                                "Y": 37
+                            },
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        { // Hall side
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 44,
+                                "Y": 42
+                            },
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        { // Main gate
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 40,
+                                "Y": 54
+                            },
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        { // Backyard
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 15,
+                                "Y": 16
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Backyard
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 13,
+                                "Y": 24
+                            },
+                            "Flip": true,
+                            "Leaves": false
+                        },
+                        { // Frontyard
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 58,
+                                "Y": 51
+                            },
+                            "Flip": true,
+                            "Leaves": false
+                        },
+                        { // West cliff
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": {
+                                "X": 12,
+                                "Y": 61
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        /** Medium Cherry **/
+                        { // Hall
+                            "Id": "{{ID}}_Cherry_M",
+                            "Tile": {
+                                "X": 55,
+                                "Y": 46
+                            },
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Cherry_M",
+                            "Tile": {
+                                "X": 17,
+                                "Y": 49
+                            },
+                            "Flip": true,
+                            "Leaves": true
+                        },
+                        /** Large Cherry **/
+                        { // Graveyard
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": {
+                                "X": 43,
+                                "Y": 15
+                            },
+                            "Flip": true,
+                            "Leaves": true
+                        },
+                        { // Backyard
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": {
+                                "X": 16,
+                                "Y": 28
+                            },
+                            "Flip": true,
+                            "Leaves": true
+                        },
+                        { // Main gate
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": {
+                                "X": 44,
+                                "Y": 53
+                            },
+                            "Flip": true,
+                            "Leaves": true
+                        },
+                        { // East cliff
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": {
+                                "X": 59,
+                                "Y": 37
+                            },
+                            "Flip": true,
+                            "Leaves": false
+                        },
+                        /** Boxwood **/
+                        { // Garden
+                            "Id": "{{ID}}_Boxwood",
+                            "Tile": {
+                                "X": 54,
+                                "Y": 22
+                            },
+                            "Flip": false
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Boxwood",
+                            "Tile": {
+                                "X": 56,
+                                "Y": 40
+                            },
+                            "Flip": false
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Boxwood",
+                            "Tile": {
+                                "X": 19,
+                                "Y": 39
+                            },
+                            "Flip": false
+                        },
+                        { // Graveyard gate
+                            "Id": "{{ID}}_Boxwood",
+                            "Tile": {
+                                "X": 24,
+                                "Y": 19
+                            },
+                            "Flip": false
+                        },
+                        /** Maple 1 **/
+                        { // Main gate
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": {
+                                "X": 26,
+                                "Y": 55
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": {
+                                "X": 16,
+                                "Y": 40
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Graveyard gate
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": {
+                                "X": 18,
+                                "Y": 16
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // East cliff
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": {
+                                "X": 62,
+                                "Y": 37
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // South-east cliff
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": {
+                                "X": 55,
+                                "Y": 61
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        /** Maple 2 **/
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": {
+                                "X": 15,
+                                "Y": 46
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Backyard
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": {
+                                "X": 10,
+                                "Y": 27
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Graveyard
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": {
+                                "X": 31,
+                                "Y": 16
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // East cliff
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": {
+                                "X": 64,
+                                "Y": 52
+                            },
+                            "Flip": false,
+                            "Leaves": false
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": {
+                                "X": 45,
+                                "Y": 24
+                            },
+                            "Flip": true,
+                            "Leaves": false
+                        }
+                    ]
+                },
+                "HangingSprites": {
+                    "{{SHRINE}}": [
+                        { // Main gate (big rope tassle)
+                            "Tile": {
+                                "X": 34.75,
+                                "Y": 48.6
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 416,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.005,
+                            "Limit": 0.3,
+                            "DrawBehind": false
+                        },
+                        { // Main gate (small rope tassle)
+                            "Tile": {
+                                "X": 33.3,
+                                "Y": 48.3
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 432,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.004,
+                            "Limit": 0.225,
+                            "DrawBehind": false
+                        },
+                        { // Main gate (small rope tassle)
+                            "Tile": {
+                                "X": 36.3,
+                                "Y": 48.3
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 432,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.0035,
+                            "Limit": 0.25,
+                            "DrawBehind": false
+                        },
+                        { // Souvenir shop (paper lantern)
+                            "Tile": {
+                                "X": 22,
+                                "Y": 46
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 528,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.005,
+                            "Limit": 0.3,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper lantern)
+                            "Tile": {
+                                "X": 30.5,
+                                "Y": 30.75
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 512,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.00375,
+                            "Limit": 0.35,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper lantern)
+                            "Tile": {
+                                "X": 31.5,
+                                "Y": 30.75
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 512,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.005,
+                            "Limit": 0.35,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper lantern)
+                            "Tile": {
+                                "X": 38,
+                                "Y": 30.75
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 528,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.0045,
+                            "Limit": 0.35,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper lantern)
+                            "Tile": {
+                                "X": 39,
+                                "Y": 30.75
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 544,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.004,
+                            "Limit": 0.35,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper tassles)
+                            "Tile": {
+                                "X": 33.75,
+                                "Y": 33.5
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 448,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.00355,
+                            "Limit": 0.25,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper tassles)
+                            "Tile": {
+                                "X": 34.25,
+                                "Y": 33.5
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 464,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.0038,
+                            "Limit": 0.3,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper tassles)
+                            "Tile": {
+                                "X": 35.25,
+                                "Y": 33.5
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 480,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.004,
+                            "Limit": 0.3,
+                            "DrawBehind": false
+                        },
+                        { // Shrine (paper tassles)
+                            "Tile": {
+                                "X": 35.75,
+                                "Y": 33.5
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 496,
+                                "Y": 192,
+                                "Width": 16,
+                                "Height": 16
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.00375,
+                            "Limit": 0.25,
+                            "DrawBehind": false
+                        },
+                        { // Construction (rope)
+                            "Tile": {
+                                "X": 51,
+                                "Y": 42
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 240,
+                                "Y": 80,
+                                "Width": 16,
+                                "Height": 32
+                            },
+                            "TextureOrigin": {
+                                "X": 4,
+                                "Y": -4
+                            },
+                            "Resistance": 0.00375,
+                            "Limit": 0.25,
+                            "DrawBehind": false
+                        },
+                        { // Verandah (wind chime)
+                            "Tile": {
+                                "X": 53.5,
+                                "Y": 30.25
+                            },
+                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureRegion": {
+                                "X": 544,
+                                "Y": 352,
+                                "Width": 16,
+                                "Height": 32
+                            },
+                            "TextureOrigin": {
+                                "X": 8,
+                                "Y": 0
+                            },
+                            "Resistance": 0.00375,
+                            "Limit": 0.25,
+                            "DrawBehind": true,
+                            "AnimationFrames": 8,
+                            "AnimationSpeed": 1.0
+                        }
+                    ]
+                },
+                "LightTiles": {
+                    "{{SHRINE}}": [
+                        { // Shrine left (wood)
+                            "Tile": {
+                                "X": 31,
+                                "Y": 38
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 651,
+                            "DrawAbove": true
+                        },
+                        { // Shrine right (wood)
+                            "Tile": {
+                                "X": 38,
+                                "Y": 38
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 651,
+                            "DrawAbove": true
+                        },
+                        { // Shrine gate left (stone)
+                            "Tile": {
+                                "X": 29,
+                                "Y": 55
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Shrine gate right (stone)
+                            "Tile": {
+                                "X": 39,
+                                "Y": 55
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Shrine gate left lower (stone)
+                            "Tile": {
+                                "X": 29,
+                                "Y": 61
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Shrine gate right lower (stone)
+                            "Tile": {
+                                "X": 39,
+                                "Y": 61
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Cemetary (stone)
+                            "Tile": {
+                                "X": 35,
+                                "Y": 18
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1551,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Cemetary gate (stone)
+                            "Tile": {
+                                "X": 25,
+                                "Y": 25
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Garden (small)
+                            "Tile": {
+                                "X": 56,
+                                "Y": 20
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Cemetary bottom right (small)
+                            "Tile": {
+                                "X": 46,
+                                "Y": 18
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Cemetary bench (small)
+                            "Tile": {
+                                "X": 47,
+                                "Y": 15
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Cemetary left (small)
+                            "Tile": {
+                                "X": 32,
+                                "Y": 18
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Cemetary centre (small)
+                            "Tile": {
+                                "X": 37,
+                                "Y": 19
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Cemetary right (small)
+                            "Tile": {
+                                "X": 40,
+                                "Y": 17
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Cemetary bottom (small)
+                            "Tile": {
+                                "X": 37,
+                                "Y": 23
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Ema yard (small)
+                            "Tile": {
+                                "X": 12,
+                                "Y": 20
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        },
+                        { // Name stone (small)
+                            "Tile": {
+                                "X": 43,
+                                "Y": 61
+                            },
+                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileId": 1364
+                        }
+                    ]
+                },
+                "Lights": {
+                    "Town": [
+                        { // Shrine steps (stone)
+                            "Tile": {
+                                "X": 24.5,
+                                "Y": 9
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2400,
+                            "ExtinguishedAlpha": 0.35
+                        }
+                    ],
+                    "{{SHRINE}}": [
+                        { // House (entrance)
+                            "Tile": {
+                                "X": 45.1,
+                                "Y": 30.6
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 5,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.5,
+                            "Variance": 0,
+                            "Rate": 0,
+                            "ExtinguishAtTime": 2245,
+                            "ExtinguishRate": 10
+                        },
+                        { // House (bedroom)
+                            "Tile": {
+                                "X": 53.1,
+                                "Y": 30.6
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 4,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.5,
+                            "Variance": 0,
+                            "Rate": 0,
+                            "ExtinguishAtTime": 2445,
+                            "ExtinguishRate": 7.5
+                        },
+                        { // Shrine gate left (stone)
+                            "Tile": {
+                                "X": 29.5,
+                                "Y": 56
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2430,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine gate right (stone)
+                            "Tile": {
+                                "X": 39.5,
+                                "Y": 56
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2430,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine gate left lower (stone)
+                            "Tile": {
+                                "X": 29.5,
+                                "Y": 61
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2415,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine gate right lower (stone)
+                            "Tile": {
+                                "X": 39.5,
+                                "Y": 61
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2415,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Cemetary (stone)
+                            "Tile": {
+                                "X": 35.5,
+                                "Y": 19
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2345,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Cemetary gate (stone)
+                            "Tile": {
+                                "X": 25.5,
+                                "Y": 26
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2345,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine left (wood)
+                            "Tile": {
+                                "X": 31,
+                                "Y": 40.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0,
+                            "Rate": 64,
+                            "ExtinguishAtTime": 2345,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine right (wood)
+                            "Tile": {
+                                "X": 38,
+                                "Y": 40.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0,
+                            "Rate": 64,
+                            "ExtinguishAtTime": 2345,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Souvenir shop (paper)
+                            "Tile": {
+                                "X": 21.75,
+                                "Y": 47.5
+                            },
+                            "Scale": 1,
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 6,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2330
+                        },
+                        { // Garden (small)
+                            "Tile": {
+                                "X": 56,
+                                "Y": 19.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Cemetary bench (small)
+                            "Tile": {
+                                "X": 47,
+                                "Y": 14.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Cemetary bottom right (small)
+                            "Tile": {
+                                "X": 46,
+                                "Y": 17.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Cemetary left (small)
+                            "Tile": {
+                                "X": 32,
+                                "Y": 17.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Cemetary centre (small)
+                            "Tile": {
+                                "X": 37,
+                                "Y": 18.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Cemetary right (small)
+                            "Tile": {
+                                "X": 40,
+                                "Y": 16.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Cemetary bottom (small)
+                            "Tile": {
+                                "X": 37,
+                                "Y": 22.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Ema yard (small)
+                            "Tile": {
+                                "X": 12,
+                                "Y": 19.75
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
+                        },
+                        { // Name stone (small)
+                            "Tile": {
+                                "X": 43,
+                                "Y": 60.5
+                            },
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2400,
+                            "ExtinguishedAlpha": 0.35
+                        }
+                    ],
+                    "{{HOUSE}}": [
+                        { // Hearth
+                            "Tile": {
+                                "X": 9.5,
+                                "Y": 7.5
+                            },
+                            "Scale": 1.1,
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 0,
+                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4
+                        },
+                        { // Hearth (lamp)
+                            "Tile": {
+                                "X": 13,
+                                "Y": 5
+                            },
+                            "Scale": 3.5,
+                            "Color": {
+                                "R": 75,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1
+                        },
+                        { // Bedroom (lamp)
+                            "Tile": {
+                                "X": 17,
+                                "Y": 14
+                            },
+                            "Scale": 3.5,
+                            "Color": {
+                                "R": 75,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1
+                        },
+                        { // Entry (doorway)
+                            "Tile": {
+                                "X": 2,
+                                "Y": 19
+                            },
+                            "Scale": 3.5,
+                            "Color": {
+                                "R": 75,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1
+                        },
+                        { // Entry (doorway)
+                            "Tile": {
+                                "X": 4,
+                                "Y": 19
+                            },
+                            "Scale": 3.5,
+                            "Color": {
+                                "R": 75,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1
+                        },
+                        { // Bedroom (ceiling)
+                            "Tile": {
+                                "X": 20,
+                                "Y": 16
+                            },
+                            "Scale": 5,
+                            "Color": {
+                                "R": 75,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 1
+                        }
+                    ]
                 }
-            },
-            { // Shrine gate right (stone)
-                "Tile": {
-                    "X": 39,
-                    "Y": 55
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1553,
-                "Size": {
-                    "X": 2,
-                    "Y": 1
-                }
-            },
-            { // Shrine gate left lower (stone)
-                "Tile": {
-                    "X": 29,
-                    "Y": 61
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1553,
-                "Size": {
-                    "X": 2,
-                    "Y": 1
-                }
-            },
-            { // Shrine gate right lower (stone)
-                "Tile": {
-                    "X": 39,
-                    "Y": 61
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1553,
-                "Size": {
-                    "X": 2,
-                    "Y": 1
-                }
-            },
-            { // Cemetary (stone)
-                "Tile": {
-                    "X": 35,
-                    "Y": 18
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1551,
-                "Size": {
-                    "X": 2,
-                    "Y": 1
-                }
-            },
-            { // Cemetary gate (stone)
-                "Tile": {
-                    "X": 25,
-                    "Y": 25
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1553,
-                "Size": {
-                    "X": 2,
-                    "Y": 1
-                }
-            },
-            { // Garden (small)
-                "Tile": {
-                    "X": 56,
-                    "Y": 20
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Cemetary bottom right (small)
-                "Tile": {
-                    "X": 46,
-                    "Y": 18
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Cemetary bench (small)
-                "Tile": {
-                    "X": 47,
-                    "Y": 15
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Cemetary left (small)
-                "Tile": {
-                    "X": 32,
-                    "Y": 18
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Cemetary centre (small)
-                "Tile": {
-                    "X": 37,
-                    "Y": 19
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Cemetary right (small)
-                "Tile": {
-                    "X": 40,
-                    "Y": 17
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Cemetary bottom (small)
-                "Tile": {
-                    "X": 37,
-                    "Y": 23
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Ema yard (small)
-                "Tile": {
-                    "X": 12,
-                    "Y": 20
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
-            },
-            { // Name stone (small)
-                "Tile": {
-                    "X": 43,
-                    "Y": 61
-                },
-                "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-                "TileId": 1364
             }
-        ]
-    },
-    "Lights": {
-        "Town": [
-            { // Shrine steps (stone)
-                "Tile": {
-                    "X": 24.5,
-                    "Y": 9
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2400,
-                "ExtinguishedAlpha": 0.35
-            }
-        ],
-        "{{SHRINE}}": [
-            { // House (entrance)
-                "Tile": {
-                    "X": 45.1,
-                    "Y": 30.6
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 5,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.5,
-                "Variance": 0,
-                "Rate": 0,
-                "ExtinguishAtTime": 2245,
-                "ExtinguishRate": 10
-            },
-            { // House (bedroom)
-                "Tile": {
-                    "X": 53.1,
-                    "Y": 30.6
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 4,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.5,
-                "Variance": 0,
-                "Rate": 0,
-                "ExtinguishAtTime": 2445,
-                "ExtinguishRate": 7.5
-            },
-            { // Shrine gate left (stone)
-                "Tile": {
-                    "X": 29.5,
-                    "Y": 56
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2430,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Shrine gate right (stone)
-                "Tile": {
-                    "X": 39.5,
-                    "Y": 56
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2430,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Shrine gate left lower (stone)
-                "Tile": {
-                    "X": 29.5,
-                    "Y": 61
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2415,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Shrine gate right lower (stone)
-                "Tile": {
-                    "X": 39.5,
-                    "Y": 61
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2415,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Cemetary (stone)
-                "Tile": {
-                    "X": 35.5,
-                    "Y": 19
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2345,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Cemetary gate (stone)
-                "Tile": {
-                    "X": 25.5,
-                    "Y": 26
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 2,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2345,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Shrine left (wood)
-                "Tile": {
-                    "X": 31,
-                    "Y": 40.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0,
-                "Rate": 64,
-                "ExtinguishAtTime": 2345,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Shrine right (wood)
-                "Tile": {
-                    "X": 38,
-                    "Y": 40.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0,
-                "Rate": 64,
-                "ExtinguishAtTime": 2345,
-                "ExtinguishedAlpha": 0.25
-            },
-            { // Souvenir shop (paper)
-                "Tile": {
-                    "X": 21.75,
-                    "Y": 47.5
-                },
-                "Scale": 1,
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 6,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2330
-            },
-            { // Garden (small)
-                "Tile": {
-                    "X": 56,
-                    "Y": 19.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Cemetary bench (small)
-                "Tile": {
-                    "X": 47,
-                    "Y": 14.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Cemetary bottom right (small)
-                "Tile": {
-                    "X": 46,
-                    "Y": 17.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Cemetary left (small)
-                "Tile": {
-                    "X": 32,
-                    "Y": 17.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Cemetary centre (small)
-                "Tile": {
-                    "X": 37,
-                    "Y": 18.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Cemetary right (small)
-                "Tile": {
-                    "X": 40,
-                    "Y": 16.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Cemetary bottom (small)
-                "Tile": {
-                    "X": 37,
-                    "Y": 22.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Ema yard (small)
-                "Tile": {
-                    "X": 12,
-                    "Y": 19.75
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2300
-            },
-            { // Name stone (small)
-                "Tile": {
-                    "X": 43,
-                    "Y": 60.5
-                },
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 3,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.666,
-                "Variance": 0.002,
-                "Rate": 4,
-                "ExtinguishAtTime": 2400,
-                "ExtinguishedAlpha": 0.35
-            }
-        ],
-        "{{HOUSE}}": [
-            { // Hearth
-                "Tile": {
-                    "X": 9.5,
-                    "Y": 7.5
-                },
-                "Scale": 1.1,
-                "Color": {
-                    "R": 0,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 0,
-                "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
-                "Luminosity": 0.8,
-                "Variance": 0.002,
-                "Rate": 4
-            },
-            { // Hearth (lamp)
-                "Tile": {
-                    "X": 13,
-                    "Y": 5
-                },
-                "Scale": 3.5,
-                "Color": {
-                    "R": 75,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1
-            },
-            { // Bedroom (lamp)
-                "Tile": {
-                    "X": 17,
-                    "Y": 14
-                },
-                "Scale": 3.5,
-                "Color": {
-                    "R": 75,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1
-            },
-            { // Entry (doorway)
-                "Tile": {
-                    "X": 2,
-                    "Y": 19
-                },
-                "Scale": 3.5,
-                "Color": {
-                    "R": 75,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1
-            },
-            { // Entry (doorway)
-                "Tile": {
-                    "X": 4,
-                    "Y": 19
-                },
-                "Scale": 3.5,
-                "Color": {
-                    "R": 75,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1
-            },
-            { // Bedroom (ceiling)
-                "Tile": {
-                    "X": 20,
-                    "Y": 16
-                },
-                "Scale": 5,
-                "Color": {
-                    "R": 75,
-                    "G": 100,
-                    "B": 100,
-                    "A": 255
-                },
-                "TextureIndex": 1
-            }
-        ]
-    }
+        }
+    ]
 }
