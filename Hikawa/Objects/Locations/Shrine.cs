@@ -661,7 +661,7 @@ namespace Hikawa.Objects.Locations
 		public void TrySpawnGenericCrows()
 		{
 			const int retries = 25;
-			Point radius = ModEntry.ModData.CrowSpawnRadius;
+			Point radius = ModEntry.ModData.CrowSpawnRadius.ToPoint();
 			Point diameter = radius + radius;
 			Rectangle spawnArea = ModEntry.ModData.CrowSpawnArea;
 

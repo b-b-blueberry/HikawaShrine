@@ -6,7 +6,7 @@ namespace Hikawa
 	public record class ModData
 	{
 		public Vector2 HouseChimneyTile;
-		public Point CrowSpawnRadius;
+		public Vector2 CrowSpawnRadius;
 		public Rectangle CrowSpawnArea;
 		/// <summary>
 		/// Keyed by chance to appear, chance is measured by whether key is higher than the random roll
