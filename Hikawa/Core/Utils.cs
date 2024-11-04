@@ -228,11 +228,11 @@ namespace Hikawa
 		public static void ApplyCustomSharedMapProperties(GameLocation where)
 		{
 			// Shrine trees
-			if (ModEntry.ModData.ShrineTrees.TryGetValue(where.Name, out List<ShrineTreesEntry> trees))
+			if (ModEntry.ModData.ShrineTrees?.TryGetValue(where.Name, out List<ShrineTreesEntry> trees) == true)
 			{
 				foreach (ShrineTreesEntry entry in trees)
 				{
-					if (ModEntry.ModData.ShrineTreeDefinitions.TryGetValue(entry.Id, out ShrineTreeDefinitionsEntry definition))
+					if (ModEntry.ModData.ShrineTreeDefinitions?.TryGetValue(entry.Id, out ShrineTreeDefinitionsEntry definition) == true)
 					{
 						where.terrainFeatures.TryAdd(entry.Tile, new ShrineTree(entry, definition));
 					}
@@ -240,7 +240,7 @@ namespace Hikawa
 			}
 
 			// Hanging sprites
-			if (ModEntry.ModData.HangingSprites.TryGetValue(where.Name, out List<HangingSpriteEntry> sprites))
+			if (ModEntry.ModData.HangingSprites?.TryGetValue(where.Name, out List<HangingSpriteEntry> sprites) == true)
 			{
 				foreach (HangingSpriteEntry entry in sprites)
 				{
@@ -249,7 +249,7 @@ namespace Hikawa
 			}
 
 			// Light tiles
-			if (ModEntry.ModData.LightTiles.TryGetValue(where.Name, out List<LightTileEntry> lightTiles))
+			if (ModEntry.ModData.LightTiles?.TryGetValue(where.Name, out List<LightTileEntry> lightTiles) == true)
 			{
 				foreach (LightTileEntry entry in lightTiles)
 				{
@@ -258,7 +258,7 @@ namespace Hikawa
 			}
 
 			// Lights
-			if (ModEntry.ModData.Lights.TryGetValue(where.Name, out List<LightEntry> lights))
+			if (ModEntry.ModData.Lights?.TryGetValue(where.Name, out List<LightEntry> lights) == true)
 			{
 				int i = 0, j = 0;
 				foreach (LightEntry entry in lights)
