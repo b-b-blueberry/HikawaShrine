@@ -5,8 +5,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Cat": {
-                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Cat]",
+                "{{CAT}}": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:{{CAT}}]",
                     "BirthSeason": null,
                     "BirthDay": 0,
                     "HomeRegion": "Other",
@@ -29,7 +29,7 @@
                     "Home": [
                         {
                             "Id": "Default",
-                            "Location": "Custom_Hikawa_Shrine",
+                            "Location": "{{SHRINE}}",
                             "Tile": {
                                 "X": -99,
                                 "Y": -99
@@ -53,10 +53,11 @@
                 }
             }
         },
+        // Sprites
         {
             "LogName": "Hikawa: Cat - Portrait sprites",
             "Action": "Load",
-            "Target": "Portraits/Custom_Hikawa_Cat",
+            "Target": "Portraits/{{CAT}}",
             "FromFile": "assets/Characters/Cat/Portraits.png"
         }
     ]

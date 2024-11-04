@@ -25,8 +25,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Rei": {
-                    "DisplayName": "{{i18n:npc.rei.name}}",
+                "{{REI}}": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:{{REI}}]",
                     "BirthSeason": "Summer",
                     "BirthDay": 2,
                     "HomeRegion": "Other",
@@ -43,17 +43,17 @@
                     "ExcludeFromPerfectionScore": true,
                     "EndSlideShow": "TrailingGroup",
                     "FriendsAndFamily": {
-                        "Custom_Hikawa_Ami": null,
-                        "Custom_Hikawa_Usa": null,
-                        "Custom_Hikawa_Guy": null,
-                        "Custom_Hikawa_Gramps": "[LocalizedText Strings/Characters:Relative_Grandpa]"
+                        "{{AMI}}": null,
+                        "{{USAGI}}": null,
+                        "{{GUY}}": null,
+                        "{{GRAMPS}}": "[LocalizedText Strings/Characters:Relative_Grandpa]"
                     },
                     "UnlockConditions": null,
                     "SpawnIfMissing": true,
                     "Home": [
                         {
                             "Id": "Default",
-                            "Location": "Custom_Hikawa_House", // "Custom_Hikawa_House"
+                            "Location": "{{HOUSE}}", // "{{HOUSE}}"
                             "Tile": {
                                 "X": 21, // 9
                                 "Y": 14 // 14
@@ -85,49 +85,92 @@
             "Action": "EditData",
             "Target": "Data/NPCGiftTastes",
             "Entries": {
-                "Custom_Hikawa_Rei": "{{i18n:npc.rei.gift.love}}/64 82 104 106 128 203 612/{{i18n:npc.rei.gift.like}}/100 103 109 113 115 118 119 120 123 124 125 152/{{i18n:npc.rei.gift.dislike}}/-6 -5 303 346 348 459/{{i18n:npc.rei.gift.hate}}/-75 207 605/{{i18n:npc.rei.gift.neutral}}/-4/"
+                "{{REI}}": "{{i18n:npc.rei.gift.love}}/64 82 104 106 128 203 612/{{i18n:npc.rei.gift.like}}/100 103 109 113 115 118 119 120 123 124 125 152/{{i18n:npc.rei.gift.dislike}}/-6 -5 303 346 348 459/{{i18n:npc.rei.gift.hate}}/-75 207 605/{{i18n:npc.rei.gift.neutral}}/-4/"
             }
         },
+        // Sprites
         {
             "LogName": "Hikawa: Rei - Portrait sprites",
             "Action": "Load",
-            "Target": "Portraits/Custom_Hikawa_Rei",
+            "Target": "Portraits/{{REI}}",
             "FromFile": "assets/Characters/Rei/Portraits/{{outfit}}.png"
         },
         {
             "LogName": "Hikawa: Rei - World sprites",
             "Action": "Load",
-            "Target": "Characters/Custom_Hikawa_Rei",
+            "Target": "Characters/{{REI}}",
             "FromFile": "assets/Characters/Rei/Sprites/{{outfit}}.png"
+        },
+        // Data
+        {
+            "LogName": "Hikawa: Rei - Blanks",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/{{REI}}, Characters/schedules/{{REI}}, Strings/schedules/{{REI}}",
+            "FromFile": "assets/Blank.json"
         },
         {
             "LogName": "Hikawa: Rei - Dialogue",
-            "Action": "Load",
-            "Target": "Characters/Dialogue/Custom_Hikawa_Rei",
-            "FromFile": "assets/Characters/Rei/Data/Dialogue.json"
+            "Action": "EditData",
+            "Target": "Characters/Dialogue/{{REI}}",
+            "Entries": {
+                "Introduction": "test",
+                "Mon": "b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#"
+            }
         },
         {
             "LogName": "Hikawa: Rei - Schedule",
-            "Action": "Load",
-            "Target": "Characters/schedules/Custom_Hikawa_Rei",
-            "FromFile": "assets/Characters/Rei/Data/Schedule.json"
-        },
-        {
-            "LogName": "Hikawa: Rei - Schedule dialogue",
-            "Action": "Load",
-            "Target": "Strings/schedules/Custom_Hikawa_Rei",
-            "FromFile": "assets/Characters/Rei/Data/ScheduleDialogue.json"
-        }/*,
+            "Action": "EditData",
+            "Target": "Characters/schedules/{{REI}}",
+            "Entries": {
+                // Usual schedule
+                // 0600 feed the chickens, 0800 school, 1400 run the shop, 2000 sweep the floor, 2200 go to bed
+                //"mon": "0600 House 9 14 Sleep/1200 House 18 15/2200 House 9 14 Sleep",
+                "mon": "610 {{HOUSE}} 24 15 2 {{REI}}_Book/1800 {{HOUSE}} 22 17 3/2200 {{HOUSE}} 8 8 1",
+                "tue": "GOTO mon",
+                "wed": "GOTO mon",
+                "thu": "GOTO mon",
+                "fri": "GOTO mon",
+                "sat": "GOTO mon",
+
+                // Seasonal weekend schedule
+                // 0600 stand around, 1400 prepare food, 2200 go to bed
+                "spring_sun": "GOTO mon",
+                // 0600 go for soda, 1200 read comics at home, 2200 go to bed
+                "summer_sun": "GOTO mon",
+                // 0600 read at home, 1400 study for exams, 2200 go to bed
+                "fall_sun": "GOTO mon",
+                // 0600 sleep, 0800 go skiing, 1400 return home, 1500 make tea, 2200 go to bed
+                "winter_sun": "GOTO mon",
+
+                // Winter schedule
+                // 0600 sleep, 0800 feed the chickens, 1000 wait around, 1400 run the shop, 2000 sweep the floor, 2200 go to bed
+                "winter_mon": "GOTO mon",
+                // 1000 tea with grandpa
+                "winter_tue": "GOTO mon",
+                // 1000 wait around
+                "winter_wed": "GOTO mon",
+                // 1000 tea with ami
+                "winter_thu": "GOTO mon",
+                // 1000 go skiing
+                "winter_fri": "GOTO mon",
+                // 0600 go skiing, 1400 visit the bathhouse, 2200 sleep
+                "winter_sat": "GOTO mon",
+
+                // Rainy schedule
+                "rain": "GOTO mon"
+            }
+        }
+        /*,
         // Patches:
         {
             "LogName": "Hikawa: Rei - World sprite socks",
             "Action": "EditImage",
             "PatchMode": "Overlay",
-            "Target": "Characters/Custom_Hikawa_Rei",
+            "Target": "Characters/{{REI}}",
             "FromFile": "assets/Characters/Rei/Sprites/Socks.png",
             "When": {
                 "Season": "fall, winter",
-                "LocationName": "Custom_Hikawa_House"
+                "LocationName": "{{HOUSE}}"
             },
             "Update": "OnLocationChange"
         },
@@ -135,10 +178,10 @@
             "LogName": "Hikawa: Rei - World sprite shoes",
             "Action": "EditImage",
             "PatchMode": "Overlay",
-            "Target": "Characters/Custom_Hikawa_Rei",
+            "Target": "Characters/{{REI}}",
             "FromFile": "assets/Characters/Rei/Sprites/Shoes.png",
             "When": {
-                "LocationName |contains=Custom_Hikawa_House": false,
+                "LocationName |contains={{HOUSE}}": false,
                 "Outfit |contains=beach": false,
                 "Outfit |contains=bath": false,
                 "Outfit |contains=kimono": false

@@ -4,7 +4,7 @@
         {
             "LogName": "Hikawa: Data",
             "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Data/Data",
+            "Target": "{{PATH}}/Data/Data",
             "FromFile": "assets/Data.json"
         },
         {
@@ -60,6 +60,68 @@
         }
     ],
     "DynamicTokens": [
+        // Constants
+        {
+            "Name": "ID",
+            "Value": "Custom_Hikawa"
+        },
+        {
+            "Name": "PATH",
+            "Value": "Mods/blueberry/Hikawa"
+        },
+        {
+            "Name": "PATH_S",
+            "Value": "Mods\\blueberry\\Hikawa"
+        },
+        {
+            "Name": "REI",
+            "Value": "{{ID}}_Rei"
+        },
+        {
+            "Name": "AMI",
+            "Value": "{{ID}}_Ami"
+        },
+        {
+            "Name": "USAGI",
+            "Value": "{{ID}}_Usagi"
+        },
+        {
+            "Name": "MAKO",
+            "Value": "{{ID}}_Mako"
+        },
+        {
+            "Name": "MINA",
+            "Value": "{{ID}}_Mina"
+        },
+        {
+            "Name": "GRAMPS",
+            "Value": "{{ID}}_Gramps"
+        },
+        {
+            "Name": "GUY",
+            "Value": "{{ID}}_Guy"
+        },
+        {
+            "Name": "CAT",
+            "Value": "{{ID}}_Cat"
+        },
+        {
+            "Name": "SHRINE",
+            "Value": "{{ID}}_Shrine"
+        },
+        {
+            "Name": "HOUSE",
+            "Value": "{{ID}}_House"
+        },
+        {
+            "Name": "HALL",
+            "Value": "{{ID}}_Hall"
+        },
+        {
+            "Name": "MATCH3",
+            "Value": "{{ID}}_Match3"
+        },
+        // Variables
         {
             "Name": "Outfit",
             "Value": "Default"
@@ -69,7 +131,7 @@
             "Value": "Casual_{{season}}",
             "When": {
                 "Year": "9999",
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Casual_{{season}}.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Casual_{{season}}.png": true
             }
         },
         {
@@ -79,7 +141,7 @@
                 "Season": "spring, summer, fall",
                 "Weather": "rain",
                 "IsOutdoors": true,
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Rain.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Rain.png": true
             }
         },
         {
@@ -88,7 +150,7 @@
             "When": {
                 "Weather": "snow",
                 "IsOutdoors": true,
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Snow.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Snow.png": true
             }
         },
         {
@@ -104,7 +166,7 @@
             "When": {
                 "Season": "spring",
                 "Weather": "wind",
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Kimono.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Kimono.png": true
             }
         },
         {
@@ -112,7 +174,7 @@
             "Value": "Bath",
             "When": {
                 "LocationName": "BathHouse_WomensLocker, BathHouse_MensLocker, BathHouse_Pool",
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Bath.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Bath.png": true
             }
         },
         {
@@ -121,7 +183,7 @@
             "When": {
                 "Season": "summer",
                 "LocationName": "Beach",
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Beach.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Beach.png": true
             }
         },
         {
@@ -129,7 +191,7 @@
             "Value": "Shrine",
             "When": {
                 "Year": "9999",
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Shrine.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Shrine.png": true
             }
         },
         {
@@ -137,7 +199,7 @@
             "Value": "Special",
             "When": {
                 "Year": "9999",
-                "HasFile:assets/Characters/Custom_Hikawa_Rei/Sprites/Special.png": true
+                "HasFile:assets/Characters/Rei/Sprites/Special.png": true
             }
         }
     ]

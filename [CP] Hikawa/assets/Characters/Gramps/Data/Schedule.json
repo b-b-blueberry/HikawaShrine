@@ -1,8 +1,0 @@
-﻿{
-    "mon": "610 Custom_Hikawa_House 11 7 3 custom_hikawa_gramps_sleep/1800 Custom_Hikawa_House 11 16 1/2200 Custom_Hikawa_House 11 7 3 custom_hikawa_gramps_tea",
-    "tue": "GOTO mon",
-    "wed": "GOTO mon",
-    "thu": "GOTO mon",
-    "fri": "GOTO mon",
-    "sat": "GOTO mon"
-}

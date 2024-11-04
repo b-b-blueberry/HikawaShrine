@@ -125,7 +125,7 @@
         }
     ],
     "ShrineTreeDefinitions": {
-        "Custom_Hikawa_Cherry_S": {
+        "{{ID}}_Cherry_S": {
             "TextureRegion": {
                 "X": 656,
                 "Y": 464,
@@ -145,7 +145,7 @@
                 "Height": 24
             }
         },
-        "Custom_Hikawa_Cherry_M": {
+        "{{ID}}_Cherry_M": {
             "TextureRegion": {
                 "X": 704,
                 "Y": 448,
@@ -165,7 +165,7 @@
                 "Height": 32
             }
         },
-        "Custom_Hikawa_Cherry_L": {
+        "{{ID}}_Cherry_L": {
             "TextureRegion": {
                 "X": 816,
                 "Y": 432,
@@ -185,7 +185,7 @@
                 "Height": 32
             }
         },
-        "Custom_Hikawa_Boxwood": {
+        "{{ID}}_Boxwood": {
             "TextureRegion": {
                 "X": 912,
                 "Y": 368,
@@ -200,7 +200,7 @@
             "CanShake": false,
             "LeafRegion": null
         },
-        "Custom_Hikawa_Maple_1": {
+        "{{ID}}_Maple_1": {
             "TextureRegion": {
                 "X": 480,
                 "Y": 400,
@@ -220,7 +220,7 @@
                 "Height": 24
             }
         },
-        "Custom_Hikawa_Maple_2": {
+        "{{ID}}_Maple_2": {
             "TextureRegion": {
                 "X": 560,
                 "Y": 416,
@@ -242,10 +242,10 @@
         }
     },
     "ShrineTrees": {
-        "Custom_Hikawa_Shrine": [
+        "{{SHRINE}}": [
             /** Small Cherry **/
             { // Graveyard shrine
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 34,
                     "Y": 11
@@ -254,7 +254,7 @@
                 "Leaves": true
             },
             { // House rear
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 48,
                     "Y": 22
@@ -263,7 +263,7 @@
                 "Leaves": false
             },
             { // Garden
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 62,
                     "Y": 25
@@ -272,7 +272,7 @@
                 "Leaves": true
             },
             { // Souvenir shop
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 17,
                     "Y": 43
@@ -281,7 +281,7 @@
                 "Leaves": false
             },
             { // Hall rear
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 53,
                     "Y": 37
@@ -290,7 +290,7 @@
                 "Leaves": true
             },
             { // Hall side
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 44,
                     "Y": 42
@@ -299,7 +299,7 @@
                 "Leaves": true
             },
             { // Main gate
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 40,
                     "Y": 54
@@ -308,7 +308,7 @@
                 "Leaves": true
             },
             { // Backyard
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 15,
                     "Y": 16
@@ -317,7 +317,7 @@
                 "Leaves": false
             },
             { // Backyard
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 13,
                     "Y": 24
@@ -326,7 +326,7 @@
                 "Leaves": false
             },
             { // Frontyard
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 58,
                     "Y": 51
@@ -335,7 +335,7 @@
                 "Leaves": false
             },
             { // West cliff
-                "Id": "Custom_Hikawa_Cherry_S",
+                "Id": "{{ID}}_Cherry_S",
                 "Tile": {
                     "X": 12,
                     "Y": 61
@@ -345,7 +345,7 @@
             },
             /** Medium Cherry **/
             { // Hall
-                "Id": "Custom_Hikawa_Cherry_M",
+                "Id": "{{ID}}_Cherry_M",
                 "Tile": {
                     "X": 55,
                     "Y": 46
@@ -354,7 +354,7 @@
                 "Leaves": true
             },
             { // Souvenir shop
-                "Id": "Custom_Hikawa_Cherry_M",
+                "Id": "{{ID}}_Cherry_M",
                 "Tile": {
                     "X": 17,
                     "Y": 49
@@ -364,7 +364,7 @@
             },
             /** Large Cherry **/
             { // Graveyard
-                "Id": "Custom_Hikawa_Cherry_L",
+                "Id": "{{ID}}_Cherry_L",
                 "Tile": {
                     "X": 43,
                     "Y": 15
@@ -373,7 +373,7 @@
                 "Leaves": true
             },
             { // Backyard
-                "Id": "Custom_Hikawa_Cherry_L",
+                "Id": "{{ID}}_Cherry_L",
                 "Tile": {
                     "X": 16,
                     "Y": 28
@@ -382,7 +382,7 @@
                 "Leaves": true
             },
             { // Main gate
-                "Id": "Custom_Hikawa_Cherry_L",
+                "Id": "{{ID}}_Cherry_L",
                 "Tile": {
                     "X": 44,
                     "Y": 53
@@ -391,7 +391,7 @@
                 "Leaves": true
             },
             { // East cliff
-                "Id": "Custom_Hikawa_Cherry_L",
+                "Id": "{{ID}}_Cherry_L",
                 "Tile": {
                     "X": 59,
                     "Y": 37
@@ -401,7 +401,7 @@
             },
             /** Boxwood **/
             { // Garden
-                "Id": "Custom_Hikawa_Boxwood",
+                "Id": "{{ID}}_Boxwood",
                 "Tile": {
                     "X": 54,
                     "Y": 22
@@ -409,7 +409,7 @@
                 "Flip": false
             },
             { // Hall
-                "Id": "Custom_Hikawa_Boxwood",
+                "Id": "{{ID}}_Boxwood",
                 "Tile": {
                     "X": 56,
                     "Y": 40
@@ -417,7 +417,7 @@
                 "Flip": false
             },
             { // Souvenir shop
-                "Id": "Custom_Hikawa_Boxwood",
+                "Id": "{{ID}}_Boxwood",
                 "Tile": {
                     "X": 19,
                     "Y": 39
@@ -425,7 +425,7 @@
                 "Flip": false
             },
             { // Graveyard gate
-                "Id": "Custom_Hikawa_Boxwood",
+                "Id": "{{ID}}_Boxwood",
                 "Tile": {
                     "X": 24,
                     "Y": 19
@@ -434,7 +434,7 @@
             },
             /** Maple 1 **/
             { // Main gate
-                "Id": "Custom_Hikawa_Maple_1",
+                "Id": "{{ID}}_Maple_1",
                 "Tile": {
                     "X": 26,
                     "Y": 55
@@ -443,7 +443,7 @@
                 "Leaves": false
             },
             { // Souvenir shop
-                "Id": "Custom_Hikawa_Maple_1",
+                "Id": "{{ID}}_Maple_1",
                 "Tile": {
                     "X": 16,
                     "Y": 40
@@ -452,7 +452,7 @@
                 "Leaves": false
             },
             { // Graveyard gate
-                "Id": "Custom_Hikawa_Maple_1",
+                "Id": "{{ID}}_Maple_1",
                 "Tile": {
                     "X": 18,
                     "Y": 16
@@ -461,7 +461,7 @@
                 "Leaves": false
             },
             { // East cliff
-                "Id": "Custom_Hikawa_Maple_1",
+                "Id": "{{ID}}_Maple_1",
                 "Tile": {
                     "X": 62,
                     "Y": 37
@@ -470,7 +470,7 @@
                 "Leaves": false
             },
             { // South-east cliff
-                "Id": "Custom_Hikawa_Maple_1",
+                "Id": "{{ID}}_Maple_1",
                 "Tile": {
                     "X": 55,
                     "Y": 61
@@ -480,7 +480,7 @@
             },
             /** Maple 2 **/
             { // Souvenir shop
-                "Id": "Custom_Hikawa_Maple_2",
+                "Id": "{{ID}}_Maple_2",
                 "Tile": {
                     "X": 15,
                     "Y": 46
@@ -489,7 +489,7 @@
                 "Leaves": false
             },
             { // Backyard
-                "Id": "Custom_Hikawa_Maple_2",
+                "Id": "{{ID}}_Maple_2",
                 "Tile": {
                     "X": 10,
                     "Y": 27
@@ -498,7 +498,7 @@
                 "Leaves": false
             },
             { // Graveyard
-                "Id": "Custom_Hikawa_Maple_2",
+                "Id": "{{ID}}_Maple_2",
                 "Tile": {
                     "X": 31,
                     "Y": 16
@@ -507,7 +507,7 @@
                 "Leaves": false
             },
             { // East cliff
-                "Id": "Custom_Hikawa_Maple_2",
+                "Id": "{{ID}}_Maple_2",
                 "Tile": {
                     "X": 64,
                     "Y": 52
@@ -516,7 +516,7 @@
                 "Leaves": false
             },
             { // Garden
-                "Id": "Custom_Hikawa_Maple_2",
+                "Id": "{{ID}}_Maple_2",
                 "Tile": {
                     "X": 45,
                     "Y": 24
@@ -527,7 +527,7 @@
         ]
     },
     "HangingSprites": {
-        "Custom_Hikawa_Shrine": [
+        "{{SHRINE}}": [
             { // Main gate (big rope tassle)
                 "Tile": {
                     "X": 34.75,
@@ -813,7 +813,7 @@
         ]
     },
     "LightTiles": {
-        "Custom_Hikawa_Shrine": [
+        "{{SHRINE}}": [
             { // Shrine left (wood)
                 "Tile": {
                     "X": 31,
@@ -1000,7 +1000,7 @@
                 "ExtinguishedAlpha": 0.35
             }
         ],
-        "Custom_Hikawa_Shrine": [
+        "{{SHRINE}}": [
             { // House (entrance)
                 "Tile": {
                     "X": 45.1,
@@ -1374,7 +1374,7 @@
                 "ExtinguishedAlpha": 0.35
             }
         ],
-        "Custom_Hikawa_House": [
+        "{{HOUSE}}": [
             { // Hearth
                 "Tile": {
                     "X": 9.5,

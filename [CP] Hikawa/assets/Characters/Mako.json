@@ -5,8 +5,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Mako": {
-                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Mako]",
+                "{{MAKO}}": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:{{MAKO}}]",
                     "BirthSeason": "Winter",
                     "BirthDay": 2,
                     "HomeRegion": "Other",
@@ -23,14 +23,14 @@
                     "ExcludeFromPerfectionScore": true,
                     "EndSlideShow": "TrailingGroup",
                     "FriendsAndFamily": {
-                        "Custom_Hikawa_Ami": ""
+                        "{{AMI}}": ""
                     },
                     "UnlockConditions": null,
                     "SpawnIfMissing": true,
                     "Home": [
                         {
                             "Id": "Default",
-                            "Location": "Custom_Hikawa_Shrine", // "Custom_Hikawa_House"
+                            "Location": "{{SHRINE}}",
                             "Tile": {
                                 "X": 33, // ??
                                 "Y": 36 // ??
@@ -77,29 +77,48 @@
                 "Custom_Hikawa_Mako": "{{i18n:npc.mako.gift.love}}//{{i18n:npc.mako.gift.like}}//{{i18n:npc.mako.gift.dislike}}//{{i18n:npc.mako.gift.hate}}//{{i18n:npc.mako.gift.neutral}}//"
             }
         },
+        // Sprites
         {
             "LogName": "Hikawa: Mako - Portrait sprites",
             "Action": "Load",
-            "Target": "Portraits/Custom_Hikawa_Mako",
+            "Target": "Portraits/{{MAKO}}",
             "FromFile": "assets/Characters/Mako/Portraits/Default.png"
         },
         {
             "LogName": "Hikawa: Mako - World sprites",
             "Action": "Load",
-            "Target": "Characters/Custom_Hikawa_Mako",
+            "Target": "Characters/{{MAKO}}",
             "FromFile": "assets/Characters/Mako/Sprites/Default.png"
+        },
+        // Data
+        {
+            "LogName": "Hikawa: Mako - Blanks",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/{{MAKO}}, Characters/schedules/{{MAKO}}, Strings/schedules/{{MAKO}}",
+            "FromFile": "assets/Blank.json"
         },
         {
             "LogName": "Hikawa: Mako - Dialogue",
-            "Action": "Load",
-            "Target": "Characters/Dialogue/Custom_Hikawa_Mako",
-            "FromFile": "assets/Characters/Mako/Data/Dialogue.json"
+            "Action": "EditData",
+            "Target": "Characters/Dialogue/{{MAKO}}",
+            "Entries": {
+                "Introduction": "eeeeeeee",
+                "mon": "a"
+            }
         },
         {
             "LogName": "Hikawa: Mako - Schedule",
-            "Action": "Load",
-            "Target": "Characters/schedules/Custom_Hikawa_Mako",
-            "FromFile": "assets/Characters/Mako/Data/Schedule.json"
+            "Action": "EditData",
+            "Target": "Characters/schedules/{{MAKO}}",
+            "Entries": {
+                "mon": "610 {{SHRINE}} 33 36 2/1800 {{HOUSE}} 20 15 1/2200 {{HOUSE}} 11 8 0",
+                "tue": "GOTO mon",
+                "wed": "GOTO mon",
+                "thu": "GOTO mon",
+                "fri": "GOTO mon",
+                "sat": "GOTO mon",
+                "sun": "GOTO mon"
+            }
         }
     ]
 }

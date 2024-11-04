@@ -29,8 +29,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Ami": {
-                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Ami]",
+                "{{AMI}}": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:{{AMI}}]",
                     "BirthSeason": "Fall",
                     "BirthDay": 26,
                     "HomeRegion": "Other",
@@ -55,7 +55,7 @@
                     "Home": [
                         {
                             "Id": "Default",
-                            "Location": "Custom_Hikawa_Shrine", // "Custom_Hikawa_House"
+                            "Location": "{{SHRINE}}", // "{{HOUSE}}"
                             "Tile": {
                                 "X": 36, // ??
                                 "Y": 36 // ??
@@ -77,7 +77,7 @@
                     "FestivalVanillaActorIndex": 0,
                     "CustomFields": {}
                 }
-                }
+            }
         },
         {
             "LogName": "Hikawa: Ami - Gift tastes",
@@ -87,35 +87,48 @@
                 "Custom_Hikawa_Ami": "{{i18n:npc.ami.gift.love}}//{{i18n:npc.ami.gift.like}}//{{i18n:npc.ami.gift.dislike}}//{{i18n:npc.ami.gift.hate}}//{{i18n:npc.ami.gift.neutral}}//"
             }
         },
+        // Sprites
         {
             "LogName": "Hikawa: Ami - Portrait sprites",
             "Action": "Load",
-            "Target": "Portraits/Custom_Hikawa_Ami",
+            "Target": "Portraits/{{AMI}}",
             "FromFile": "assets/Characters/Ami/Portraits/Default.png"
         },
         {
             "LogName": "Hikawa: Ami - World sprites",
             "Action": "Load",
-            "Target": "Characters/Custom_Hikawa_Ami",
+            "Target": "Characters/{{AMI}}",
             "FromFile": "assets/Characters/Ami/Sprites/Default.png"
+        },
+        // Data
+        {
+            "LogName": "Hikawa: Ami - Blanks",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/{{AMI}}, Characters/schedules/{{AMI}}, Strings/schedules/{{AMI}}",
+            "FromFile": "assets/Blank.json"
         },
         {
             "LogName": "Hikawa: Ami - Dialogue",
-            "Action": "Load",
-            "Target": "Characters/Dialogue/Custom_Hikawa_Ami",
-            "FromFile": "assets/Characters/Ami/Data/Dialogue.json"
+            "Action": "EditData",
+            "Target": "Characters/Dialogue/{{AMI}}",
+            "Entries": {
+                "Introduction": "eeeeeeee",
+                "mon": "a"
+            }
         },
         {
             "LogName": "Hikawa: Ami - Schedule",
-            "Action": "Load",
-            "Target": "Characters/schedules/Custom_Hikawa_Ami",
-            "FromFile": "assets/Characters/Ami/Data/Schedule.json"
-        },
-        {
-            "LogName": "Hikawa: Ami - Schedule dialogue",
-            "Action": "Load",
-            "Target": "Strings/schedules/Custom_Hikawa_Ami",
-            "FromFile": "assets/Characters/Ami/Data/ScheduleDialogue.json"
+            "Action": "EditData",
+            "Target": "Characters/schedules/{{AMI}}",
+            "Entries": {
+                "mon": "610 {{SHRINE}} 36 36 2 {{AMI}}_Book/1800 {{HOUSE}} 19 17 1/2200 {{HOUSE}} 9 6 2",
+                "tue": "GOTO mon",
+                "wed": "GOTO mon",
+                "thu": "GOTO mon",
+                "fri": "GOTO mon",
+                "sat": "GOTO mon",
+                "sun": "GOTO mon"
+            }
         }
     ]
 }

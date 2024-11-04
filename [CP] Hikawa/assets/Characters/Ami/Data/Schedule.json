@@ -1,9 +1,0 @@
-{
-    "mon": "610 Custom_Hikawa_Shrine 36 36 2 custom_hikawa_ami_book/1800 Custom_Hikawa_House 19 17 1/2200 Custom_Hikawa_House 9 6 2",
-    "tue": "GOTO mon",
-    "wed": "GOTO mon",
-    "thu": "GOTO mon",
-    "fri": "GOTO mon",
-    "sat": "GOTO mon",
-    "sun": "GOTO mon"
-}

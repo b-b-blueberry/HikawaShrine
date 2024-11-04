@@ -5,7 +5,7 @@
             "Action": "EditData",
             "Target": "Data/Shops",
             "Entries": {
-                "Custom_Hikawa_Shop": {
+                "{{ID}}_Shop": {
                     "Currency": 0,
                     "StackSizeVisibility": null,
                     "OpenSound": null,

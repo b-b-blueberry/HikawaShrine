@@ -20,7 +20,7 @@
 		public const string NpcUsa = ContentPrefix + "Usagi";
 		public const string NpcMako = ContentPrefix + "Mako";
 		public const string NpcMina = ContentPrefix + "Mina";
-		public const string NpcGuy = ContentPrefix + "Yuichiro";
+		public const string NpcGuy = ContentPrefix + "Guy";
 		public const string NpcGramps = ContentPrefix + "Gramps";
 		public const string NpcVolleyballSuffix = "_Volleyball";
 		// Maps

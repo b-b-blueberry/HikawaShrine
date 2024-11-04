@@ -5,8 +5,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Rei": {
-                    "DisplayName": "[LocalizedText Strings\\NPCNames:Custom_Hikawa_Usagi]",
+                "{{USAGI}}": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:{{USAGI}}]",
                     "BirthSeason": "Summer",
                     "BirthDay": 15,
                     "HomeRegion": "Other",
@@ -23,18 +23,18 @@
                     "ExcludeFromPerfectionScore": true,
                     "EndSlideShow": "TrailingGroup",
                     "FriendsAndFamily": {
-                        "Custom_Hikawa_Rei": null,
-                        "Custom_Hikawa_Ami": null
+                        "{{REI}}": "",
+                        "{{AMI}}": ""
                     },
                     "UnlockConditions": null,
                     "SpawnIfMissing": true,
                     "Home": [
                         {
                             "Id": "Default",
-                            "Location": "Custom_Hikawa_Shrine", // "Custom_Hikawa_House"
+                            "Location": "{{SHRINE}}",
                             "Tile": {
-                                "X": 36, // 9
-                                "Y": 36 // 14
+                                "X": 36, // ??
+                                "Y": 36 // ??
                             },
                             "Direction": "Down"
                         }
@@ -59,9 +59,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Usagi": {
-
-                    "Custom_Hikawa_Usagi": "teen/neutral/outgoing/positive/female/not-datable/null/Other/summer 2//FarmHouse 20 20/Usagi"
+                "{{USAGI}}": {
+                    "{{USAGI}}": null // "teen/neutral/outgoing/positive/female/not-datable/null/Other/summer 2//FarmHouse 20 20/Usagi"
                 }
             }
         }

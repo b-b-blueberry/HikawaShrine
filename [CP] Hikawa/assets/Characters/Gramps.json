@@ -14,8 +14,8 @@
             "Action": "EditData",
             "Target": "Data/Characters",
             "Entries": {
-                "Custom_Hikawa_Gramps": {
-                    "DisplayName": "{{i18n:npc.gramps.name}}",
+                "{{GRAMPS}}": {
+                    "DisplayName": "[LocalizedText Strings\\NPCNames:{{GRAMPS}}]",
                     "BirthSeason": "Summer",
                     "BirthDay": 26,
                     "HomeRegion": "Other",
@@ -32,14 +32,14 @@
                     "ExcludeFromPerfectionScore": true,
                     "EndSlideShow": "TrailingGroup",
                     "FriendsAndFamily": {
-                        "Custom_Hikawa_Rei": "[LocalizedText Strings/Characters:Relative_Granddaughter]"
+                        "{{REI}}": "[LocalizedText Strings/Characters:Relative_Granddaughter]"
                     },
                     "UnlockConditions": null,
                     "SpawnIfMissing": true,
                     "Home": [
                         {
                             "Id": "Default",
-                            "Location": "Custom_Hikawa_House",
+                            "Location": "{{HOUSE}}",
                             "Tile": {
                                 "X": 11, // ??
                                 "Y": 7 // ??
@@ -68,38 +68,50 @@
             "Action": "EditData",
             "Target": "Data/NPCGiftTastes",
             "Entries": {
-                "Custom_Hikawa_Gramps": "{{i18n:npc.gramps.gift.love}}//{{i18n:npc.gramps.gift.like}}//{{i18n:npc.gramps.gift.dislike}}//{{i18n:npc.gramps.gift.hate}}//{{i18n:npc.gramps.gift.neutral}}//"
+                "{{GRAMPS}}": "{{i18n:npc.gramps.gift.love}}//{{i18n:npc.gramps.gift.like}}//{{i18n:npc.gramps.gift.dislike}}//{{i18n:npc.gramps.gift.hate}}//{{i18n:npc.gramps.gift.neutral}}//"
             }
         },
+        // Sprites
         {
             "LogName": "Hikawa: Gramps - Portrait sprites",
             "Action": "Load",
-            "Target": "Portraits/Custom_Hikawa_Gramps",
+            "Target": "Portraits/{{GRAMPS}}",
             "FromFile": "assets/Characters/Gramps/Portraits/Default.png"
         },
         {
             "LogName": "Hikawa: Gramps - World sprites",
             "Action": "Load",
-            "Target": "Characters/Custom_Hikawa_Gramps",
+            "Target": "Characters/{{GRAMPS}}",
             "FromFile": "assets/Characters/Gramps/Sprites/Default.png"
+        },
+        // Data
+        {
+            "LogName": "Hikawa: Gramps - Blanks",
+            "Action": "Load",
+            "Target": "Characters/Dialogue/{{GRAMPS}}, Characters/schedules/{{GRAMPS}}, Strings/schedules/{{GRAMPS}}",
+            "FromFile": "assets/Blank.json"
         },
         {
             "LogName": "Hikawa: Gramps - Dialogue",
-            "Action": "Load",
-            "Target": "Characters/Dialogue/Custom_Hikawa_Gramps",
-            "FromFile": "assets/Characters/Gramps/Data/Dialogue.json"
+            "Action": "EditData",
+            "Target": "Characters/Dialogue/{{GRAMPS}}",
+            "Entries": {
+                "Introduction": "a.",
+                "Mon": "b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#"
+            }
         },
         {
             "LogName": "Hikawa: Gramps - Schedule",
-            "Action": "Load",
-            "Target": "Characters/schedules/Custom_Hikawa_Gramps",
-            "FromFile": "assets/Characters/Gramps/Data/Schedule.json"
-        },
-        {
-            "LogName": "Hikawa: Gramps - Schedule dialogue",
-            "Action": "Load",
-            "Target": "Strings/schedules/Custom_Hikawa_Gramps",
-            "FromFile": "assets/Characters/Gramps/Data/ScheduleDialogue.json"
+            "Action": "EditData",
+            "Target": "Characters/schedules/{{GRAMPS}}",
+            "Entries": {
+                "mon": "610 {{HOUSE}} 11 7 3 {{GRAMPS}}_Sleep/1800 {{HOUSE}} 11 16 1/2200 {{HOUSE}} 11 7 3 {{GRAMPS}}_Tea",
+                "tue": "GOTO mon",
+                "wed": "GOTO mon",
+                "thu": "GOTO mon",
+                "fri": "GOTO mon",
+                "sat": "GOTO mon"
+            }
         }
     ]
 }

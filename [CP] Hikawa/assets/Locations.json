@@ -4,25 +4,25 @@
 		{
 			"LogName": "Hikawa: Locations - Shrine map",
 			"Action": "Load",
-			"Target": "Maps/Custom_Hikawa_Shrine",
+			"Target": "Maps/{{SHRINE}}",
 			"FromFile": "assets/Locations/HikawaShrine.tmx"
 		},
 		{
 			"LogName": "Hikawa: Locations - House map",
 			"Action": "Load",
-			"Target": "Maps/Custom_Hikawa_House",
+			"Target": "Maps/{{HOUSE}}",
 			"FromFile": "assets/Locations/HikawaHouse.tmx"
 		},
 		{
 			"LogName": "Hikawa: Locations - Hall map",
 			"Action": "Load",
-			"Target": "Maps/Custom_Hikawa_Hall",
+			"Target": "Maps/{{HALL}}",
 			"FromFile": "assets/Locations/HikawaHall.tmx"
 		},
 		{
 			"LogName": "Hikawa: Locations - Volleyball map",
 			"Action": "Load",
-			"Target": "Maps/Custom_Hikawa_Volleyball",
+			"Target": "Maps/{{ID}}_Volleyball",
 			"FromFile": "assets/Locations/HikawaVolleyball.tmx"
 		},
 		// Location data
@@ -31,14 +31,14 @@
 			"Action": "EditData",
 			"Target": "Data/Locations",
 			"Entries": {
-				"Custom_Hikawa_Shrine": {
+				"{{SHRINE}}": {
 					"DisplayName": "{{i18n:world.shrine.map}}",
 					"DefaultArrivalTile": {
 						"X": 35, // 37,
 						"Y": 37 // 14
 					},
 					"CreateOnLoad": {
-						"MapPath": "Maps/Custom_Hikawa_Shrine",
+						"MapPath": "Maps/{{SHRINE}}",
 						"Type": "Hikawa.Objects.Locations.Shrine, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 					},
 					"ExcludeFromNpcPathfinding": false,
@@ -47,26 +47,26 @@
 					"Fish": [],
 					"Forage": []
 				},
-				"Custom_Hikawa_House": {
+				"{{HOUSE}}": {
 					"DisplayName": "{{i18n:world.house.map}}",
 					"DefaultArrivalTile": {
 						"X": 19, // 15
 						"Y": 16 // 7
 					},
 					"CreateOnLoad": {
-						"MapPath": "Maps/Custom_Hikawa_House",
+						"MapPath": "Maps/{{HOUSE}}",
 						"Type": "Hikawa.Objects.Locations.House, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 					},
 					"ExcludeFromNpcPathfinding": false
 				},
-				"Custom_Hikawa_Hall": {
+				"{{HALL}}": {
 					"DisplayName": "{{i18n:world.hall.map}}",
 					"DefaultArrivalTile": {
 						"X": 6,
 						"Y": 10
 					},
 					"CreateOnLoad": {
-						"MapPath": "Maps/Custom_Hikawa_Hall",
+						"MapPath": "Maps/{{HALL}}",
 						"Type": "Hikawa.Objects.Locations.Hall, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 					},
 					"ExcludeFromNpcPathfinding": false
@@ -80,8 +80,8 @@
 			"Target": "Data/WorldMap",
 			"TargetField": [ "Valley", "MapAreas" ],
 			"Entries": {
-				"Custom_Hikawa_Shrine": {
-					"Id": "Custom_Hikawa_Shrine",
+				"{{SHRINE}}": {
+					"Id": "{{SHRINE}}",
 					"Condition": null,
 					"PixelArea": {
 						"X": 148,
@@ -117,7 +117,7 @@
 		{
 			"LogName": "Hikawa: Locations - Shrine warps",
 			"Action": "EditMap",
-			"Target": "Maps/Custom_Hikawa_Shrine",
+			"Target": "Maps/{{SHRINE}}",
 			"AddWarps": [
 				"33 64 Town 18 0",
 				"34 64 Town 19 0",
@@ -130,17 +130,17 @@
 			"Action": "EditMap",
 			"Target": "Maps/Town",
 			"AddWarps": [
-				"18 -1 Custom_Hikawa_Shrine 33 63",
-				"19 -1 Custom_Hikawa_Shrine 34 63",
-				"20 -1 Custom_Hikawa_Shrine 35 63",
-				"21 -1 Custom_Hikawa_Shrine 36 63"
+				"18 -1 {{SHRINE}} 33 63",
+				"19 -1 {{SHRINE}} 34 63",
+				"20 -1 {{SHRINE}} 35 63",
+				"21 -1 {{SHRINE}} 36 63"
 			]
 		},
 		// Shrine - Map actions
 		{
 			"LogName": "Hikawa: Locations - Shrine actions",
 			"Action": "EditMap",
-			"Target": "Maps/Custom_Hikawa_Shrine",
+			"Target": "Maps/{{SHRINE}}",
 			"MapTiles": [
 				// Hop: Left-to-right
 				// Top
@@ -151,7 +151,7 @@
 					},
 					"Layer": "Back",
 					"SetProperties": {
-						"TouchAction": "Custom_Hikawa_Hop 28 21 1 Custom_Hikawa_Hop 29 21.5 1 Custom_Hikawa_Hop 30 22 1 Custom_Hikawa_Hop"
+						"TouchAction": "{{ID}}_Hop 28 21 1 {{ID}}_Hop 29 21.5 1 {{ID}}_Hop 30 22 1 {{ID}}_Hop"
 					}
 				},
 				//Bot
@@ -162,7 +162,7 @@
 					},
 					"Layer": "Back",
 					"SetProperties": {
-						"TouchAction": "Custom_Hikawa_Hop 28 21.33 1 Custom_Hikawa_Hop 29 21.66 1 Custom_Hikawa_Hop 30 22 1 Custom_Hikawa_Hop"
+						"TouchAction": "{{ID}}_Hop 28 21.33 1 {{ID}}_Hop 29 21.66 1 {{ID}}_Hop 30 22 1 {{ID}}_Hop"
 					}
 				},
 				// Hop: Right-to-left
@@ -174,7 +174,7 @@
 					},
 					"Layer": "Back",
 					"SetProperties": {
-						"TouchAction": "Custom_Hikawa_Hop 28 20.8 3 Custom_Hikawa_Hop 27 20.7 3 Custom_Hikawa_Hop 26 20.5 3 Custom_Hikawa_Hop"
+						"TouchAction": "{{ID}}_Hop 28 20.8 3 {{ID}}_Hop 27 20.7 3 {{ID}}_Hop 26 20.5 3 {{ID}}_Hop"
 					}
 				},
 				// Mid
@@ -185,7 +185,7 @@
 					},
 					"Layer": "Back",
 					"SetProperties": {
-						"TouchAction": "Custom_Hikawa_Hop 28 21.5 3 Custom_Hikawa_Hop 27 21 3 Custom_Hikawa_Hop 26 20.5 3 Custom_Hikawa_Hop"
+						"TouchAction": "{{ID}}_Hop 28 21.5 3 {{ID}}_Hop 27 21 3 {{ID}}_Hop 26 20.5 3 {{ID}}_Hop"
 					}
 				},
 				// Bot
@@ -196,7 +196,7 @@
 					},
 					"Layer": "Back",
 					"SetProperties": {
-						"TouchAction": "Custom_Hikawa_Hop 28 22 3 Custom_Hikawa_Hop 27 21 3 Custom_Hikawa_Hop 26 20.5 3 Custom_Hikawa_Hop"
+						"TouchAction": "{{ID}}_Hop 28 22 3 {{ID}}_Hop 27 21 3 {{ID}}_Hop 26 20.5 3 {{ID}}_Hop"
 					}
 				}
 			]
@@ -205,7 +205,7 @@
 		{
 			"LogName": "Hikawa: Locations - House bedroom block",
 			"Action": "EditMap",
-			"Target": "Maps/Custom_Hikawa_House",
+			"Target": "Maps/{{HOUSE}}",
 			"FromFile": "assets/Locations/HikawaHouse.tmx",
 			"FromArea": {
 				"X": 18,
@@ -223,7 +223,7 @@
 		{
 			"LogName": "Hikawa: Locations - House bedroom table",
 			"Action": "EditMap",
-			"Target": "Maps/Custom_Hikawa_House",
+			"Target": "Maps/{{HOUSE}}",
 			"FromFile": "assets/Locations/HikawaHouse.tmx",
 			"FromArea": {
 				"X": 22,

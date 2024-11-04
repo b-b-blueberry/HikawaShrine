@@ -6,15 +6,15 @@
             "Target": "Data/AudioChanges",
             "Action": "EditData",
             "Entries": {
-                "Custom_Hikawa_Hop": {
-                    "ID": "Custom_Hikawa_Hop",
+                "{{ID}}_Hop": {
+                    "ID": "{{ID}}_Hop",
                     "FilePaths": [
                         "{{AbsoluteFilePath: assets/Audio/hop.wav}}"
                     ],
                     "Category": "Sound"
                 } /*,
-                "Custom_Hikawa_Arcade_Theme": {
-                    "ID": "Custom_Hikawa_Arcade_Theme",
+                "{{ID}}_Arcade_Theme": {
+                    "ID": "{{ID}}_Arcade_Theme",
                     "FilePaths": [
                         "{{AbsoluteFilePath: assets/Audio/PrincessRemedySong2.wav}}"
                     ],
