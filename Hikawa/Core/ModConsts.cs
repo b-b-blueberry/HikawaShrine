@@ -54,8 +54,6 @@
 		public const string TouchHop = ContentPrefix + "Hop";
 		// Trigger actions
 		public const string TriggerDialogueEffects = "DialogueEffects";
-		// Custom fields
-		public const string FieldLights = ContentPrefix + "Lights";
 		// Event commands
 		public const string EventCommandCrystalBall = ContentPrefix + "CrystalBall";
 		// Items
