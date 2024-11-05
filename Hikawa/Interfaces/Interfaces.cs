@@ -28,34 +28,35 @@ namespace Hikawa.Interfaces
 
 		private static bool RegisterApis()
         {
-			// Requirements
-			IEnumerable<(string name, bool isLoaded)> requirements = new Func<bool>[]
-				{ Interfaces.SpaceCore, Interfaces.ContentPatcher, Interfaces.Hikawa }
-				.Select(func => (func.Method.Name, func.Invoke()));
-			if (requirements.Any(i => !i.isLoaded))
+			var requirements = new Dictionary<string, Func<string, bool>>
 			{
-				string failed = string.Join("\n", requirements.Where(i => !i.isLoaded).Select(i => i.name));
-				Log.E($"One or more required mods were not found: {failed}");
+				{
+					"spacechase0.SpaceCore", Interfaces.SpaceCore
+				},
+				{
+					"Pathoschild.ContentPatcher", Interfaces.ContentPatcher
+				},
+				{
+					"blueberry.Hikawa.CP", Interfaces.Hikawa
+				},
+				{
+					"blueberry.SailorStyles", Interfaces.SailorStyles
+				},
+			};
+			IEnumerable<(string uniqueId, bool isLoaded)> results = requirements
+				.Select(pair => (pair.Key, pair.Value.Invoke(pair.Key)));
+			if (results.Any(i => !i.isLoaded))
+			{
+				string failed = string.Join(Environment.NewLine, results.Where(i => !i.isLoaded).Select(i => i.uniqueId));
+				Log.E($"One or more required mods were not found:{Environment.NewLine}\t{failed}");
 				return false;
 			}
-
-            // Optionals
-            IEnumerable<(string name, bool isLoaded)> optionals = new Func<bool>[]
-				{ Interfaces.SailorStyles }
-				.Select(func => (func.Method.Name, func.Invoke()));
-			string found = string.Join("\n", optionals.Where(i => i.isLoaded).Select(i => i.name));
-			if (!string.IsNullOrWhiteSpace(found))
-			{
-				Log.D($"Optional interfaces found: {found}",
-					ModEntry.Config.DebugMode);
-			}
-
 			return true;
 		}
 
-		private static bool SpaceCore()
+		private static bool SpaceCore(string uniqueId)
 		{
-			Interfaces.SpaceCoreAPI = Interfaces._registry.GetApi<ISpaceCoreAPI>(uniqueID: "spacechase0.SpaceCore");
+			Interfaces.SpaceCoreAPI = Interfaces._registry.GetApi<ISpaceCoreAPI>(uniqueID: uniqueId);
 			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Shrine));
 			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(House));
 			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Hall));
@@ -63,9 +64,9 @@ namespace Hikawa.Interfaces
 			return Interfaces.SpaceCoreAPI is not null;
 		}
 
-		private static bool ContentPatcher()
+		private static bool ContentPatcher(string uniqueId)
 		{
-			Interfaces.ContentPatcherAPI = Interfaces._registry.GetApi<IContentPatcherAPI>(uniqueID: "Pathoschild.ContentPatcher");
+			Interfaces.ContentPatcherAPI = Interfaces._registry.GetApi<IContentPatcherAPI>(uniqueID: uniqueId);
 			Interfaces.ContentPatcherAPI?.RegisterToken(mod: Interfaces._manifest, name: "SeasonalOutfits", getValue: () =>
 			{
 				return [ModEntry.Config.SeasonalOutfits.ToString()];
@@ -73,16 +74,16 @@ namespace Hikawa.Interfaces
 			return Interfaces.ContentPatcherAPI is not null;
 		}
 
-		private static bool Hikawa()
+		private static bool Hikawa(string uniqueId)
 		{
-			return Interfaces._registry.IsLoaded(ModConsts.ContentModID);
+			return Interfaces._registry.IsLoaded(uniqueId);
 		}
 
-		private static bool SailorStyles()
+		private static bool SailorStyles(string uniqueId)
 		{
-			Interfaces.SailorAPI = Interfaces._registry.GetApi<ISailorStylesAPI>(uniqueID: "blueberry.SailorStyles");
+			Interfaces.SailorAPI = Interfaces._registry.GetApi<ISailorStylesAPI>(uniqueID: uniqueId);
 
-			return Interfaces.SailorAPI is not null;
+			return true;
 		}
 	}
 }
