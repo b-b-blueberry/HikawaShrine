@@ -231,7 +231,7 @@ namespace Hikawa
 			{
 				foreach (ShrineTreesEntry entry in trees)
 				{
-					if (ModEntry.ModData.ShrineTreeDefinitions?.TryGetValue(entry.Id, out ShrineTreeDefinitionsEntry definition) == true)
+					if (ModEntry.ModData.ShrineTreeDefinitions?.TryGetValue(entry.GlobalId, out ShrineTreeDefinitionsEntry definition) == true)
 					{
 						where.terrainFeatures.TryAdd(entry.Tile, new ShrineTree(entry, definition));
 					}

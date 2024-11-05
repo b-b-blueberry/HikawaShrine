@@ -19,7 +19,7 @@ namespace Hikawa.Objects.Locations
 		private const int LeafInterval = 300;
 
 		public ShrineTree(ShrineTreesEntry data, ShrineTreeDefinitionsEntry definition)
-			: base(id: data.Id)
+			: base(id: data.GlobalId)
 		{
 			this.Data = data;
 			this.Definition = definition;

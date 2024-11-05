@@ -24,10 +24,15 @@
 		/// <summary>
 		/// Key of entry in base game WildTrees data model.
 		/// </summary>
-		public string Id;
+		public string LocalId;
 		public bool Flip;
 		public bool Leaves;
 		public bool Shadow;
+
+		/// <summary>
+		/// Key of entry in base game WildTrees data model.
+		/// </summary>
+		public string GlobalId => $"{ModEntry.ModData.ContentPrefix}{this.LocalId}";
 	}
 
 	public record class CrowSpawnEntry
