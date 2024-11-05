@@ -24,7 +24,7 @@ namespace Hikawa
         internal static readonly Rectangle ExtraSpritesVolleyballAimpointArea = new Rectangle(x: 176, y: 16, width: 16, height: 16);
         internal static readonly Rectangle ExtraSpritesVolleyballVersusArea = new Rectangle(x: 288, y: 48, width: 32, height: 32);
 
-		internal static void TryEdit(AssetRequestedEventArgs e)
+		internal static void TryEdit(object sender, AssetRequestedEventArgs e)
         {
             /*
             if (e.NameWithoutLocale.IsEquivalentTo(""))

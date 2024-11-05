@@ -64,45 +64,56 @@ namespace Hikawa
 			helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
 		}
 
-		public void Init(IModHelper helper)
+		private void Init()
 		{
-			if (!Interfaces.Interfaces.Init(manifest: this.ModManifest, registry: helper.ModRegistry))
+			if (!Interfaces.Interfaces.Init(manifest: this.ModManifest, registry: this.Helper.ModRegistry))
 			{
 				Log.E("Mod will not be loaded.");
 				return;
 			}
 
-			Harmony harmony = new(id: helper.ModRegistry.ModID);
+			// Game events registered here
+			this.Helper.Events.GameLoop.OneSecondUpdateTicked += this.OnDelayAfterGameLaunched;
+			this.Helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
+			this.Helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+			this.Helper.Events.GameLoop.DayStarted += this.OnDayStarted;
+			this.Helper.Events.GameLoop.DayEnding += this.OnDayEnding;
+			this.Helper.Events.GameLoop.Saving += this.OnSaving;
+			this.Helper.Events.Player.Warped += this.OnWarped;
+			this.Helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
+			this.Helper.Events.Display.RenderedStep += this.OnRenderedStep;
+			this.Helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+			this.Helper.Events.Content.AssetRequested += AssetManager.TryEdit;
+		}
+
+		private void InitLate()
+		{
+			// common assets
+			ModEntry.ModData = ModEntry.Instance.Helper.GameContent.Load<ModData>(AssetManager.DataAssetName);
+			ModEntry.Sprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.ExtraSpritesAssetName);
+			Shrine.OutdoorsSprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.OutdoorsSpritesAssetName);
+
+			// evil doings
+			Harmony harmony = new(id: this.Helper.ModRegistry.ModID);
 			harmony.PatchAll();
 
+			// criminal activity
 			this.MangleTranslations();
 
+			// lawful activity
 			this.RegisterMapActions();
 			this.RegisterEventCommands();
 
+			// modules
 			Modules.MiniSit.Init();
 			Modules.DialogueEffects.Init();
 
-			// Assets handled here
-			helper.Events.Content.AssetRequested += (sender, e) => AssetManager.TryEdit(e: e);
-
-			// Game events registered here
-			helper.Events.GameLoop.OneSecondUpdateTicked += this.OnDelayAfterGameLaunched;
-			helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
-			helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
-			helper.Events.GameLoop.DayStarted += this.OnDayStarted;
-			helper.Events.GameLoop.DayEnding += this.OnDayEnding;
-			helper.Events.GameLoop.Saving += this.OnSaving;
-			helper.Events.Player.Warped += this.OnWarped;
-			helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
-			helper.Events.Display.RenderedStep += this.OnRenderedStep;
-			helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-
+			// dev tests
 			if (ModEntry.Config.DebugMode)
 			{
-				this.AddDeveloperCommands(helper: helper);
+				this.AddDeveloperCommands();
 
-				Modules.SpriteTest.Init(helper: helper);
+				Modules.SpriteTest.Init(helper: this.Helper);
 			}
 		}
 
@@ -176,7 +187,7 @@ namespace Hikawa
 
 		#region Console Commands
 
-		private void AddDeveloperCommands(IModHelper helper)
+		private void AddDeveloperCommands()
 		{
 			static void warpTo(string locationName)
 			{
@@ -356,12 +367,12 @@ namespace Hikawa
 
 				foreach (var alias in command.Value.aliases)
 				{
-					helper.ConsoleCommands.Add(
+					this.Helper.ConsoleCommands.Add(
 						name: Cmd + alias,
 						documentation: command.Value.desc,
 						callback: callback);
 				}
-				helper.ConsoleCommands.Add(
+				this.Helper.ConsoleCommands.Add(
 					name: Cmd + command.Key,
 					documentation: command.Value.desc,
 					callback: callback);
@@ -377,7 +388,7 @@ namespace Hikawa
 		/// </summary>
 		private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
 		{
-			this.Init(helper: this.Helper);
+			this.Init();
 		}
 
 		/// <summary>
@@ -385,9 +396,9 @@ namespace Hikawa
 		/// </summary>
 		private void OnDelayAfterGameLaunched(object sender, OneSecondUpdateTickedEventArgs e)
 		{
-			ModEntry.ModData = ModEntry.Instance.Helper.GameContent.Load<ModData>(AssetManager.DataAssetName);
-			ModEntry.Sprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.ExtraSpritesAssetName);
-			Shrine.OutdoorsSprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.OutdoorsSpritesAssetName);
+			this.Helper.Events.GameLoop.OneSecondUpdateTicked -= this.OnDelayAfterGameLaunched;
+
+			this.InitLate();
 		}
 
 		/// <summary>
