@@ -11,6 +11,60 @@
             "Action": "EditData",
             "Target": "{{PATH}}/Data/Data",
             "Entries": {
+                // Tokens
+                // ids
+                "ContentPrefix": "{{ID}}",
+                "ConsoleCommandPrefix": "bb",
+                "SaveDataKey": "{{ID}}_SaveData",
+                // npcs
+                "NpcRei": "{{REI}}",
+                "NpcAmi": "{{AMI}}",
+                "NpcUsagi": "{{USAGI}}",
+                "NpcMako": "{{MAKO}}",
+                "NpcMina": "{{MINA}}",
+                "NpcGramps": "{{GRAMPS}}",
+                "NpcGuy": "{{GUY}}",
+                "NpcCat": "{{CAT}}",
+                "NpcVolleyballSuffix": "_Volleyball",
+                // locations
+                "MapShrine": "{{SHRINE}}",
+                "MapHouse": "{{HOUSE}}",
+                "MapHall": "{{HALL}}",
+                "MapVortex": "{{ID}}_Vortex",
+                "MapRoof": "{{ID}}_Roof",
+                "MapVolleyball": "{{ID}}_Volleyball",
+                // tile sheets
+                "TilesheetHouse": "z_Custom_Hikawa_House",
+                // tile actions
+                "ActionShrineHall": "{{ID}}_ShrineHall",
+                "ActionShrineOffering": "{{ID}}_Offering",
+                "ActionBackDoor": "{{ID}}_BackDoor",
+                "ActionLockbox": "{{ID}}_Lockbox",
+                "ActionWardrobe": "{{ID}}_Wardrobe",
+                "ActionEma": "{{ID}}_Ema",
+                "ActionVortex": "{{ID}}_Vortex",
+                "ActionCrowTrade": "{{ID}}_CrowTrade",
+                // touch actions
+                "TouchActionHop": "{{ID}}_Hop",
+                // triggers
+                "TriggerDialogueEffects": "{{ID}}_DialogueEffects",
+                // commands
+                "EventCommandCrystalBall": "{{ID}}_CrystalBall",
+                // items
+                "ItemWand": "{{ID}}_Wand",
+                "ItemMirror": "{{ID}}_Mirror",
+                "ItemTotem": "{{ID}}_Totem",
+                "ItemVolleyball": "{{ID}}_Volleyball",
+                "ItemLostGlasses": "{{ID}}_LostGlasses",
+                "ItemLostJewelry": "{{ID}}_LostJewelry",
+                // other
+                "HearthLightBaseId": "{{ID}}_HearthLight",
+                "HearthLightSize": {
+                    "X": 512,
+                    "Y": 512
+                },
+
+                // Data
                 "HouseChimneyTile": "53, 22",
                 "CrowSpawnRadius": "2, 2",
                 "CrowSpawnArea": {

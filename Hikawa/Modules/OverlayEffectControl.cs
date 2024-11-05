@@ -97,7 +97,7 @@ namespace Hikawa.Modules
                     break;
 
                 case Effect.StuffAbove:
-                    if (!Game1.currentLocation.Name.StartsWith(ModConsts.MapVortex))
+                    if (!Game1.currentLocation.Name.StartsWith(ModEntry.ModData.MapVortex))
                     {
                         Log.E("Did not enable Effect.StuffAbove: Not in Vortex.");
                         break;

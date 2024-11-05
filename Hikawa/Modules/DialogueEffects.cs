@@ -29,7 +29,7 @@ namespace Hikawa.Modules
 		public static void Init()
 		{
 			TriggerActionManager.RegisterAction(
-				name: ModConsts.ContentPrefix + ModConsts.TriggerDialogueEffects,
+				name: ModEntry.ModData.TriggerDialogueEffects,
 				action: delegate(string[] args, TriggerActionContext context, out string error)
 				{
 					error = null;

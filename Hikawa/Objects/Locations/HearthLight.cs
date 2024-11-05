@@ -5,9 +5,6 @@ namespace Hikawa.Objects.Locations
 {
 	public class HearthLight : LightSource
 	{
-		public static readonly string BaseId = ModConsts.ContentPrefix + nameof(HearthLight);
-		public static readonly Point Size = new Point(512, 512);
-
 		/// <summary>
 		/// Variable for current light intensity based on luminosity and variance.
 		/// </summary>
@@ -38,8 +35,8 @@ namespace Hikawa.Objects.Locations
 			this.lightTexture = Game1.content.Load<Texture2D>(AssetManager.LightSpritesAssetName);
 			this.TextureRegion = Game1.getSquareSourceRectForNonStandardTileSheet(
 				tileSheet: this.lightTexture,
-				tileWidth: HearthLight.Size.X,
-				tileHeight: HearthLight.Size.Y,
+				tileWidth: ModEntry.ModData.HearthLightSize.X,
+				tileHeight: ModEntry.ModData.HearthLightSize.Y,
 				tilePosition: data.TextureIndex);
 		}
 
@@ -88,7 +85,7 @@ namespace Hikawa.Objects.Locations
 
 		public static string GetId(GameLocation where, int which)
 		{
-			return $"{HearthLight.BaseId}_{where.NameOrUniqueName}_{which}";
+			return $"{ModEntry.ModData.HearthLightBaseId}_{where.NameOrUniqueName}_{which}";
 		}
 	}
 }

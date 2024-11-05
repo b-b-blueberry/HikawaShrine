@@ -3,9 +3,9 @@ using StardewValley.Menus;
 
 namespace Hikawa.Volleyball
 {
-	internal class VolleyballClientDialogueBox : ConfirmationDialog
+	public class VolleyballClientDialogueBox : ConfirmationDialog
 	{
-		public const string CheckID = ModConsts.ContentPrefix + "VolleyballCheck";
+		public static string CheckID => ModEntry.ModData.ContentPrefix + "VolleyballCheck";
 
 		public VolleyballClientDialogueBox(behavior onConfirm, behavior onCancel) : base(
 				  message: ModEntry.I18n.Get("ui.volleyball.client.wait"),

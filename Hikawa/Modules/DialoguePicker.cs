@@ -16,10 +16,10 @@ namespace Hikawa.Modules
 		private static readonly HashSet<string> UsedKeys = [];
 		private static long PreviousSessionId;
 
-		private const string DataKeyUsedKeys = ModConsts.SaveDataKey + "UsedKeys";
-		private const string DataKeyDaysWhenLastTalkedToRei = ModConsts.SaveDataKey + "DaysWhenLastTalkedToRei";
-        private const string DataKeyDaysWhenLastTalkedToAmi = ModConsts.SaveDataKey + "DaysWhenLastTalkedToAmi";
-        private const string DataKeyDaysWhenLastPlayed = ModConsts.SaveDataKey + "DaysWhenLastPlayed";
+		private static string DataKeyUsedKeys => ModEntry.ModData.SaveDataKey + "_UsedKeys";
+		private static string DataKeyDaysWhenLastTalkedToRei => ModEntry.ModData.SaveDataKey + "_DaysWhenLastTalkedToRei";
+        private static string DataKeyDaysWhenLastTalkedToAmi => ModEntry.ModData.SaveDataKey + "_DaysWhenLastTalkedToAmi";
+        private static string DataKeyDaysWhenLastPlayed => ModEntry.ModData.SaveDataKey + "_DaysWhenLastPlayed";
 
 		public static void LoadData()
 		{
@@ -44,11 +44,11 @@ namespace Hikawa.Modules
 			string s;
 			string key = null;
 
-			if (npc.Name == ModConsts.NpcRei)
+			if (npc.Name == ModEntry.ModData.NpcRei)
 			{
 				// Locations
 				if (key is null
-					&& Game1.player.locationsVisited.Contains(ModConsts.MapHall)
+					&& Game1.player.locationsVisited.Contains(ModEntry.ModData.MapHall)
 					&& !UsedKeys.Contains("psych.place.hall"))
 				{
 					key = "psych.place.hall";
@@ -172,7 +172,7 @@ namespace Hikawa.Modules
 				// Debug - test
 				key ??= "rei.test";
 			}
-			else if (npc.Name == ModConsts.NpcAmi)
+			else if (npc.Name == ModEntry.ModData.NpcAmi)
 			{
 				key ??= "rei.test";// "ami.chat.24";
 			}

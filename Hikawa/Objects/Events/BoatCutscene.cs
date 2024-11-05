@@ -156,7 +156,7 @@ cs Game1.currentMinigame = new Hikawa.Objects.Events.BoatCutscene();
 				this._boatAcceleration *= -1;
 				this._birdVelocity *= -1;
 			}
-			this.DestinationLocation = this.IsFlipped ? ModConsts.MapShrine : ModConsts.MapVolleyball;
+			this.DestinationLocation = this.IsFlipped ? ModEntry.ModData.MapShrine : ModEntry.ModData.MapVolleyball;
 			this.DrawFlip = this.IsFlipped ? new(x: -1, y: 1) : new(x: 1, y: 1);
 
 			// Actors

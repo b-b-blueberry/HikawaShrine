@@ -63,7 +63,7 @@ namespace Hikawa.Objects.Locations
             // Play sounds as you warp out/in
             if (ModEntry.State.Value.AnimationStage > 0 && ModEntry.State.Value.AnimationStage % (halfwayStage / numOfBeeps) == 0 || ModEntry.State.Value.AnimationStage == 1)
             {
-                Game1.playSound(ModConsts.ContentPrefix + "vortex" + Math.Min(4, Math.Max(0, ModEntry.State.Value.AnimationStage / 10)));
+                Game1.playSound(ModEntry.ModData.ContentPrefix + "vortex" + Math.Min(4, Math.Max(0, ModEntry.State.Value.AnimationStage / 10)));
             }
             // Warp after spin-in
             if (ModEntry.State.Value.AnimationStage == halfwayStage && !ModEntry.State.Value.AnimationFlag)

@@ -59,7 +59,7 @@ namespace Hikawa.Volleyball
         public NetInt ScoreR;
         public NetInt ScoreGoal;
 
-        public VolleyballLocation() : base(mapPath: "Maps/" + ModConsts.MapVolleyball, name: "Temp/" + ModConsts.MapVolleyball)
+        public VolleyballLocation() : base(mapPath: "Maps/" + ModEntry.ModData.MapVolleyball, name: "Temp/" + ModEntry.ModData.MapVolleyball)
         {
 			// ???
         }
@@ -94,11 +94,11 @@ namespace Hikawa.Volleyball
 
 		public UmpireData GetUmpireData(string name)
 		{
-			if (name == ModConsts.NpcCat)
+			if (name == ModEntry.ModData.NpcCat)
 			{
 				Point size = new(x: 32, y: 32);
 				return new UmpireData(
-					name: name + ModConsts.NpcVolleyballSuffix,
+					name: name + ModEntry.ModData.NpcVolleyballSuffix,
 					displayName: NPC.GetDisplayName(name),
 					textureName: AssetManager.CatSpritesAssetName,
 					sourceRectangle: new(x: 0, y: size.Y * 4, width: size.X, height: size.Y),
@@ -107,7 +107,7 @@ namespace Hikawa.Volleyball
 					isBreathing: false);
 			}
 			return new UmpireData(
-				name: name + ModConsts.NpcVolleyballSuffix,
+				name: name + ModEntry.ModData.NpcVolleyballSuffix,
 				displayName: NPC.GetDisplayName(name),
 				textureName: $"Characters/{name}",
 				sourceRectangle: new Rectangle(x: 0, y: 0, width: 16, height: 32),
@@ -175,7 +175,7 @@ namespace Hikawa.Volleyball
 						VolleyballMenu menu = null;
 						Character[] characters = new Character[] {
 							Game1.player,
-							VolleyballNPC.MakeFor(ModConsts.NpcRei)
+							VolleyballNPC.MakeFor(ModEntry.ModData.NpcRei)
 						}; // TODO: DEBUG: REMOVE THIS
 						menu = new(players: characters, scoreGoal: 3)
 						{
@@ -576,9 +576,9 @@ namespace Hikawa.Volleyball
                 b: b,
                 characters: /*this.Players.ToArray()*/ new Character[] {
 					Game1.player,
-					Game1.getCharacterFromName(ModConsts.NpcRei)/*,
-					Game1.getCharacterFromName(ModConsts.NpcAmi),
-					Game1.getCharacterFromName(ModConsts.NpcGramps)*/
+					Game1.getCharacterFromName(ModEntry.ModData.NpcRei)/*,
+					Game1.getCharacterFromName(ModEntry.ModData.NpcAmi),
+					Game1.getCharacterFromName(ModEntry.ModData.NpcGramps)*/
 				}, // DEBUG: REMOVE THIS
                 scoreL: this.ScoreL.Value,
                 scoreR: this.ScoreR.Value);

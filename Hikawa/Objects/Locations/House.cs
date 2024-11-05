@@ -16,7 +16,7 @@ namespace Hikawa.Objects.Locations
 
 		public static GameLocation Get()
 		{
-			return Game1.getLocationFromName(ModConsts.MapHouse);
+			return Game1.getLocationFromName(ModEntry.ModData.MapHouse);
 		}
 
 		public override void UpdateWhenCurrentLocation(GameTime time)

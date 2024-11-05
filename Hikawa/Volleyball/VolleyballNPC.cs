@@ -24,17 +24,9 @@ namespace Hikawa.Volleyball
 
 		public static VolleyballNPC MakeFor(string baseName)
 		{
-			string displayNameKey = baseName switch
-			{
-				ModConsts.NpcRei => "npc.rei.name",
-				ModConsts.NpcAmi => "npc.ami.name",
-				ModConsts.NpcUsa => "npc.usagi.name",
-				ModConsts.NpcMako => "npc.makoto.name",
-				ModConsts.NpcMina => "npc.minako.name"
-			};
 			return new VolleyballNPC(
-				name: baseName + ModConsts.NpcVolleyballSuffix,
-				displayName: ModEntry.I18n.Get(displayNameKey));
+				name: baseName + ModEntry.ModData.NpcVolleyballSuffix,
+				displayName: Game1.characterData.TryGetValue(baseName, out var data) ? data.DisplayName : baseName);
 		}
 
 		protected override void initNetFields()

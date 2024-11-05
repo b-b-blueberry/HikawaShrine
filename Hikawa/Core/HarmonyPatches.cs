@@ -119,7 +119,7 @@ namespace Hikawa
 		{
 			try
 			{
-				if (behaviorName.StartsWith(ModConsts.ContentPrefix))
+				if (behaviorName.StartsWith(ModEntry.ModData.ContentPrefix))
 				{
 					// Perform custom end-of-route behaviours
 					// . . .

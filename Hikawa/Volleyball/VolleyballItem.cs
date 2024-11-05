@@ -9,7 +9,7 @@ namespace Hikawa.Volleyball
 	{
 		public VolleyballItem() : base()
 		{
-			this.Name = ModConsts.ContentPrefix + "VolleyballItem";
+			this.Name = ModEntry.ModData.ItemVolleyball;
 			this.InitialParentTileIndex = this.CurrentParentTileIndex = 0;
 		}
 

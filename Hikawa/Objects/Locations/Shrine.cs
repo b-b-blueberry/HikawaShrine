@@ -63,7 +63,7 @@ namespace Hikawa.Objects.Locations
 
 		public static Shrine Get()
 		{
-			return Game1.RequireLocation<Shrine>(ModConsts.MapShrine);
+			return Game1.RequireLocation<Shrine>(ModEntry.ModData.MapShrine);
 		}
 
 		#region Location methods
@@ -270,7 +270,7 @@ namespace Hikawa.Objects.Locations
 			base.resetLocalState();
 
 			// Properties
-			var tiles = Utils.GetTilesWithProperty(where: this, layer: "Buildings", property: "Action", value: new(ModConsts.ActionCrowTrade), onlyOne: true);
+			var tiles = Utils.GetTilesWithProperty(where: this, layer: "Buildings", property: "Action", value: new(ModEntry.ModData.ActionCrowTrade), onlyOne: true);
 			this.CrowTradeTile = tiles.FirstOrDefault();
 
 			// Critters
@@ -349,12 +349,12 @@ namespace Hikawa.Objects.Locations
 			if (tileLocation.X == ModEntry.SaveData.LostJewelryQuestTile.X && tileLocation.Y == ModEntry.SaveData.LostJewelryQuestTile.Y)
 			{
 				Game1.playSound("getNewSpecialItem");
-				who.addItemByMenuIfNecessaryElseHoldUp(ItemRegistry.Create(ModConsts.ItemLostJewelry));
+				who.addItemByMenuIfNecessaryElseHoldUp(ItemRegistry.Create(ModEntry.ModData.ItemLostJewelry));
 			}
 			else if (tileLocation.X == ModEntry.SaveData.LostGlassesQuestTile.X && tileLocation.Y == ModEntry.SaveData.LostGlassesQuestTile.Y)
 			{
 				Game1.playSound("getNewSpecialItem");
-				who.addItemByMenuIfNecessaryElseHoldUp(ItemRegistry.Create(ModConsts.ItemLostGlasses));
+				who.addItemByMenuIfNecessaryElseHoldUp(ItemRegistry.Create(ModEntry.ModData.ItemLostGlasses));
 			}
 			return base.checkAction(tileLocation, viewport, who);
 		}
@@ -1022,8 +1022,8 @@ namespace Hikawa.Objects.Locations
 		public static void FinishTotemWarp(Farmer who)
 		{
 			Point tileLocation = Point.Zero;
-			Utility.getDefaultWarpLocation(ModConsts.MapShrine, ref tileLocation.X , ref tileLocation.Y);
-			Game1.warpFarmer(locationName: ModConsts.MapShrine, tileX: tileLocation.X, tileY: tileLocation.Y, flip: false);
+			Utility.getDefaultWarpLocation(ModEntry.ModData.MapShrine, ref tileLocation.X , ref tileLocation.Y);
+			Game1.warpFarmer(locationName: ModEntry.ModData.MapShrine, tileX: tileLocation.X, tileY: tileLocation.Y, flip: false);
 			Game1.fadeToBlackAlpha = 0.99f;
 			Game1.screenGlow = false;
 			Game1.player.temporarilyInvincible = false;

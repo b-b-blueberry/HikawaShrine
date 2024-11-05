@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Locations;
@@ -365,14 +364,6 @@ namespace Hikawa
 		{
 			return Game1.season == Season.Summer && Game1.dayOfMonth > 27
 				   || Game1.season == Season.Fall && Game1.dayOfMonth < 3;
-		}
-
-		internal static string GetContentPackId(string name)
-		{
-			return Regex.Replace(
-				input: ModConsts.ContentPrefix + name,
-				pattern: "[^a-zA-Z0-9_.]",
-				replacement: "");
 		}
 
 		internal static bool TryPlaySound(string cueName)

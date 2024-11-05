@@ -12,7 +12,7 @@ namespace Hikawa.Objects.Locations
 
 		public static GameLocation Get()
 		{
-			return Game1.getLocationFromName(ModConsts.MapHall);
+			return Game1.getLocationFromName(ModEntry.ModData.MapHall);
 		}
 
 		protected override void resetLocalState()

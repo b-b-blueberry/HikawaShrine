@@ -37,7 +37,7 @@ namespace Hikawa.Objects.Critters
 
 		public ShrineChicken(GameLocation where, Vector2 position, bool isBrown = false)
 		{
-			this.Name = ModConsts.ContentPrefix + "Chicken";
+			this.Name = ModEntry.ModData.ContentPrefix + "_Chicken";
 			this.displayName = Game1.content.LoadString($"Strings/FarmAnimals:DisplayType_Chicken_{this.Colour}");
 			this.currentLocation = where;
 			this.DefaultPosition = this.Position = position;

@@ -185,7 +185,7 @@ namespace Hikawa
 				Game1.warpFarmer(locationName: locationName, tileX: tile.X, tileY: tile.Y, flip: false);
 			}
 
-			const string Cmd = ModConsts.CommandPrefix;
+			string Cmd = ModEntry.ModData.ConsoleCommandPrefix;
 			Dictionary<string, (string[] aliases, string desc)> commands = new()
 			{
 				{ "bbb", (new [] { "b" }, "Test.") },
@@ -230,12 +230,12 @@ namespace Hikawa
 									players: new Character[]
 									{
 										Game1.player,
-										VolleyballNPC.MakeFor(ModConsts.NpcRei)
+										VolleyballNPC.MakeFor(ModEntry.ModData.NpcRei)
 									},
 									scoreGoal: 3,
 									isDoubles: false)
 								: null,
-								umpireName: ModConsts.NpcCat,
+								umpireName: ModEntry.ModData.NpcCat,
 								style: Volleyball.Volleyball.Style.Volleyball);
 						};
 						break;
@@ -274,21 +274,21 @@ namespace Hikawa
 					case "shrine":
 						callback = (s, p) =>
 						{
-							warpTo(locationName: ModConsts.MapShrine);
+							warpTo(locationName: ModEntry.ModData.MapShrine);
 						};
 						break;
 
 					case "house":
 						callback = (s, p) =>
 						{
-							warpTo(locationName: ModConsts.MapHouse);
+							warpTo(locationName: ModEntry.ModData.MapHouse);
 						};
 						break;
 
 					case "hall":
 						callback = (s, p) =>
 						{
-							warpTo(locationName: ModConsts.MapHall);
+							warpTo(locationName: ModEntry.ModData.MapHall);
 						};
 						break;
 
@@ -341,9 +341,9 @@ namespace Hikawa
 								Game1.viewport.Y = -64000;
 
 								// Note: Save this script for the grandpa roof and moon cutscene
-								string who = ModConsts.NpcGramps;
-								string script = $"nightTime/-1000 -1000/farmer 0 0 0 {who} 1 0 0/skippable/pause 1000/changeToTemporaryMap {ModConsts.MapRoof}/warp farmer 14 32/warp {who} 16 32/faceDirection farmer 2/faceDirection {who} 2/pause 1000/viewport move 0 1 5500/{ModConsts.EventCommandCrystalBall}/pause 1000/globalFade/viewport -1000 -1000/pause 1000/end";
-								script = $"nightTime/-1000 -1000/farmer -100 -100 0 {who} -101 -100 0/skippable/pause 1000/{ModConsts.EventCommandCrystalBall}/pause 1000/end";
+								string who = ModEntry.ModData.NpcGramps;
+								string script = $"nightTime/-1000 -1000/farmer 0 0 0 {who} 1 0 0/skippable/pause 1000/changeToTemporaryMap {ModEntry.ModData.MapRoof}/warp farmer 14 32/warp {who} 16 32/faceDirection farmer 2/faceDirection {who} 2/pause 1000/viewport move 0 1 5500/{ModEntry.ModData.EventCommandCrystalBall}/pause 1000/globalFade/viewport -1000 -1000/pause 1000/end";
+								script = $"nightTime/-1000 -1000/farmer -100 -100 0 {who} -101 -100 0/skippable/pause 1000/{ModEntry.ModData.EventCommandCrystalBall}/pause 1000/end";
 								Game1.currentLocation.currentEvent = new(eventString: script)
 								{
 									onEventFinished = () => Game1.player.stopGlowing()
@@ -403,7 +403,7 @@ namespace Hikawa
 		/// </summary>
 		private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
 		{
-			ModEntry.SaveData = this.Helper.Data.ReadSaveData<SaveData>(ModConsts.SaveDataKey) ?? new SaveData();
+			ModEntry.SaveData = this.Helper.Data.ReadSaveData<SaveData>(ModEntry.ModData.SaveDataKey) ?? new SaveData();
 			Modules.DialoguePicker.LoadData();
 		}
 
@@ -441,7 +441,7 @@ namespace Hikawa
 					Utils.ApplyCustomSharedMapProperties(town);
 				}
 
-				if (e.OldLocation.Name.StartsWith(ModConsts.ContentPrefix))
+				if (e.OldLocation.Name.StartsWith(ModEntry.ModData.ContentPrefix))
 				{
 					// Handle warps out of mod locations
 					Game1.freezeControls = false;
@@ -492,7 +492,7 @@ namespace Hikawa
 			Dictionary<string, Func<GameLocation, string[], Farmer, Point, bool>> tileActions = new()
 			{
 				{
-					ModConsts.ActionShrineOffering, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionShrineOffering, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Using the Shrine offertory box
 						Utils.CreateInspectThenQuestionDialogue(
@@ -508,14 +508,14 @@ namespace Hikawa
 					}
 				},
 				{
-					ModConsts.ActionCrowTrade, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionCrowTrade, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Interactions with the crow trade tile at the Shrine
 						return where is Shrine shrine && shrine.HandleCrowTradeAction(who);
 					}
 				},
 				{
-					ModConsts.ActionEma, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionEma, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Interactions with the Ema stand at the Shrine
 						Game1.activeClickableMenu = new EmaMenu();
@@ -523,21 +523,21 @@ namespace Hikawa
 					}
 				},
 				{
-					ModConsts.ActionShrineHall, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionShrineHall, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Trying to enter the Shrine Hall front doors
 						return true;
 					}
 				},
 				{
-					ModConsts.ActionLockbox, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionLockbox, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Lockbox
 						return true;
 					}
 				},
 				{
-					ModConsts.ActionWardrobe, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionWardrobe, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Wardrobe
 						// Offer to toggle seasonal outfits on Hikawa characters
@@ -560,7 +560,7 @@ namespace Hikawa
 					}
 				},
 				{
-					ModConsts.ActionVortex, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					ModEntry.ModData.ActionVortex, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Vortex warps
 						if (where is Vortex && args.Length > 2 && int.TryParse(args[1], out int toX) && int.TryParse(args[2], out int toY))
@@ -584,7 +584,7 @@ namespace Hikawa
 			{
 				{
 					// Hop touch-action
-					ModConsts.TouchHop, (GameLocation where, string[] args, Farmer who, Vector2 tile) =>
+					ModEntry.ModData.TouchActionHop, (GameLocation where, string[] args, Farmer who, Vector2 tile) =>
 					{
 						// Don't allow for triggering other Hop tiles while already hopping
 						if (Game1.player.freezePause > 0)
@@ -735,15 +735,11 @@ namespace Hikawa
 		/// </summary>
 		public void CheckHeldObjectAction(Object o, GameLocation where, SButton btn)
 		{
-			switch (o.Name)
+			if (o.Name == ModEntry.ModData.ItemTotem)
 			{
-				case ModConsts.ItemTotem:
+				if (btn.IsActionButton())
 				{
-					if (btn.IsActionButton())
-					{
-						Shrine.StartTotemWarp(who: Game1.player, o: o, isConsumed: true);
-					}
-					break;
+					Shrine.StartTotemWarp(who: Game1.player, o: o, isConsumed: true);
 				}
 			}
 		}
