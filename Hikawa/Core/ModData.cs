@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Hikawa.Objects.Locations;
+using StardewValley.GameData;
 
 namespace Hikawa
 {
@@ -19,5 +20,6 @@ namespace Hikawa
 		public Dictionary<string, List<HangingSpriteEntry>> HangingSprites;
 		public Dictionary<string, List<LightTileEntry>> LightTiles;
 		public Dictionary<string, List<LightEntry>> Lights;
+		public GenericSpawnItemDataWithCondition[] CrowTradeRules;
 	}
 }

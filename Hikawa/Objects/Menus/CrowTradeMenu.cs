@@ -57,7 +57,7 @@ namespace Hikawa.Objects.Menus
 				name: null,
 				label: null)
 			{
-				item = this.Shrine.CrowTradeItem
+				item = this.Shrine.CrowTradeItem.Value
 			};
 			this.initializeUpperRightCloseButton();
 			this.gameWindowSizeChanged(oldBounds: Rectangle.Empty, newBounds: Game1.graphics.GraphicsDevice.Viewport.Bounds);
@@ -181,8 +181,8 @@ namespace Hikawa.Objects.Menus
 
 		public void SetShrineItem()
 		{
-			this.Shrine.CrowTradeItem = this.ItemSlot.item;
-			this.Shrine.IsCrowTradeUsedToday = this.Shrine.CrowTradeItem is not null;
+			this.Shrine.CrowTradeItem.Set(this.ItemSlot.item);
+			this.Shrine.IsCrowTradeUsedToday = this.Shrine.CrowTradeItem.Value is not null;
 		}
 
 		public static bool HighlightItems(Item i)

@@ -4,11 +4,15 @@ using System.Xml.Serialization;
 using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Menus;
+using Netcode;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
+using StardewValley.GameData;
+using StardewValley.Internal;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Monsters;
+using StardewValley.Network;
 using StardewValley.TerrainFeatures;
 using Object = StardewValley.Object;
 
@@ -20,7 +24,8 @@ namespace Hikawa.Objects.Locations
 		/** PERSISTENT **/
 
 		// Items
-		public Item CrowTradeItem;
+		public NetRef<Item> CrowTradeItem = new();
+		public NetMutex CrowTradeMutex = new();
 
 		/** TEMPORARY **/
 
@@ -62,6 +67,15 @@ namespace Hikawa.Objects.Locations
 		}
 
 		#region Location methods
+
+		protected override void initNetFields()
+		{
+			base.initNetFields();
+
+			this.NetFields
+				.AddField(this.CrowTradeItem, nameof(this.CrowTradeItem))
+				.AddField(this.CrowTradeMutex.NetFields, $"{nameof(this.CrowTradeItem)}.{nameof(this.CrowTradeMutex.NetFields)}");
+		}
 
 		protected override void drawCharacters(SpriteBatch b)
 		{
@@ -223,6 +237,13 @@ namespace Hikawa.Objects.Locations
 			}
 		}
 
+		public override void updateEvenIfFarmerIsntHere(GameTime time, bool ignoreWasUpdatedFlush = false)
+		{
+			base.updateEvenIfFarmerIsntHere(time, ignoreWasUpdatedFlush);
+
+			this.CrowTradeMutex.Update(this);
+		}
+
 		public override void performTenMinuteUpdate(int timeOfDay)
 		{
 			base.performTenMinuteUpdate(timeOfDay);
@@ -258,7 +279,7 @@ namespace Hikawa.Objects.Locations
 				this.TrySpawnDailyCrows();
 			if (this.WhatAboutCatsCanTheySpawnToday)
 				this.TrySpawnDailyCats();
-			if (this.IsCrowTradeAvailableToday && this.CrowTradeItem is null)
+			if (this.IsCrowTradeAvailableToday && this.CrowTradeItem.Value is null)
 				this.addCritter(new ShrineCrowTradeCrow(this.CrowTradeTile * Game1.tileSize + new Vector2(Game1.tileSize, -Game1.tileSize / 2f)));
 
 			Utils.ApplyCustomSharedMapProperties(this);
@@ -311,6 +332,7 @@ namespace Hikawa.Objects.Locations
 			Utils.ResetCustomSharedMapProperties(this);
 			Game1.background = null;
 			this.BabyCrows = null;
+			this.CrowTradeMutex.ReleaseLock();
 
 			base.cleanupBeforePlayerExit();
 		}
@@ -353,24 +375,68 @@ namespace Hikawa.Objects.Locations
 
 		#region Shrine methods
 
-		public bool IsCrowTradeItemReady => this.CrowTradeTile != default && !this.IsCrowTradeUsedToday && this.CrowTradeItem is not null;
+		public bool IsCrowTradeItemReady => this.CrowTradeTile != default && !this.IsCrowTradeUsedToday && this.CrowTradeItem.Value is not null;
 
 		public bool HandleCrowTradeAction(Farmer who)
 		{
 			if (this.IsCrowTradeItemReady)
 			{
-				Game1.playSound("getNewSpecialItem");
-				who.addItemByMenuIfNecessaryElseHoldUp(this.CrowTradeItem);
-				this.CrowTradeItem = null;
+				// who.addItemByMenuIfNecessaryElseHoldUp(this.CrowTradeItem.Value);
+				if (who.addItemToInventoryBool(this.CrowTradeItem.Value))
+				{
+					Game1.playSound("getNewSpecialItem");
+					this.CrowTradeItem.Set(null);
+				}
+				else
+				{
+					Game1.playSound("cancel");
+					Game1.showRedMessage(Game1.content.LoadString("Strings\\StringsFromCSFiles:Crop.cs.588"));
+				}
 			}
 			else
 			{
-				Game1.playSound("grassyStep");
-				CrowTradeMenu menu = new(shrine: this);
-				Game1.activeClickableMenu = menu;
+				this.CrowTradeMutex.RequestLock(() =>
+				{
+					Game1.playSound("grassyStep");
+					CrowTradeMenu menu = new(shrine: this);
+					Game1.activeClickableMenu = menu;
+					menu.exitFunction += () =>
+					{
+						this.CrowTradeMutex.ReleaseLock();
+					};
+				});
 			}
 
 			return true;
+		}
+
+		public void FinaliseCrowTrade()
+		{
+			this.IsCrowTradeUsedToday = false;
+			if (this.CrowTradeItem.Value is Item input)
+			{
+				ItemQueryContext context = new(
+					location: this,
+					player: null,
+					random: null);
+				foreach (GenericSpawnItemDataWithCondition rule in ModEntry.ModData.CrowTradeRules)
+				{
+					if (GameStateQuery.CheckConditions(
+							queryString: rule.Condition,
+							location: context.Location,
+							player: context.Player,
+							random: context.Random,
+							inputItem: input)
+						&& ItemQueryResolver.TryResolveRandomItem(
+							data: rule,
+							context: context,
+							inputItem: input) is Item output)
+					{
+						this.CrowTradeItem.Set(output);
+						break;
+					}
+				}
+			}
 		}
 
 		public void StartBellSequence(Farmer who)
