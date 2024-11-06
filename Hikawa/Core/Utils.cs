@@ -221,7 +221,7 @@ namespace Hikawa
 		{
 			where.critters?.RemoveAll(c => c is HangingSprite);
 			where.critters?.RemoveAll(c => c is LightTile);
-			where.sharedLights?.RemoveWhere(pair => pair.Key.StartsWith(HearthLight.BaseId));
+			where.sharedLights?.RemoveWhere(pair => pair.Key.StartsWith(ModEntry.ModData.HearthLightBaseId));
 		}
 
 		public static void ApplyCustomSharedMapProperties(GameLocation where)
