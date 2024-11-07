@@ -51,6 +51,8 @@ namespace Hikawa.Objects.Critters
 
 		public void Hop(Farmer who)
 		{
+			if (Math.Abs(this.startingPosition.X - this.position.X) > this._hopRange * Game1.tileSize)
+				this.flip = !this.flip;
 			this.gravityAffectedDY = -this._hopRange;
 		}
 
