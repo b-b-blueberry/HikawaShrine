@@ -148,6 +148,56 @@
     "ui.volleyball.score.out": "{{team}}{{loser}} went out!",
     "ui.volleyball.score.team": "Team ",
 
+    // Bugs
+
+    "bugs.beetle.name": "Stag Beetle",
+    "bugs.beetle.scientific": "Lucanidae",
+    "bugs.beetle.description": "Their mandibles grow over the course of their lifetime to the length of their body. Males wrestle one-another for females, food, and territory. Despite their size, they remain capable flyers.",
+
+    "bugs.butterfly.name": "Monarch Butterfly",
+    "bugs.butterfly.scientific": "Danaus plexippus",
+    "bugs.butterfly.description": "Renowned for their continental migration patterns, species are found wherever their preferred food grows, as well as at various points along their migratory routes. Scales take from a palette of orange, white, and blue.",
+
+    "bugs.wasp.name": "Paper Wasp",
+    "bugs.wasp.scientific": "Vespidae",
+    "bugs.wasp.description": "As with bees, a lone queen founds a nest, spawning female workers to grow her brood. An adult wasp can't feed on solid matter; her mandibles are mainly for pulping wood fiber into paper. She subsists on nectar and feeds processed insects to her larvae.",
+
+    "bugs.grasshopper.name": "Grasshopper",
+    "bugs.grasshopper.scientific": "Acrididae",
+    "bugs.grasshopper.description": "Especially prehistoric insects with powerful wings and spurred hindlegs. May transform into locusts in adverse conditions. Infamous competition for crops such as grains and herbs.",
+
+    "bugs.mantis.name": "Orchid Mantis",
+    "bugs.mantis.scientific": "Hymenopus coronatus",
+    "bugs.mantis.description": "Beautiful predators with toothed legs and powerful mandibles. Can change their camouflage at will, ambushing pollinating insects before they can react.\n\nFemales grow to twice the size of males, eating them after mating ..!",
+
+    "bugs.louse.name": "Woodlouse",
+    "bugs.louse.scientific": "Porcellionidae",
+    "bugs.louse.description": "Nocturnal detritivores that decompose wood, manure, and other plant matter. Descended from marine isopods, they prefer damp habitats.\n\nVery cute given the number of legs.",
+
+    "bugs.centipede.name": "Centipede",
+    "bugs.centipede.scientific": "Scolopendridae",
+    "bugs.centipede.description": "Aggressive predator capable of subduing disproportionately-large prey with its envenomed pincer-like forelimbs, even though mostly blind. Can live for up to 10 years in an ideal environment, growing additional legs with every moult.\n\nExtremely uncute. May take a lot of pins.",
+
+    "bugs.moth.name": "Moon Moth",
+    "bugs.moth.scientific": "Actias luna",
+    "bugs.moth.description": "Large silk moth with a ghostly scale. Larvae thrive on cherry and maple trees in the region, adults survive only on larval energy stores.\n\nRelative of Actias artemis. Cute!",
+
+    "bugs.termite.name": "Termite",
+    "bugs.termite.scientific": "Rhinotermitidae",
+    "bugs.termite.description": "Feeds on exposed wood, breeds underground in vast colonies millions-strong. Divided into a dimorphic social system, workers and soldiers support eachother under a king and queen.\n\nI hope there's no more where this came from..",
+
+    "bugs.ladybug.name": "Ladybird",
+    "bugs.ladybug.scientific": "Coccinellidae",
+    "bugs.ladybug.description": "Pretty guardians of the rose garden! Deceptively effective predators of small garden pests. Habitats are vast due to prolific breeding and individual range.\nSpecies within this family come in a wide range of colours and patterns.\n\nMako won't be happy if I pin this one.",
+
+    "bugs.dragonfly.name": "Dragonfly",
+    "bugs.dragonfly.scientific": "Libellulidae",
+    "bugs.dragonfly.description": "Agile aerial aces with precise flight and sight. Preferred habitats are near vegetated freshwater bodies such as lakes, rivers, and wetlands. Hatchling nymphs develop underwater for several years before emerging to breed and perish.\n\nIconic features of traditional paintings.",
+
+    "bugs.scarab.name": "Jewel Scarab",
+    "bugs.scarab.scientific": "Scarabaeidae",
+    "bugs.scarab.description": "Rarely-seen beetles with an iridescent carapace, only found in mountainous coniferous forests. Their metallic sheen comes from many layers of uniquely-coloured reflective chitin. Different species have a huge variety of colours!",
+
     // Dialogue
 
     "chicken.fight.1": "Hey! Stop that!",
