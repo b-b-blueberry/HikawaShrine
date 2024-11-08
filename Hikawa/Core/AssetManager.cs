@@ -17,6 +17,7 @@ namespace Hikawa
         internal static readonly string CrowSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Crows");
         internal static readonly string CatSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Cats");
         internal static readonly string LightSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Lights");
+        internal static readonly string ItalicsFontAssetName = Path.Combine(RootAssetDir, "Fonts", "Italics");
 
 		internal static readonly Rectangle ExtraSpritesFeathersArea = new Rectangle(x: 176, y: 0, width: 48, height: 16);
         internal static readonly Rectangle ExtraSpritesVolleyballArea = new Rectangle(x: 80, y: 16, width: 17, height: 17);

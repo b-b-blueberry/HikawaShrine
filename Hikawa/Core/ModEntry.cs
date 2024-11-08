@@ -49,6 +49,7 @@ namespace Hikawa
 		public static SaveData SaveData { get; private set; }
 		public static ModData ModData { get; private set; }
 		public static Texture2D Sprites { get; private set; }
+		public static SpriteFont Italics { get; private set; }
 		public static Modules.OverlayEffectControl OverlayEffectControl { get; private set; }
 		public static ITranslationHelper I18n => ModEntry.Instance.Helper.Translation;
 
@@ -91,6 +92,7 @@ namespace Hikawa
 			// common assets
 			ModEntry.ModData = ModEntry.Instance.Helper.GameContent.Load<ModData>(AssetManager.DataAssetName);
 			ModEntry.Sprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.ExtraSpritesAssetName);
+			ModEntry.Italics = ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName);
 			Shrine.OutdoorsSprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.OutdoorsSpritesAssetName);
 
 			// evil doings
