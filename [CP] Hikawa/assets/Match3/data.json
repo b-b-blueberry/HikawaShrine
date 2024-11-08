@@ -29,7 +29,7 @@
             "Width": 10,
             "Height": 10
         },
-        "MenuTextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+        "MenuTextureId": "{{PATH}}/Match3Sprites",
         "DialogueIgnoreInputTime": 1000,
         "DialogueAdvanceTextureRegion": {
             "X": 80,
@@ -308,7 +308,7 @@
     "TokenData": {
         "R": {
             "Char": " ",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 0,
                 "Y": 0,
@@ -319,7 +319,7 @@
         },
         "G": {
             "Char": "░",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 16,
                 "Y": 0,
@@ -330,7 +330,7 @@
         },
         "B": {
             "Char": "▓",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 32,
                 "Y": 0,
@@ -341,7 +341,7 @@
         },
         "P": {
             "Char": "P",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 48,
                 "Y": 0,
@@ -352,7 +352,7 @@
         },
         "Y": {
             "Char": "█",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 64,
                 "Y": 0,
@@ -363,7 +363,7 @@
         },
         "R+": {
             "Char": " ",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 0,
                 "Y": 16,
@@ -387,7 +387,7 @@
         },
         "G+": {
             "Char": "░",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 16,
                 "Y": 16,
@@ -411,7 +411,7 @@
         },
         "B+": {
             "Char": "▓",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 32,
                 "Y": 16,
@@ -435,7 +435,7 @@
         },
         "P+": {
             "Char": "P",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 48,
                 "Y": 16,
@@ -459,7 +459,7 @@
         },
         "Y+": {
             "Char": "█",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 64,
                 "Y": 16,
@@ -483,7 +483,7 @@
         },
         "R++": {
             "Char": " ",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 0,
                 "Y": 32,
@@ -494,7 +494,7 @@
         },
         "G++": {
             "Char": "░",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 16,
                 "Y": 32,
@@ -505,7 +505,7 @@
         },
         "B++": {
             "Char": "▓",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 32,
                 "Y": 32,
@@ -516,7 +516,7 @@
         },
         "P++": {
             "Char": "P",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 48,
                 "Y": 32,
@@ -527,7 +527,7 @@
         },
         "Y++": {
             "Char": "█",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 64,
                 "Y": 32,
@@ -538,7 +538,7 @@
         },
         "BLOCK": {
             "Char": "X",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 80,
                 "Y": 0,
@@ -549,7 +549,7 @@
         },
         "BLOCK_ICE": {
             "Char": "X",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 80,
                 "Y": 16,
@@ -560,7 +560,7 @@
         },
         "BONUS1": {
             "Char": "+",
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegion": {
                 "X": 0,
                 "Y": 48,
@@ -577,7 +577,7 @@
                 "Width": 48,
                 "Height": 48
             },
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegions": [
                 {
                     "X": 160,
@@ -603,7 +603,7 @@
                 "Width": 48,
                 "Height": 48
             },
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegions": [
                 {
                     "X": 0,
@@ -666,7 +666,7 @@
                 "Width": 48,
                 "Height": 48
             },
-            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureId": "{{PATH}}/Match3Sprites",
             "TextureRegions": [
                 {
                     "X": 32,

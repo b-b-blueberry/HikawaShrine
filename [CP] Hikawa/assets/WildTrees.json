@@ -10,7 +10,7 @@
                         {
                             "Condition": null,
                             "Season": null,
-                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                            "Texture": "{{PATH}}/Sprites/Outdoors"
                         }
                     ],
                     "SeedItemId": null,
@@ -44,7 +44,7 @@
                         {
                             "Condition": null,
                             "Season": null,
-                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                            "Texture": "{{PATH}}/Sprites/Outdoors"
                         }
                     ],
                     "SeedItemId": null,
@@ -78,7 +78,7 @@
                         {
                             "Condition": null,
                             "Season": null,
-                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                            "Texture": "{{PATH}}/Sprites/Outdoors"
                         }
                     ],
                     "SeedItemId": null,
@@ -112,7 +112,7 @@
                         {
                             "Condition": null,
                             "Season": null,
-                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                            "Texture": "{{PATH}}/Sprites/Outdoors"
                         }
                     ],
                     "SeedItemId": null,
@@ -146,7 +146,7 @@
                         {
                             "Condition": null,
                             "Season": null,
-                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                            "Texture": "{{PATH}}/Sprites/Outdoors"
                         }
                     ],
                     "SeedItemId": null,
@@ -180,7 +180,7 @@
                         {
                             "Condition": null,
                             "Season": null,
-                            "Texture": "Mods/blueberry/Hikawa/Sprites/Outdoors"
+                            "Texture": "{{PATH}}/Sprites/Outdoors"
                         }
                     ],
                     "SeedItemId": null,
