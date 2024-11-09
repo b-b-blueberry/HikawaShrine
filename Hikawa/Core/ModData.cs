@@ -29,6 +29,7 @@ namespace Hikawa
 		public string MapRoof;
 		public string MapVolleyball;
 		// tile sheets
+		public string TilesheetOutdoors;
 		public string TilesheetHouse;
 		// tile actions
 		public string ActionShrineHall;

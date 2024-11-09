@@ -7,10 +7,10 @@
             "FromFile": "assets/Locations/z_hikawa_outdoors.png"
         },
         {
-            "LogName": "Hikawa: Sprites - Indoors",
+            "LogName": "Hikawa: Sprites - House",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Intdoors",
-            "FromFile": "assets/Locations/z_hikawa_indoors.png"
+            "Target": "{{PATH}}/Sprites/House",
+            "FromFile": "assets/Locations/z_hikawa_house.png"
         },
         {
             "LogName": "Hikawa: Sprites - Extras",

@@ -34,6 +34,7 @@
                 "MapRoof": "{{ID}}_Roof",
                 "MapVolleyball": "{{ID}}_Volleyball",
                 // tile sheets
+                "TilesheetOutdoors": "z_Custom_Hikawa_ShrineOutdoors",
                 "TilesheetHouse": "z_Custom_Hikawa_House",
                 // tile actions
                 "ActionShrineHall": "{{ID}}_ShrineHall",
