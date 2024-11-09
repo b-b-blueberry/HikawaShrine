@@ -3,49 +3,49 @@
         {
             "LogName": "Hikawa: Sprites - Outdoors",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Outdoors",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Outdoors",
             "FromFile": "assets/Locations/z_hikawa_outdoors.png"
         },
         {
             "LogName": "Hikawa: Sprites - House",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/House",
+            "Target": "Mods/blueberry/Hikawa/Sprites/House",
             "FromFile": "assets/Locations/z_hikawa_house.png"
         },
         {
             "LogName": "Hikawa: Sprites - Extras",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Extras",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Extras",
             "FromFile": "assets/Sprites/z_hikawa_extras.png"
         },
         {
             "LogName": "Hikawa: Sprites - Lights",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Lights",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Lights",
             "FromFile": "assets/Sprites/z_hikawa_lights.png"
         },
         {
             "LogName": "Hikawa: Sprites - Cats",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Cats",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Cats",
             "FromFile": "assets/Sprites/z_hikawa_cats.png"
         },
         {
             "LogName": "Hikawa: Sprites - Crows",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Crows",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Crows",
             "FromFile": "assets/Sprites/z_hikawa_crows.png"
         },
         {
             "LogName": "Hikawa: Sprites - Events",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Events",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Events",
             "FromFile": "assets/Sprites/z_hikawa_events.png"
         },
         {
             "LogName": "Hikawa: Sprites - Arcade",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Arcades",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Arcades",
             "FromFile": "assets/Sprites/z_hikawa_arcade.png"
         }
     ]
