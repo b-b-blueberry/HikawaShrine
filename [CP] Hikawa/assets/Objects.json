@@ -4,7 +4,7 @@
             "LogName": "Hikawa: Objects - Sprites",
             "Action": "Load",
             "Target": "{{PATH}}/Objects/Sprites",
-            "FromFile": "assets/Objects/Sprites.png"
+            "FromFile": "assets/Sprites/z_hikawa_objects.png"
         },
         {
             "LogName": "Hikawa: Objects - Data",
