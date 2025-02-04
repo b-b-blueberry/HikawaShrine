@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Delegates;
+using StardewValley.Menus;
 using StardewValley.Triggers;
 
 namespace Hikawa.Modules
@@ -63,6 +64,13 @@ namespace Hikawa.Modules
 				_state.IsShake = true;
 				_state.ShakeScale = args.Length > 2 && float.TryParse(args[2], out float scale) ? scale : 4f;
 				_state.ShakeOffset = Vector2.Zero;
+			}
+			else if (args[1] == "exit")
+			{
+				if (Game1.activeClickableMenu is DialogueBox db)
+				{
+					db.closeDialogue();
+				}
 			}
 		}
 
