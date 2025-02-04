@@ -15,6 +15,7 @@
                 // ids
                 "ContentPrefix": "{{ID}}",
                 "ConsoleCommandPrefix": "bb",
+                "ModDataKey": "{{ID}}_ModData",
                 "SaveDataKey": "{{ID}}_SaveData",
                 // npcs
                 "NpcRei": "{{REI}}",
@@ -37,6 +38,7 @@
                 "TilesheetOutdoors": "z_Custom_Hikawa_ShrineOutdoors",
                 "TilesheetHouse": "z_Custom_Hikawa_House",
                 // tile actions
+                "ActionShrineShop": "{{ID}}_ShrineShop",
                 "ActionShrineHall": "{{ID}}_ShrineHall",
                 "ActionShrineOffering": "{{ID}}_Offering",
                 "ActionBackDoor": "{{ID}}_BackDoor",
@@ -58,6 +60,8 @@
                 "ItemVolleyball": "{{ID}}_Volleyball",
                 "ItemLostGlasses": "{{ID}}_LostGlasses",
                 "ItemLostJewelry": "{{ID}}_LostJewelry",
+                // shops
+                "ShopShrineRei": "{{ID}}_Shop",
                 // other
                 "HearthLightBaseId": "{{ID}}_HearthLight",
                 "HearthLightSize": {

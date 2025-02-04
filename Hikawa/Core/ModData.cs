@@ -10,6 +10,7 @@ namespace Hikawa
 		// ids
 		public string ContentPrefix;
 		public string ConsoleCommandPrefix;
+		public string ModDataKey;
 		public string SaveDataKey;
 		// characters
 		public string NpcRei;
@@ -32,6 +33,7 @@ namespace Hikawa
 		public string TilesheetOutdoors;
 		public string TilesheetHouse;
 		// tile actions
+		public string ActionShrineShop;
 		public string ActionShrineHall;
 		public string ActionShrineOffering;
 		public string ActionBackDoor;
@@ -53,6 +55,8 @@ namespace Hikawa
 		public string ItemVolleyball;
 		public string ItemLostGlasses;
 		public string ItemLostJewelry;
+		// shops
+		public string ShopShrineRei;
 		// other
 		public string HearthLightBaseId;
 		public Point HearthLightSize;
