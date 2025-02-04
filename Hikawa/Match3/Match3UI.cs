@@ -36,9 +36,8 @@ namespace Hikawa.Match3
 
 		public bool IsReady => this.Ratio > 0;
 
-		public bool Update(GameTime time, float fade)
+		public bool Update(int ms, float fade)
 		{
-			int ms = time.ElapsedGameTime.Milliseconds;
 			this.Ratio -= fade * this.LifespanRate;
 			this.DrawPixel += this.Motion * ms;
 			this.DrawRotation += this.Rotation * ms;
@@ -116,6 +115,9 @@ namespace Hikawa.Match3
 		protected float _shakeScale;
 		protected Point _shakeAmount;
 
+		public float TimeScale => 1f;
+		public int Ms;
+
 
 		// Match3 data
 		public UIData MenuData => this.Game.Data.UIData;
@@ -181,6 +183,8 @@ namespace Hikawa.Match3
 		/// </summary>
 		public void SetupUI()
 		{
+			this.Ms = 0;
+
 			this._tokenParticles.Items.Clear();
 			this._matchParticles.Items.Clear();
 
@@ -420,13 +424,39 @@ namespace Hikawa.Match3
 
 			bool isUpgrade = false;
 
-			if (a is not null)
+			/*if (a is not null)
 			{
 				this._matchParticles.Get().Set(
 					token: this.Game.Tokens[a.Value.X][a.Value.Y],
 					ratio: 2,
 					counter: matches.Count,
 					lifespanRate: 1.5f);
+			}*/
+			{
+				// Make a combo particle for each type of token collected
+				Log.D($"Match: {string.Join(' ', tokenCounts.Where(pair => pair.Value > 0).Select(pair => $"{pair.Key}-{pair.Value}"))}");
+				Dictionary<string, bool> created = tokenCounts.ToDictionary(pair => pair.Key, pair => false);
+				foreach (var match in matches)
+				{
+					var token = this.Game.Tokens[match.X][match.Y];
+					if (!created[token.Type] && tokenCounts[token.Type] > this.Game.Stage.Data.Match)
+					{
+						Log.D($"Particle: {token.Type}-{tokenCounts[token.Type]}");
+						created[token.Type] = true;
+						var typeMatches = matches
+							.Select(point => this.Game.Tokens[point.X][point.Y])
+							.Where(other => token.Type == other?.Type);
+						Vector2 drawPixel = new Vector2(
+							x: typeMatches.Average(token => token.DrawPixel.X),
+							y: typeMatches.Average(token => token.DrawPixel.Y));
+						this._matchParticles.Get().Set(
+							token: token,
+							ratio: 2,
+							counter: tokenCounts[token.Type],
+							lifespanRate: 1.5f,
+							drawPixel: drawPixel);
+					}
+				}
 			}
 
 			// Substitute token upgrades into matches
@@ -546,10 +576,8 @@ namespace Hikawa.Match3
 			}
 		}
 
-		public void UpdateTokens(GameTime time)
+		public void UpdateTokens(int ms)
 		{
-			int ms = time.ElapsedGameTime.Milliseconds;
-
 			// Game tokens
 			if (this.Game.Tokens is not null)
 			{
@@ -818,7 +846,8 @@ namespace Hikawa.Match3
 
 		public void OnTick(GameTime time)
 		{
-			int ms = time.ElapsedGameTime.Milliseconds;
+			int ms = (int)(time.ElapsedGameTime.Milliseconds * this.TimeScale);
+			this.Ms += ms;
 
 			// Score
 			this.DisplayScore = (long)Math.Min(this.Game.TotalScore + this.Game.Stage.Score, this.DisplayScore + this.MenuData.ScoreTickRate * ms);
@@ -863,10 +892,10 @@ namespace Hikawa.Match3
 			{
 				float fade = this.MenuData.ParticleFadeRate * ms;
 				foreach (TokenParticle particle in this._tokenParticles.Items)
-					if (particle.IsReady && !particle.Update(time: time, fade: fade))
+					if (particle.IsReady && !particle.Update(ms: ms, fade: fade))
 						this._tokenParticles.Return(particle);
 				foreach (TokenParticle particle in this._matchParticles.Items)
-					if (particle.IsReady && !particle.Update(time: time, fade: fade))
+					if (particle.IsReady && !particle.Update(ms: ms, fade: fade))
 						this._matchParticles.Return(particle);
 			}
 
@@ -874,8 +903,8 @@ namespace Hikawa.Match3
 			this.UpdateCursor(pixel: Game1.getMousePosition(ui_scale: true));
 
 			// Game
-			this.UpdateTokens(time: time);
-			if (!this.Game.OnTick(time: time))
+			this.UpdateTokens(ms: ms);
+			if (!this.Game.OnTick(ms: ms))
 				this.ChangeStage();
 		}
 
@@ -1291,7 +1320,7 @@ namespace Hikawa.Match3
 					{
 						// Match counter (e.g. 3x)
 						int i = Math.Clamp(particle.Counter, min: 0, max: 9);
-						float particleScale = ((particle.Limit - particle.Ratio) * scale + i * 0.25f) * particle.Ratio;
+						float particleScale = ((particle.Limit - particle.Ratio) * scale + i * 0.25f) * particle.Ratio / 2;
 						if (particle.Counter > this.Game.Stage.Data.Match)
 						{
 							b.Draw(
@@ -1425,7 +1454,7 @@ namespace Hikawa.Match3
 					{
 						Rectangle region;
 						Vector2 promptPosition = new Vector2(x: dialogueBounds.Right, y: dialogueBounds.Bottom);
-						float offset = (float)Math.Cos(Game1.currentGameTime.TotalGameTime.Milliseconds * Math.PI / 512d) * scale; //(float)(Math.Sin(Game1.currentGameTime.TotalGameTime.Milliseconds / 3000f % 30f) * 16 * scale);
+						float offset = (float)Math.Cos(this.Ms * Math.PI / 512d) * scale; //(float)(Math.Sin(Game1.currentGameTime.TotalGameTime.Milliseconds / 3000f % 30f) * 16 * scale);
 						if (stage.DialogueIndex < stage.Data.Dialogue.Length - 1)
 						{
 							promptPosition.X += offset;

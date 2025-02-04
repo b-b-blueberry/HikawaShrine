@@ -71,12 +71,11 @@ namespace Hikawa.Match3
 			return this;
 		}
 
-		public bool OnTick(GameTime time)
+		public bool OnTick(int ms)
 		{
 			if (this.State is StageState.Pause)
 				return true;
 
-			int ms = time.ElapsedGameTime.Milliseconds;
 			this.Time += ms;
 
 			// Enemy

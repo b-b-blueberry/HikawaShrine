@@ -411,7 +411,7 @@ namespace Hikawa.Match3
 			return ids[i];
 		}
 
-		public bool OnTick(GameTime time)
+		public bool OnTick(int ms)
 		{
 			if (this.Stage.State is not StageState.End)
 			{
@@ -433,7 +433,7 @@ namespace Hikawa.Match3
 				this.Character.State = this.Stage.IsWon ? CharacterState.Win : CharacterState.Hurt;
 			}
 
-			if (!this.Stage.OnTick(time: time))
+			if (!this.Stage.OnTick(ms: ms))
 			{
 				return false;
 			}
