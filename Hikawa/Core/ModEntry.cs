@@ -75,18 +75,8 @@ namespace Hikawa
 				return;
 			}
 
-			// Game events registered here
+			// continue init after setup delay
 			this.Helper.Events.GameLoop.OneSecondUpdateTicked += this.OnDelayAfterGameLaunched;
-			this.Helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
-			this.Helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
-			this.Helper.Events.GameLoop.DayStarted += this.OnDayStarted;
-			this.Helper.Events.GameLoop.DayEnding += this.OnDayEnding;
-			this.Helper.Events.GameLoop.Saving += this.OnSaving;
-			this.Helper.Events.Player.Warped += this.OnWarped;
-			this.Helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
-			this.Helper.Events.Display.RenderedStep += this.OnRenderedStep;
-			this.Helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-			this.Helper.Events.Content.AssetRequested += AssetManager.TryEdit;
 		}
 
 		private void InitLate()
@@ -119,6 +109,18 @@ namespace Hikawa
 				ConsoleCommands.Add(this.Helper, prefix: ModEntry.ModData.ConsoleCommandPrefix);
 				Modules.SpriteTest.Init(helper: this.Helper);
 			}
+
+			// more game events when we're confident everything loaded
+			this.Helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
+			this.Helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+			this.Helper.Events.GameLoop.DayStarted += this.OnDayStarted;
+			this.Helper.Events.GameLoop.DayEnding += this.OnDayEnding;
+			this.Helper.Events.GameLoop.Saving += this.OnSaving;
+			this.Helper.Events.Player.Warped += this.OnWarped;
+			this.Helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
+			this.Helper.Events.Display.RenderedStep += this.OnRenderedStep;
+			this.Helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+			this.Helper.Events.Content.AssetRequested += AssetManager.TryEdit;
 		}
 
 		private void OnRenderedStep(object sender, RenderedStepEventArgs e)
