@@ -1,0 +1,174 @@
+﻿using Hikawa.Modules;
+using Hikawa.Objects.Locations;
+using Hikawa.Volleyball;
+using StardewModdingAPI;
+using System;
+using System.Linq;
+using System.Reflection;
+
+namespace Hikawa
+{
+	public static class ConsoleCommands
+	{
+		[AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
+		private sealed class ConsoleCommandAttribute(string alias, string description) : Attribute
+		{
+			public readonly string Alias = alias;
+			public readonly string Description = description;
+		}
+
+		public static void Add(IModHelper helper, string prefix)
+		{
+			foreach (var method in typeof(ConsoleCommands).GetMethods())
+			{
+				if (method.GetCustomAttribute<ConsoleCommandAttribute>() is ConsoleCommandAttribute attribute)
+				{
+					foreach (string name in new string[] { method.Name, attribute.Alias })
+						if (!string.IsNullOrWhiteSpace(name))
+							helper.ConsoleCommands.Add(
+								name: prefix + name,
+								documentation: attribute.Description,
+								callback: (Action<string, string[]>)method.CreateDelegate(typeof(Action<string, string[]>)));
+				}
+			}
+		}
+
+		[ConsoleCommandAttribute("b", "Test")]
+		public static void bbb(string s, string[] args)
+		{
+			// Fix hanging sprites
+			// foreach (HangingSprite sprite in Game1.currentLocation.critters.Where(c => c is HangingSprite)) sprite.ResetRotation();
+
+			// Spawn crows
+			// Game1.getFarm().addCrows();
+
+			//Game1.player.addItemToInventory(new BugTool());
+
+			//Game1.activeClickableMenu = new BugCollectionMenu();
+
+			return;
+		}
+
+		[ConsoleCommandAttribute("v", "Volleyball starter")]
+		public static void volleyball(string s, string[] args)
+		{
+			VolleyballLocation location = VolleyballLocation.MakeTemp();
+			location.SetUpLocation(rules:
+				false ? new VolleyballRules(
+					players: new Character[]
+					{
+						Game1.player,
+						VolleyballNPC.MakeFor(ModEntry.ModData.NpcRei)
+					},
+					scoreGoal: 3,
+					isDoubles: false)
+				: null,
+				umpireName: ModEntry.ModData.NpcCat,
+				style: Volleyball.Volleyball.Style.Volleyball);
+		}
+
+		[ConsoleCommandAttribute("3", "Match3 starter")]
+		public static void match3(string s, string[] args)
+		{
+			// Create game
+			if (args.Length == 0)
+			{
+				Match3.Match3Data data = Game1.content.Load<Match3.Match3Data>("Mods\\blueberry\\Hikawa\\Match3Data");
+				Match3.Match3Game game = new(data: data, random: Game1.random);
+				Match3.Match3UI ui = new(game: game);
+				Match3.Match3SDVMenu menu = new(ui: ui);
+				ModEntry.State.Value.Match3 = game;
+				Game1.activeClickableMenu = menu;
+				game.Print();
+			}
+		}
+
+		[ConsoleCommandAttribute("bc", "Play island boat transition")]
+		public static void boat(string s, string[] args)
+		{
+			Game1.currentMinigame = new Objects.Events.BoatCutscene();
+		}
+
+		[ConsoleCommandAttribute("s", "Warp to Hikawa Shrine")]
+		public static void shrine(string s, string[] args)
+		{
+			warpTo(locationName: ModEntry.ModData.MapShrine);
+		}
+
+		[ConsoleCommandAttribute("h", "Warp to Hikawa House")]
+		public static void house(string s, string[] args)
+		{
+			warpTo(locationName: ModEntry.ModData.MapHouse);
+		}
+
+        [ConsoleCommandAttribute("l", "Warp to Hikawa Hall")]
+        public static void hall(string s, string[] args)
+        {
+            warpTo(locationName: ModEntry.ModData.MapHall);
+        }
+
+		[ConsoleCommandAttribute("o", "Manage screen overlays: use [0~num]")]
+		public static void overlay(string s, string[] args)
+		{
+			if (args.Length < 1)
+			{
+				Log.D($"Current effect: {ModEntry.OverlayEffectControl.CurrentEffect()}");
+			}
+			else
+			{
+				try
+				{
+					ModEntry.OverlayEffectControl.Enable((OverlayEffectControl.Effect)int.Parse(args[0]));
+					return;
+				}
+				catch (FormatException) { }
+				ModEntry.OverlayEffectControl.Toggle();
+			}
+		}
+
+		[ConsoleCommandAttribute("c", "Respawn twin crows at the shrine")]
+		public static void crows(string s, string[] args)
+		{
+			Shrine shrine = Shrine.Get();
+			shrine.ClearCrows();
+			shrine.TrySpawnGenericCrows();
+		}
+
+		[ConsoleCommandAttribute("cc", "Respawn perched crows at the shrine")]
+		public static void crows2(string s, string[] args)
+		{
+			Shrine shrine = Shrine.Get();
+			int which = args.Length > 0 ? int.Parse(args[0]) : Game1.random.Next(0, ModEntry.ModData.CrowPerches.Keys.Count);
+			CrowSpawnEntry entry = ModEntry.ModData.CrowPerches[ModEntry.ModData.CrowPerches.Keys.ToArray()[which]];
+			shrine.ClearCrows();
+			shrine.SpawnPerchedCrowsAt(phobos: entry.V1, deimos: entry.V2, hopRange: entry.R);
+		}
+
+		[ConsoleCommandAttribute("cb", "Play CrystalBall event")]
+		public static void crystalball(string s, string[] args)
+		{
+			Game1.globalFadeToBlack(afterFade: () =>
+			{
+				Game1.viewport.X = -64000;
+				Game1.viewport.Y = -64000;
+
+				// Note: Save this script for the grandpa roof and moon cutscene
+				string who = ModEntry.ModData.NpcGramps;
+				string script = $"nightTime/-1000 -1000/farmer 0 0 0 {who} 1 0 0/skippable/pause 1000/changeToTemporaryMap {ModEntry.ModData.MapRoof}/warp farmer 14 32/warp {who} 16 32/faceDirection farmer 2/faceDirection {who} 2/pause 1000/viewport move 0 1 5500/{ModEntry.ModData.EventCommandCrystalBall}/pause 1000/globalFade/viewport -1000 -1000/pause 1000/end";
+				script = $"nightTime/-1000 -1000/farmer -100 -100 0 {who} -101 -100 0/skippable/pause 1000/{ModEntry.ModData.EventCommandCrystalBall}/pause 1000/end";
+				Game1.currentLocation.currentEvent = new(eventString: script)
+				{
+					onEventFinished = () => Game1.player.stopGlowing()
+				};
+				Game1.eventUp = true;
+			});
+		}
+
+		private static void warpTo(string locationName)
+		{
+			Point tile = Point.Zero;
+			Utility.getDefaultWarpLocation(locationName: locationName, x: ref tile.X, y: ref tile.Y);
+			Game1.warpFarmer(locationName: locationName, tileX: tile.X, tileY: tile.Y, flip: false);
+		}
+	}
+}
