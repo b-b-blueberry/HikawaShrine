@@ -12,6 +12,11 @@
             "FromFile": "assets/Audio.json"
         },
         {
+            "LogName": "Hikawa: Buffs",
+            "Action": "Include",
+            "FromFile": "assets/Buffs.json"
+        },
+        {
             "LogName": "Hikawa: Characters",
             "Action": "Include",
             "FromFile": "assets/Characters.json"

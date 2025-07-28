@@ -56,6 +56,11 @@ namespace Hikawa
 		public string ItemLostGlasses;
 		public string ItemLostJewelry;
 		public string ItemCharcoal;
+        // buffs
+        public string BuffCrackersAttack;
+		public string BuffCrackersDefence;
+		public float BuffCrackersAttackModifier;
+		public float BuffCrackersDefenceModifier;
 		// shops
 		public string ShopShrineRei;
 		// other

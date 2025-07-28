@@ -61,6 +61,11 @@
                 "ItemLostGlasses": "{{ID}}_LostGlasses",
                 "ItemLostJewelry": "{{ID}}_LostJewelry",
                 "ItemCharcoal": "{{ID}}_Charcoal",
+                // buffs
+                "BuffCrackersAttack": "{{ID}}_Crackers",
+                "BuffCrackersDefence": "{{ID}}_BurntCrackers",
+                "BuffCrackersAttackModifier": 2.0,
+                "BuffCrackersDefenceModifier": 0.5,
                 // shops
                 "ShopShrineRei": "{{ID}}_Shop",
                 // other

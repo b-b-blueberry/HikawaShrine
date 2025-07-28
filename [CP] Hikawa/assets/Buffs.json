@@ -1,0 +1,34 @@
+{
+    "Changes": [
+        {
+            "Action": "EditData",
+            "Target": "Data/Buffs",
+            "Entries": {
+                "{{ID}}_Crackers": {
+                    "DisplayName": "{{i18n:buff.crackers.name}}",
+                    "Description": "{{i18n:buff.crackers.description}}",
+                    "IsDebuff": false,
+                    "GlowColor": "Orange",
+                    "Duration": 100000,
+                    "MaxDuration": -1,
+                    "IconTexture": "{{PATH}}/Objects/Sprites",
+                    "IconSpriteIndex": 18,
+                    "Effects": null,
+                    "ActionsOnApply": null
+                },
+                "{{ID}}_BurntCrackers": {
+                    "DisplayName": "{{i18n:buff.burntcrackers.name}}",
+                    "Description": "{{i18n:buff.burntcrackers.description}}",
+                    "IsDebuff": false,
+                    "GlowColor": "Red",
+                    "Duration": 100000,
+                    "MaxDuration": -1,
+                    "IconTexture": "{{PATH}}/Objects/Sprites",
+                    "IconSpriteIndex": 19,
+                    "Effects": null,
+                    "ActionsOnApply": null
+                }
+            }
+        }
+    ]
+}

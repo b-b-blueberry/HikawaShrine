@@ -42,6 +42,13 @@
     "quest.reaction.glasses": "...",
     "quest.reaction.jewelry": "...",
 
+    // Buffs
+    "buff.crackers.name": "Fire Cracker",
+    "buff.crackers.description": "Your fire damage is stronger.",
+
+    "buff.burntcrackers.name": "Burnt Fire Cracker",
+    "buff.burntcrackers.description": "Protected against fire damage.",
+
     // Items
     // objects
     "item.charcoal.name": "Charcoal",
@@ -55,6 +62,16 @@
     // totems
     "item.totem.name": "Warp Totem: Cherry Hill",
     "item.totem.description": "Warp directly to Cherry Hill Shrine. Consumed on use.",
+    // food
+    "item.crackers.name": "Fire Cracker",
+    "item.crackers.description": "A crunchy, spicy rice cracker.\n\nTemporarily raises fire damage dealt.",
+    "item.burntcrackers.name": "Burnt Fire Cracker",
+    "item.burntcrackers.description": "One of Rei's home-made spicy rice crackers. Extra crispy.\n\nTemporarily reduces fire damage taken.",
+    "item.springdango.name": "Cherry Dango",
+    "item.springdango.description": "Steamed sweet rice cakes, light as a cherry blossom. Very, very chewy.",
+    "item.summerdango.name": "B-B-Q Dango",
+    "item.summerdango.description": "Savoury rice cakes grilled over hot coals, slathered in barbecue sauce.",
+    // special items
     "item.mirror.name": "Crystal Mirror",
     "item.mirror.description": "Gaze into the mirror to return from the Dark Side.",
     "item.wand.name": "Crystal Moon Wand",

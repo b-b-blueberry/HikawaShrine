@@ -10,6 +10,9 @@ using Hikawa.Objects.Items;
 using Hikawa.Objects.Menus;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
+using StardewValley.Monsters;
+using StardewValley.Objects;
+using StardewValley.Projectiles;
 using Object = StardewValley.Object;
 
 namespace Hikawa
@@ -164,6 +167,155 @@ namespace Hikawa
                 Utils.DrawSmokeParticles(spriteBatch, position, scale, layerDepth, alpha);
             }
         }
+
+
+		#endregion
+
+		#region Buff behaviours
+
+		public static int GetDamageAfterCrackerDefence(int damage, Farmer who)
+		{
+			return (int)(who.hasBuff(ModEntry.ModData.BuffCrackersDefence)
+				? damage * ModEntry.ModData.BuffCrackersDefenceModifier
+				: damage);
+		}
+
+		/// <summary>
+		/// Burnt Fire Crackers buff reduces fire projectile damage on colliding with players.
+		/// </summary>
+		[HarmonyTranspiler]
+		[HarmonyPatch(typeof(DinoMonster.BreathProjectile))]
+		[HarmonyPatch(nameof(DinoMonster.BreathProjectile.Update))]
+		public static IEnumerable<CodeInstruction> BreathProjectile_Update_Transpiler(ILGenerator gen, MethodBase original, IEnumerable<CodeInstruction> il)
+		{
+			//Game1.currentLocation.characters.Add(new StardewValley.Monsters.DinoMonster(new Vector2(24, 48) * Game1.tileSize));
+			//Game1.player.ClearBuffs();
+
+			List<CodeInstruction> ilOut = il.ToList();
+
+			MethodInfo method = AccessTools.Method(
+				type: typeof(HarmonyPatches),
+				name: nameof(HarmonyPatches.GetDamageAfterCrackerDefence));
+
+			int i = 0;
+
+			// Change damage value based on player buffs
+
+			// Seek to hardcoded damage value and player getter
+			i = ilOut.FindIndex(ci => ci.opcode == OpCodes.Ldc_I4_S);
+
+			if (i <= 0)
+			{
+				Log.E($"Failed to apply harmony patch in {nameof(BreathProjectile_Update_Transpiler)}");
+				return il;
+			}
+
+			// Replace hardcoded value with method call
+			var ilNew = new CodeInstruction[]
+			{
+				ilOut[i], // damage
+				ilOut[i - 1], // player
+				new (OpCodes.Call, method)
+			};
+			ilOut.RemoveAt(i);
+			ilOut.InsertRange(i, ilNew);
+
+			return ilOut;
+		}
+
+		/// <summary>
+		/// Burnt Fire Crackers buff reduces fire damage from explosions.
+		/// </summary>
+		[HarmonyTranspiler]
+		[HarmonyPatch(typeof(GameLocation))]
+		[HarmonyPatch("performDamagePlayers")]
+		public static IEnumerable<CodeInstruction> GameLocation_performDamagePlayers_Transpiler(ILGenerator gen, MethodBase original, IEnumerable<CodeInstruction> il)
+		{
+			List<CodeInstruction> ilOut = il.ToList();
+
+			MethodInfo method = AccessTools.Method(
+				type: typeof(HarmonyPatches),
+				name: nameof(HarmonyPatches.GetDamageAfterCrackerDefence));
+
+			int i = 0;
+
+			// Change damage value based on player buffs
+
+			// Seek to final damage value and player getter
+			i = ilOut.FindLastIndex(ci => ci.opcode == OpCodes.Ldloc_0);
+
+			if (i <= 0)
+			{
+				Log.E($"Failed to apply harmony patch in {nameof(GameLocation_performDamagePlayers_Transpiler)}");
+				return il;
+			}
+
+			// Replace value with method call
+			var ilNew = new CodeInstruction[]
+			{
+				ilOut[i], // damage
+				ilOut[i - 1], // player
+				new (OpCodes.Call, method)
+			};
+			ilOut.RemoveAt(i);
+			ilOut.InsertRange(i, ilNew);
+
+			return ilOut;
+		}
+
+		/// <summary>
+		/// Burnt Fire Crackers buff reduces fire projectile damage on colliding with players.
+		/// </summary>
+		[HarmonyPrefix]
+		[HarmonyPatch(typeof(BasicProjectile))]
+		[HarmonyPatch("behaviorOnCollisionWithPlayer")]
+		public static void BasicProjectile_BehaviorOnCollisionWithPlayer_Prefix(ref BasicProjectile __instance, Farmer player)
+		{
+			// If a projectile has PiercesLeft > 1 this will reduce damage on each successive hit
+			// Not that we care that much
+			bool isPlayerHit = !__instance.damagesMonsters.Value
+				&& player.CanBeDamaged();
+			bool isFire = __instance.currentTileSheetIndex.Value is 10; // Fire projectiles only
+			bool isCrackerDefence = player.hasBuff(ModEntry.ModData.BuffCrackersDefence); // Burnt Fire Crackers buff
+			if (isPlayerHit && isFire && isCrackerDefence)
+			{
+				__instance.damageToFarmer.Value = HarmonyPatches.GetDamageAfterCrackerDefence(__instance.damageToFarmer.Value, player);
+			}
+		}
+
+		/// <summary>
+		/// Burnt Fire Crackers buff reduces fire monster damage on colliding with players.
+		/// </summary>
+		[HarmonyPrefix]
+		[HarmonyPatch(typeof(Farmer))]
+		[HarmonyPatch("takeDamage")]
+		public static void Farmer_TakeDamage_Prefix(ref Farmer __instance, ref int damage, Monster damager)
+		{
+			bool isFire = damager is HotHead or LavaLurk || damager is Bat bat && bat.magmaSprite.Value; // Fire enemies only
+			bool isCrackerDefence = __instance.hasBuff(ModEntry.ModData.BuffCrackersDefence); // Burnt Fire Crackers buff
+			if (isFire && isCrackerDefence)
+			{
+				damage = HarmonyPatches.GetDamageAfterCrackerDefence(damage, __instance);
+			}
+		}
+
+		/// <summary>
+		/// Fire Crackers buff increases player fire damage to monsters.
+		/// </summary>
+		[HarmonyPrefix]
+		[HarmonyPatch(typeof(GameLocation))]
+		[HarmonyPatch("damageMonster")]
+		[HarmonyPatch([typeof(Rectangle), typeof(int), typeof(int), typeof(bool), typeof(float), typeof(int), typeof(float), typeof(float), typeof(bool), typeof(Farmer), typeof(bool)])]
+		public static void GameLocation_DamageMonster_Prefix(ref GameLocation __instance, ref int minDamage, ref int maxDamage, bool isBomb, Farmer who)
+		{
+			bool isFire = isBomb; // Fire attacks only
+			bool isCrackerAttack = who is not null && who.hasBuff(ModEntry.ModData.BuffCrackersAttack); // Fire Crackers buff
+			if (isFire && isCrackerAttack)
+			{
+				minDamage = (int)(minDamage * ModEntry.ModData.BuffCrackersAttackModifier);
+				maxDamage = (int)(maxDamage * ModEntry.ModData.BuffCrackersAttackModifier);
+			}
+		}
 
 		#endregion
 

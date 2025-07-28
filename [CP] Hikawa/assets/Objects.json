@@ -44,6 +44,114 @@
                         "totem_item"
                     ]
                 },
+                "{{ID}}_Crackers": {
+                    "Name": "{{ID}}_Crackers",
+                    "DisplayName": "{{i18n:item.crackers.name}}",
+                    "Description": "{{i18n:item.crackers.description}}",
+                    "Type": "Cooking",
+                    "Category": -7,
+                    "Price": 180,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 15,
+                    "Edibility": 32,
+                    "IsDrink": false,
+                    "Buffs": [
+                        {
+                            "Id": "Food",
+                            "BuffId": "{{ID}}_Crackers"
+                        }
+                    ],
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_brown",
+                        "food_bakery",
+                        "food_spicy"
+                    ]
+                },
+                "{{ID}}_BurntCrackers": {
+                    "Name": "{{ID}}_BurntCrackers",
+                    "DisplayName": "{{i18n:item.burntcrackers.name}}",
+                    "Description": "{{i18n:item.burntcrackers.description}}",
+                    "Type": "Cooking",
+                    "Category": -7,
+                    "Price": 180,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 16,
+                    "Edibility": 28,
+                    "IsDrink": false,
+                    "Buffs": [
+                        {
+                            "Id": "Food",
+                            "BuffId": "{{ID}}_BurntCrackers"
+                        }
+                    ],
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_brown",
+                        "food_bakery",
+                        "food_spicy"
+                    ]
+                },
+                "{{ID}}_SpringDango": {
+                    "Name": "{{ID}}_SpringDango",
+                    "DisplayName": "{{i18n:item.springdango.name}}",
+                    "Description": "{{i18n:item.springdango.description}}",
+                    "Type": "Cooking",
+                    "Category": -7,
+                    "Price": 180,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 17,
+                    "Edibility": 24,
+                    "IsDrink": false,
+                    "Buffs": [
+                        {
+                            "Id": "Food",
+                            "BuffId": "{{ID}}_SpringDango"
+                        }
+                    ],
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_pink",
+                        "food_sweet",
+                        "food_party"
+                    ]
+                },
+                "{{ID}}_SummerDango": {
+                    "Name": "{{ID}}_SummerDango",
+                    "DisplayName": "{{i18n:item.summerdango.name}}",
+                    "Description": "{{i18n:item.summerdango.description}}",
+                    "Type": "Cooking",
+                    "Category": -7,
+                    "Price": 180,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 20,
+                    "Edibility": 30,
+                    "IsDrink": false,
+                    "Buffs": [
+                        {
+                            "Id": "Food",
+                            "BuffId": "{{ID}}_SummerDango"
+                        }
+                    ],
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_orange",
+                        "food_spicy",
+                        "food_party"
+                    ]
+                }
             }
         },
         {
