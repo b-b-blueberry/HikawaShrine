@@ -29,9 +29,6 @@ namespace Hikawa.Objects.Locations
 
 		/** TEMPORARY **/
 
-		// Values
-		[XmlIgnore]
-		public static Texture2D OutdoorsSprites { get; internal set; }
 
 		// Animations
 		[XmlIgnore]
@@ -134,7 +131,7 @@ namespace Hikawa.Objects.Locations
 
 			Vector2 position = new(34.5f + 2f / Game1.smallestTileSize, 32f + 2f / Game1.smallestTileSize);
 			b.Draw(
-				texture: Shrine.OutdoorsSprites,
+				texture: ModEntry.OutdoorsSprites,
 				position: zero
 					+ position * Game1.tileSize
 					+ new Vector2(0f, -3f / Game1.smallestTileSize) * Game1.tileSize
@@ -148,7 +145,7 @@ namespace Hikawa.Objects.Locations
 				effects: SpriteEffects.None,
 				layerDepth: layerDepth * 1);
 			b.Draw(
-				texture: Shrine.OutdoorsSprites,
+				texture: ModEntry.OutdoorsSprites,
 				position: zero
 					+ position * Game1.tileSize
 					+ new Vector2(0f, 0f) * Game1.tileSize
@@ -162,7 +159,7 @@ namespace Hikawa.Objects.Locations
 				effects: SpriteEffects.None,
 				layerDepth: layerDepth * 2);
 			b.Draw(
-				texture: Shrine.OutdoorsSprites,
+				texture: ModEntry.OutdoorsSprites,
 				position: zero
 					+ position * Game1.tileSize
 					+ new Vector2(8f, 8f) * Game1.pixelZoom
