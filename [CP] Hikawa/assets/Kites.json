@@ -1,0 +1,434 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Data - Kites",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Kites",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Data - Kites",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Kites",
+            "Entries": {
+                "ItemId": "{{ID}}_Kite",
+                "Identifier": "(BB_HIKAWA_KITE)",
+                "Category": -24,
+                "Type": "Crafting",
+                "Fragility": 0,
+                "Kites": {
+                    "Kite_RedYellowWhite": {
+                        "Price": 500,
+                        "Passable": true,
+                        "DisplayName": "{{i18n:item.kite.name}}",
+                        "Description": "{{i18n:item.kite.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 5,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 5,
+                            "Y": 55,
+                            "Width": 5,
+                            "Height": 9
+                        },
+                        "StakeOrigin": "2.5, 7",
+                        "Kites": [
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 64,
+                                    "Y": 16,
+                                    "Width": 32,
+                                    "Height": 48
+                                },
+                                "KiteOrigin": "16, 18",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 6,
+                                "Length": 80,
+                                "Gravity": -5.0,
+                                "Wind": 32,
+                                "Scaling": "2.5, 0",
+                                "Vertical": true
+                            }
+                        ]
+                    },
+                    "Balloon_G": {
+                        "Price": 200,
+                        "Passable": false,
+                        "DisplayName": "{{i18n:item.balloon.name}}",
+                        "Description": "{{i18n:item.balloon.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 0,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 21,
+                            "Y": 48,
+                            "Width": 5,
+                            "Height": 48
+                        },
+                        "StakeOrigin": "2.5, 46",
+                        "Kites": [
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 0,
+                                    "Y": 16,
+                                    "Width": 16,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "8, 16",
+                                "StringColor": {
+                                    "R": 225,
+                                    "G": 200,
+                                    "B": 200,
+                                    "A": 200
+                                },
+                                "Height": 46,
+                                "Length": 8,
+                                "Gravity": 0,
+                                "Wind": 16,
+                                "Vertical": false
+                            }
+                        ]
+                    },
+                    "Balloon_B": {
+                        "Price": 200,
+                        "Passable": true,
+                        "DisplayName": "{{i18n:item.balloon.name}}",
+                        "Description": "{{i18n:item.balloon.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 1,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 5,
+                            "Y": 55,
+                            "Width": 5,
+                            "Height": 9
+                        },
+                        "StakeOrigin": "2.5, 7",
+                        "Kites": [
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 16,
+                                    "Y": 16,
+                                    "Width": 16,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "8, 16",
+                                "StringColor": {
+                                    "R": 225,
+                                    "G": 200,
+                                    "B": 200,
+                                    "A": 200
+                                },
+                                "Height": 6,
+                                "Length": 32,
+                                "Gravity": -7.5,
+                                "Wind": 24,
+                                "Vertical": true
+                            }
+                        ]
+                    },
+                    "Balloon_RGBY": {
+                        "Price": 500,
+                        "Passable": false,
+                        "DisplayName": "{{i18n:item.balloon.name}}",
+                        "Description": "{{i18n:item.balloon.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 4,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 5,
+                            "Y": 55,
+                            "Width": 5,
+                            "Height": 9
+                        },
+                        "StakeOrigin": "2.5, 7",
+                        "Kites": [
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 32,
+                                    "Y": 16,
+                                    "Width": 32,
+                                    "Height": 48
+                                },
+                                "KiteOrigin": "16, 46",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 0
+                                },
+                                "Height": 6,
+                                "Length": 0,
+                                "Gravity": 0,
+                                "Wind": 1,
+                                "Scaling": "0.5, 0.5",
+                                "Vertical": true
+                            }
+                        ]
+                    },
+                    "Koi_RedBluePink": {
+                        "Price": 500,
+                        "Passable": false,
+                        "DisplayName": "{{i18n:item.koinobori.name}}",
+                        "Description": "{{i18n:item.koinobori.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 6,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 21,
+                            "Y": 48,
+                            "Width": 6,
+                            "Height": 64
+                        },
+                        "StakeOrigin": "3, 62",
+                        "Kites": [
+                            // Pink
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 96,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 26,
+                                "Length": 4,
+                                "Gravity": -3.0,
+                                "Wind": 1,
+                                "Vertical": false
+                            },
+                            // Blue
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 32,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 36,
+                                "Length": 8,
+                                "Gravity": -4.0,
+                                "Wind": 2,
+                                "Vertical": false
+                            },
+                            // Red
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 16,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 46,
+                                "Length": 12,
+                                "Gravity": -5.0,
+                                "Wind": 4,
+                                "Vertical": false
+                            }
+                        ]
+                    },
+                    "Koi_RedGreenBlue": {
+                        "Price": 500,
+                        "Passable": false,
+                        "DisplayName": "{{i18n:item.koinobori.name}}",
+                        "Description": "{{i18n:item.koinobori.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 6,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 21,
+                            "Y": 48,
+                            "Width": 6,
+                            "Height": 64
+                        },
+                        "StakeOrigin": "3, 62",
+                        "Kites": [
+                            // Blue
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 80,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 26,
+                                "Length": 4,
+                                "Gravity": -3.0,
+                                "Wind": 1,
+                                "Vertical": false
+                            },
+                            // Green
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 48,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 36,
+                                "Length": 8,
+                                "Gravity": -4.0,
+                                "Wind": 2,
+                                "Vertical": false
+                            },
+                            // Red
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 16,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 46,
+                                "Length": 12,
+                                "Gravity": -5.0,
+                                "Wind": 4,
+                                "Vertical": false
+                            }
+                        ]
+                    },
+                    "Koi_RedPurpleYellow": {
+                        "Price": 500,
+                        "Passable": false,
+                        "DisplayName": "{{i18n:item.koinobori.name}}",
+                        "Description": "{{i18n:item.koinobori.description}}",
+                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "SpriteIndex": 6,
+                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeSource": {
+                            "X": 21,
+                            "Y": 48,
+                            "Width": 6,
+                            "Height": 64
+                        },
+                        "StakeOrigin": "3, 62",
+                        "Kites": [
+                            // Yellow
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 112,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 26,
+                                "Length": 4,
+                                "Gravity": -3.0,
+                                "Wind": 1,
+                                "Vertical": false
+                            },
+                            // Purple
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 64,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 36,
+                                "Length": 8,
+                                "Gravity": -4.0,
+                                "Wind": 2,
+                                "Vertical": false
+                            },
+                            // Red
+                            {
+                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteSource": {
+                                    "X": 96,
+                                    "Y": 16,
+                                    "Width": 32,
+                                    "Height": 16
+                                },
+                                "KiteOrigin": "30, 8",
+                                "StringColor": {
+                                    "R": 200,
+                                    "G": 175,
+                                    "B": 175,
+                                    "A": 200
+                                },
+                                "Height": 46,
+                                "Length": 12,
+                                "Gravity": -5.0,
+                                "Wind": 4,
+                                "Vertical": false
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}

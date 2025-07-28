@@ -19,6 +19,12 @@
             "FromFile": "assets/Sprites/z_hikawa_extras.png"
         },
         {
+            "LogName": "Hikawa: Sprites - Kites",
+            "Action": "Load",
+            "Target": "{{PATH}}/Sprites/Kites",
+            "FromFile": "assets/Sprites/kites.png"
+        },
+        {
             "LogName": "Hikawa: Sprites - Lights",
             "Action": "Load",
             "Target": "Mods/blueberry/Hikawa/Sprites/Lights",

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib; // el diavolo nuevo
 using Hikawa.Objects.Critters;
+using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
 using Hikawa.Objects.Menus;
 using Hikawa.Volleyball;
@@ -50,6 +51,7 @@ namespace Hikawa
 		public static ModData ModData { get; private set; }
 		public static Texture2D Sprites { get; private set; }
 		public static SpriteFont Italics { get; private set; }
+		public static Lazy<KiteData> KiteData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KiteData>(AssetManager.KiteDataAssetName));
 		public static Modules.OverlayEffectControl OverlayEffectControl { get; private set; }
 		public static ITranslationHelper I18n => ModEntry.Instance.Helper.Translation;
 
@@ -103,6 +105,7 @@ namespace Hikawa
 			this.MangleTranslations();
 
 			// lawful activity
+			ItemRegistry.AddTypeDefinition(new KiteItemDataDefinition());
 			this.RegisterMapActions();
 			this.RegisterEventCommands();
 
@@ -131,6 +134,14 @@ namespace Hikawa
 				foreach (LightTile light in Game1.currentLocation.critters.Where(c => c is LightTile))
 					if (light.Data.DrawAbove != isWorld)
 						light.DrawLightTile(b: e.SpriteBatch);
+
+			if (isAlwaysFront)
+			{
+				foreach (Kite kite in Game1.currentLocation.Objects.Values.Where(o => o is Kite))
+					kite.drawAboveFrontLayer(e.SpriteBatch, (int)kite.TileLocation.X, (int)kite.TileLocation.Y);
+				//if (Game1.player.CurrentItem is Kite kite1)
+				//	kite1.drawAboveFrontLayer(e.SpriteBatch, Game1.player.TilePoint.X, Game1.player.TilePoint.Y);
+			}
 		}
 
 		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)

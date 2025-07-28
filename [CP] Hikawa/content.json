@@ -22,6 +22,11 @@
             "FromFile": "assets/Locations.json"
         },
         {
+            "LogName": "Hikawa: Kites",
+            "Action": "Include",
+            "FromFile": "assets/Kites.json"
+        },
+        {
             "LogName": "Hikawa: Objects",
             "Action": "Include",
             "FromFile": "assets/Objects.json"

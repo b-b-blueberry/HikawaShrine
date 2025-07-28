@@ -43,6 +43,13 @@
     "quest.reaction.jewelry": "...",
 
     // Items
+    // objects
+    "item.kite.name": "Paper Kite",
+    "item.kite.description": "A decorative paper kite. Can be placed outdoors.",
+    "item.balloon.name": "Party Balloon",
+    "item.balloon.description": "A decorative balloon. Can be placed outdoors.",
+    "item.koinobori.name": "Paper Fish",
+    "item.koinobori.description": "A decorative fish-shaped streamer. Can be placed outdoors.",
     "item.totem.name": "Warp Totem: Cherry Hill",
     "item.totem.description": "Warp directly to Cherry Hill Shrine. Consumed on use.",
     "item.mirror.name": "Crystal Mirror",
