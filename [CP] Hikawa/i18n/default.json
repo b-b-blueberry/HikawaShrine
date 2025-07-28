@@ -50,6 +50,7 @@
     "item.balloon.description": "A decorative balloon. Can be placed outdoors.",
     "item.koinobori.name": "Paper Fish",
     "item.koinobori.description": "A decorative fish-shaped streamer. Can be placed outdoors.",
+    // totems
     "item.totem.name": "Warp Totem: Cherry Hill",
     "item.totem.description": "Warp directly to Cherry Hill Shrine. Consumed on use.",
     "item.mirror.name": "Crystal Mirror",

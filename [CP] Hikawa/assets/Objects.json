@@ -1,38 +1,29 @@
 {
     "Changes": [
         {
-            "LogName": "Hikawa: Objects - Sprites",
-            "Action": "Load",
-            "Target": "{{PATH}}/Objects/Sprites",
-            "FromFile": "assets/Sprites/z_hikawa_objects.png"
-        },
-        {
             "LogName": "Hikawa: Objects - Data",
             "Action": "EditData",
-            "Target": "Data/ObjectInformation",
+            "Target": "Data/Objects",
             "Entries": {
-                /*  Fields:
-                    0   ID
-                    1   Price
-                    2   Edibility
-                    3   Type & Category
-                    4   Display name
-                    5   Description
-                    6   Misc
-                    7   Buff values
-                    8   Buff duration
-                    9   Texture index
-                    10  Texture asset
-                */
-                "{{ID}}_Totem": "{{ID}}_Totem/50/-300/Junk/{{i18n:item.totem.name}}/{{i18n:item.totem.description}}////0/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_Mirror": "{{ID}}_Mirror/50/-300/Junk/{{i18n:item.mirror.name}}/{{i18n:item.mirror.description}}////1/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_Wand": "{{ID}}_Wand/50/-300/Junk/{{i18n:item.wand.name}}/{{i18n:item.wand.description}}////2/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_DarkFruit": "{{ID}}_DarkFruit/50/15/Junk/{{i18n:item.darkfruit.name}}/{{i18n:item.darkfruit.description}}////3/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_DarkFood": "{{ID}}_DarkFood/20/18/Junk/{{i18n:item.darkfood.name}}/{{i18n:item.darkfood.description}}////4/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_DarkCream": "{{ID}}_DarkCream/250/32/Junk/{{i18n:item.darkcream.name}}/{{i18n:item.darkcream.description}}////5/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_DarkMacaron": "{{ID}}_DarkMacaron/300/32/Junk/{{i18n:item.darkmacaron.name}}/{{i18n:item.darkmacaron.description}}////6/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_DarkParfait": "{{ID}}_DarkParfait/450/32/Junk/{{i18n:item.darkparfait.name}}/{{i18n:item.darkparfait.description}}////7/{{PATH_S}}\\Objects\\Sprites",
-                "{{ID}}_DarkPie": "{{ID}}_DarkPie/375/32/Junk/{{i18n:item.darkpie.name}}/{{i18n:item.darkpie.description}}////8/{{PATH_S}}\\Objects\\Sprites"
+                "{{ID}}_Totem": {
+                    "Name": "{{ID}}_Totem",
+                    "DisplayName": "{{i18n:item.totem.name}}",
+                    "Description": "{{i18n:item.totem.description}}",
+                    "Type": "Crafting",
+                    "Category": 0,
+                    "Price": 20,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 6,
+                    "Edibility": -300,
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_brown",
+                        "not_placeable",
+                        "totem_item"
+                    ]
+                },
             }
         },
         {
@@ -40,16 +31,7 @@
             "Action": "EditData",
             "Target": "Data/CraftingRecipes",
             "Entries": {
-                /*  Fields
-                    0   Ingredients (ID & Yield)+
-                    1   Unused
-                    2   Yield
-                    2.5 BigCraftable (if not cooking)
-                    3   Preconditions
-                    4   Display name
-                */
-                "{{ID}}_Totem": "298 1 638 1 334 3//1/false/y 999/{{i18n:item.totem.name}}",
-                "{{ID}}_DarkFood": "{{ID}}_DarkFruit 1//1/default/{{i18n:item.darkfood.name}}"
+                "{{ID}}_Totem": "298 1 638 1 334 3//1/false/y 999/{{i18n:item.totem.name}}"
             }
         }
     ]

@@ -1,6 +1,12 @@
 ﻿{
     "Changes": [
         {
+            "LogName": "Hikawa: Sprites - Objects",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Objects",
+            "FromFile": "assets/Sprites/z_hikawa_objects.png"
+        },
+        {
             "LogName": "Hikawa: Sprites - Outdoors",
             "Action": "Load",
             "Target": "Mods/blueberry/Hikawa/Sprites/Outdoors",
