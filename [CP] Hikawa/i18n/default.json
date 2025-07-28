@@ -165,6 +165,21 @@
     "ui.shop.grandpa.2": "",
     "ui.shop.grandpa.3": "",
 
+    "ui.shop.text": "Welcome! Looking for some souvenirs?",
+    "ui.shop.trade": "Shop",
+    "ui.shop.crackers": "Rice crackers",
+    "ui.shop.crackers.fail.daily": "Sorry, one per customer. Come back tomorrow!",
+    "ui.shop.crackers.fail.money": "Sorry, these aren't free. Come back another time.",
+    "ui.shop.crackers.text": "Want to buy one of our signature rice crackers?^One per customer!",
+    "ui.shop.crackers.yes": "Yes (200g)",
+    "ui.shop.crackers.no": "No",
+    "ui.shop.crackers.yes.1": "Here you go!$h",
+    "ui.shop.crackers.yes.2": "Rice and spice go nice!$h",
+    "ui.shop.crackers.yes.3": "Thank you, come again!$h",
+    "ui.shop.crackers.yes.4": "Enjoy!$h",
+    "ui.shop.crackers.yes.5": "This one looks a little burnt.. but I'm sure it tastes great!$h",
+    "ui.shop.crackers.no.1": "Really? I made them myself..$s",
+
     "ui.talisman.end": "The effects of the {{talisman}} have faded.",
 
     "ui.volleyball.client.wait": "Waiting for the host...",

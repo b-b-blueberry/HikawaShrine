@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Hikawa.Objects.Locations;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Delegates;
@@ -65,10 +66,25 @@ namespace Hikawa.Modules
 				_state.ShakeScale = args.Length > 2 && float.TryParse(args[2], out float scale) ? scale : 4f;
 				_state.ShakeOffset = Vector2.Zero;
 			}
+			else if (args[1] == "sound" && args.Length > 2)
+			{
+				Game1.playSound(string.Join(string.Empty, args[2..]));
+			}
 			else if (args[1] == "exit")
 			{
 				if (Game1.activeClickableMenu is DialogueBox db)
 				{
+					db.closeDialogue();
+				}
+			}
+			else if (args[1] == "shop")
+			{
+				if (Game1.activeClickableMenu is DialogueBox db)
+				{
+					if (Game1.currentLocation is Shrine shrine && shrine.GetShopPerson() is NPC npc)
+					{
+						Game1.afterDialogues += () => Utility.TryOpenShopMenu(ModEntry.ModData.ShopShrineRei, npc.Name);
+					}
 					db.closeDialogue();
 				}
 			}

@@ -516,6 +516,20 @@ namespace Hikawa
 			Dictionary<string, Func<GameLocation, string[], Farmer, Point, bool>> tileActions = new()
 			{
 				{
+					ModEntry.ModData.ActionShrineShop, (GameLocation where, string[] args, Farmer who, Point tile) =>
+					{
+						// Using the Shrine souvenir shop
+						if (where is Shrine shrine && shrine.GetShopPerson() is NPC npc)
+						{
+							var dialogue = npc.TryGetDialogue("shop_main");
+							npc.setNewDialogue(dialogue, add: true, clearOnMovement: true);
+							Game1.drawDialogue(npc);
+							return true;
+						}
+						return false;
+					}
+				},
+				{
 					ModEntry.ModData.ActionShrineOffering, (GameLocation where, string[] args, Farmer who, Point tile) =>
 					{
 						// Using the Shrine offertory box

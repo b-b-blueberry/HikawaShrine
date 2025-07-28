@@ -140,9 +140,9 @@ namespace Hikawa
 			Game1.drawDialogueNoTyping(dialogue);
 		}
 
-		internal static void CreateQuestionDialogue(string question, List<Response> answers)
+		internal static void CreateQuestionDialogue(string question, List<Response> answers, NPC npc = null)
 		{
-			Game1.currentLocation.createQuestionDialogue(question, answers.ToArray(), DialogueAnswers);
+			Game1.currentLocation.createQuestionDialogue(question, answers.ToArray(), DialogueAnswers, npc);
 		}
 
 		/// <summary>

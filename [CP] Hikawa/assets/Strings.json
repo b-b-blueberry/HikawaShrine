@@ -26,6 +26,9 @@
             "Action": "EditData",
             "Target": "Strings/StringsFromMaps",
             "Entries": {
+                // Shrine
+                "{{SHRINE}}_Shop": "{{i18n:ui.shop.main}}",
+                // House
                 "{{HOUSE}}_Blank": "{{i18n:world.house.blank}}",
                 "{{HOUSE}}_Hearth": "{{i18n:world.house.hearth}}",
                 "{{HOUSE}}_Logpile": "{{i18n:world.house.logpile}}",

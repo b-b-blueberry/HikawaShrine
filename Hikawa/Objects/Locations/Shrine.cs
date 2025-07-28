@@ -580,6 +580,19 @@ namespace Hikawa.Objects.Locations
 			}
 		}
 
+		public NPC GetShopPerson()
+		{
+			return Game1.getCharacterFromName(ModEntry.ModData.NpcRei);
+
+			var tiles = Utils.GetTilesWithProperty(
+				where: this,
+				layer: "Buildings",
+				property: ModEntry.ModData.ActionShrineShop, 
+				onlyOne: true);
+			var tile = tiles.FirstOrDefault();
+			return this.isCharacterAtTile(tile);
+		}
+
 		#endregion
 
 		#region Spawn methods

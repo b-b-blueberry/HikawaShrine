@@ -63,6 +63,8 @@ namespace Hikawa
 		public float BuffCrackersDefenceModifier;
 		// shops
 		public string ShopShrineRei;
+		// topics
+		public string TopicCrackers;
 		// other
 		public string HearthLightBaseId;
 		public Point HearthLightSize;

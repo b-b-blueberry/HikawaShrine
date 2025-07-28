@@ -114,7 +114,14 @@
             "Target": "Characters/Dialogue/{{REI}}",
             "Entries": {
                 "Introduction": "test",
-                "Mon": "b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#"
+                "Mon": "b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#",
+
+                "shop_main": "$q {{ID}}_Shop null#{{i18n:ui.shop.text}}#$r null 0 shop_trade#{{i18n:ui.shop.trade}}#$r null 0 shop_crackers#{{i18n:ui.shop.crackers}}#$r null 0 shop_cancel#{{i18n:ui.menu.cancel}}",
+                "shop_trade": "$action {{ID}}_DialogueEffects shop",
+                "shop_crackers": "$query PLAYER_HAS_CONVERSATION_TOPIC Current {{ID}}_Crackers#{{i18n:ui.shop.crackers.fail.daily}}|$q {{ID}}_Shop_Crackers null#{{i18n:ui.shop.crackers.text}}#$r null 0 crackers_yes#{{i18n:ui.shop.crackers.yes}}#$r null 0 crackers_no#{{i18n:ui.shop.crackers.no}}",
+                "shop_cancel": "$action {{ID}}_DialogueEffects exit",
+                "crackers_yes": "$query !PLAYER_CURRENT_MONEY Current 200#{{i18n:ui.shop.crackers.fail.money}}|{{i18n:ui.shop.crackers.yes.{{Random: 1, 2, 3, 4, 5}}}}#$action AddMoney -200#$action AddItem {{ID}}_BurntCrackers#$action AddConversationTopic {{ID}}_Crackers 0",
+                "crackers_no": "{{i18n:ui.shop.crackers.no.1}}"
             }
         },
         {

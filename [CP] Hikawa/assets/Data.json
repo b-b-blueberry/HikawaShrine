@@ -68,6 +68,8 @@
                 "BuffCrackersDefenceModifier": 0.5,
                 // shops
                 "ShopShrineRei": "{{ID}}_Shop",
+                // topics
+                "TopicCrackers": "{{ID}}_Crackers",
                 // other
                 "HearthLightBaseId": "{{ID}}_HearthLight",
                 "HearthLightSize": {

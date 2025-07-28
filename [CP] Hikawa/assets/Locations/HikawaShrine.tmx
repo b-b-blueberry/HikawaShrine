@@ -1552,7 +1552,7 @@
  <objectgroup id="6" name="Buildings">
   <object id="280" name="TileData" x="400" y="688" width="16" height="16">
    <properties>
-    <property name="Action" value="OpenShop Custom_Hikawa_Shop"/>
+    <property name="Action" value="Custom_Hikawa_ShrineShop"/>
    </properties>
   </object>
   <object id="289" name="TileData" x="432" y="736" width="16" height="16">
