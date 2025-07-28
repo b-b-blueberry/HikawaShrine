@@ -253,7 +253,6 @@ namespace Hikawa.Objects.Locations
 		{
 			base.DayUpdate(dayOfMonth);
 
-			ModEntry.Instance.Helper.GameContent.InvalidateCache(Shrine.OutdoorsSprites.Name);
 
 			// TODO: METHOD: caats spawn conditions
 
