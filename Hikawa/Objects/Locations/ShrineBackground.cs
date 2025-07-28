@@ -117,20 +117,20 @@ namespace Hikawa.Objects.Locations
 				source = new Rectangle(isGreenRain ? 640 : 639, 858, 1, 184);
 				b.Draw(
 					texture: Game1.mouseCursors,
-					destinationRectangle: new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height),
+					destinationRectangle: new Rectangle(0, 0, display.Width, display.Height),
 					sourceRectangle: source,
 					color: isWinter ? Color.LightSlateGray : (isGreenRain ? Color.LightGreen : Color.SlateGray));
 				if (isGreenRain)
 				{
 					b.Draw(
 						texture: Game1.mouseCursors,
-						destinationRectangle: new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height),
+						destinationRectangle: new Rectangle(0, 0, display.Width, display.Height),
 						sourceRectangle: source,
 						color: Color.DimGray * 0.8f);
 				}
 
 				// stormclouds
-				float weatherX = preciseTime / 500f * (Game1.viewport.Width + 2048);
+				float weatherX = preciseTime / 500f * (display.Width + 2048);
 				if (isRain)
 				{
 					for (int x = -244; x < Game1.uiViewport.Width + 244; x += 244)
@@ -171,7 +171,7 @@ namespace Hikawa.Objects.Locations
 				source = new(703, 1912, 1, 264);
 				b.Draw(
 					texture: Game1.mouseCursors,
-					destinationRectangle: new Rectangle(0, (int)(zero.Y - skyY * skyAlpha), Game1.viewport.Width, skyH),
+					destinationRectangle: new Rectangle(0, (int)(zero.Y - skyY * skyAlpha), display.Width, skyH),
 					sourceRectangle: source,
 					color: Color.White,
 					rotation: 0f,
@@ -185,7 +185,7 @@ namespace Hikawa.Objects.Locations
 					source = new(702, 1912, 1, 264);
 					b.Draw(
 						texture: Game1.mouseCursors,
-						destinationRectangle: new Rectangle(0, 0, Game1.viewport.Width, skyH),
+						destinationRectangle: new Rectangle(0, 0, display.Width, skyH),
 						sourceRectangle: source,
 						color: Color.White * (1f - skyAlpha),
 						rotation: 0f,
@@ -195,7 +195,7 @@ namespace Hikawa.Objects.Locations
 
 					// stars
 					source = new(0, 1453, 638, 195);
-					for (int i = 0; i < Game1.viewport.Width; i += source.Width)
+					for (int i = 0; i < display.Width; i += source.Width)
 					{
 						float scale = 2f;
 						b.Draw(
@@ -228,7 +228,7 @@ namespace Hikawa.Objects.Locations
 						source = new(544, 208, 16, 240);
 						b.Draw(
 							texture: ModEntry.Sprites,
-							destinationRectangle: new Rectangle(0, (int)(zero.Y - skyY * eveningAlpha), Game1.viewport.Width, skyH),
+							destinationRectangle: new Rectangle(0, (int)(zero.Y - skyY * eveningAlpha), display.Width, skyH),
 							sourceRectangle: source,
 							color: Color.White * eveningAlpha,
 							rotation: 0f,
