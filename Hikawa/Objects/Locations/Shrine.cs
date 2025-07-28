@@ -414,8 +414,9 @@ namespace Hikawa.Objects.Locations
 			{
 				ItemQueryContext context = new(
 					location: this,
-					player: null,
-					random: null);
+					player: Game1.MasterPlayer,
+					random: null,
+					sourcePhrase: $"location '{this.Name}' > tile action '{ModEntry.ModData.ActionCrowTrade}' > field '{nameof(this.CrowTradeItem)}'");
 				foreach (GenericSpawnItemDataWithCondition rule in ModEntry.ModData.CrowTradeRules)
 				{
 					if (GameStateQuery.CheckConditions(

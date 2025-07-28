@@ -115,8 +115,8 @@ namespace Hikawa.Objects.Menus
 				x: (this.SceneBackgroundSource.Width + this.BorderSize.X * 2) * this.Scale,
 				y: (this.SceneBackgroundSource.Height + this.BorderSize.Y * 2 + inventorySpacing) * this.Scale + scaledInventorySize.Y);
 			this._displayArea = new(
-				x: centre.X - displaySize.X / 2 + offset.X * this.Scale,
-				y: centre.Y - displaySize.Y / 2 + offset.Y * this.Scale,
+				x: (int)(centre.X - displaySize.X / 2 + offset.X * this.Scale * Game1.options.uiScale),
+				y: (int)(centre.Y - displaySize.Y / 2 + offset.Y * this.Scale * Game1.options.uiScale),
 				width: displaySize.X,
 				height: displaySize.Y
 			);
@@ -187,12 +187,13 @@ namespace Hikawa.Objects.Menus
 
 		public static bool HighlightItems(Item i)
 		{
-			return i is StardewValley.Object o && !o.bigCraftable.Value && !o.questItem.Value && o is not (Wallpaper or Trinket or Furniture);
+			return i is StardewValley.Object o && o.canBeDropped() && !o.bigCraftable.Value && !o.questItem.Value && o is not (Wallpaper or Trinket or Furniture);
 		}
 
 		protected override void cleanupBeforeExit()
 		{
 			this.SetShrineItem();
+			this.Shrine.FinaliseCrowTrade();
 
 			base.cleanupBeforeExit();
 		}
