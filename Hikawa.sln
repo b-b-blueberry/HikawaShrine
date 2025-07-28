@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hikawa", "Hikawa\Hikawa.csproj", "{3B1425F3-78E8-4976-93CD-4554EC95B840}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hikawa [CP]", "[CP] Hikawa\Hikawa [CP].csproj", "{BDB77A2A-9B82-4951-A09C-6FAB43A44874}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Documents", "_Documents", "{3DC13845-3B8A-4BBA-ABFC-419F5E3F4A3A}"
 	ProjectSection(SolutionItems) = preProject
 		what's up.txt = what's up.txt
@@ -29,10 +27,6 @@ Global
 		{3B1425F3-78E8-4976-93CD-4554EC95B840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B1425F3-78E8-4976-93CD-4554EC95B840}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B1425F3-78E8-4976-93CD-4554EC95B840}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDB77A2A-9B82-4951-A09C-6FAB43A44874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDB77A2A-9B82-4951-A09C-6FAB43A44874}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDB77A2A-9B82-4951-A09C-6FAB43A44874}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDB77A2A-9B82-4951-A09C-6FAB43A44874}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF541B21-F2A7-4A7A-AF1E-58EBD7A8A623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF541B21-F2A7-4A7A-AF1E-58EBD7A8A623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF541B21-F2A7-4A7A-AF1E-58EBD7A8A623}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -15,18 +15,30 @@
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<None Include="..\.editorconfig" Link=".editorconfig" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.0" />
+		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.2" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
+		<Using Include="StardewValley" />
 		<Using Include="Microsoft.Xna.Framework" />
 		<Using Include="Microsoft.Xna.Framework.Graphics" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ContentPacks Include="../[CP] Hikawa" Version="$(Version)">
+			<IgnoreModFilePaths>bin/.*, obj/.*</IgnoreModFilePaths>
+			<IgnoreModFilePatterns>\.dll$, \.pdb$, \.csproj$</IgnoreModFilePatterns>
+		</ContentPacks>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="../[CP] Hikawa/**" Link="_[CP] Hikawa\%(RecursiveDir)\%(FileName)%(Extension)" CopyToOutputDirectory="Never" />
 	</ItemGroup>
 
 </Project>
