@@ -335,9 +335,40 @@ namespace Hikawa
                     scale: scale / 2f,
                     effects: SpriteEffects.None,
                     layerDepth: Math.Min(1f, layerDepth + 2E-05f));
-
             }
         }
+
+        #endregion
+
+        #region Item methods
+
+		public static void SpawnObjectsInArea(GameLocation where, Rectangle area, string[] itemIds, int attempts, int max = -1)
+        {
+			var tiles = new List<Vector2>();
+			for (var x = area.Left; x < area.Right; ++x)
+				for (var y = area.Top; y < area.Bottom; ++y)
+					tiles.Add(new(x, y));
+			Utility.Shuffle(Game1.random, tiles);
+
+			for (var i = 0; i < tiles.Count; ++i)
+            {
+				if (attempts <= 0 || (max > 0 && max <= Utility.getNumObjectsOfIndexWithinRectangle(area, itemIds, where)))
+					break;
+
+                var tile = tiles[i];
+                if (where.CanItemBePlacedHere(tile, itemIsPassable: false, CollisionMask.All, CollisionMask.None))
+                {
+                    var id = itemIds[Game1.random.Next(itemIds.Length)];
+                    var o = ItemRegistry.Create<Object>(id);
+                    o.IsSpawnedObject = true;
+                    o.CanBeGrabbed = true;
+                    where.Objects.Add(tile, o);
+                }
+
+				--attempts;
+            }
+        }
+
 		#endregion
 
 		#region Miscellaneous methods

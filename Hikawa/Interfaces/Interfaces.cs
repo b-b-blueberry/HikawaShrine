@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hikawa.Objects.Items;
+using Hikawa.Objects.Locations;
 
 namespace Hikawa.Interfaces
 {
@@ -61,6 +62,7 @@ namespace Hikawa.Interfaces
 			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Shrine));
 			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(House));
 			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Hall));
+			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Grove));
             Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Kite));
 
 			return Interfaces.SpaceCoreAPI is not null;

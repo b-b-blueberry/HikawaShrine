@@ -31,6 +31,7 @@
                 "MapShrine": "{{SHRINE}}",
                 "MapHouse": "{{HOUSE}}",
                 "MapHall": "{{HALL}}",
+                "MapGrove": "{{GROVE}}",
                 "MapVortex": "{{ID}}_Vortex",
                 "MapRoof": "{{ID}}_Roof",
                 "MapVolleyball": "{{ID}}_Volleyball",

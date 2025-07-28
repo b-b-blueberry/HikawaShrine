@@ -20,6 +20,12 @@
 			"FromFile": "assets/Locations/HikawaHall.tmx"
 		},
 		{
+			"LogName": "Hikawa: Locations - Grove map",
+			"Action": "Load",
+			"Target": "Maps/{{GROVE}}",
+			"FromFile": "assets/Locations/HikawaGrove.tmx"
+		},
+		{
 			"LogName": "Hikawa: Locations - Volleyball map",
 			"Action": "Load",
 			"Target": "Maps/{{ID}}_Volleyball",
@@ -70,6 +76,19 @@
 						"Type": "Hikawa.Objects.Locations.Hall, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 					},
 					"ExcludeFromNpcPathfinding": false
+				},
+				"{{GROVE}}": {
+					"DisplayName": "{{i18n:world.grove.map}}",
+					"DefaultArrivalTile": {
+						"X": 16,
+						"Y": 16
+					},
+					"CreateOnLoad": {
+						"MapPath": "Maps/{{GROVE}}",
+						"Type": "Hikawa.Objects.Locations.Grove, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+					},
+					"ExcludeFromNpcPathfinding": false,
+					"MusicDefault": "none"
 				}
 			}
 		},

@@ -107,6 +107,12 @@ namespace Hikawa
             warpTo(locationName: ModEntry.ModData.MapHall);
         }
 
+        [ConsoleCommandAttribute("g", "Warp to Hikawa Grove")]
+        public static void grove(string s, string[] args)
+        {
+            warpTo(locationName: ModEntry.ModData.MapGrove);
+        }
+
 		[ConsoleCommandAttribute("o", "Manage screen overlays: use [0~num]")]
 		public static void overlay(string s, string[] args)
 		{
