@@ -55,6 +55,7 @@ namespace Hikawa
 		public string ItemVolleyball;
 		public string ItemLostGlasses;
 		public string ItemLostJewelry;
+		public string ItemCharcoal;
 		// shops
 		public string ShopShrineRei;
 		// other

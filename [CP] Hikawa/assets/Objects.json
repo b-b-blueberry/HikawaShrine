@@ -5,6 +5,26 @@
             "Action": "EditData",
             "Target": "Data/Objects",
             "Entries": {
+                "{{ID}}_Charcoal": {
+                    "Name": "{{ID}}_Charcoal",
+                    "DisplayName": "{{i18n:item.charcoal.name}}",
+                    "Description": "{{i18n:item.charcoal.description}}",
+                    "Type": "Basic",
+                    "Category": -15,
+                    "Price": 45,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 13,
+                    "Edibility": -300,
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromFishingCollection": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_black",
+                        "particle_smoke"
+                    ]
+                },
                 "{{ID}}_Totem": {
                     "Name": "{{ID}}_Totem",
                     "DisplayName": "{{i18n:item.totem.name}}",

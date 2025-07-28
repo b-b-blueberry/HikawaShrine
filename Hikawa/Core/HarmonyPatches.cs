@@ -6,8 +6,11 @@ using System.Reflection.Emit;
 using HarmonyLib; // el diavolo nuevo
 using Hikawa.Modules;
 using StardewValley;
+using Hikawa.Objects.Items;
+using Hikawa.Objects.Menus;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
+using Object = StardewValley.Object;
 
 namespace Hikawa
 {
@@ -104,6 +107,63 @@ namespace Hikawa
 
 			return ilOut;
 		}
+
+        #endregion
+
+        #region Item behaviours
+		
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Object))]
+        [HarmonyPatch(nameof(Object.drawWhenHeld))]
+        private static void Object_DrawWhenHeld_Postfix(Object __instance, SpriteBatch spriteBatch, Vector2 objectPosition, Farmer f)
+        {
+            if (!__instance.isTemporarilyInvisible && __instance.HasContextTag("particle_smoke"))
+            {
+                Utils.DrawSmokeParticles(spriteBatch, objectPosition, 1f, f.getDrawLayer() + 1E-05f);
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Object))]
+        [HarmonyPatch(nameof(Object.drawInMenu))]
+        [HarmonyPatch([typeof(SpriteBatch), typeof(Vector2), typeof(float), typeof(float), typeof(float), typeof(StackDrawType), typeof(Color), typeof(bool)])]
+        private static void Object_DrawInMenu_Postfix(Object __instance, SpriteBatch spriteBatch, Vector2 location, float scaleSize, float transparency, float layerDepth)
+        {
+            if (!__instance.isTemporarilyInvisible && __instance.HasContextTag("particle_smoke"))
+            {
+                Utils.DrawSmokeParticles(spriteBatch, location, scaleSize, layerDepth, transparency);
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Object))]
+        [HarmonyPatch(nameof(Object.draw))]
+        [HarmonyPatch([typeof(SpriteBatch), typeof(int), typeof(int), typeof(float)])]
+        private static void Object_Draw_Postfix(Object __instance, SpriteBatch spriteBatch, int x, int y, float alpha)
+        {
+            if (!__instance.isTemporarilyInvisible && __instance.HasContextTag("particle_smoke"))
+            {
+				Vector2 position = Game1.GlobalToLocal(Game1.viewport, new Vector2(x, y) * Game1.tileSize);
+                Rectangle bounds = __instance.GetBoundingBoxAt(x, y);
+                float scale = (__instance.scale.Y > 1f) ? __instance.getScale().Y : 1f;
+                float layerDepth = (__instance.isPassable() ? bounds.Top : bounds.Center.Y) / 10000f;
+                Utils.DrawSmokeParticles(spriteBatch, position, scale, layerDepth, alpha);
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Object))]
+        [HarmonyPatch(nameof(Object.draw))]
+        [HarmonyPatch([typeof(SpriteBatch), typeof(int), typeof(int), typeof(float), typeof(float)])]
+        private static void Object_Draw_1_Postfix(Object __instance, SpriteBatch spriteBatch, int xNonTile, int yNonTile, float layerDepth, float alpha)
+        {
+            if (!__instance.isTemporarilyInvisible && __instance.HasContextTag("particle_smoke"))
+            {
+                Vector2 position = Game1.GlobalToLocal(Game1.viewport, new Vector2(xNonTile, yNonTile));
+                float scale = (__instance.scale.Y > 1f) ? __instance.getScale().Y : Game1.pixelZoom;
+                Utils.DrawSmokeParticles(spriteBatch, position, scale, layerDepth, alpha);
+            }
+        }
 
 		#endregion
 

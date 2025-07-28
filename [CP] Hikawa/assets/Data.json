@@ -60,6 +60,7 @@
                 "ItemVolleyball": "{{ID}}_Volleyball",
                 "ItemLostGlasses": "{{ID}}_LostGlasses",
                 "ItemLostJewelry": "{{ID}}_LostJewelry",
+                "ItemCharcoal": "{{ID}}_Charcoal",
                 // shops
                 "ShopShrineRei": "{{ID}}_Shop",
                 // other

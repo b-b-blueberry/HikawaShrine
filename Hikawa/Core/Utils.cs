@@ -311,6 +311,33 @@ namespace Hikawa
 			where.TemporarySprites.Add(sprite);
 		}
 
+		public static void DrawSmokeParticles(SpriteBatch spriteBatch, Vector2 location, float scaleSize, float layerDepth, float transparency = 1f)
+        {
+            Vector2 origin = new Vector2(Game1.tileSize / Game1.pixelZoom / 2);
+            float scale = Game1.pixelZoom * scaleSize;
+            int interval = 700 + (250 + 17) * 7777 % 200;
+			Vector2[] offsets = [new(32f, 32f), new(24f, 40f), new(48f, 21f)];
+			for (int i = 0; i < offsets.Length; ++i)
+            {
+                spriteBatch.Draw(
+                    texture: Game1.mouseCursors,
+                    position: location
+						+ offsets[i] * scaleSize
+						+ new Vector2(0f, (float)((0f - Game1.currentGameTime.TotalGameTime.TotalMilliseconds + interval * i) % 2000f) * 0.03f),
+                    sourceRectangle: new Rectangle(372, 1956, 10, 10),
+                    color: new Color(80, 80, 80)
+						* transparency
+						* 0.53f
+						* (1f - (float)((Game1.currentGameTime.TotalGameTime.TotalMilliseconds + interval * i) % 2000f) / 2000f),
+                    rotation: (float)((0f - Game1.currentGameTime.TotalGameTime.TotalMilliseconds) % 2000f)
+						* 0.001f,
+                    origin: origin * scaleSize,
+                    scale: scale / 2f,
+                    effects: SpriteEffects.None,
+                    layerDepth: Math.Min(1f, layerDepth + 2E-05f));
+
+            }
+        }
 		#endregion
 
 		#region Miscellaneous methods
