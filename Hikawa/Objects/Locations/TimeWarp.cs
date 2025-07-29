@@ -1,5 +1,4 @@
 ﻿using Hikawa.Modules;
-using StardewValley;
 
 namespace Hikawa.Objects.Locations
 {

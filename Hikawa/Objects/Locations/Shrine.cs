@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Serialization;
-using Hikawa.Modules;
+﻿using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Menus;
 using Netcode;
@@ -13,6 +10,9 @@ using StardewValley.ItemTypeDefinitions;
 using StardewValley.Monsters;
 using StardewValley.Network;
 using StardewValley.TerrainFeatures;
+using System;
+using System.Linq;
+using System.Xml.Serialization;
 using Object = StardewValley.Object;
 
 namespace Hikawa.Objects.Locations

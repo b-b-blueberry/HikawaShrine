@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Hikawa.Modules;
+﻿using Hikawa.Modules;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
+using System;
+using System.Collections.Generic;
 
 namespace Hikawa.Objects.Menus
 {

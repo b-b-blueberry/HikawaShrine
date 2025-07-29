@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using HarmonyLib; // el diavolo nuevo
+﻿using HarmonyLib; // el diavolo nuevo
 using Hikawa.Modules;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Menus;
@@ -12,6 +7,11 @@ using StardewValley.Menus;
 using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.Projectiles;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using Object = StardewValley.Object;
 
 namespace Hikawa

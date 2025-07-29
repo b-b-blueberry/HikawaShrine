@@ -1,5 +1,4 @@
-﻿using StardewValley;
-using StardewValley.Projectiles;
+﻿using StardewValley.Projectiles;
 using StardewValley.TerrainFeatures;
 
 namespace Hikawa.Objects.Projectiles

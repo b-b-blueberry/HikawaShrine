@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Hikawa.Objects.Locations;
+﻿using Hikawa.Objects.Locations;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 /**
 cs Game1.activeClickableMenu = new StardewValley.Menus.FieldOfficeMenu(Game1.getLocationFromName(`IslandFieldOffice`) as StardewValley.Locations.IslandFieldOffice);

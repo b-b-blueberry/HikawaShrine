@@ -1,7 +1,6 @@
-﻿using System;
-using Hikawa.Modules;
+﻿using Hikawa.Modules;
 using StardewModdingAPI.Events;
-using StardewValley;
+using System;
 
 namespace Hikawa.Objects.Locations
 {

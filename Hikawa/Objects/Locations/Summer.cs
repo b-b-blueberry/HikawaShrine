@@ -1,6 +1,4 @@
-﻿using StardewValley;
-
-namespace Hikawa.Objects.Locations
+﻿namespace Hikawa.Objects.Locations
 {
 	public class Summer : GameLocation
 	{

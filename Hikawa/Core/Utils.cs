@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
 using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Locations;
 using StardewModdingAPI;
 using StardewValley.Locations;
+using System;
+using System.Collections.Generic;
 using xTile.ObjectModel;
 
 namespace Hikawa
