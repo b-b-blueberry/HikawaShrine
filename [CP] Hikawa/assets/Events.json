@@ -13,6 +13,7 @@
             "Action": "EditData",
             "Target": "Data/Events/{{SHRINE}}",
             "Entries": {
+                "{{QUEST_BUGS}}/w sunny/v {{AMI}}/f {{AMI}} 1000/c 1": "{{MUSIC_AMI}}/35 30/farmer 35 35 0 {{AMI}} 40 30 1/pause 1000/addItem {{Q_TOOL_BUGS}}/pause 1000/addSpecialOrder {{QUEST_BUGS}}/end"
             }
         },
         {

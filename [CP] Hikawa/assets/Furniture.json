@@ -5,6 +5,8 @@
             "Action": "EditData",
             "Target": "Data/Furniture",
             "Entries": {
+                // bug set
+                "{{ID}}_BugCollection": "{{ID}}_BugCollection/painting/2 2/2 2/1/2000/-1/{{i18n:furniture.bugcollection.name}}/0/{{PATH_S}}\\Sprites\\Furniture/true",
         }
     ]
 }

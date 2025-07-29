@@ -25,6 +25,12 @@
             "FromFile": "assets/Sprites/z_hikawa_extras.png"
         },
         {
+            "LogName": "Hikawa: Sprites - Furniture",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture",
+            "FromFile": "assets/Sprites/z_hikawa_furniture.png"
+        },
+        {
             "LogName": "Hikawa: Sprites - Kites",
             "Action": "Load",
             "Target": "{{PATH}}/Sprites/Kites",

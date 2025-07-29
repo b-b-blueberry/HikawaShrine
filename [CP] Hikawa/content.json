@@ -17,6 +17,11 @@
             "FromFile": "assets/Buffs.json"
         },
         {
+            "LogName": "Hikawa: Bugs",
+            "Action": "Include",
+            "FromFile": "assets/Bugs.json"
+        },
+        {
             "LogName": "Hikawa: Characters",
             "Action": "Include",
             "FromFile": "assets/Characters.json"
@@ -163,6 +168,30 @@
         {
             "Name": "MATCH3",
             "Value": "{{ID}}_Match3"
+        },
+        {
+            "Name": "TOOL_BUGS",
+            "Value": "{{ID}}_BugTool"
+        },
+        {
+            "Name": "Q_TOOL_BUGS",
+            "Value": "(BB_HIKAWA_BUG_T){{ID}}_BugTool"
+        },
+        {
+            "Name": "ACTION_TOOL_BUGS",
+            "Value": "#$action AddItem {{Q_TOOL_BUGS}}"
+        },
+        {
+            "Name": "QUEST_BUGS",
+            "Value": "{{ID}}_Bugs"
+        },
+        {
+            "Name": "MAIL_BUGS",
+            "Value": "{{ID}}_Bugs"
+        },
+        {
+            "Name": "MUSIC_AMI",
+            "Value": "elliottPiano"
         },
         // Variables
         {

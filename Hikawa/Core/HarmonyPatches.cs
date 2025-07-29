@@ -167,6 +167,20 @@ namespace Hikawa
             }
         }
 
+		[HarmonyPrefix]
+		[HarmonyPatch(typeof(Furniture))]
+		[HarmonyPatch("checkForAction")]
+		public static bool Furniture_CheckForAction_Prefix(Furniture __instance, Farmer who, bool justCheckingForActivity, ref bool __result)
+		{
+			// Open BugCollectionMenu from BugCollection item in world
+			if (!justCheckingForActivity && __instance.Location is not null && __instance.ItemId == ModEntry.ModData.ItemBugCollection)
+			{
+				Game1.activeClickableMenu = new BugCollectionMenu();
+				__result = true;
+				return false;
+			}
+			return true;
+		}
 
 		#endregion
 

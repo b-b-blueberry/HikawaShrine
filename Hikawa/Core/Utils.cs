@@ -1,3 +1,4 @@
+﻿using Hikawa.Data;
 using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Locations;
@@ -6,6 +7,8 @@ using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
 using xTile.ObjectModel;
+using Object = StardewValley.Object;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Hikawa
 {
@@ -195,7 +198,7 @@ namespace Hikawa
 
 		#region Map operations
 
-		public static List<Vector2> GetTilesWithProperty(GameLocation where, string layer, string property, PropertyValue value = null, bool onlyOne = false)
+		public static List<Vector2> GetTilesWithProperty(GameLocation where, string layer, string property, PropertyValue value = null, bool onlyOne = false, bool remove = false)
 		{
 			List<Vector2> tiles = [];
 			var l = where?.Map?.GetLayer(layer);
@@ -208,6 +211,8 @@ namespace Hikawa
 					if (l.Tiles[x, y]?.Properties?.TryGetValue(property, out PropertyValue v) is bool b && b && (value is null || v.ToString() == value.ToString()))
 					{
 						tiles.Add(new(x, y));
+						if (remove)
+							l.Tiles[x, y].Properties.Remove(property);
 						if (onlyOne)
 							return tiles;
 					}
@@ -218,13 +223,24 @@ namespace Hikawa
 
 		public static void ResetCustomSharedMapProperties(GameLocation where)
 		{
-			where.critters?.RemoveAll(c => c is HangingSprite);
-			where.critters?.RemoveAll(c => c is LightTile);
+			where.critters?.RemoveAll(c => c is HangingSprite or LightTile or ShrineBug);
 			where.sharedLights?.RemoveWhere(pair => pair.Key.StartsWith(ModEntry.ModData.HearthLightBaseId));
+			where.terrainFeatures?.RemoveWhere(pair => pair.Value is ShrineTree);
+			Utils.GetTilesWithProperty(
+				where: where,
+				layer: "Buildings",
+				property: ModEntry.ModData.ActionBug,
+				remove: true);
 		}
 
 		public static void ApplyCustomSharedMapProperties(GameLocation where)
 		{
+			// Bugs
+			if (Utils.GetBugProperties(where) is (Vector2 bugTile, string bugId))
+			{
+				where.addCritter(new ShrineBug(tile: bugTile, bugId: bugId, definition: ModEntry.BugsData.Value.BugData[bugId]));
+			}
+
 			// Shrine trees
 			if (ModEntry.ModData.ShrineTrees?.TryGetValue(where.Name, out List<ShrineTreesEntry> trees) == true)
 			{
@@ -284,6 +300,54 @@ namespace Hikawa
 					where.sharedLights.Add(key: light.Id, value: light);
 				}
 			}
+		}
+
+		public static void AddBugProperties()
+		{
+			foreach ((string locationId, Dictionary<Vector2, string> bugs) in ModEntry.BugsData.Value.Bugs)
+			{
+				foreach ((Vector2 tile, string id) in bugs)
+				{
+					if (ModEntry.BugsData.Value.BugData?.TryGetValue(id, out BugData definition) == true
+						&& definition.Season == Game1.currentSeason
+						//&& Game1.random.NextDouble() < 0.25
+						)
+					{
+						GameLocation where = Game1.getLocationFromName(locationId);
+						where.modData[ModEntry.ModData.ModDataKey + "_BugId"] = id;
+						where.modData[ModEntry.ModData.ModDataKey + "_BugTile"] = $"{tile.X} {tile.Y}";
+						break;
+					}
+				}
+			}
+		}
+
+		public static void ClearBugProperties()
+		{
+			foreach ((string locationId, Dictionary<Vector2, string> bugs) in ModEntry.BugsData.Value.Bugs)
+			{
+				GameLocation where = Game1.getLocationFromName(locationId);
+				where.modData.Remove(ModEntry.ModData.ModDataKey + "_BugId");
+				where.modData.Remove(ModEntry.ModData.ModDataKey + "_BugTile");
+			}
+		}
+
+		public static (Vector2 bugTile, string bugId)? GetBugProperties(GameLocation where)
+		{
+			if (where.modData.TryGetValue(ModEntry.ModData.ModDataKey + "_BugId", out string bugId)
+				&& where.modData.TryGetValue(ModEntry.ModData.ModDataKey + "_BugTile", out string bugTileStr)
+				&& ArgUtility.TryGetVector2(bugTileStr?.Split(' '), 0, out Vector2 bugTile, out string error))
+			{
+				if (error is null && ModEntry.BugsData.Value.BugData?.TryGetValue(bugId, out BugData definition) == true)
+				{
+					return (bugTile, bugId);
+				}
+				else
+				{
+					Log.E($"Failed to parse '{nameof(ShrineBug)}' data for '{bugId}' at '{bugTileStr}' in '{where?.Name ?? "null"}':{Environment.NewLine}{error}");
+				}
+			}
+			return null;
 		}
 
 		#endregion

@@ -14,6 +14,155 @@
             "Action": "EditData",
             "Target": "Data/SpecialOrders",
             "Entries": {
+                "{{QUEST_BUGS}}": {
+                    "Name": "{{i18n:quest.title.bugs}}",
+                    "Requester": "{{AMI}}",
+                    "Duration": "Month",
+                    "Repeatable": false,
+                    "RequiredTags": "",
+                    "Condition": "",
+                    "OrderType": "{{QUEST_BUGS}}",
+                    "SpecialRule": "",
+                    "Text": "{{i18n:quest.subtitle.bugs}}",
+                    "ItemToRemoveOnEnd": "{{TOOL_BUGS}}",
+                    "MailToRemoveOnEnd": null,
+                    "RandomizedElements": null,
+                    "Objectives": [
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.stag.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Stag",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.stag.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.butterfly.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Butterfly",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.butterfly.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.wasp.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Wasp",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.wasp.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.grasshopper.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Grasshopper",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.grasshopper.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.mantis.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Mantis",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.mantis.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.woodlouse.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Woodlouse",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.woodlouse.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.centipede.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Centipede",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.centipede.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.moth.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Moth",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.moth.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.termite.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Termite",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.termite.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.ladybird.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Ladybird",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.ladybird.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.dragonfly.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Dragonfly",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.dragonfly.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:bugs.scarab.name}}",
+                            "RequiredCount": "1",
+                            "Data": {
+                                "AcceptedContextTags": "{{ID}}_Bugs_Scarab",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:bugs.scarab.message |action={{ACTION_TOOL_BUGS}} }}"
+                            }
+                        }
+                    ],
+                    "Rewards": [
+                        {
+                            "Type": "Friendship",
+                            "Data": {}
+                        },
+                        {
+                            "Type": "Mail",
+                            "Data": {
+                                "MailReceived": "{{MAIL_BUGS}}",
+                                "NoLetter": "true"
+                            }
+                        }
+                    ]
+                }
             }
         }
     ]

@@ -36,6 +36,11 @@
     "anim.gramps.sleep": "%Grandpa's sleeping.",
 
     // Quests
+    // bugs
+    "quest.title.bugs": "Ami's Arthropology",
+    "quest.subtitle.bugs": "I'm starting a new collection! Try and catch some species from my spotter's handbook.\nIt won't be easy, all sorts of bugs are found in different seasons!",
+
+    // lost glasses
     "quest.title.glasses": "Lost Glasses",
     "quest.subtitle.glasses": "...",
     "quest.task.glasses": "...",
@@ -59,6 +64,9 @@
     "item.balloon.description": "A decorative balloon. Can be placed outdoors.",
     "item.koinobori.name": "Paper Fish",
     "item.koinobori.description": "A decorative fish-shaped streamer. Can be placed outdoors.",
+    // tools
+    "item.bugtool.name": "Bug Jar",
+    "item.bugtool.description": "Ami's hi-tech survey equipment. Used to collect critters around Cherry Hill.",
     // totems
     "item.totem.name": "Warp Totem: Cherry Hill",
     "item.totem.description": "Warp directly to Cherry Hill Shrine. Consumed on use.",
@@ -89,6 +97,16 @@
     "item.darkpie.name": "Dark Fruit Pie",
     "item.darkpie.description": "A juicy pie stuffed with a strange fruit. Other foods just don't taste as good after this!",
 
+    // Furniture
+    // bug set
+    "furniture.bugcollection.name": "Bug Collection",
+    //"item.bugcollection.description": "A framed box of critters caught around Cherry Hill.^Can be used to check collection progress.",
+    "furniture.bugs.desert.name": "Vivarium (Desert)",
+    "furniture.bugs.desert.description": "1",
+    "furniture.bugs.dome.name": "Vivarium (Dome)",
+    "furniture.bugs.dome.description": "2",
+    "furniture.bugs.meadow.name": "Vivarium (Meadow)",
+    "furniture.bugs.meadow.description": "3",
     // Talismans
     "talisman.paper.name": "Paper Talisman",
     "talisman.paper.description": "A slip of paper inscribed with well-wishes.",
@@ -192,54 +210,73 @@
     "ui.volleyball.score.team": "Team ",
 
     // Bugs
+    // scientific names should not be localised
 
-    "bugs.beetle.name": "Stag Beetle",
-    "bugs.beetle.scientific": "Lucanidae",
-    "bugs.beetle.description": "Their mandibles grow over the course of their lifetime to the length of their body. Males wrestle one-another for females, food, and territory. Despite their size, they remain capable flyers.",
+    "bugs.stag.name": "Stag Beetle",
+    "bugs.stag.scientific": "Lucanidae",
+    "bugs.stag.description": "Their mandibles grow throughout their lifetime to the length of their body.\n\nMales wrestle one-another for females, food, and territory. Despite their size, they remain capable flyers.",
+    "bugs.stag.message": "Nice bug, @. Hope you didn't get pinched catching it!#$b#I'll probably need to get it in a bigger container, this is one big bug.#$e#While you're here, wanna see this millipede I found?$h{{action}}",
 
     "bugs.butterfly.name": "Monarch Butterfly",
     "bugs.butterfly.scientific": "Danaus plexippus",
-    "bugs.butterfly.description": "Renowned for their continental migration patterns, species are found wherever their preferred food grows, as well as at various points along their migratory routes. Scales take from a palette of orange, white, and blue.",
+    "bugs.butterfly.description": "Renowned for their continental migration patterns, species are found wherever their preferred food grows, as well as at 'rest-stops' along their migratory routes.\n\nScales may be coloured orange, white, or blue.",
+    "bugs.butterfly.message": "Good catch! These butterflies are on their annual migratory route at this time of year.$h#$b#By the summer, they should be enjoying the warm weather in the islands south of here. They must be happy to rest at the hilltop on the way, though.{{action}}",
 
     "bugs.wasp.name": "Paper Wasp",
     "bugs.wasp.scientific": "Vespidae",
-    "bugs.wasp.description": "As with bees, a lone queen founds a nest, spawning female workers to grow her brood. An adult wasp can't feed on solid matter; her mandibles are mainly for pulping wood fiber into paper. She subsists on nectar and feeds processed insects to her larvae.",
+    "bugs.wasp.description": "As with bees, a lone queen founds a nest, hatching female workers to grow her brood.\n\nAn adult wasp can't feed on solid matter; her mandibles are mainly for pulping wood fiber into paper. She subsists on nectar and feeds chewed insects to her larvae.",
+    "bugs.wasp.message": "Hm, you've caught something? .. Wow, a paper wasp!#$b#You needn't look so worried, they're really quite docile. Or at least, they are before you shove them in a jar.#$b#Actually, this one's starting to look real mad.$s{{action}}",
 
     "bugs.grasshopper.name": "Grasshopper",
     "bugs.grasshopper.scientific": "Acrididae",
-    "bugs.grasshopper.description": "Especially prehistoric insects with powerful wings and spurred hindlegs. May transform into locusts in adverse conditions. Infamous competition for crops such as grains and herbs.",
+    "bugs.grasshopper.description": "Especially prehistoric insects with powerful wings and spurred hindlegs. May transform into locusts in adverse conditions.\n\nInfamous competition for crops such as grains and herbs.",
+    "bugs.grasshopper.message": "Having fun collecting bugs? I've found two types of earwigs and a lovely fluffy moth this week.#$b#It's amazing how many different species live right beside us, you'd never notice if you weren't looking for them.{{action}}",
 
     "bugs.mantis.name": "Orchid Mantis",
     "bugs.mantis.scientific": "Hymenopus coronatus",
-    "bugs.mantis.description": "Beautiful predators with toothed legs and powerful mandibles. Can change their camouflage at will, ambushing pollinating insects before they can react.\n\nFemales grow to twice the size of males, eating them after mating ..!",
+    "bugs.mantis.description": "Beautiful predators with jaw-like legs and powerful mandibles.\n\nCan change their camouflage at will, ambushing pollinating insects before they can react.\nFemales grow to twice the size of males, devouring them after mating.",
+    "bugs.mantis.message": "Wow, these are much more beautiful than in the handbook! You must've found her hiding in the azaleas, right?#$b#See, even in the jar it's trying to move with the wind. You must've caught a swaying mantis!$h{{action}}",
 
-    "bugs.louse.name": "Woodlouse",
-    "bugs.louse.scientific": "Porcellionidae",
-    "bugs.louse.description": "Nocturnal detritivores that decompose wood, manure, and other plant matter. Descended from marine isopods, they prefer damp habitats.\n\nVery cute given the number of legs.",
+    "bugs.woodlouse.name": "Woodlouse",
+    "bugs.woodlouse.scientific": "Porcellionidae",
+    "bugs.woodlouse.description": "Nocturnal detritivores that decompose wood, manure, and other plant matter.\nDescendants of ancient marine isopods, they adapted to live in damp habitats on land. Rolls into a ball when scared.\n\nVery cute little friends.",
+    "bugs.woodlouse.message": "How cute, a roly-poly bug. They don't appear all that special, but they're truly unique relatives of marine crustaceans.#$b#Better find him some leaf litter. It must be nice being able to sleep in your food! Hee hee.{{action}}",
 
     "bugs.centipede.name": "Centipede",
     "bugs.centipede.scientific": "Scolopendridae",
-    "bugs.centipede.description": "Aggressive predator capable of subduing disproportionately-large prey with its envenomed pincer-like forelimbs, even though mostly blind. Can live for up to 10 years in an ideal environment, growing additional legs with every moult.\n\nExtremely uncute. May take a lot of pins.",
+    "bugs.centipede.description": "Aggressive predator that can subdue large prey with its envenomed pincer-like forelimbs, even though mostly blind.\nCan live for up to 10 years, growing new legs with every moult.\n\nExtremely uncute. May take a lot of pins.",
+    "bugs.centipede.message": "Oh, you've got another specimen? Let me see..#$b# . . . #$b#.. EEK!$s#$b#Hold on, I'll fetch you a new jar.. this one's staying closed. Forever.$s{{action}}",
 
     "bugs.moth.name": "Moon Moth",
     "bugs.moth.scientific": "Actias luna",
-    "bugs.moth.description": "Large silk moth with a ghostly scale. Larvae thrive on cherry and maple trees in the region, adults survive only on larval energy stores.\n\nRelative of Actias artemis. Cute!",
+    "bugs.moth.description": "Large silk moth with a ghostly scale.\n\nLarvae thrive on cherry and maple trees in the region, while adults survive only on larval energy stores.\n\nRelative of Actias artemis. So cute!",
+    "bugs.moth.message": "Whoa, that's the biggest moth I've seen. I hope you were gentle, their scales brush off like powder.#$b#It really looks like Usagi with those tails.. but I don't think she'd much like being compared to a bug, heehee.$h{{action}}",
 
     "bugs.termite.name": "Termite",
     "bugs.termite.scientific": "Rhinotermitidae",
-    "bugs.termite.description": "Feeds on exposed wood, breeds underground in vast colonies millions-strong. Divided into a dimorphic social system, workers and soldiers support eachother under a king and queen.\n\nI hope there's no more where this came from..",
+    "bugs.termite.description": "Feeding voraciously on exposed wood, colonies of millions can spread far underground.\n\nDivided into dimorphic social castes, workers and soldiers support eachother under a breeding king and queen. May develop wings and swarm in search of food.",
+    "bugs.termite.message": "A termite? It's so small, I wonder if it's able to squeeze through the airholes in the lid.#$b#Better find a mesh cover, Rei's going to explode if she finds out I let a jar of termites loose in her house.$s{{action}}",
 
-    "bugs.ladybug.name": "Ladybird",
-    "bugs.ladybug.scientific": "Coccinellidae",
-    "bugs.ladybug.description": "Pretty guardians of the rose garden! Deceptively effective predators of small garden pests. Habitats are vast due to prolific breeding and individual range.\nSpecies within this family come in a wide range of colours and patterns.\n\nMako won't be happy if I pin this one.",
+    "bugs.ladybird.name": "Ladybird",
+    "bugs.ladybird.scientific": "Coccinellidae",
+    "bugs.ladybird.description": "Deceptively cute predators of small garden pests. Can reach extreme ranges and altitudes.\nWingcases may come in a variety of colours and patterns.\n\nPretty guardians of the rose garden! Mako won't be happy if I pin any more of these...",
+    "bugs.ladybird.message": "What a sweet little beetle! You'd never think they're really the vicious marauders of even-tinier little insects.#$b#Here, you'll need another bug jar. Good luck!{{action}}",
 
     "bugs.dragonfly.name": "Dragonfly",
     "bugs.dragonfly.scientific": "Libellulidae",
-    "bugs.dragonfly.description": "Agile aerial aces with precise flight and sight. Preferred habitats are near vegetated freshwater bodies such as lakes, rivers, and wetlands. Hatchling nymphs develop underwater for several years before emerging to breed and perish.\n\nIconic features of traditional paintings.",
+    "bugs.dragonfly.description": "Agile aerial aces with precise flight and sight. Preferred habitats are vegetated freshwater bodies such as lakes, rivers, and wetlands.\n\nHatchling nymphs develop underwater for several years, emerging in waves to spawn and die.",
+    "bugs.dragonfly.message": "A dragonfly! I'm surprised you even managed to catch one up here, it must've flown up from the mountain lakes.#$b#You'd never find one of these in the city, I've only ever seen them in paintings. They're like little flying jewels!{{action}}",
 
-    "bugs.scarab.name": "Jewel Scarab",
+    "bugs.scarab.name": "Jewel Beetle",
     "bugs.scarab.scientific": "Scarabaeidae",
-    "bugs.scarab.description": "Rarely-seen beetles with an iridescent carapace, only found in mountainous coniferous forests. Their metallic sheen comes from many layers of uniquely-coloured reflective chitin. Different species have a huge variety of colours!",
+    "bugs.scarab.description": "Rarely-seen beetles with an iridescent carapace, only found in mountainous coniferous forests. Little is known about their behavior.\n\nTheir metallic sheen comes from layers of uniquely-reflective chitin. Colour and luster varies wildly by species!",
+    "bugs.scarab.message": "No way, you found a real-live jewel beetle! And on this very hill, too!#$b#My handbook doesn't even mention a habitable zone for jewel beetles, I never thought you'd actually catch one.#$b#Nice work, @.$h{{action}}",
+
+    // Shrubs
+
+    "shrubs.cherry.name": "Ornamental Cherry",
+    "shrubs.cherry.scientific": "Prunus serrulata",
+    "shrubs.cherry.description": "Deciduous tree prized for its delicate pink blossoms.\nDoes not produce fruit.\nFlowers in spring.",
 
     // Dialogue
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib; // el diavolo nuevo
+using Hikawa.Data;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
@@ -50,8 +51,10 @@ namespace Hikawa
 		public static ModData ModData { get; private set; }
         public static Texture2D Sprites { get; private set; }
         public static Texture2D OutdoorsSprites { get; private set; }
+		public static Lazy<BugsDataAsset> BugsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<BugsDataAsset>(AssetManager.BugsDataAssetName));
 		public static Lazy<KiteData> KiteData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KiteData>(AssetManager.KiteDataAssetName));
         public static Lazy<SpriteFont> Italics = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName));
+		public static Lazy<SpriteFont> Handwriting = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(Path.Combine("Fonts", "SpriteFont1.ja-JP")));
 		public static Modules.OverlayEffectControl OverlayEffectControl { get; private set; }
 		public static ITranslationHelper I18n => ModEntry.Instance.Helper.Translation;
 
@@ -86,6 +89,12 @@ namespace Hikawa
 			ModEntry.Sprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.ExtraSpritesAssetName);
             ModEntry.OutdoorsSprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.OutdoorsSpritesAssetName);
 
+			if (ModEntry.ModData is null)
+			{
+				Log.E("Mod data could not be loaded.");
+				return;
+			}
+
 			// evil doings
 			Harmony harmony = new(id: this.Helper.ModRegistry.ModID);
 			harmony.PatchAll();
@@ -94,7 +103,10 @@ namespace Hikawa
 			this.MangleTranslations();
 
 			// lawful activity
+			ItemRegistry.AddTypeDefinition(new BowItemDataDefinition());
 			ItemRegistry.AddTypeDefinition(new KiteItemDataDefinition());
+            ItemRegistry.AddTypeDefinition(new BugToolItemDataDefinition());
+            ItemRegistry.AddTypeDefinition(new BugFurnitureItemDataDefinition());
 			this.RegisterMapActions();
 			this.RegisterEventCommands();
 
@@ -240,6 +252,12 @@ namespace Hikawa
 		/// </summary>
 		private void OnDayStarted(object sender, DayStartedEventArgs e)
 		{
+			if (Context.IsMainPlayer)
+			{
+                ModEntry.Instance.Helper.GameContent.InvalidateCache(ModEntry.OutdoorsSprites.Name);
+
+				Utils.AddBugProperties();
+            }
 		}
 
 		/// <summary>
@@ -247,6 +265,10 @@ namespace Hikawa
 		/// </summary>
 		private void OnDayEnding(object sender, DayEndingEventArgs e)
 		{
+			if (Context.IsMainPlayer)
+			{
+				Utils.ClearBugProperties();
+			}
 		}
 
 		/// <summary>

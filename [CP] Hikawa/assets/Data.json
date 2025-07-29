@@ -48,6 +48,7 @@
                 "ActionEma": "{{ID}}_Ema",
                 "ActionVortex": "{{ID}}_Vortex",
                 "ActionCrowTrade": "{{ID}}_CrowTrade",
+                "ActionBug": "{{ID}}_Bug",
                 // touch actions
                 "TouchActionHop": "{{ID}}_Hop",
                 // triggers
@@ -58,6 +59,9 @@
                 "ItemWand": "{{ID}}_Wand",
                 "ItemMirror": "{{ID}}_Mirror",
                 "ItemTotem": "{{ID}}_Totem",
+                "ItemBugCollection": "{{ID}}_BugCollection",
+                "ItemBugFurniture": "{{ID}}_BugFurniture",
+                "ItemBugTool": "{{TOOL_BUGS}}",
                 "ItemVolleyball": "{{ID}}_Volleyball",
                 "ItemLostGlasses": "{{ID}}_LostGlasses",
                 "ItemLostJewelry": "{{ID}}_LostJewelry",

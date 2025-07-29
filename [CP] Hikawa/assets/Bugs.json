@@ -1,0 +1,468 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Bugs - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Bugs",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Bugs - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Bugs",
+            "Entries": {
+                "BugFurnitureData": {
+                    "Identifier": "(BB_HIKAWA_BUG_F)",
+                    "Category": -24,
+                    "Type": "Furniture"
+                },
+                "BugFurniture": {
+                    "Desert": {
+                        "DisplayName": "{{i18n:furniture.bugs.desert.name}}",
+                        "Description": "{{i18n:furniture.bugs.desert.description}}",
+                        "TextureId": "{{PATH}}/Objects/Furniture",
+                        "TileIndex": 2,
+                        "TileSize": {
+                            "X": 2,
+                            "Y": 2
+                        },
+                        "BugSlots": [
+                            "Ground",
+                            "Ground"
+                        ]
+                    },
+                    "Dome": {
+                        "DisplayName": "{{i18n:furniture.bugs.dome.name}}",
+                        "Description": "{{i18n:furniture.bugs.dome.description}}",
+                        "TextureId": "{{PATH}}/Objects/Furniture",
+                        "TileIndex": 4,
+                        "TileSize": {
+                            "X": 1,
+                            "Y": 2
+                        },
+                        "BugSlots": [
+                            "Ground",
+                            "Perch"
+                        ]
+                    },
+                    "Meadow": {
+                        "DisplayName": "{{i18n:furniture.bugs.meadow.name}}",
+                        "Description": "{{i18n:furniture.bugs.meadow.description}}",
+                        "TextureId": "{{PATH}}/Objects/Furniture",
+                        "TileIndex": 5,
+                        "TileSize": {
+                            "X": 2,
+                            "Y": 2
+                        },
+                        "BugSlots": [
+                            "Ground",
+                            "Ground"
+                        ]
+                    }
+                },
+                "BugToolData": {
+                    "Identifier": "(BB_HIKAWA_BUG_T)",
+                    "Name": "{{TOOL_BUGS}}",
+                    "DisplayName": "{{i18n:item.bugtool.name}}",
+                    "Description": "{{i18n:item.bugtool.description}}",
+                    "TextureName": "{{PATH}}/Objects/Sprites",
+                    "SpriteSize": {
+                        "X": 16,
+                        "Y": 16
+                    },
+                    "SpriteIndex": 9,
+                    "Category": -99,
+                    "Type": "Crafting"
+                },
+                "BugData": {
+                    "Stag": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 272,
+                            "Y": 368,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 192,
+                            "Y": 336,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.stag.name}}",
+                        "ScientificName": "{{i18n:bugs.stag.scientific}}",
+                        "Description": "{{i18n:bugs.stag.description}}",
+                        "Season": "fall",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1250,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Stag"
+                    },
+                    "Butterfly": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 240,
+                            "Y": 336,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 192,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.butterfly.name}}",
+                        "ScientificName": "{{i18n:bugs.butterfly.scientific}}",
+                        "Description": "{{i18n:bugs.butterfly.description}}",
+                        "Season": "spring",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 480,
+                        "IsFlying": true,
+                        "BugSlot": "Flying",
+                        "ContextTag": "{{ID}}_Bugs_Butterfly"
+                    },
+                    "Wasp": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 272,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 192,
+                            "Y": 368,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.wasp.name}}",
+                        "ScientificName": "{{i18n:bugs.wasp.scientific}}",
+                        "Description": "{{i18n:bugs.wasp.description}}",
+                        "Season": "fall",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 20,
+                        "IsFlying": true,
+                        "BugSlot": "Flying",
+                        "ContextTag": "{{ID}}_Bugs_Wasp"
+                    },
+                    "Grasshopper": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 304,
+                            "Y": 336,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 192,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.grasshopper.name}}",
+                        "ScientificName": "{{i18n:bugs.grasshopper.scientific}}",
+                        "Description": "{{i18n:bugs.grasshopper.description}}",
+                        "Season": "spring",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1000,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Grasshopper"
+                    },
+                    "Mantis": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 240,
+                            "Y": 368,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 208,
+                            "Y": 336,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.mantis.name}}",
+                        "ScientificName": "{{i18n:bugs.mantis.scientific}}",
+                        "Description": "{{i18n:bugs.mantis.description}}",
+                        "Season": "spring",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1000,
+                        "BugSlot": "Perch",
+                        "ContextTag": "{{ID}}_Bugs_Mantis"
+                    },
+                    "Woodlouse": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 272,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 208,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.woodlouse.name}}",
+                        "ScientificName": "{{i18n:bugs.woodlouse.scientific}}",
+                        "Description": "{{i18n:bugs.woodlouse.description}}",
+                        "Season": "winter",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 750,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Woodlouse"
+                    },
+                    "Centipede": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 304,
+                            "Y": 368,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 208,
+                            "Y": 368,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.centipede.name}}",
+                        "ScientificName": "{{i18n:bugs.centipede.scientific}}",
+                        "Description": "{{i18n:bugs.centipede.description}}",
+                        "Season": "fall",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1000,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Centipede"
+                    },
+                    "Moth": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 272,
+                            "Y": 336,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 208,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.moth.name}}",
+                        "ScientificName": "{{i18n:bugs.moth.scientific}}",
+                        "Description": "{{i18n:bugs.moth.description}}",
+                        "Season": "winter",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1250,
+                        "BugSlot": "Perch",
+                        "ContextTag": "{{ID}}_Bugs_Moth"
+                    },
+                    "Termite": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 240,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 224,
+                            "Y": 336,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.termite.name}}",
+                        "ScientificName": "{{i18n:bugs.termite.scientific}}",
+                        "Description": "{{i18n:bugs.termite.description}}",
+                        "Season": "summer",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 750,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Termite"
+                    },
+                    "Ladybird": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 304,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 224,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.ladybird.name}}",
+                        "ScientificName": "{{i18n:bugs.ladybird.scientific}}",
+                        "Description": "{{i18n:bugs.ladybird.description}}",
+                        "Season": "fall",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1000,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Ladybird"
+                    },
+                    "Dragonfly": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 240,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 224,
+                            "Y": 368,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.dragonfly.name}}",
+                        "ScientificName": "{{i18n:bugs.dragonfly.scientific}}",
+                        "Description": "{{i18n:bugs.dragonfly.description}}",
+                        "Season": "summer",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 20,
+                        "IsFlying": true,
+                        "BugSlot": "Flying",
+                        "ContextTag": "{{ID}}_Bugs_Dragonfly"
+                    },
+                    "Scarab": {
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "WorldTextureRegion": {
+                            "X": 304,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "MenuTextureRegion": {
+                            "X": 224,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "ToolTextureRegion": {
+                            "X": 0,
+                            "Y": 64,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "DisplayName": "{{i18n:bugs.scarab.name}}",
+                        "ScientificName": "{{i18n:bugs.scarab.scientific}}",
+                        "Description": "{{i18n:bugs.scarab.description}}",
+                        "Season": "summer",
+                        "AnimationFrames": 2,
+                        "AnimationSpeed": 1250,
+                        "IsGold": true,
+                        "BugSlot": "Ground",
+                        "ContextTag": "{{ID}}_Bugs_Scarab"
+                    }
+                },
+                "Bugs": {
+                    "{{SHRINE}}": {
+                        "29, 42": "Butterfly",
+                        "39, 36": "Butterfly"
+                    }
+                },
+                /*
+				"Bugs": {
+					"Spring": {
+						"Butterfly": {
+							"Tiles": [
+
+							],
+
+						},
+						"Mantis":,
+						"Grasshopper":,
+					},
+					"Summer": {
+						"Dragonfly":,
+						"Termite":,
+						"Scarab": ,
+					},
+					"Fall": {
+						"Centipede":,
+						"Ladybird":,
+						"Wasp": ,
+						"Stag": ,
+					},
+					"Winter": {
+						"Louse":,
+						"Moth": ,
+					}
+				},*/
+            }
+        }
+    ]
+}

@@ -43,6 +43,7 @@ namespace Hikawa
 		public string ActionEma;
 		public string ActionVortex;
 		public string ActionCrowTrade;
+		public string ActionBug;
 		// touch actions
 		public string TouchActionHop;
 		// trigger actions
@@ -53,6 +54,9 @@ namespace Hikawa
 		public string ItemWand;
 		public string ItemMirror;
 		public string ItemTotem;
+		public string ItemBugCollection;
+		public string ItemBugFurniture;
+		public string ItemBugTool;
 		public string ItemVolleyball;
 		public string ItemLostGlasses;
 		public string ItemLostJewelry;
