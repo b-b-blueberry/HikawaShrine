@@ -45,6 +45,10 @@
     "quest.subtitle.glasses": "...",
     "quest.task.glasses": "...",
     "quest.reaction.glasses": "...",
+
+    // lost jewelry
+    "quest.title.jewelry": "A Red Earring",
+    "quest.subtitle.jewelry": "...",
     "quest.reaction.jewelry": "...",
 
     // summer flowers
@@ -208,6 +212,13 @@
     "world.shrine.offer.awaiting": "You've already paid tribute recently.",
     "world.shrine.offer.cooldown": "You still feel a little peculiar from your last visit.",
     "world.shrine.tree.warning": "You shouldn't cut down trees at the Shrine.",
+    "world.shrine.mailbox.1": "Empty.",
+    "world.shrine.mailbox.2": "No post today.",
+    "world.shrine.mailbox.3": "This week's edition of 'Comic-P' is sitting in the mailbox.",
+    "world.shrine.mailbox.4": "Letters from the city.",
+    "world.shrine.mailbox.5": "There's a copy of 'Astrophysics Monthly' magazine in there.",
+    "world.shrine.mailbox.6": "Some letters in the mailbox? This one smells like perfume.",
+    "world.shrine.mailbox.7": "Quite a few overseas mail-order parcels in here.",
 
     "world.house.blank": "...",
     "world.house.hearth": "The lid's rattling on an old kettle, quietly steaming away. Smells nice.",
@@ -364,7 +375,7 @@
     "rei.chat.7": "There's a lot of spirits that call the shrine their home.#$b#It's not the last resting place for all of them. Sometimes they're just resting.",
     "rei.chat.8": "It's soothing watching the stars come out at night. Knowing they've been watching over you all day.#$b#But you couldn't tell anything was there at all.",
     "rei.chat.9": "I make sure to light the lanterns around the cemetery each night.#$b#It's just another duty in the day, but I'm sure it means a lot to someone.",
-    "rei.chat.10": "Just before summer ends and colder weather comes in, we put together a bonfire and share a moment with the dead.#$b#You can join in if you like. There'll be food!#$e#.. Or whatever's left after Ami finds it.",
+    "rei.chat.10": "Just before summer ends and colder weather comes in, we put together a bonfire and share a moment with the dead.#$b#You can join in if you like. There'll be food!#$e#.. Or whatever food's left after Ami finds it.",
     "rei.chat.11": "It's a lot of work keeping this old shrine from falling apart.#$b#The closer you live to nature, the more you feel the elements are against you.#$e#I'm glad it's not just grandpa and me here.",
     "rei.chat.12": "Do you believe in ghosts, @?#$e#.. No, you don't seem like the type.",
     "rei.chat.13": "I've given up on styling my hair at home. One gust of wind and it's ruined.#$b#We get a lot of wind here...",
@@ -388,7 +399,7 @@
     "rei.chat.31": "Most of the shrine was built from cherry trees felled years ago.#$b#Since cherry wood burns so easily, it's been rebuilt a few times in its history.#$e#.. No, I wasn't even here last time.",
     "rei.chat.32": "Grandpa was one of the workmen the last time the shrine needed some building done. He's got a lot of experience with woodwork.#$b#It's been a hobby of his for as long as I can remember. Pretty much all the furniture at home is his work.#$e#These days people just order their homewares online. I don't know when he last had an order...",
     "rei.chat.33": "I haven't seen Grandpa put together any new furniture in a while, but he always seems to be working on something.#$b#Wonder what he's up to now.",
-    "rei.chat.34": "Cherry Hill Shrine was once a place of worship for an old god of fire.#$b#The legend's long since forgotten, but the shrine survives. Now it's a place of remembrance for lost spirits.#$e#Fire hasn't left the shrine over the years, though.#$b#Even when the great hall burned down, we kept the embers burning. The same fire lives on in the hall now.",
+    "rei.chat.34": "Cherry Hill Shrine was once a place of worship for an old fire deity that lived on the mountain.#$b#The legend's long forgotten, but the shrine survives. Now it's a place of remembrance for lost spirits.#$e#Fire hasn't left the shrine over the years, though.#$b#Even when the great hall burned down, we kept the embers burning. The same fire lives on in the hall now.",
     "rei.chat.35": "Wow, you.. really smell.#$b#Use a lot of manure on the farm, huh?",
     "rei.chat.36": "Don't walk around the house in those boots. I don't even want to think what you've stepped in on the way here.",
     "rei.chat.37": "No, we don't make 'chewed sake' here. Don't even ask for it.",
@@ -458,6 +469,11 @@
     "grandpa.chat.12": "*grumble*...#$e#Can't put one foot forward without kicking over one of these blasted flowerpots...",
     "grandpa.chat.13": "(wave 1)*grumble*.. *mumble*...",
     "grandpa.chat.": "",
+
+    "mako.chat.1": "You know what's perfect with cheese? Oregano!#$b#Oh, you knew that already? Alright, how about this: mustard powder.$u#$e#Don't look at me like that! I swear it works.$h",
+    "mako.chat.2": "You know what makes a really rich chili? Fried cherry tomatoes!#$b#You knew that already, huh? Oooh, you're asking for it. How about... dark chocolate!$h#$b#Don't knock it 'til you try it! Just don't add too much though, I've had to serve it as dessert once.$s",
+    "mako.chat.3": "You should try a Curry Diablo on Ami sometime. I've never seen her go so red before.#$e#Oh no, there was that one time..$b",
+    "mako.chat.": "",
 
     "fortune.prompt": "Would you like your fortune told?",
     "fortune.prompt.1": "Cross my palm with silver. Or cash, whichever.",
