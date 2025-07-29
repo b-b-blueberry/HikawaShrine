@@ -1,0 +1,10 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Tools - Data",
+            "Action": "EditData",
+            "Target": "Data/Tools",
+            "Entries": {
+        }
+    ]
+}

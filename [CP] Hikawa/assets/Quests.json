@@ -8,6 +8,13 @@
                 "{{ID}}_LostGlassesQuest": "LostItem/{{i18n:quest.title.glasses}}/{{i18n:quest.subtitle.glasses}}/{{i18n:quest.task.glasses}}/{{AMI}} (O)790 Backwoods 27 27/-1/0/-1/true/{{i18n:quest.reaction.glasses}}",
                 "{{ID}}_LostJewelryQuest": "SecretLostItem/.../.../.../{{REI}} (O)790 Backwoods 27 27/-1/0/-1/true/{{i18n:quest.reaction.jewelry}}"
             }
+        },
+        {
+            "LogName": "Hikawa: SpecialOrders - Data",
+            "Action": "EditData",
+            "Target": "Data/SpecialOrders",
+            "Entries": {
+            }
         }
     ]
 }

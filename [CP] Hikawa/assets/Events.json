@@ -1,0 +1,40 @@
+{
+    "Changes": [
+        // Blanks
+        {
+            "LogName": "Hikawa: Events - Blanks",
+            "Action": "Load",
+            "Target": "Data/Events/{{SHRINE}}, Data/Events/{{HOUSE}}, Data/Events/{{HALL}}, Data/Events/{{GROVE}}",
+            "FromFile": "assets/Blank.json"
+        },
+        // Events
+        {
+            "LogName": "Hikawa: Events - Shrine",
+            "Action": "EditData",
+            "Target": "Data/Events/{{SHRINE}}",
+            "Entries": {
+            }
+        },
+        {
+            "LogName": "Hikawa: Events - House",
+            "Action": "EditData",
+            "Target": "Data/Events/{{HOUSE}}",
+            "Entries": {
+            }
+        },
+        {
+            "LogName": "Hikawa: Events - Hall",
+            "Action": "EditData",
+            "Target": "Data/Events/{{HALL}}",
+            "Entries": {
+            }
+        },
+        {
+            "LogName": "Hikawa: Events - Grove",
+            "Action": "EditData",
+            "Target": "Data/Events/{{GROVE}}",
+            "Entries": {
+            }
+        }
+    ]
+}

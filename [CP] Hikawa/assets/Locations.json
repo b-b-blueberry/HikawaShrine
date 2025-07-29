@@ -92,6 +92,14 @@
 				}
 			}
 		},
+		// Location contexts
+		{
+			"LogName": "Hikawa: Locations - LocationContexts",
+			"Action": "EditData",
+			"Target": "Data/LocationContexts",
+			"Entries": {
+			}
+		},
 		// World map
 		{
 			"LogName": "Hikawa: Locations - World map",

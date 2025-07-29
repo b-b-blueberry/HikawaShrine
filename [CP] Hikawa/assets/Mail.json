@@ -1,0 +1,11 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Mail - Data",
+            "Action": "EditData",
+            "Target": "Data/mail",
+            "Entries": {
+            }
+        }
+    ]
+}

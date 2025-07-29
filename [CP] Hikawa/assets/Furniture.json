@@ -1,0 +1,10 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Furniture - Data",
+            "Action": "EditData",
+            "Target": "Data/Furniture",
+            "Entries": {
+        }
+    ]
+}

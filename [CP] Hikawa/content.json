@@ -22,6 +22,16 @@
             "FromFile": "assets/Characters.json"
         },
         {
+            "LogName": "Hikawa: Events",
+            "Action": "Include",
+            "FromFile": "assets/Events.json"
+        },
+        {
+            "LogName": "Hikawa: Furniture",
+            "Action": "Include",
+            "FromFile": "assets/Furniture.json"
+        },
+        {
             "LogName": "Hikawa: Locations",
             "Action": "Include",
             "FromFile": "assets/Locations.json"
@@ -32,9 +42,19 @@
             "FromFile": "assets/Kites.json"
         },
         {
+            "LogName": "Hikawa: Mail",
+            "Action": "Include",
+            "FromFile": "assets/Mail.json"
+        },
+        {
             "LogName": "Hikawa: Objects",
             "Action": "Include",
             "FromFile": "assets/Objects.json"
+        },
+        {
+            "LogName": "Hikawa: PassiveFestivals",
+            "Action": "Include",
+            "FromFile": "assets/PassiveFestivals.json"
         },
         {
             "LogName": "Hikawa: Quests",
@@ -55,6 +75,11 @@
             "LogName": "Hikawa: Strings",
             "Action": "Include",
             "FromFile": "assets/Strings.json"
+        },
+        {
+            "LogName": "Hikawa: Tools",
+            "Action": "Include",
+            "FromFile": "assets/Tools.json"
         },
         {
             "LogName": "Hikawa: WildTrees",
