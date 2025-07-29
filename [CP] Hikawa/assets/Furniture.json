@@ -7,6 +7,58 @@
             "Entries": {
                 // bug set
                 "{{ID}}_BugCollection": "{{ID}}_BugCollection/painting/2 2/2 2/1/2000/-1/{{i18n:furniture.bugcollection.name}}/0/{{PATH_S}}\\Sprites\\Furniture/true",
+                // plushie set
+                "{{ID}}_Plush_Bear": "{{ID}}_Plush_Bear/decor/2 2/2 1/1/1750/-1/{{i18n:furniture.plush_bear.name}}/22/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Luna_P_XL": "{{ID}}_Plush_Luna_P_XL/decor/2 2/2 1/1/1750/-1/{{i18n:furniture.plush_luna_p_xl.name}}/24/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Luna_P": "{{ID}}_Plush_Luna_P/decor/1 1/1 1/1/1750/-1/{{i18n:furniture.plush_luna_p.name}}/37/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Bagpuss": "{{ID}}_Plush_Bagpuss/decor/2 2/2 1/1/1750/-1/{{i18n:furniture.plush_bagpuss.name}}/27/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Wall_Artemis": "{{ID}}_Wall_Artemis/painting/1 2/1 2/1/1000/-1/{{i18n:furniture.wall_artemis.name}}/29/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Luna_Flat": "{{ID}}_Plush_Luna_Flat/rug/2 1/2 1/1/1000/-1/{{i18n:furniture.plush_luna_flat.name}}/41/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Bunny": "{{ID}}_Plush_Bunny/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_bunny.name}}/32/{{PATH_S}}\\Sprites\\Furniture/true",
+                // plushie set
+                "{{ID}}_Plush_Mercury": "{{ID}}_Plush_Mercury/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_mercury.name}}/44/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Moon": "{{ID}}_Plush_Moon/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_moon.name}}/45/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Mars": "{{ID}}_Plush_Mars/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_mars.name}}/46/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Venus": "{{ID}}_Plush_Venus/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_venus.name}}/47/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Jupiter": "{{ID}}_Plush_Jupiter/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_jupiter.name}}/48/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Tuxedo": "{{ID}}_Plush_Tuxedo/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_tuxedo.name}}/49/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Luna": "{{ID}}_Plush_Luna/decor/1 1/1 1/1/1500/-1/{{i18n:furniture.plush_luna.name}}/50/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Plush_Artemis": "{{ID}}_Plush_Artemis/decor/1 1/1 1/1/1500/-1/{{i18n:furniture.plush_artemis.name}}/51/{{PATH_S}}\\Sprites\\Furniture/true",
+                // moonie set
+                "{{ID}}_Moon_Cushion_A": "{{ID}}_Moon_Cushion_A/rug/1 1/1 1/1/250/-1/{{i18n:furniture.moon_cushion_a.name}}/61/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Cushion_B": "{{ID}}_Moon_Cushion_B/rug/1 1/1 1/1/250/-1/{{i18n:furniture.moon_cushion_b.name}}/62/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Rug": "{{ID}}_Moon_Rug/rug/3 2/3 2/1/750/-1/{{i18n:furniture.moon_rug.name}}/52/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Mirror": "{{ID}}_Moon_Mirror/painting/1 2/1 2/1/250/-1/{{i18n:furniture.moon_mirror.name}}/76/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Double_Bed": "{{ID}}_Moon_Double_Bed/bed double/3 4/3 3/1/5000/-1/{{i18n:furniture.moon_double_bed.name}}/66/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Single_Bed": "{{ID}}_Moon_Single_Bed/bed/2 4/2 3/1/3500/-1/{{i18n:furniture.moon_single_bed.name}}/72/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Chicken_Clock": "{{ID}}_Chicken_Clock/decor/1 2/1 1/1/500/-1/{{i18n:furniture.chicken_clock.name}}/98/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Futon_Bed": "{{ID}}_Moon_Futon_Bed/bed/2 4/2 3/1/2000/-1/{{i18n:furniture.moon_futon_bed.name}}/110/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Cosy_Table": "{{ID}}_Moon_Cosy_Table/table/2 3/2 2/1/2500/-1/{{i18n:furniture.moon_cosy_table.name}}/114/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Tea_Table": "{{ID}}_Moon_Tea_Table/table/2 2/2 2/1/1500/-1/{{i18n:furniture.moon_tea_table.name}}/116/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Vase_A": "{{ID}}_Moon_Vase_A/decor/1 2/1 1/1/300/-1/{{i18n:furniture.moon_vase_a.name}}/118/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Radio": "{{ID}}_Moon_Radio/decor/1 2/1 1/1/350/-1/{{i18n:furniture.moon_radio.name}}/119/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Clock": "{{ID}}_Moon_Clock/painting/1 2/1 2/1/350/-1/{{i18n:furniture.moon_clock.name}}/120/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Tea_Set": "{{ID}}_Moon_Tea_Set/decor/1 1/1 1/1/500/-1/{{i18n:furniture.moon_tea_set.name}}/138/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Stool": "{{ID}}_Moon_Stool/chair/1 1/1 1/1/350/-1/{{i18n:furniture.moon_stool.name}}/139/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Chair": "{{ID}}_Moon_Chair/chair/1 2/1 1/4/350/-1/{{i18n:furniture.moon_chair.name}}/140/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Vase_B": "{{ID}}_Moon_Vase_B/decor/1 1/1 1/1/300/-1/{{i18n:furniture.moon_vase_b.name}}/147/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Side_Table": "{{ID}}_Moon_Side_Table/table/1 2/1 1/2/500/-1/{{i18n:furniture.moon_side_table.name}}/149/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Wardrobe_Closed": "{{ID}}_Moon_Wardrobe_Closed/painting/3 3/3 3/1/750/-1/{{i18n:furniture.moon_wardrobe_closed.name}}/154/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Moon_Wardrobe_Open": "{{ID}}_Moon_Wardrobe_Open/painting/3 3/3 3/1/750/-1/{{i18n:furniture.moon_wardrobe_open.name}}/157/{{PATH_S}}\\Sprites\\Furniture/true",
+                //"{{ID}}_Moon_Curtain_Window": "{{ID}}_Moon_Curtain_Window/window/3 3/3 3/1/1500/-1/{{i18n:furniture.moon_curtain_window.name}}/187/{{PATH_S}}\\Sprites\\Furniture/true"
+                // flower set
+                "{{ID}}_Flower_Tea_Table": "{{ID}}_Flower_Tea_Table/table/2 2/2 2/1/1500/-1/{{i18n:furniture.flower_tea_table.name}}/187/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Side_Table": "{{ID}}_Flower_Side_Table/table/1 2/1 1/1/500/-1/{{i18n:furniture.flower_side_table.name}}/189/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Couch_P": "{{ID}}_Flower_Couch_P/armchair/2 2/2 1/1/1500/-1/{{i18n:furniture.flower_couch.name}}/209/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Couch_Y": "{{ID}}_Flower_Couch_Y/armchair/2 2/2 1/1/1500/-1/{{i18n:furniture.flower_couch.name}}/211/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Couch_G": "{{ID}}_Flower_Couch_G/armchair/2 2/2 1/1/1500/-1/{{i18n:furniture.flower_couch.name}}/213/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Couch_R": "{{ID}}_Flower_Couch_R/armchair/2 2/2 1/1/1500/-1/{{i18n:furniture.flower_couch.name}}/215/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Lamp_P": "{{ID}}_Flower_Lamp_P/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/231/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Lamp_Y": "{{ID}}_Flower_Lamp_Y/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/233/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Lamp_G": "{{ID}}_Flower_Lamp_G/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/235/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Lamp_R": "{{ID}}_Flower_Lamp_R/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/237/{{PATH_S}}\\Sprites\\Furniture/true",
+                "{{ID}}_Flower_Rug": "{{ID}}_Flower_Rug/rug/4 3/4 3/1/750/-1/{{i18n:furniture.flower_rug.name}}/264/{{PATH_S}}\\Sprites\\Furniture/true"
+            }
         }
     ]
 }
