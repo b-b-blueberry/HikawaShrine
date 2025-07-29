@@ -26,7 +26,8 @@ namespace Hikawa
 		public string MapShrine;
 		public string MapHouse;
 		public string MapHall;
-		public string MapVortex;
+		public string MapGrove;
+        public string MapVortex;
 		public string MapRoof;
 		public string MapVolleyball;
 		// tile sheets
