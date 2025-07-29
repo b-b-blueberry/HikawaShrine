@@ -55,6 +55,9 @@
     "buff.burntcrackers.description": "Protected against fire damage.",
 
     // Items
+
+    // categories
+    "item.category.shrub": "Decorative Shrub",
     // objects
     "item.charcoal.name": "Charcoal",
     "item.charcoal.description": "Burnt old wood. Can be used as superior fuel.",
@@ -67,6 +70,8 @@
     // tools
     "item.bugtool.name": "Bug Jar",
     "item.bugtool.description": "Ami's hi-tech survey equipment. Used to collect critters around Cherry Hill.",
+    "item.shrubtool.name": "Secateurs",
+    "item.shrubtool.description": "Makoto's trusty garden scissors. Used to trim decorative shrubs.",
     // totems
     "item.totem.name": "Warp Totem: Cherry Hill",
     "item.totem.description": "Warp directly to Cherry Hill Shrine. Consumed on use.",

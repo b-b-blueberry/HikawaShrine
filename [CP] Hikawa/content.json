@@ -77,6 +77,11 @@
             "FromFile": "assets/Shops.json"
         },
         {
+            "LogName": "Hikawa: Shrubs",
+            "Action": "Include",
+            "FromFile": "assets/Shrubs.json"
+        },
+        {
             "LogName": "Hikawa: Sprites",
             "Action": "Include",
             "FromFile": "assets/Sprites.json"

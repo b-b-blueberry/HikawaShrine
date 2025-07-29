@@ -1,0 +1,33 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Shrubs - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Shrubs",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Shrubs - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Shrubs",
+            "Entries": {
+                "Shrubs": {
+                    "Cherry": {
+                        "TextureId": "{{PATH}}/Sprites/Outdoors",
+                        "TextureRegion": {
+                            "X": 656,
+                            "Y": 464,
+                            "Width": 48,
+                            "Height": 64
+                        },
+                        "TextureOrigin": "24, 64",
+                        "DisplayName": "{{i18n:shrubs.cherry.name}}",
+                        "ScientificName": "{{i18n:shrubs.cherry.scientific}}",
+                        "Description": "{{i18n:shrubs.cherry.description}}",
+                        "MaxSize": 0
+                    }
+                }
+            }
+        }
+    ]
+}

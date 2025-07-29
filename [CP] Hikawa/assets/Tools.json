@@ -5,6 +5,18 @@
             "Action": "EditData",
             "Target": "Data/Tools",
             "Entries": {
+                "{{ID}}_ShrubTool": {
+                    "ClassName": "Hikawa.Objects.Items.ShrubTool, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "Name": "{{ID}}_ShrubTool",
+                    "SalePrice": 350,
+                    "DisplayName": "{{i18n:item.shrubtool.name}}",
+                    "Description": "{{i18n:item.shrubtool.description}}",
+                    "Texture": "{{PATH}}/Objects/Sprites",
+                    "SpriteIndex": -1,
+                    "MenuSpriteIndex": 10,
+                    "CanBeLostOnDeath": true
+                }
+            }
         }
     ]
 }

@@ -168,6 +168,15 @@ namespace Hikawa
         }
 
 		[HarmonyPrefix]
+		[HarmonyPatch(typeof(Game1))]
+		[HarmonyPatch("drawTool")]
+		[HarmonyPatch([typeof(Farmer), typeof(int)])]
+		public static bool Game1_DrawTool_Prefix(Farmer f)
+		{
+			return f.CurrentTool is not ShrubTool;
+		}
+
+		[HarmonyPrefix]
 		[HarmonyPatch(typeof(Furniture))]
 		[HarmonyPatch("checkForAction")]
 		public static bool Furniture_CheckForAction_Prefix(Furniture __instance, Farmer who, bool justCheckingForActivity, ref bool __result)

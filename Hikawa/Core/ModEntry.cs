@@ -7,6 +7,7 @@ using HarmonyLib; // el diavolo nuevo
 using Hikawa.Data;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Items;
+using Hikawa.Objects.Items.Data;
 using Hikawa.Objects.Locations;
 using Hikawa.Objects.Menus;
 using Hikawa.Volleyball;
@@ -53,6 +54,7 @@ namespace Hikawa
         public static Texture2D OutdoorsSprites { get; private set; }
 		public static Lazy<BugsDataAsset> BugsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<BugsDataAsset>(AssetManager.BugsDataAssetName));
 		public static Lazy<KiteData> KiteData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KiteData>(AssetManager.KiteDataAssetName));
+		public static Lazy<ShrubsDataAsset> ShrubData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<ShrubsDataAsset>(AssetManager.ShrubsDataAssetName));
         public static Lazy<SpriteFont> Italics = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName));
 		public static Lazy<SpriteFont> Handwriting = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(Path.Combine("Fonts", "SpriteFont1.ja-JP")));
 		public static Modules.OverlayEffectControl OverlayEffectControl { get; private set; }

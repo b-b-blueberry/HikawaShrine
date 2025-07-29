@@ -66,6 +66,8 @@ namespace Hikawa.Interfaces
             Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Kite));
             Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(BugTool));
             Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(BugFurniture));
+			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(ShrubTool));
+			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Shrub));
 
 			return Interfaces.SpaceCoreAPI is not null;
 		}

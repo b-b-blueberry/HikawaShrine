@@ -11,6 +11,7 @@ namespace Hikawa
         internal static readonly string ForageAssetName = Path.Combine(RootAssetDir, "Data", "Forage");
         internal static readonly string BugsDataAssetName = Path.Combine(RootAssetDir, "Data", "Bugs");
         internal static readonly string KiteDataAssetName = Path.Combine(RootAssetDir, "Data", "Kites");
+        internal static readonly string ShrubsDataAssetName = Path.Combine(RootAssetDir, "Data", "Shrubs");
 		internal static readonly string StringsAssetName = Path.Combine(RootAssetDir, "Strings", "Strings");
         internal static readonly string EventSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Events");
         internal static readonly string ExtraSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Extras");
