@@ -27,6 +27,16 @@
             "FromFile": "assets/Characters.json"
         },
         {
+            "LogName": "Hikawa: CrowTradeRules",
+            "Action": "Include",
+            "FromFile": "assets/CrowTradeRules.json"
+        },
+        {
+            "LogName": "Hikawa: DecorSpawns",
+            "Action": "Include",
+            "FromFile": "assets/DecorSpawns.json"
+        },
+        {
             "LogName": "Hikawa: Events",
             "Action": "Include",
             "FromFile": "assets/Events.json"
@@ -80,6 +90,11 @@
             "LogName": "Hikawa: Shrubs",
             "Action": "Include",
             "FromFile": "assets/Shrubs.json"
+        },
+        {
+            "LogName": "Hikawa: ShrineTrees",
+            "Action": "Include",
+            "FromFile": "assets/ShrineTrees.json"
         },
         {
             "LogName": "Hikawa: Sprites",

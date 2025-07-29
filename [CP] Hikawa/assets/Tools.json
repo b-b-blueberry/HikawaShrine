@@ -11,7 +11,7 @@
                     "SalePrice": 350,
                     "DisplayName": "{{i18n:item.shrubtool.name}}",
                     "Description": "{{i18n:item.shrubtool.description}}",
-                    "Texture": "{{PATH}}/Objects/Sprites",
+                    "Texture": "{{PATH}}/Sprites/Objects",
                     "SpriteIndex": -1,
                     "MenuSpriteIndex": 10,
                     "CanBeLostOnDeath": true

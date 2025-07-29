@@ -24,10 +24,6 @@ public class BugsDataAsset
     /// Keyed by bug ID
     /// </summary>
     public Dictionary<string, BugData> BugData;
-    /// <summary>
-    /// Keyed by location name
-    /// </summary>
-    public Dictionary<string, Dictionary<Vector2, string>> Bugs;
 }
 
 public record class BugFurnitureData
@@ -122,16 +118,4 @@ public record class BugData
     /// Context tag applied to bug tool when caught.
     /// </summary>
     public string ContextTag;
-}
-
-public record class BugDataEntry
-{
-    /// <summary>
-    /// List of possible tile coordinates when adding to world.
-    /// </summary>
-    public Vector2[] Tiles;
-    /// <summary>
-    /// Relative weight when adding to world.
-    /// </summary>
-    public int Weight;
 }

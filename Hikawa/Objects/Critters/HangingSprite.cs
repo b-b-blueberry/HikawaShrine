@@ -1,5 +1,5 @@
 using System;
-using Hikawa.Objects.Locations;
+using Hikawa.Data;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 
@@ -9,7 +9,7 @@ namespace Hikawa.Objects.Critters
 	{
 		public const float DefaultRotation = MathF.PI * 0.5f;
 
-		public readonly HangingSpriteEntry Data;
+		public readonly HangingSpriteData Data;
 
 		public float DisplayRotation;
 		public float Rotation;
@@ -19,7 +19,7 @@ namespace Hikawa.Objects.Critters
 		public float AnimCounter;
 		public int AnimFrame;
 
-        public HangingSprite(HangingSpriteEntry data)
+        public HangingSprite(HangingSpriteData data)
         {
 			this.Data = data;
 			this.position = this.startingPosition = this.Data.Tile * Game1.tileSize;

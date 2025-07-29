@@ -1,4 +1,5 @@
-﻿using Hikawa.Modules;
+﻿using Hikawa.Data;
+using Hikawa.Modules;
 using Hikawa.Objects.Locations;
 using Hikawa.Volleyball;
 using StardewModdingAPI;
@@ -144,8 +145,8 @@ namespace Hikawa
 		public static void crows2(string s, string[] args)
 		{
 			Shrine shrine = Shrine.Get();
-			int which = args.Length > 0 ? int.Parse(args[0]) : Game1.random.Next(0, ModEntry.ModData.CrowPerches.Keys.Count);
-			CrowSpawnEntry entry = ModEntry.ModData.CrowPerches[ModEntry.ModData.CrowPerches.Keys.ToArray()[which]];
+			int which = args.Length > 0 ? int.Parse(args[0]) : Game1.random.Next(0, ModEntry.DecorSpawnsData.Value.CrowPerches.Keys.Count);
+			CrowSpawnData entry = ModEntry.DecorSpawnsData.Value.CrowPerches[ModEntry.DecorSpawnsData.Value.CrowPerches.Keys.ToArray()[which]];
 			shrine.ClearCrows();
 			shrine.SpawnPerchedCrowsAt(phobos: entry.V1, deimos: entry.V2, hopRange: entry.R);
 		}

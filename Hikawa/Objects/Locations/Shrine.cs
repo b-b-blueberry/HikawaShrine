@@ -1,4 +1,5 @@
-﻿using Hikawa.Modules;
+﻿using Hikawa.Data;
+using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Menus;
 using Netcode;
@@ -415,7 +416,7 @@ namespace Hikawa.Objects.Locations
 					player: Game1.MasterPlayer,
 					random: null,
 					sourcePhrase: $"location '{this.Name}' > tile action '{ModEntry.ModData.ActionCrowTrade}' > field '{nameof(this.CrowTradeItem)}'");
-				foreach (GenericSpawnItemDataWithCondition rule in ModEntry.ModData.CrowTradeRules)
+				foreach (GenericSpawnItemDataWithCondition rule in ModEntry.CrowTradeRulesData.Value.CrowTradeRules)
 				{
 					if (GameStateQuery.CheckConditions(
 							queryString: rule.Condition,
@@ -555,7 +556,7 @@ namespace Hikawa.Objects.Locations
 				var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
 					textureName: "LooseSprites/Cursors",
 					sourceRect: new Rectangle(372, 1956, 10, 10),
-					position: ModEntry.ModData.HouseChimneyTile * Game1.tileSize,
+					position: ModEntry.DecorSpawnsData.Value.HouseChimneyTile * Game1.tileSize,
 					flipped: false,
 					alphaFade: 0.002f,
 					color: Color.Gray);
@@ -722,7 +723,7 @@ namespace Hikawa.Objects.Locations
 				double roll = Game1.random.NextDouble();
 				if (Game1.IsWinter)
 					roll *= 0.5f;
-				CrowSpawnEntry entry = ModEntry.ModData.CrowPerches[ModEntry.ModData.CrowPerches.Keys.First(key => roll < key)];
+				CrowSpawnData entry = ModEntry.DecorSpawnsData.Value.CrowPerches[ModEntry.DecorSpawnsData.Value.CrowPerches.Keys.First(key => roll < key)];
 				this.SpawnPerchedCrowsAt(phobos: entry.V1, deimos: entry.V2, Game1.IsWinter ? 0 : entry.R);
 
 				// Spawn little crows
@@ -736,9 +737,9 @@ namespace Hikawa.Objects.Locations
 		public void TrySpawnGenericCrows()
 		{
 			const int retries = 25;
-			Point radius = ModEntry.ModData.CrowSpawnRadius.ToPoint();
+			Point radius = ModEntry.DecorSpawnsData.Value.CrowSpawnRadius.ToPoint();
 			Point diameter = radius + radius;
-			Rectangle spawnArea = ModEntry.ModData.CrowSpawnArea;
+			Rectangle spawnArea = ModEntry.DecorSpawnsData.Value.CrowSpawnArea;
 
 			for (int attempts = 0; attempts < retries; ++attempts)
 			{
@@ -807,8 +808,8 @@ namespace Hikawa.Objects.Locations
 		{
 			this.BabyCrows = new ShrineBabyCrowController(
 				count: Game1.random.Next(0, 5),
-				perches: ModEntry.ModData.BabyCrowPerches,
-				roosts: ModEntry.ModData.BabyCrowRoosts);
+				perches: ModEntry.DecorSpawnsData.Value.BabyCrowPerches,
+				roosts: ModEntry.DecorSpawnsData.Value.BabyCrowRoosts);
 		}
 
 		public void TrySpawnDailyCats()

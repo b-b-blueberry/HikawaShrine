@@ -1,0 +1,116 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: ShrineTrees - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/ShrineTrees",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: ShrineTrees - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/ShrineTrees",
+            "Entries": {
+                "ShrineTrees": {
+                    "{{ID}}_Cherry_S": {
+                        "TextureRegion": {
+                            "X": 656,
+                            "Y": 464,
+                            "Width": 48,
+                            "Height": 64
+                        },
+                        "TextureOrigin": "24, 64",
+                        "HasShadow": false,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 24,
+                            "Y": 24,
+                            "Width": 48,
+                            "Height": 24
+                        }
+                    },
+                    "{{ID}}_Cherry_M": {
+                        "TextureRegion": {
+                            "X": 704,
+                            "Y": 448,
+                            "Width": 112,
+                            "Height": 80
+                        },
+                        "TextureOrigin": "56, 80",
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 24,
+                            "Y": 24,
+                            "Width": 80,
+                            "Height": 32
+                        }
+                    },
+                    "{{ID}}_Cherry_L": {
+                        "TextureRegion": {
+                            "X": 816,
+                            "Y": 432,
+                            "Width": 96,
+                            "Height": 96
+                        },
+                        "TextureOrigin": "56, 96",
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 40,
+                            "Y": 40,
+                            "Width": 80,
+                            "Height": 32
+                        }
+                    },
+                    "{{ID}}_Boxwood": {
+                        "TextureRegion": {
+                            "X": 912,
+                            "Y": 368,
+                            "Width": 80,
+                            "Height": 160
+                        },
+                        "TextureOrigin": "40, 160",
+                        "HasShadow": true,
+                        "CanShake": false,
+                        "LeafRegion": null
+                    },
+                    "{{ID}}_Maple_1": {
+                        "TextureRegion": {
+                            "X": 480,
+                            "Y": 400,
+                            "Width": 80,
+                            "Height": 128
+                        },
+                        "TextureOrigin": "24, 128",
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 40,
+                            "Y": 80,
+                            "Width": 64,
+                            "Height": 24
+                        }
+                    },
+                    "{{ID}}_Maple_2": {
+                        "TextureRegion": {
+                            "X": 560,
+                            "Y": 416,
+                            "Width": 96,
+                            "Height": 112
+                        },
+                        "TextureOrigin": "56, 112",
+                        "HasShadow": true,
+                        "CanShake": true,
+                        "LeafRegion": {
+                            "X": 40,
+                            "Y": 48,
+                            "Width": 80,
+                            "Height": 32
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

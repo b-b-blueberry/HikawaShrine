@@ -1,4 +1,6 @@
-﻿using Hikawa.Objects.Locations;
+﻿using Hikawa.Data;
+using Hikawa.Objects.Items.Data;
+using Hikawa.Objects.Locations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +40,7 @@ public class Kite : StardewValley.Object
     {
         this.initNetFields();
 
-        KiteData generic = ModEntry.KiteData.Value;
+        KitesDataAsset generic = ModEntry.KitesData.Value;
 
         // Object
         itemId = this.ValidateUnqualifiedItemId(itemId);
@@ -66,9 +68,9 @@ public class Kite : StardewValley.Object
 
     public static KiteDataEntry GetData(string itemId)
     {
-        foreach ((string localId, KiteDataEntry kiteData) in ModEntry.KiteData.Value.Kites)
+        foreach ((string localId, KiteDataEntry kiteData) in ModEntry.KitesData.Value.Kites)
         {
-            if (itemId == $"{ModEntry.KiteData.Value.ItemId}_{localId}")
+            if (itemId == $"{ModEntry.KitesData.Value.ItemId}_{localId}")
                 return kiteData;
         }
         return null;

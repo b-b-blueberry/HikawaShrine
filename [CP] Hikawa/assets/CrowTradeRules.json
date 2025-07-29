@@ -1,0 +1,40 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: CrowTradeRules - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/CrowTradeRules",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: CrowTradeRules - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/CrowTradeRules",
+            "Entries": {
+                "CrowTradeRules": [
+                    {
+                        "Condition": "ITEM_ID Input (O)378",
+                        "PerItemCondition": null,
+                        "ItemId": "(O)334",
+                        "RandomItemId": null,
+                        "MaxItems": null,
+                        "MinStack": -1,
+                        "MaxStack": -1,
+                        "Quality": -1,
+                        "IsRecipe": false
+                    },
+                    {
+                        "Condition": "ITEM_ID Input (O)380",
+                        "PerItemCondition": null,
+                        "RandomItemId": [ "(O)388", "(O)390", "(O)206" ],
+                        "MaxItems": null,
+                        "MinStack": -1,
+                        "MaxStack": -1,
+                        "Quality": -1,
+                        "IsRecipe": false
+                    }
+                ]
+            }
+        }
+    ]
+}

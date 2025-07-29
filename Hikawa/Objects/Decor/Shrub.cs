@@ -15,7 +15,7 @@ namespace Hikawa.Objects.Decor
 			set
 			{
 				this._shrubId = value;
-				if (ModEntry.ShrubData.Value.Shrubs.TryGetValue(value, out ShrubDataEntry data))
+				if (ModEntry.ShrubsData.Value.Shrubs.TryGetValue(value, out ShrubDataEntry data))
 				{
 					this.Data = data;
 				}

@@ -1,6 +1,7 @@
 ﻿using Hikawa.Data;
 using Hikawa.Modules;
 using Hikawa.Objects.Critters;
+using Hikawa.Objects.Decor;
 using Hikawa.Objects.Locations;
 using StardewModdingAPI;
 using StardewValley.Locations;
@@ -224,7 +225,7 @@ namespace Hikawa
 		public static void ResetCustomSharedMapProperties(GameLocation where)
 		{
 			where.critters?.RemoveAll(c => c is HangingSprite or LightTile or ShrineBug);
-			where.sharedLights?.RemoveWhere(pair => pair.Key.StartsWith(ModEntry.ModData.HearthLightBaseId));
+			where.sharedLights?.RemoveWhere(pair => pair.Key.StartsWith(ModEntry.DecorSpawnsData.Value.HearthLightBaseId));
 			where.terrainFeatures?.RemoveWhere(pair => pair.Value is ShrineTree);
 			Utils.GetTilesWithProperty(
 				where: where,
@@ -242,40 +243,40 @@ namespace Hikawa
 			}
 
 			// Shrine trees
-			if (ModEntry.ModData.ShrineTrees?.TryGetValue(where.Name, out List<ShrineTreesEntry> trees) == true)
+			if (ModEntry.DecorSpawnsData.Value.ShrineTrees.TryGetValue(where.Name, out var treeSpawns))
 			{
-				foreach (ShrineTreesEntry entry in trees)
+				foreach (var spawnData in treeSpawns)
 				{
-					if (ModEntry.ModData.ShrineTreeDefinitions?.TryGetValue(entry.GlobalId, out ShrineTreeDefinitionsEntry definition) == true)
+					if (ModEntry.ShrineTreesData.Value.ShrineTrees.TryGetValue(spawnData.GlobalId, out var treeData))
 					{
-						where.terrainFeatures.TryAdd(entry.Tile, new ShrineTree(entry, definition));
+						where.terrainFeatures.TryAdd(spawnData.Tile, new ShrineTree(treeData, spawnData));
 					}
 				}
 			}
 
 			// Hanging sprites
-			if (ModEntry.ModData.HangingSprites?.TryGetValue(where.Name, out List<HangingSpriteEntry> sprites) == true)
+			if (ModEntry.DecorSpawnsData.Value.HangingSprites.TryGetValue(where.Name, out var sprites))
 			{
-				foreach (HangingSpriteEntry entry in sprites)
+				foreach (HangingSpriteData entry in sprites)
 				{
 					where.addCritter(new HangingSprite(entry));
 				}
 			}
 
 			// Light tiles
-			if (ModEntry.ModData.LightTiles?.TryGetValue(where.Name, out List<LightTileEntry> lightTiles) == true)
+			if (ModEntry.DecorSpawnsData.Value.LightTiles.TryGetValue(where.Name, out var lightTiles))
 			{
-				foreach (LightTileEntry entry in lightTiles)
+				foreach (LightTileData entry in lightTiles)
 				{
 					where.addCritter(new LightTile(entry));
 				}
 			}
 
 			// Lights
-			if (ModEntry.ModData.Lights?.TryGetValue(where.Name, out List<LightEntry> lights) == true)
+			if (ModEntry.DecorSpawnsData.Value.Lights.TryGetValue(where.Name, out var lights))
 			{
 				int i = 0, j = 0;
-				foreach (LightEntry entry in lights)
+				foreach (LightData entry in lights)
 				{
 					LightSource light;
 					Vector2 position = (entry.Tile + new Vector2(0.5f)) * Game1.tileSize;
@@ -304,7 +305,7 @@ namespace Hikawa
 
 		public static void AddBugProperties()
 		{
-			foreach ((string locationId, Dictionary<Vector2, string> bugs) in ModEntry.BugsData.Value.Bugs)
+			foreach ((string locationId, Dictionary<Vector2, string> bugs) in ModEntry.DecorSpawnsData.Value.Bugs)
 			{
 				foreach ((Vector2 tile, string id) in bugs)
 				{
@@ -324,7 +325,7 @@ namespace Hikawa
 
 		public static void ClearBugProperties()
 		{
-			foreach ((string locationId, Dictionary<Vector2, string> bugs) in ModEntry.BugsData.Value.Bugs)
+			foreach ((string locationId, Dictionary<Vector2, string> bugs) in ModEntry.DecorSpawnsData.Value.Bugs)
 			{
 				GameLocation where = Game1.getLocationFromName(locationId);
 				where.modData.Remove(ModEntry.ModData.ModDataKey + "_BugId");

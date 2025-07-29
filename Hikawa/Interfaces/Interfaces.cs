@@ -1,7 +1,7 @@
-﻿using Hikawa.Objects.Locations;
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Hikawa.Objects.Decor;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
 using StardewModdingAPI;

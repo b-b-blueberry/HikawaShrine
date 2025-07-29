@@ -20,7 +20,7 @@
                     "Desert": {
                         "DisplayName": "{{i18n:furniture.bugs.desert.name}}",
                         "Description": "{{i18n:furniture.bugs.desert.description}}",
-                        "TextureId": "{{PATH}}/Objects/Furniture",
+                        "TextureId": "{{PATH}}/Sprites/Furniture",
                         "TileIndex": 2,
                         "TileSize": {
                             "X": 2,
@@ -34,7 +34,7 @@
                     "Dome": {
                         "DisplayName": "{{i18n:furniture.bugs.dome.name}}",
                         "Description": "{{i18n:furniture.bugs.dome.description}}",
-                        "TextureId": "{{PATH}}/Objects/Furniture",
+                        "TextureId": "{{PATH}}/Sprites/Furniture",
                         "TileIndex": 4,
                         "TileSize": {
                             "X": 1,
@@ -48,7 +48,7 @@
                     "Meadow": {
                         "DisplayName": "{{i18n:furniture.bugs.meadow.name}}",
                         "Description": "{{i18n:furniture.bugs.meadow.description}}",
-                        "TextureId": "{{PATH}}/Objects/Furniture",
+                        "TextureId": "{{PATH}}/Sprites/Furniture",
                         "TileIndex": 5,
                         "TileSize": {
                             "X": 2,
@@ -65,7 +65,7 @@
                     "Name": "{{TOOL_BUGS}}",
                     "DisplayName": "{{i18n:item.bugtool.name}}",
                     "Description": "{{i18n:item.bugtool.description}}",
-                    "TextureName": "{{PATH}}/Objects/Sprites",
+                    "TextureName": "{{PATH}}/Sprites/Objects",
                     "SpriteSize": {
                         "X": 16,
                         "Y": 16
@@ -427,41 +427,7 @@
                         "BugSlot": "Ground",
                         "ContextTag": "{{ID}}_Bugs_Scarab"
                     }
-                },
-                "Bugs": {
-                    "{{SHRINE}}": {
-                        "29, 42": "Butterfly",
-                        "39, 36": "Butterfly"
-                    }
-                },
-                /*
-				"Bugs": {
-					"Spring": {
-						"Butterfly": {
-							"Tiles": [
-
-							],
-
-						},
-						"Mantis":,
-						"Grasshopper":,
-					},
-					"Summer": {
-						"Dragonfly":,
-						"Termite":,
-						"Scarab": ,
-					},
-					"Fall": {
-						"Centipede":,
-						"Ladybird":,
-						"Wasp": ,
-						"Stag": ,
-					},
-					"Winter": {
-						"Louse":,
-						"Moth": ,
-					}
-				},*/
+                }
             }
         }
     ]

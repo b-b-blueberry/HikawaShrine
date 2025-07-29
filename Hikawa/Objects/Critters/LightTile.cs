@@ -1,5 +1,5 @@
 ﻿using System;
-using Hikawa.Objects.Locations;
+using Hikawa.Data;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 
@@ -9,9 +9,9 @@ namespace Hikawa.Objects.Critters
     {
 		public float Alpha = 0f;
 
-		public readonly LightTileEntry Data;
+		public readonly LightTileData Data;
 
-		public LightTile(LightTileEntry data)
+		public LightTile(LightTileData data)
 		{
 			this.Data = data;
 			this.sprite = new(

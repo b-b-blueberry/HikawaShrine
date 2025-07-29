@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Hikawa.Objects.Locations;
+using Hikawa.Data;
 using StardewValley.GameData;
 
 namespace Hikawa
@@ -71,25 +71,5 @@ namespace Hikawa
 		public string ShopShrineRei;
 		// topics
 		public string TopicCrackers;
-		// other
-		public string HearthLightBaseId;
-		public Point HearthLightSize;
-
-		// Data
-		public Vector2 HouseChimneyTile;
-		public Vector2 CrowSpawnRadius;
-		public Rectangle CrowSpawnArea;
-		/// <summary>
-		/// Keyed by chance to appear, chance is measured by whether key is higher than the random roll
-		/// </summary>
-		public Dictionary<float, CrowSpawnEntry> CrowPerches;
-		public Point[] BabyCrowPerches;
-		public Point[] BabyCrowRoosts;
-		public Dictionary<string, ShrineTreeDefinitionsEntry> ShrineTreeDefinitions;
-		public Dictionary<string, List<ShrineTreesEntry>> ShrineTrees;
-		public Dictionary<string, List<HangingSpriteEntry>> HangingSprites;
-		public Dictionary<string, List<LightTileEntry>> LightTiles;
-		public Dictionary<string, List<LightEntry>> Lights;
-		public GenericSpawnItemDataWithCondition[] CrowTradeRules;
 	}
 }

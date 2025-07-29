@@ -45,20 +45,33 @@ namespace Hikawa
 		}
 
 		// Mod objects
+		// main
 		public static PerScreen<ModState> State { get; private set; }
 		public static ModEntry Instance { get; private set; }
 		public static Config Config { get; private set; }
 		public static SaveData SaveData { get; private set; }
 		public static ModData ModData { get; private set; }
+        public static ITranslationHelper I18n => ModEntry.Instance.Helper.Translation;
+
+        // sprites
         public static Texture2D Sprites { get; private set; }
         public static Texture2D OutdoorsSprites { get; private set; }
+
+		// data
+		public static Lazy<BowsDataAsset> BowsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<BowsDataAsset>(AssetManager.BowsDataAssetName));
 		public static Lazy<BugsDataAsset> BugsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<BugsDataAsset>(AssetManager.BugsDataAssetName));
-		public static Lazy<KiteData> KiteData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KiteData>(AssetManager.KiteDataAssetName));
-		public static Lazy<ShrubsDataAsset> ShrubData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<ShrubsDataAsset>(AssetManager.ShrubsDataAssetName));
-        public static Lazy<SpriteFont> Italics = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName));
+		public static Lazy<CrowTradeRulesDataAsset> CrowTradeRulesData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<CrowTradeRulesDataAsset>(AssetManager.CrowTradeRulesDataAssetName));
+		public static Lazy<DecorSpawnsDataAsset> DecorSpawnsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<DecorSpawnsDataAsset>(AssetManager.DecorSpawnsDataAssetName));
+		public static Lazy<KitesDataAsset> KitesData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KitesDataAsset>(AssetManager.KiteDataAssetName));
+		public static Lazy<ShrineTreesDataAsset> ShrineTreesData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<ShrineTreesDataAsset>(AssetManager.ShrineTreesDataAssetName));
+		public static Lazy<ShrubsDataAsset> ShrubsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<ShrubsDataAsset>(AssetManager.ShrubsDataAssetName));
+
+		// fonts
+		public static Lazy<SpriteFont> Italics = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName));
 		public static Lazy<SpriteFont> Handwriting = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(Path.Combine("Fonts", "SpriteFont1.ja-JP")));
+
+		// modules
 		public static Modules.OverlayEffectControl OverlayEffectControl { get; private set; }
-		public static ITranslationHelper I18n => ModEntry.Instance.Helper.Translation;
 
 
 		public override void Entry(IModHelper helper)
