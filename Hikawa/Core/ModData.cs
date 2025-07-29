@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Hikawa.Data;
-using StardewValley.GameData;
-
-namespace Hikawa
+﻿namespace Hikawa
 {
 	public record class ModData
 	{

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework.Input;
-using StardewValley;
+﻿using Microsoft.Xna.Framework.Input;
 using StardewValley.Extensions;
 using StardewValley.GameData;
 using StardewValley.Minigames;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hikawa.Objects.Events
 {

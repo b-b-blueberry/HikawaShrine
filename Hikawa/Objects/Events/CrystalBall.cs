@@ -1,5 +1,4 @@
 ﻿using System;
-using StardewValley;
 
 namespace Hikawa.Objects.Events
 {

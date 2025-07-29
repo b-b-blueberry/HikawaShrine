@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using HarmonyLib; // el diavolo nuevo
+﻿using HarmonyLib; // el diavolo nuevo
 using Hikawa.Data;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Items;
@@ -15,6 +10,11 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley.Locations;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using Object = StardewValley.Object;
 
 namespace Hikawa
