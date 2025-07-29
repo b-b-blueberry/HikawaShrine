@@ -4,7 +4,6 @@ using Hikawa.Modules;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Locations;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.Locations;
 using xTile.ObjectModel;
 
@@ -168,7 +167,7 @@ namespace Hikawa
 			{
 				case "offer_yes":
 				{
-					if (Game1.currentLocation is Shrine shrine)
+					if (who.currentLocation is Shrine shrine)
 					{
 						shrine.StartBellSequence(who: who);
 					}

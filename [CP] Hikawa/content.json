@@ -27,6 +27,11 @@
             "FromFile": "assets/Events.json"
         },
         {
+            "LogName": "Hikawa: Fonts",
+            "Action": "Include",
+            "FromFile": "assets/Fonts.json"
+        },
+        {
             "LogName": "Hikawa: Furniture",
             "Action": "Include",
             "FromFile": "assets/Furniture.json"
@@ -91,13 +96,6 @@
             "LogName": "Hikawa: Match3",
             "Action": "Include",
             "FromFile": "assets/Match3/content.json"
-        },
-        // Fonts
-        {
-            "LogName": "Hikawa: Fonts - Italics",
-            "Action": "Load",
-            "Target": "{{PATH}}/Fonts/Italics",
-            "FromFile": "assets/Fonts/Italics.xnb"
         }
     ],
     "DynamicTokens": [

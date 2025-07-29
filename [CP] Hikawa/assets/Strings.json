@@ -48,6 +48,7 @@
             "Action": "EditData",
             "Target": "Data/animationDescriptions",
             "Entries": {
+                // Rei
                 "{{REI}}_Book": "16/16/16",
                 "{{REI}}_Busy": "",
                 "{{REI}}_Bath": "",
@@ -55,12 +56,12 @@
                 "{{REI}}_Comic": "",
                 "{{REI}}_Study": "",
                 "{{REI}}_Sleep": "",
-
+                // Ami
                 "{{AMI}}_Book": "16/16/16",
                 "{{AMI}}_Busy": "",
                 "{{AMI}}_Beach": "",
                 "{{AMI}}_Sleep": "",
-
+                // Gramps
                 "{{GRAMPS}}_Tea": "16/16 16 16 16 16 16 16 16 16 16 16 16 16 16 17 17 17 17 17 17/17",
                 "{{GRAMPS}}_Sleep": "18/18/18"
             }
@@ -70,6 +71,7 @@
             "Action": "EditData",
             "Target": "Strings/animationDescriptions",
             "Entries": {
+                // Rei
                 "{{REI}}_Busy": "{{i18n:anim.rei.busy}}",
                 "{{REI}}_Book": "{{i18n:anim.rei.busy}}",
                 "{{REI}}_Bath": "{{i18n:anim.rei.busy}}",
@@ -77,12 +79,12 @@
                 "{{REI}}_Comic": "{{i18n:anim.rei.busy}}",
                 "{{REI}}_Study": "{{i18n:anim.rei.busy}}",
                 "{{REI}}_Sleep": "{{i18n:anim.rei.busy}}",
-
+                // Ami
                 "{{AMI}}_Book": "{{i18n:anim.ami.busy}}",
                 "{{AMI}}_Busy": "{{i18n:anim.ami.busy}}",
                 "{{AMI}}_Beach": "{{i18n:anim.ami.busy}}",
                 "{{AMI}}_Sleep": "{{i18n:anim.ami.busy}}",
-
+                // Gramps
                 "{{GRAMPS}}_Tea": "{{i18n:anim.gramps.sleep}}",
                 "{{GRAMPS}}_Sleep": "{{i18n:anim.gramps.sleep}}"
             }

@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib; // el diavolo nuevo
 using Hikawa.Modules;
-using StardewValley;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Menus;
 using StardewValley.BellsAndWhistles;

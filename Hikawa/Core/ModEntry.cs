@@ -12,7 +12,6 @@ using Hikawa.Volleyball;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
-using StardewValley;
 using StardewValley.Locations;
 using Object = StardewValley.Object;
 
@@ -52,6 +51,7 @@ namespace Hikawa
         public static Texture2D Sprites { get; private set; }
         public static Texture2D OutdoorsSprites { get; private set; }
 		public static Lazy<KiteData> KiteData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KiteData>(AssetManager.KiteDataAssetName));
+        public static Lazy<SpriteFont> Italics = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName));
 		public static Modules.OverlayEffectControl OverlayEffectControl { get; private set; }
 		public static ITranslationHelper I18n => ModEntry.Instance.Helper.Translation;
 
@@ -84,7 +84,6 @@ namespace Hikawa
 			// common assets
 			ModEntry.ModData = ModEntry.Instance.Helper.GameContent.Load<ModData>(AssetManager.DataAssetName);
 			ModEntry.Sprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.ExtraSpritesAssetName);
-			ModEntry.Italics = ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName);
             ModEntry.OutdoorsSprites = ModEntry.Instance.Helper.GameContent.Load<Texture2D>(AssetManager.OutdoorsSpritesAssetName);
 
 			// evil doings
@@ -418,9 +417,9 @@ namespace Hikawa
 				}
 			};
 
-			foreach (var pair in tileActions)
+			foreach ((string key, var action) in tileActions)
 			{
-				GameLocation.RegisterTileAction(key: pair.Key, action: pair.Value);
+				GameLocation.RegisterTileAction(key: key, action: action);
 			}
 
 			Dictionary<string, Action<GameLocation, string[], Farmer, Vector2>> touchActions = new()
@@ -527,9 +526,9 @@ namespace Hikawa
 				}
 			};
 
-			foreach (var pair in touchActions)
+			foreach ((string key, var action) in touchActions)
 			{
-				GameLocation.RegisterTouchAction(key: pair.Key, action: pair.Value);
+				GameLocation.RegisterTouchAction(key: key, action: action);
 			}
 		}
 

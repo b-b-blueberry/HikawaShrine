@@ -1,0 +1,10 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Fonts - Italics",
+            "Action": "Load",
+            "Target": "{{PATH}}/Fonts/Italics",
+            "FromFile": "assets/Fonts/Italics.xnb"
+        }
+    ]
+}

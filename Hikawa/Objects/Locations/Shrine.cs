@@ -6,7 +6,6 @@ using Hikawa.Objects.Critters;
 using Hikawa.Objects.Menus;
 using Netcode;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.GameData;
 using StardewValley.Internal;
