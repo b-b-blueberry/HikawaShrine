@@ -162,6 +162,62 @@
                             }
                         }
                     ]
+                },
+                "{{ID}}_Flowers": {
+                    "Name": "{{i18n:quest.title.flowers}}",
+                    "Requester": "{{AMI}}",
+                    "Duration": "TwoWeeks",
+                    "Repeatable": false,
+                    "RequiredTags": "",
+                    "Condition": "",
+                    "OrderType": "{{ID}}_Flowers",
+                    "SpecialRule": "",
+                    "Text": "{{i18n:quest.subtitle.flowers}}",
+                    "Objectives": [
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:quest.objective.flowers.sweetpea}}",
+                            "RequiredCount": "3",
+                            "Data": {
+                                "AcceptedContextTags": "item_sweet_pea",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:quest.reaction.flowers.sweetpea}}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:quest.objective.flowers.summerspangle}}",
+                            "RequiredCount": "5",
+                            "Data": {
+                                "AcceptedContextTags": "item_summer_spangle",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:quest.reaction.flowers.summerspangle}}"
+                            }
+                        },
+                        {
+                            "Type": "Deliver",
+                            "Text": "{{i18n:quest.objective.flowers.sunflower}}",
+                            "RequiredCount": "3",
+                            "Data": {
+                                "AcceptedContextTags": "item_sunflower",
+                                "TargetName": "{{AMI}}",
+                                "Message": "{{i18n:quest.reaction.flowers.sunflower}}"
+                            }
+                        }
+                    ],
+                    "Rewards": [
+                        {
+                            "Type": "Friendship",
+                            "Data": {}
+                        },
+                        {
+                            "Type": "Mail",
+                            "Data": {
+                                "MailReceived": "{{ID}}_Flowers",
+                                "NoLetter": "true"
+                            }
+                        }
+                    ]
                 }
             }
         }
