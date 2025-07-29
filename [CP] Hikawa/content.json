@@ -17,6 +17,11 @@
             "FromFile": "assets/Buffs.json"
         },
         {
+            "LogName": "Hikawa: Bows",
+            "Action": "Include",
+            "FromFile": "assets/Bows.json"
+        },
+        {
             "LogName": "Hikawa: Bugs",
             "Action": "Include",
             "FromFile": "assets/Bugs.json"
@@ -188,6 +193,10 @@
         {
             "Name": "MATCH3",
             "Value": "{{ID}}_Match3"
+        },
+        {
+            "Name": "BOW",
+            "Value": "{{ID}}_Bow"
         },
         {
             "Name": "TOOL_BUGS",

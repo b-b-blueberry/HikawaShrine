@@ -77,7 +77,13 @@
     "item.balloon.description": "A decorative balloon. Can be placed outdoors.",
     "item.koinobori.name": "Paper Fish",
     "item.koinobori.description": "A decorative fish-shaped streamer. Can be placed outdoors.",
+    "item.bow_arrow_basic.name": "Wooden Arrows",
+    "item.bow_arrow_basic.description": "Used with a bow.",
     // tools
+    "item.bow_basic.name": "Bow",
+    "item.bow_basic.description": "Fires arrows.",
+    "item.bow_mars.name": "Bow of Mars",
+    "item.bow_mars.description": "Fires burning spears. Does not consume arrows.",
     "item.bugtool.name": "Bug Jar",
     "item.bugtool.description": "Ami's hi-tech survey equipment. Used to collect critters around Cherry Hill.",
     "item.shrubtool.name": "Secateurs",

@@ -115,6 +115,23 @@ namespace Hikawa
         #region Item behaviours
 		
         [HarmonyPostfix]
+        [HarmonyPatch(typeof(FarmerRenderer))]
+        [HarmonyPatch(nameof(FarmerRenderer.draw))]
+        [HarmonyPatch([typeof(SpriteBatch), typeof(FarmerSprite.AnimationFrame), typeof(int), typeof(Rectangle), typeof(Vector2), typeof(Vector2), typeof(float), typeof(int), typeof(Color), typeof(float), typeof(float), typeof(Farmer)])]
+        private static void FarmerRenderer_Draw_Postfix(FarmerRenderer __instance, Texture2D ___baseTexture, SpriteBatch b, FarmerSprite.AnimationFrame animationFrame, int currentFrame, Rectangle sourceRect, Vector2 position, Vector2 origin, float layerDepth, int facingDirection, Color overrideColor, float rotation, float scale, Farmer who)
+        {
+            float scaledPixelZoom = Game1.pixelZoom * scale;
+            Bow.TryDrawWhenUsing(
+                b: b,
+                playerTexture: ___baseTexture,
+                player: who,
+                position: position,
+                direction: facingDirection,
+                layerDepth: layerDepth,
+                scaledPixelZoom: scaledPixelZoom);
+        }
+
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(Object))]
         [HarmonyPatch(nameof(Object.drawWhenHeld))]
         private static void Object_DrawWhenHeld_Postfix(Object __instance, SpriteBatch spriteBatch, Vector2 objectPosition, Farmer f)

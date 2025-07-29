@@ -1,0 +1,55 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Bows - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Bows",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Bows - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Bows",
+            "Entries": {
+                "Identifier": "(BB_HIKAWA_BOW)",
+                "Category": -98,
+                "Type": null,
+                "Bows": {
+                    "{{BOW}}_Basic": {
+                        "DisplayName": "{{i18n:item.bow_basic.name}}",
+                        "Description": "{{i18n:item.bow_basic.description}}",
+                        "Texture": "{{PATH}}/Sprites/Objects",
+                        "SourceRect": {
+                            "X": 16,
+                            "Y": 32,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "Damage": 15,
+                        "Speed": 10,
+                        "BowstringColour": "White",
+                        "FireObject": "{{ID}}_Bow_Arrow_Basic",
+                        "FireSound": "cast"
+                    },
+                    "{{BOW}}_Mars": {
+                        "DisplayName": "{{i18n:item.bow_mars.name}}",
+                        "Description": "{{i18n:item.bow_mars.description}}",
+                        "Texture": "{{PATH}}/Sprites/Objects",
+                        "SourceRect": {
+                            "X": 32,
+                            "Y": 32,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "Damage": 25,
+                        "Speed": 20,
+                        "BowstringColour": "Orange",
+                        "FireObject": "{{ID}}_Bow_Arrow_Mars",
+                        "FireSound": "fireball",
+                        "IsMagical": true
+                    }
+                }
+            }
+        }
+    ]
+}

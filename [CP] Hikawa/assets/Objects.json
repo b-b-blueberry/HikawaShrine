@@ -25,6 +25,38 @@
                         "particle_smoke"
                     ]
                 },
+                "{{ID}}_Bow_Arrow_Basic": {
+                    "Name": "{{ID}}_Bow_Arrow_Basic",
+                    "DisplayName": "{{i18n:item.bow_arrow_basic.name}}",
+                    "Description": "{{i18n:item.bow_arrow_basic.description}}",
+                    "Type": "Crafting",
+                    "Category": 0,
+                    "Price": 20,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 24,
+                    "Edibility": -300,
+                    "CanBeGivenAsGift": false,
+                    "CanBeTrashed": true,
+                    "ExcludeFromRandomSale": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ContextTags": []
+                },
+                "{{ID}}_Bow_Arrow_Mars": {
+                    "Name": "{{ID}}_Bow_Arrow_Mars",
+                    "DisplayName": "",
+                    "Description": "",
+                    "Type": "Crafting",
+                    "Category": 0,
+                    "Price": 0,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 25,
+                    "Edibility": -300,
+                    "CanBeGivenAsGift": false,
+                    "CanBeTrashed": true,
+                    "ExcludeFromRandomSale": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ContextTags": []
+                },
                 "{{ID}}_Totem": {
                     "Name": "{{ID}}_Totem",
                     "DisplayName": "{{i18n:item.totem.name}}",
