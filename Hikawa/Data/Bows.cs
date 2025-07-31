@@ -23,6 +23,10 @@ public record class BowsDataEntry
     public int Damage;
     public int Speed;
     public int Pierces;
+    public int Precision;
+    public float CriticalChance;
+    public float CriticalMultiplier;
+    public float KnockbackMultiplier;
     public float? DrawTime;
     public string FireObject;
     public string FireSound;

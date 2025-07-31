@@ -1,5 +1,6 @@
 ﻿using Hikawa.Data;
 using Hikawa.Objects.Items;
+using StardewValley.ItemTypeDefinitions;
 using StardewValley.Monsters;
 using StardewValley.Projectiles;
 using System;
@@ -8,7 +9,9 @@ namespace Hikawa.Objects.Projectiles;
 
 public class BowProjectile : BasicProjectile
 {
-    public bool IsMagical;
+    public readonly string BowId;
+    public readonly int Charge;
+    public readonly bool IsMagical;
 
     public static BowProjectile Create(Farmer who, GameLocation location, Bow bow, BowsDataEntry bowData, int charge, onCollisionBehavior onCollision = null)
     {
@@ -19,9 +22,6 @@ public class BowProjectile : BasicProjectile
             endingPoint: target,
             speed: (bowData.Speed + Game1.random.Next(4, 6)) * (1f + who.buffs.WeaponSpeedMultiplier));
 
-        float damageMod = charge / 2f;
-        int damage = bowData.Damage;
-
         if (!Game1.options.useLegacySlingshotFiring)
         {
             velocity.X *= -1f;
@@ -31,19 +31,20 @@ public class BowProjectile : BasicProjectile
         return new BowProjectile(
             who: who,
             location: location,
+            bow: bow,
             bowData: bowData,
+            charge: charge,
             velocity: velocity,
             origin: origin,
             target: target,
-            damage: (int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)),
             onCollision: onCollision);
     }
 
     /// <summary>
     /// Use <see cref="Create(Farmer, GameLocation, Bow, BowsDataEntry, int, onCollisionBehavior)"/> instead.
     /// </summary>
-    public BowProjectile(Farmer who, GameLocation location, BowsDataEntry bowData, Vector2 velocity, Vector2 origin, Vector2 target, int damage, onCollisionBehavior onCollision) : base(
-        damageToFarmer: damage,
+    public BowProjectile(Farmer who, GameLocation location, Bow bow, BowsDataEntry bowData, int charge, Vector2 velocity, Vector2 origin, Vector2 target, onCollisionBehavior onCollision) : base(
+        damageToFarmer: bowData.Damage,
         spriteIndex: 0,
         bouncesTillDestruct: 0,
         tailLength: bowData.IsMagical ? 3 : 0,
@@ -67,6 +68,8 @@ public class BowProjectile : BasicProjectile
         this.piercesLeft.Value = bowData.Pierces;
 
         // BowProjectile
+        this.BowId = bow.ItemId;
+        this.Charge = charge;
         this.IsMagical = bowData.IsMagical;
     }
 
@@ -80,16 +83,39 @@ public class BowProjectile : BasicProjectile
 
     public override void behaviorOnCollisionWithMonster(NPC n, GameLocation location)
     {
-        if (n is not Monster)
+        Farmer player = this.GetPlayerWhoFiredMe(location);
+        if (n is Monster monster)
         {
-            // prevent global chat message and piercing arrows when firing at characters
-            this.piercesLeft.Value = 0;
-            n.getHitByPlayer(this.GetPlayerWhoFiredMe(location), location);
-            this.explosionAnimation(location);
+            // apply custom damage values
+            if (ItemRegistry.GetData(this.BowId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            {
+                float damageMod = this.Charge / 2f;
+                int damage = this.damageToFarmer.Value;
+                damage = (int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + player.buffs.AttackMultiplier));
+                location.damageMonster(
+                    areaOfEffect: n.GetBoundingBox(),
+                    minDamage: damage,
+                    maxDamage: damage,
+                    isBomb: false,
+                    knockBackModifier: bowData.KnockbackMultiplier,
+                    addedPrecision: bowData.Precision,
+                    critChance: bowData.CriticalChance,
+                    critMultiplier: bowData.CriticalMultiplier,
+                    triggerMonsterInvincibleTimer: true,
+                    who: player,
+                    isProjectile: true);
+                if (!monster.IsInvisible)
+                {
+                    --this.piercesLeft.Value;
+                }
+            }
         }
         else
         {
-            base.behaviorOnCollisionWithMonster(n, location);
+            // prevent global chat message and piercing arrows when firing at characters
+            this.piercesLeft.Value = 0;
+            n.getHitByPlayer(player, location);
+            this.explosionAnimation(location);
         }
     }
 

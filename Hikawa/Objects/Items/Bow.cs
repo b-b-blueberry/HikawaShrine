@@ -5,7 +5,6 @@ using StardewModdingAPI;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Tools;
 using System;
-using System.Linq;
 using System.Xml.Serialization;
 using static StardewValley.FarmerRenderer;
 
@@ -138,12 +137,16 @@ namespace Hikawa.Objects.Items
 
         public override void tickUpdate(GameTime time, Farmer who)
         {
-            if (who.CurrentTool == this && who.UsingTool)
+            if (who.IsLocalPlayer && who.CurrentTool == this && who.UsingTool)
             {
                 // terrible things
                 who.usingSlingshot = true;
                 base.tickUpdate(time, who);
                 who.usingSlingshot = false;
+            }
+            else
+            {
+                base.tickUpdate(time, who);
             }
         }
 
