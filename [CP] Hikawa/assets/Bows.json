@@ -54,7 +54,10 @@
                                     "Width": 16,
                                     "Height": 16
                                 },
-                                "Bowstrings": []
+                                "Bowstrings": [
+                                    "-1, -7",
+                                    "-1, 7"
+                                ]
                             },
                             { // left
                                 "SourceRect": {
@@ -117,7 +120,10 @@
                                     "Width": 16,
                                     "Height": 24
                                 },
-                                "Bowstrings": []
+                                "Bowstrings": [
+                                    "-1, -10",
+                                    "-1, 10"
+                                ]
                             },
                             { // left
                                 "SourceRect": {
@@ -179,7 +185,10 @@
                                     "Width": 16,
                                     "Height": 16
                                 },
-                                "Bowstrings": []
+                                "Bowstrings": [
+                                    "-1, -7",
+                                    "-1, 7"
+                                ]
                             },
                             { // left
                                 "SourceRect": {

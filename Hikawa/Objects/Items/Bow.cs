@@ -253,10 +253,12 @@ namespace Hikawa.Objects.Items
                         float a = (float)Utils.Vector.RadiansBetween(O, T);
                         // distance from origin (O) to bow (P)
                         float d = bowSize.X / 2 + 4 * scaledPixelZoom;
+                        // position of bow (P)
                         Vector2 P = O + new Vector2(
                             x: MathF.Cos(a) * d,
                             y: MathF.Sin(a) * d);
 
+                        // bowstrings
                         foreach (Vector2 v in bowFrame.Bowstrings)
                         {
                             // angle from boworigin to bowstring
@@ -289,33 +291,33 @@ namespace Hikawa.Objects.Items
 
                     case Game1.down:
                     {
-                        // back arm
-                        b.Draw(playerTexture, position + new Vector2(4, -Game1.tileSize / 2 - backArmDistance / 2), new Rectangle(148, 244, 4, 4), Color.White, 0f, Vector2.Zero, scaledPixelZoom, SpriteEffects.None, GetLayerDepth(layerDepth, FarmerSpriteLayers.Arms));
+                        // arbitrary farmer sprite adjustment
+                        Vector2 pullArmOffset = new Vector2(4, -32 - backArmDistance / 2);
+                        // arbitrary farmer sprite adjustment
+                        Vector2 bowArmOffset = new Vector2(-2, 1) * scaledPixelZoom;
 
-                        // bowstring
-                        Vector2 centre = position + new Vector2(11 - frontArmRotation * 2.5f, -4) * scaledPixelZoom;
-                        Utility.drawLineWithScreenCoordinates(
-                            (int)(position.X + 16),
-                            (int)(position.Y - 28 - backArmDistance / 2),
-                            (int)(centre.X),
-                            (int)(centre.Y - bowSize.Y / 2),
-                            b,
-                            bowstringColour,
-                            GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot));
-                        Utility.drawLineWithScreenCoordinates(
-                            (int)(position.X + 16),
-                            (int)(position.Y - 28 - backArmDistance / 2),
-                            (int)(centre.X),
-                            (int)(centre.Y + bowSize.Y / 2),
-                            b,
-                            bowstringColour,
-                            GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot));
+                        // origin (O)
+                        Vector2 O = position;
+                        // origin (O) adjusted for pulling arm (O1)
+                        Vector2 O1 = O + new Vector2(16, -28 - backArmDistance / 2);
+                        // position of bow (P)
+                        Vector2 P = O + new Vector2(11 - frontArmRotation * 2.5f, -4) * scaledPixelZoom;
 
-                        // front arm
-                        b.Draw(playerTexture, centre + new Vector2(-2, 1) * scaledPixelZoom, new Rectangle(168, 239, 5, 3), Color.White, 0f, Vector2.Zero, scaledPixelZoom, SpriteEffects.None, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot, true) + pinch);
+                        // pulling arm
+                        b.Draw(playerTexture, O + pullArmOffset, new Rectangle(148, 244, 4, 4), Color.White, 0f, Vector2.Zero, scaledPixelZoom, SpriteEffects.None, GetLayerDepth(layerDepth, FarmerSpriteLayers.Arms));
+
+                        // bowstrings
+                        foreach (Vector2 v in bowFrame.Bowstrings)
+                        {
+                            Vector2 PV = P + v * scaledPixelZoom;
+                            Utility.drawLineWithScreenCoordinates((int)O1.X, (int)O1.Y, (int)PV.X, (int)PV.Y, b, bowstringColour, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot));
+                        }
+
+                        // bow arm
+                        b.Draw(playerTexture, P + bowArmOffset, new Rectangle(168, 239, 5, 3), Color.White, 0, Vector2.Zero, scaledPixelZoom, SpriteEffects.None, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot, true) + pinch);
 
                         // bow
-                        b.Draw(bowTexture, centre, bowSource, Color.White, 0, bowOrigin, scaledPixelZoom, SpriteEffects.None, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot) + pinch);
+                        b.Draw(bowTexture, P, bowSource, Color.White, 0, bowOrigin, scaledPixelZoom, SpriteEffects.None, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot) + pinch);
                     }
                     break;
                 }
