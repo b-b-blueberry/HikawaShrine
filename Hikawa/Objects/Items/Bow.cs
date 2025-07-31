@@ -233,21 +233,10 @@ namespace Hikawa.Objects.Items
                         SpriteEffects spriteFlipH = flip > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                         SpriteEffects spriteFlipHV = flip > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically;
 
-                        // distance from origin (O) to bow (P)
-                        float d = bowSize.X / 2 + 4 * scaledPixelZoom;
-                        // distance from origin (O) to top bowstring (P1)
-                        float dx1 = bowSize.X - 8 * scaledPixelZoom;
-                        // distance from origin (O) to bottom bowstring (P2)
-                        float dx2 = bowSize.X - 8 * scaledPixelZoom;
-                        // distance between bow (P) and top (P1) bowstring
-                        float dy1 = bowSize.Y / 2;
-                        // distance between top (P) and bottom (P2) bowstring
-                        float dy2 = bowSize.Y / 2;
-
                         Vector2 pull = new Vector2(backArmDistance, 0) * flip;
 
                         // arbitrary farmer sprite adjustment
-                        Vector2 bowArmOffset = new Vector2(-0.5f - 1 * flip, -2);
+                        Vector2 bowArmOffset = new Vector2(-0.5f + 1 * flip, -2);
                         // arbitrary farmer sprite adjustment
                         Vector2 pullArmOffset = new Vector2(0.5f + 7 * flip, -1);
 
@@ -260,20 +249,28 @@ namespace Hikawa.Objects.Items
 
                         // tiltookilikak (2025)
                         // https://discord.com/channels/137344473976799233/156109690059751424/1400346902297575597
+                        // angle between origin (O) and target (T)
                         float a = (float)Utils.Vector.RadiansBetween(O, T);
-                        float a1 = a + MathF.PI * 0.5f;
-                        float a2 = a + MathF.PI * 1.5f;
+                        // distance from origin (O) to bow (P)
+                        float d = bowSize.X / 2 + 4 * scaledPixelZoom;
                         Vector2 P = O + new Vector2(
                             x: MathF.Cos(a) * d,
                             y: MathF.Sin(a) * d);
-                        Vector2 P1 = O + new Vector2(
-                            x: MathF.Cos(a) * dx1 + MathF.Cos(a1) * dy1,
-                            y: MathF.Sin(a) * dx1 + MathF.Sin(a1) * dy1);
-                        Vector2 P2 = O + new Vector2(
-                            x: MathF.Cos(a) * dx2 + MathF.Cos(a2) * dy2,
-                            y: MathF.Sin(a) * dx2 + MathF.Sin(a2) * dy2);
-                        Utility.drawLineWithScreenCoordinates((int)O1.X, (int)O1.Y, (int)P1.X, (int)P1.Y, b, bowstringColour, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot, true) - pinch);
-                        Utility.drawLineWithScreenCoordinates((int)O1.X, (int)O1.Y, (int)P2.X, (int)P2.Y, b, bowstringColour, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot, true) - pinch);
+
+                        foreach (Vector2 v in bowFrame.Bowstrings)
+                        {
+                            // angle from boworigin to bowstring
+                            float aV = MathF.PI / 2;
+                            // distance from origin (O) to bowstring (PV)
+                            float dxV = v.X * scaledPixelZoom;
+                            // distance between bow (P) and bowstring (PV)
+                            float dyV = v.Y * scaledPixelZoom;
+                            Vector2 PV = P + new Vector2(
+                                x: MathF.Cos(a) * dxV + MathF.Cos(a + aV) * dyV,
+                                y: MathF.Sin(a) * dxV + MathF.Sin(a + aV) * dyV);
+                            // O1 -> PV
+                            Utility.drawLineWithScreenCoordinates((int)O1.X, (int)O1.Y, (int)PV.X, (int)PV.Y, b, bowstringColour, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot, true) + pinch);
+                        }
 
                         // pulling arm
                         b.Draw(playerTexture, O1, new Rectangle(147, 237, 10, 4), Color.White, 0, new Vector2(isFlip ? 10 : 0, 2), scaledPixelZoom, spriteFlipH, GetLayerDepth(layerDepth, FarmerSpriteLayers.Slingshot));

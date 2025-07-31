@@ -32,7 +32,8 @@
                                     "Y": 0,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": []
                             },
                             { // right
                                 "SourceRect": {
@@ -40,7 +41,11 @@
                                     "Y": 0,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": [
+                                    "-5, -6",
+                                    "-5, 6"
+                                ]
                             },
                             { // down
                                 "SourceRect": {
@@ -48,7 +53,8 @@
                                     "Y": 0,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": []
                             },
                             { // left
                                 "SourceRect": {
@@ -56,7 +62,11 @@
                                     "Y": 0,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": [
+                                    "-5, -6",
+                                    "-5, 6"
+                                ]
                             }
                         ],
                         "Damage": 15,
@@ -85,7 +95,8 @@
                                     "Y": 19,
                                     "Width": 16,
                                     "Height": 24
-                                }
+                                },
+                                "Bowstrings": []
                             },
                             { // right
                                 "SourceRect": {
@@ -93,7 +104,11 @@
                                     "Y": 19,
                                     "Width": 16,
                                     "Height": 24
-                                }
+                                },
+                                "Bowstrings": [
+                                    "-6, -11",
+                                    "-6, 11"
+                                ]
                             },
                             { // down
                                 "SourceRect": {
@@ -101,7 +116,8 @@
                                     "Y": 19,
                                     "Width": 16,
                                     "Height": 24
-                                }
+                                },
+                                "Bowstrings": []
                             },
                             { // left
                                 "SourceRect": {
@@ -109,7 +125,11 @@
                                     "Y": 19,
                                     "Width": 16,
                                     "Height": 24
-                                }
+                                },
+                                "Bowstrings": [
+                                    "-6, -11",
+                                    "-6, 11"
+                                ]
                             }
                         ],
                         "Damage": 35,
@@ -137,7 +157,8 @@
                                     "Y": 48,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": []
                             },
                             { // right
                                 "SourceRect": {
@@ -145,7 +166,11 @@
                                     "Y": 48,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": [
+                                    "-5, -6",
+                                    "-5, 6"
+                                ]
                             },
                             { // down
                                 "SourceRect": {
@@ -153,7 +178,8 @@
                                     "Y": 48,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": []
                             },
                             { // left
                                 "SourceRect": {
@@ -161,7 +187,11 @@
                                     "Y": 48,
                                     "Width": 16,
                                     "Height": 16
-                                }
+                                },
+                                "Bowstrings": [
+                                    "-5, -6",
+                                    "-5, 6"
+                                ]
                             }
                         ],
                         "Damage": 25,

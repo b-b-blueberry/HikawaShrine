@@ -34,4 +34,5 @@ public record class BowsDataEntry
 public record class BowFrame
 {
     public Rectangle SourceRect;
+    public Vector2[] Bowstrings;
 }
