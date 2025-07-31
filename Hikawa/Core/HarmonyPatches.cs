@@ -7,6 +7,7 @@ using StardewValley.Menus;
 using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.Projectiles;
+using StardewValley.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,10 +111,17 @@ namespace Hikawa
 			return ilOut;
 		}
 
-        #endregion
+		#endregion
 
-        #region Item behaviours
-		
+		#region Item behaviours
+
+		[HarmonyPrefix]
+		[HarmonyPatch(typeof(Slingshot), nameof(Slingshot.GetRequiredChargeTime))]
+		private static bool Slingshot_GetRequiredChargeTime_Prefix(Slingshot __instance, ref float __result)
+		{
+			return !Bow.TryGetMaxDrawTime(__instance, ref __result);
+		}
+
         [HarmonyPostfix]
         [HarmonyPatch(typeof(FarmerRenderer))]
         [HarmonyPatch(nameof(FarmerRenderer.draw))]

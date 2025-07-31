@@ -19,6 +19,12 @@
             "FromFile": "assets/Locations/z_hikawa_house.png"
         },
         {
+            "LogName": "Hikawa: Sprites - Bows",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Bows",
+            "FromFile": "assets/Sprites/bows.png"
+        },
+        {
             "LogName": "Hikawa: Sprites - Extras",
             "Action": "Load",
             "Target": "Mods/blueberry/Hikawa/Sprites/Extras",

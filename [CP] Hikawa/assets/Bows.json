@@ -18,31 +18,156 @@
                     "{{BOW}}_Basic": {
                         "DisplayName": "{{i18n:item.bow_basic.name}}",
                         "Description": "{{i18n:item.bow_basic.description}}",
-                        "Texture": "{{PATH}}/Sprites/Objects",
+                        "Texture": "{{PATH}}/Sprites/Bows",
                         "SourceRect": {
-                            "X": 16,
-                            "Y": 32,
+                            "X": 0,
+                            "Y": 0,
                             "Width": 16,
                             "Height": 16
                         },
+                        "HeldFrames": [
+                            { // up
+                                "SourceRect": {
+                                    "X": 16,
+                                    "Y": 0,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            },
+                            { // right
+                                "SourceRect": {
+                                    "X": 32,
+                                    "Y": 0,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            },
+                            { // down
+                                "SourceRect": {
+                                    "X": 48,
+                                    "Y": 0,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            },
+                            { // left
+                                "SourceRect": {
+                                    "X": 64,
+                                    "Y": 0,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            }
+                        ],
                         "Damage": 15,
                         "Speed": 10,
+                        "Pierces": 0,
+                        "DrawTime": 0.5,
                         "BowstringColour": "White",
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
-                        "FireSound": "cast"
+                        "FireSound": "cast",
+                        "FireRate": 0.5
+                    },
+                    "{{BOW}}_Longbow": {
+                        "DisplayName": "{{i18n:item.bow_longbow.name}}",
+                        "Description": "{{i18n:item.bow_longbow.description}}",
+                        "Texture": "{{PATH}}/Sprites/Bows",
+                        "SourceRect": {
+                            "X": 0,
+                            "Y": 16,
+                            "Width": 16,
+                            "Height": 16
+                        },
+                        "HeldFrames": [
+                            { // up
+                                "SourceRect": {
+                                    "X": 16,
+                                    "Y": 19,
+                                    "Width": 16,
+                                    "Height": 24
+                                }
+                            },
+                            { // right
+                                "SourceRect": {
+                                    "X": 32,
+                                    "Y": 19,
+                                    "Width": 16,
+                                    "Height": 24
+                                }
+                            },
+                            { // down
+                                "SourceRect": {
+                                    "X": 48,
+                                    "Y": 19,
+                                    "Width": 16,
+                                    "Height": 24
+                                }
+                            },
+                            { // left
+                                "SourceRect": {
+                                    "X": 64,
+                                    "Y": 19,
+                                    "Width": 16,
+                                    "Height": 24
+                                }
+                            }
+                        ],
+                        "Damage": 35,
+                        "Speed": 15,
+                        "Pierces": 3,
+                        "DrawTime": 2.0,
+                        "BowstringColour": "White",
+                        "FireObject": "{{ID}}_Bow_Arrow_Basic",
+                        "FireSound": "clubswipe"
                     },
                     "{{BOW}}_Mars": {
                         "DisplayName": "{{i18n:item.bow_mars.name}}",
                         "Description": "{{i18n:item.bow_mars.description}}",
-                        "Texture": "{{PATH}}/Sprites/Objects",
+                        "Texture": "{{PATH}}/Sprites/Bows",
                         "SourceRect": {
-                            "X": 32,
-                            "Y": 32,
+                            "X": 0,
+                            "Y": 48,
                             "Width": 16,
                             "Height": 16
                         },
+                        "HeldFrames": [
+                            { // up
+                                "SourceRect": {
+                                    "X": 16,
+                                    "Y": 48,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            },
+                            { // right
+                                "SourceRect": {
+                                    "X": 32,
+                                    "Y": 48,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            },
+                            { // down
+                                "SourceRect": {
+                                    "X": 48,
+                                    "Y": 48,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            },
+                            { // left
+                                "SourceRect": {
+                                    "X": 64,
+                                    "Y": 48,
+                                    "Width": 16,
+                                    "Height": 16
+                                }
+                            }
+                        ],
                         "Damage": 25,
                         "Speed": 20,
+                        "Pierces": 10,
+                        "DrawTime": 1.0,
                         "BowstringColour": "Orange",
                         "FireObject": "{{ID}}_Bow_Arrow_Mars",
                         "FireSound": "fireball",

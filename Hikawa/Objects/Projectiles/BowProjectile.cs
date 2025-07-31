@@ -1,5 +1,6 @@
 ﻿using Hikawa.Data;
 using Hikawa.Objects.Items;
+using StardewValley.Monsters;
 using StardewValley.Projectiles;
 using System;
 
@@ -60,10 +61,36 @@ public class BowProjectile : BasicProjectile
         collisionBehavior: onCollision,
         shotItemId: bowData.FireObject)
     {
-        this.IgnoreLocationCollision = Game1.currentLocation.currentEvent != null || Game1.currentMinigame != null;
-        this.startingRotation.Value = /*MathF.PI / 2f +*/ (float)Utils.Vector.RadiansBetween(origin, target);
+        // BasicProjectile
+        this.IgnoreLocationCollision = Game1.currentLocation.currentEvent is not null || Game1.currentMinigame is not null;
+        this.startingRotation.Value = (float)Utils.Vector.RadiansBetween(origin, target);
+        this.piercesLeft.Value = bowData.Pierces;
 
+        // BowProjectile
         this.IsMagical = bowData.IsMagical;
+    }
+
+    public override void behaviorOnCollisionWithOther(GameLocation location)
+    {
+        // prevent multiple arrow debris on wall collisions
+        this.piercesLeft.Value = 0;
+
+        base.behaviorOnCollisionWithOther(location);
+    }
+
+    public override void behaviorOnCollisionWithMonster(NPC n, GameLocation location)
+    {
+        if (n is not Monster)
+        {
+            // prevent global chat message and piercing arrows when firing at characters
+            this.piercesLeft.Value = 0;
+            n.getHitByPlayer(this.GetPlayerWhoFiredMe(location), location);
+            this.explosionAnimation(location);
+        }
+        else
+        {
+            base.behaviorOnCollisionWithMonster(n, location);
+        }
     }
 
     protected override void explosionAnimation(GameLocation location)

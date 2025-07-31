@@ -19,10 +19,19 @@ public record class BowsDataEntry
     public string Description;
     public string Texture;
     public Rectangle SourceRect;
+    public BowFrame[] HeldFrames;
     public int Damage;
     public int Speed;
+    public int Pierces;
+    public float? DrawTime;
     public string FireObject;
     public string FireSound;
+    public float FireRate;
     public string BowstringColour;
     public bool IsMagical;
+}
+
+public record class BowFrame
+{
+    public Rectangle SourceRect;
 }

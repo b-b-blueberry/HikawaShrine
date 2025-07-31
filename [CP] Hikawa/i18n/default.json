@@ -85,9 +85,11 @@
     "item.bow_arrow_basic.description": "Used with a bow.",
     // tools
     "item.bow_basic.name": "Bow",
-    "item.bow_basic.description": "Fires arrows.",
+    "item.bow_basic.description": "Fires arrows quickly.",
+    "item.bow_longbow.name": "Longbow",
+    "item.bow_longbow.description": "Fires arrows.\nStronger than a Bow, but slower to draw.",
     "item.bow_mars.name": "Bow of Mars",
-    "item.bow_mars.description": "Fires burning spears. Does not consume arrows.",
+    "item.bow_mars.description": "Fires burning spears.\nDoes not consume arrows.",
     "item.bugtool.name": "Bug Jar",
     "item.bugtool.description": "Ami's hi-tech survey equipment. Used to collect critters around Cherry Hill.",
     "item.shrubtool.name": "Secateurs",
