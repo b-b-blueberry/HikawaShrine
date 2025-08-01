@@ -231,15 +231,31 @@
 
 	items
 
+		basics
+			arrows (wood + feathers)
+			feathers (crows)
+			charcoal (grove)
+			rare mushrooms (grove)
+
+
 		boomerang weapons
 			crescent moon
 			crystal wind
+
+		bow weapons
+			bow
+				fast, weak
+			longbow
+				slow, strong
+			mars
+				magic, no ammo
 
 	✔	shrine warp totem
 
 	a couple secret notes
 		burger
 		old photo of the shrine
+		photo of everyone
 
 --------------------------------------------------------------------------------------
 
@@ -254,37 +270,14 @@
 	custom festivals
 
 		obon
-			walk-in walk-out
+			passive
 			anime food
+				BBQ dango
+				fire crackers
 			free talisman
 
 		new year
-			locked-in
 			mochi mashing
-
---------------------------------------------------------------------------------------
-
-	existing festivals
-		luau
-			taking a break from studies (with book)
-			shoo, getting a tan
-			blueberry pie and bowl
-		stardew valley fair
-			jinja stall
-			tagging along
-			-
-		halloween
-			?
-		night markets
-			travelling merchant, you wouldnt believe the things you can get
-			tagging along
-			-
-		ice festival
-			ice sculpture
-			going skiing
-			-
-		christmas
-			table for three
 
 --------------------------------------------------------------------------------------
 
