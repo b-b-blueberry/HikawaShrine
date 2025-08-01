@@ -18,9 +18,9 @@ namespace Hikawa
 			public readonly string Description = description;
 		}
 
-		public static void Add(IModHelper helper, string prefix)
+		public static void RegisterAll(IModHelper helper, string prefix)
 		{
-			foreach (var method in typeof(ConsoleCommands).GetMethods())
+			foreach (var method in typeof(ConsoleCommands).GetMethods(BindingFlags.NonPublic | BindingFlags.Static))
 			{
 				if (method.GetCustomAttribute<ConsoleCommandAttribute>() is ConsoleCommandAttribute attribute)
 				{
@@ -35,7 +35,7 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("b", "Test")]
-		public static void bbb(string s, string[] args)
+		private static void bbb(string s, string[] args)
 		{
 			// Fix hanging sprites
 			// foreach (HangingSprite sprite in Game1.currentLocation.critters.Where(c => c is HangingSprite)) sprite.ResetRotation();
@@ -51,7 +51,7 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("v", "Volleyball starter")]
-		public static void volleyball(string s, string[] args)
+        private static void volleyball(string s, string[] args)
 		{
 			VolleyballLocation location = VolleyballLocation.MakeTemp();
 			location.SetUpLocation(rules:
@@ -69,7 +69,7 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("3", "Match3 starter")]
-		public static void match3(string s, string[] args)
+        private static void match3(string s, string[] args)
 		{
 			// Create game
 			if (args.Length == 0)
@@ -85,37 +85,37 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("bc", "Play island boat transition")]
-		public static void boat(string s, string[] args)
+        private static void boat(string s, string[] args)
 		{
 			Game1.currentMinigame = new Objects.Events.BoatCutscene();
 		}
 
 		[ConsoleCommandAttribute("s", "Warp to Hikawa Shrine")]
-		public static void shrine(string s, string[] args)
+        private static void shrine(string s, string[] args)
 		{
 			warpTo(locationName: ModEntry.ModData.MapShrine);
 		}
 
 		[ConsoleCommandAttribute("h", "Warp to Hikawa House")]
-		public static void house(string s, string[] args)
+        private static void house(string s, string[] args)
 		{
 			warpTo(locationName: ModEntry.ModData.MapHouse);
 		}
 
         [ConsoleCommandAttribute("l", "Warp to Hikawa Hall")]
-        public static void hall(string s, string[] args)
+        private static void hall(string s, string[] args)
         {
             warpTo(locationName: ModEntry.ModData.MapHall);
         }
 
         [ConsoleCommandAttribute("g", "Warp to Hikawa Grove")]
-        public static void grove(string s, string[] args)
+        private static void grove(string s, string[] args)
         {
             warpTo(locationName: ModEntry.ModData.MapGrove);
         }
 
 		[ConsoleCommandAttribute("o", "Manage screen overlays: use [0~num]")]
-		public static void overlay(string s, string[] args)
+        private static void overlay(string s, string[] args)
 		{
 			if (args.Length < 1)
 			{
@@ -134,7 +134,7 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("c", "Respawn twin crows at the shrine")]
-		public static void crows(string s, string[] args)
+        private static void crows(string s, string[] args)
 		{
 			Shrine shrine = Shrine.Get();
 			shrine.ClearCrows();
@@ -142,7 +142,7 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("cc", "Respawn perched crows at the shrine")]
-		public static void crows2(string s, string[] args)
+        private static void crows2(string s, string[] args)
 		{
 			Shrine shrine = Shrine.Get();
 			int which = args.Length > 0 ? int.Parse(args[0]) : Game1.random.Next(0, ModEntry.DecorSpawnsData.Value.CrowPerches.Keys.Count);
@@ -152,7 +152,7 @@ namespace Hikawa
 		}
 
 		[ConsoleCommandAttribute("cb", "Play CrystalBall event")]
-		public static void crystalball(string s, string[] args)
+        private static void crystalball(string s, string[] args)
 		{
 			Game1.globalFadeToBlack(afterFade: () =>
 			{

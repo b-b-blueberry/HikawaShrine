@@ -4,7 +4,6 @@ using Hikawa.Objects.Critters;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Items.Data;
 using Hikawa.Objects.Locations;
-using Hikawa.Objects.Menus;
 using Hikawa.Volleyball;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -122,8 +121,8 @@ namespace Hikawa
 			ItemRegistry.AddTypeDefinition(new KiteItemDataDefinition());
             ItemRegistry.AddTypeDefinition(new BugToolItemDataDefinition());
             ItemRegistry.AddTypeDefinition(new BugFurnitureItemDataDefinition());
-			this.RegisterMapActions();
-			this.RegisterEventCommands();
+			TileActions.RegisterAll(ModEntry.ModData.ContentPrefix);
+			EventCommands.RegisterAll(ModEntry.ModData.ContentPrefix);
 
 			// modules
 			Modules.DialogueEffects.Init();
@@ -131,7 +130,7 @@ namespace Hikawa
 			// dev tests
 			if (ModEntry.Config.DebugMode)
 			{
-				ConsoleCommands.Add(this.Helper, prefix: ModEntry.ModData.ConsoleCommandPrefix);
+				ConsoleCommands.RegisterAll(this.Helper, prefix: ModEntry.ModData.ConsoleCommandPrefix);
 				Modules.SpriteTest.Init(helper: this.Helper);
 			}
 
@@ -347,263 +346,6 @@ namespace Hikawa
 			this.CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation, e.Button);
 		}
 		
-		#endregion
-
-		#region Map Actions
-
-		public void RegisterMapActions()
-		{
-			Dictionary<string, Func<GameLocation, string[], Farmer, Point, bool>> tileActions = new()
-			{
-				{
-					ModEntry.ModData.ActionShrineShop, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Using the Shrine souvenir shop
-						if (where is Shrine shrine && shrine.GetShopPerson() is NPC npc)
-						{
-							var dialogue = npc.TryGetDialogue("shop_main");
-							npc.setNewDialogue(dialogue, add: true, clearOnMovement: true);
-							Game1.drawDialogue(npc);
-							return true;
-						}
-						return false;
-					}
-				},
-				{
-					ModEntry.ModData.ActionShrineOffering, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Using the Shrine offertory box
-						Utils.CreateInspectThenQuestionDialogue(
-							[
-								ModEntry.I18n.Get("world.shrine.offer.inspect"),
-								ModEntry.I18n.Get($"world.shrine.offer.prompt")
-							],
-							[
-								new Response("offer_yes", ModEntry.I18n.Get("ui.menu.yes")),
-								new Response("offer_no", ModEntry.I18n.Get("ui.menu.no"))
-							]);
-						return true;
-					}
-				},
-				{
-					ModEntry.ModData.ActionCrowTrade, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Interactions with the crow trade tile at the Shrine
-						return where is Shrine shrine && shrine.HandleCrowTradeAction(who);
-					}
-				},
-				{
-					ModEntry.ModData.ActionEma, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Interactions with the Ema stand at the Shrine
-						Game1.activeClickableMenu = new EmaMenu();
-						return true;
-					}
-				},
-				{
-					ModEntry.ModData.ActionShrineHall, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Trying to enter the Shrine Hall front doors
-						return true;
-					}
-				},
-				{
-					ModEntry.ModData.ActionLockbox, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Lockbox
-						return true;
-					}
-				},
-				{
-					ModEntry.ModData.ActionWardrobe, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Wardrobe
-						// Offer to toggle seasonal outfits on Hikawa characters
-						Game1.playSound("doorCreak");
-						Game1.freezeControls = true;
-						Game1.delayedActions.Add(new DelayedAction(300, () =>
-						{
-							Game1.freezeControls = false;
-							Utils.CreateInspectThenQuestionDialogue(
-								[
-									I18n.Get("world.house.wardrobe", new {season = Game1.CurrentSeasonDisplayName}),
-									I18n.Get($"world.house.wardrobe.{(false ? "disable" : "enable")}")
-								],
-								[
-									new Response("wardrobe_yes", I18n.Get("ui.menu.yes")),
-									new Response("wardrobe_no", I18n.Get("ui.menu.no"))
-								]);
-						}));
-						return true;
-					}
-				},
-				{
-					ModEntry.ModData.ActionVortex, (GameLocation where, string[] args, Farmer who, Point tile) =>
-					{
-						// Vortex warps
-						if (where is Vortex && args.Length > 2 && int.TryParse(args[1], out int toX) && int.TryParse(args[2], out int toY))
-						{
-							Point toTile = new Point(toX, toY);
-							string toLocation = args.Length > 3 ? args[3] : null;
-							Vortex.TouchVortexWarp(tile, toTile, toLocation);
-							return true;
-						}
-						return false;
-					}
-				}
-			};
-
-			foreach ((string key, var action) in tileActions)
-			{
-				GameLocation.RegisterTileAction(key: key, action: action);
-			}
-
-			Dictionary<string, Action<GameLocation, string[], Farmer, Vector2>> touchActions = new()
-			{
-				{
-					// Hop touch-action
-					ModEntry.ModData.TouchActionHop, (GameLocation where, string[] args, Farmer who, Vector2 tile) =>
-					{
-						// Don't allow for triggering other Hop tiles while already hopping
-						if (Game1.player.freezePause > 0)
-							return;
-
-						const int argsToSkip = 1; // First element is the action name, unused
-						const int argsLength = 4; // Each hop parses 4 elements in args before continuing
-						void hop(int argsIndex, Vector2 fromPosition)
-						{
-							Vector2 toTile = Vector2.Zero;
-							if (float.TryParse(args[argsIndex + 0], out toTile.X)
-								&& float.TryParse(args[argsIndex + 1], out toTile.Y)
-								&& int.TryParse(args[argsIndex + 2], out int facingDirection))
-							{
-								// Behaviour on hop started:
-
-								const int duration = 350;
-								Vector2 toPosition = toTile * Game1.tileSize;
-
-								// Play starting sound cue
-								Utils.TryPlaySound(cueName: args[argsIndex + 3]);
-
-								// Play dust-puff effect
-								TemporaryAnimatedSprite puff = new(
-									textureName: "TileSheets/animations",
-									sourceRect: new Rectangle(0, 320, 64, 64),
-									animationInterval: 50f,
-									animationLength: 8,
-									numberOfLoops: 0,
-									position: new Vector2(
-										x: fromPosition.X - fromPosition.X % Game1.tileSize + 16,
-										y: fromPosition.Y - fromPosition.Y % Game1.tileSize + 16),
-									flicker: false,
-									flipped: false)
-								{
-									scale = 0.5f,
-									alpha = 0.95f,
-									alphaFade = 0.01f
-								};
-								Game1.player.currentLocation.TemporarySprites.Add(puff);
-
-								// StardewValley.Farmer.cs:BeginSitting
-								// Stop player animations and hop to the target position
-								Game1.player.Halt();
-								Game1.player.synchronizedJump(4f);
-								Game1.player.FarmerSprite.StopAnimation();
-								Game1.player.LerpPosition(
-									start_position: Game1.player.Position,
-									end_position: toPosition,
-									duration: duration / 1000f);
-
-								Game1.player.FarmerSprite.setCurrentAnimation(animation:
-								[
-									new FarmerSprite.AnimationFrame(
-										frame: new[]{ FarmerSprite.walkUp, FarmerSprite.walkRight, FarmerSprite.walkDown, FarmerSprite.walkRight }[facingDirection],
-										milliseconds: duration,
-										secondaryArm: false,
-										flip: facingDirection == Game1.left,
-										frameBehavior: (Farmer who) =>
-										{
-											// Behaviour on hop completed:
-
-											// Required for ending hop-animation
-											Game1.player.Halt();
-											Game1.player.FarmerSprite.StopAnimation();
-											Game1.player.completelyStopAnimatingOrDoingAction();
-
-											// Check progress in hop-chain given in args
-											int nextIndex = argsIndex + argsLength;
-											if (args.Length >= nextIndex + argsLength)
-											{
-												// Continue to next point in hop-chain
-												hop(argsIndex: nextIndex, fromPosition: Game1.player.Position);
-											}
-											else
-											{
-												// At end of hop-chain:
-
-												// Match player facing-direction to last hop's direction
-												Game1.player.FacingDirection = facingDirection;
-
-												// Play landing sound cue
-												Game1.player.checkForFootstep();
-											}
-										},
-										behaviorAtEndOfFrame: true)
-								]);
-								// Required for holding hop-animation until complete
-								Game1.player.FarmerSprite.PauseForSingleAnimation = true;
-							}
-						}
-						if (args.Length - argsToSkip >= argsLength)
-						{
-							hop(argsIndex: argsToSkip, fromPosition: Game1.player.Position);
-						}
-					}
-				}
-			};
-
-			foreach ((string key, var action) in touchActions)
-			{
-				GameLocation.RegisterTouchAction(key: key, action: action);
-			}
-		}
-
-		#endregion
-
-		#region Event actions
-
-		public void RegisterEventCommands()
-		{
-			/*
-			Dictionary<string, EventCommandDelegate> eventCommands = new()
-			{
-				{
-					// Crystal ball cutscene
-					ModConsts.EventCommandCrystalBall, new EventCommandDelegate((Event e, string[] args, EventContext context) =>
-					{
-						if (e.currentCustomEventScript != null)
-						{
-							if (e.currentCustomEventScript.update(context.Time, e))
-							{
-								e.currentCustomEventScript = null;
-								e.CurrentCommand++;
-							}
-						}
-						else
-						{
-							e.currentCustomEventScript = new CrystalBall();
-							Game1.globalFadeToClear(afterFade: null, fadeSpeed: 0.01f);
-						}
-					})
-				}
-			};
-			foreach (var pair in eventCommands)
-			{
-				Event.RegisterCustomCommand(name: pair.Key, action: pair.Value);
-			}
-			*/
-		}
-
 		#endregion
 
 		#region Object actions

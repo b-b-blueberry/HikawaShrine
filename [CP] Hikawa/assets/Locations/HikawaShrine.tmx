@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="81" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="196" nextobjectid="346">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="81" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="196" nextobjectid="347">
  <properties>
   <property name="Music" value="communityCenter"/>
   <property name="Outdoors" type="bool" value="true"/>
@@ -1364,7 +1364,7 @@
    eJztzjkRgEAABME1wMnnsXKAN9YDAQTdVZNPAgAAAAAAAAAAAAAAAAAAAAAAAAD8wVySs13tbutItra3Y3x9984D7xgFuQ==
   </data>
  </layer>
- <objectgroup id="2" name="Back" visible="0">
+ <objectgroup id="2" name="Back">
   <object id="277" name="TileData" x="208" y="288" width="48" height="32">
    <properties>
     <property name="NoSpawn" value="All"/>
@@ -1546,13 +1546,19 @@
     <property name="Passable" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="346" name="TileData" x="688" y="512" width="16" height="16">
+   <properties>
+    <property name="NoSpawn" value="All"/>
+    <property name="Placeable" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="190" name="Back1" visible="0"/>
  <objectgroup id="191" name="Back2" visible="0"/>
  <objectgroup id="6" name="Buildings">
   <object id="280" name="TileData" x="400" y="688" width="16" height="16">
    <properties>
-    <property name="Action" value="Custom_Hikawa_ShrineShop"/>
+    <property name="Action" value="Custom_Hikawa_Shrine_Shop"/>
    </properties>
   </object>
   <object id="289" name="TileData" x="432" y="736" width="16" height="16">
@@ -1582,7 +1588,7 @@
   </object>
   <object id="328" name="TileData" x="544" y="560" width="32" height="16">
    <properties>
-    <property name="Action" value="Custom_Hikawa_Offering"/>
+    <property name="Action" value="Custom_Hikawa_Shrine_Offering"/>
    </properties>
   </object>
   <object id="329" name="TileData" x="592" y="192" width="16" height="16">
@@ -1592,12 +1598,12 @@
   </object>
   <object id="331" name="TileData" x="784" y="688" width="32" height="16">
    <properties>
-    <property name="Action" value="Message blueberry.hikawa."/>
+    <property name="Action" value="Custom_Hikawa_Shrine_Hall"/>
    </properties>
   </object>
   <object id="345" name="TileData" x="928" y="336" width="16" height="16">
    <properties>
-    <property name="Action" value="Custom_Hikawa_CrowTrade"/>
+    <property name="Action" value="Custom_Hikawa_Shrine_CrowTrade"/>
    </properties>
   </object>
  </objectgroup>
