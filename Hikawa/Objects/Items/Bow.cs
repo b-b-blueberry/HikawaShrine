@@ -32,7 +32,7 @@ namespace Hikawa.Objects.Items
             this.AttachmentSlotsCount = 0;
             this.PlayUseSounds = false;
 
-            if (ItemRegistry.GetData(this.ItemId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            if (Bow.GetData(id) is BowsDataEntry bowData)
             {
                 this.PlayUseSounds = !bowData.IsMagical;
             }
@@ -40,9 +40,24 @@ namespace Hikawa.Objects.Items
             this._aimMethod = ModEntry.Instance.Helper.Reflection.GetMethod(this, "updateAimPos");
         }
 
+        public static BowsDataEntry GetData(string itemId)
+        {
+            if (ItemRegistry.GetData(itemId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            {
+                return bowData;
+            }
+
+            return null;
+        }
+
+        public static BowsDataEntry GetData(Item item)
+        {
+            return Bow.GetData(item?.ItemId);
+        }
+
         public bool HasArrow(Farmer player)
         {
-            if (ItemRegistry.GetData(this.ItemId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            if (Bow.GetData(this) is BowsDataEntry bowData)
             {
                 return player.Items.ContainsId(bowData.FireObject);
             }
@@ -72,7 +87,7 @@ namespace Hikawa.Objects.Items
 
         public override float GetAutoFireRate()
         {
-            if (ItemRegistry.GetData(this.ItemId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            if (Bow.GetData(this) is BowsDataEntry bowData)
             {
                 return bowData.FireRate;
             }
@@ -102,7 +117,7 @@ namespace Hikawa.Objects.Items
 
         public override void PerformFire(GameLocation location, Farmer who)
         {
-            if (ItemRegistry.GetData(this.ItemId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            if (Bow.GetData(this) is BowsDataEntry bowData)
             {
                 // magical bows don't require arrows
                 bool hasArrow = bowData.IsMagical || this.HasArrow(who);
@@ -187,7 +202,7 @@ namespace Hikawa.Objects.Items
 
         public static bool TryDrawWhenUsing(SpriteBatch b, Texture2D playerTexture, Farmer player, Vector2 position, int direction, float layerDepth, float scaledPixelZoom)
         {
-            if (player.UsingTool && player.CurrentTool is Bow bow && ItemRegistry.GetData(bow.ItemId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
+            if (player.UsingTool && player.CurrentTool is Bow bow && Bow.GetData(bow) is BowsDataEntry bowData)
             {
                 // From base game:
                 int backArmDistance = bow.GetBackArmDistance(player);
