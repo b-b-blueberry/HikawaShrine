@@ -128,6 +128,14 @@ public static class TileActions
         return false;
     }
 
+
+    [TouchActionAttribute("Sound")]
+    private static void TouchAction_Sound(GameLocation where, string[] args, Farmer who, Vector2 tile)
+    {
+        if (args.Length > 1 && args[1] is string cueId && Game1.soundBank.Exists(cueId))
+            Game1.playSound(cueId);
+    }
+
     [TouchActionAttribute("Hop")]
     private static void TouchAction_Hop(GameLocation where, string[] args, Farmer who, Vector2 tile)
     {
