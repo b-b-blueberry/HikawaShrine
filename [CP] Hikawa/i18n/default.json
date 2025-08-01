@@ -413,7 +413,9 @@
     "rei.chat.43": "The ropes hanging around the shrine aren't for decoration. They're tied here to bind us to the world of spirits.#$b#They're unbelievably heavy, too. It'd be easier picking up the front gate than lifting one of these.",
     "rei.chat.44": "There's a special kind of magic in looking through your window in the spring and seeing flower petals fall like rain.#$b#It's like living in a storybook. I'll never get tired of it.",
     "rei.chat.45": "I look forward to autumn every year. Not just for the festivals, but the colours.#$b#Seeing the shrine all lit up in red and gold, leaves drifting through the air like embers..#$b#Maybe we'll even wrap up the bonfire without something catching fire.",
-    "rei.chat.46": "",
+    "rei.chat.46": "You're looking for Ami? She's out in the city today.%b%She's got some exams on, I think. Or was it tests? Maybe it was mocks...",
+    "rei.chat.47": "It's hard keeping up with the gardening around here. I wish Makoto would stop by more often.#$b#It wasn't *that* bad last time. How hard can it be to move a few little rocks?#$e#What? I'm not doing it myself. That's a dumb idea.",
+    "rei.chat.48": "",
     "rei.chat.": "",
 
     "ami.test": "DialoguePicker Ami default text",
