@@ -83,7 +83,8 @@
                         "BowstringColour": "White",
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
                         "FireSound": "cast",
-                        "FireRate": 0.5
+                        "FireRate": 0.5,
+                        "CanBeLostOnDeath": true
                     },
                     "{{BOW}}_Longbow": {
                         "DisplayName": "{{i18n:item.bow_longbow.name}}",
@@ -152,7 +153,8 @@
                         "DrawTime": 2.0,
                         "BowstringColour": "White",
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
-                        "FireSound": "clubswipe"
+                        "FireSound": "clubswipe",
+                        "CanBeLostOnDeath": true
                     },
                     "{{BOW}}_Mars": {
                         "DisplayName": "{{i18n:item.bow_mars.name}}",
@@ -222,7 +224,8 @@
                         "BowstringColour": "Orange",
                         "FireObject": "{{ID}}_Bow_Arrow_Mars",
                         "FireSound": "fireball",
-                        "IsMagical": true
+                        "IsMagical": true,
+                        "CanBeLostOnDeath": false
                     }
                 }
             }

@@ -33,6 +33,7 @@ public record class BowsDataEntry
     public float FireRate;
     public string BowstringColour;
     public bool IsMagical;
+    public bool CanBeLostOnDeath;
 }
 
 public record class BowFrame

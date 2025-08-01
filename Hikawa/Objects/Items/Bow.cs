@@ -80,6 +80,16 @@ namespace Hikawa.Objects.Items
             }
         }
 
+        public override bool CanBeLostOnDeath()
+        {
+            if (Bow.GetData(this) is BowsDataEntry bowData)
+            {
+                return bowData.CanBeLostOnDeath;
+            }
+
+            return base.CanBeLostOnDeath();
+        }
+
         public override bool CanAutoFire()
         {
             return this.HasArrow(Game1.player) && this.GetAutoFireRate() > 0;
