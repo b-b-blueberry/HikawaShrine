@@ -61,6 +61,11 @@
     "quest.reaction.flowers.summerspangle": "Thanks @, these are just what I needed.$h#$b#Now let's see, these ones should go around the middle...",
     "quest.reaction.flowers.sunflower": "Beautiful! They'll make a wonderful centerpiece.$h#$b#Thanks for picking these out @, it means a lot.",
     "quest.mail.flowers": "Hi @,^^Thanks for taking the time to find me some flowers! Here's a little something for your trouble, I hope it covers everything.^^  Ami =",
+
+    // Festivals
+    "festival.summer.name": "Sunset Festival",
+    "festival.summer.open": "The Sunset Festival has started on Cherry Hill.",
+
     // Buffs
     "buff.crackers.name": "Fire Cracker",
     "buff.crackers.description": "Your fire damage is stronger.",

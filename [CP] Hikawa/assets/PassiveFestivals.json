@@ -4,6 +4,39 @@
             "Action": "EditData",
             "Target": "Data/PassiveFestivals",
             "Entries": {
+                "{{ID}}_EndOfSummer_Summer": {
+                    "DisplayName": "{{i18n:festival.endofsummer.name}}",
+                    "Condition": "LOCATION_ACCESSIBLE {{SHRINE}}",
+                    "ShowOnCalendar": true,
+                    "Season": "Summer",
+                    "StartDay": 28,
+                    "EndDay": 28,
+                    "StartTime": 1700,
+                    "StartMessage": "{{i18n:festival.endofsummer.open}}",
+                    "OnlyShowMessageOnFirstDay": false,
+                    "MapReplacements": {
+                        "{{SHRINE}}": "{{SHRINE}}"
+                    },
+                    "DailySetupMethod": "Hikawa.Objects.Locations.Shrine, Hikawa: SetupFestival",
+                    "CleanupMethod": "Hikawa.Objects.Locations.Shrine, Hikawa: CleanupFestival"
+                },
+                "{{ID}}_EndOfSummer_Fall": {
+                    "DisplayName": "{{i18n:festival.endofsummer.name}}",
+                    "Condition": "LOCATION_ACCESSIBLE {{SHRINE}}",
+                    "ShowOnCalendar": true,
+                    "Season": "Fall",
+                    "StartDay": 1,
+                    "EndDay": 2,
+                    "StartTime": 1700,
+                    "StartMessage": "{{i18n:festival.endofsummer.open}}",
+                    "OnlyShowMessageOnFirstDay": false,
+                    "MapReplacements": {
+                        "{{SHRINE}}": "{{SHRINE}}"
+                    },
+                    "DailySetupMethod": "Hikawa.Objects.Locations.Shrine, Hikawa: SetupFestival",
+                    "CleanupMethod": "Hikawa.Objects.Locations.Shrine, Hikawa: CleanupFestival"
+                }
+            }
         }
     ]
 }

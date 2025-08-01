@@ -27,8 +27,10 @@ namespace Hikawa.Objects.Locations
 		public NetRef<Item> CrowTradeItem = new();
 		public NetMutex CrowTradeMutex = new();
 
-		/** TEMPORARY **/
+		// Events
+		public bool IsSummerFestival;
 
+		/** TEMPORARY **/
 
 		// Animations
 		[XmlIgnore]
@@ -253,6 +255,7 @@ namespace Hikawa.Objects.Locations
 		{
 			base.DayUpdate(dayOfMonth);
 
+            this.UpdateFestivals();
 
 			// TODO: METHOD: caats spawn conditions
 
@@ -590,6 +593,27 @@ namespace Hikawa.Objects.Locations
 			return this.isCharacterAtTile(tile);
 		}
 
+		public void UpdateFestivals()
+        {
+            bool wasFestival = this.IsSummerFestival;
+			bool isFestival = Game1.netWorldState.Value.ActivePassiveFestivals.Any(s => s.StartsWith(ModEntry.ModData.ContentPrefix));
+
+			// Festival ended
+            if (wasFestival && !isFestival)
+            {
+                // Leave Charcoal after bonfire
+                var area = new Rectangle(48, 49, 4, 3);
+                Utils.SpawnObjectsInArea(
+                    where: this,
+                    area: area,
+                    itemIds: [ModEntry.ModData.ItemCharcoal],
+                    attempts: area.Width * area.Height,
+                    max: 3);
+            }
+
+			this.IsSummerFestival = isFestival;
+		}
+
 		#endregion
 
 		#region Spawn methods
@@ -837,6 +861,20 @@ namespace Hikawa.Objects.Locations
 		{
 			this.ClearCats();
 			this.addCritter(new ShrineCat(position: position, baseFrame: baseFrame, scareRange: scareRange, flip: flip));
+		}
+
+		#endregion
+
+		#region Festival methods
+
+		public static void SetupFestival()
+		{
+
+		}
+
+		public static void CleanupFestival()
+		{
+
 		}
 
 		#endregion
