@@ -126,7 +126,6 @@ namespace Hikawa
 			this.RegisterEventCommands();
 
 			// modules
-			Modules.MiniSit.Init();
 			Modules.DialogueEffects.Init();
 
 			// dev tests
