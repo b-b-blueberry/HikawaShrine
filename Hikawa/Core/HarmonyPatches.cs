@@ -1,6 +1,7 @@
 ﻿using HarmonyLib; // el diavolo nuevo
 using Hikawa.Modules;
 using Hikawa.Objects.Items;
+using Hikawa.Objects.Locations;
 using Hikawa.Objects.Menus;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
@@ -408,12 +409,26 @@ namespace Hikawa
 
 		#endregion
 
-		#region Volleyball behaviours
+		#region UI behaviours
 
-		/// <summary>
-		/// Volleyball game behaviours.
-		/// </summary>
 		[HarmonyPostfix]
+		[HarmonyPatch(typeof(DayTimeMoneyBox), nameof(DayTimeMoneyBox.draw))]
+		public static void DayTimeMoneyBox_Draw_Postfix(DayTimeMoneyBox __instance, SpriteBatch b)
+		{
+            if (Game1.currentLocation is Grove)
+            {
+                b.Draw(ModEntry.Sprites, __instance.position + new Vector2(116f, 68f), new Rectangle(64, 0, 12, 8), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
+            }
+        }
+
+        #endregion
+
+        #region Volleyball behaviours
+
+        /// <summary>
+        /// Volleyball game behaviours.
+        /// </summary>
+        [HarmonyPostfix]
 		[HarmonyPatch(typeof(Game1))]
 		[HarmonyPatch(nameof(Game1.shouldTimePass))]
 		public static void Game1_ShouldTimePass_Postfix(ref bool __result)

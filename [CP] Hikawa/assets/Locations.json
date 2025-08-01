@@ -94,10 +94,42 @@
 		},
 		// Location contexts
 		{
-			"LogName": "Hikawa: Locations - LocationContexts",
+			"LogName": "Hikawa: Locations - Location contexts",
 			"Action": "EditData",
 			"Target": "Data/LocationContexts",
 			"Entries": {
+				"{{SHRINE}}": {
+					"DefaultMusic": "communityCenter",
+					"DefaultMusicCondition": null,
+					"DefaultMusicDelayOneScreen": true,
+					"Music": null,
+					"DayAmbience": null,
+					"NightAmbience": null,
+					"PlayRandomAmbientSounds": true,
+					"WeatherConditions": [],
+					"CopyWeatherFromLocation": "Town",
+					"ReviveLocations": null,
+					"MaxPassOutCost": -1,
+					"PassOutMail": null,
+					"PassOutLocations": null
+				},
+				"{{GROVE}}": {
+					"DefaultMusic": "none",
+					"DefaultMusicCondition": null,
+					"DefaultMusicDelayOneScreen": false,
+					"Music": [],
+					"DayAmbience": "none",
+					"NightAmbience": "none",
+					"PlayRandomAmbientSounds": false,
+					"AllowRainTotem": false,
+					"RainTotemAffectsContext": "Default",
+					"WeatherConditions": [],
+					"CopyWeatherFromLocation": "Town",
+					"ReviveLocations": null,
+					"MaxPassOutCost": -1,
+					"PassOutMail": null,
+					"PassOutLocations": null
+				}
 			}
 		},
 		// World map

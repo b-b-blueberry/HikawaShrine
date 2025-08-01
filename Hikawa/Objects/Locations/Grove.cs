@@ -119,10 +119,11 @@ namespace Hikawa.Objects.Locations
         {
             base.drawAboveAlwaysFrontLayer(b);
 
-            bool isThickFog = this.IsDebrisWeatherHere() || this.IsRainingHere() || this.IsGreenRainingHere();
+            GameLocation location = this;
+            bool isThickFog = location.IsDebrisWeatherHere() || location.IsRainingHere() || location.IsGreenRainingHere();
             double ms = Game1.currentGameTime.TotalGameTime.TotalMilliseconds;
-            float alpha = (isThickFog ? 0.75f : 0.55f) + 0.1f * (float)(Math.Sin(ms * Math.PI / 9000d));
-            Color colour = this.IsGreenRainingHere() ? new Color(125, 235, 135) : new Color(235, 225, 215);
+            float alpha = (isThickFog ? 1f : 0.75f) + 0.1f * (float)(Math.Sin(ms * Math.PI / 9000d));
+            Color colour = location.IsGreenRainingHere() ? new Color(125, 235, 135) : new Color(235, 225, 215);
             for (float x = this.fogPosition.X + this.fogOffset.X; x < Game1.graphics.GraphicsDevice.Viewport.Width + this.fogSource.Width * this.fogScale; x += this.fogSource.Width * this.fogScale)
                 for (float y = this.fogPosition.Y + this.fogOffset.Y; y < Game1.graphics.GraphicsDevice.Viewport.Height + this.fogSource.Height * this.fogScale; y += this.fogSource.Height * this.fogScale)
                     b.Draw(
@@ -135,6 +136,7 @@ namespace Hikawa.Objects.Locations
                         scale: this.fogScale,
                         effects: SpriteEffects.FlipHorizontally,
                         layerDepth: 1);
+            b.Draw(Game1.staminaRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), new Color(5, 1, 2, (int)(65 * alpha)));
         }
     }
 }

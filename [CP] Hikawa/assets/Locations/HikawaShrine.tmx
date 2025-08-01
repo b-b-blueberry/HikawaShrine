@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="81" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="196" nextobjectid="347">
  <properties>
-  <property name="Music" value="communityCenter"/>
+  <property name="LocationContext" value="Custom_Hikawa_Shrine"/>
   <property name="Outdoors" type="bool" value="true"/>
   <property name="Warp" value="-1 -1 Town -1 -1"/>
  </properties>
