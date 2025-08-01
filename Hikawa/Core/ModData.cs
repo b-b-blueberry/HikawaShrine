@@ -58,6 +58,7 @@
 		public string ItemLostGlasses;
 		public string ItemLostJewelry;
 		public string ItemCharcoal;
+		public string ItemFeather;
         // buffs
         public string BuffCrackersAttack;
 		public string BuffCrackersDefence;

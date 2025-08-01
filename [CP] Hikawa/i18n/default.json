@@ -80,6 +80,8 @@
     // objects
     "item.charcoal.name": "Charcoal",
     "item.charcoal.description": "Burnt old wood. Can be used as superior fuel.",
+    "item.feather.name": "Feathers",
+    "item.feather.description": "Some black feathers, plucked from a crow.",
     "item.kite.name": "Paper Kite",
     "item.kite.description": "A decorative paper kite. Can be placed outdoors.",
     "item.balloon.name": "Party Balloon",

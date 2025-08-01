@@ -10,12 +10,12 @@
                     "DisplayName": "{{i18n:item.charcoal.name}}",
                     "Description": "{{i18n:item.charcoal.description}}",
                     "Type": "Basic",
-                    "Category": -15,
-                    "Price": 45,
+                    "Category": -16,
+                    "Price": 75,
                     "Texture": "{{PATH}}/Sprites/Objects",
                     "SpriteIndex": 13,
                     "Edibility": -300,
-                    "CanBeGivenAsGift": true,
+                    "CanBeGivenAsGift": false,
                     "CanBeTrashed": true,
                     "ExcludeFromFishingCollection": true,
                     "ExcludeFromShippingCollection": true,
@@ -25,12 +25,31 @@
                         "particle_smoke"
                     ]
                 },
+                "{{ID}}_Feather": {
+                    "Name": "{{ID}}_Feather",
+                    "DisplayName": "{{i18n:item.feather.name}}",
+                    "Description": "{{i18n:item.feather.description}}",
+                    "Type": "Crafting",
+                    "Category": -16,
+                    "Price": 45,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 14,
+                    "Edibility": -300,
+                    "CanBeGivenAsGift": false,
+                    "CanBeTrashed": true,
+                    "ExcludeFromFishingCollection": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_black"
+                    ]
+                },
                 "{{ID}}_Bow_Arrow_Basic": {
                     "Name": "{{ID}}_Bow_Arrow_Basic",
                     "DisplayName": "{{i18n:item.bow_arrow_basic.name}}",
                     "Description": "{{i18n:item.bow_arrow_basic.description}}",
                     "Type": "Crafting",
-                    "Category": 0,
+                    "Category": -29,
                     "Price": 20,
                     "Texture": "{{PATH}}/Sprites/Objects",
                     "SpriteIndex": 24,
@@ -46,7 +65,7 @@
                     "DisplayName": "",
                     "Description": "",
                     "Type": "Crafting",
-                    "Category": 0,
+                    "Category": -29,
                     "Price": 0,
                     "Texture": "{{PATH}}/Sprites/Objects",
                     "SpriteIndex": 25,
@@ -191,7 +210,8 @@
             "Action": "EditData",
             "Target": "Data/CraftingRecipes",
             "Entries": {
-                "{{ID}}_Totem": "298 1 638 1 334 3//1/false/y 999/{{i18n:item.totem.name}}"
+                "{{ID}}_Totem": "298 1 638 1 334 3//1/false/y 999/{{i18n:item.totem.name}}",
+                "{{ID}}_Bow_Arrow_Basic": "388 10 {{ID}}_Feather 5//25/false/y 999/{{i18n:item.bow_arrow_basic.name}}"
             }
         }
     ]

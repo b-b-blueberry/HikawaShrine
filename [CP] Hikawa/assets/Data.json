@@ -67,6 +67,7 @@
                 "ItemLostGlasses": "{{ID}}_LostGlasses",
                 "ItemLostJewelry": "{{ID}}_LostJewelry",
                 "ItemCharcoal": "{{ID}}_Charcoal",
+                "ItemFeather": "{{ID}}_Feather",
                 // buffs
                 "BuffCrackersAttack": "{{ID}}_Crackers",
                 "BuffCrackersDefence": "{{ID}}_BurntCrackers",
