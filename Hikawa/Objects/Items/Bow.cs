@@ -17,6 +17,8 @@ namespace Hikawa.Objects.Items
         private readonly IReflectedMethod _aimMethod;
         private readonly IReflectedField<NetEvent0> _finishEvent;
 
+        private Vector2 BowAimPos;
+
         public override string TypeDefinitionId => BowItemDataDefinition.TypeDefinitionId;
 
         public Bow() : this(id: null) {}
@@ -53,9 +55,9 @@ namespace Hikawa.Objects.Items
             return Bow.GetData(item?.ItemId);
         }
 
-        public bool HasArrow(Farmer player)
+        public bool HasArrow(BowsDataEntry bowData, Farmer player)
         {
-            if (Bow.GetData(this) is BowsDataEntry bowData)
+            if (bowData is not null)
             {
                 return player.Items.ContainsId(bowData.FireObject);
             }
@@ -65,9 +67,9 @@ namespace Hikawa.Objects.Items
 
         /// <param name="chargeRatio">Charge ratio from 0 (empty) to 1 (full).</param>
         /// <returns>Whether the <see cref="Bow"/> is charged and ready to fire. May not be fully charged if <see cref="BowsDataEntry.MinimumDrawTime"/> is defined.</returns>
-        public bool CanRelease(float chargeRatio)
+        public bool CanRelease(BowsDataEntry bowData, float chargeRatio)
         {
-            if (Bow.GetData(this) is BowsDataEntry bowData && bowData.MinimumDrawTime.HasValue)
+            if (bowData is not null && bowData.MinimumDrawTime.HasValue)
             {
                 return chargeRatio >= bowData.MinimumDrawTime.Value / this.GetRequiredChargeTime();
             }
@@ -78,6 +80,16 @@ namespace Hikawa.Objects.Items
         public float GetTotalChargeTime()
         {
             return (float)(Game1.currentGameTime.TotalGameTime.TotalSeconds - this.pullStartTime);
+        }
+
+        public Vector2 GetTarget(BowsDataEntry bowData)
+        {
+            if (bowData is not null)
+            {
+                return this.BowAimPos;
+            }
+
+            return this.aimPos.Value.ToVector2();
         }
 
         public float SpeedMultiplier(Farmer player) => 1 + player.buffs.WeaponSpeedMultiplier;
@@ -109,7 +121,12 @@ namespace Hikawa.Objects.Items
 
         public override bool CanAutoFire()
         {
-            return this.HasArrow(Game1.player) && this.GetAutoFireRate() > 0;
+            if (Bow.GetData(this) is BowsDataEntry bowData)
+            {
+                return this.HasArrow(bowData, Game1.player) && this.GetAutoFireRate() > 0;
+            }
+
+            return false;
         }
 
         public override float GetAutoFireRate()
@@ -126,10 +143,14 @@ namespace Hikawa.Objects.Items
         {
             if (base.beginUsing(location, x, y, who))
             {
-                // Only play sound on first draw, not on autofire
-                if (Bow.GetData(this) is BowsDataEntry bowData && bowData.DrawSound is not null)
+                if (Bow.GetData(this) is BowsDataEntry bowData)
                 {
-                    who.playNearbySoundAll(bowData.DrawSound);
+                    // Set real aim position to mouse cursor
+                    this.BowAimPos = new Vector2(x, y);
+
+                    // Only play sound on first draw, not on autofire
+                    if (bowData.DrawSound is not null)
+                        who.playNearbySoundAll(bowData.DrawSound);
                 }
 
                 // Prevent slingshot draw behaviours
@@ -153,12 +174,12 @@ namespace Hikawa.Objects.Items
             if (Bow.GetData(this) is BowsDataEntry bowData)
             {
                 // magical bows don't require arrows
-                bool hasArrow = bowData.IsMagical || this.HasArrow(who);
+                bool hasArrow = bowData.IsMagical || this.HasArrow(bowData, who);
                 if (hasArrow)
                 {
                     this._aimMethod.Invoke();
                     float chargeRatio = this.GetSlingshotChargeTime();
-                    if (this.CanRelease(chargeRatio))
+                    if (this.CanRelease(bowData, chargeRatio))
                     {
                         // consume arrow and fire
                         if (!bowData.IsMagical)
@@ -196,47 +217,43 @@ namespace Hikawa.Objects.Items
                 if (!this.CanAutoFire() && this.GetTotalChargeTime() > this.GetRequiredChargeTime() * 2f)
                     who.jitterStrength = 0.5f;
 
-                this._aimMethod.Invoke();
-                int mouseX = this.aimPos.X;
-                int mouseY = this.aimPos.Y;
                 this.mouseDragAmount++;
 
+                // Desired aim position (AimPos) set to mouse cursor
+                this._aimMethod.Invoke();
+
+                Vector2 target = this.aimPos.Value.ToVector2();
+                if (Bow.GetData(this) is BowsDataEntry bowData)
+                {
+                    // Real aim position tries to follow desired position (AimPos)
+                    this.BowAimPos += (target - this.BowAimPos) * bowData.TurnRate * this.SpeedMultiplier(who);
+                    target = this.BowAimPos;
+                }
+
+                // Update player sprite to face real aim position (AimBow)
                 Vector2 shoot_origin = this.GetShootOrigin(who);
-                Vector2 aim_offset = this.AdjustForHeight(new Vector2(mouseX, mouseY)) - shoot_origin;
+                Vector2 aim_offset = this.AdjustForHeight(target) - shoot_origin;
+
+                // Player sprite and auto-fire behaviours as default
+                #region Default
                 if (Math.Abs(aim_offset.X) > Math.Abs(aim_offset.Y))
                 {
                     if (aim_offset.X < 0f)
-                    {
                         who.faceDirection(Game1.left);
-                    }
                     if (aim_offset.X > 0f)
-                    {
                         who.faceDirection(Game1.right);
-                    }
                 }
                 else
                 {
                     if (aim_offset.Y < 0f)
-                    {
                         who.faceDirection(Game1.up);
-                    }
                     if (aim_offset.Y > 0f)
-                    {
                         who.faceDirection(Game1.down);
-                    }
                 }
 
-                // Auto-fire behaviours as default
-                #region Default
                 if (this.canPlaySound && this.GetSlingshotChargeTime() >= 1f)
-                {
                     this.canPlaySound = false;
-                }
-                if (!this.CanAutoFire())
-                {
-                    this.lastClickX = mouseX;
-                    this.lastClickY = mouseY;
-                }
+                
                 if (this.CanAutoFire())
                 {
                     bool first_fire = false;
@@ -255,7 +272,7 @@ namespace Hikawa.Objects.Items
                         }
                     }
                 }
-                int offset = ((who.FacingDirection == 3 || who.FacingDirection == 1) ? 1 : ((who.FacingDirection == 0) ? 2 : 0));
+                int offset = (who.FacingDirection is Game1.left or Game1.right) ? 1 : ((who.FacingDirection is Game1.up) ? 2 : 0);
                 who.FarmerSprite.setCurrentFrame(42 + offset);
                 #endregion
 
@@ -304,7 +321,7 @@ namespace Hikawa.Objects.Items
             {
                 // From base game:
                 int backArmDistance = bow.GetBackArmDistance(player);
-                Vector2 target = bow.AdjustForHeight(Utility.PointToVector2(bow.aimPos.Value));
+                Vector2 target = bow.AdjustForHeight(bow.GetTarget(bowData));
                 Vector2 from = bow.GetShootOrigin(player);
                 Vector2 motion = target - from;
                 float frontArmRotation = MathF.Atan2(motion.Y, motion.X) + MathF.PI;

@@ -86,6 +86,7 @@
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
                         "FireSound": "cast",
                         "FireRate": 0.5,
+                        "TurnRate": 0.05,
                         "CanBeLostOnDeath": true
                     },
                     "{{BOW}}_Longbow": {
@@ -158,6 +159,7 @@
                         "BowstringColour": "White",
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
                         "FireSound": "{{ID}}_Bow_Fire_Slow",
+                        "TurnRate": 0.025,
                         "CanBeLostOnDeath": true
                     },
                     "{{BOW}}_Mars": {
@@ -230,6 +232,7 @@
                         "BowstringColour": "Orange",
                         "FireObject": "{{ID}}_Bow_Arrow_Mars",
                         "FireSound": "fireball",
+                        "TurnRate": 0.0333,
                         "IsMagical": true,
                         "CanBeLostOnDeath": false
                     }

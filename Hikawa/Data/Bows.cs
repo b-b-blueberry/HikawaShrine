@@ -59,8 +59,10 @@ public record class BowsDataEntry
     public string FireObject;
     /// <summary>Cue ID for sound played when released. Does not play when released before <see cref="MinimumDrawTime"/>.</summary>
     public string FireSound;
-    /// <summary>Duration in seconds </summary>
+    /// <summary></summary>
     public float FireRate;
+    /// <summary>Multiplier affecting aim responsiveness. Value given as a ratio from 0 (aim does not move) to 1 (aim follows cursor exactly). Values less than 0.2 are noticeable.</summary>
+    public float TurnRate;
     /// <summary>Colour of dynamic bowstrings drawn when held.</summary>
     public string BowstringColour;
     /// <summary>Whether to play magic effects on use. Arrows will not be consumed.</summary>

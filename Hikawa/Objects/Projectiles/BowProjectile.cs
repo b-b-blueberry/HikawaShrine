@@ -16,7 +16,7 @@ public class BowProjectile : BasicProjectile
     public static BowProjectile Create(Farmer player, GameLocation location, Bow bow, BowsDataEntry bowData, float chargeRatio, onCollisionBehavior onCollision = null)
     {
         Vector2 origin = bow.GetShootOrigin(player);
-        Vector2 target = bow.AdjustForHeight(bow.aimPos.Value.ToVector2());
+        Vector2 target = bow.AdjustForHeight(bow.GetTarget(bowData));
         Vector2 velocity = Utility.getVelocityTowardPoint(
             startingPoint: origin,
             endingPoint: target,
