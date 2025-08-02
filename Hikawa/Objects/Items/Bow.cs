@@ -60,6 +60,8 @@ namespace Hikawa.Objects.Items
             return false;
         }
 
+        public float SpeedMultiplier(Farmer player) => 1 + player.buffs.WeaponSpeedMultiplier;
+
         protected override Item GetOneNew()
         {
             return new Bow(this.ItemId);
@@ -94,7 +96,7 @@ namespace Hikawa.Objects.Items
         {
             if (Bow.GetData(this) is BowsDataEntry bowData)
             {
-                return bowData.FireRate;
+                return bowData.FireRate / this.SpeedMultiplier(this.getLastFarmerToUse());
             }
 
             return 0;

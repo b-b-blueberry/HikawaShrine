@@ -1,4 +1,5 @@
 ﻿using HarmonyLib; // el diavolo nuevo
+using Hikawa.Data;
 using Hikawa.Modules;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
@@ -120,7 +121,13 @@ namespace Hikawa
 		[HarmonyPatch(typeof(Slingshot), nameof(Slingshot.GetRequiredChargeTime))]
 		private static bool Slingshot_GetRequiredChargeTime_Prefix(Slingshot __instance, ref float __result)
 		{
-			return !Bow.TryGetMaxDrawTime(__instance, ref __result);
+			if (__instance is Bow bow && Bow.TryGetMaxDrawTime(bow, ref __result))
+			{
+				__result /= bow.SpeedMultiplier(bow.getLastFarmerToUse());
+                return false;
+			}
+
+			return true;
 		}
 
         [HarmonyPostfix]

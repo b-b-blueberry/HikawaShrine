@@ -20,7 +20,7 @@ public class BowProjectile : BasicProjectile
         Vector2 velocity = Utility.getVelocityTowardPoint(
             startingPoint: origin,
             endingPoint: target,
-            speed: (bowData.Speed + Game1.random.Next(4, 6)) * (1f + who.buffs.WeaponSpeedMultiplier));
+            speed: (bowData.Speed + Game1.random.Next(4, 6)) * bow.SpeedMultiplier(player));
 
         if (!Game1.options.useLegacySlingshotFiring)
         {
