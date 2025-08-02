@@ -49,6 +49,8 @@ public record class BowsDataEntry
 
     /** BOW **/
 
+    /// <summary>Duration in seconds the <see cref="Bow"/> must be charged before it can be released. Defaults to <see cref="DrawTime"/>.</summary>
+    public float? MinimumDrawTime;
     /// <summary>Duration in seconds the <see cref="Bow"/> takes to reach full charge.</summary>
     public float? DrawTime;
     /// <summary>Cue ID for sound played when starting to charge. Does not play for continuous use with a defined <see cref="FireRate"/>.</summary>

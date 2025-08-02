@@ -60,6 +60,18 @@ namespace Hikawa.Objects.Items
             return false;
         }
 
+        /// <param name="chargeRatio">Charge ratio from 0 (empty) to 1 (full).</param>
+        /// <returns>Whether the <see cref="Bow"/> is charged and ready to fire. May not be fully charged if <see cref="BowsDataEntry.MinimumDrawTime"/> is defined.</returns>
+        public bool CanRelease(float chargeRatio)
+        {
+            if (Bow.GetData(this) is BowsDataEntry bowData && bowData.MinimumDrawTime.HasValue)
+            {
+                return chargeRatio >= bowData.MinimumDrawTime.Value / this.GetRequiredChargeTime();
+            }
+
+            return chargeRatio >= 1;
+        }
+
         public float SpeedMultiplier(Farmer player) => 1 + player.buffs.WeaponSpeedMultiplier;
 
         protected override Item GetOneNew()
@@ -137,8 +149,8 @@ namespace Hikawa.Objects.Items
                 if (hasArrow)
                 {
                     this._aimMethod.Invoke();
-                    int backArmDistance = this.GetBackArmDistance(who);
-                    if (backArmDistance > 4 && !this.canPlaySound)
+                    float chargeRatio = this.GetSlingshotChargeTime();
+                    if (this.CanRelease(chargeRatio))
                     {
                         // consume arrow and fire
                         if (!bowData.IsMagical)
@@ -146,11 +158,11 @@ namespace Hikawa.Objects.Items
                             who.removeFirstOfThisItemFromInventory(bowData.FireObject);
                         }
                         location.projectiles.Add(BowProjectile.Create(
-                            who: who,
+                            player: who,
                             location: location,
                             bow: this,
                             bowData: bowData,
-                            charge: backArmDistance));
+                            chargeRatio: chargeRatio));
                         who.playNearbySoundAll(bowData.FireSound);
                     }
                 }

@@ -10,30 +10,27 @@ namespace Hikawa.Objects.Projectiles;
 public class BowProjectile : BasicProjectile
 {
     public readonly string BowId;
-    public readonly int Charge;
+    public readonly float ChargeRatio;
     public readonly bool IsMagical;
 
-    public static BowProjectile Create(Farmer who, GameLocation location, Bow bow, BowsDataEntry bowData, int charge, onCollisionBehavior onCollision = null)
+    public static BowProjectile Create(Farmer player, GameLocation location, Bow bow, BowsDataEntry bowData, float chargeRatio, onCollisionBehavior onCollision = null)
     {
-        Vector2 origin = bow.GetShootOrigin(who);
+        Vector2 origin = bow.GetShootOrigin(player);
         Vector2 target = bow.AdjustForHeight(bow.aimPos.Value.ToVector2());
         Vector2 velocity = Utility.getVelocityTowardPoint(
             startingPoint: origin,
             endingPoint: target,
-            speed: (bowData.Speed + Game1.random.Next(4, 6)) * bow.SpeedMultiplier(player));
+            speed: (bowData.Speed + Game1.random.Next(4, 6)) * chargeRatio * bow.SpeedMultiplier(player));
 
         if (!Game1.options.useLegacySlingshotFiring)
-        {
-            velocity.X *= -1f;
-            velocity.Y *= -1f;
-        }
+            velocity *= -1f;
 
         return new BowProjectile(
-            who: who,
+            player: player,
             location: location,
             bow: bow,
             bowData: bowData,
-            charge: charge,
+            chargeRatio: chargeRatio,
             velocity: velocity,
             origin: origin,
             target: target,
@@ -41,9 +38,9 @@ public class BowProjectile : BasicProjectile
     }
 
     /// <summary>
-    /// Use <see cref="Create(Farmer, GameLocation, Bow, BowsDataEntry, int, onCollisionBehavior)"/> instead.
+    /// Use <see cref="Create(Farmer, GameLocation, Bow, BowsDataEntry, float, onCollisionBehavior)"/> instead.
     /// </summary>
-    public BowProjectile(Farmer who, GameLocation location, Bow bow, BowsDataEntry bowData, int charge, Vector2 velocity, Vector2 origin, Vector2 target, onCollisionBehavior onCollision) : base(
+    private BowProjectile(Farmer player, GameLocation location, Bow bow, BowsDataEntry bowData, float chargeRatio, Vector2 velocity, Vector2 origin, Vector2 target, onCollisionBehavior onCollision) : base(
         damageToFarmer: bowData.Damage,
         spriteIndex: 0,
         bouncesTillDestruct: 0,
@@ -58,7 +55,7 @@ public class BowProjectile : BasicProjectile
         explode: false,
         damagesMonsters: true,
         location: location,
-        firer: who,
+        firer: player,
         collisionBehavior: onCollision,
         shotItemId: bowData.FireObject)
     {
@@ -69,9 +66,11 @@ public class BowProjectile : BasicProjectile
 
         // BowProjectile
         this.BowId = bow.ItemId;
-        this.Charge = charge;
+        this.ChargeRatio = chargeRatio;
         this.IsMagical = bowData.IsMagical;
     }
+
+    public int GetDamageAfterModifiers(Farmer player, int damage) => (int)(this.ChargeRatio * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + player.buffs.AttackMultiplier));
 
     public override void behaviorOnCollisionWithOther(GameLocation location)
     {
@@ -89,9 +88,7 @@ public class BowProjectile : BasicProjectile
             // apply custom damage values
             if (ItemRegistry.GetData(this.BowId) is ParsedItemData itemData && itemData.RawData is BowsDataEntry bowData)
             {
-                float damageMod = this.Charge / 2f;
-                int damage = this.damageToFarmer.Value;
-                damage = (int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + player.buffs.AttackMultiplier));
+                int damage = this.GetDamageAfterModifiers(player, this.damageToFarmer.Value);
                 location.damageMonster(
                     areaOfEffect: n.GetBoundingBox(),
                     minDamage: damage,
