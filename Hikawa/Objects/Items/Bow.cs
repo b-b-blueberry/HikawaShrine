@@ -107,7 +107,7 @@ namespace Hikawa.Objects.Items
                 // Only play sound on first draw, not on autofire
                 if (Bow.GetData(this) is BowsDataEntry bowData && bowData.DrawSound is not null)
                 {
-                    Game1.playSound(bowData.DrawSound);
+                    who.playNearbySoundAll(bowData.DrawSound);
                 }
 
                 // Prevent slingshot draw behaviours
