@@ -1,6 +1,7 @@
 ﻿using Hikawa.Data;
 using Hikawa.Objects.Items.Data;
 using Hikawa.Objects.Projectiles;
+using Netcode;
 using StardewModdingAPI;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Tools;
@@ -14,6 +15,7 @@ namespace Hikawa.Objects.Items
     public class Bow : Slingshot
     {
         private readonly IReflectedMethod _aimMethod;
+        private readonly IReflectedField<NetEvent0> _finishEvent;
 
         public override string TypeDefinitionId => BowItemDataDefinition.TypeDefinitionId;
 
@@ -33,6 +35,7 @@ namespace Hikawa.Objects.Items
             this.PlayUseSounds = false;
 
             this._aimMethod = ModEntry.Instance.Helper.Reflection.GetMethod(this, "updateAimPos");
+            this._finishEvent = ModEntry.Instance.Helper.Reflection.GetField<NetEvent0>(this, "finishEvent");
         }
 
         public static BowsDataEntry GetData(string itemId)
@@ -177,16 +180,95 @@ namespace Hikawa.Objects.Items
 
         public override void tickUpdate(GameTime time, Farmer who)
         {
-            if (who.IsLocalPlayer && who.CurrentTool == this && who.UsingTool)
+            this.lastUser = who;
+            this._finishEvent.GetValue().Poll();
+
+            if (who.IsLocalPlayer && who.UsingTool && who.CurrentTool == this)
             {
-                // terrible things
                 who.usingSlingshot = true;
-                base.tickUpdate(time, who);
+
+                this._aimMethod.Invoke();
+                int mouseX = this.aimPos.X;
+                int mouseY = this.aimPos.Y;
+                this.mouseDragAmount++;
+
+                if (!Game1.options.useLegacySlingshotFiring)
+                {
+                    Vector2 shoot_origin = this.GetShootOrigin(who);
+                    Vector2 aim_offset = this.AdjustForHeight(new Vector2(mouseX, mouseY)) - shoot_origin;
+                    if (Math.Abs(aim_offset.X) > Math.Abs(aim_offset.Y))
+                    {
+                        if (aim_offset.X < 0f)
+                        {
+                            who.faceDirection(Game1.left);
+                        }
+                        if (aim_offset.X > 0f)
+                        {
+                            who.faceDirection(Game1.right);
+                        }
+                    }
+                    else
+                    {
+                        if (aim_offset.Y < 0f)
+                        {
+                            who.faceDirection(Game1.up);
+                        }
+                        if (aim_offset.Y > 0f)
+                        {
+                            who.faceDirection(Game1.down);
+                        }
+                    }
+                }
+                else
+                {
+                    who.faceGeneralDirection(new Vector2(mouseX, mouseY), 0, opposite: true);
+                }
+
+                // Legacy and auto-fire behaviours as default
+                #region Default
+                if (!Game1.options.useLegacySlingshotFiring)
+                {
+                    if (this.canPlaySound && this.GetSlingshotChargeTime() >= 1f)
+                    {
+                        this.canPlaySound = false;
+                    }
+                }
+                else if (this.canPlaySound && (Math.Abs(mouseX - this.lastClickX) > 8 || Math.Abs(mouseY - this.lastClickY) > 8) && this.mouseDragAmount > 4)
+                {
+                    this.canPlaySound = false;
+                }
+                if (!this.CanAutoFire())
+                {
+                    this.lastClickX = mouseX;
+                    this.lastClickY = mouseY;
+                }
+                if (Game1.options.useLegacySlingshotFiring)
+                {
+                    Game1.mouseCursor = Game1.cursor_none;
+                }
+                if (this.CanAutoFire())
+                {
+                    bool first_fire = false;
+                    if (this.GetBackArmDistance(who) >= 20 && this.nextAutoFire < 0f)
+                    {
+                        this.nextAutoFire = 0f;
+                        first_fire = true;
+                    }
+                    if (this.nextAutoFire > 0f || first_fire)
+                    {
+                        this.nextAutoFire -= (float)time.ElapsedGameTime.TotalSeconds;
+                        if (this.nextAutoFire <= 0f)
+                        {
+                            this.PerformFire(who.currentLocation, who);
+                            this.nextAutoFire = this.GetAutoFireRate();
+                        }
+                    }
+                }
+                int offset = ((who.FacingDirection == 3 || who.FacingDirection == 1) ? 1 : ((who.FacingDirection == 0) ? 2 : 0));
+                who.FarmerSprite.setCurrentFrame(42 + offset);
+                #endregion
+
                 who.usingSlingshot = false;
-            }
-            else
-            {
-                base.tickUpdate(time, who);
             }
         }
 
