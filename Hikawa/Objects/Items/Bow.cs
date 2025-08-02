@@ -75,6 +75,11 @@ namespace Hikawa.Objects.Items
             return chargeRatio >= 1;
         }
 
+        public float GetTotalChargeTime()
+        {
+            return (float)(Game1.currentGameTime.TotalGameTime.TotalSeconds - this.pullStartTime);
+        }
+
         public float SpeedMultiplier(Farmer player) => 1 + player.buffs.WeaponSpeedMultiplier;
 
         protected override Item GetOneNew()
@@ -186,6 +191,10 @@ namespace Hikawa.Objects.Items
             if (who.IsLocalPlayer && who.UsingTool && who.CurrentTool == this)
             {
                 who.usingSlingshot = true;
+
+                // Shake on long pulls
+                if (!this.CanAutoFire() && this.GetTotalChargeTime() > this.GetRequiredChargeTime() * 2f)
+                    who.jitterStrength = 0.5f;
 
                 this._aimMethod.Invoke();
                 int mouseX = this.aimPos.X;
