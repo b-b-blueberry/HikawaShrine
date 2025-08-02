@@ -28,6 +28,7 @@ public record class BowsDataEntry
     public float CriticalMultiplier;
     public float KnockbackMultiplier;
     public float? DrawTime;
+    public string DrawSound;
     public string FireObject;
     public string FireSound;
     public float FireRate;

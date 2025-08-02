@@ -32,11 +32,6 @@ namespace Hikawa.Objects.Items
             this.AttachmentSlotsCount = 0;
             this.PlayUseSounds = false;
 
-            if (Bow.GetData(id) is BowsDataEntry bowData)
-            {
-                this.PlayUseSounds = !bowData.IsMagical;
-            }
-
             this._aimMethod = ModEntry.Instance.Helper.Reflection.GetMethod(this, "updateAimPos");
         }
 
@@ -109,6 +104,12 @@ namespace Hikawa.Objects.Items
         {
             if (base.beginUsing(location, x, y, who))
             {
+                // Only play sound on first draw, not on autofire
+                if (Bow.GetData(this) is BowsDataEntry bowData && bowData.DrawSound is not null)
+                {
+                    Game1.playSound(bowData.DrawSound);
+                }
+
                 // Prevent slingshot draw behaviours
                 who.usingSlingshot = false;
                 who.UsingTool = true;

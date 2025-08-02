@@ -80,6 +80,7 @@
                         "CriticalMultiplier": 0,
                         "KnockbackMultiplier": 0.5,
                         "DrawTime": 0.5,
+                        "DrawSound": "slingshot",
                         "BowstringColour": "White",
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
                         "FireSound": "cast",
@@ -151,9 +152,10 @@
                         "CriticalMultiplier": 2.0,
                         "KnockbackMultiplier": 2.0,
                         "DrawTime": 2.0,
+                        "DrawSound": "{{ID}}_Bow_Draw_Slow",
                         "BowstringColour": "White",
                         "FireObject": "{{ID}}_Bow_Arrow_Basic",
-                        "FireSound": "clubswipe",
+                        "FireSound": "{{ID}}_Bow_Fire_Slow",
                         "CanBeLostOnDeath": true
                     },
                     "{{BOW}}_Mars": {
@@ -221,6 +223,7 @@
                         "CriticalMultiplier": 0,
                         "KnockbackMultiplier": 1.0,
                         "DrawTime": 1.0,
+                        "DrawSound": "sipTea",
                         "BowstringColour": "Orange",
                         "FireObject": "{{ID}}_Bow_Arrow_Mars",
                         "FireSound": "fireball",

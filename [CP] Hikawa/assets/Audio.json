@@ -6,6 +6,20 @@
             "Target": "Data/AudioChanges",
             "Action": "EditData",
             "Entries": {
+                "{{ID}}_Bow_Draw_Slow": {
+                    "ID": "{{ID}}_Bow_Draw_Slow",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/bow_draw_slow.wav}}"
+                    ],
+                    "Category": "Sound"
+                },
+                "{{ID}}_Bow_Fire_Slow": {
+                    "ID": "{{ID}}_Bow_Fire_Slow",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/bow_fire_slow.wav}}"
+                    ],
+                    "Category": "Sound"
+                },
                 "{{ID}}_Hop": {
                     "ID": "{{ID}}_Hop",
                     "FilePaths": [
