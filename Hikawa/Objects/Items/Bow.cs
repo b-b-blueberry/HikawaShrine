@@ -201,48 +201,34 @@ namespace Hikawa.Objects.Items
                 int mouseY = this.aimPos.Y;
                 this.mouseDragAmount++;
 
-                if (!Game1.options.useLegacySlingshotFiring)
+                Vector2 shoot_origin = this.GetShootOrigin(who);
+                Vector2 aim_offset = this.AdjustForHeight(new Vector2(mouseX, mouseY)) - shoot_origin;
+                if (Math.Abs(aim_offset.X) > Math.Abs(aim_offset.Y))
                 {
-                    Vector2 shoot_origin = this.GetShootOrigin(who);
-                    Vector2 aim_offset = this.AdjustForHeight(new Vector2(mouseX, mouseY)) - shoot_origin;
-                    if (Math.Abs(aim_offset.X) > Math.Abs(aim_offset.Y))
+                    if (aim_offset.X < 0f)
                     {
-                        if (aim_offset.X < 0f)
-                        {
-                            who.faceDirection(Game1.left);
-                        }
-                        if (aim_offset.X > 0f)
-                        {
-                            who.faceDirection(Game1.right);
-                        }
+                        who.faceDirection(Game1.left);
                     }
-                    else
+                    if (aim_offset.X > 0f)
                     {
-                        if (aim_offset.Y < 0f)
-                        {
-                            who.faceDirection(Game1.up);
-                        }
-                        if (aim_offset.Y > 0f)
-                        {
-                            who.faceDirection(Game1.down);
-                        }
+                        who.faceDirection(Game1.right);
                     }
                 }
                 else
                 {
-                    who.faceGeneralDirection(new Vector2(mouseX, mouseY), 0, opposite: true);
-                }
-
-                // Legacy and auto-fire behaviours as default
-                #region Default
-                if (!Game1.options.useLegacySlingshotFiring)
-                {
-                    if (this.canPlaySound && this.GetSlingshotChargeTime() >= 1f)
+                    if (aim_offset.Y < 0f)
                     {
-                        this.canPlaySound = false;
+                        who.faceDirection(Game1.up);
+                    }
+                    if (aim_offset.Y > 0f)
+                    {
+                        who.faceDirection(Game1.down);
                     }
                 }
-                else if (this.canPlaySound && (Math.Abs(mouseX - this.lastClickX) > 8 || Math.Abs(mouseY - this.lastClickY) > 8) && this.mouseDragAmount > 4)
+
+                // Auto-fire behaviours as default
+                #region Default
+                if (this.canPlaySound && this.GetSlingshotChargeTime() >= 1f)
                 {
                     this.canPlaySound = false;
                 }
@@ -250,10 +236,6 @@ namespace Hikawa.Objects.Items
                 {
                     this.lastClickX = mouseX;
                     this.lastClickY = mouseY;
-                }
-                if (Game1.options.useLegacySlingshotFiring)
-                {
-                    Game1.mouseCursor = Game1.cursor_none;
                 }
                 if (this.CanAutoFire())
                 {
@@ -326,12 +308,9 @@ namespace Hikawa.Objects.Items
                 Vector2 from = bow.GetShootOrigin(player);
                 Vector2 motion = target - from;
                 float frontArmRotation = MathF.Atan2(motion.Y, motion.X) + MathF.PI;
-                if (!Game1.options.useLegacySlingshotFiring)
-                {
-                    frontArmRotation -= MathF.PI;
-                    if (frontArmRotation < 0)
-                        frontArmRotation += MathF.PI * 2;
-                }
+                frontArmRotation -= MathF.PI;
+                if (frontArmRotation < 0)
+                    frontArmRotation += MathF.PI * 2;
 
                 // Bow behaviour:
                 BowFrame bowFrame = bowData.HeldFrames[direction];
