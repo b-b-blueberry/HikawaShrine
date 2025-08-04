@@ -215,7 +215,7 @@ namespace Hikawa.Objects.Items
 
                 // Shake on long pulls
                 if (!this.CanAutoFire() && this.GetTotalChargeTime() > this.GetRequiredChargeTime() * 2f)
-                    who.jitterStrength = 0.5f;
+                    who.jitterStrength = 0.25f;
 
                 this.mouseDragAmount++;
 
