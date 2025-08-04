@@ -759,7 +759,7 @@ namespace Hikawa.Match3
 
 		public void OnStageStateChanged(StageState previous, StageState next)
 		{
-			if (next is StageState.Start)
+			if (previous is StageState.Start && next is StageState.Active)
 			{
 				this.PlayMusic(id: this.Game.Stage.Data.Music);
 			}
