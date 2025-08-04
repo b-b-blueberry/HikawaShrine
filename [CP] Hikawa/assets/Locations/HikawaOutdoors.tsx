@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.0" name="z_Custom_Hikawa_ShrineOutdoors" tilewidth="16" tileheight="16" tilecount="2356" columns="62">
- <image source="z_hikawa_outdoors.png" width="992" height="608"/>
+<tileset version="1.10" tiledversion="1.11.0" name="HikawaOutdoors" tilewidth="16" tileheight="16" tilecount="2356" columns="62">
+ <image source="HikawaOutdoors.png" width="992" height="608"/>
  <tile id="2">
   <properties>
    <property name="Passable" type="bool" value="true"/>

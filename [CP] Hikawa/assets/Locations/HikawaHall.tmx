@@ -8,7 +8,7 @@
  <tileset firstgid="1" name="paths" tilewidth="16" tileheight="16" tilecount="32" columns="4">
   <image source="paths" width="64" height="128"/>
  </tileset>
- <tileset firstgid="33" source="z_Custom_Hikawa_Scenes.tsx"/>
+ <tileset firstgid="33" source="HikawaHall.tsx"/>
  <layer id="1" name="Back" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,

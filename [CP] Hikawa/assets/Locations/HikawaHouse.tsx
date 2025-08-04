@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.1" name="z_Custom_Hikawa_House" tilewidth="16" tileheight="16" tilecount="675" columns="27">
- <image source="z_hikawa_house.png" width="432" height="400"/>
+<tileset version="1.10" tiledversion="1.10.1" name="HikawaHouse" tilewidth="16" tileheight="16" tilecount="675" columns="27">
+ <image source="HikawaHouse.png" width="432" height="400"/>
  <tile id="527">
   <properties>
    <property name="Passable" value="T"/>

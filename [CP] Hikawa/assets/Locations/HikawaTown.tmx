@@ -1276,7 +1276,7 @@
   <image source="townInterior.png" width="512" height="1088"/>
  </tileset>
  <tileset firstgid="4184" name="z_hikawa_outdoors" tilewidth="16" tileheight="16" tilecount="2166" columns="57">
-  <image source="z_hikawa_outdoors.png" width="912" height="608"/>
+  <image source="HikawaOutdoors.png" width="912" height="608"/>
  </tileset>
  <tileset firstgid="6350" name="Town" tilewidth="16" tileheight="16" tilecount="2304" columns="32">
   <image source="spring_town.png" width="512" height="1152"/>
@@ -1501,7 +1501,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="8654" source="z_Custom_Hikawa_ShrineOutdoors.tsx"/>
+ <tileset firstgid="8654" source="HikawaOutdoors.tsx"/>
  <layer id="1" name="Back" width="28" height="20">
   <data encoding="base64" compression="zlib">
    eJyVVW1OwkAQ7RqOgHAKVDiCiVCJnsAfFkR/+xMQuINEaI9h5BSopyB6CpU4E96kr5u2yiYv/dqZNzNvdhpVgiAStAVngs6eiDzcuSBYCmLBheA5SOHkORFcCkLZ26vs9oaw7ZGfIj7zP3W7e+XpC0aCsccXC7rybgEbH7FL/RXxqd8n2t8HT1ttCCG4I4rnUFAT1HFfh+24hC8RH0PYj4jryO183wqagp5gjnd6/+iyefNVfRbx5e0fUuw1ilu/8X0efJ0iYAntmZeReDH4fVPGp70wo7qbZhOX9lORfRlOc3TqI7cu6r6Wfe+Ca+qzJMeuTG/L+YrsLG49E5ab1n0j+z6hkebYoDzb/+Dza2ccpteSuDS3N/AlyDFCngmd2zJkNHbZ+dBAHR9wfjS3g4MgeEFNLUflbBWcYR/GpT3RR+30vNzg7ESknfJ9CO49TuufBWI02xbsm9RrHZet44xqFMPG6vkl/n/AqVDO1wLeGHFGZK/nfQqtef41vN6386l9pZzf4G1Kniu5bvEt8XiZS+dJFTonpBnvYW1tRh1DS+Pd4lsIf3PUfkixVgkt4uDZs0atrF7Wiw1clfcEepxTT5lfzTVvmbYak9bEeLTvV5QD96LaDADrKZvDf60B6thD/TYeD89B45y4rN77LP5n8XnmOVtFLKo5zzGz3WdZHeYuzU3z0mfrA573/K8xrfdZv6hq9c8=

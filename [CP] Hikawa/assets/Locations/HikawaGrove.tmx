@@ -1549,7 +1549,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="3128" source="z_Custom_Hikawa_ShrineOutdoors.tsx"/>
+ <tileset firstgid="3128" source="HikawaOutdoors.tsx"/>
  <layer id="1" name="Back" width="32" height="32">
   <data encoding="csv">
 5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,5201,
