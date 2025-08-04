@@ -262,6 +262,7 @@ namespace Hikawa.Match3
 		public int StartDelay;
 		public int EndDelay;
 		public string[] Dialogue;
+		public bool NoSpecialPowers;
 		public bool NoTokenUpgrades;
 		public bool ResetTokens;
 		public string NextStage;

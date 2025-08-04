@@ -1118,7 +1118,7 @@ namespace Hikawa.Match3
 					color: Color.White);
 			}
 
-			// Enemy
+			// Enemy character and enemy meters
 			if (this.Game.Stage.Enemy is Enemy enemy && enemy.Data is not null && !isDialogue)
 			{
 				Vector2 enemyPosition = position + enemy.DrawPixel;
@@ -1275,6 +1275,7 @@ namespace Hikawa.Match3
 					layerDepth: 1);
 			}
 
+			// Player meters
 			if (false)
 			{	// PRIMITIVE
 				// Player life meter
@@ -1302,7 +1303,7 @@ namespace Hikawa.Match3
 			else
 			{   // GRAPHICAL
 				bool isLifeMeterVisible = this.Game.Stage.Enemy?.Data is not null;
-				bool isPowerMeterVisible = !this.Game.Stage.Data.NoTokenUpgrades;
+				bool isPowerMeterVisible = !this.Game.Stage.Data.NoSpecialPowers && !this.Game.Stage.Data.NoTokenUpgrades;
 				Vector2 lifePosition = position
 					+ this.MenuData.CharacterMeterOffset * scale;
 				Vector2 powerPosition = lifePosition
