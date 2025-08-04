@@ -481,6 +481,7 @@ namespace Hikawa.Match3
 			}
 
 			// Update tokens above matched tokens
+			int[] additionalY = new int[this.Game.Stage.Data.GameSize.X];
 			foreach (Point match in matches)
 			{
 				int x = match.X;
@@ -512,7 +513,7 @@ namespace Hikawa.Match3
 				}
 
 				// Move reset matched token above higher tokens
-				token.DrawPixel = this.GetPixelAtToken(x: x, y: y - 1, isCentred: true);
+				token.DrawPixel = this.GetPixelAtToken(x: x, y: --additionalY[x], isCentred: true);
 				this.Game.Tokens[x][y] = token;
 			}
 
@@ -997,11 +998,14 @@ namespace Hikawa.Match3
 				Vector2 draw = isActive
 					? this.CursorPixel
 					: token.DrawPixel;
+
+				float alpha = Math.Clamp((draw.Y + tokenSize.Y) / tokenSize.Y, 0, 1);
+
 				b.Draw(
 					texture: token.TypeData.Texture,
 					position: position + draw,
 					sourceRectangle: token.TypeData.TextureRegion,
-					color: Color.White,
+					color: Color.White * alpha,
 					rotation: 0,
 					origin: tokenSize.ToVector2() / 2,
 					scale: scale * token.Scale,
