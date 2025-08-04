@@ -518,7 +518,13 @@
                 "Width": 16,
                 "Height": 16
             },
-            "IsPowerToken": true
+            "ExplodeColour": {
+                "R": 191,
+                "G": 0,
+                "B": 0,
+                "A": 255
+            },
+            "IsPowerToken": true,
         },
         "G++": {
             "Char": "░",
@@ -529,7 +535,13 @@
                 "Width": 16,
                 "Height": 16
             },
-            "IsPowerToken": true
+            "ExplodeColour": {
+                "R": 0,
+                "G": 124,
+                "B": 57,
+                "A": 255
+            },
+            "IsPowerToken": true,
         },
         "B++": {
             "Char": "▓",
@@ -540,7 +552,13 @@
                 "Width": 16,
                 "Height": 16
             },
-            "IsPowerToken": true
+            "ExplodeColour": {
+                "R": 15,
+                "G": 140,
+                "B": 255,
+                "A": 255
+            },
+            "IsPowerToken": true,
         },
         "P++": {
             "Char": "P",
@@ -551,7 +569,13 @@
                 "Width": 16,
                 "Height": 16
             },
-            "IsPowerToken": true
+            "ExplodeColour": {
+                "R": 221,
+                "G": 0,
+                "B": 209,
+                "A": 255
+            },
+            "IsPowerToken": true,
         },
         "Y++": {
             "Char": "█",
@@ -562,7 +586,13 @@
                 "Width": 16,
                 "Height": 16
             },
-            "IsPowerToken": false
+            "ExplodeColour": {
+                "R": 48,
+                "G": 182,
+                "B": 244,
+                "A": 255
+            },
+            "IsPowerToken": true,
         },
         "BLOCK": {
             "Char": "X",
