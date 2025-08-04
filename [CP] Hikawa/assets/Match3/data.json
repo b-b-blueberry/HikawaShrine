@@ -393,6 +393,7 @@
                 "Width": 16,
                 "Height": 16
             },
+            "TokenUpgrade": "R++",
             "IsPowerToken": true,
             "ExplodeTextureRegion": {
                 "X": 128,
@@ -417,6 +418,7 @@
                 "Width": 16,
                 "Height": 16
             },
+            "TokenUpgrade": "G++",
             "IsPowerToken": true,
             "ExplodeTextureRegion": {
                 "X": 128,
@@ -441,6 +443,7 @@
                 "Width": 16,
                 "Height": 16
             },
+            "TokenUpgrade": "B++",
             "IsPowerToken": true,
             "ExplodeTextureRegion": {
                 "X": 128,
@@ -465,6 +468,7 @@
                 "Width": 16,
                 "Height": 16
             },
+            "TokenUpgrade": "P++",
             "IsPowerToken": true,
             "ExplodeTextureRegion": {
                 "X": 128,
@@ -489,7 +493,8 @@
                 "Width": 16,
                 "Height": 16
             },
-            "IsPowerToken": false,
+            "TokenUpgrade": "Y++",
+            "IsPowerToken": true,
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,

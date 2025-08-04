@@ -436,9 +436,9 @@ namespace Hikawa.Match3
 				// Make a combo particle for each type of token collected
 				Log.D($"Match: {string.Join(' ', tokenCounts.Where(pair => pair.Value > 0).Select(pair => $"{pair.Key}-{pair.Value}"))}");
 				Dictionary<string, bool> created = tokenCounts.ToDictionary(pair => pair.Key, pair => false);
-				foreach (var match in matches)
+				foreach (Point match in matches)
 				{
-					var token = this.Game.Tokens[match.X][match.Y];
+					Token token = this.Game.Tokens[match.X][match.Y];
 					if (!created[token.Type] && tokenCounts[token.Type] > this.Game.Stage.Data.Match)
 					{
 						Log.D($"Particle: {token.Type}-{tokenCounts[token.Type]}");
@@ -470,6 +470,10 @@ namespace Hikawa.Match3
 						&& token.TypeData.TokenUpgrade is string type)
 					{
 						isUpgrade = true;
+						// Use super upgrade for big matches
+						if (tokenCounts[token.Type] > this.Game.Stage.Data.Match + 1
+							&& this.TokenData[type].TokenUpgrade is string superType)
+							type = superType;
 						// Replace token
 						token.Set(state: TokenState.Motion, type: type, data: this.TokenData[type]);
 						// Update draw pixel for match swap
