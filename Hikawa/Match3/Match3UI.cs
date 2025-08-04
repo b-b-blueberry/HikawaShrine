@@ -1002,26 +1002,44 @@ namespace Hikawa.Match3
 				}
 			}
 
-			void drawToken(Point point)
+			void drawToken(Point coords)
 			{
-				Token token = this.Game.Tokens[point.X][point.Y];
+				Token token = this.Game.Tokens[coords.X][coords.Y];
 				if (token is null)
 					return;
-				bool isActive = this.ActiveToken is not null && this.ActiveToken == point;
+				bool isActive = this.ActiveToken is not null && this.ActiveToken == coords;
 				Vector2 draw = isActive
 					? this.CursorPixel
 					: token.DrawPixel;
+				bool isPower = token.TypeData.IsPowerToken;
+				bool isSuperPower = token.TypeData.MatchEffect is MatchEffect.Linear;
+
+                float r = (float)(Game1.currentGameTime.TotalGameTime.TotalMilliseconds / 500f);
+                float sin = 1f + 0.5f * MathF.Sin(r);
 
 				float alpha = Math.Clamp((draw.Y + tokenSize.Y) / tokenSize.Y, 0, 1);
 
+                if (isPower || isSuperPower)
+                {
+                    b.Draw(
+                        texture: this.MenuData.MenuTexture,
+                        position: position + draw,
+                        sourceRectangle: new Rectangle(128, 0, 32, 32),
+                        color: token.TypeData.ExplodeColour * (0.2f * sin) * alpha,
+                        rotation: r,
+                        origin: new Vector2(16),
+                        scale: scale * 0.666f + sin * 0.5f,
+                        effects: SpriteEffects.None,
+                        layerDepth: 1);
+                }
 				b.Draw(
 					texture: token.TypeData.Texture,
 					position: position + draw,
 					sourceRectangle: token.TypeData.TextureRegion,
-					color: Color.White * alpha,
+					color: (isSuperPower ? Color.Lerp(token.TypeData.ExplodeColour, Color.White, sin / 3 * 4) : Color.White) * alpha,
 					rotation: 0,
 					origin: tokenSize.ToVector2() / 2,
-					scale: scale * token.Scale,
+					scale: (isSuperPower ? scale + 0.25f * sin : scale) * token.Scale,
 					effects: SpriteEffects.None,
 					layerDepth: 1);
 			}
@@ -1037,14 +1055,14 @@ namespace Hikawa.Match3
 						Point point = new Point(x: x, y: y);
 						if (this.Game.Tokens[x][y] is not null && point != this.ActiveToken)
 						{
-							drawToken(point: point);
+							drawToken(coords: point);
 						}
 					}
 				}
 				// Active token drawn above others
 				if (this.ActiveToken is not null)
 				{
-					drawToken(point: this.ActiveToken.Value);
+					drawToken(coords: this.ActiveToken.Value);
 				}
 			}
 
