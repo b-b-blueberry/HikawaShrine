@@ -888,9 +888,30 @@ namespace Hikawa.Match3
 			// Shake
 			this._shakeScale = Math.Max(0, this._shakeScale - 0.01f * ms);
 
-			// Particles
-			{
-				float fade = this.MenuData.ParticleFadeRate * ms;
+            // End: Destroy block tokens
+            if (this.Game.Stage.State is StageState.End)
+            {
+                if (time.TotalGameTime.Ticks % 30 == 0)
+                {
+                    for (int x = 0; x < this.Game.Stage.Data.GameSize.X; ++x)
+                    {
+                        for (int y = 0; y < this.Game.Stage.Data.GameSize.Y; ++y)
+                        {
+                            if (this.Game.Tokens[x][y] is Token token && token.TypeData.IsBlock)
+                            {
+                                var particle = this._tokenParticles.Get().Set(token: token);
+                                this.Game.Tokens[x][y] = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Particles
+            {
+                // update particles
+                float fade = this.MenuData.ParticleFadeRate * ms;
 				foreach (TokenParticle particle in this._tokenParticles.Items)
 					if (particle.IsReady && !particle.Update(ms: ms, fade: fade))
 						this._tokenParticles.Return(particle);
