@@ -754,7 +754,7 @@ namespace Hikawa.Match3
 
 		public void OnStageStateChanged(StageState previous, StageState next)
 		{
-            if (next is StageState.Start)
+			if (next is StageState.Start)
 			{
 				this.PlayMusic(id: this.Game.Stage.Data.Music);
 			}
@@ -772,7 +772,7 @@ namespace Hikawa.Match3
 					this.Shake(scale: 4f, amount: new(x: 2, y: 2));
 				}
 			}
-        }
+		}
 
 		public void OnActionStart(int x, int y)
 		{
@@ -939,6 +939,13 @@ namespace Hikawa.Match3
 				width: board.Width,
 				height: board.Height,
 				color: Color.White);
+			{
+				// checkerboard
+				for (int x = 0; x < this.Game.Stage.Data.GameSize.X; ++x)
+					for (int y = 0; y < this.Game.Stage.Data.GameSize.Y; ++y)
+						if ((x + y) % 2 == 0)
+							b.Draw(Game1.staminaRect, new Rectangle((int)(position.X + x * tokenSize.X * scale), (int)(position.Y + y * tokenSize.Y * scale), (int)(tokenSize.X * scale), (int)(tokenSize.Y * scale)), Color.MediumVioletRed * 0.1f);
+			}
 
 			// Game particles
 			foreach (TokenParticle particle in this._tokenParticles.Items)
@@ -1013,15 +1020,63 @@ namespace Hikawa.Match3
 				color: Color.White);
 
 			// Score
-			text = $"{this.DisplayScore}";
-			textSize = Game1.dialogueFont.MeasureString(text);
-			b.DrawString(
-				spriteFont: Game1.dialogueFont,
-				text: text,
-				position: this.Position
-					+ new Vector2(x: (this.Size.X - textSize.X) / 2, y: this.Size.Y)
-					+ new Vector2(x: 0, y: 11) * scale,
-				color: Color.White);
+			{
+				bool isScoreMeterVisible = true;
+				Vector2 scorePosition = this.Position
+					+ new Vector2(x: 0, y: this.Size.Y)
+					+ new Vector2(x: 0, y: 12) * scale;
+				Rectangle scoreRegion = new Rectangle(
+					x: (int)(scorePosition.X),
+					y: (int)(scorePosition.Y),
+					width: (int)(size.X * tokenSize.X * scale),
+					height: (int)(6 * scale));
+
+				Point framePadding = new((int)(3 * scale), (int)(3 * scale));
+				scoreRegion.Inflate(framePadding.X, framePadding.Y);
+
+				// bar
+				if (isScoreMeterVisible)
+				{
+					// frame
+					IClickableMenu.drawTextureBox(
+						b: b,
+						x: scoreRegion.X,
+						y: scoreRegion.Y,
+						width: scoreRegion.Width,
+						height: scoreRegion.Height,
+						color: Color.MediumPurple);
+
+					scoreRegion.Inflate(-framePadding.X, -framePadding.Y);
+
+					// back
+					b.Draw(
+						texture: Game1.fadeToBlackRect,
+						destinationRectangle: scoreRegion,
+						color: Color.Plum * 0.3f);
+
+					float ratio = Math.Clamp((float)(this.DisplayScore - this.Game.TotalScore) / stage.Data.ScoreGoal, 0, 1);
+					int width = (int)(ratio * scoreRegion.Width);
+					int offset = 0;
+
+					// fill
+					scoreRegion.Width = width;
+					scoreRegion.X += offset;
+					b.Draw(
+						texture: Game1.fadeToBlackRect,
+						destinationRectangle: scoreRegion,
+						color: Color.Plum);
+				}
+
+				// text
+				text = $"{this.DisplayScore}";
+				textSize = Game1.dialogueFont.MeasureString(text);
+				b.DrawString(
+					spriteFont: Game1.dialogueFont,
+					text: text,
+					position: scorePosition
+						+ new Vector2(x: (this.Size.X - textSize.X) / 2, y: -textSize.Y / 4),
+					color: Color.White);
+			}
 
 			// Enemy
 			if (this.Game.Stage.Enemy is Enemy enemy && enemy.Data is not null && !isDialogue)

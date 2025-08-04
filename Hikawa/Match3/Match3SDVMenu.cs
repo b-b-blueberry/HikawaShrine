@@ -117,7 +117,8 @@ namespace Hikawa.Match3
 			else if (this._muteButton.containsPoint(x: x, y: y))
 			{
 				this.UI.IsMute = !this.UI.IsMute;
-				this.UI.PlaySound("dwop");
+				this.UI.PlaySound("smallSelect");
+				this.SetMuteButtonSprite(this.UI.IsMute);
 			}
 			else
 			{
@@ -133,6 +134,11 @@ namespace Hikawa.Match3
 			this._helpButton.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
 			this._shuffleButton.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
 			this._muteButton.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
+		}
+
+		public void SetMuteButtonSprite(bool mute)
+		{
+			this._muteButton.sourceRect = mute ? new(x: 137, y: 384, width: 9, height: 9) : new(x: 128, y: 384, width: 9, height: 9);
 		}
 
 		public void DrawMenuComponents(SpriteBatch b)

@@ -6,14 +6,14 @@
         },
         "Scale": 4,
         "ScoreTickRate": 0.2,
-        "ParticleCount": 24,
+        "ParticleCount": 32,
         "ParticleFadeRate": 0.0015,
         "TokenScaleDefault": 1,
         "TokenScaleActive": 1.5,
         "TokenScaleHovered": 1.25,
         "TokenScaleRate": 0.0033,
-        "TokenMotionRate": 0.01,
-        "TokenMotionMax": 0.2,
+        "TokenMotionRate": 0.0025,
+        "TokenMotionMax": 0.1,
         "LandSound": "skeletonStep",
         "SwapSound": "shwip",
         "MatchSmallSound": "moneyDial",
@@ -209,9 +209,7 @@
             "StartDelay": 3999,
             "EndDelay": 3999,
             "Dialogue": [
-                "Cat:0:aaaa game",
-                "Cat:1:egg egg",
-                "Cat:0:match 3 $ to win!!"
+                "Cat:1:match 3 $ to win!!"
             ],
             "NoTokenUpgrades": true,
             "ResetTokens": true,
@@ -239,9 +237,7 @@
             "StartDelay": 3999,
             "EndDelay": 3999,
             "Dialogue": [
-                "Cat:0:wow! so pro",
-                "Cat:1:let's big the board",
-                "Cat:0:match 4 $ for a power match!"
+                "Cat:0:play!"
             ],
             "ResetTokens": true,
             "NextStage": "3"
