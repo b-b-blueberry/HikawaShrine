@@ -186,9 +186,35 @@
         "PowerMax": 99,
         "ScorePerToken": [ 0, 0, 0, 25, 75, 150, 250, 500, 1000 ],
         "PowerPerToken": [ 0, 3, 9, 18, 36, 63, 99 ],
-        "InitialStage": "2"
+        "InitialStage": "Endless"
     },
     "StageData": {
+        "Endless": {
+            "DisplayName": "Zen",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P",
+                "Y"
+            ],
+            "Music": "Custom_Hikawa_Match3_bgm",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 0,
+            "TimeGoal": 0,
+            "StartDelay": 3999,
+            "EndDelay": 3999,
+            "Dialogue": [],
+            "NoSpecialPowers": true,
+            "NoTokenUpgrades": false,
+            "ResetTokens": false,
+            "NextStage": "Endless"
+        },
         "1": {
             "DisplayName": "Basics 1",
             "Match": 3,

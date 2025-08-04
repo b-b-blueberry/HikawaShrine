@@ -72,16 +72,14 @@ namespace Hikawa
         private static void match3(string s, string[] args)
 		{
 			// Create game
-			if (args.Length == 0)
-			{
-				Match3.Match3Data data = Game1.content.Load<Match3.Match3Data>("Mods\\blueberry\\Hikawa\\Match3Data");
-				Match3.Match3Game game = new(data: data, random: Game1.random);
-				Match3.Match3UI ui = new(game: game);
-				Match3.Match3SDVMenu menu = new(ui: ui);
-				ModEntry.State.Value.Match3 = game;
-				Game1.activeClickableMenu = menu;
-				game.Print();
-			}
+			string stage = args.Length > 0 ? args[0] : null;
+			Match3.Match3Data data = Game1.content.Load<Match3.Match3Data>("Mods\\blueberry\\Hikawa\\Match3Data");
+			Match3.Match3Game game = new(data: data, random: Game1.random, stage: stage);
+			Match3.Match3UI ui = new(game: game);
+			Match3.Match3SDVMenu menu = new(ui: ui);
+			ModEntry.State.Value.Match3 = game;
+			Game1.activeClickableMenu = menu;
+			game.Print();
 		}
 
 		[ConsoleCommandAttribute("bc", "Play island boat transition")]

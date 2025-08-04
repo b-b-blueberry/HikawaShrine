@@ -118,12 +118,12 @@ namespace Hikawa.Match3
 		/// Constructor for a prepared game.
 		/// Populates game board with random tokens.
 		/// </summary>
-		public Match3Game(Match3Data data, Random random)
+		public Match3Game(Match3Data data, Random random, string stage)
 		{
 			this.Data = data;
 			this.Random = random;
 
-			this.SetUpGame(stage: this.Data.GameData.InitialStage);
+			this.SetUpGame(stage: stage ?? this.Data.GameData.InitialStage);
 		}
 
 		/// <summary>
