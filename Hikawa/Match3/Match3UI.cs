@@ -798,6 +798,8 @@ namespace Hikawa.Match3
 
 			// Attempt to fetch active token
 			this.SetActiveToken(x: x, y: y);
+			if (this.ActiveToken is not null)
+				this.PlaySound(this.MenuData.SelectSound);
 		}
 
 		public void OnActionUpdate(int x, int y)

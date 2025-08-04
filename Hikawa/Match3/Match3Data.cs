@@ -128,6 +128,10 @@ namespace Hikawa.Match3
 		/// <summary>
 		/// 
 		/// </summary>
+        public string SelectSound;
+        /// <summary>
+        /// 
+        /// </summary>
 		public string SwapSound;
 		/// <summary>
 		/// Audio cue played on token match 3 of a kind.
