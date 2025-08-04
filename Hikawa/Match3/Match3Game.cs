@@ -240,9 +240,6 @@ namespace Hikawa.Match3
 			if (token is null)
 				return [];
 
-			// Tokens match adjacently, power tokens match radially
-			MatchFormat format = token.TypeData.IsPowerToken ? MatchFormat.Power : MatchFormat.Standard;
-
 			// ABSOLUTELY FOOLPROOF BTW ALWAYS WORKS
 			List<Point> getAdjacentMatches(int include, int length, int min, Func<int, Token> tokenise, Func<int, int, Point> matchise)
 			{
@@ -284,10 +281,6 @@ namespace Hikawa.Match3
 			}
 
 			List<Point> matches = [];
-			switch (format)
-			{
-				case MatchFormat.Standard:
-				{
 					List<Point> horizontal = getAdjacentMatches(
 						include: position.X,
 						length: size.X,
@@ -302,64 +295,86 @@ namespace Hikawa.Match3
 						matchise: (int start, int y) => new(x: position.X, y: y));
 					matches.AddRange(horizontal);
 					matches.AddRange(vertical);
-					break;
-				}
-				case MatchFormat.Power:
-				{
-					int radius = 3;
-					List<Point> radial = [];
-					for (int x = position.X - radius; x < position.X + radius; ++x)
-					{
-						for (int y = position.Y - radius; y < position.Y + radius; ++y)
-						{
-							if (x >= 0
-								&& y >= 0
-								&& x < size.X
-								&& y < size.Y
-								&& this.Tokens[x][y] is Token other
-								&& token.Matches(other))
-							{
-								radial.Add(new(x: x, y: y));
-							}
-						}
-					}
-					if (radial.Count >= this.Stage.Data.Match)
-					{
-						// Match tokens
-						matches.AddRange(radial);
-
-						// Additionally match the lowest block on the board
-						for (int x = size.X - 1; x > 0 + radius; --x)
-						{
-							for (int y = size.Y - 1; y > 0; --y)
-							{
-								if (this.Tokens[x][y] is Token other
-									&& other.TypeData.IsBlock)
-								{
-									matches.Add(new(x: x, y: y));
-								}
-							}
-						}
-					}
-					break;
-				}
-				case MatchFormat.Global:
-				{
-					for (int x = 0; x < size.X; ++x)
-					{
-						for (int y = 0; y < size.Y; ++y)
-						{
-							if (token.Matches(this.Tokens[x][y]))
-							{
-								matches.Add(new(x: x, y: y));
-							}
-						}
-					}
-					break;
-				}
-			}
 
 			return matches;
+				}
+
+        public List<Point> GetAllTokens(Token match)
+				{
+            Point size = this.Stage.Data.GameSize;
+            List<Point> tokens = [];
+            for (int x = 0; x < size.X; ++x)
+					{
+                for (int y = 0; y < size.Y; ++y)
+						{
+                    if (match is null || match.Matches(this.Tokens[x][y]))
+							{
+                        tokens.Add(new(x: x, y: y));
+							}
+						}
+					}
+            return tokens;
+        }
+
+        public List<Point> GetAdjacentTokens(Point position, int radius, bool onlyMatches)
+						{
+            Point size = this.Stage.Data.GameSize;
+            Token token = this.Tokens[position.X][position.Y];
+            List<Point> tokens = [];
+            for (int x = position.X - radius; x < position.X + radius; ++x)
+							{
+				int y = position.Y;
+                if (x >= 0
+                    && y >= 0
+                    && x < size.X
+                    && y < size.Y
+					&& !(x == position.X && y == position.Y)
+                    && this.Tokens[x][y] is not null
+                    && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y])))
+								{
+                    tokens.Add(new(x: x, y: y));
+								}
+							}
+            for (int y = position.Y - radius; y < position.Y + radius; ++y)
+            {
+                int x = position.X;
+                if (x >= 0
+                    && y >= 0
+                    && x < size.X
+                    && y < size.Y
+                    && !(x == position.X && y == position.Y)
+                    && this.Tokens[x][y] is not null
+                    && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y])))
+                {
+                    tokens.Add(new(x: x, y: y));
+						}
+					}
+            return tokens;
+				}
+
+        public List<Point> GetSurroundingTokens(Point position, int radius, bool onlyMatches)
+				{
+            Point size = this.Stage.Data.GameSize;
+			Token token = this.Tokens[position.X][position.Y];
+            List<Point> tokens = [];
+			for (int x = position.X - radius; x <= position.X + radius; ++x)
+					{
+				for (int y = position.Y - radius; y <= position.Y + radius; ++y)
+						{
+					if (x >= 0
+						&& y >= 0
+						&& x < size.X
+						&& y < size.Y
+						&& !(x == position.X && y == position.Y)
+						&& Math.Abs(x - position.X) + Math.Abs(y - position.Y) <= radius // circular
+                        && this.Tokens[x][y] is not null
+						&& (!onlyMatches || token is null || token.Matches(this.Tokens[x][y])))
+							{
+						tokens.Add(new(x: x, y: y));
+							}
+						}
+					}
+			return tokens;
 		}
 
 		public Point? GetAdjacentToken(Point position, MatchDirection direction)
@@ -395,6 +410,36 @@ namespace Hikawa.Match3
 			}
 			return other;
 		}
+
+		public bool TryGetAdditionalMatchesForToken(Point position, out List<Point> tokens)
+        {
+			tokens = null;
+
+            if (this.Tokens[position.X][position.Y] is Token token)
+            {
+                int radius = token.TypeData.MatchEffectRadius;
+                if (radius <= 0)
+                    radius = Math.Max(this.Stage.Data.GameSize.X, this.Stage.Data.GameSize.Y);
+
+                switch (token.TypeData.MatchEffect)
+                {
+                    case MatchEffect.Radial:
+                        tokens = this.GetSurroundingTokens(position: position, radius: radius, onlyMatches: false);
+                        break;
+                    case MatchEffect.Linear:
+                        tokens = this.GetAdjacentTokens(position: position, radius: radius, onlyMatches: false);
+                        break;
+                    case MatchEffect.Global:
+                        tokens = this.GetAllTokens(match: token);
+                        break;
+                    case MatchEffect.Standard:
+                    default:
+                        break;
+                }
+            }
+
+			return tokens is not null;
+        }
 
 		public string GetRandomTokenType()
 		{

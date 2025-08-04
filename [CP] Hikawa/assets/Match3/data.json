@@ -401,6 +401,8 @@
             "TokenUpgrade": "R++",
             "IsPowerToken": true,
             "MatchGroup": "R",
+            "MatchEffect": "Radial",
+            "MatchEffectRadius": 2,
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -427,6 +429,8 @@
             "TokenUpgrade": "G++",
             "IsPowerToken": true,
             "MatchGroup": "G",
+            "MatchEffect": "Radial",
+            "MatchEffectRadius": 2,
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -453,6 +457,8 @@
             "TokenUpgrade": "B++",
             "IsPowerToken": true,
             "MatchGroup": "B",
+            "MatchEffect": "Radial",
+            "MatchEffectRadius": 2,
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -479,6 +485,8 @@
             "TokenUpgrade": "P++",
             "IsPowerToken": true,
             "MatchGroup": "P",
+            "MatchEffect": "Radial",
+            "MatchEffectRadius": 2,
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -505,6 +513,8 @@
             "TokenUpgrade": "Y++",
             "IsPowerToken": true,
             "MatchGroup": "Y",
+            "MatchEffect": "Radial",
+            "MatchEffectRadius": 2,
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -536,6 +546,8 @@
             },
             "IsPowerToken": true,
             "MatchGroup": "R",
+            "MatchEffect": "Linear",
+            "MatchEffectRadius": -1
         },
         "G++": {
             "Char": "░",
@@ -554,6 +566,8 @@
             },
             "IsPowerToken": true,
             "MatchGroup": "G",
+            "MatchEffect": "Linear",
+            "MatchEffectRadius": -1
         },
         "B++": {
             "Char": "▓",
@@ -572,6 +586,8 @@
             },
             "IsPowerToken": true,
             "MatchGroup": "B",
+            "MatchEffect": "Linear",
+            "MatchEffectRadius": -1
         },
         "P++": {
             "Char": "P",
@@ -590,6 +606,8 @@
             },
             "IsPowerToken": true,
             "MatchGroup": "P",
+            "MatchEffect": "Linear",
+            "MatchEffectRadius": -1
         },
         "Y++": {
             "Char": "█",
@@ -608,6 +626,8 @@
             },
             "IsPowerToken": true,
             "MatchGroup": "Y",
+            "MatchEffect": "Linear",
+            "MatchEffectRadius": -1
         },
         "BLOCK": {
             "Char": "X",

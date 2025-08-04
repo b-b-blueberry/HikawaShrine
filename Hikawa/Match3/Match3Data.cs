@@ -18,20 +18,24 @@ namespace Hikawa.Match3
 	}
 
 	/// <summary>
-	/// Enum type of format used when matching tokens.
+	/// Enum type of additional effect on token matched.
 	/// </summary>
-	public enum MatchFormat
+	public enum MatchEffect
 	{
 		/// <summary>
-		/// Match format for multiple tokens across either X or Y axes.
+		/// No added effects.
 		/// </summary>
 		Standard,
 		/// <summary>
-		/// Match format for tokens in a circle.
+		/// Surrounding tokens will be matched.
 		/// </summary>
-		Power,
+		Radial,
 		/// <summary>
-		/// Match format for tokens in any position.
+		/// Adjacent tokens will be matched.
+		/// </summary>
+		Linear,
+		/// <summary>
+		/// All tokens will be matched.
 		/// </summary>
 		Global
 	}
@@ -308,6 +312,14 @@ namespace Hikawa.Match3
 		/// Token can match with any other tokens with an equal <see cref="MatchGroup"/> value.
 		/// </summary>
 		public string MatchGroup;
+        /// <summary>
+		/// Additional matches made when matched.
+		/// </summary>
+		public MatchEffect MatchEffect;
+        /// <summary>
+        /// Radius of additional matches. Defaults to largest possible size.
+        /// </summary>
+        public int MatchEffectRadius;
         /// <summary>
 		/// Whether token is blocked from matching.
 		/// </summary>

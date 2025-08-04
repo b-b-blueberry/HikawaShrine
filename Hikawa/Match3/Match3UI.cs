@@ -381,7 +381,7 @@ namespace Hikawa.Match3
 		/// Attempts to match token with other in cursor direction,
 		/// swapping both tokens and completing match if successful.
 		/// </summary>
-		public bool TryMatchTokens(Point token, Point other, MatchFormat format)
+		public bool TryMatchTokens(Point token, Point other, MatchEffect format)
 		{
 			//Console.WriteLine($"{this.Game.TokenAsString(token)} x {this.Game.TokenAsString(other)}");
 
@@ -458,6 +458,15 @@ namespace Hikawa.Match3
 					}
 				}
 			}
+
+			// Destroy surrounding tokens if power token was matched
+			{
+                List<Point> additionalMatches = [];
+                foreach (Point match in matches)
+                    if (this.Game.TryGetAdditionalMatchesForToken(match, out List<Point> tokens))
+                        additionalMatches.AddRange(tokens);
+                matches.AddRange(additionalMatches);
+            }
 
 			// Substitute token upgrades into matches
 			if (!this.Game.Stage.Data.NoTokenUpgrades)
@@ -840,7 +849,7 @@ namespace Hikawa.Match3
 				bool isMoveMade = this.TryMatchTokens(
 					token: this.ActiveToken.Value,
 					other: this.TargetToken.Value,
-					format: MatchFormat.Standard);
+					format: MatchEffect.Standard);
 
 				if (isMoveMade)
 				{
