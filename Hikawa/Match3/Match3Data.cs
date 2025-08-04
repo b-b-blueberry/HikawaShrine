@@ -305,6 +305,10 @@ namespace Hikawa.Match3
 		/// </summary>
 		public bool IsPowerToken;
 		/// <summary>
+		/// Token can match with any other tokens with an equal <see cref="MatchGroup"/> value.
+		/// </summary>
+		public string MatchGroup;
+        /// <summary>
 		/// Whether token is blocked from matching.
 		/// </summary>
 		public bool IsBlock;

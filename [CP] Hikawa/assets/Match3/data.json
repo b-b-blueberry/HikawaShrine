@@ -338,7 +338,8 @@
                 "Width": 16,
                 "Height": 16
             },
-            "TokenUpgrade": "R+"
+            "TokenUpgrade": "R+",
+            "MatchGroup": "R"
         },
         "G": {
             "Char": "░",
@@ -349,7 +350,8 @@
                 "Width": 16,
                 "Height": 16
             },
-            "TokenUpgrade": "G+"
+            "TokenUpgrade": "G+",
+            "MatchGroup": "G"
         },
         "B": {
             "Char": "▓",
@@ -360,7 +362,8 @@
                 "Width": 16,
                 "Height": 16
             },
-            "TokenUpgrade": "B+"
+            "TokenUpgrade": "B+",
+            "MatchGroup": "B"
         },
         "P": {
             "Char": "P",
@@ -371,7 +374,8 @@
                 "Width": 16,
                 "Height": 16
             },
-            "TokenUpgrade": "P+"
+            "TokenUpgrade": "P+",
+            "MatchGroup": "P"
         },
         "Y": {
             "Char": "█",
@@ -382,7 +386,8 @@
                 "Width": 16,
                 "Height": 16
             },
-            "TokenUpgrade": "Y+"
+            "TokenUpgrade": "Y+",
+            "MatchGroup": "Y"
         },
         "R+": {
             "Char": " ",
@@ -395,6 +400,7 @@
             },
             "TokenUpgrade": "R++",
             "IsPowerToken": true,
+            "MatchGroup": "R",
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -420,6 +426,7 @@
             },
             "TokenUpgrade": "G++",
             "IsPowerToken": true,
+            "MatchGroup": "G",
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -445,6 +452,7 @@
             },
             "TokenUpgrade": "B++",
             "IsPowerToken": true,
+            "MatchGroup": "B",
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -470,6 +478,7 @@
             },
             "TokenUpgrade": "P++",
             "IsPowerToken": true,
+            "MatchGroup": "P",
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -495,6 +504,7 @@
             },
             "TokenUpgrade": "Y++",
             "IsPowerToken": true,
+            "MatchGroup": "Y",
             "ExplodeTextureRegion": {
                 "X": 128,
                 "Y": 32,
@@ -525,6 +535,7 @@
                 "A": 255
             },
             "IsPowerToken": true,
+            "MatchGroup": "R",
         },
         "G++": {
             "Char": "░",
@@ -542,6 +553,7 @@
                 "A": 255
             },
             "IsPowerToken": true,
+            "MatchGroup": "G",
         },
         "B++": {
             "Char": "▓",
@@ -559,6 +571,7 @@
                 "A": 255
             },
             "IsPowerToken": true,
+            "MatchGroup": "B",
         },
         "P++": {
             "Char": "P",
@@ -576,6 +589,7 @@
                 "A": 255
             },
             "IsPowerToken": true,
+            "MatchGroup": "P",
         },
         "Y++": {
             "Char": "█",
@@ -593,6 +607,7 @@
                 "A": 255
             },
             "IsPowerToken": true,
+            "MatchGroup": "Y",
         },
         "BLOCK": {
             "Char": "X",

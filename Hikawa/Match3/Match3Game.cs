@@ -51,7 +51,7 @@ namespace Hikawa.Match3
 			return other is not null
 				&& this.State is TokenState.Idle
 				&& this.State == other.State
-				&& (this.Type == other.Type || this.TypeData.TokenUpgrade == other.Type || this.Type == other.TypeData.TokenUpgrade)
+				&& (this.Type == other.Type || this.TypeData.MatchGroup == other.TypeData.MatchGroup)
 				&& !(this.TypeData.IsBlock || other.TypeData.IsBlock);
 		}
 	}
