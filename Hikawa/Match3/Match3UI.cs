@@ -1061,7 +1061,7 @@ namespace Hikawa.Match3
 
 			// Score
 			{
-				bool isScoreMeterVisible = true;
+				bool isScoreMeterVisible = this.Game.Stage.Data.ScoreGoal > 0;
 				Vector2 scorePosition = this.Position
 					+ new Vector2(x: 0, y: this.Size.Y)
 					+ new Vector2(x: 0, y: 12) * scale;
