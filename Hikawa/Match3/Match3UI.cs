@@ -1006,10 +1006,20 @@ namespace Hikawa.Match3
 				Token token = this.Game.Tokens[coords.X][coords.Y];
 				if (token is null)
 					return;
-				bool isActive = this.ActiveToken is not null && this.ActiveToken == coords;
-				Vector2 draw = isActive
-					? this.CursorPixel
-					: token.DrawPixel;
+				bool isActive = this.ActiveToken == coords;
+				Vector2 draw = token.DrawPixel;
+				if (isActive)
+				{
+					// active token
+					draw = this.CursorPixel;
+                }
+				else if (this.ActiveToken is not null && this.CursorToken == coords)
+				{
+					// swap token with active set
+					Token activeToken = this.Game.Tokens[this.ActiveToken.Value.X][this.ActiveToken.Value.Y];
+					draw -= (this.CursorPixel - activeToken.DrawPixel);
+                }
+
 				bool isPower = token.TypeData.IsPowerToken;
 				bool isSuperPower = token.TypeData.MatchEffect is MatchEffect.Linear;
 
