@@ -555,37 +555,45 @@ namespace Hikawa.Match3
 
 		public void UpdateCursor(Point pixel)
 		{
-			Point? cursorToken = this.GetTokenAtPixel(x: pixel.X, y: pixel.Y);
+			Point? cursor = this.GetTokenAtPixel(x: pixel.X, y: pixel.Y);
 			this.CursorPixel = pixel.ToVector2() - this.Position;
-			if (this.ActiveToken is not null)
+			if (this.ActiveToken is null)
+            {
+                // Mark token under cursor for hover and swap behaviours
+                this.CursorToken = cursor;
+            }
+            else
 			{
-				// Limit movement of cursor with active token
 				float scale = this.MenuData.Scale;
 				Point tokenSize = this.MenuData.TokenSize;
-				Vector2 pixelAnchor = this.GetPixelAtToken(x: this.ActiveToken.Value.X, y: this.ActiveToken.Value.Y, isCentred: true);
-				Vector2 pixelDistance = Utils.Vector.Abs(this.CursorPixel - pixelAnchor);
-				bool isFreeMotion = (pixelDistance.X + pixelDistance.Y) / 2 < (tokenSize.X + tokenSize.Y) / 2 * scale;
-				Vector2 pixelTarget = new Vector2(
-					x: (!isFreeMotion || pixelDistance.X < tokenSize.X) && pixelDistance.X < pixelDistance.Y ? pixelAnchor.X : this.CursorPixel.X,
-					y: (!isFreeMotion || pixelDistance.Y < tokenSize.Y) && pixelDistance.Y < pixelDistance.X ? pixelAnchor.Y : this.CursorPixel.Y);
-				pixelTarget.X = Math.Clamp(value: pixelTarget.X, min: pixelAnchor.X - tokenSize.X * scale, max: pixelAnchor.X + tokenSize.X * scale);
-				pixelTarget.Y = Math.Clamp(value: pixelTarget.Y, min: pixelAnchor.Y - tokenSize.Y * scale, max: pixelAnchor.Y + tokenSize.Y * scale);
-				this.CursorPixel = pixelTarget;
+
+                // Limit movement of cursor with active token
+				Vector2 activePixel = this.GetPixelAtToken(x: this.ActiveToken.Value.X, y: this.ActiveToken.Value.Y, isCentred: true);
+				Vector2 pixelDistance = Utils.Vector.Abs(this.CursorPixel - activePixel);
+				bool isFreeMotion = this.CursorToken is null && (pixelDistance.X + pixelDistance.Y) / 2 < (tokenSize.X + tokenSize.Y) / 2 * scale;
+				Vector2 cursorPixel = new Vector2(
+					x: (!isFreeMotion || pixelDistance.X < tokenSize.X) && pixelDistance.X < pixelDistance.Y ? activePixel.X : this.CursorPixel.X,
+					y: (!isFreeMotion || pixelDistance.Y < tokenSize.Y) && pixelDistance.Y < pixelDistance.X ? activePixel.Y : this.CursorPixel.Y);
+
+                // Limit movement to axis from active to cursor
+                if (this.CursorToken is not null && this.CursorToken != this.ActiveToken)
+	                cursorPixel = activePixel + pixelDistance * Vector2.Normalize(this.CursorToken.Value.ToVector2() - this.ActiveToken.Value.ToVector2());
+
+                // Limit distance to adjacent token
+                cursorPixel.X = Math.Clamp(value: cursorPixel.X, min: activePixel.X - tokenSize.X * scale, max: activePixel.X + tokenSize.X * scale);
+				cursorPixel.Y = Math.Clamp(value: cursorPixel.Y, min: activePixel.Y - tokenSize.Y * scale, max: activePixel.Y + tokenSize.Y * scale);
+
+				this.CursorPixel = cursorPixel;
 
 				// Prevent non-adjacent tokens being set as cursor with active token
-				if (cursorToken is not null)
+				if (cursor is not null)
 				{
-					Vector2 tokenDistance = Utils.Vector.Abs(cursorToken.Value.ToVector2() - this.ActiveToken.Value.ToVector2());
+					Vector2 tokenDistance = Utils.Vector.Abs(cursor.Value.ToVector2() - this.ActiveToken.Value.ToVector2());
 					if (tokenDistance.X + tokenDistance.Y < 2)
 					{
-						this.CursorToken = cursorToken;
+						this.CursorToken = cursor;
 					}
 				}
-			}
-			else
-			{
-				// Mark token under cursor for hover and swap behaviours
-				this.CursorToken = cursorToken;
 			}
 		}
 
