@@ -209,7 +209,7 @@ namespace Hikawa.Match3
 			void drawScreenOverlay() => b.Draw(
 				texture: Game1.fadeToBlackRect,
 				destinationRectangle: Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea,
-				color: Color.Black * 0.9f);
+				color: new Color(10, 3, 5, 232));
 
 			if (this.UI.Game.IsPaused)
 			{
