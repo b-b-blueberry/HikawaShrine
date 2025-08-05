@@ -522,9 +522,9 @@
                 "Height": 32
             },
             "ExplodeColour": {
-                "R": 48,
-                "G": 182,
-                "B": 244,
+                "R": 255,
+                "G": 218,
+                "B": 185,
                 "A": 255
             },
             "ExplodeScale": 2
@@ -619,9 +619,9 @@
                 "Height": 16
             },
             "ExplodeColour": {
-                "R": 48,
-                "G": 182,
-                "B": 244,
+                "R": 255,
+                "G": 218,
+                "B": 185,
                 "A": 255
             },
             "IsPowerToken": true,
