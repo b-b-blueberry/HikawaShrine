@@ -1,9 +1,8 @@
-﻿using System;
+﻿using StardewValley.GameData;
+using StardewValley.Menus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using StardewValley;
-using StardewValley.GameData;
-using StardewValley.Menus;
 
 namespace Hikawa.Match3
 {
@@ -510,7 +509,7 @@ namespace Hikawa.Match3
 					this._matchParticles.Get().Set(
 						token: token,
 						ratio: 2,
-						rotation: (float)((Math.PI + this.Game.Random.NextDouble() * Math.PI) / 1000d),
+						rotation: 0,
 						lifespanRate: 2f);
 				}
 
@@ -609,9 +608,9 @@ namespace Hikawa.Match3
 								float scale = this.MenuData.TokenScaleDefault;
 								if (this.Game.IsPaused)
 									scale = this.MenuData.TokenScaleDefault;
-								else if (this.ActiveToken is Point active && active.X == x && active.Y == y)
+								else if (point == this.ActiveToken)
 									scale = this.MenuData.TokenScaleActive;
-								else if (this.CursorToken is Point cursor && cursor.X == x && cursor.Y == y)
+								else if (point == this.CursorToken)
 									scale = this.MenuData.TokenScaleHovered;
 								// set
 								if (Math.Abs(scale - token.Scale) < 0.1f)
@@ -857,7 +856,7 @@ namespace Hikawa.Match3
 				}
 			}
 			// Clear active tokens on release
-			this.ActiveToken = this.TargetToken = null;
+			this.CursorToken = this.ActiveToken = this.TargetToken = null;
 		}
 
 		public void OnTick(GameTime time)
