@@ -889,7 +889,11 @@ namespace Hikawa.Match3
 				chara.PortraitTime += ms;
 				if (chara.State <= CharacterState.Idle2)
 				{
-					if (isHovered)
+                    if (this.Game.Life < this.GameData.InitialLife / 5 || (stage.Data.TimeGoal > 0 && stage.Time > stage.Data.TimeGoal / 4 * 5))
+                    {
+                        chara.State = CharacterState.Danger;
+                    }
+                    else if (isHovered)
 					{
 						chara.State = CharacterState.Hover;
 					}

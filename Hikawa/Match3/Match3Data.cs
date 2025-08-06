@@ -58,7 +58,8 @@ namespace Hikawa.Match3
 		Hover,
 		Hurt,
 		Power,
-		Win
+		Win,
+		Danger
 	}
 
 	public enum EnemyState
