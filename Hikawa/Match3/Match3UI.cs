@@ -113,6 +113,7 @@ namespace Hikawa.Match3
 
 		protected float _shakeScale;
 		protected Point _shakeAmount;
+		protected float _tokenEffectsTimer;
 
 		public float TimeScale => 1f;
 		public int Ms;
@@ -465,6 +466,9 @@ namespace Hikawa.Match3
                     if (this.Game.TryGetAdditionalMatchesForToken(match, out List<Point> tokens))
                         additionalMatches.AddRange(tokens);
                 matches.AddRange(additionalMatches);
+
+				if (additionalMatches.Count > 0)
+					this._tokenEffectsTimer = 500;
             }
 
 			// Substitute token upgrades into matches
@@ -915,6 +919,9 @@ namespace Hikawa.Match3
 			// Shake
 			this._shakeScale = Math.Max(0, this._shakeScale - 0.01f * ms);
 
+			// Animations
+			this._tokenEffectsTimer = Math.Max(0, this._tokenEffectsTimer - ms);
+
             // End: Destroy block tokens
             if (this.Game.Stage.State is StageState.End)
             {
@@ -951,7 +958,10 @@ namespace Hikawa.Match3
 			this.UpdateCursor(pixel: Game1.getMousePosition(ui_scale: true));
 
 			// Game
+
+			if (this._tokenEffectsTimer <= 0)
 			this.UpdateTokens(ms: ms);
+
 			if (!this.Game.OnTick(ms: ms))
 				this.ChangeStage();
 		}
