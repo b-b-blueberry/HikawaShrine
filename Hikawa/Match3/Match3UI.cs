@@ -968,8 +968,8 @@ namespace Hikawa.Match3
 			// Animations
 			this._tokenEffectsTimer = Math.Max(0, this._tokenEffectsTimer - ms);
 
-            // End: Destroy block tokens
-            if (stage.State is StageState.End)
+            // End: Destroy tokens on reset
+            if (stage.State is StageState.End && stage.Data.ResetTokens)
             {
                 if (time.TotalGameTime.Ticks % 30 == 0)
                 {
@@ -977,9 +977,9 @@ namespace Hikawa.Match3
                     {
                         for (int y = 0; y < stage.Data.GameSize.Y; ++y)
                         {
-                            if (this.Game.Tokens[x][y] is Token token && token.TypeData.IsBlock)
+                            if (this.Game.Tokens[x][y] is Token token)
                             {
-                                var particle = this._tokenParticles.Get().Set(token: token);
+                                TokenParticle particle = this._tokenParticles.Get().Set(token: token);
                                 this.Game.Tokens[x][y] = null;
                                 break;
                             }
