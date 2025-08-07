@@ -164,11 +164,13 @@ namespace Hikawa.Match3
 		/// </summary>
 		public void SetupTokens()
 		{
+			Point size = this.Game.Stage.Data.GameSize;
+
 			if (this.Game.Tokens is not null)
 			{
-				for (int x = 0; x < this.Game.Stage.Data.GameSize.X; ++x)
+				for (int x = 0; x < size.X; ++x)
 				{
-					for (int y = 0; y < this.Game.Stage.Data.GameSize.Y; ++y)
+					for (int y = 0; y < size.Y; ++y)
 					{
 						if (this.Game.Tokens[x][y] is Token token)
 						{
@@ -382,29 +384,36 @@ namespace Hikawa.Match3
 		/// Attempts to match token with other in cursor direction,
 		/// swapping both tokens and completing match if successful.
 		/// </summary>
-		public bool TryMatchTokens(Point token, Point other, MatchEffect format)
+		public bool TryMatchTokens(Point a, Point b, MatchEffect format)
 		{
-			//Console.WriteLine($"{this.Game.TokenAsString(token)} x {this.Game.TokenAsString(other)}");
+			//Console.WriteLine($"{this.Game.TokenAsString(a)} x {this.Game.TokenAsString(b)}");
 
 			// Swap tokens and check for matches
-			this.Game.SwapTokens(a: token, b: other);
-			List<Point> matches = this.Game.CheckMatches(position: token)
-				.Concat(this.Game.CheckMatches(position: other))
+			this.Game.SwapTokens(a: a, b: b);
+			List<Point> matches = this.Game.CheckMatches(position: a)
+				.Concat(this.Game.CheckMatches(position: b))
 				.Distinct()
 				.ToList()
 				;
 			if (matches.Any())
 			{
-				this.Game.Tokens[token.X][token.Y].State = this.Game.Tokens[other.X][other.Y].State = TokenState.Motion;
+				this.Game.Tokens[a.X][a.Y].State = this.Game.Tokens[b.X][b.Y].State = TokenState.Motion;
+
+				// Swap tokens visibly immediately since the active-cursor swap preview already did the transition for us
+				Token tokenA = this.Game.Tokens[a.X][a.Y];
+				Token tokenB = this.Game.Tokens[b.X][b.Y];
+				Vector2 drawPixel = tokenA.DrawPixel;
+				tokenA.DrawPixel = tokenB.DrawPixel;
+				tokenB.DrawPixel = drawPixel;
 
 				// Match and clear if matches were found
-				this.OnMatchesMade(a: token, b: other, matches: matches);
+                this.OnMatchesMade(a: a, b: b, matches: matches);
 				return true;
 			}
 			else
 			{
 				// Reverse swap if no matches were found
-				this.Game.SwapTokens(a: token, b: other);
+				this.Game.SwapTokens(a: a, b: b);
                 this.PlaySound(this.AudioData.SwapSound);
 			}
 			return false;
@@ -417,10 +426,10 @@ namespace Hikawa.Match3
 		{
 			//Console.WriteLine($"\t({matches.Count}) {string.Join(' ', matches.Select(this.Game.TokenAsString))}");
 
-			// Count up matched tokens of each type
+			// Count up matched tokens of each match group
 			Dictionary<string, int> tokenCounts = this.TokenData.Keys
 				.ToDictionary((string type) => type, (string type) => matches
-					.Count((Point point) => type == this.Game.Tokens[point.X][point.Y]?.Type));
+					.Count((Point point) => type == this.Game.Tokens[point.X][point.Y]?.TypeData.MatchGroup));
 
 			bool isPowerMatch = false;
 			bool isSuperPowerMatch = false;
@@ -442,23 +451,24 @@ namespace Hikawa.Match3
 				foreach (Point match in matches)
 				{
 					Token token = this.Game.Tokens[match.X][match.Y];
-					if (!created[token.Type] && tokenCounts[token.Type] > this.Game.Stage.Data.Match)
+					if (!created[token.TypeData.MatchGroup] && tokenCounts[token.TypeData.MatchGroup] > this.Game.Stage.Data.Match)
 					{
-						Log.D($"Particle: {token.Type}-{tokenCounts[token.Type]}");
-						created[token.Type] = true;
                         // Set effects for token matched
                         isPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Radial;
                         isSuperPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Linear or MatchEffect.Global;
+
+                        Log.D($"Particle: {token.TypeData.MatchGroup}-{tokenCounts[token.TypeData.MatchGroup]}");
+						created[token.TypeData.MatchGroup] = true;
 						var typeMatches = matches
 							.Select(point => this.Game.Tokens[point.X][point.Y])
-							.Where(other => token.Type == other?.Type);
+							.Where(other => token.TypeData.MatchGroup == other?.TypeData.MatchGroup);
 						Vector2 drawPixel = new Vector2(
 							x: typeMatches.Average(token => token.DrawPixel.X),
 							y: typeMatches.Average(token => token.DrawPixel.Y));
 						this._matchParticles.Get().Set(
 							token: token,
 							ratio: 2,
-							counter: tokenCounts[token.Type],
+							counter: tokenCounts[token.TypeData.MatchGroup],
 							lifespanRate: 1.5f,
 							drawPixel: drawPixel);
 					}
@@ -489,9 +499,11 @@ namespace Hikawa.Match3
 
 						// Replace token
 						token.Set(state: TokenState.Motion, type: type, data: this.TokenData[type]);
+
 						// Update draw pixel for match swap
 						token.DrawPixel = this.GetPixelAtToken(x: point.Value.X, y: point.Value.Y, isCentred: true);
-						// Prevent token from being matched again
+
+                        // Prevent initial tokens from being matched again
 						matches.Remove(point.Value);
 					}
 				}
@@ -889,8 +901,8 @@ namespace Hikawa.Match3
 
 				// Match tokens
 				bool isMoveMade = this.TryMatchTokens(
-					token: this.ActiveToken.Value,
-					other: this.TargetToken.Value,
+					a: this.ActiveToken.Value,
+					b: this.TargetToken.Value,
 					format: MatchEffect.Standard);
 
 				if (isMoveMade)
@@ -948,19 +960,19 @@ namespace Hikawa.Match3
 			}
 
 			// Shake
-			this._shakeScale = Math.Max(0, this._shakeScale - 0.01f * ms);
+			this._shakeScale = Math.Max(0, this._shakeScale - ms / 100f);
 
 			// Animations
 			this._tokenEffectsTimer = Math.Max(0, this._tokenEffectsTimer - ms);
 
             // End: Destroy block tokens
-            if (this.Game.Stage.State is StageState.End)
+            if (stage.State is StageState.End)
             {
                 if (time.TotalGameTime.Ticks % 30 == 0)
                 {
-                    for (int x = 0; x < this.Game.Stage.Data.GameSize.X; ++x)
+                    for (int x = 0; x < stage.Data.GameSize.X; ++x)
                     {
-                        for (int y = 0; y < this.Game.Stage.Data.GameSize.Y; ++y)
+                        for (int y = 0; y < stage.Data.GameSize.Y; ++y)
                         {
                             if (this.Game.Tokens[x][y] is Token token && token.TypeData.IsBlock)
                             {
