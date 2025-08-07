@@ -1166,23 +1166,9 @@ namespace Hikawa.Match3
 					width: (int)(size.X * tokenSize.X * scale),
 					height: (int)(5 * scale));
 
-				Point framePadding = new((int)(3 * scale), (int)(3 * scale));
-				scoreRegion.Inflate(framePadding.X, framePadding.Y);
-
 				// bar
 				if (isScoreMeterVisible)
 				{
-					// frame
-					IClickableMenu.drawTextureBox(
-						b: b,
-						x: scoreRegion.X,
-						y: scoreRegion.Y,
-						width: scoreRegion.Width,
-						height: scoreRegion.Height,
-						color: Color.MediumPurple);
-
-					scoreRegion.Inflate(-framePadding.X, -framePadding.Y);
-
 					// back
 					b.Draw(
 						texture: Game1.fadeToBlackRect,
