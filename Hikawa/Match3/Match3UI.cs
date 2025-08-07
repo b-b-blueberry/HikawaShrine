@@ -1036,15 +1036,7 @@ namespace Hikawa.Match3
 			bool isDialogue = stage?.State is StageState.Start && stage.HasRemainingDialogue();
 
 			// Game board
-			IClickableMenu.drawTextureBox(
-				b: b,
-				x: board.X,
-				y: board.Y,
-				width: board.Width,
-				height: board.Height,
-				color: Color.White);
 			{
-				// checkerboard
 				for (int x = 0; x < this.Game.Stage.Data.GameSize.X; ++x)
 					for (int y = 0; y < this.Game.Stage.Data.GameSize.Y; ++y)
 						if ((x + y) % 2 == 0)
