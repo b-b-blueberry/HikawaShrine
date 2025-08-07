@@ -1079,7 +1079,7 @@ namespace Hikawa.Match3
 					// active token
 					draw = this.CursorPixel;
                 }
-				else if (this.ActiveToken is not null && this.CursorToken == coords)
+				else if (this.ActiveToken is not null && this.CursorToken == coords && token.Ready())
 				{
 					// swap token with active set
 					Token activeToken = this.Game.Tokens[this.ActiveToken.Value.X][this.ActiveToken.Value.Y];
