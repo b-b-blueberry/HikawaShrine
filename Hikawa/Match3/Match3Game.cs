@@ -411,12 +411,12 @@ namespace Hikawa.Match3
 			return other;
 		}
 
-		public bool TryGetAdditionalMatchesForToken(Point position, out List<Point> tokens)
+		public bool TryGetAdditionalMatchesForToken(Point point, in bool[][] available, ref List<Point> matches)
         {
-			tokens = null;
-
-            if (this.Tokens[position.X][position.Y] is Token token)
+            if (available[point.X][point.Y] && this.Tokens[point.X][point.Y] is Token token)
             {
+				available[point.X][point.Y] = false;
+
                 int radius = token.TypeData.MatchEffectRadius;
                 if (radius <= 0)
                     radius = Math.Max(this.Stage.Data.GameSize.X, this.Stage.Data.GameSize.Y);
@@ -424,21 +424,27 @@ namespace Hikawa.Match3
                 switch (token.TypeData.MatchEffect)
                 {
                     case MatchEffect.Radial:
-                        tokens = this.GetSurroundingTokens(position: position, radius: radius, onlyMatches: false);
+                        matches = this.GetSurroundingTokens(position: point, radius: radius, onlyMatches: false);
                         break;
                     case MatchEffect.Linear:
-                        tokens = this.GetAdjacentTokens(position: position, radius: radius, onlyMatches: false);
+                        matches = this.GetAdjacentTokens(position: point, radius: radius, onlyMatches: false);
                         break;
                     case MatchEffect.Global:
-                        tokens = this.GetAllTokens(match: token);
+                        matches = this.GetAllTokens(match: token);
                         break;
                     case MatchEffect.Standard:
                     default:
                         break;
                 }
+
+				// Recursively get additional matches for each additional match
+				foreach (Point next in matches.ToList())
+				{
+					this.TryGetAdditionalMatchesForToken(next, in available, ref matches);
+                }
             }
 
-			return tokens is not null;
+			return matches.Count > 0;
         }
 
 		public string GetRandomTokenType()

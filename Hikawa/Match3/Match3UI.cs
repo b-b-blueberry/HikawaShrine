@@ -459,18 +459,6 @@ namespace Hikawa.Match3
 				}
 			}
 
-			// Destroy surrounding tokens if power token was matched
-			{
-                List<Point> additionalMatches = [];
-                foreach (Point match in matches)
-                    if (this.Game.TryGetAdditionalMatchesForToken(match, out List<Point> tokens))
-                        additionalMatches.AddRange(tokens);
-                matches.AddRange(additionalMatches);
-
-				if (additionalMatches.Count > 0)
-					this._tokenEffectsTimer = 500;
-            }
-
 			// Substitute token upgrades into matches
 			if (!this.Game.Stage.Data.NoTokenUpgrades)
 			{
@@ -495,6 +483,35 @@ namespace Hikawa.Match3
 					}
 				}
 			}
+
+            // Destroy surrounding tokens if power token was matched
+            List<Point> additionalMatches = [];
+            {
+                Point size = this.Game.Stage.Data.GameSize;
+                bool[][] available = new bool[size.X][];
+                for (int x = 0; x < size.X; ++x)
+                {
+                    available[x] = new bool[size.Y];
+                    for (int y = 0; y < size.Y; ++y)
+                    {
+                        Token token = this.Game.Tokens[x][y];
+                        available[x][y] = token is not null && token.State is TokenState.Idle;
+                    }
+                }
+				// Also check additional matches for initial tokens, which may have had to be removed from matches earlier
+				List<Point> matchesSoFar = [.. matches];
+                if (a is not null)
+                    matchesSoFar.Add(a.Value);
+                if (b is not null)
+                    matchesSoFar.Add(b.Value);
+                foreach (Point match in matchesSoFar)
+                    this.Game.TryGetAdditionalMatchesForToken(match, in available, ref additionalMatches);
+            }
+            matches.AddRange(additionalMatches);
+
+			// Wait for token special effects
+            if (additionalMatches.Count > 0)
+                this._tokenEffectsTimer = 500;
 
 			// Update tokens above matched tokens
 			int[] additionalY = new int[this.Game.Stage.Data.GameSize.X];
