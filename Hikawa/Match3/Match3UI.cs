@@ -82,6 +82,10 @@ namespace Hikawa.Match3
 		/// </summary>
 		public bool IsPaused;
 		/// <summary>
+		/// Absolute position of actual mouse cursor on screen.
+		/// </summary>
+		public Vector2 RealCursor;
+		/// <summary>
 		/// Position of cursor.
 		/// </summary>
 		public Vector2 CursorPixel;
@@ -602,6 +606,7 @@ namespace Hikawa.Match3
 
 		public void UpdateCursor(Point pixel)
 		{
+			this.RealCursor = pixel.ToVector2();
 			Point? cursor = this.GetTokenAtPixel(x: pixel.X, y: pixel.Y);
 			this.CursorPixel = pixel.ToVector2() - this.Position;
 			if (this.ActiveToken is null)
@@ -894,10 +899,7 @@ namespace Hikawa.Match3
 			// Attempt to match tokens on release
 			if (this.ActiveToken is not null && this.TargetToken is not null && this.ActiveToken.Value != this.TargetToken.Value)
 			{
-				// Snap cursor to token
 				this.CursorToken = this.TargetToken;
-				this.CursorPixel = this.GetPixelAtToken(x: this.CursorToken.Value.X, y: this.CursorToken.Value.Y, isCentred: true);
-				Game1.setMousePosition(this.Position.ToPoint() + this.CursorPixel.ToPoint());
 
 				// Match tokens
 				bool isMoveMade = this.TryMatchTokens(
@@ -910,6 +912,7 @@ namespace Hikawa.Match3
 					this.OnMoveMade();
 				}
 			}
+
 			// Clear active tokens on release
 			this.CursorToken = this.ActiveToken = this.TargetToken = null;
 		}
@@ -1706,11 +1709,10 @@ namespace Hikawa.Match3
 			}
 
 			// Cursor
-			if (this.ActiveToken is null)
 			{
 				b.Draw(
 					texture: this.MenuData.CursorTexture,
-					position: position + this.CursorPixel,
+					position: this.RealCursor + shake / 2,
 					sourceRectangle: this.MenuData.CursorTextureRegion,
 					color: Color.White,
 					rotation: 0,
