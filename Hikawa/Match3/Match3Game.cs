@@ -24,6 +24,11 @@ namespace Hikawa.Match3
 		/// </summary>
 		public float Acceleration;
 		/// <summary>
+		/// Time in milliseconds to skip token update behaviours.
+		/// </summary>
+        public float IdleTimer;
+
+		/// <summary>
 		/// 
 		/// </summary>
 		public Vector2 DrawPixel;
@@ -41,6 +46,8 @@ namespace Hikawa.Match3
 			this.State = state;
 			this.Type = type;
 			this.TypeData = data;
+
+			this.IdleTimer = 0;
 		}
 
 		/// <summary>

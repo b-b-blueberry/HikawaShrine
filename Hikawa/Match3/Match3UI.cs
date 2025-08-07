@@ -179,6 +179,7 @@ namespace Hikawa.Match3
 						if (this.Game.Tokens[x][y] is Token token)
 						{
 							token.DrawPixel = this.GetPixelAtToken(x: x, y: y, isCentred: true);
+                            token.IdleTimer = 100 + this.Game.Random.Next(10) * 300;
 						}
 					}
 				}
@@ -664,6 +665,11 @@ namespace Hikawa.Match3
 						if (this.Game.Tokens[x][y] is Token token)
 						{
 							Point point = new(x: x, y: y);
+
+							// Timers
+							token.IdleTimer = Math.Max(0, token.IdleTimer - ms);
+							if (token.IdleTimer > 0)
+								continue;
 
 							// Scale
 							{
