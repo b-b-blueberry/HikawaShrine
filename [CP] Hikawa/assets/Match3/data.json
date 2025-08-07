@@ -644,7 +644,7 @@
             },
             "IsBlock": true
         },
-        "BLOCK_ICE": {
+        "BLOCK_CRATE": {
             "Char": "X",
             "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
             "TextureRegion": {
@@ -655,15 +655,82 @@
             },
             "IsBlock": true
         },
-        "BONUS1": {
-            "Char": "+",
+        "BLOCK_ICE": {
+            "Char": "X",
             "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
             "TextureRegion": {
-                "X": 0,
-                "Y": 48,
+                "X": 80,
+                "Y": 32,
                 "Width": 16,
                 "Height": 16
-            }
+            },
+            "IsBlock": true
+        },
+        "BLOCK_PC": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 96,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BLOCK_TV": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 96,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BLOCK_DEATH_1": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 96,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BLOCK_DEATH_2": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 112,
+                "Y": 0,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BLOCK_DEATH_3": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 112,
+                "Y": 16,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
+        },
+        "BLOCK_DEATH_4": {
+            "Char": "X",
+            "TextureId": "Mods/blueberry/Hikawa/Match3Sprites",
+            "TextureRegion": {
+                "X": 112,
+                "Y": 32,
+                "Width": 16,
+                "Height": 16
+            },
+            "IsBlock": true
         }
     },
     "CharacterData": {
