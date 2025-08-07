@@ -1090,24 +1090,30 @@ namespace Hikawa.Match3
 				bool isPower = token.TypeData.IsPowerToken;
 				bool isSuperPower = token.TypeData.MatchEffect is MatchEffect.Linear;
 
-                float r = (float)(Game1.currentGameTime.TotalGameTime.TotalMilliseconds / 500f);
+                float r = (float)(Game1.currentGameTime.TotalGameTime.TotalMilliseconds / 666f);
                 float sin = 1f + 0.5f * MathF.Sin(r);
 
 				float alpha = Math.Clamp((draw.Y + tokenSize.Y) / tokenSize.Y, 0, 1);
 
-                if (isPower || isSuperPower)
+                Rectangle star = new Rectangle(128, 0, 32, 32);
+                Vector2 origin = star.Size.ToVector2() / 2;
+
+				// back particles
+                /*if (isPower || isSuperPower)
                 {
                     b.Draw(
                         texture: this.MenuData.MenuTexture,
                         position: position + draw,
-                        sourceRectangle: new Rectangle(128, 0, 32, 32),
+                        sourceRectangle: star,
                         color: token.TypeData.ExplodeColour * (0.25f * sin) * alpha,
                         rotation: r,
-                        origin: new Vector2(16),
-                        scale: scale * 0.666f + sin * 0.5f,
+                        origin: origin,
+                        scale: scale * (isSuperPower ? 0.6f : 0.5f) + sin * 0.5f,
                         effects: SpriteEffects.None,
                         layerDepth: 1);
-                }
+                }*/
+
+				// token
 				b.Draw(
 					texture: token.TypeData.Texture,
 					position: position + draw,
@@ -1118,6 +1124,33 @@ namespace Hikawa.Match3
 					scale: (isSuperPower ? scale + 0.25f * sin : scale) * token.Scale,
 					effects: SpriteEffects.None,
 					layerDepth: 1);
+
+				// front particles
+                if (isPower || isSuperPower)
+                {
+					// hehe stoloe ur smoke code
+                    int interval = 1600 + 256 * 6666 % 200;
+                    Vector2[] offsets = [new(-8, 4), new(1, 6), new(8, 6)];
+                    for (int i = 0; i < offsets.Length; ++i)
+                    {
+                        b.Draw(
+                            texture: this.MenuData.MenuTexture,
+                            position: position + draw
+                                + offsets[i] * scale
+                                + new Vector2(0f, (float)((0f - Game1.currentGameTime.TotalGameTime.TotalMilliseconds + interval * i) % 2000f) * 0.03f),
+                            sourceRectangle: star,
+                            color: (isSuperPower ? token.TypeData.ExplodeColour : Color.Gold)
+                                * alpha
+                                * 0.75f
+                                * (1f - (float)((Game1.currentGameTime.TotalGameTime.TotalMilliseconds + interval * i) % 2000f) / 2000f),
+                            rotation: (float)((0f - Game1.currentGameTime.TotalGameTime.TotalMilliseconds) % 2000f)
+                                * 0.001f,
+                            origin: origin,
+                            scale: scale / 10,
+                            effects: SpriteEffects.None,
+                            layerDepth: 1);
+                    }
+                }
 			}
 
 			// Game tokens
