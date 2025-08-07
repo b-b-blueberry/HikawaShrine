@@ -46,14 +46,18 @@ namespace Hikawa.Match3
 		/// <summary>
 		/// Checks whether this token can match with another.
 		/// </summary>
-		public bool Matches(Token other)
+		public bool Matches(Token other, bool visual = false)
 		{
 			return other is not null
-				&& this.State is TokenState.Idle
-				&& this.State == other.State
+				&& (visual || (this.Ready() && other.Ready()))
 				&& (this.Type == other.Type || this.TypeData.MatchGroup == other.TypeData.MatchGroup)
 				&& !(this.TypeData.IsBlock || other.TypeData.IsBlock);
 		}
+
+		public bool Ready()
+		{
+			return this.State is TokenState.Idle && this.IdleTimer <= 0;
+        }
 	}
 
 	/// <summary>
@@ -203,7 +207,7 @@ namespace Hikawa.Match3
 						Token token = this.CreateToken();
 						if (x >= min && tokens[(x - min)..(x - 1)].All((Token[] row) => token.Matches(row[y])))
 							continue;
-						if (y >= min && tokens[x][(y - min)..(y - 1)].All(token.Matches))
+						if (y >= min && tokens[x][(y - min)..(y - 1)].All((Token other) => token.Matches(other)))
 							continue;
 						tokens[x][y] = token;
 					}
@@ -316,59 +320,47 @@ namespace Hikawa.Match3
             return tokens;
         }
 
-        public List<Point> GetAdjacentTokens(Point position, int radius, bool onlyMatches)
+        public List<Point> GetAdjacentTokensVisually(Point point, int radius, bool onlyMatches)
 						{
+            Token token = this.Tokens[point.X][point.Y];
             Point size = this.Stage.Data.GameSize;
-            Token token = this.Tokens[position.X][position.Y];
+            Point tokenSize = this.Data.UIData.TokenSize;
+			float scale = this.Data.UIData.Scale;
             List<Point> tokens = [];
-            for (int x = position.X - radius; x < position.X + radius; ++x)
-							{
-				int y = position.Y;
-                if (x >= 0
-                    && y >= 0
-                    && x < size.X
-                    && y < size.Y
-					&& !(x == position.X && y == position.Y)
-                    && this.Tokens[x][y] is not null
-                    && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y])))
+            for (int x = 0; x < size.X; ++x)
 								{
-                    tokens.Add(new(x: x, y: y));
-								}
-							}
-            for (int y = position.Y - radius; y < position.Y + radius; ++y)
+                for (int y = 0; y < size.Y; ++y)
             {
-                int x = position.X;
-                if (x >= 0
-                    && y >= 0
-                    && x < size.X
-                    && y < size.Y
-                    && !(x == position.X && y == position.Y)
-                    && this.Tokens[x][y] is not null
-                    && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y])))
+                    if (!(x == point.X && y == point.Y)
+                        && this.Tokens[x][y] is Token other // linear
+                        && ((Math.Abs(token.DrawPixel.X - other.DrawPixel.X) <= tokenSize.X * scale && token.DrawPixel.Y <= tokenSize.Y * scale * radius)
+							|| (Math.Abs(token.DrawPixel.Y - other.DrawPixel.Y) <= tokenSize.Y * scale) && token.DrawPixel.X <= tokenSize.X * scale * radius)
+                        && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y], visual: true)))
                 {
                     tokens.Add(new(x: x, y: y));
 						}
 					}
+            }
             return tokens;
 				}
 
-        public List<Point> GetSurroundingTokens(Point position, int radius, bool onlyMatches)
+        public List<Point> GetSurroundingTokensVisually(Point point, int radius, bool onlyMatches)
 				{
+			Token token = this.Tokens[point.X][point.Y];
             Point size = this.Stage.Data.GameSize;
-			Token token = this.Tokens[position.X][position.Y];
+            Vector2 tokenSize = this.Data.UIData.TokenSize.ToVector2();
+            float scale = this.Data.UIData.Scale;
             List<Point> tokens = [];
-			for (int x = position.X - radius; x <= position.X + radius; ++x)
+			for (int x = 0; x < size.X; ++x)
 					{
-				for (int y = position.Y - radius; y <= position.Y + radius; ++y)
+				for (int y = 0; y < size.Y; ++y)
 						{
-					if (x >= 0
-						&& y >= 0
-						&& x < size.X
-						&& y < size.Y
-						&& !(x == position.X && y == position.Y)
-						&& Math.Abs(x - position.X) + Math.Abs(y - position.Y) <= radius // circular
-                        && this.Tokens[x][y] is not null
-						&& (!onlyMatches || token is null || token.Matches(this.Tokens[x][y])))
+					if (!(x == point.X && y == point.Y)
+                        && this.Tokens[x][y] is Token other // circular
+                        //&& token.DrawPixel - other.DrawPixel is Vector2 distance
+                        //                  && Math.Abs(distance.X) <= (tokenSize.X * scale * radius) && Math.Abs(distance.Y) <= (tokenSize.Y * scale * radius)
+                        && Vector2.Distance(token.DrawPixel, other.DrawPixel) <= (tokenSize.X + tokenSize.Y) / 2 * scale * radius
+                        && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y], visual: true)))
 							{
 						tokens.Add(new(x: x, y: y));
 							}
@@ -377,34 +369,34 @@ namespace Hikawa.Match3
 			return tokens;
 		}
 
-		public Point? GetAdjacentToken(Point position, MatchDirection direction)
+		public Point? GetAdjacentToken(Point point, MatchDirection direction)
 		{
 			Point size = this.Stage.Data.GameSize;
 			Point? other = null;
 			switch (direction)
 			{
 				case MatchDirection.Up:
-					if (position.Y > 0)
+					if (point.Y > 0)
 					{
-						other = new(x: position.X, y: position.Y - 1);
+						other = new(x: point.X, y: point.Y - 1);
 					}
 					break;
 				case MatchDirection.Down:
-					if (position.Y < size.Y - 1)
+					if (point.Y < size.Y - 1)
 					{
-						other = new(x: position.X, y: position.Y + 1);
+						other = new(x: point.X, y: point.Y + 1);
 					}
 					break;
 				case MatchDirection.Left:
-					if (position.X > 0)
+					if (point.X > 0)
 					{
-						other = new(x: position.X - 1, y: position.Y);
+						other = new(x: point.X - 1, y: point.Y);
 					}
 					break;
 				case MatchDirection.Right:
-					if (position.X < size.X - 1)
+					if (point.X < size.X - 1)
 					{
-						other = new(x: position.X + 1, y: position.Y);
+						other = new(x: point.X + 1, y: point.Y);
 					}
 					break;
 			}
@@ -424,10 +416,10 @@ namespace Hikawa.Match3
                 switch (token.TypeData.MatchEffect)
                 {
                     case MatchEffect.Radial:
-                        matches = this.GetSurroundingTokens(position: point, radius: radius, onlyMatches: false);
+                        matches = this.GetSurroundingTokensVisually(point, radius, onlyMatches: false);
                         break;
                     case MatchEffect.Linear:
-                        matches = this.GetAdjacentTokens(position: point, radius: radius, onlyMatches: false);
+                        matches = this.GetAdjacentTokensVisually(point, radius, onlyMatches: false);
                         break;
                     case MatchEffect.Global:
                         matches = this.GetAllTokens(match: token);

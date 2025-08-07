@@ -485,6 +485,34 @@ namespace Hikawa.Match3
 				}
 			}
 
+            // Check for additional matches from token match effects
+            {
+                List<Point> additionalMatches = [];
+                Point size = this.Game.Stage.Data.GameSize;
+                bool[][] available = new bool[size.X][];
+                for (int x = 0; x < size.X; ++x)
+                {
+                    available[x] = new bool[size.Y];
+                    for (int y = 0; y < size.Y; ++y)
+                    {
+                        Point point = new Point(x, y);
+                        Token token = this.Game.Tokens[x][y];
+                        available[x][y] = token is not null;
+                    }
+                }
+
+                List<Point> matchesSoFar = [.. matches];
+
+                foreach (Point match in matchesSoFar)
+                    this.Game.TryGetAdditionalMatchesForToken(match, in available, ref additionalMatches);
+
+                matches.AddRange(additionalMatches);
+
+                // Wait for special effects on power matches
+                if (additionalMatches.Count > 0)
+                    this._tokenEffectsTimer = 500;
+            }
+
 			// Substitute token upgrades into matches
 			if (!this.Game.Stage.Data.NoTokenUpgrades)
 			{
@@ -519,36 +547,6 @@ namespace Hikawa.Match3
 				}
 			}
 
-            // Destroy surrounding tokens if power token was matched
-            List<Point> additionalMatches = [];
-            {
-                Point size = this.Game.Stage.Data.GameSize;
-                bool[][] available = new bool[size.X][];
-                for (int x = 0; x < size.X; ++x)
-                {
-                    available[x] = new bool[size.Y];
-                    for (int y = 0; y < size.Y; ++y)
-                    {
-                        Token token = this.Game.Tokens[x][y];
-                        available[x][y] = token is not null && token.State is TokenState.Idle;
-                    }
-                }
-				// Also check additional matches for initial tokens, which may have had to be removed from matches earlier
-				List<Point> matchesSoFar = [.. matches];
-                if (a is not null)
-                    matchesSoFar.Add(a.Value);
-                if (b is not null)
-                    matchesSoFar.Add(b.Value);
-                foreach (Point match in matchesSoFar)
-                    this.Game.TryGetAdditionalMatchesForToken(match, in available, ref additionalMatches);
-            }
-            matches.AddRange(additionalMatches);
-
-			// Wait for token special effects
-            if (additionalMatches.Count > 0)
-                this._tokenEffectsTimer = 500;
-
-			// Update tokens above matched tokens
 			int[] additionalY = new int[this.Game.Stage.Data.GameSize.X];
 			foreach (Point match in matches)
 			{
@@ -569,10 +567,7 @@ namespace Hikawa.Match3
 						lifespanRate: 2f);
 				}
 
-				// Reset matched token and reassign random type
-				string type = this.Game.GetRandomTokenType();
-				token.Set(state: TokenState.Motion, type: type, data: this.TokenData[type]);
-
+                // Affect tokens above matched tokens
 				// Move higher tokens downwards to replace matched token
 				for (; y > 0; --y)
 				{
@@ -580,7 +575,9 @@ namespace Hikawa.Match3
 					this.Game.Tokens[x][y].State = TokenState.Motion;
 				}
 
-				// Move reset matched token above higher tokens
+                // Recycle matched token as random new token
+                string type = this.Game.GetRandomTokenType();
+                token.Set(state: TokenState.Motion, type: type, data: this.TokenData[type]);
 				token.DrawPixel = this.GetPixelAtToken(x: x, y: --additionalY[x], isCentred: true);
 				this.Game.Tokens[x][y] = token;
 			}
@@ -690,8 +687,6 @@ namespace Hikawa.Match3
 							{
 								// Move token towards target position
 								Vector2 targetPixel = this.GetPixelAtToken(x: x, y: y, isCentred: true);
-								//Vector2 distance = Utils.Vector.Abs();
-								//if (distance.X < this.MenuData.TokenSize.X / 2 && distance.Y < this.MenuData.TokenSize.Y / 2)
 								if (token.DrawPixel.Y >= targetPixel.Y)
 								{
 									token.DrawPixel = targetPixel;
@@ -891,7 +886,7 @@ namespace Hikawa.Match3
 				MatchDirection? direction = this.GetDirection(from: this.ActiveToken.Value, to: this.CursorToken.Value);
 				if (direction is not null)
 				{
-					this.TargetToken = this.Game.GetAdjacentToken(position: this.ActiveToken.Value, direction: direction.Value);
+					this.TargetToken = this.Game.GetAdjacentToken(point: this.ActiveToken.Value, direction: direction.Value);
 				}
 				else
 				{
