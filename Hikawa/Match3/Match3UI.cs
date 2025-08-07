@@ -430,8 +430,13 @@ namespace Hikawa.Match3
 		{
 			//Console.WriteLine($"\t({matches.Count}) {string.Join(' ', matches.Select(this.Game.TokenAsString))}");
 
+            // Count up matched tokens of each token type
+            Dictionary<string, int> matchTypes = this.TokenData.Keys
+                .ToDictionary((string type) => type, (string type) => matches
+                    .Count((Point point) => type == this.Game.Tokens[point.X][point.Y]?.Type));
+
 			// Count up matched tokens of each match group
-			Dictionary<string, int> tokenCounts = this.TokenData.Keys
+            Dictionary<string, int> matchGroups = this.TokenData.Keys
 				.ToDictionary((string type) => type, (string type) => matches
 					.Count((Point point) => type == this.Game.Tokens[point.X][point.Y]?.TypeData.MatchGroup));
 
@@ -450,18 +455,18 @@ namespace Hikawa.Match3
 			}*/
 			{
 				// Make a combo particle for each type of token collected
-				Log.D($"Match: {string.Join(' ', tokenCounts.Where(pair => pair.Value > 0).Select(pair => $"{pair.Key}-{pair.Value}"))}");
-				Dictionary<string, bool> created = tokenCounts.ToDictionary(pair => pair.Key, pair => false);
+				Log.D($"Match: {string.Join(' ', matchGroups.Where(pair => pair.Value > 0).Select(pair => $"{pair.Key}-{pair.Value}"))}");
+				Dictionary<string, bool> created = matchGroups.ToDictionary(pair => pair.Key, pair => false);
 				foreach (Point match in matches)
 				{
 					Token token = this.Game.Tokens[match.X][match.Y];
-					if (!created[token.TypeData.MatchGroup] && tokenCounts[token.TypeData.MatchGroup] > this.Game.Stage.Data.Match)
+					if (!created[token.TypeData.MatchGroup] && matchGroups[token.TypeData.MatchGroup] > this.Game.Stage.Data.Match)
 					{
                         // Set effects for token matched
                         isPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Radial;
                         isSuperPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Linear or MatchEffect.Global;
 
-                        Log.D($"Particle: {token.TypeData.MatchGroup}-{tokenCounts[token.TypeData.MatchGroup]}");
+                        Log.D($"Particle: {token.TypeData.MatchGroup}-{matchGroups[token.TypeData.MatchGroup]}");
 						created[token.TypeData.MatchGroup] = true;
 						var typeMatches = matches
 							.Select(point => this.Game.Tokens[point.X][point.Y])
@@ -472,7 +477,7 @@ namespace Hikawa.Match3
 						this._matchParticles.Get().Set(
 							token: token,
 							ratio: 2,
-							counter: tokenCounts[token.TypeData.MatchGroup],
+							counter: matchGroups[token.TypeData.MatchGroup],
 							lifespanRate: 1.5f,
 							drawPixel: drawPixel);
 					}
@@ -486,11 +491,11 @@ namespace Hikawa.Match3
 				{
 					if (point is not null
 						&& this.Game.Tokens[point.Value.X][point.Value.Y] is Token token
-						&& tokenCounts[token.Type] > this.Game.Stage.Data.Match
+						&& matchGroups[token.Type] > this.Game.Stage.Data.Match
 						&& token.TypeData.TokenUpgrade is string type)
 					{
 						// Use super upgrade for big matches
-						if (tokenCounts[token.Type] > this.Game.Stage.Data.Match + 1
+						if (matchGroups[token.Type] > this.Game.Stage.Data.Match + 1
 							&& this.TokenData[type].TokenUpgrade is string superType)
 						{
 							isSuperUpgrade = true;
@@ -582,13 +587,13 @@ namespace Hikawa.Match3
 			// Console.WriteLine($"\t{string.Join(' ', tokenCounts.Where(pair => pair.Value > 0).Select(pair => $"{pair.Value}x{pair.Key}"))}");
 
 			// Award power for tokens matched
-			int power = tokenCounts.Sum((pair) => this.TokenData[pair.Key].IsPowerToken
+			int power = matchTypes.Sum((pair) => this.TokenData[pair.Key].IsPowerToken
 				? this.GameData.PowerPerToken[Math.Min(pair.Value, this.GameData.PowerPerToken.Length - 1)]
 				: 0);
 			this.Game.Power = Math.Min(this.GameData.PowerMax, this.Game.Power + power);
 
 			// Award score for tokens matched
-			int score = tokenCounts.Values.Sum((int count) => this.GameData.ScorePerToken[Math.Min(count, this.GameData.ScorePerToken.Length - 1)]);
+			int score = matchTypes.Values.Sum((int count) => this.GameData.ScorePerToken[Math.Min(count, this.GameData.ScorePerToken.Length - 1)]);
 			this.Game.Stage.Score += score;
 
             // Play sounds
