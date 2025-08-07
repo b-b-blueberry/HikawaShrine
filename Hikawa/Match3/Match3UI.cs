@@ -479,7 +479,8 @@ namespace Hikawa.Match3
 							ratio: 2,
 							counter: matchGroups[token.TypeData.MatchGroup],
 							lifespanRate: 1.5f,
-							drawPixel: drawPixel);
+							drawPixel: drawPixel,
+							color: token.TypeData.ExplodeColour);
 					}
 				}
 			}
