@@ -1099,7 +1099,7 @@ namespace Hikawa.Match3
                         texture: this.MenuData.MenuTexture,
                         position: position + draw,
                         sourceRectangle: new Rectangle(128, 0, 32, 32),
-                        color: token.TypeData.ExplodeColour * (0.2f * sin) * alpha,
+                        color: token.TypeData.ExplodeColour * (0.25f * sin) * alpha,
                         rotation: r,
                         origin: new Vector2(16),
                         scale: scale * 0.666f + sin * 0.5f,
@@ -1156,12 +1156,12 @@ namespace Hikawa.Match3
 				bool isScoreMeterVisible = this.Game.Stage.Data.ScoreGoal > 0;
 				Vector2 scorePosition = this.Position
 					+ new Vector2(x: 0, y: this.Size.Y)
-					+ new Vector2(x: 0, y: 12) * scale;
+					+ new Vector2(x: 0, y: 10) * scale;
 				Rectangle scoreRegion = new Rectangle(
 					x: (int)(scorePosition.X),
 					y: (int)(scorePosition.Y),
 					width: (int)(size.X * tokenSize.X * scale),
-					height: (int)(6 * scale));
+					height: (int)(5 * scale));
 
 				Point framePadding = new((int)(3 * scale), (int)(3 * scale));
 				scoreRegion.Inflate(framePadding.X, framePadding.Y);
