@@ -120,6 +120,7 @@ namespace Hikawa.Match3
 
 
 		// Match3 data
+		public AudioData AudioData => this.Game.Data.AudioData;
 		public UIData MenuData => this.Game.Data.UIData;
 		public GameData GameData => this.Game.Data.GameData;
 		public Dictionary<string, StageData> StageData => this.Game.Data.StageData;
@@ -143,7 +144,7 @@ namespace Hikawa.Match3
 			this.SetupActors();
 			this.SetupTokens();
 
-			this.PlayMusic(this.MenuData.IntroMusic);
+			this.PlayMusic(this.AudioData.IntroMusic);
 		}
 
 		public void SetupActors()
@@ -385,8 +386,6 @@ namespace Hikawa.Match3
 		{
 			//Console.WriteLine($"{this.Game.TokenAsString(token)} x {this.Game.TokenAsString(other)}");
 
-			this.PlaySound(this.MenuData.SwapSound);
-
 			// Swap tokens and check for matches
 			this.Game.SwapTokens(a: token, b: other);
 			List<Point> matches = this.Game.CheckMatches(position: token)
@@ -406,6 +405,7 @@ namespace Hikawa.Match3
 			{
 				// Reverse swap if no matches were found
 				this.Game.SwapTokens(a: token, b: other);
+                this.PlaySound(this.AudioData.SwapSound);
 			}
 			return false;
 		}
@@ -422,7 +422,10 @@ namespace Hikawa.Match3
 				.ToDictionary((string type) => type, (string type) => matches
 					.Count((Point point) => type == this.Game.Tokens[point.X][point.Y]?.Type));
 
+			bool isPowerMatch = false;
+			bool isSuperPowerMatch = false;
 			bool isUpgrade = false;
+			bool isSuperUpgrade = false;
 
 			/*if (a is not null)
 			{
@@ -443,6 +446,9 @@ namespace Hikawa.Match3
 					{
 						Log.D($"Particle: {token.Type}-{tokenCounts[token.Type]}");
 						created[token.Type] = true;
+                        // Set effects for token matched
+                        isPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Radial;
+                        isSuperPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Linear or MatchEffect.Global;
 						var typeMatches = matches
 							.Select(point => this.Game.Tokens[point.X][point.Y])
 							.Where(other => token.Type == other?.Type);
@@ -469,11 +475,18 @@ namespace Hikawa.Match3
 						&& tokenCounts[token.Type] > this.Game.Stage.Data.Match
 						&& token.TypeData.TokenUpgrade is string type)
 					{
-						isUpgrade = true;
 						// Use super upgrade for big matches
 						if (tokenCounts[token.Type] > this.Game.Stage.Data.Match + 1
 							&& this.TokenData[type].TokenUpgrade is string superType)
+						{
+							isSuperUpgrade = true;
 							type = superType;
+						}
+						else
+                        {
+                            isUpgrade = true;
+                        }
+
 						// Replace token
 						token.Set(state: TokenState.Motion, type: type, data: this.TokenData[type]);
 						// Update draw pixel for match swap
@@ -562,16 +575,17 @@ namespace Hikawa.Match3
 			int score = tokenCounts.Values.Sum((int count) => this.GameData.ScorePerToken[Math.Min(count, this.GameData.ScorePerToken.Length - 1)]);
 			this.Game.Stage.Score += score;
 
-			// Play effects
-			string sound = tokenCounts.Any(pair => pair.Value > 0 && this.TokenData[pair.Key].IsPowerToken)
-				? this.MenuData.MatchLargeSound
-				: isUpgrade
-					? this.MenuData.MatchMediumSound
-					: this.MenuData.MatchSmallSound;
-			this.PlaySound(sound);
-
-			// Shuffle board if no matches found
-			// . . .
+            // Play sounds
+            if (isSuperUpgrade)
+                this.PlaySound(this.AudioData.SuperUpgradeSound);
+            if (isUpgrade)
+                this.PlaySound(this.AudioData.UpgradeSound);
+            if (isSuperPowerMatch)
+                this.PlaySound(this.AudioData.SuperPowerMatchSound);
+            if (isPowerMatch)
+                this.PlaySound(this.AudioData.PowerMatchSound);
+            if (!isSuperPowerMatch && !isPowerMatch)
+                this.PlaySound(this.AudioData.MatchSound);
 		}
 
 		public void UpdateCursor(Point pixel)
@@ -662,7 +676,7 @@ namespace Hikawa.Match3
 									// Wait for game unpaused before continuing to match tokens
 									if (!this.Game.IsPaused)
 									{
-										this.PlaySound(this.MenuData.LandSound);
+										this.PlaySound(this.AudioData.LandSound);
 
 										// Stop token motion
 										token.State = TokenState.Idle;
@@ -841,7 +855,7 @@ namespace Hikawa.Match3
 			// Attempt to fetch active token
 			this.SetActiveToken(x: x, y: y);
 			if (this.ActiveToken is not null)
-				this.PlaySound(this.MenuData.SelectSound);
+				this.PlaySound(this.AudioData.SelectSound);
 		}
 
 		public void OnActionUpdate(int x, int y)

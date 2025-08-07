@@ -77,6 +77,33 @@ namespace Hikawa.Match3
 		End
 	}
 
+    /// <summary>
+    /// Class for Match3 audio metadata.
+    /// </summary>
+    public class AudioData
+    {
+        /// <summary>Token motion ended.</summary>
+        public string LandSound;
+        /// <summary>Token set as active.</summary>
+        public string SelectSound;
+        /// <summary>Played on swap without match.</summary>
+        public string SwapSound;
+        /// <summary>Played on any token matched.</summary>
+        public string MatchSound;
+        /// <summary>Power token matched.</summary>
+		public string PowerMatchSound;
+        /// <summary>Super power token matched.</summary>
+		public string SuperPowerMatchSound;
+        /// <summary>Token upgraded.</summary>
+		public string UpgradeSound;
+        /// <summary>Token super upgraded.</summary>
+		public string SuperUpgradeSound;
+        /// <summary>Stage intro cutscene and countdown.</summary>
+        public string IntroMusic;
+        /// <summary>Stage in progress paused.</summary>
+        public string PauseMusic;
+    }
+
 	/// <summary>
 	/// Class for Match3 menu metadata.
 	/// </summary>
@@ -126,38 +153,6 @@ namespace Hikawa.Match3
 		/// Max rate of token motion when moving position.
 		/// </summary>
 		public float TokenMotionMax;
-		/// <summary>
-		/// Audio cue played on token idle after motion.
-		/// </summary>
-		public string LandSound;
-		/// <summary>
-		/// 
-		/// </summary>
-        public string SelectSound;
-        /// <summary>
-        /// 
-        /// </summary>
-		public string SwapSound;
-		/// <summary>
-		/// Audio cue played on token match 3 of a kind.
-		/// </summary>
-		public string MatchSmallSound;
-		/// <summary>
-		/// Audio cue played on token match 4 of a kind.
-		/// </summary>
-		public string MatchMediumSound;
-		/// <summary>
-		/// Audio cue played on token match 5 or more.
-		/// </summary>
-		public string MatchLargeSound;
-		/// <summary>
-		/// 
-		/// </summary>
-		public string IntroMusic;
-		/// <summary>
-		/// 
-		/// </summary>
-		public string PauseMusic;
 		/// <summary>
 		/// Base scale for cursor render.
 		/// </summary>
@@ -370,6 +365,10 @@ namespace Hikawa.Match3
 	/// </summary>
 	public class Match3Data
 	{
+        /// <summary>
+        /// Model of Match3 audio metadata.
+        /// </summary>
+        public AudioData AudioData;
 		/// <summary>
 		/// Model of Match3 menu metadata.
 		/// </summary>

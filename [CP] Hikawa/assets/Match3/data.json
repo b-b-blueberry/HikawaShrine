@@ -1,4 +1,16 @@
 ﻿{
+    "AudioData": {
+        "LandSound": "skeletonStep",
+        "SelectSound": "Cowboy_Footstep",
+        "SwapSound": "shwip",
+        "MatchSound": "moneyDial",
+        "PowerMatchSound": "flameSpell",
+        "SuperPowerMatchSound": "flameSpellHit",
+        "UpgradeSound": "purchase",
+        "SuperUpgradeSound": "coldSpell",
+        "IntroMusic": "Custom_Hikawa_Match3_intro",
+        "PauseMusic": "Custom_Hikawa_Match3_pause"
+    },
     "UIData": {
         "TokenSize": {
             "X": 16,
@@ -14,14 +26,6 @@
         "TokenScaleRate": 0.0035,
         "TokenMotionRate": 0.0035,
         "TokenMotionMax": 0.15,
-        "LandSound": "skeletonStep",
-        "SelectSound": "Cowboy_Footstep",
-        "SwapSound": "shwip",
-        "MatchSmallSound": "fireball",
-        "MatchMediumSound": "Cowboy_monsterDie",
-        "MatchLargeSound": "cowboy_explosion",
-        "IntroMusic": "Custom_Hikawa_Match3_intro",
-        "PauseMusic": "Custom_Hikawa_Match3_pause",
         "CursorScale": 4,
         "CursorTextureId": "LooseSprites/Cursors",
         "CursorTextureRegion": {
