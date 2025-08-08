@@ -338,8 +338,7 @@ namespace Hikawa.Match3
 								{
                 for (int y = 0; y < size.Y; ++y)
             {
-                    if (!(x == point.X && y == point.Y)
-                        && this.Tokens[x][y] is Token other // linear
+                    if (this.Tokens[x][y] is Token other // linear
                         && ((Math.Abs(token.DrawPixel.X - other.DrawPixel.X) <= tokenSize.X * scale && token.DrawPixel.Y <= tokenSize.Y * scale * radius)
 							|| (Math.Abs(token.DrawPixel.Y - other.DrawPixel.Y) <= tokenSize.Y * scale) && token.DrawPixel.X <= tokenSize.X * scale * radius)
                         && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y], visual: true)))
@@ -362,8 +361,7 @@ namespace Hikawa.Match3
 					{
 				for (int y = 0; y < size.Y; ++y)
 						{
-					if (!(x == point.X && y == point.Y)
-                        && this.Tokens[x][y] is Token other // circular
+					if (this.Tokens[x][y] is Token other // circular
                         //&& token.DrawPixel - other.DrawPixel is Vector2 distance
                         //                  && Math.Abs(distance.X) <= (tokenSize.X * scale * radius) && Math.Abs(distance.Y) <= (tokenSize.Y * scale * radius)
                         && Vector2.Distance(token.DrawPixel, other.DrawPixel) <= (tokenSize.X + tokenSize.Y) / 2 * scale * radius
