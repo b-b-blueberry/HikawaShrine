@@ -73,7 +73,7 @@ namespace Hikawa
 		{
 			// Create game
 			string stage = args.Length > 0 ? args[0] : null;
-			Match3.Match3Data data = Game1.content.Load<Match3.Match3Data>("Mods\\blueberry\\Hikawa\\Match3Data");
+			Match3.Match3Data data = Game1.content.Load<Match3.Match3Data>("Mods/blueberry/Hikawa/Match3/Data");
 			Match3.Match3Game game = new(data: data, random: Game1.random, stage: stage);
 			Match3.Match3UI ui = new(game: game);
 			Match3.Match3SDVMenu menu = new(ui: ui);
