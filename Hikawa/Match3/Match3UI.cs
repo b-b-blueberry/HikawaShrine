@@ -382,7 +382,9 @@ namespace Hikawa.Match3
 		/// </summary>
 		public void SetActiveToken(int x, int y)
 		{
-			this.ActiveToken = this.GetTokenAtPixel(x: x, y: y);
+			Point? active = this.GetTokenAtPixel(x: x, y: y);
+			if (active is not null && this.Game.Tokens[active.Value.X][active.Value.Y] is Token token && token.Ready())
+				this.ActiveToken = active;
 		}
 
 		/// <summary>
