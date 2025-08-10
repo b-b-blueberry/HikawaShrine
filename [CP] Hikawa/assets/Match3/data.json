@@ -18,7 +18,7 @@
         },
         "Scale": 4,
         "ScoreTickRate": 0.2,
-        "ParticleCount": 32,
+        "ParticleCount": 64,
         "ParticleFadeRate": 0.0015,
         "TokenScaleDefault": 1,
         "TokenScaleActive": 1.5,
