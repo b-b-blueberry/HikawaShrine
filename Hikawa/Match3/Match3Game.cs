@@ -327,6 +327,48 @@ namespace Hikawa.Match3
             return tokens;
         }
 
+        public List<Point> GetAdjacentTokens(Point point, int radius, bool onlyMatches)
+        {
+            Token token = this.Tokens[point.X][point.Y];
+            Point size = this.Stage.Data.GameSize;
+            List<Point> tokens = [];
+            for (int x = 0; x < size.X; ++x)
+            {
+                for (int y = 0; y < size.Y; ++y)
+                {
+                    if (this.Tokens[x][y] is Token other // linear
+                        && ((point.X == x && point.Y - y <= radius)
+                            || (point.Y == y && point.X - x <= radius))
+                        && (!onlyMatches || token is null || token.Matches(other)))
+                    {
+                        tokens.Add(new(x: x, y: y));
+                    }
+                }
+            }
+            return tokens;
+        }
+
+        public List<Point> GetSurroundingTokens(Point point, int radius, bool onlyMatches)
+        {
+            // literally never fails btw
+            Token token = this.Tokens[point.X][point.Y];
+            Point size = this.Stage.Data.GameSize;
+            List<Point> tokens = [];
+            for (int x = 0; x < size.X; ++x)
+            {
+                for (int y = 0; y < size.Y; ++y)
+                {
+                    if (this.Tokens[x][y] is Token other // circular
+                        && Vector2.Distance(point.ToVector2(), new Vector2(x, y)) <= radius
+                        && (!onlyMatches || token is null || token.Matches(other)))
+                    {
+                        tokens.Add(new(x: x, y: y));
+                    }
+                }
+            }
+            return tokens;
+        }
+
         public List<Point> GetAdjacentTokensVisually(Point point, int radius, bool onlyMatches)
 						{
             Token token = this.Tokens[point.X][point.Y];
@@ -339,9 +381,9 @@ namespace Hikawa.Match3
                 for (int y = 0; y < size.Y; ++y)
             {
                     if (this.Tokens[x][y] is Token other // linear
-                        && ((Math.Abs(token.DrawPixel.X - other.DrawPixel.X) <= tokenSize.X * scale && token.DrawPixel.Y <= tokenSize.Y * scale * radius)
-							|| (Math.Abs(token.DrawPixel.Y - other.DrawPixel.Y) <= tokenSize.Y * scale) && token.DrawPixel.X <= tokenSize.X * scale * radius)
-                        && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y], visual: true)))
+                        && (((Math.Abs(token.DrawPixel.X - other.DrawPixel.X) <= tokenSize.X * scale / 2) && (token.DrawPixel.Y - other.DrawPixel.Y <= tokenSize.Y * scale / 2 * radius))
+							|| ((Math.Abs(token.DrawPixel.Y - other.DrawPixel.Y) <= tokenSize.Y * scale / 2) && (token.DrawPixel.X - other.DrawPixel.X <= tokenSize.X * scale / 2 * radius)))
+                        && (!onlyMatches || token is null || token.Matches(other, visual: true)))
                 {
                     tokens.Add(new(x: x, y: y));
 						}
@@ -352,6 +394,7 @@ namespace Hikawa.Match3
 
         public List<Point> GetSurroundingTokensVisually(Point point, int radius, bool onlyMatches)
 				{
+			// literally never fails btw
 			Token token = this.Tokens[point.X][point.Y];
             Point size = this.Stage.Data.GameSize;
             Vector2 tokenSize = this.Data.UIData.TokenSize.ToVector2();
@@ -365,7 +408,7 @@ namespace Hikawa.Match3
                         //&& token.DrawPixel - other.DrawPixel is Vector2 distance
                         //                  && Math.Abs(distance.X) <= (tokenSize.X * scale * radius) && Math.Abs(distance.Y) <= (tokenSize.Y * scale * radius)
                         && Vector2.Distance(token.DrawPixel, other.DrawPixel) <= (tokenSize.X + tokenSize.Y) / 2 * scale * radius
-                        && (!onlyMatches || token is null || token.Matches(this.Tokens[x][y], visual: true)))
+                        && (!onlyMatches || token is null || token.Matches(other, visual: true)))
 							{
 						tokens.Add(new(x: x, y: y));
 							}
@@ -408,41 +451,42 @@ namespace Hikawa.Match3
 			return other;
 		}
 
-		public bool TryGetAdditionalMatchesForToken(Point point, in bool[][] available, ref List<Point> matches)
+		public void GetAdditionalMatchesForToken(Point point, in bool[][] visited, in bool[][] matches)
         {
-            if (available[point.X][point.Y] && this.Tokens[point.X][point.Y] is Token token)
+            if (!visited[point.X][point.Y] && this.Tokens[point.X][point.Y] is Token token)
             {
-				available[point.X][point.Y] = false;
+				visited[point.X][point.Y] = true;
 
                 int radius = token.TypeData.MatchEffectRadius;
                 if (radius <= 0)
                     radius = Math.Max(this.Stage.Data.GameSize.X, this.Stage.Data.GameSize.Y);
 
+				List<Point> nextMatches = [];
                 switch (token.TypeData.MatchEffect)
                 {
                     case MatchEffect.Radial:
-                        matches = this.GetSurroundingTokensVisually(point, radius, onlyMatches: false);
+                        nextMatches = this.GetSurroundingTokens(point, radius, onlyMatches: false);
                         break;
                     case MatchEffect.Linear:
-                        matches = this.GetAdjacentTokensVisually(point, radius, onlyMatches: false);
+                        nextMatches = this.GetAdjacentTokens(point, radius, onlyMatches: false);
                         break;
                     case MatchEffect.Global:
-                        matches = this.GetAllTokens(match: token);
+                        nextMatches = this.GetAllTokens(match: token);
                         break;
                     case MatchEffect.Standard:
                     default:
                         break;
                 }
 
+				// Flag matches before continuing
+				foreach (Point next in nextMatches)
+					matches[next.X][next.Y] = true;
+				
 				// Recursively get additional matches for each additional match
-				foreach (Point next in matches.ToList())
-				{
-					this.TryGetAdditionalMatchesForToken(next, in available, ref matches);
+				foreach (Point next in nextMatches)
+					this.GetAdditionalMatchesForToken(next, in visited, in matches);
                 }
             }
-
-			return matches.Count > 0;
-        }
 
 		public string GetRandomTokenType()
 		{

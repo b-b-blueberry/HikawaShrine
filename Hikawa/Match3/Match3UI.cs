@@ -429,7 +429,7 @@ namespace Hikawa.Match3
 		/// </summary>
 		public void OnMatchesMade(Point? a, Point? b, List<Point> matches)
 		{
-			//Console.WriteLine($"\t({matches.Count}) {string.Join(' ', matches.Select(this.Game.TokenAsString))}");
+			Console.WriteLine($"Matches: {matches.Count} {string.Join(' ', matches.Select(p => $"({this.Game.Tokens[p.X][p.Y]?.Type ?? "null"} {p.X} {p.Y})"))}");
 
             // Count up matched tokens of each token type
             Dictionary<string, int> matchTypes = this.TokenData.Keys
@@ -456,7 +456,7 @@ namespace Hikawa.Match3
 			}*/
 			{
 				// Make a combo particle for each type of token collected
-				Log.D($"Match: {string.Join(' ', matchGroups.Where(pair => pair.Value > 0).Select(pair => $"{pair.Key}-{pair.Value}"))}");
+				Log.D($"Group: {string.Join(' ', matchGroups.Where(pair => pair.Value > 0).Select(pair => $"{pair.Key}_{pair.Value}"))}");
 				Dictionary<string, bool> created = matchGroups.ToDictionary(pair => pair.Key, pair => false);
 				foreach (Point match in matches)
 				{
@@ -467,7 +467,7 @@ namespace Hikawa.Match3
                         isPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Radial;
                         isSuperPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Linear or MatchEffect.Global;
 
-                        Log.D($"Particle: {token.TypeData.MatchGroup}-{matchGroups[token.TypeData.MatchGroup]}");
+                        Log.D($"  + particle: {token.TypeData.MatchGroup}_{matchGroups[token.TypeData.MatchGroup]}");
 						created[token.TypeData.MatchGroup] = true;
 						var typeMatches = matches
 							.Select(point => this.Game.Tokens[point.X][point.Y])
@@ -486,33 +486,44 @@ namespace Hikawa.Match3
 				}
 			}
 
+            Log.D($"  + initial: [{matches.Count}] {string.Join(' ', matches.Select(p => $"({this.Game.Tokens[p.X][p.Y]?.Type ?? "null"} {p.X} {p.Y})"))}");
+
             // Check for additional matches from token match effects
+            List<Point> totalMatches = [];
             {
-                List<Point> additionalMatches = [];
                 Point size = this.Game.Stage.Data.GameSize;
-                bool[][] available = new bool[size.X][];
+                bool[][] visited = new bool[size.X][], additionalMatches = new bool[size.X][];
                 for (int x = 0; x < size.X; ++x)
                 {
-                    available[x] = new bool[size.Y];
-                    for (int y = 0; y < size.Y; ++y)
-                    {
-                        Point point = new Point(x, y);
-                        Token token = this.Game.Tokens[x][y];
-                        available[x][y] = token is not null;
-                    }
+                    visited[x] = new bool[size.Y];
+                    additionalMatches[x] = new bool[size.Y];
                 }
 
-                List<Point> matchesSoFar = [.. matches];
+				// get additional matches
+                foreach (Point match in matches.ToList())
+                    this.Game.GetAdditionalMatchesForToken(match, in visited, in additionalMatches);
 
-                foreach (Point match in matchesSoFar)
-                    this.Game.TryGetAdditionalMatchesForToken(match, in available, ref additionalMatches);
+                // Combine initial and additional matches, removing duplicates
+                // (we can't exclude initial matches from available tokens above since they need checking for additional matches too)
+                for (int x = 0; x < size.X; ++x)
+                    for (int y = 0; y < size.Y; ++y)
+						if (additionalMatches[x][y])
+                            totalMatches.Add(new(x, y));
 
-                matches.AddRange(additionalMatches);
+				// i'm so done with amtching fucking tokens
+				totalMatches = totalMatches.Concat(matches).Distinct().ToList();
 
-                // Wait for special effects on power matches
-                if (additionalMatches.Count > 0)
-                    this._tokenEffectsTimer = 500;
+				// Behaviours on additional matches found
+				if (totalMatches.Count > matches.Count)
+                {
+                    this._tokenEffectsTimer = 750;
+					var except = totalMatches.Except(matches);
+
+                    Log.D($"  + additional: [{except.Count()}] " + string.Join(' ', except.Select(p => $"({this.Game.Tokens[p.X][p.Y]?.Type ?? "null"} {p.X} {p.Y})")));
+                }
             }
+
+            Log.D($"  + total: [{totalMatches.Count}] {string.Join(' ', totalMatches.Select(p => $"({this.Game.Tokens[p.X][p.Y]?.Type ?? "null"} {p.X} {p.Y})"))}");
 
 			// Substitute token upgrades into matches
 			if (!this.Game.Stage.Data.NoTokenUpgrades)
@@ -543,13 +554,12 @@ namespace Hikawa.Match3
 						token.DrawPixel = this.GetPixelAtToken(x: point.Value.X, y: point.Value.Y, isCentred: true);
 
                         // Prevent initial tokens from being matched again
-						matches.Remove(point.Value);
+                        totalMatches.Remove(point.Value);
 					}
 				}
 			}
 
-			int[] additionalY = new int[this.Game.Stage.Data.GameSize.X];
-			foreach (Point match in matches)
+			foreach (Point match in totalMatches)
 			{
 				int x = match.X;
 				int y = match.Y;
@@ -567,6 +577,15 @@ namespace Hikawa.Match3
 						rotation: 0,
 						lifespanRate: 2f);
 				}
+			}
+
+            int[] additionalY = new int[this.Game.Stage.Data.GameSize.X];
+			foreach (Point match in totalMatches)
+			{
+				int x = match.X;
+				int y = match.Y;
+
+				Token token = this.Game.Tokens[x][y];
 
                 // Affect tokens above matched tokens
 				// Move higher tokens downwards to replace matched token
