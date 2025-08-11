@@ -190,7 +190,7 @@
         "LifeMax": 99,
         "PowerMax": 99,
         "ScorePerToken": [ 0, 0, 0, 25, 75, 150, 250, 500, 1000 ],
-        "PowerPerToken": [ 0, 3, 9, 18, 36, 63, 99 ],
+        "PowerPerToken": [ 0, 5, 12, 21, 42, 75, 99 ],
         "InitialStage": "Endless"
     },
     "StageData": {
