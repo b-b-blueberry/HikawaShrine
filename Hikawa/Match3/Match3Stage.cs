@@ -138,13 +138,13 @@ namespace Hikawa.Match3
 
 		public bool CheckIfWon()
 		{
-			bool isOverScore = this.Data.ScoreGoal > 0 && this.Score > this.Data.ScoreGoal;
+			bool isOverScore = this.Data.ScoreGoal > 0 && this.Score >= this.Data.ScoreGoal;
 			return isOverScore;
 		}
 
 		public bool CheckIfLost()
 		{
-			bool isOverTime = this.Data.TimeGoal > 0 && this.Time > this.Data.TimeGoal;
+			bool isOverTime = this.Data.TimeGoal > 0 && this.Time >= this.Data.TimeGoal;
 			bool isUnderScore = this.Data.ScoreGoal <= 0 || this.Score < this.Data.ScoreGoal;
 			return isOverTime && isUnderScore;
 		}
