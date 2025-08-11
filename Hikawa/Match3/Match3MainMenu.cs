@@ -1,12 +1,13 @@
 ﻿using StardewValley.Menus;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Hikawa.Match3;
 
 public class Match3MainMenu : IClickableMenu
 {
-    public readonly List<ClickableComponent> ClickableComponents; // automatic iclickablemenu navigation impl
-
+    public List<ClickableComponent> ClickableComponents; // automatic iclickablemenu navigation impl
+    public List<ClickableTextureComponent> MenuButtons;
     public ClickableTextureComponent TutorialButton;
     public ClickableTextureComponent StoryButton;
     public ClickableTextureComponent EndlessButton;
@@ -14,6 +15,8 @@ public class Match3MainMenu : IClickableMenu
     public readonly Texture2D Sprites;
 
     public readonly string InitialStage;
+
+    private ClickableComponent _hoveredButton;
 
     public int Scale => Game1.pixelZoom;
 
@@ -24,8 +27,6 @@ public class Match3MainMenu : IClickableMenu
 
         this.Sprites = Game1.content.Load<Texture2D>("Mods/blueberry/Hikawa/Match3/Sprites");
 
-        this.ClickableComponents = [];
-
         this.InitComponents();
         this.UpdateComponentLayout();
     }
@@ -34,12 +35,16 @@ public class Match3MainMenu : IClickableMenu
     {
         this.initializeUpperRightCloseButton();
 
-        Rectangle source = new(128, 0, 32, 32);
-        this.TutorialButton = new(Rectangle.Empty, this.Sprites, source, Scale, true);
-        this.StoryButton = new(Rectangle.Empty, this.Sprites, source, Scale, true);
-        this.EndlessButton = new(Rectangle.Empty, this.Sprites, source, Scale, true);
+        this.ClickableComponents = [];
+        this.MenuButtons = [];
 
-        this.ClickableComponents.AddRange([this.TutorialButton, this.StoryButton, this.EndlessButton]);
+        Rectangle source = new(128, 0, 32, 32);
+        this.TutorialButton = new("tutorial", Rectangle.Empty, null, "Basics", this.Sprites, source, Scale, true);
+        this.StoryButton = new("story", Rectangle.Empty, null, "Story", this.Sprites, source, Scale, true);
+        this.EndlessButton = new("endless", Rectangle.Empty, null, "Zen", this.Sprites, source, Scale, true);
+
+        this.MenuButtons.AddRange([this.TutorialButton, this.StoryButton, this.EndlessButton]);
+        this.ClickableComponents.AddRange(this.MenuButtons);
     }
 
     public void UpdateComponentLayout()
@@ -56,22 +61,21 @@ public class Match3MainMenu : IClickableMenu
 
         Rectangle source = new(128, 0, 32, 32);
         Point origin = new(source.Width / 2, source.Height / 2);
-        this.TutorialButton.bounds = new(bounds.Left - origin.X, bounds.Center.Y - origin.Y, source.Width * Scale, source.Height * Scale);
-        this.StoryButton.bounds = new(bounds.Center.X - origin.X, bounds.Center.Y - origin.Y, source.Width * Scale, source.Height * Scale);
-        this.EndlessButton.bounds = new(bounds.Right - origin.X, bounds.Center.Y - origin.Y, source.Width * Scale, source.Height * Scale);
+        this.TutorialButton.bounds = new(bounds.Left - origin.X * Scale, bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
+        this.StoryButton.bounds = new(bounds.Center.X - origin.X * Scale, bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
+        this.EndlessButton.bounds = new(bounds.Right - origin.X * Scale, bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
 
         this.upperRightCloseButton.bounds.Location = new(bounds.Right, bounds.Top);
     }
 
-    public void StartGame(string stage)
+    public void StartGame(string stageId, string storyId)
     {
-        Match3Data data = Game1.content.Load<Match3Data>("Mods/blueberry/Hikawa/Match3/Data");
-        Match3Game game = new(data: data, random: Game1.random, stage: stage);
-        Match3UI ui = new(game: game);
-        Match3SDVMenu menu = new(ui: ui);
-        ModEntry.State.Value.Match3 = game;
+        this.SetChildMenu(Match3.StartGame(stageId: stageId, storyId: storyId));
+    }
 
-        this.SetChildMenu(menu);
+    public void OpenStory(string storyId)
+    {
+        this.SetChildMenu(new Match3StoryMenu(storyId));
     }
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
@@ -85,17 +89,17 @@ public class Match3MainMenu : IClickableMenu
     {
         base.receiveLeftClick(x, y, playSound);
 
-        if (this.TutorialButton.containsPoint(x: x, y: y))
+        if (this.TutorialButton.visible && this.TutorialButton.containsPoint(x: x, y: y))
         {
-            this.StartGame("1");
+            this.StartGame("T-1", "Tutorial");
         }
-        else if (this.StoryButton.containsPoint(x: x, y: y))
+        else if (this.StoryButton.visible && this.StoryButton.containsPoint(x: x, y: y))
         {
-            this.StartGame("3");
+            this.OpenStory("Main");
         }
-        else if (this.EndlessButton.containsPoint(x: x, y: y))
+        else if (this.EndlessButton.visible && this.EndlessButton.containsPoint(x: x, y: y))
         {
-            this.StartGame("Endless");
+            this.StartGame("Endless", "Endless");
         }
     }
 
@@ -105,9 +109,12 @@ public class Match3MainMenu : IClickableMenu
 
         const float scaleTo = 0.5f;
 
-        this.TutorialButton.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
-        this.StoryButton.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
-        this.EndlessButton.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
+        foreach (ClickableTextureComponent c in this.MenuButtons)
+        {
+            c.tryHover(x: x, y: y, maxScaleIncrease: scaleTo);
+        }
+
+        this._hoveredButton = this.ClickableComponents.FirstOrDefault(c => c.visible && c.containsPoint(x, y));
     }
 
     public override void update(GameTime time)
@@ -133,9 +140,52 @@ public class Match3MainMenu : IClickableMenu
         if (this.shouldDrawCloseButton())
             this.upperRightCloseButton.draw(b: b);
 
-        this.TutorialButton.draw(b: b);
-        this.StoryButton.draw(b: b);
-        this.EndlessButton.draw(b: b);
+        List<ClickableTextureComponent> buttons = this.MenuButtons;
+        string text;
+        Vector2 textSize;
+        SpriteFont font = Game1.dialogueFont;
+        foreach (ClickableTextureComponent c in buttons)
+        {
+            if (c.visible)
+            {
+                c.draw(b: b);
+                text = c.hoverText;
+                textSize = font.MeasureString(text);
+                b.DrawString(font, text, c.bounds.Center.ToVector2() + new Vector2(0, 2) * Scale, Color.Black, 0, textSize / 2, 0.75f + (c.scale - Scale) / 2f, SpriteEffects.None, 1);
+            }
+        }
+
+        if (this._hoveredButton is not null)
+        {
+            ClickableComponent c = this._hoveredButton;
+
+            Vector2 position = c.bounds.Center.ToVector2();
+
+            Rectangle star = new Rectangle(128, 0, 32, 32);
+            Vector2 origin = star.Size.ToVector2() / 2;
+
+            // hehe stoloe ur smoke code
+            int interval = 1600 + 256 * 6666 % 200;
+            Vector2[] offsets = [new(-10, 2), new(1, 12), new(10, 6)];
+            for (int i = 0; i < offsets.Length; ++i)
+            {
+                b.Draw(
+                    texture: this.Sprites,
+                    position: position
+                        + offsets[i] * Scale
+                        + new Vector2(0f, (float)((0f - Game1.currentGameTime.TotalGameTime.TotalMilliseconds + interval * i) % 2000f) * 0.03f),
+                    sourceRectangle: star,
+                    color: Color.White
+                        * (c.scale - Scale)
+                        * (1f - (float)((Game1.currentGameTime.TotalGameTime.TotalMilliseconds + interval * i) % 2000f) / 2000f),
+                    rotation: (float)((0f - Game1.currentGameTime.TotalGameTime.TotalMilliseconds) % 2000f)
+                        * 0.001f,
+                    origin: origin,
+                    scale: (c.scale - Scale),
+                    effects: SpriteEffects.None,
+                    layerDepth: 1);
+            }
+        }
 
         this.drawMouse(b);
     }

@@ -194,6 +194,9 @@
         "InitialStage": "Endless"
     },
     "StageData": {
+
+        // Endless
+
         "Endless": {
             "DisplayName": "Zen",
             "Match": 3,
@@ -216,11 +219,12 @@
             "EndDelay": 3999,
             "Dialogue": [],
             "NoSpecialPowers": true,
-            "NoTokenUpgrades": false,
-            "ResetTokens": false,
-            "NextStage": "Endless"
+            "NoTokenUpgrades": false
         },
-        "1": {
+
+        // Tutorial
+
+        "T-1": {
             "DisplayName": "Basics 1",
             "Match": 3,
             "GameSize": {
@@ -240,13 +244,11 @@
             "StartDelay": 3999,
             "EndDelay": 3999,
             "Dialogue": [
-                "Cat:1:match 3 $ to win!!"
+                "Cat:1:small board! match 3 $ to win."
             ],
-            "NoTokenUpgrades": true,
-            "ResetTokens": true,
-            "NextStage": "2"
+            "NoTokenUpgrades": true
         },
-        "2": {
+        "T-2": {
             "DisplayName": "Basics 2",
             "Match": 3,
             "GameSize": {
@@ -257,23 +259,22 @@
                 "R",
                 "G",
                 "B",
-                "P"
+                "P",
+                "Y"
             ],
             "Character": "TestChara",
-            "Enemy": "TestEnemy",
             "Music": "Custom_Hikawa_Match3_intro",
             "WinMusic": "newRecord",
-            "ScoreGoal": 3000,
+            "ScoreGoal": 1000,
             "TimeGoal": 0,
-            "StartDelay": 3999,
+            "StartDelay": 0,
             "EndDelay": 3999,
             "Dialogue": [
-                "Cat:0:play!"
+                "Cat:0:big board, 5 colours. play!"
             ],
-            "ResetTokens": true,
-            "NextStage": "3"
+            "NoTokenUpgrades": true
         },
-        "3": {
+        "T-3": {
             "DisplayName": "Basics 3",
             "Match": 3,
             "GameSize": {
@@ -287,23 +288,48 @@
                 "P",
                 "Y"
             ],
-            "AddedTokens": [
-                "BLOCK"
+            "Character": "TestChara",
+            "Music": "Custom_Hikawa_Match3_intro",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 2000,
+            "TimeGoal": 0,
+            "StartDelay": 0,
+            "EndDelay": 3999,
+            "Dialogue": [
+                "Cat:1:last one! now you can match 4 or more for power tokens."
+            ]
+        },
+
+        // Story
+
+        "1-1": {
+            "DisplayName": "City Streets",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P",
+                "Y"
             ],
             "AddedTokenRate": 15,
             "Character": "TestChara",
-            "Enemy": "TestEnemy",
             "Music": "Custom_Hikawa_Match3_bgm",
             "WinMusic": "newRecord",
-            "ScoreGoal": 3000,
+            "ScoreGoal": 2500,
             "TimeGoal": 0,
-            "StartDelay": 3999,
+            "StartDelay": 0,
             "EndDelay": 3999,
-            "ResetTokens": false,
-            "NextStage": "4"
+            "Dialogue": [
+                "Cat:1:welcome to the rice fields."
+            ]
         },
-        "4": {
-            "DisplayName": "Basics 4",
+        "1-2": {
+            "DisplayName": "City Streets",
             "Match": 3,
             "GameSize": {
                 "X": 8,
@@ -319,17 +345,74 @@
             "AddedTokens": [
                 "BLOCK"
             ],
+            "AddedTokenRate": 20,
+            "Character": "TestChara",
+            "Music": "Custom_Hikawa_Match3_bgm",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 2500,
+            "TimeGoal": 0,
+            "StartDelay": 0,
+            "EndDelay": 3999,
+            "Dialogue": [
+                "Cat:1:block tokens!! oh no"
+            ]
+        },
+        "1-3": {
+            "DisplayName": "Cram School",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P",
+                "Y"
+            ],
             "AddedTokenRate": 15,
             "Character": "TestChara",
             "Enemy": "TestEnemy",
             "Music": "Custom_Hikawa_Match3_bgm",
             "WinMusic": "newRecord",
-            "ScoreGoal": 5000,
+            "ScoreGoal": 2500,
+            "TimeGoal": 0,
+            "StartDelay": 0,
+            "EndDelay": 3999,
+            "Dialogue": [
+                "Cat:0:it's the enemy!!!!! kill"
+            ]
+        },
+        "1-4": {
+            "DisplayName": "Cram School",
+            "Match": 3,
+            "GameSize": {
+                "X": 8,
+                "Y": 8
+            },
+            "Tokens": [
+                "R",
+                "G",
+                "B",
+                "P",
+                "Y"
+            ],
+            "AddedTokens": [
+                "BLOCK_PC"
+            ],
+            "AddedTokenRate": 15,
+            "Character": "TestChara",
+            "Enemy": "TestEnemy",
+            "Music": "Custom_Hikawa_Match3_bgm",
+            "WinMusic": "newRecord",
+            "ScoreGoal": 3000,
             "TimeGoal": 0,
             "StartDelay": 3999,
             "EndDelay": 3999,
-            "ResetTokens": false,
-            "NextStage": null
+            "Dialogue": [
+                "Cat:1:more blocks!! save that kid"
+            ]
         }
     },
     "TokenData": {
@@ -851,6 +934,85 @@
                     "Height": 32
                 }
             ]
+        }
+    },
+    "WorldData": {
+        "Stories": {
+            "Tutorial": {
+                "Stages": {
+                    "T-1": {
+                        "NextStage": "T-2"
+                    },
+                    "T-2": {
+                        "NextStage": "T-3"
+                    }
+                }
+            },
+            "Endless": {
+                "Stages": {
+                    "Endless": {
+                        "NextStage": "Endless"
+                    }
+                }
+            },
+            "Main": {
+                "TextureId": "Mods/blueberry/Hikawa/Match3/Sprites",
+                "BackgroundTextureRegion": {
+                    "X": 0,
+                    "Y": 336,
+                    "Width": 176,
+                    "Height": 176
+                },
+                "StageTextureRegion": {
+                    "X": 80,
+                    "Y": 48,
+                    "Width": 16,
+                    "Height": 16
+                },
+                "StageCompleteTextureRegion": {
+                    "X": 96,
+                    "Y": 48,
+                    "Width": 16,
+                    "Height": 16
+                },
+                "Stages": {
+                    // City -> Cram school (vs. , block_pc) -> mercury
+                    "1-1": {
+                        "Position": {
+                            "X": 0,
+                            "Y": 0
+                        }
+                    },
+                    "1-2": {
+                        "UnlockedBy": [
+                            "1-1"
+                        ],
+                        "Position": {
+                            "X": 32,
+                            "Y": 32
+                        }
+                    },
+                    "1-3": {
+                        "UnlockedBy": [
+                            "1-2"
+                        ],
+                        "NextStage": "1-4",
+                        "Position": {
+                            "X": 64,
+                            "Y": 64
+                        }
+                    }
+                    // City -> Shrine (vs. , ???) -> mars
+                    // . . .
+                    // City -> Junkyard (vs. bat, block_tv) -> jupiter
+                    // . . .
+                    // City -> Docks (, block_crate) -> venus
+                    // . . .
+                    // ??? -> Ice (dd girls (nemesis), block_ice)
+                    // . . .
+                    // Ice -> Dark realm (metallia, block_death)
+                }
+            }
         }
     }
 }

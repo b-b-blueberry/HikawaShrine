@@ -260,8 +260,6 @@ namespace Hikawa.Match3
 		public string[] Dialogue;
 		public bool NoSpecialPowers;
 		public bool NoTokenUpgrades;
-		public bool ResetTokens;
-		public string NextStage;
 	}
 
 	/// <summary>
@@ -360,6 +358,55 @@ namespace Hikawa.Match3
 		public Rectangle AttackTextureRegion;
 	}
 
+	public class WorldData
+	{
+		public Dictionary<string, StoryData> Stories;
+    }
+
+    public class StoryData
+    {
+        /// <summary>
+        /// Asset name of texture used for world sprites.
+        /// </summary>
+        public string TextureId;
+        /// <summary>
+        /// Area in <see cref="StoryData.Texture"/> used to draw world background for story in <see cref="Match3StoryMenu"/>.
+        /// </summary>
+        public Rectangle BackgroundTextureRegion;
+        /// <summary>
+        /// Area in <see cref="StoryData.Texture"/> used to draw stage marker in <see cref="Match3StoryMenu"/>.
+        /// </summary>
+        public Rectangle StageTextureRegion;
+        /// <summary>
+        /// Area in <see cref="StoryData.Texture"/> used to draw stage marker in <see cref="Match3StoryMenu"/>.
+        /// </summary>
+        public Rectangle StageCompleteTextureRegion;
+        /// <summary>
+        /// Map of stage IDs to their respective data used for world progress.
+        /// </summary>
+        public Dictionary<string, StoryStageData> Stages;
+		/// <summary>
+		/// Asset instance loaded from <see cref="TextureId"/>.
+		/// </summary>
+		public Texture2D Texture;
+    }
+
+    public class StoryStageData
+    {
+		/// <summary>
+		/// Stage ID that needs completing before this stage is available in the world.
+		/// </summary>
+        public List<string> UnlockedBy;
+		/// <summary>
+		/// Stage ID played immediately after this stage is completed, without returning to the world.
+		/// </summary>
+        public string NextStage;
+        /// <summary>
+        /// Unscaled pixel offset relative to the centre of the world.
+        /// </summary>
+        public Point Position;
+    }
+
 	/// <summary>
 	/// Class for complete game metadata.
 	/// </summary>
@@ -393,5 +440,9 @@ namespace Hikawa.Match3
 		/// 
 		/// </summary>
 		public Dictionary<string, EnemyData> EnemyData;
+        /// <summary>
+        /// 
+        /// </summary>
+        public WorldData WorldData;
 	}
 }

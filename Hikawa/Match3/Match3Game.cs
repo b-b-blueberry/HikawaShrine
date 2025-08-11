@@ -150,7 +150,7 @@ namespace Hikawa.Match3
 			}
 
 			// Stage
-			stage ??= this.Stage.Name;
+			stage ??= this.Stage.Id;
 			if (this.Stage is null)
 			{
 				this.Stage = new(characterData: this.Data.CharacterData);
@@ -188,8 +188,9 @@ namespace Hikawa.Match3
 			}
 
 			// Tokens
+			Point size = this.Stage.Data.GameSize;
 			this.TokenIDs = this.Data.TokenData.Keys.Where(this.Stage.Data.Tokens.Contains).ToArray();
-			if (this.Tokens is null || this.Stage.Data.ResetTokens || resetTokens)
+			if (this.Tokens is null || resetTokens || size.X * size.Y != this.Tokens.SelectMany(t => t).Count())
 			{
 				this.Tokens = this.CreateBoardWithTokens();
 				this.OnTokensCreated?.Invoke();

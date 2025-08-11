@@ -122,6 +122,8 @@ namespace Hikawa.Match3
 		public float TimeScale => 1f;
 		public int Ms;
 
+		// World state
+		public string StoryId;
 
 		// Match3 data
 		public AudioData AudioData => this.Game.Data.AudioData;
@@ -131,10 +133,15 @@ namespace Hikawa.Match3
 		public Dictionary<string, TokenData> TokenData => this.Game.Data.TokenData;
 		public Dictionary<string, CharacterData> CharacterData => this.Game.Data.CharacterData;
 		public Dictionary<string, EnemyData> EnemyData => this.Game.Data.EnemyData;
+		public WorldData WorldData => this.Game.Data.WorldData;
 
-		public Match3UI(Match3Game game)
+		public delegate void StageEnded(string stage, bool won);
+		public event StageEnded OnStageEnded;
+
+        public Match3UI(Match3Game game, string storyId)
 		{
 			this.Game = game;
+			this.StoryId = storyId;
 
 			this.DisplayScore = this.Game.TotalScore;
 			this._tokenParticles = new TokenParticlePool(size: this.MenuData.ParticleCount);
@@ -838,19 +845,19 @@ namespace Hikawa.Match3
 			}
 		}
 
-		public void SetupStage(string stage, bool reset, StageState state)
+		public void SetupStage(string stageId, bool reset, StageState state)
 		{
-			this.Game.SetUpGame(stage: stage, resetTokens: true, state: state);
+			this.Game.SetUpGame(stage: stageId, resetTokens: reset, state: state);
 			this.SetupTokens();
 		}
 
-		public void ChangeStage()
+		public void ChangeStage(string stageId)
 		{
 			// Reset player interactions
 			this.ClearPlayerContextualState();
 
 			// Reset tokens
-			this.SetupStage(stage: this.Game.Stage.Data.NextStage, reset: false, state: StageState.Start);
+			this.SetupStage(stageId: stageId, reset: false, state: StageState.Start);
 		}
 
 		public void OnStageStateChanged(StageState previous, StageState next)
@@ -872,6 +879,8 @@ namespace Hikawa.Match3
 					// Lose commiseration
 					this.Shake(scale: 4f, amount: new(x: 2, y: 2));
 				}
+
+				this.OnStageEnded?.Invoke(stage: this.Game.Stage.Id, won: this.Game.Stage.IsWon);
 			}
 		}
 
@@ -945,13 +954,16 @@ namespace Hikawa.Match3
 			this.CursorToken = this.ActiveToken = this.TargetToken = null;
 		}
 
-		public void OnTick(GameTime time)
+		public bool OnTick(GameTime time)
 		{
 			int ms = (int)(time.ElapsedGameTime.Milliseconds * this.TimeScale);
 			this.Ms += ms;
 
+			Stage stage = this.Game.Stage;
+			Point size = this.Game.Stage.Data.GameSize;
+
 			// Score
-			this.DisplayScore = (long)Math.Min(this.Game.TotalScore + this.Game.Stage.Score, this.DisplayScore + this.MenuData.ScoreTickRate * ms);
+            this.DisplayScore = (long)Math.Min(this.Game.TotalScore + stage.Score, this.DisplayScore + this.MenuData.ScoreTickRate * ms);
 
 			// Character
 			if (this.Game.Character is Character chara && chara.Data is not null)
@@ -996,26 +1008,6 @@ namespace Hikawa.Match3
 			// Animations
 			this._tokenEffectsTimer = Math.Max(0, this._tokenEffectsTimer - ms);
 
-            // End: Destroy tokens on reset
-            if (stage.State is StageState.End && stage.Data.ResetTokens)
-            {
-                if (time.TotalGameTime.Ticks % 30 == 0)
-                {
-                    for (int x = 0; x < stage.Data.GameSize.X; ++x)
-                    {
-                        for (int y = 0; y < stage.Data.GameSize.Y; ++y)
-                        {
-                            if (this.Game.Tokens[x][y] is Token token)
-                            {
-                                TokenParticle particle = this._tokenParticles.Get().Set(token: token);
-                                this.Game.Tokens[x][y] = null;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
             // Particles
             {
                 // update particles
@@ -1031,13 +1023,23 @@ namespace Hikawa.Match3
 			// Cursor
 			this.UpdateCursor(pixel: Game1.getMousePosition(ui_scale: true));
 
-			// Game
-
+            // Tokens
 			if (this._tokenEffectsTimer <= 0)
 			this.UpdateTokens(ms: ms);
 
+            // Game
 			if (!this.Game.OnTick(ms: ms))
-				this.ChangeStage();
+			{
+				string stageId = this.Game.Stage.Id;
+                if (this.WorldData.Stories.TryGetValue(this.StoryId, out StoryData storyData)
+					&& storyData.Stages.TryGetValue(stageId, out StoryStageData stageData)
+					&& stageData.NextStage is not null)
+					this.ChangeStage(stageData.NextStage);
+				else
+					return false;
+            }
+
+			return true;
 		}
 
 		public void Draw(SpriteBatch b)

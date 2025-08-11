@@ -110,7 +110,7 @@ namespace Hikawa.Match3
 			else if (this._shuffleButton.containsPoint(x: x, y: y))
 			{
 				this.UI.Game.Stage.Score = 0;
-				this.UI.SetupStage(stage: this.UI.Game.Stage.Name, reset: true, state: this.UI.Game.Stage.State);
+				this.UI.SetupStage(stageId: this.UI.Game.Stage.Id, reset: true, state: this.UI.Game.Stage.State);
 				this.UI.Shake(scale: 4f, amount: new(x: 2, y: 2));
 				this.UI.PlaySound("throwDownITem");
 			}
@@ -199,7 +199,10 @@ namespace Hikawa.Match3
 		{
 			base.update(time);
 
-			this.UI.OnTick(time: time);
+			if (!this.UI.OnTick(time: time))
+			{
+				this.exitThisMenuNoSound();
+			}
 		}
 
 		public override void draw(SpriteBatch b)
