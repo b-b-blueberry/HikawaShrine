@@ -546,18 +546,12 @@ namespace Hikawa.Match3
 				{
 					this.Stage.Time = 0;
 					this.Stage.State = StageState.End;
-					this.Character.State = CharacterState.Hurt;
 				}
 				else if (this.Stage.Enemy is Enemy enemy && enemy.Data is not null && enemy.Life <= 0)
 				{
 					this.Stage.Time = 0;
 					this.Stage.State = StageState.End;
-					this.Character.State = CharacterState.Win;
 				}
-			}
-			else if (this.Character is Character chara && chara.Data is not null && chara.State is not CharacterState.Win or CharacterState.Hurt)
-			{
-				this.Character.State = this.Stage.IsWon ? CharacterState.Win : CharacterState.Hurt;
 			}
 
 			if (!this.Stage.OnTick(ms: ms))

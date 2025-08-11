@@ -975,11 +975,15 @@ namespace Hikawa.Match3
 					&& pixel.X < chara.DrawPixel.X + chara.PortraitSize.X * this.MenuData.Scale
 					&& pixel.Y < chara.DrawPixel.Y + chara.PortraitSize.Y * this.MenuData.Scale;
 
-                CharacterState idle = this.Game.Stage.Moves / 5 % 1 == 0 ? CharacterState.Idle : CharacterState.Idle2;
-
-				// Cycle between idle frames
 				chara.PortraitTime += ms;
-				if (chara.State is CharacterState.Idle or CharacterState.Idle2 or CharacterState.Danger)
+
+                // Choose portrait frame
+                CharacterState idle = this.Game.Stage.Moves % 8 < 4 ? CharacterState.Idle : CharacterState.Idle2;
+                if (stage.State is StageState.End)
+                {
+                    chara.State = stage.IsWon ? CharacterState.Win : CharacterState.Hurt;
+                }
+                else if (chara.State is CharacterState.Idle or CharacterState.Idle2 or CharacterState.Danger)
 				{
                     if (this.Game.Life < this.GameData.InitialLife / 5 // low life
 						|| (stage.Data.TimeGoal > 0 && stage.Time > stage.Data.TimeGoal / 4 * 5) // low time
