@@ -328,6 +328,40 @@ namespace Hikawa.Match3
             return tokens;
         }
 
+        public List<Point> GetAllTokens(string type)
+        {
+            Point size = this.Stage.Data.GameSize;
+            List<Point> tokens = [];
+            for (int x = 0; x < size.X; ++x)
+            {
+                for (int y = 0; y < size.Y; ++y)
+                {
+                    if (this.Tokens[x][y] is Token token && token.Type == type)
+                    {
+                        tokens.Add(new(x, y));
+                    }
+                }
+            }
+            return tokens;
+        }
+
+        public List<Point> GetAllTokens(bool isBlock)
+        {
+            Point size = this.Stage.Data.GameSize;
+            List<Point> tokens = [];
+            for (int x = 0; x < size.X; ++x)
+            {
+                for (int y = 0; y < size.Y; ++y)
+                {
+                    if (this.Tokens[x][y] is Token token && token.TypeData.IsBlock == isBlock)
+                    {
+                        tokens.Add(new(x, y));
+                    }
+                }
+            }
+            return tokens;
+        }
+
         public List<Point> GetAdjacentTokens(Point point, int radius, bool onlyMatches)
         {
             Token token = this.Tokens[point.X][point.Y];

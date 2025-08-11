@@ -975,11 +975,15 @@ namespace Hikawa.Match3
 					&& pixel.X < chara.DrawPixel.X + chara.PortraitSize.X * this.MenuData.Scale
 					&& pixel.Y < chara.DrawPixel.Y + chara.PortraitSize.Y * this.MenuData.Scale;
 
+                CharacterState idle = this.Game.Stage.Moves / 5 % 1 == 0 ? CharacterState.Idle : CharacterState.Idle2;
+
 				// Cycle between idle frames
 				chara.PortraitTime += ms;
-				if (chara.State <= CharacterState.Idle2)
+				if (chara.State is CharacterState.Idle or CharacterState.Idle2 or CharacterState.Danger)
 				{
-                    if (this.Game.Life < this.GameData.InitialLife / 5 || (stage.Data.TimeGoal > 0 && stage.Time > stage.Data.TimeGoal / 4 * 5))
+                    if (this.Game.Life < this.GameData.InitialLife / 5 // low life
+						|| (stage.Data.TimeGoal > 0 && stage.Time > stage.Data.TimeGoal / 4 * 5) // low time
+						|| (this.Game.GetAllTokens(isBlock: true).Count >= size.X * size.Y / 5)) // low tokens
                     {
                         chara.State = CharacterState.Danger;
                     }
@@ -987,18 +991,14 @@ namespace Hikawa.Match3
 					{
 						chara.State = CharacterState.Hover;
 					}
-					else if (this.Game.Random.NextDouble() < 0.00002 / ms * chara.PortraitTime)
-					{
-						chara.State = (CharacterState)(CharacterState.Idle2 - chara.State);
-					}
 					else
 					{
-						chara.State = CharacterState.Idle;
+						chara.State = idle;
 					}
 				}
 				else if (chara.State is CharacterState.Hover && !isHovered)
 				{
-					chara.State = CharacterState.Idle;
+					chara.State = idle;
 				}
 			}
 
