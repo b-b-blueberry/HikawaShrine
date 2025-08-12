@@ -1,4 +1,5 @@
 ﻿using StardewValley.Menus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,12 @@ public class Match3StoryMenu : IClickableMenu
     public readonly StoryData StoryData;
     public readonly HashSet<string> StagesComplete;
 
+    public Rectangle MapBounds;
+
     private ClickableComponent _hoveredButton;
+    private Vector2 _hoverPosition;
+    private float _hoverAlpha;
+    private string _hoverText;
 
     public int Scale => Game1.pixelZoom;
 
@@ -38,9 +44,8 @@ public class Match3StoryMenu : IClickableMenu
         this.ClickableComponents = [];
 
         foreach ((string stageId, StoryStageData stageData) in this.StoryData.Stages)
-        {
-            this.StageButtons.Add(new(stageId, Rectangle.Empty, null, null, this.StoryData.Texture, this.StoryData.StageTextureRegion, Scale, true));
-        }
+            if (stageData.Position != default)
+                this.StageButtons.Add(new(stageId, Rectangle.Empty, null, null, this.StoryData.Texture, this.StoryData.StageTextureRegion, Scale, true));
 
         this.ClickableComponents.AddRange(this.StageButtons);
 
@@ -59,15 +64,21 @@ public class Match3StoryMenu : IClickableMenu
 
         Rectangle bounds = new(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height);
 
+        // Map
+        {
+            Rectangle source = this.StoryData.BackgroundTextureRegion;
+            this.MapBounds = new Rectangle(new(bounds.Left + (bounds.Width - source.Width * Scale) / 2, bounds.Top + (bounds.Height - source.Height * Scale) / 2), new (source.Width * Scale, source.Height * Scale));
+        }
+        // Buttons
         foreach (ClickableTextureComponent c in this.StageButtons)
         {
             string stageId = c.name;
             StoryStageData stageData = this.StoryData.Stages[stageId];
             Point origin = new(c.sourceRect.Width / 2, c.sourceRect.Height / 2);
-            c.bounds = new(bounds.Center.X + stageData.Position.X - origin.X * Scale, bounds.Center.Y + stageData.Position.Y - origin.Y * Scale, c.sourceRect.Width * Scale, c.sourceRect.Height * Scale);
+            c.bounds = new(this.MapBounds.Left + (stageData.Position.X - origin.X) * Scale, this.MapBounds.Top + (stageData.Position.Y - origin.Y) * Scale, c.sourceRect.Width * Scale, c.sourceRect.Height * Scale);
         }
 
-        this.upperRightCloseButton.bounds.Location = new(bounds.Right, bounds.Top);
+        this.upperRightCloseButton.bounds.Location = new(this.MapBounds.Right, this.MapBounds.Top);
     }
 
     public void UpdateButtonsForStoryProgress()
@@ -113,6 +124,8 @@ public class Match3StoryMenu : IClickableMenu
         base.gameWindowSizeChanged(oldBounds, newBounds);
 
         this.UpdateComponentLayout();
+
+        this._childMenu?.gameWindowSizeChanged(oldBounds, newBounds);
     }
 
     public override void receiveLeftClick(int x, int y, bool playSound = true)
@@ -140,6 +153,12 @@ public class Match3StoryMenu : IClickableMenu
         }
 
         this._hoveredButton = this.ClickableComponents.FirstOrDefault(c => c.visible && c.containsPoint(x, y));
+
+        if (this._hoveredButton is not null)
+        {
+            this._hoverText = this._hoveredButton.name;
+            this._hoverPosition = this._hoveredButton.bounds.Center.ToVector2();
+        }
     }
 
     public override void update(GameTime time)
@@ -148,6 +167,8 @@ public class Match3StoryMenu : IClickableMenu
 
         if (this._childMenu is not null)
             return;
+
+        this._hoverAlpha = Math.Clamp(this._hoverAlpha + (float)time.ElapsedGameTime.TotalMilliseconds / 250f * (this._hoveredButton is null ? -1 : 1), 0, 1);
     }
 
     public override void draw(SpriteBatch b)
@@ -188,18 +209,37 @@ public class Match3StoryMenu : IClickableMenu
                 this.upperRightCloseButton.draw(b: b);
 
             List<ClickableTextureComponent> buttons = this.StageButtons;
-            string text;
-            Vector2 textSize;
-            SpriteFont font = Game1.dialogueFont;
+
             foreach (ClickableTextureComponent c in buttons)
-            {
                 if (c.visible)
-                {
                     c.draw(b: b);
-                    text = c.name;
-                    textSize = font.MeasureString(text);
-                    b.DrawString(font, text, c.bounds.Center.ToVector2() + new Vector2(0, 2) * Scale, Color.Black, 0, textSize / 2, 0.75f + (c.scale - Scale) / 2f, SpriteEffects.None, 1);
-                }
+
+            // text bubble
+            if (this._hoverAlpha > 0)
+            {
+                Vector2 position = this._hoverPosition;
+                float yOffset = (float)Math.Sin(Game1.currentGameTime.TotalGameTime.TotalMilliseconds / 500) / 2 * Scale;
+                float alpha = this._hoverAlpha;
+                position += new Vector2(0, -24 + yOffset) * Scale;
+                Rectangle source = new(141, 465, 20, 24);
+
+                // Bubble
+                b.Draw(
+                    texture: Game1.mouseCursors,
+                    position: position - new Vector2(x: 0, y: -1) * Scale,
+                    sourceRectangle: source,
+                    color: Color.White * alpha * 0.8f,
+                    rotation: 0,
+                    origin: source.Size.ToVector2() / 2,
+                    scale: Scale * alpha,
+                    effects: SpriteEffects.None,
+                    layerDepth: 1);
+
+                string text = this._hoverText;
+                SpriteFont font = Game1.dialogueFont;
+                Vector2 textSize = font.MeasureString(text);
+                b.DrawString(font, text, position, Color.Black, 0, textSize / 2f, Scale / 4f * alpha, SpriteEffects.None, 1);
+
             }
 
             if (this._hoveredButton is not null)
@@ -235,6 +275,6 @@ public class Match3StoryMenu : IClickableMenu
             }
         }
 
-        this.drawMouse(b);
+        this.drawMouse(b, ignore_transparency: true, cursor: Game1.cursor_gamepad_pointer);
     }
 }

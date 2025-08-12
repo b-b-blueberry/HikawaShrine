@@ -1232,7 +1232,7 @@ namespace Hikawa.Match3
 					b.Draw(
 						texture: Game1.fadeToBlackRect,
 						destinationRectangle: scoreRegion,
-						color: Color.Plum * 0.3f);
+						color: Color.DarkViolet * 0.3f);
 
 					float ratio = Math.Clamp((float)(this.DisplayScore - this.Game.TotalScore) / stage.Data.ScoreGoal, 0, 1);
 					int width = (int)(ratio * scoreRegion.Width);
@@ -1244,7 +1244,7 @@ namespace Hikawa.Match3
 					b.Draw(
 						texture: Game1.fadeToBlackRect,
 						destinationRectangle: scoreRegion,
-						color: Color.Plum);
+						color: Color.DarkViolet);
 				}
 
 				// text

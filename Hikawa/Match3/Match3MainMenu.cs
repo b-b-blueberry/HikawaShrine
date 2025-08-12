@@ -83,6 +83,8 @@ public class Match3MainMenu : IClickableMenu
         base.gameWindowSizeChanged(oldBounds, newBounds);
 
         this.UpdateComponentLayout();
+
+        this._childMenu?.gameWindowSizeChanged(oldBounds, newBounds);
     }
 
     public override void receiveLeftClick(int x, int y, bool playSound = true)
