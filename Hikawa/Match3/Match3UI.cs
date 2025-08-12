@@ -621,6 +621,8 @@ namespace Hikawa.Match3
 
 			// Award score for tokens matched
 			int score = matchTypes.Values.Sum((int count) => this.GameData.ScorePerToken[Math.Min(count, this.GameData.ScorePerToken.Length - 1)]);
+			// award flat amount bonus score for additional matches
+			score += (totalMatches.Count - matches.Count) * this.GameData.ScorePerToken[this.Game.Stage.Data.Match];
 			this.Game.Stage.Score += score;
 
             // Play sounds
