@@ -127,31 +127,58 @@
 
 	heart events
 
-		rei: skiing
-			4 hearts, question, winter
-			custom map
+		rei:
+			2 hearts
+
+		ami: lost glasses
+			2 hearts
+			wandering around the shrine
+			bonk into tree/post
+			start lost glasses quest
+	
+		rei: ramen delivery
+			4 hearts
+			truck on doorstep
+			grandpa freaking out
+			prize winning 1,000,000 bowls
+			house filled with bowls of ramen alla ranma ep. 22
+			
+		ami: bug hunt
+			4 hearts
+			searching in bushes around the shrine
+		✔	award bug jar
+		✔	start bug quest
 
 		either: flower dance
 			4 hearts, question, will attend the flower dance
-
-		rei: christmas shopping
-			6 hearts, winter, 16th-25th
-			unique map
+			
+		rei: skiing
+			6 hearts, winter
+			custom map
+			take the train from the railroad
 
 		ami:
 			6 hearts
 
-		both: hot springs
-			6 hearts, and variants for who has more/less/equal hearts
-			unique wallpaper
+		rei: christmas shopping
+			8 hearts, winter, 16th-25th
+			unique map
 
+		ami: music appreciation
+			8 hearts
+			rupin's concerto
+			
+		both: hot springs
+			8 hearts, and variants for who has more/less/equal hearts
+			unique background
+			
 		rei: singing in the shrine hall
 			10 hearts, any season, shrine
-			unique wallpaper
+			unique background
 
 		ami: ferris wheel
 			10 hearts, question, any season, bus stop
-			unique wallpaper
+			unique background
 			
 		gramps: cooking/brewing/other
 			2 hearts, any season, shrine
@@ -159,7 +186,7 @@
 
 		gramps: shrine roof
 			8 hearts, spring/summer/autumn, shrine
-		✔	unique wallpaper
+		✔	unique background
 
 --------------------------------------------------------------------------------------
 

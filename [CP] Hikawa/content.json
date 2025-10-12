@@ -70,6 +70,10 @@
             "Value": "{{ID}}_Grove"
         },
         {
+            "Name": "PEAK",
+            "Value": "{{ID}}_Peak"
+        },
+        {
             "Name": "MATCH3",
             "Value": "{{ID}}_Match3"
         },
@@ -96,6 +100,10 @@
         {
             "Name": "MAIL_BUGS",
             "Value": "{{ID}}_Bugs"
+        },
+        {
+            "Name": "MUSIC_REI",
+            "Value": "elliottPiano"
         },
         {
             "Name": "MUSIC_AMI",

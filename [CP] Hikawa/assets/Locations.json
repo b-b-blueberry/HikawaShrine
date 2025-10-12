@@ -31,6 +31,12 @@
 			"Target": "Maps/{{ID}}_Volleyball",
 			"FromFile": "assets/Locations/HikawaVolleyball.tmx"
 		},
+		{
+			"LogName": "Hikawa: Locations - Peak map",
+			"Action": "Load",
+			"Target": "Maps/{{ID}}_Peak",
+			"FromFile": "assets/Locations/HikawaPeak.tmx"
+		},
 		// Location data
 		{
 			"LogName": "Hikawa: Locations - Data",
@@ -89,6 +95,13 @@
 					},
 					"ExcludeFromNpcPathfinding": false,
 					"MusicDefault": "none"
+				},
+				"{{PEAK}}": {
+					"DisplayName": "{{i18n:world.peak.map}}",
+					"DefaultArrivalTile": {
+						"X": 16,
+						"Y": 16
+					}
 				}
 			}
 		},
@@ -129,6 +142,22 @@
 					"MaxPassOutCost": -1,
 					"PassOutMail": null,
 					"PassOutLocations": null
+				},
+				"{{PEAK}}": {
+					"DefaultMusic": "none",
+					"DefaultMusicCondition": null,
+					"DefaultMusicDelayOneScreen": false,
+					"Music": [],
+					"DayAmbience": "none",
+					"NightAmbience": "none",
+					"PlayRandomAmbientSounds": false,
+					"WeatherConditions": [
+				      {
+				        "Id": "Snow",
+				        "Condition": null,
+				        "Weather": "Snow"
+				      }
+				  	]
 				}
 			}
 		},

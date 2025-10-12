@@ -13,7 +13,186 @@
             "Action": "EditData",
             "Target": "Data/Events/{{SHRINE}}",
             "Entries": {
-                "{{QUEST_BUGS}}/w sunny/v {{AMI}}/f {{AMI}} 1000/c 1": "{{MUSIC_AMI}}/35 30/farmer 35 35 0 {{AMI}} 40 30 1/pause 1000/addItem {{Q_TOOL_BUGS}}/pause 1000/addSpecialOrder {{QUEST_BUGS}}/end"
+                // Intro
+                "{{ID}}_Intro": "",
+
+                // Rei: ??? (2 <3)
+                "{{ID}}_Rei_2_/Friendship {{REI}} 500/SawEevent {{ID}}_Intro/NPCVisible {{REI}}": "",
+                // Ami: Lost glasses (2 <3)
+                "{{ID}}_Ami_2_LostGlasses/Friendship {{AMI}} 500/SawEevent {{ID}}_Intro/NPCVisible {{AMI}}": "",
+
+                // Rei: Ramen delivery (4 <3)
+                "{{ID}}_Rei_4_Ramen/Friendship {{REI}} 1000/SawEevent {{ID}}_Rei_2_/NPCVisible {{REI}}": "",
+                // Ami: Bug Hunt (4 <3)
+                "{{QUEST_BUGS}}/Weather Sunny/NPCVisible {{AMI}}/Friendship {{AMI}} 1000/FreeInventorySlots 1": "
+                    {{MUSIC_AMI}}
+                    /35 30
+                    /farmer 35 35 0 {{AMI}} 40 30 1
+                    /pause 1000
+                    /addItem {{Q_TOOL_BUGS}}
+                    /pause 1000
+                    /addSpecialOrder {{QUEST_BUGS}}
+                    /end",
+
+                // Rei: Ski trip (6 <3)
+                "{{ID}}_Rei_6_SkiTrip/Friendship {{REI}} 1500/Season Winter/SawEevent {{ID}}_Rei_4_Ramen/NPCVisible {{REI}}": "
+                    {{MUSIC_REI}}
+                    /45 32
+                    /farmer 44 32 2 {{REI}} 46 32 1 {{AMI}} -1000 -1000 0 Shane -1000 -1000 0
+
+                    /-- SHRINE CHAT BEFORE LEAVING --
+
+                    /pause 2000
+                    /speak {{REI}} \"are you done packing?#$b#remember it's going to be freezing in the mountains, you'd better have a thick coat.\"
+                    /pause 500
+                    /move farmer 0 0 1
+                    /pause 250
+                    /faceDirection {{REI}} 3
+                    /pause 500
+                    /speak {{REI}} \"then let's go!$h\"
+                    /advancedMove {{REI}} false 0 2 -4 0 0 6
+                    /pause 500
+                    /move farmer 0 0 2
+                    /pause 1000
+
+                    /-- TRAIN BOARDING --
+
+                    /fade
+                    /viewport -9999 -9999
+                    /changeLocation Railroad
+                    /viewport 36 41
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 576 512 128 64 0 1 0 42 41 false false 9999 0 1 0 0 0 hold_last_frame
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 512 128 64 0 1 0 34 41 false false 9999 0 1 0 0 0 hold_last_frame
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 512 128 64 0 1 0 26 41 false false 9999 0 1 0 0 0 hold_last_frame
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 448 128 64 0 1 0 18 41 false false 9999 0 1 0 0 0 hold_last_frame
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 512 128 64 0 1 0 10 41 false false 9999 0 1 0 0 0 hold_last_frame
+                    /--temporaryAnimatedSprite TileSheets\\animations 0 1600 64 128 60 10 999 29 42 false false 99999 0 0.25 0 0 0
+                    /stopAdvancedMoves
+                    /warpFarmers 38 41 2 0 38 41 2
+                    /warp {{REI}} 40 41 true
+                    /faceDirection {{REI}} 2
+                    /pause 2000
+                    /speak {{REI}} \"hope you didn't leave anything behind, cause it's too late to go back and get it now.$h\"
+                    /pause 1000
+                    /move {{REI}} 0 0 3
+                    /pause 500
+                    /move {{REI}} 0 0 1
+                    /pause 500
+                    /move {{REI}} 0 0 3
+                    /pause 1000
+                    /speak {{REI}} \"anyway, if you did forget something, it probably wasn't important.#$b#here, you take the skis. climb aboard!$h\"
+                    /move {{REI}} 0 1 2
+                    /playSound doorClose
+                    /warp {{REI}} -1000 -1000 true
+                    /move farmer 0 1 2
+                    /playSound doorClose
+                    /warpFarmers -1000 -1000 0 0 -1000 -1000 0
+                    /pause 2000
+
+                    /-- TRAIN DEPARTING --
+
+                    /fade
+                    /playSound trainWhistle
+                    /removeTemporarySprites
+                    /fade true
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 576 512 128 64 0 1 0 42 41 false false 9999 0 1 0 0 0 hold_last_frame acceleration 0.01 0
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 512 128 64 0 1 0 34 41 false false 9999 0 1 0 0 0 hold_last_frame acceleration 0.01 0
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 512 128 64 0 1 0 26 41 false false 9999 0 1 0 0 0 hold_last_frame acceleration 0.01 0
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 448 128 64 0 1 0 18 41 false false 9999 0 1 0 0 0 hold_last_frame acceleration 0.01 0
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 448 512 128 64 0 1 0 10 41 false false 9999 0 1 0 0 0 hold_last_frame acceleration 0.01 0
+                    /warpFarmers -1000 -1000 0 0 -1000 -1000 0
+                    /warp {{REI}} -1000 -1000 true
+                    /pause 9000
+                    /warp Shane 29 61 true
+                    /speak Shane \"waaaaait\"
+                    /speed Shane 5
+                    /move Shane 0 -12 0
+                    /speed Shane 4
+                    /move Shane 0 -1 0
+                    /speed Shane 3
+                    /move Shane 0 -1 0
+                    /speed Shane 2
+                    /move Shane 0 -1 0
+                    /speed Shane 1
+                    /move Shane 0 -1 0
+                    /playSound clubhit
+                    /--temporaryAnimatedSprite TileSheets\\animations 0 320 64 64 60 8 0 29 44 false false 9000 0 0.25 0 0 0
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 532 1864 20 28 0 1 0 29 44 false false 9999 0 1 0 0 0 hold_last_frame
+                    /warp Shane -1000 -1000 true
+                    /pause 2000
+                    /speak Shane \"oooof...\"
+                    /pause 2000
+
+                    /-- TRAIN INTERLUDE --
+
+                    /globalFade
+                    /changeToTemporaryMap {{ID}}_Peak
+                    /viewport -9999 -9999
+                    /pause 5000
+
+                    /-- MOUNTAIN PEAK --
+
+                    /message \"huff.. huff... huff.. phew!\"
+                    /warpFarmers 14 13 0 0 14 13 0
+                    /warp {{REI}} 15 13 true
+                    /faceDirection {{REI}} 0
+                    /pause 3000
+                    /viewport 14 17
+                    /ambientLight 70 90 50
+                    /globalFadeToClear
+                    /pause 5000
+                    /speak {{REI}} \"wooooow. what a view!$h\"
+                    /pause 3000
+                    /move farmer 0 1 2
+                    /pause 3000
+                    /speed {{REI}} 1
+                    /move {{REI}} 0 1 3
+                    /pause 1000
+                    /quickquestion so.. are you excited to get to the bottom?!
+                        #i'll see you there!
+                        #um, can i walk back down...
+                        #.. does that sign have a skull on it?
+                        (break)speak {{REI}} \"that's the spirit! i'll give you a head-start!$h\"\\pause 500
+                        (break)speak {{REI}} \"don't be such a baby, @.\"\\pause 500\\showFrame 5\\pause 500\\emote farmer 28\\speak {{REI}} \"go on, it'll be fun! i'll give you a push.$h\"\\pause 500
+                        (break)speak {{REI}} \"why don't you get a closer look, bonehead!\"
+                    /pause 250
+                    /faceDirection {{REI}} 2
+                    /pause 250
+                    /faceDirection farmer 2
+                    /temporaryAnimatedSprite LooseSprites\\Cursors 464 1792 16 16 60 5 0 14 14 false false 99999 0 1 0 0 0
+                    /playSound batScreech
+                    /jump farmer 12
+                    /speed farmer 10
+                    /advancedMove farmer false 0 25
+                    /showFrame 94
+                    /viewport move 0 2 3000
+                    /globalFade 0.007
+                    /viewport -9999 -9999
+                    /stopAdvancedMoves
+                    /speed farmer -10
+                    /pause 1000
+                    /speak {{REI}} \"um.. you forgot your skis...$s\"
+                    /pause 5000
+
+                    /-- HINO HOUSE --
+
+                    /changeLocation {{HOUSE}}
+                    /globalFadeToClear
+                    /viewport 10 9
+                    /warp {{REI}} 11 7 3
+                    /warp {{AMI}} 7 8 1
+                    /warp farmer 8 8 0
+                    /showFrame 5
+                    /pause 3000
+                    /emote {{AMI}} 28
+                    /pause 2000
+                    /speak {{AMI}} \"it's incredible, i've never seen a fracture like it. well, ignoring your other arm, of course.#$b#it's rare to see one in such vivid detail.\"
+                    /pause 500
+                    /speak {{AMI}} \"now, are these fragments from the ulna, or the radius ..? no, that can't be right, how'd these get in here...\"
+                    /pause 500
+
+                    /end
+                "
             }
         },
         {
