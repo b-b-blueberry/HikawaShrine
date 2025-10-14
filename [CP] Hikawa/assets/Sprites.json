@@ -63,8 +63,8 @@
         {
             "LogName": "Hikawa: Sprites - Events",
             "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Events",
-            "FromFile": "assets/Sprites/Events.png"
+            "Target": "Mods/blueberry/Hikawa/Locations/Events",
+            "FromFile": "assets/Locations/HikawaEvents.png"
         },
         {
             "LogName": "Hikawa: Sprites - Arcade",

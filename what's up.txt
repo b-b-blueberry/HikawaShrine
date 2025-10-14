@@ -141,7 +141,7 @@
 			truck on doorstep
 			grandpa freaking out
 			prize winning 1,000,000 bowls
-			house filled with bowls of ramen alla ranma ep. 22
+			house temporarily filled with bowls of ramen alla ranma ep. 22
 			
 		ami: bug hunt
 			4 hearts
@@ -149,13 +149,10 @@
 		✔	award bug jar
 		✔	start bug quest
 
-		either: flower dance
-			4 hearts, question, will attend the flower dance
-			
 		rei: skiing
-			6 hearts, winter
-			custom map
-			take the train from the railroad
+		✔	6 hearts, winter
+		✔	custom map
+		✔	take the train from the railroad
 
 		ami:
 			6 hearts

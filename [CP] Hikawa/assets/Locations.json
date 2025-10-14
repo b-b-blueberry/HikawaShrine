@@ -34,8 +34,14 @@
 		{
 			"LogName": "Hikawa: Locations - Peak map",
 			"Action": "Load",
-			"Target": "Maps/{{ID}}_Peak",
+			"Target": "Maps/{{PEAK}}",
 			"FromFile": "assets/Locations/HikawaPeak.tmx"
+		},
+		{
+			"LogName": "Hikawa: Locations - HotSprings map",
+			"Action": "Load",
+			"Target": "Maps/{{HOTSPRINGS}}",
+			"FromFile": "assets/Locations/HikawaHotSprings.tmx"
 		},
 		// Location data
 		{
@@ -99,8 +105,15 @@
 				"{{PEAK}}": {
 					"DisplayName": "{{i18n:world.peak.map}}",
 					"DefaultArrivalTile": {
-						"X": 16,
-						"Y": 16
+						"X": -1,
+						"Y": -1
+					}
+				},
+				"{{HOTSPRINGS}}": {
+					"DisplayName": "{{i18n:world.hotsprings.map}}",
+					"DefaultArrivalTile": {
+						"X": -1,
+						"Y": -1
 					}
 				}
 			}
@@ -152,12 +165,12 @@
 					"NightAmbience": "none",
 					"PlayRandomAmbientSounds": false,
 					"WeatherConditions": [
-				      {
-				        "Id": "Snow",
-				        "Condition": null,
-				        "Weather": "Snow"
-				      }
-				  	]
+						{
+							"Id": "Snow",
+							"Condition": null,
+							"Weather": "Snow"
+						}
+					]
 				}
 			}
 		},
