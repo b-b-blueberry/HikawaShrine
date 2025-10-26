@@ -78,6 +78,10 @@
             "Value": "{{ID}}_HotSprings"
         },
         {
+            "Name": "BONFIRE",
+            "Value": "{{ID}}_Bonfire"
+        },
+        {
             "Name": "MATCH3",
             "Value": "{{ID}}_Match3"
         },

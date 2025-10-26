@@ -16,6 +16,21 @@
                 // Intro
                 "{{ID}}_Intro": "",
 
+                // Rei: ???
+                "fff": "
+                    {{MUSIC_REI}}
+                    /-9999 -9999
+                    /farmer -1000 -1000 0 {{REI}} 15 13 0
+
+                    /-- BONFIRE --
+
+                    /changeToTemporaryMap {{BONFIRE}}
+                    /viewport {{REI}} true
+                    /pause 5000
+
+                    /-- end
+                ",
+
                 // Rei: ??? (2 <3)
                 // "{{ID}}_Rei_2_/Friendship {{REI}} 500/SawEevent {{ID}}_Intro/NPCVisible {{REI}}": "",
                 "noodles": "

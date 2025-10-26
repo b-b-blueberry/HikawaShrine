@@ -43,6 +43,12 @@
 			"Target": "Maps/{{HOTSPRINGS}}",
 			"FromFile": "assets/Locations/HikawaHotSprings.tmx"
 		},
+		{
+			"LogName": "Hikawa: Locations - Bonfire map",
+			"Action": "Load",
+			"Target": "Maps/{{BONFIRE}}",
+			"FromFile": "assets/Locations/HikawaBonfire.tmx"
+		},
 		// Location data
 		{
 			"LogName": "Hikawa: Locations - Data",
@@ -111,6 +117,13 @@
 				},
 				"{{HOTSPRINGS}}": {
 					"DisplayName": "{{i18n:world.hotsprings.map}}",
+					"DefaultArrivalTile": {
+						"X": -1,
+						"Y": -1
+					}
+				},
+				"{{BONFIRE}}": {
+					"DisplayName": "{{i18n:world.bonfire.map}}",
 					"DefaultArrivalTile": {
 						"X": -1,
 						"Y": -1
