@@ -17,15 +17,29 @@
                 "{{ID}}_Intro": "",
 
                 // Rei: ???
-                "fff": "
+                "bonfire": "
                     {{MUSIC_REI}}
                     /-9999 -9999
-                    /farmer -1000 -1000 0 {{REI}} 15 13 0
+                    /farmer -1000 -1000 0 {{REI}} -1000 -1000 0
+                    /cycleActorColors {{REI}} 999999999 0,0,0
 
                     /-- BONFIRE --
 
                     /changeToTemporaryMap {{BONFIRE}}
-                    /viewport {{REI}} true
+
+                    /-- ensure the camera is centred on rei's endpoint, then move rei to her startpoint
+                    /warp {{REI}} 14 12
+                    /viewport {{REI}}
+                    /warp {{REI}} 14 21
+                    /positionOffset {{REI}} 32 32
+
+                    /-- move rei to endpoint with offset ensuring she holds her usual up-frame after
+                    /-- losing my absolute mind
+                    /pause 1000
+                    /speed {{REI}} 1
+                    /advancedMove {{REI}} false 0 -9
+                    /proceedPosition {{REI}}
+                    /faceDirection {{REI}} 0
                     /pause 5000
 
                     /-- end
