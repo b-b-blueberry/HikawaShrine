@@ -9,6 +9,26 @@
         },
         // Events
         {
+            "LogName": "Hikawa: Events - House",
+            "Action": "EditData",
+            "Target": "Data/Events/{{HOUSE}}",
+            "Entries": {
+                // Ami: Music appreciation (8 <3)
+                //"{{ID}}_Ami_8_Music/NPCVisible {{AMI}}/Friendship {{AMI}} 2000": "
+                "music": "
+                    none
+                    /20 16
+                    /farmer 15 10 1 {{AMI}} 19 7 2
+
+                    /-- BEDROOM
+
+                    /pause 1000
+
+                    /end
+                ",
+            }
+        },
+        {
             "LogName": "Hikawa: Events - Shrine",
             "Action": "EditData",
             "Target": "Data/Events/{{SHRINE}}",
