@@ -111,14 +111,116 @@
                 "{{ID}}_Rei_4_Ramen/Friendship {{REI}} 1000/SawEevent {{ID}}_Rei_2_/NPCVisible {{REI}}": "",
 
                 // Ami: Bug Hunt (4 <3)
-                "{{QUEST_BUGS}}/Weather Sunny/NPCVisible {{AMI}}/Friendship {{AMI}} 1000/FreeInventorySlots 1": "
+                // "{{QUEST_BUGS}}/Weather Sunny/NPCVisible {{AMI}}/Friendship {{AMI}} 1000/FreeInventorySlots 1": "
+                "bbb": "
                     {{MUSIC_AMI}}
-                    /35 30
-                    /farmer 35 35 0 {{AMI}} 40 30 1
+                    /21 48
+                    /farmer 30 48 0 {{AMI}} -1000 -1000 0
+
+                    /-- SHRINE SHOP
+
+                    /-- farmer walking to the shop, then to the bush
+                    /move farmer -5 0 3
+                    /--move farmer 0 -1 0
+                    /--playSound leafrustle
+                    /--{{ID}}_Shake 14 52 0.07
+                    /--pause 2250
+                    /--move farmer 0 1 2
+                    /--playSound leafrustle
+                    /--{{ID}}_Shake 14 52 0.08
+                    /--pause 500
+                    /--playSound leafrustle
+                    /--{{ID}}_Shake 14 52 0.09
+                    /--pause 1000
+                    /--emote farmer 8
+                    /move farmer -4 0 3
+                    /--viewport -100 -100 false unfreeze
+                    /viewport move 0 2 2000
+                    /move farmer 0 4 2
+                    /pause 1750
+                    /playSound batScreech
+                    /showFrame 94
+                    /jump farmer 6
+                    /startJittering
+                    /playSound leafrustle
+                    /{{ID}}_Shake 14 52 0.07
+                    /pause 250
+                    /playSound leafrustle
+                    /{{ID}}_Shake 14 52 0.09
+                    /pause 250
+                    /playSound leafrustle
+                    /{{ID}}_Shake 14 52 0.07
+                    /pause 250
+                    /playSound leafrustle
+                    /{{ID}}_Shake 14 52 0.09
+                    /stopJittering
+                    /pause 1500
+
+                    /-- ami popup
+                    /temporaryAnimatedSprite {{PATH_S}}\\Locations\\Events 128 1136 16 32 100 10 2 15 51 false false 53.5 0 1 0 0 0 ping_pong hold_last_frame
+                    /playSound leafrustle
+                    /{{ID}}_Shake 14 52 0.07
+                    /pause 800
+                    /playSound dwop
+                    /pause 1800
+                    /playSound dwop
+                    /pause 800
+
+                    /-- ami popout
+                    /playSound leafrustle
+                    /{{ID}}_Shake 14 52 0.07
+                    /removeSprite 15 51
+                    /warp {{AMI}} 15 52 true
+                    /faceDirection {{AMI}} 2
+                    /jump {{AMI}} 10
+                    /speed {{AMI}} 8
+                    /move {{AMI}} 0 1 2
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 16 112 8 8 0 1 0 15 51 false false 53.5 0.02 1 -0.02 0 0 hold_last_frame motion -0.7 -0.2 acceleration 0 0.05
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 16 120 8 8 0 1 0 16 51 false false 53.5 0.02 1 -0.02 0 0 hold_last_frame motion 0.7 -0.2 acceleration 0 0.05
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 24 112 8 8 0 1 0 15 51 false false 53.5 0.01 1 -0.01 0 0 hold_last_frame motion -0.8 -0.4 acceleration 0 0.01
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 24 120 8 8 0 1 0 16 51 false false 53.5 0.01 1 -0.01 0 0 hold_last_frame motion 0.8 -0.4 acceleration 0 0.01
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 24 112 8 8 0 1 0 15 51 false false 53.5 0.015 1 -0.015 0 0 hold_last_frame motion -0.6 -0.1 acceleration 0 0.025
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 16 112 8 8 0 1 0 16 51 false false 53.5 0.015 1 -0.015 0 0 hold_last_frame motion 0.6 -0.1 acceleration 0 0.025
                     /pause 1000
-                    /addItem {{Q_TOOL_BUGS}}
+                    /move farmer 0 0 3
+                    /-- showFrame {{AMI}} blush or something
+                    /move {{AMI}} 0 0 1
+                    /pause 600
+                    /speak {{AMI}} \"oh, it's you, @.$h\"
+                    /move {{AMI}} 3 0 1 true
+                    /pause 250
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 16 112 8 8 0 1 0 15 52 false false 53 0.02 1 -0.02 0 0 hold_last_frame motion -0.7 -0.2 acceleration 0 0.05
+                    /pause 250
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 16 120 8 8 0 1 0 16 53 false false 53 0.02 1 -0.02 0 0 hold_last_frame motion -0.5 -0.1 acceleration 0 0.025
+                    /pause 250
+                    /temporaryAnimatedSprite TerrainFeatures\\tree1_{{Lowercase:{{Season}}}} 24 120 8 8 0 1 0 17 52 false false 53 0.02 1 -0.02 0 0 hold_last_frame motion -0.6 -0.2 acceleration 0 0.05
+                    /waitForAllStationary
+                    /speak {{AMI}} \"i've been looking at different ways of studying biology. entomology, specifically.\"
+                    /speak {{AMI}} \"these hills are a unique ecosystem in the valley. they're inhabitated by wildlife found nowhere else on this continent.#$b#it was my intention to catalogue as many species from this locale as i could, starting with arthropods, of course.#$b#insects inhabit and influence an incomparable range of habitats in any given environment, making them superlative survey specimens!\"
                     /pause 1000
-                    /addSpecialOrder {{QUEST_BUGS}}
+                    /move {{AMI}} 0 0 2
+                    /pause 250
+                    /emote {{AMI}} 28
+                    /pause 1500
+                    /speak {{AMI}} \".. or so i hypothesised. as it happens, the practical side isn't exactly my area of expertise.$s#$b#as interesting as insects are, they're recalcitrant research partners, it's tiresome trying to catch them, and above all..$s#$b#.. i wish i was doing theory instead! i'd much rather be recording and refining the findings than chasing mantids with a glass jar.\"
+                    /pause 2000
+
+                    /-- quest question
+
+                    /move {{AMI}} 0 0 1
+                    /pause 500
+                    /emote {{AMI}} 56
+                    /pause 1000
+                    /speak {{AMI}} \"i've been thinking, @...\"
+                    /pause 500
+                    /speak {{AMI}} \"you work on a farm, don't you? i'm sure you're the kind of person who spends a lot of time outdoors.#$b#i'll give you all the things you'll need to start off, and if you like, you can keep the specimens when you're done. what do you think?$h\"
+
+                    /pause 1000
+                    /--addItem {{Q_TOOL_BUGS}}
+                    /itemAboveHead {{Q_TOOL_BUGS}} true
+                    /pause 1000
+                    /--addSpecialOrder {{QUEST_BUGS}}
+
                     /end
                 ",
 
