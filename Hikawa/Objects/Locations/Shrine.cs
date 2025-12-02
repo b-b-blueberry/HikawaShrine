@@ -430,7 +430,8 @@ namespace Hikawa.Objects.Locations
 						&& ItemQueryResolver.TryResolveRandomItem(
 							data: rule,
 							context: context,
-							inputItem: input) is Item output)
+							inputItem: input,
+							avoidItemIds: [input.ItemId]) is Item output)
 					{
 						this.CrowTradeItem.Set(output);
 						break;
