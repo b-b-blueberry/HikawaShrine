@@ -115,8 +115,12 @@ public static class EventCommands
             int stage = Game1.CurrentEvent.int_useMeForAnything;
             stage = Math.Clamp(stage + (spriteFadeRatio < 0.5f ? -1 : 0), 0, ingredients.Length);
 
-            float spriteAlpha = 1f * Utils.CircularFromRatio(spriteFadeRatio); //(MathF.Sin(0.5f + 0.5f * MathF.PI * spriteFadeRatio));
-            float overlayAlpha = 1f * Utils.CircularFromRatio(0.5f * overlayFadeRatio * (stage < ingredients.Length - 1 ? 1 : -1));
+            bool outro = stage >= ingredients.Length; // specifically checks for greater than length, since length fades-out the last ingredient
+            float spriteAlpha = 1f - Utils.CircularFromRatio(spriteFadeRatio);
+            float overlayAlphaMax = 0.5f;
+            float overlayAlpha = (outro
+                ? overlayAlphaMax - overlayAlphaMax * Utils.CircularFromRatio(overlayFadeRatio)
+                : overlayAlphaMax * Utils.CircularFromRatio(0.5f * overlayFadeRatio));
             float scale = Game1.pixelZoom;
 
             // Draw overlay
