@@ -484,11 +484,16 @@
     "grandpa.chat.13": "(wave 1)*grumble*.. *mumble*...",
     "grandpa.chat.": "",
 
+    "mako.introduction": "Hi. You must be Ami's friend, the farmer.#$e#Nice meeting you.",
     "mako.chat.1": "You know what's perfect with cheese? Oregano!#$b#Oh, you knew that already? Alright, how about this: mustard powder.$u#$e#Don't look at me like that! I swear it works.$h",
     "mako.chat.2": "You know what makes a really rich chili? Fried cherry tomatoes!#$b#You knew that already, huh? Oooh, you're asking for it. How about... dark chocolate!$h#$b#Don't knock it 'til you try it! Just don't add too much though, I've had to serve it as dessert once.$s",
-    "mako.chat.3": "You should try a Curry Diablo on Ami sometime. I've never seen her go so red before.#$e#Oh no, there was that one time..$b",
+    "mako.chat.3": "You should try a Curry Diablo on Ami sometime. I've never seen her go so red before.#$e#Oh no, wait..$b",
     "mako.chat.4": "*cough*.. cooking over a wood fire is nice and all, but...#$b#.. the smoke.. my eyes... *wheeze*#s",
-    "mako.chat.5": "It's good to drop in sometimes to make sure everyone's eating well.#$b#Do you have any idea how many cup noodles these two go through? So many. So so many.#$e#I thought Ami was meant to be a doctor..#$b#I guess it doesn't matter how much you know about nutrition. If you love noodles and sandwiches enough, you don't care about nutrition.#$e#I don't care how many dried peas you put in. Cup noodles just can't be a balanced meal...$s",
+    "mako.chat.5": "It's good to drop in sometimes to make sure everyone's eating well.#$b#Do you have any idea how many cup noodles these two go through? So many. So so many.#$e#I thought Ami was meant to be a doctor..#$b#I guess it doesn't matter how much you know about nutrition. If you love noodles and sandwiches enough, you just don't care about it.#$e#I don't care how many dried peas you put in. Cup noodles just can't be a balanced meal...$s",
+    "mako.chat.6": "This old kitchen's got its issues, but it's nice being in a house with just plain old wood-and-metal pots and pans.#$b#I've been using cast iron for so long, when I first went to Ami's apartment I destroyed all her non-stick pans with a metal spatula. One less thing to worry about here...$s#$b#",
+    "mako.chat.7": "Using this old kitchen makes me realise I could probably live without a few modern conveniences and appliances.#$b#Maybe I'd be fine without my hand mixer, my microwave, immersion blender, egg slicer, salad rinser..#$b#.. my food processor, herb chopper, vegetable spiraliser, pasta maker, garlic crusher, smoothie maker..#$b#.. dishwasher, steamer, electric hotpot, convection oven..#$b#.. but not my rice cooker. I'd die without it. How can Rei live making a pot of rice every day by hand?#$e#On second thought, I'd probably die without my dishwasher, too.",
+    "mako.chat.8": "One of the real treasures in the old shrine is Grandpa Hino's larder of home-made food. Have you *seen* how stocked this kitchen is?#$b#He's got a hundred kinds of pickles here, relishes, jams, everything. You name it, he's pickled it.#$e#There's some bottles of vinegar and cooking wine here that don't have any labels or brands, but he swears he doesn't make any. Wonder where it came from?",
+    "mako.chat.9": "I always forget how nice it is to watch the sun set over the mountains. It really is beautiful out here in the valley.#$e#Sometimes I wonder why Ami's the one staying at the shrine and I'm living in the city.$h",
     "mako.chat.": "",
 
     "fortune.prompt": "Would you like your fortune told?",
