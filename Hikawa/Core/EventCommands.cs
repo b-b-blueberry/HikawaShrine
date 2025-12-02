@@ -1,6 +1,7 @@
 ﻿using Hikawa.Objects.Events;
 using StardewModdingAPI.Events;
 using StardewValley.Delegates;
+using StardewValley.TerrainFeatures;
 using System;
 using System.Reflection;
 
@@ -23,6 +24,43 @@ public static class EventCommands
                 Event.RegisterCommand(name: $"{prefix}_{eventCommand.Id}", action: method.CreateDelegate<EventCommandDelegate>());
             }
         }
+    }
+
+    [EventCommandAttribute("Shake")]
+    private static void Shake(Event e, string[] args, EventContext context)
+    {
+        // parse
+        if (!ArgUtility.TryGetPoint(args, 1, out Point tile, out string error))
+        {
+            e.LogCommandErrorAndSkip(args, $"Failed to parse bush shake: {error}");
+            return;
+        }
+        ArgUtility.TryGetOptionalFloat(args, 3, out float maxShake, out error);
+
+        // get
+        if (!Game1.currentLocation.terrainFeatures.TryGetValue(tile.ToVector2(), out TerrainFeature tf))
+            tf = Game1.currentLocation.getLargeTerrainFeatureAt(tile.X, tile.Y);
+
+        // handle
+        if (tf is null)
+        {
+            e.LogCommandError(args, $"No supported terrain features found on tile {tile}");
+        }
+        else if (tf is Tree tree)
+        {
+            tree.shake(tree.Tile, doEvenIfStillShaking: true);
+            if (maxShake > 0)
+                ModEntry.Instance.Helper.Reflection.GetField<float>(tree, "maxShake").SetValue(maxShake);
+        }
+        else if (tf is Bush bush)
+        {
+            bush.shake(bush.Tile, doEvenIfStillShaking: true);
+            if (maxShake > 0)
+                ModEntry.Instance.Helper.Reflection.GetField<float>(bush, "maxShake").SetValue(maxShake);
+        }
+
+        // continue
+        e.CurrentCommand++;
     }
 
     [EventCommandAttribute("CrystalBall")]
