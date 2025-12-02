@@ -210,8 +210,8 @@
             "Action": "EditData",
             "Target": "Data/CraftingRecipes",
             "Entries": {
-                "{{ID}}_Totem": "298 1 638 1 334 3//1/false/y 999/{{i18n:item.totem.name}}",
-                "{{ID}}_Bow_Arrow_Basic": "388 10 {{ID}}_Feather 5//25/false/y 999/{{i18n:item.bow_arrow_basic.name}}"
+                "{{ID}}_Totem": "709 1 423 1 {{ID}}_Feather 5//1/false/y 999/{{i18n:item.totem.name}}", // Hardwood + Rice + Feathers
+                "{{ID}}_Bow_Arrow_Basic": "388 10 {{ID}}_Feather 5//25/false/y 999/{{i18n:item.bow_arrow_basic.name}}" // Wood + Feathers
             }
         }
     ]
