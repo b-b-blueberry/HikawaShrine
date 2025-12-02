@@ -53,33 +53,52 @@
                     /farmer 35 40 0 {{REI}} 33 36 2 {{AMI}} 31 37 0 {{GRAMPS}} 37 38 3
 
                     /-- NOODLES --
+                    /-- do NOT mess with the script without also editing EventCommands.cs and Objects.Events.Noodles.cs
 
                     /speak {{REI}} \"start\"
-                    /pause 2000
+                    /pause 1000
+
+                    /-- 0: fade in overlay, fade in sprites, show naruto
                     /{{ID}}_Noodles
-                    /pause 2000
+                    /pause 1000
                     /speak {{REI}} \"the whimsical whorl of the fishcake...\"
-                    /pause 2000
+                    /pause 1000
+
+                    /-- 1: show nori
                     /{{ID}}_Noodles
-                    /pause 2000
-                    /speak {{REI}} \"..dried seaweed, a salty slice of the sea, for seasoning..\"
-                    /pause 2000
+                    /pause 1000
+                    /speak {{REI}} \"..a salty slice of dried seaweed, for seasoning..\"
+                    /pause 1000
+
+                    /-- 2: show negi
                     /{{ID}}_Noodles
-                    /pause 2000
-                    /speak {{REI}} \"the refreshing bite of a spring onion...$h\"
-                    /pause 2000
+                    /pause 1000
+                    /speak {{REI}} \"the refreshingly crisp crunch of a spring onion...$h\"
+                    /pause 1000
+
+                    /-- 3: show yasai
                     /{{ID}}_Noodles
-                    /pause 2000
-                    /speak {{REI}} \"..a handful of frozen vegetables, for a balanced diet..\"
-                    /pause 2000
+                    /pause 1000
+                    /speak {{REI}} \"..a healthy handful of frozen vegetables, for a balanced diet..\"
+                    /pause 1000
+
+                    /-- 4: show tamago
                     /{{ID}}_Noodles
-                    /pause 2000
+                    /pause 1000
                     /speak {{REI}} \"and the show stopper, the tree topper, the softboiled gooey golden egg!$l\"
-                    /pause 2000
+                    /pause 1000
+
+                    /-- 5: fade out sprites
                     /{{ID}}_Noodles
+                    /pause 1000
+
+                    /-- 6: fade out overlay
                     /{{ID}}_Noodles
+                    /pause 500 /-- hahaa i don't have to get the calculations right if i just delete the draw method when it starts breaking
+
+                    /-- 7: end
                     /{{ID}}_Noodles
-                    /pause 2000
+                    /pause 1000
                     /speak {{REI}} \"end\"
 
                     /end
