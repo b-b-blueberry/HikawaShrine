@@ -12,26 +12,513 @@
             "Target": "{{PATH}}/Data/CrowTradeRules",
             "Entries": {
                 "CrowTradeRules": [
+                    // Outputs may be found in multiple groups (additional outputs not valid as inputs marked with +)
+
+                    // No trades for low-value/high-quantity items (bone fragments, cinder shards, wood, stone, hardwood, sap, moss, fibre, ...)
+                    // Collectibles should trade for others from the same group
+                    // Commodities and valuables should trade for novelties
+                    // Rarities should trade for components and equivalents
+                    // Rare chance for rare consumables
+
+                    // Any items
                     {
-                        "Condition": "ITEM_ID Input (O)378",
-                        "PerItemCondition": null,
-                        "ItemId": "(O)334",
-                        "RandomItemId": null,
-                        "MaxItems": null,
-                        "MinStack": -1,
-                        "MaxStack": -1,
-                        "Quality": -1,
-                        "IsRecipe": false
+                        "Condition": "RANDOM 0.005",
+                        "RandomItemId": [
+                            "(O)174", // Large White Egg
+                            "(O)182", // Large Brown Egg
+                            "(O)442" // Duck Egg
+                        ]
                     },
                     {
-                        "Condition": "ITEM_ID Input (O)380",
-                        "PerItemCondition": null,
-                        "RandomItemId": [ "(O)388", "(O)390", "(O)206" ],
-                        "MaxItems": null,
-                        "MinStack": -1,
-                        "MaxStack": -1,
-                        "Quality": -1,
-                        "IsRecipe": false
+                        "Condition": "RANDOM 0.002",
+                        "ItemId": "(O)926" // Cookout Kit
+                    },
+                    {
+                        "Condition": "RANDOM 0.001",
+                        "ItemId": "(O)TentKit" // Tent Kit
+                    },
+                    {
+                        "Condition": "RANDOM 0.0005",
+                        "ItemId": "(O)279" // Magic Rock Candy
+                    },
+
+                    // Artefacts
+                    {
+                        // Various common artefacts
+                        "Condition": "RANDOM 0.05, ITEM_ID Input (O)101 (O)105 (O)109 (O)110 (O)111 (O)112 (O)115 (O)116 (O)117 (O)118 (O)119 (O)120 (O)579 (O)580 (O)581 (O)582 (O)583 (O)584 (O)585 (O)586 (O)587 (O)588 (O)589",
+                        "ItemId": "{{ID}}_Feather", // Crow Feathers
+                        "MinStack": 10,
+                        "MaxStack": 20
+                    },
+                    {
+                        // Random artefacts
+                        "Condition": "ITEM_OBJECT_TYPE Input Arch, PLAYER_HAS_MAIL Current safariGuyIntro, !PLAYER_HAS_MAIL Current fieldOfficeFinale, RANDOM 0.02",
+                        "RandomItemId": [
+                            "(O)820", // Fossilized Skull
+                            "(O)821", // Fossilized Spine
+                            "(O)822", // Fossilized Tail
+                            "(O)823", // Fossilized Leg
+                            "(O)824", // Fossilized Ribs
+                            "(O)825", // Snake Skull
+                            "(O)826", // Snake Vertebrae
+                            "(O)827", // Mummified Bat
+                            "(O)828" // Mummified Frog
+                        ]
+                    },
+                    {
+                        // Beach
+                        "Condition": "ITEM_ID Input (O)116 (O)117",
+                        "RandomItemId": [
+                            "(O)116", // Dried Starfish
+                            "(O)117", // Anchor
+
+                            "(O)100", // + Chipped Amphora
+                            "(O)118", // + Glass Shards
+                            "(O)586", // + Nautilus Fossil
+                            "(O)589" // + Trilobite
+                        ]
+                    },
+                    {
+                        // Tool
+                        "Condition": "ITEM_ID Input (O)101 (O)105 (O)109 (O)110 (O)111 (O)112 (O)115 (O)120",
+                        "RandomItemId": [
+                            "(O)101", // Arrowhead
+                            "(O)105", // Chewing Stick
+                            "(O)109", // Ancient Sword
+                            "(O)110", // Rusty Spoon
+                            "(O)115", // Prehistoric Tool
+                            "(O)120", // Prehistoric Handaxe
+
+                            "(O)106", // + Ornamental Fan
+                            "(O)119" // + Bone Flute
+                        ]
+                    },
+                    {
+                        // Culture
+                        "Condition": "ITEM_ID Input (O)100 (O)106 (O)111 (O)112 (O)118 (O)119 (O)123",
+                        "RandomItemId": [
+                            "(O)100", // Chipped Amphora
+                            "(O)106", // Ornamental Fan
+                            "(O)111", // Rusty Spur
+                            "(O)112", // Rusty Cog
+                            "(O)118", // Glass Shards
+                            "(O)119", // Bone Flute
+                            "(O)123", // Ancient Drum
+
+                            "(O)103", // + Ancient Doll
+                            "(O)104", // + Elvish Jewelry
+                            "(O)113" // + Chicken Statue
+                        ]
+                    },
+                    {
+                        // Relic
+                        "Condition": "ITEM_ID Input (O)103 (O)104 (O)108 (O)121 (O)122 (O)124 (O)125",
+                        "RandomItemId": [
+                            "(O)103", // Ancient Doll
+                            "(O)104", // Elvish Jewelry
+                            "(O)108", // Rare Disc
+                            "(O)121", // Dwarvish Helm
+                            "(O)122", // Dwarf Gadget
+                            "(O)124", // Golden Mask
+                            "(O)125", // Golden Relic
+
+                            "(O)126", // + Strange Doll (Wumbus)
+                            "(O)127" // + Strange Doll (Bobo)
+                        ]
+                    },
+                    {
+                        // Bone
+                        "Condition": "ITEM_ID Input (O)579 (O)580 (O)581 (O)582 (O)583 (O)584 (O)585",
+                        "RandomItemId": [
+                            "(O)579", // Prehistoric Scapula
+                            "(O)580", // Prehistoric Tibia
+                            "(O)581", // Prehistoric Skull
+                            "(O)582", // Skeletal Hand
+                            "(O)583", // Prehistoric Rib
+                            "(O)584", // Prehistoric Vertebra
+                            "(O)585", // Skeletal Tail
+
+                            "(O)119" // + Bone Flute
+                        ]
+                    },
+                    {
+                        // Fossil
+                        "Condition": "ITEM_ID Input (O)586 (O)587 (O)588 (O)589",
+                        "RandomItemId": [
+                            "(O)586", // Nautilus Fossil
+                            "(O)587", // Amphibian Fossil
+                            "(O)588", // Palm Fossil
+                            "(O)589", // Trilobite
+
+                            "(O)107" // + Dinosaur Egg
+                        ]
+                    },
+                    {
+                        // Dwarf Scroll
+                        "Condition": "ITEM_ID Input (O)96 (O)97 (O)98 (O)99",
+                        "RandomItemId": [
+                            "(O)96", // Dwarf Scroll I
+                            "(O)97", // Dwarf Scroll II
+                            "(O)98", // Dwarf Scroll III
+                            "(O)99" // Dwarf Scroll IV
+                        ]
+                    },
+                    {
+                        // Effigy
+                        "Condition": "ITEM_ID Input (O)103 (O)113 (O)126 (O)127",
+                        "RandomItemId": [
+                            "(O)103", // Ancient Doll
+                            "(O)113", // Chicken Statue
+                            "(O)126", // Strange Doll (Wumbus)
+                            "(O)127" // Strange Doll (Bobo)
+                        ]
+                    },
+                    {
+                        // Other
+                        "Condition": "ITEM_ID Input (O)107 (O)114",
+                        "RandomItemId": [
+                            "(O)107", // Dinosaur Egg
+                            "(O)114" // Ancient Seed
+                        ]
+                    },
+                    {
+                        // Any artefacts
+                        "Condition": "ITEM_OBJECT_TYPE Input Arch",
+                        "ItemId": "RANDOM_ITEMS (O)",
+                        "PerItemCondition": "ITEM_OBJECT_TYPE Target Arch"
+                    },
+
+                    // Minerals
+                    {
+                        // Refined Quartz
+                        "Condition": "ITEM_ID Input (O)338, RANDOM 0.05",
+                        "ItemId": "(O)787" // Battery Pack
+                    },
+                    {
+                        // Quartz
+                        "Condition": "ITEM_ID Input (O)338, RANDOM 0.025",
+                        "ItemId": "(O)787" // Battery Pack
+                    },
+                    {
+                        // Refined Quartz
+                        "Condition": "ITEM_ID Input (O)338",
+                        "ItemId": "(O)80", // Quartz
+                        "MinStack": 1,
+                        "MaxStack": 3
+                    },
+                    {
+                        // Quartz
+                        "Condition": "ITEM_ID Input (O)80",
+                        "ItemId": "(O)535" // Geode
+                    },
+                    {
+                        // Earth Crystal
+                        "Condition": "ITEM_ID Input (O)86",
+                        "ItemId": "(O)535" // Geode
+                    },
+                    {
+                        // Frozen Tear
+                        "Condition": "ITEM_ID Input (O)84",
+                        "ItemId": "(O)536" // Frozen Geode
+                    },
+                    {
+                        // Fire Quartz
+                        "Condition": "ITEM_ID Input (O)82",
+                        "ItemId": "(O)537" // Magma Geode
+                    },
+                    {
+                        // Geode minerals
+                        "Condition": "ITEM_ID Input (O)538 (O)542 (O)548 (O)549 (O)552 (O)555 (O)556 (O)557 (O)558 (O)566 (O)568 (O)569 (O)571 (O)574 (O)576",
+                        "RandomItemId": [
+                            "(O)538", // Alamite
+                            "(O)542", // Calcite
+                            "(O)548", // Jamborite
+                            "(O)549", // Jagoite
+                            "(O)552", // Malachite
+                            "(O)555", // Nekoite
+                            "(O)556", // Orpiment
+                            "(O)557", // Petrified Slime
+                            "(O)558", // Thunder Egg
+                            "(O)566", // Celestine
+                            "(O)568", // Sandstone
+                            "(O)569", // Granite
+                            "(O)571", // Limestone
+                            "(O)574", // Mudstone
+                            "(O)576" // Slate
+                        ]
+                    },
+                    {
+                        // Frozen Geode minerals
+                        "Condition": "ITEM_ID Input (O)564 (O)541 (O)544 (O)545 (O)546 (O)550 (O)551 (O)559 (O)560 (O)561 (O)567 (O)572 (O)573 (O)577",
+                        "RandomItemId": [
+                            "(O)564", // Opal
+                            "(O)541", // Aerinite
+                            "(O)544", // Esperite
+                            "(O)545", // Fluorapatite
+                            "(O)546", // Geminite
+                            "(O)550", // Kyanite
+                            "(O)551", // Lunarite
+                            "(O)559", // Pyrite
+                            "(O)560", // Ocean Stone
+                            "(O)561", // Ghost Crystal
+                            "(O)567", // Marble
+                            "(O)572", // Soapstone
+                            "(O)573", // Hematite
+                            "(O)577" // Fairy Stone
+                        ]
+                    },
+                    {
+                        // Magma Geode minerals
+                        "Condition": "ITEM_ID Input (O)562 (O)565 (O)539 (O)540 (O)543 (O)547 (O)553 (O)554 (O)563 (O)570 (O)575 (O)578",
+                        "RandomItemId": [
+                            "(O)562", // Tigerseye
+                            "(O)565", // Fire Opal
+                            "(O)539", // Bixite
+                            "(O)540", // Baryte
+                            "(O)543", // Dolomite
+                            "(O)547", // Helvite
+                            "(O)553", // Neptunite
+                            "(O)554", // Lemon Stone
+                            "(O)563", // Jasper
+                            "(O)570", // Basalt
+                            "(O)575", // Obsidian
+                            "(O)578" // Star Shards
+                        ]
+                    },
+                    {
+                        // Any minerals
+                        "Condition": "ITEM_OBJECT_TYPE Input Minerals",
+                        "ItemId": "RANDOM_ITEMS (O)",
+                        "PerItemCondition": "ITEM_OBJECT_TYPE Target Minerals"
+                    },
+
+                    // Trash
+                    {
+                        // Joja Cola
+                        "Condition": "ITEM_ID Input (O)167, RANDOM 0.1",
+                        "RandomItemId": [
+                            "(O)245", // Sugar
+                            "(O)233", // Ice Cream
+                            "(O)258", // Blueberry
+                            "(O)395", // Coffee
+                            "(O)814" // Squid Ink
+                        ]
+                    },
+                    {
+                        // Random trash
+                        "Condition": "ITEM_CONTEXT_TAG Input trash_item, RANDOM 0.2",
+                        "ItemId": "{{ID}}_Feather", // Crow Feathers
+                        "MinStack": 5,
+                        "MaxStack": 10
+                    },
+                    {
+                        // Random trash
+                        "Condition": "ITEM_CONTEXT_TAG Input trash_item, RANDOM 0.1",
+                        "RandomItemId": [
+                            "(O)718", // Cockle
+                            "(O)719", // Mussel
+                            "(O)721", // Snail
+                            "(O)722", // Periwinkle
+                            "(O)723" // Oyster
+                        ]
+                    },
+                    {
+                        // Random trash
+                        "Condition": "ITEM_CONTEXT_TAG Input trash_item, RANDOM 0.05",
+                        "RandomItemId": [
+                            "(O)715", // Lobster
+                            "(O)716", // Crayfish
+                            "(O)717", // Crab
+                            "(O)720" // Shrimp
+                        ]
+                    },
+                    {
+                        // Any trash
+                        "Condition": "ITEM_CONTEXT_TAG Input trash_item",
+                        "ItemId": "RANDOM_ITEMS (O)",
+                        "PerItemCondition": "ITEM_CONTEXT_TAG Target trash_item"
+                    },
+
+                    // Fish
+                    {
+                        // Crab pot (ocean)
+                        "Condition": "ITEM_CONTEXT_TAG Input fish_crab_pot fish_ocean, RANDOM 0.25",
+                        "ItemId": "(O)732" // Crab Cakes
+                    },
+                    {
+                        // Crab pot (freshwater)
+                        "Condition": "ITEM_CONTEXT_TAG Input fish_crab_pot fish_freshwater, RANDOM 0.25",
+                        "ItemId": "(O)729" // Escargot
+                    },
+
+                    // Gems
+                    {
+                        // Diamond
+                        "Condition": "ITEM_ID Input (O)72, RANDOM 0.05",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+                    {
+                        // Ruby
+                        "Condition": "ITEM_ID Input (O)64, RANDOM 0.035",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+                    {
+                        // Emerald
+                        "Condition": "ITEM_ID Input (O)64, RANDOM 0.03",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+                    {
+                        // Jade
+                        "Condition": "ITEM_ID Input (O)60, RANDOM 0.025",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+                    {
+                        // Aquamarine
+                        "Condition": "ITEM_ID Input (O)66, RANDOM 0.02",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+                    {
+                        // Topaz
+                        "Condition": "ITEM_ID Input (O)66, RANDOM 0.015",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+                    {
+                        // Amethyst
+                        "Condition": "ITEM_ID Input (O)66, RANDOM 0.01",
+                        "ItemId": "(O)MysteryBox" // Mystery Box
+                    },
+
+                    // Animal products
+                    {
+                        // Wool
+                        "Condition": "ITEM_ID Input (O)440",
+                        "ItemId": "(O)768" // Solar Essence
+                    },
+                    {
+                        // Roe
+                        "Condition": "ITEM_ID Input (O)812",
+                        "ItemId": "(O)769" // Void Essence
+                    },
+                    {
+                        // Duck Feather
+                        "Condition": "ITEM_ID Input (O)444",
+                        "ItemId": "(O){{ID}}_Feather", // Crow Feathers
+                        "MinStack": 5,
+                        "MaxStack": 10
+                    },
+                    {
+                        // Void Egg
+                        "Condition": "ITEM_ID Input (O)305",
+                        "ItemId": "(O){{ID}}_Feather", // Crow Feathers
+                        "MinStack": 10,
+                        "MaxStack": 25
+                    },
+                    {
+                        // Duck Egg
+                        "Condition": "ITEM_ID Input (O)442, RANDOM 0.2",
+                        "ItemId": "(O)259" // Fiddlehead Fern
+                    },
+                    {
+                        // Ostrich Egg
+                        "Condition": "ITEM_ID Input (O)289",
+                        "ItemId": "(O)107" // Dinosaur Egg
+                    },
+                    {
+                        // Any eggs
+                        "Condition": "ITEM_CONTEXT_TAG Input egg_item, RANDOM 0.2",
+                        "RandomItemId": [
+                            "(O)194", // Fried Egg
+                            "(O)195", // Omelette
+                            "(O)305", // Void Egg
+                            "(O)558" // Farewell thunder egg
+                        ]
+                    },
+
+                    // Seeds
+                    {
+                        // Any seeds
+                        "Condition": "ITEM_CATEGORY Input -74, RANDOM 0.05",
+                        "ItemId": "(O)347" // Rare Seed
+                    },
+
+                    // Forage
+                    {
+                        // Acorn
+                        "Condition": "ITEM_ID Input (O)309, RANDOM 0.2",
+                        "ItemId": "(O)725" // Oak Resin
+                    },
+                    {
+                        // Maple Seed
+                        "Condition": "ITEM_ID Input (O)310, RANDOM 0.2",
+                        "ItemId": "(O)724" // Maple Syrup
+                    },
+                    {
+                        // Pine Cone
+                        "Condition": "ITEM_ID Input (O)311, RANDOM 0.2",
+                        "ItemId": "(O)726" // Pine Tar
+                    },
+                    {
+                        // Mahogany Seed
+                        "Condition": "ITEM_ID Input (O)292, RANDOM 0.2",
+                        "ItemId": "(O)259" // Fiddlehead Fern
+                    },
+                    {
+                        // Fiddlehead Fern
+                        "Condition": "ITEM_ID Input (O)259, RANDOM 0.2",
+                        "ItemId": "(O)442" // Duck Egg
+                    },
+
+                    // Resources
+                    {
+                        // Coal
+                        "Condition": "ITEM_ID Input (O)382, RANDOM 0.1",
+                        "ItemId": "(O){{ID}}_Charcoal" // Charcoal
+                    },
+                    {
+                        // Coal
+                        "Condition": "ITEM_ID Input (O)382, RANDOM 0.01",
+                        "ItemId": "(O)787" // Battery Pack
+                    },
+
+                    // Geodes
+                    {
+                        // Any geodes
+                        "Condition": "ITEM_HAS_CONTEXT_TAG Input geode",
+                        "ItemId": "{{ID}}_Geode Input" // Geode output
+                    },
+
+                    // Totems
+                    {
+                        // Any totems
+                        "Condition": "ITEM_CONTEXT_TAG Input totem_item",
+                        "ItemId": "RANDOM_ITEMS (O)",
+                        "PerItemCondition": "ITEM_CONTEXT_TAG Target totem_item"
+                    },
+
+                    // Others
+                    {
+                        // Charcoal
+                        "Condition": "ITEM_ID Input (O){{ID}}_Charcoal, RANDOM 0.2",
+                        "ItemId": "{{ID}}_Totem" // Warp Totem: Shrine
+                    },
+                    {
+                        // Charcoal
+                        "Condition": "ITEM_ID Input (O){{ID}}_Charcoal",
+                        "ItemId": "(O)382", // Coal
+                        "MinStack": 10,
+                        "MaxStack": 20
+                    },
+                    {
+                        // Magic Rock Candy
+                        "Condition": "ITEM_ID Input (O)279",
+                        "ItemId": "(O)74", // Prismatic Shard
+                        "MinStack": 3,
+                        "MaxStack": 5
+                    },
+                    {
+                        // Bouquet
+                        "Condition": "ITEM_ID Input (O)458",
+                        "ItemId": "(O)277" // Wilted Bouquet
                     }
                 ]
             }
