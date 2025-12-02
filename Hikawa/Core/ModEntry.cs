@@ -125,6 +125,7 @@ namespace Hikawa
             ItemRegistry.AddTypeDefinition(new BugFurnitureItemDataDefinition());
 			TileActions.RegisterAll(ModEntry.ModData.ContentPrefix);
 			EventCommands.RegisterAll(ModEntry.ModData.ContentPrefix);
+			ItemQueryResolvers.RegisterAll(ModEntry.ModData.ContentPrefix);
 
 			// modules
 			Modules.DialogueEffects.Init();
