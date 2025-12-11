@@ -3,7 +3,7 @@
     "Author": "blueberry",
     "Version": "1.0.0",
     "Description": "What the ..?",
-    "UniqueID": "blueberry.Hikawa",
+    "UniqueID": "bb",
     "EntryDll": "Hikawa.dll",
     "MinimumApiVersion": "4.0.0-alpha.0",
     "UpdateKeys": [ "Nexus:4643" ],

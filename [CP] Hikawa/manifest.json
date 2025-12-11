@@ -3,14 +3,14 @@
   "Author": "blueberry",
   "Version": "1.0.0",
   "Description": "What the ..?",
-  "UniqueID": "blueberry.Hikawa.CP",
+  "UniqueID": "bbc",
   "UpdateKeys": [ "Nexus:????" ],
   "ContentPackFor": {
     "UniqueID": "Pathoschild.ContentPatcher"
   },
   "Dependencies": [
     {
-      "UniqueID": "blueberry.Hikawa",
+      "UniqueID": "bb",
       "IsRequired": true
     }
   ]

@@ -39,7 +39,7 @@ namespace Hikawa.Interfaces
 					"Pathoschild.ContentPatcher", Interfaces.ContentPatcher
 				},
 				{
-					"blueberry.Hikawa.CP", Interfaces.Hikawa
+					"bbc", Interfaces.Hikawa
 				},
 				{
 					"blueberry.SailorStyles", Interfaces.SailorStyles
