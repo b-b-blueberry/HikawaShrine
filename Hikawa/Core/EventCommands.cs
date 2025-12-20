@@ -1,8 +1,10 @@
 ﻿using Hikawa.Objects.Events;
 using StardewModdingAPI.Events;
 using StardewValley.Delegates;
+using StardewValley.Menus;
 using StardewValley.TerrainFeatures;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Hikawa;
@@ -22,6 +24,51 @@ public static class EventCommands
             if (method.GetCustomAttribute<EventCommandAttribute>() is EventCommandAttribute eventCommand)
             {
                 Event.RegisterCommand(name: $"{prefix}_{eventCommand.Id}", action: method.CreateDelegate<EventCommandDelegate>());
+            }
+        }
+    }
+
+    [EventCommandAttribute("TimedQuestion")]
+    private static void TimedQuestion(Event e, string[] args, EventContext context)
+    {
+        // youtu.be/gNIwlRClHsQ
+
+        float ms = (float)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
+        float previous = e.float_useMeForAnything;
+
+        e.float_useMeForAnything -= ms;
+
+        if (e.float_useMeForAnything <= 0)
+        {
+            if (previous <= 0)
+            {
+                // initial setup
+                if (!ArgUtility.TryGetInt(args, 1, out int duration, out string error, name: "duration"))
+                {
+                    e.LogCommandErrorAndSkip(args, error);
+                    return;
+                }
+
+                e.float_useMeForAnything = (float)(duration);
+
+                // make qq with args except timer duration
+                var qq = e.GetCurrentCommand();
+                var qqargs = qq.Split(' ').ToList();
+                qqargs.RemoveAt(1);
+                e.ReplaceCurrentCommand(string.Join(' ', qqargs));
+                Event.DefaultCommands.QuickQuestion(e, args, context);
+                // it's called qq for more than one reason :demetriums:
+            }
+            else
+            {
+                // final cleanup
+                if (Game1.activeClickableMenu is DialogueBox db)
+                {
+                    e.float_useMeForAnything = 0;
+
+                    // you have failed to respond in time. so perish
+                    db.closeDialogue();
+                }
             }
         }
     }
@@ -205,6 +252,40 @@ public static class EventCommands
                         effects: SpriteEffects.None,
                         layerDepth: 1);
                 }
+            }
+        }
+    }
+
+    [EventCommandAttribute("Meditate")]
+    private static void Meditate(Event e, string[] args, EventContext context)
+    {
+        // possibly my most devilish enterprise yet
+        // not as thrilling as desert bus but therein lies the charm
+
+        float ms = (float)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
+        float previous = e.float_useMeForAnything;
+
+        // meditation requires focus
+        if (Game1.game1.IsActive)
+        {
+            e.float_useMeForAnything -= ms;
+        }
+
+        if (e.float_useMeForAnything <= 0)
+        {
+            if (previous <= 0)
+            {
+                // initial setup
+                // if you're lucky you won't have to sit there for half an hour
+                double luck = Game1.player.DailyLuck / 20 + Game1.player.LuckLevel / 200;
+                double minutes = 25 + 10 * (Game1.random.NextDouble() - luck);
+                e.float_useMeForAnything = (float)(60000 * minutes);
+            }
+            else
+            {
+                // final cleanup
+                e.float_useMeForAnything = 0;
+                e.CurrentCommand++;
             }
         }
     }
