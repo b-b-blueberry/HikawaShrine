@@ -6,8 +6,11 @@
             "Target": "Data/Furniture",
             "Entries": {
                 // bug set
+
                 "{{ID}}_BugCollection": "{{ID}}_BugCollection/painting/2 2/2 2/1/2000/-1/{{i18n:furniture.bugcollection.name}}/0/{{PATH_S}}\\Sprites\\Furniture/true",
+
                 // plushie set
+
                 "{{ID}}_Plush_Bear": "{{ID}}_Plush_Bear/decor/2 2/2 1/1/1750/-1/{{i18n:furniture.plush_bear.name}}/22/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Luna_P_XL": "{{ID}}_Plush_Luna_P_XL/decor/2 2/2 1/1/1750/-1/{{i18n:furniture.plush_luna_p_xl.name}}/24/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Luna_P": "{{ID}}_Plush_Luna_P/decor/1 1/1 1/1/1750/-1/{{i18n:furniture.plush_luna_p.name}}/37/{{PATH_S}}\\Sprites\\Furniture/true",
@@ -15,7 +18,9 @@
                 "{{ID}}_Wall_Artemis": "{{ID}}_Wall_Artemis/painting/1 2/1 2/1/1000/-1/{{i18n:furniture.wall_artemis.name}}/29/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Luna_Flat": "{{ID}}_Plush_Luna_Flat/rug/2 1/2 1/1/1000/-1/{{i18n:furniture.plush_luna_flat.name}}/41/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Bunny": "{{ID}}_Plush_Bunny/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_bunny.name}}/32/{{PATH_S}}\\Sprites\\Furniture/true",
+
                 // plushie set
+
                 "{{ID}}_Plush_Mercury": "{{ID}}_Plush_Mercury/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_mercury.name}}/44/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Moon": "{{ID}}_Plush_Moon/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_moon.name}}/45/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Mars": "{{ID}}_Plush_Mars/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_mars.name}}/46/{{PATH_S}}\\Sprites\\Furniture/true",
@@ -24,7 +29,9 @@
                 "{{ID}}_Plush_Tuxedo": "{{ID}}_Plush_Tuxedo/decor/1 2/1 1/1/1500/-1/{{i18n:furniture.plush_tuxedo.name}}/49/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Luna": "{{ID}}_Plush_Luna/decor/1 1/1 1/1/1500/-1/{{i18n:furniture.plush_luna.name}}/50/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Plush_Artemis": "{{ID}}_Plush_Artemis/decor/1 1/1 1/1/1500/-1/{{i18n:furniture.plush_artemis.name}}/51/{{PATH_S}}\\Sprites\\Furniture/true",
+
                 // moonie set
+
                 "{{ID}}_Moon_Cushion_A": "{{ID}}_Moon_Cushion_A/rug/1 1/1 1/1/250/-1/{{i18n:furniture.moon_cushion_a.name}}/61/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Moon_Cushion_B": "{{ID}}_Moon_Cushion_B/rug/1 1/1 1/1/250/-1/{{i18n:furniture.moon_cushion_b.name}}/62/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Moon_Rug": "{{ID}}_Moon_Rug/rug/3 2/3 2/1/750/-1/{{i18n:furniture.moon_rug.name}}/52/{{PATH_S}}\\Sprites\\Furniture/true",
@@ -46,7 +53,9 @@
                 "{{ID}}_Moon_Wardrobe_Closed": "{{ID}}_Moon_Wardrobe_Closed/painting/3 3/3 3/1/750/-1/{{i18n:furniture.moon_wardrobe_closed.name}}/154/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Moon_Wardrobe_Open": "{{ID}}_Moon_Wardrobe_Open/painting/3 3/3 3/1/750/-1/{{i18n:furniture.moon_wardrobe_open.name}}/157/{{PATH_S}}\\Sprites\\Furniture/true",
                 //"{{ID}}_Moon_Curtain_Window": "{{ID}}_Moon_Curtain_Window/window/3 3/3 3/1/1500/-1/{{i18n:furniture.moon_curtain_window.name}}/187/{{PATH_S}}\\Sprites\\Furniture/true"
+
                 // flower set
+
                 "{{ID}}_Flower_Tea_Table": "{{ID}}_Flower_Tea_Table/table/2 2/2 2/1/1500/-1/{{i18n:furniture.flower_tea_table.name}}/187/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Flower_Side_Table": "{{ID}}_Flower_Side_Table/table/1 2/1 1/1/500/-1/{{i18n:furniture.flower_side_table.name}}/189/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Flower_Couch_P": "{{ID}}_Flower_Couch_P/armchair/2 2/2 1/1/1500/-1/{{i18n:furniture.flower_couch.name}}/209/{{PATH_S}}\\Sprites\\Furniture/true",
@@ -57,7 +66,82 @@
                 "{{ID}}_Flower_Lamp_Y": "{{ID}}_Flower_Lamp_Y/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/233/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Flower_Lamp_G": "{{ID}}_Flower_Lamp_G/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/235/{{PATH_S}}\\Sprites\\Furniture/true",
                 "{{ID}}_Flower_Lamp_R": "{{ID}}_Flower_Lamp_R/lamp/-1/-1/1/1500/-1/{{i18n:furniture.flower_lamp.name}}/237/{{PATH_S}}\\Sprites\\Furniture/true",
-                "{{ID}}_Flower_Rug": "{{ID}}_Flower_Rug/rug/4 3/4 3/1/750/-1/{{i18n:furniture.flower_rug.name}}/264/{{PATH_S}}\\Sprites\\Furniture/true"
+                "{{ID}}_Flower_Rug": "{{ID}}_Flower_Rug/rug/4 3/4 3/1/750/-1/{{i18n:furniture.flower_rug.name}}/264/{{PATH_S}}\\Sprites\\Furniture/true",
+
+                // cherry set
+
+                "{{ID}}_Cherry_Drawers_1": "{{ID}}_Cherry_Drawers_1/decor/1 3/1 1/2/9999/-1/{{i18n:furniture.cherry_drawers.name}}/0/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Drawers_2": "{{ID}}_Cherry_Drawers_2/decor/1 3/1 1/2/9999/-1/{{i18n:furniture.cherry_drawers.name}}/2/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Drawers_3": "{{ID}}_Cherry_Drawers_3/decor/1 3/1 1/2/9999/-1/{{i18n:furniture.cherry_drawers.name}}/4/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Drawers_4": "{{ID}}_Cherry_Drawers_4/decor/1 3/1 1/2/9999/-1/{{i18n:furniture.cherry_drawers.name}}/6/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Drawers_5": "{{ID}}_Cherry_Drawers_5/bookcase/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_drawers.name}}/138/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Stair_Chest": "{{ID}}_Cherry_Stair_Chest/dresser/2 3/2 1/1/9999/-1/{{i18n:furniture.cherry_stair_chest.name}}/8/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Stack_Chest": "{{ID}}_Cherry_Stack_Chest/dresser/2 3/2 1/1/9999/-1/{{i18n:furniture.cherry_chest.name}}/48/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Chest_1": "{{ID}}_Cherry_Chest_1/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_chest.name}}/112/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Chest_2": "{{ID}}_Cherry_Chest_2/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_chest.name}}/114/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Chest_3": "{{ID}}_Cherry_Chest_3/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_chest.name}}/116/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Chest_4": "{{ID}}_Cherry_Chest_4/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_chest.name}}/118/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Chest_5": "{{ID}}_Cherry_Chest_5/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_chest.name}}/120/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Tea_Chest_1": "{{ID}}_Cherry_Tea_Chest_1/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_tea_chest.name}}/144/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Tea_Chest_2": "{{ID}}_Cherry_Tea_Chest_2/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_tea_chest.name}}/145/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Tea_Chest_3": "{{ID}}_Cherry_Tea_Chest_3/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_tea_chest.name}}/146/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Sea_Chest_1": "{{ID}}_Cherry_Sea_Chest_1/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_sea_chest.name}}/147/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Sea_Chest_2": "{{ID}}_Cherry_Sea_Chest_2/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_sea_chest.name}}/148/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Sea_Chest_3": "{{ID}}_Cherry_Sea_Chest_3/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_sea_chest.name}}/149/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wheel_Chest_1": "{{ID}}_Cherry_Wheel_Chest_1/decor/2 2/2 1/4/9999/-1/{{i18n:furniture.cherry_chest.name}}/176/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wheel_Chest_2": "{{ID}}_Cherry_Wheel_Chest_2/decor/2 2/2 1/4/9999/-1/{{i18n:furniture.cherry_chest.name}}/181/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Stove_1": "{{ID}}_Cherry_Stove_1/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_stove.name}}/224/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Stove_2": "{{ID}}_Cherry_Stove_2/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_stove.name}}/225/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Sink": "{{ID}}_Cherry_Sink/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_firewood.name}}/227/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Firewood_1": "{{ID}}_Cherry_Firewood_1/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_firewood.name}}/231/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Firewood_2": "{{ID}}_Cherry_Firewood_2/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_firewood.name}}/229/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Bucket_1": "{{ID}}_Cherry_Bucket_1/decor/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_bucket.name}}/248/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Bucket_2": "{{ID}}_Cherry_Bucket_2/decor/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_bucket.name}}/232/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Hearth": "{{ID}}_Cherry_Hearth/decor/2 3/2 2/1/9999/-1/{{i18n:furniture.cherry_hearth.name}}/256/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Tea_Tray_1": "{{ID}}_Cherry_Tea_Tray_1/decor/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_tea_tray.name}}/370/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Tea_Tray_2": "{{ID}}_Cherry_Tea_Tray_2/decor/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_tea_tray.name}}/371/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Lamp": "{{ID}}_Cherry_Lamp/lamp/1 3/1 1/1/9999/-1/{{i18n:furniture.cherry_lamp.name}}/258/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Low_Table": "{{ID}}_Cherry_Low_Table/table/2 2/2 2/1/9999/-1/{{i18n:furniture.cherry_low_table.name}}/186/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Low_Desk": "{{ID}}_Cherry_Low_Desk/table/2 2/2 1/2/9999/-1/{{i18n:furniture.cherry_low_desk.name}}/188/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Side_Table": "{{ID}}_Cherry_Side_Table/table/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_side_table.name}}/191/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wall_Kitchenware_1": "{{ID}}_Cherry_Wall_Kitchenware_1/painting/1 3/1 3/1/9999/-1/{{i18n:furniture.cherry_wall_kitchenware.name}}/217/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wall_Kitchenware_2": "{{ID}}_Cherry_Wall_Kitchenware_2/painting/2 3/2 3/1/9999/-1/{{i18n:furniture.cherry_wall_kitchenware.name}}/218/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wall_Alcove_1": "{{ID}}_Cherry_Wall_Alcove_1/painting/4 3/4 3/1/9999/-1/{{i18n:furniture.cherry_wall_alcove.name}}/260/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wall_Alcove_2": "{{ID}}_Cherry_Wall_Alcove_2/painting/4 3/4 3/1/9999/-1/{{i18n:furniture.cherry_wall_alcove.name}}/308/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wall_Post_1": "{{ID}}_Cherry_Wall_Post_1/painting/1 3/1 3/1/9999/-1/{{i18n:furniture.cherry_wall_post.name}}/306/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Wall_Post_2": "{{ID}}_Cherry_Wall_Post_2/painting/1 3/1 3/1/9999/-1/{{i18n:furniture.cherry_wall_post.name}}/307/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Futon_Bed": "{{ID}}_Cherry_Futon_Bed/bed/2 4/2 3/1/9999/-1/{{i18n:furniture.cherry_futon_bed.name}}/236/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Mat_1": "{{ID}}_Cherry_Mat_1/rug/2 2/2 2/1/9999/-1/{{i18n:furniture.cherry_mat.name}}/356/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Mat_2": "{{ID}}_Cherry_Mat_2/rug/2 1/2 1/2/9999/-1/{{i18n:furniture.cherry_mat.name}}/358/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Cushion_1": "{{ID}}_Cherry_Cushion_1/rug/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_cushion.name}}/374/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Cushion_2": "{{ID}}_Cherry_Cushion_2/rug/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_cushion.name}}/375/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Floor_Step": "{{ID}}_Cherry_Floor_Step/rug/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_floor_step.name}}/354/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Floor_Divider_L": "{{ID}}_Cherry_Floor_Divider_L/rug/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_floor_divider_l.name}}/304/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Floor_Divider_R": "{{ID}}_Cherry_Floor_Divider_R/rug/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_floor_divider_r.name}}/305/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Floor_Divider_T": "{{ID}}_Cherry_Floor_Divider_T/rug/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_floor_divider_t.name}}/336/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Floor_Divider_B": "{{ID}}_Cherry_Floor_Divider_B/rug/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_floor_divider_b.name}}/352/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Partition_S": "{{ID}}_Cherry_Partition_S/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_partition.name}}/296/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Partition_M": "{{ID}}_Cherry_Partition_M/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_partition.name}}/298/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Partition_L": "{{ID}}_Cherry_Partition_L/decor/3 3/3 1/1/9999/-1/{{i18n:furniture.cherry_partition.name}}/300/{{PATH_S}}\\Sprites\\Furniture_Cherry/true"
+            }
+        },
+        {
+            "LogName": "Hikawa: Wallpaper & Floorpaper - Data",
+            "Action": "EditData",
+            "Target": "Data/AdditionalWallpaperFlooring",
+            "Entries": {
+                "{{ID}}_Wallpaper": {
+                    "Id": "{{ID}}_Wallpaper",
+                    "Texture": "{{PATH}}/Sprites/Wallpaper",
+                    "IsFlooring": false,
+                    "Count": 9
+                },
+                "{{ID}}_Floors": {
+                    "Id": "{{ID}}_Floors",
+                    "Texture": "{{PATH}}/Sprites/Floors",
+                    "IsFlooring": true,
+                    "Count": 5
+                }
             }
         }
     ]

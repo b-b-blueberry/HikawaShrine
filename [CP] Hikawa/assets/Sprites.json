@@ -37,6 +37,24 @@
             "FromFile": "assets/Sprites/Furniture.png"
         },
         {
+            "LogName": "Hikawa: Sprites - Furniture (Cherry)",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_Cherry",
+            "FromFile": "assets/Sprites/Furniture_Cherry.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Wallpaper",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Wallpaper",
+            "FromFile": "assets/Sprites/Wallpaper.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Floorpaper",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Floors",
+            "FromFile": "assets/Sprites/Floors.png"
+        },
+        {
             "LogName": "Hikawa: Sprites - Kites",
             "Action": "Load",
             "Target": "{{PATH}}/Sprites/Kites",
