@@ -30,12 +30,12 @@ public static class EventCommands
     private static void Shake(Event e, string[] args, EventContext context)
     {
         // parse
-        if (!ArgUtility.TryGetPoint(args, 1, out Point tile, out string error))
+        if (!ArgUtility.TryGetPoint(args, 1, out Point tile, out string error, name: "tile"))
         {
             e.LogCommandErrorAndSkip(args, $"Failed to parse bush shake: {error}");
             return;
         }
-        ArgUtility.TryGetOptionalFloat(args, 3, out float maxShake, out error);
+        ArgUtility.TryGetOptionalFloat(args, 3, out float maxShake, out error, name: "maxShake");
 
         // get
         if (!Game1.currentLocation.terrainFeatures.TryGetValue(tile.ToVector2(), out TerrainFeature tf))
@@ -85,13 +85,13 @@ public static class EventCommands
     private static void Noodles(Event e, string[] args, EventContext context)
     {
         float ms = (float)Game1.currentGameTime.TotalGameTime.TotalMilliseconds;
-        Game1.CurrentEvent.float_useMeForAnything = ms;
+        e.float_useMeForAnything = ms;
 
         e.CurrentCommand++;
         switch (e.int_useMeForAnything++)
         {
             case 0:
-                Game1.CurrentEvent.int_useMeForAnything2 = (int)ms;
+                e.int_useMeForAnything2 = (int)ms;
                 ModEntry.Instance.Helper.Events.Display.RenderedWorld += draw;
                 break;
             case 1:
@@ -101,16 +101,16 @@ public static class EventCommands
             case 5:
                 break;
             case 6:
-                Game1.CurrentEvent.int_useMeForAnything2 = (int)ms;
+                e.int_useMeForAnything2 = (int)ms;
                 break;
             default:
                 ModEntry.Instance.Helper.Events.Display.RenderedWorld -= draw;
                 break;
         }
 
-        void draw(object sender, RenderedWorldEventArgs e)
+        void draw(object sender, RenderedWorldEventArgs args)
         {
-            SpriteBatch b = e.SpriteBatch;
+            SpriteBatch b = args.SpriteBatch;
 
             float ms = (float)Game1.currentGameTime.TotalGameTime.TotalMilliseconds;
             float interval = MathF.PI * 1000;
@@ -140,17 +140,17 @@ public static class EventCommands
                 ]
             ];
 
-            float overlayStartMs = Game1.CurrentEvent.int_useMeForAnything2;
+            float overlayStartMs = e.int_useMeForAnything2;
             float overlayFadeTime = 1000;
             float overlayFadeMs = Math.Min(ms - overlayStartMs, overlayFadeTime);
             float overlayFadeRatio = overlayFadeMs / overlayFadeTime;
 
-            float spriteStartMs = Game1.CurrentEvent.float_useMeForAnything;
+            float spriteStartMs = e.float_useMeForAnything;
             float spriteFadeTime = 1000;
             float spriteFadeMs = Math.Min(ms - spriteStartMs, spriteFadeTime);
             float spriteFadeRatio = spriteFadeMs / spriteFadeTime;
 
-            int stage = Game1.CurrentEvent.int_useMeForAnything;
+            int stage = e.int_useMeForAnything;
             stage = Math.Clamp(stage + (spriteFadeRatio < 0.5f ? -1 : 0), 0, ingredients.Length);
 
             bool outro = stage >= ingredients.Length; // specifically checks for greater than length, since length fades-out the last ingredient
@@ -166,7 +166,7 @@ public static class EventCommands
 
             // Redraw actors above overlay and sprites
             Game1.player.draw(b);
-            foreach (var actor in Game1.CurrentEvent.actors)
+            foreach (var actor in e.actors)
                 actor.draw(b);
 
             if (stage <= 0 || stage >= ingredients.Length)
