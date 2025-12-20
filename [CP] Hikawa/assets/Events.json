@@ -26,6 +26,37 @@
 
                     /end
                 ",
+
+                // Gramps: Zazen (4 <3)
+                //"{{ID}}_Gramps_4_Zazen/NPCVisible {{GRAMPS}}/Friendship {{GRAMPS}} 500": "
+                "zz": "
+                    none
+                    /9 7
+                    /farmer 8 8 1 {{GRAMPS}} 11 7 3
+
+                    /-- HEARTH
+
+                    /pause 1000
+                    /speak {{GRAMPS}} \"it's zazen time\"
+                    /pause 1000
+
+                    /--{{ID}}_Meditate
+                    /--pause 1000
+
+                    /{{ID}}_TimedQuestion 30000 yo buddy, still awake?
+                      #yes, asshole
+                      #oh my god.
+                      (break)pause 1000
+                        \\speak {{GRAMPS}} \"you have done well my child.\"
+                        \\addItem (O)341\\pause 1
+                        \\pause 1000
+                        \\end\\pause 1
+                      (break)pause 1000
+                    
+                    /speak {{GRAMPS}} \"then perish.\"
+                    /pause 1000
+                    /end
+                ",
             }
         },
         {
