@@ -57,7 +57,7 @@ public static class EventCommands
                 qqargs.RemoveAt(1);
                 e.ReplaceCurrentCommand(string.Join(' ', qqargs));
                 Event.DefaultCommands.QuickQuestion(e, args, context);
-                // it's called qq for more than one reason :demetriums:
+                // it's called qq for more reasons than one :demetriums:
             }
             else
             {
