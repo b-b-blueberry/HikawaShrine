@@ -40,8 +40,8 @@
                     /speak {{GRAMPS}} \"it's zazen time\"
                     /pause 1000
 
-                    /--{{ID}}_Meditate
-                    /--pause 1000
+                    /{{ID}}_Meditate
+                    /pause 1000
 
                     /{{ID}}_TimedQuestion 30000 yo buddy, still awake?
                       #yes, asshole

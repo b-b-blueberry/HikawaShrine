@@ -262,7 +262,7 @@ public static class EventCommands
         // possibly my most devilish enterprise yet
         // not as thrilling as desert bus but therein lies the charm
 
-        float ms = (float)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
+        float ms = (float)context.Time.ElapsedGameTime.TotalMilliseconds;
         float previous = e.float_useMeForAnything;
 
         // meditation requires focus
@@ -276,16 +276,60 @@ public static class EventCommands
             if (previous <= 0)
             {
                 // initial setup
+
                 // if you're lucky you won't have to sit there for half an hour
                 double luck = Game1.player.DailyLuck / 20 + Game1.player.LuckLevel / 200;
                 double minutes = 25 + 10 * (Game1.random.NextDouble() - luck);
-                e.float_useMeForAnything = (float)(60000 * minutes);
+                e.int_useMeForAnything = (int)(60000 * minutes); // max
+                e.float_useMeForAnything = e.int_useMeForAnything; // current
+
+                // may as well add the sprite here since we're doing the smoke per tick
+                Vector2 tile = new Vector2(10, 5);
+                var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
+                    textureName: ModEntry.EventSprites.Name,
+                    sourceRect: new Rectangle(176, 1184, 16, 32),
+                    position: tile * Game1.tileSize,
+                    flipped: false,
+                    alphaFade: 0,
+                    color: Color.White);
+                sprite.scale = Game1.pixelZoom;
+                sprite.holdLastFrame = true;
+                context.Location.TemporarySprites.Add(sprite);
             }
             else
             {
                 // final cleanup
+                e.int_useMeForAnything = 0;
                 e.float_useMeForAnything = 0;
                 e.CurrentCommand++;
+            }
+        }
+        else
+        {
+            // embers
+            var ratio = 1 - (e.float_useMeForAnything / e.int_useMeForAnything);
+            if ((context.Time.TotalGameTime.Ticks % (int)(30 + e.int_useMeForAnything / 20000 * ratio)) == 0)
+            {
+                Vector2 tile = new Vector2(10, 5) + new Vector2(0.5f);
+                var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
+                    textureName: null,
+                    sourceRect: new Rectangle(0, 0, 1, 1),
+                    position: tile * Game1.tileSize,
+                    flipped: false,
+                    alphaFade: 0.0015f,
+                    color: Color.LightGray);
+                sprite.alpha = 0.4f + (float)Game1.random.NextDouble() * 0.4f;
+                sprite.motion = new Vector2(0f, -0.2f);
+                sprite.acceleration = new Vector2(0.0015f, 0f);
+                sprite.interval = 99999f;
+                sprite.xPeriodic = true;
+                sprite.xPeriodicLoopTime = 2000f;
+                sprite.xPeriodicRange = Game1.tileSize / 8 + (float)(Game1.random.NextDouble() * Game1.tileSize / 24);
+                sprite.layerDepth = 1f;
+                sprite.scale = Game1.pixelZoom;
+                sprite.scaleChange = -0.015f;
+                sprite.texture = Game1.staminaRect;
+                context.Location.TemporarySprites.Add(sprite);
             }
         }
     }
