@@ -98,7 +98,7 @@
 				"{{GROVE}}": {
 					"DisplayName": "{{i18n:world.grove.map}}",
 					"DefaultArrivalTile": {
-						"X": 16,
+						"X": 32,
 						"Y": 16
 					},
 					"CreateOnLoad": {

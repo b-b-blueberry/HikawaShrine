@@ -49,7 +49,7 @@ namespace Hikawa.Objects.Locations
 
             Utils.SpawnObjectsInArea(
                 where: this,
-                area: new Rectangle(8, 8, 16, 16),
+                area: new Rectangle(20, 4, 24, 24),
                 itemIds: [ModEntry.ModData.ItemCharcoal],
                 attempts: 1,
                 max: 5);
