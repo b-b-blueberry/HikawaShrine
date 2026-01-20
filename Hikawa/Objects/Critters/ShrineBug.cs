@@ -11,9 +11,15 @@ namespace Hikawa.Objects.Critters
 		public Vector2 BugOffset;
 		public BugData Definition;
 
-		public ShrineBug() : base() {}
+        public ShrineBug() : base() { }
 
-		public ShrineBug(Vector2 tile, string bugId, BugData definition)
+        public ShrineBug(string bugId)
+			: base()
+        {
+            this.Init(bugId);
+        }
+
+        public ShrineBug(Vector2 tile, string bugId, BugData definition = null)
 			: base()
 		{
 			this.Init(bugId, definition);
@@ -21,10 +27,10 @@ namespace Hikawa.Objects.Critters
 			this.startingPosition = this.position = tile * Game1.tileSize;
 		}
 
-		public void Init(string bugId, BugData definition)
+		public void Init(string bugId, BugData definition = null)
 		{
 			this.BugId = bugId;
-			this.Definition = definition;
+			this.Definition = definition ?? ModEntry.BugsData.Value.BugData[bugId];
 
 			this.BugOffset = default;
 
@@ -40,13 +46,30 @@ namespace Hikawa.Objects.Critters
 			int y = r.Y / r.Height;
 			int frame = y * this.sprite.Texture.Width / r.Width + x;
 			List<FarmerSprite.AnimationFrame> frames = [];
-			for (int i = 0; i < definition.AnimationFrames; ++i)
-				frames.Add(new(frame + i, definition.AnimationSpeed));
+			for (int i = 0; i < this.Definition.AnimationFrames; ++i)
+				frames.Add(new(frame + i, this.Definition.AnimationSpeed));
 			this.sprite.setCurrentAnimation(frames);
 			this.sprite.loop = true;
 		}
 
-		public void DrawAt(SpriteBatch b, Vector2 position, float layerDepth = 1f)
+		public void DrawInMenu(SpriteBatch b, Vector2 position, Vector2 origin, float scale, SpriteEffects spriteEffects = SpriteEffects.None, Color? colour = null, float rotation = 0, float layerDepth = 1)
+        {
+            if (this.sprite is null)
+                return;
+
+            b.Draw(
+                texture: this.sprite.Texture,
+                position: position,
+                sourceRectangle: this.Definition.MenuTextureRegion,
+                color: colour ?? Color.White,
+                rotation: rotation,
+                origin: origin,
+                scale: scale,
+                effects: spriteEffects,
+                layerDepth: layerDepth);
+        }
+
+		public void DrawInWorld(SpriteBatch b, Vector2 position, Vector2 origin, float scale, Color? colour = null, float rotation = 0, float layerDepth = 1)
         {
             if (this.sprite is null)
                 return;
@@ -54,13 +77,15 @@ namespace Hikawa.Objects.Critters
             this.sprite.draw(
 				b: b,
 				screenPosition: position
-					+ this.BugOffset,
+					- origin * this.sprite.SourceRect.Size.ToVector2() * scale
+                    + this.BugOffset,
 				layerDepth: layerDepth,
 				xOffset: 0,
 				yOffset: 0,
-				c: Color.White,
+				c: colour ?? Color.White,
 				flip: this.flip,
-				scale: Game1.pixelZoom);
+				scale: scale,
+				rotation: rotation);
 		}
 
 		public override Rectangle getBoundingBox(int xOffset, int yOffset)
@@ -122,9 +147,11 @@ namespace Hikawa.Objects.Critters
             Rectangle bounds = this.getBoundingBox(0, 0);
 			Vector2 global = bounds.Location.ToVector2()
 				+ bounds.Size.ToVector2() / 2;
-			this.DrawAt(
+			this.DrawInWorld(
                 b: b,
                 position: Game1.GlobalToLocal(Game1.viewport, global),
+				origin: Vector2.Zero,
+				scale: Game1.pixelZoom,
                 layerDepth: this.position.Y / 10000f + this.position.X / 1000000f);
 		}
 

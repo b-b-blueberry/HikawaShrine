@@ -14,49 +14,207 @@
                 "BugFurnitureData": {
                     "Identifier": "(BB_HIKAWA_BUG_F)",
                     "Category": -24,
-                    "Type": "Furniture"
+                    "Type": "Furniture",
+                    "FurnitureType": "decor"
                 },
                 "BugFurniture": {
-                    "Desert": {
-                        "DisplayName": "{{i18n:furniture.bugs.desert.name}}",
-                        "Description": "{{i18n:furniture.bugs.desert.description}}",
-                        "TextureId": "{{PATH}}/Sprites/Furniture",
-                        "TileIndex": 2,
-                        "TileSize": {
+                    "Wild": {
+                        "DisplayName": "{{i18n:furniture.bugs.wild.name}}",
+                        "Description": "{{i18n:furniture.bugs.wild.description}}",
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 0,
+                        "SpriteSize": {
                             "X": 2,
                             "Y": 2
                         },
+                        "CollisionSize": {
+                            "X": 2,
+                            "Y": 1
+                        },
                         "BugSlots": [
-                            "Ground",
-                            "Ground"
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 18,
+                                    "Y": 12
+                                },
+                                "Flip": true
+                            },
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 21,
+                                    "Y": 18
+                                }
+                            },
+                            {
+                                "Type": "Air",
+                                "Position": {
+                                    "X": 8,
+                                    "Y": 6
+                                }
+                            }
                         ]
                     },
-                    "Dome": {
-                        "DisplayName": "{{i18n:furniture.bugs.dome.name}}",
-                        "Description": "{{i18n:furniture.bugs.dome.description}}",
-                        "TextureId": "{{PATH}}/Sprites/Furniture",
-                        "TileIndex": 4,
-                        "TileSize": {
+                    "Branch": {
+                        "DisplayName": "{{i18n:furniture.bugs.branch.name}}",
+                        "Description": "{{i18n:furniture.bugs.branch.description}}",
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 2,
+                        "SpriteSize": {
                             "X": 1,
                             "Y": 2
                         },
+                        "CollisionSize": {
+                            "X": 1,
+                            "Y": 1
+                        },
                         "BugSlots": [
-                            "Ground",
-                            "Perch"
+                            {
+                                "Type": "Perch",
+                                "Position": {
+                                    "X": 8,
+                                    "Y": 14
+                                }
+                            },
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 6,
+                                    "Y": 20
+                                },
+                                "Flip": true
+                            }
                         ]
                     },
                     "Meadow": {
                         "DisplayName": "{{i18n:furniture.bugs.meadow.name}}",
                         "Description": "{{i18n:furniture.bugs.meadow.description}}",
-                        "TextureId": "{{PATH}}/Sprites/Furniture",
-                        "TileIndex": 5,
-                        "TileSize": {
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 3,
+                        "SpriteSize": {
                             "X": 2,
                             "Y": 2
                         },
+                        "CollisionSize": {
+                            "X": 2,
+                            "Y": 1
+                        },
                         "BugSlots": [
-                            "Ground",
-                            "Ground"
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 8,
+                                    "Y": 13
+                                },
+                                "Flip": true
+                            },
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 23,
+                                    "Y": 15
+                                }
+                            },
+                            {
+                                "Type": "Air",
+                                "Position": {
+                                    "X": 18,
+                                    "Y": 8
+                                }
+                            }
+                        ]
+                    },
+                    "Stump": {
+                        "DisplayName": "{{i18n:furniture.bugs.stump.name}}",
+                        "Description": "{{i18n:furniture.bugs.stump.description}}",
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 5,
+                        "SpriteSize": {
+                            "X": 2,
+                            "Y": 3
+                        },
+                        "CollisionSize": {
+                            "X": 2,
+                            "Y": 1
+                        },
+                        "BugSlots": [
+                            {
+                                "Type": "Perch",
+                                "Position": {
+                                    "X": 9,
+                                    "Y": 30
+                                }
+                            },
+                            {
+                                "Type": "Perch",
+                                "Position": {
+                                    "X": 22,
+                                    "Y": 24
+                                },
+                                "Flip": true
+                            },
+                            {
+                                "Type": "Air",
+                                "Position": {
+                                    "X": 12,
+                                    "Y": 14
+                                }
+                            }
+                        ]
+                    },
+                    "Pond": {
+                        "DisplayName": "{{i18n:furniture.bugs.pond.name}}",
+                        "Description": "{{i18n:furniture.bugs.pond.description}}",
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 7,
+                        "SpriteSize": {
+                            "X": 2,
+                            "Y": 2
+                        },
+                        "CollisionSize": {
+                            "X": 2,
+                            "Y": 1
+                        },
+                        "BugSlots": [
+                            {
+                                "Type": "Air",
+                                "Position": {
+                                    "X": 16,
+                                    "Y": 6
+                                },
+                                "Flip": true
+                            },
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 25,
+                                    "Y": 14
+                                }
+                            }
+                        ]
+                    },
+                    "Small": {
+                        "DisplayName": "{{i18n:furniture.bugs.small.name}}",
+                        "Description": "{{i18n:furniture.bugs.small.description}}",
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 9,
+                        "SpriteSize": {
+                            "X": 1,
+                            "Y": 2
+                        },
+                        "CollisionSize": {
+                            "X": 1,
+                            "Y": 1
+                        },
+                        "BugSlots": [
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 8,
+                                    "Y": 18
+                                }
+                            }
                         ]
                     }
                 },
@@ -101,7 +259,7 @@
                         "Season": "fall",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1250,
-                        "BugSlot": "Ground",
+                        "BugSlots": [ "Ground", "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Stag"
                     },
                     "Butterfly": {
@@ -131,7 +289,7 @@
                         "AnimationFrames": 2,
                         "AnimationSpeed": 480,
                         "IsFlying": true,
-                        "BugSlot": "Flying",
+                        "BugSlots": [ "Air", "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Butterfly"
                     },
                     "Wasp": {
@@ -161,10 +319,10 @@
                         "AnimationFrames": 2,
                         "AnimationSpeed": 20,
                         "IsFlying": true,
-                        "BugSlot": "Flying",
+                        "BugSlots": [ "Air" ],
                         "ContextTag": "{{ID}}_Bugs_Wasp"
                     },
-                    "Grasshopper": {
+                    "Cicada": {
                         "TextureId": "{{PATH}}/Sprites/Extras",
                         "WorldTextureRegion": {
                             "X": 304,
@@ -184,14 +342,14 @@
                             "Width": 16,
                             "Height": 16
                         },
-                        "DisplayName": "{{i18n:bugs.grasshopper.name}}",
-                        "ScientificName": "{{i18n:bugs.grasshopper.scientific}}",
-                        "Description": "{{i18n:bugs.grasshopper.description}}",
+                        "DisplayName": "{{i18n:bugs.cicada.name}}",
+                        "ScientificName": "{{i18n:bugs.cicada.scientific}}",
+                        "Description": "{{i18n:bugs.cicada.description}}",
                         "Season": "spring",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1000,
-                        "BugSlot": "Ground",
-                        "ContextTag": "{{ID}}_Bugs_Grasshopper"
+                        "BugSlots": [ "Ground" ],
+                        "ContextTag": "{{ID}}_Bugs_Cicada"
                     },
                     "Mantis": {
                         "TextureId": "{{PATH}}/Sprites/Extras",
@@ -219,7 +377,7 @@
                         "Season": "spring",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1000,
-                        "BugSlot": "Perch",
+                        "BugSlots": [ "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Mantis"
                     },
                     "Woodlouse": {
@@ -248,7 +406,7 @@
                         "Season": "winter",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 750,
-                        "BugSlot": "Ground",
+                        "BugSlots": [ "Ground" ],
                         "ContextTag": "{{ID}}_Bugs_Woodlouse"
                     },
                     "Centipede": {
@@ -277,7 +435,7 @@
                         "Season": "fall",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1000,
-                        "BugSlot": "Ground",
+                        "BugSlots": [ "Ground" ],
                         "ContextTag": "{{ID}}_Bugs_Centipede"
                     },
                     "Moth": {
@@ -306,7 +464,7 @@
                         "Season": "winter",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1250,
-                        "BugSlot": "Perch",
+                        "BugSlots": [ "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Moth"
                     },
                     "Termite": {
@@ -335,7 +493,7 @@
                         "Season": "summer",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 750,
-                        "BugSlot": "Ground",
+                        "BugSlots": [ "Ground" ],
                         "ContextTag": "{{ID}}_Bugs_Termite"
                     },
                     "Ladybird": {
@@ -364,7 +522,7 @@
                         "Season": "fall",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1000,
-                        "BugSlot": "Ground",
+                        "BugSlots": [ "Ground", "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Ladybird"
                     },
                     "Dragonfly": {
@@ -394,7 +552,7 @@
                         "AnimationFrames": 2,
                         "AnimationSpeed": 20,
                         "IsFlying": true,
-                        "BugSlot": "Flying",
+                        "BugSlots": [ "Air", "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Dragonfly"
                     },
                     "Scarab": {
@@ -424,7 +582,7 @@
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1250,
                         "IsGold": true,
-                        "BugSlot": "Ground",
+                        "BugSlots": [ "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Scarab"
                     }
                 }

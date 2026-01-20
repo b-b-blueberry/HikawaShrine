@@ -239,7 +239,7 @@ namespace Hikawa
 			// Bugs
 			if (Utils.GetBugProperties(where) is (Vector2 bugTile, string bugId))
 			{
-				where.addCritter(new ShrineBug(tile: bugTile, bugId: bugId, definition: ModEntry.BugsData.Value.BugData[bugId]));
+				where.addCritter(new ShrineBug(tile: bugTile, bugId: bugId));
 			}
 
 			// Shrine trees

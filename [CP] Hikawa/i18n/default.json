@@ -134,13 +134,19 @@
     // Furniture
     // bug set
     "furniture.bugcollection.name": "Bug Collection",
-    //"item.bugcollection.description": "A framed box of critters caught around Cherry Hill.^Can be used to check collection progress.",
-    "furniture.bugs.desert.name": "Vivarium (Desert)",
-    "furniture.bugs.desert.description": "1",
-    "furniture.bugs.dome.name": "Vivarium (Dome)",
-    "furniture.bugs.dome.description": "2",
+    "furniture.bugcollection.description": "A framed box of critters caught around Cherry Hill.^Can be used to check collection progress.",
+    "furniture.bugs.wild.name": "Vivarium (Wild)",
+    "furniture.bugs.wild.description": "1",
+    "furniture.bugs.branch.name": "Vivarium (Branch)",
+    "furniture.bugs.branch.description": "2",
     "furniture.bugs.meadow.name": "Vivarium (Meadow)",
     "furniture.bugs.meadow.description": "3",
+    "furniture.bugs.stump.name": "Vivarium (Stump)",
+    "furniture.bugs.stump.description": "4",
+    "furniture.bugs.pond.name": "Vivarium (Pond)",
+    "furniture.bugs.pond.description": "5",
+    "furniture.bugs.small.name": "Vivarium (Small)",
+    "furniture.bugs.small.description": "6",
     // plushie set
     "furniture.plush_bear.name": "Pookie Bear",
     "furniture.plush_luna_p_xl.name": "Plush Luna-P XL",
@@ -332,6 +338,8 @@
 
     // Bugs
     // scientific names should not be localised
+
+    "bugs.furniture.none": "You haven't caught any bugs yet.",
 
     "bugs.stag.name": "Stag Beetle",
     "bugs.stag.scientific": "Lucanidae",

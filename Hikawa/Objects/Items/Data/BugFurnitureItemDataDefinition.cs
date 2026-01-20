@@ -30,11 +30,11 @@ public class BugFurnitureItemDataDefinition : BaseItemDataDefinition
 		if (ModEntry.BugsData.Value.BugFurniture.Keys.FirstOrDefault(localId => itemId == $"{ModEntry.ModData.ItemBugFurniture}_{localId}") is string localId)
 		{
 			BugFurnitureDataEntry d = ModEntry.BugsData.Value.BugFurniture[localId];
-			var generic = ModEntry.BugsData.Value.BugFurnitureData;
+            BugFurnitureData generic = ModEntry.BugsData.Value.BugFurnitureData;
 			return new ParsedItemData(
 				itemType: this,
 				itemId: itemId,
-				spriteIndex: d.TileIndex,
+				spriteIndex: d.SpriteIndex,
 				textureName: d.TextureId,
 				internalName: itemId,
 				displayName: d.DisplayName,
@@ -49,18 +49,19 @@ public class BugFurnitureItemDataDefinition : BaseItemDataDefinition
 	}
 
 	public override Rectangle GetSourceRect(ParsedItemData data, Texture2D texture, int spriteIndex)
-	{
-		if (ModEntry.BugsData.Value.BugFurniture.TryGetValue(data.ItemId, out BugFurnitureDataEntry d))
-		{
-			var generic = ModEntry.BugsData.Value.BugFurnitureData;
+    {
+        if (ModEntry.BugsData.Value.BugFurniture.Keys.FirstOrDefault(localId => data.ItemId == $"{ModEntry.ModData.ItemBugFurniture}_{localId}") is string localId)
+        {
+            BugFurnitureDataEntry d = ModEntry.BugsData.Value.BugFurniture[localId];
+            BugFurnitureData generic = ModEntry.BugsData.Value.BugFurnitureData;
 			int size = Game1.smallestTileSize;
 			Rectangle r = Game1.getSourceRectForStandardTileSheet(
 				tileSheet: texture,
 				tilePosition: spriteIndex,
 				width: size,
 				height: size);
-			r.Width = d.TileSize.X * size;
-			r.Height = d.TileSize.Y * size;
+			r.Width = d.SpriteSize.X * size;
+			r.Height = d.SpriteSize.Y * size;
 			return r;
 		}
 		return default;

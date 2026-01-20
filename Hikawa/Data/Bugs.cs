@@ -26,20 +26,24 @@ public class BugsDataAsset
     public Dictionary<string, BugData> BugData;
 }
 
+/// <summary>Generic data applied to all <see cref="BugFurniture"/> items.</summary>
 public record class BugFurnitureData
 {
     public string Identifier;
     public int Category;
     public string Type;
+    public string FurnitureType;
 }
 
+/// <summary>Specific data applied to a given <see cref="BugFurniture"/> item.</summary>
 public record class BugFurnitureDataEntry
 {
     public string DisplayName;
     public string Description;
     public string TextureId;
-    public int TileIndex;
-    public Point TileSize;
+    public int SpriteIndex;
+    public Point SpriteSize;
+    public Point CollisionSize;
     public BugSlot[] BugSlots;
 }
 
@@ -54,6 +58,22 @@ public record class BugToolData
     public int SpriteIndex;
     public int Category;
     public string Type;
+}
+
+/// <summary>Placement data for bugs in <see cref="BugFurniture"/>, where each item has limited slots for one bug each.</summary>
+public record class BugSlot
+{
+    public string Type;
+    public Vector2 Position;
+    public bool Flip;
+}
+
+/// <summary>Flags determining slot availability for bugs in <see cref="BugFurniture"/>. Matches some given <see cref="BugData.BugSlots"/> values by name.</summary>
+public enum BugSlotType
+{
+    Air,
+    Ground,
+    Perch
 }
 
 public record class BugData
@@ -112,7 +132,7 @@ public record class BugData
     /// <summary>
     /// Slot used in furniture.
     /// </summary>
-    public BugSlot BugSlot;
+    public string[] BugSlots;
 
     /// <summary>
     /// Context tag applied to bug tool when caught.

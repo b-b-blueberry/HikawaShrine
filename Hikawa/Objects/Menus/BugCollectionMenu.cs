@@ -6,6 +6,7 @@ using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Hikawa.SaveData;
 
 namespace Hikawa.Objects.Menus
 {
@@ -317,9 +318,13 @@ namespace Hikawa.Objects.Menus
 						effects: SpriteEffects.None,
 						layerDepth: 1f);
 
-					// Bug
-					this.BugPreview?.DrawAt(b, new Vector2(this._textArea.Right, this._textArea.Top)
-						+ new Vector2(-20, -8) * Game1.pixelZoom);
+                    // Bug
+                    this.BugPreview?.DrawInWorld(
+						b: b,
+						position: new Vector2(this._textArea.Right, this._textArea.Top)
+							+ new Vector2(-20, -8) * Game1.pixelZoom,
+                        origin: Vector2.Zero,
+                        scale: Game1.pixelZoom);
 
 					// divider
 					int lineY = (int)(textPosition.Y + textSize.Y * textScale);
@@ -412,9 +417,9 @@ namespace Hikawa.Objects.Menus
 					}
 
 					// Datemark
-					if (ModEntry.SaveData.BugCollection?.TryGetValue(bugId, out int daysPlayed) == true)
+					if (ModEntry.SaveData.BugCollection?.TryGetValue(bugId, out BugCollectionEntry collectionEntry) == true)
 					{
-						WorldDate date = WorldDate.ForDaysPlayed(daysPlayed);
+						WorldDate date = WorldDate.ForDaysPlayed(collectionEntry.DaysPlayed);
 						font = mainFont;
 						text = Utility.getDateStringFor(date.DayOfMonth, date.SeasonIndex, date.Year);
 						text = SDate.From(date).ToLocaleString();

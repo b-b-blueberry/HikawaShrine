@@ -325,10 +325,17 @@ namespace Hikawa.Objects.Items
 				// Do behaviours
 				this.BugId = bug.BugId;
 				where.critters.Remove(bug);
-				ModEntry.SaveData.BugCollection[bug.BugId] = WorldDate.GetDaysPlayed(
+				if (!ModEntry.SaveData.BugCollection.ContainsKey(bug.BugId))
+                {
+                    ModEntry.SaveData.BugCollection[bug.BugId] = new()
+					{
+						DaysPlayed = WorldDate.GetDaysPlayed(
 					year: Game1.year,
 					season: Game1.season,
-					dayOfMonth: Game1.dayOfMonth);
+							dayOfMonth: Game1.dayOfMonth)
+					};
+                }
+				ModEntry.SaveData.BugCollection[bug.BugId].Count++;
 			}
 		}
 

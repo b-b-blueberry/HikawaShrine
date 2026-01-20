@@ -37,6 +37,18 @@
             "FromFile": "assets/Sprites/Furniture.png"
         },
         {
+            "LogName": "Hikawa: Sprites - Furniture (Bugs)",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_Bugs",
+            "FromFile": "assets/Sprites/Furniture_Bugs.png"
+        },
+        {
+            "LogName": "Hikawa: Sprites - Furniture (Bugs - Front)",
+            "Action": "Load",
+            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_BugsFront",
+            "FromFile": "assets/Sprites/Furniture_BugsFront.png"
+        },
+        {
             "LogName": "Hikawa: Sprites - Furniture (Cherry)",
             "Action": "Load",
             "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_Cherry",
