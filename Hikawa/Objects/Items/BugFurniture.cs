@@ -66,9 +66,9 @@ namespace Hikawa.Objects.Items
 
             this.BugIds.OnElementChanged += (list, index, oldValue, newValue) =>
             {
-                if (newValue is null)
-                    this.RemoveBug(Game1.player, index, oldValue);
-                else
+                this.RemoveBug(Game1.player, index, oldValue);
+
+                if (newValue is not null)
                     this.AddBug(Game1.player, index, newValue);
             };
         }
@@ -115,11 +115,10 @@ namespace Hikawa.Objects.Items
 		protected void AddBug(Farmer player, int slot, string bugId)
 		{
 			this.BugIds[slot] = bugId;
-			if (this.Bugs[slot] is null)
-				this.Bugs[slot] = new ShrineBug(bugId);
-			else
-				this.Bugs[slot].Init(bugId);
-            this.Bugs[slot].flip = this.Definition.BugSlots[slot].Flip;
+            this.Bugs[slot] = new ShrineBug(bugId)
+            {
+                flip = this.Definition.BugSlots[slot].Flip
+            };
 
             ModEntry.State.Value.BugsPlaced.TryAdd(bugId, 0);
             if (player.UniqueMultiplayerID == this.owner.Value)
@@ -165,7 +164,7 @@ namespace Hikawa.Objects.Items
 
         public override bool canBeRemoved(Farmer who)
         {
-            return base.canBeRemoved(who) && !this.IsInUse.Value;
+            return base.canBeRemoved(who) && !this.IsInUse.Value && this.BugIds.All(bugId => bugId is null);
         }
 
         public override void performRemoveAction()

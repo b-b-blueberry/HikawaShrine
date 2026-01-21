@@ -218,7 +218,14 @@ namespace Hikawa.Objects.Menus
                 var slot = this.BugSlotButtons[this.BugSlotIndex];
                 drawTextureBox(b: b, x: this.BugButtons[0].bounds.X - Border, y: this.BugButtons[^1].bounds.Y - Border, width: BugButtonsColumns * TileSize * MenuScale + Border * 2, height: (int)Math.Ceiling(this.BugButtons.Length / (float)BugButtonsColumns) * TileSize * MenuScale + Border * 2, color: Color.White);
                 for (var i = 0; i < this.BugButtons.Length; ++i)
-                    this.BugButtons[i].draw(b, c: this.BugsAllowed[i] ? Color.White : Color.Black * 0.35f, layerDepth: 1f);
+                {
+                    var button = this.BugButtons[i];
+                    var bugId = button.name;
+                    if (!ModEntry.State.Value.BugsPlaced.TryGetValue(bugId, out int bugsPlaced))
+                        bugsPlaced = 0;
+                    button.draw(b, c: this.BugsAllowed[i] ? Color.White : Color.Black * 0.35f, layerDepth: 1f);
+                    Utility.drawTinyDigits(ModEntry.SaveData.BugCollection[bugId].Count - bugsPlaced, b, new Vector2(button.bounds.X + button.bounds.Width * 0.75f, button.bounds.Y + button.bounds.Height * 0.75f), MenuScale / 1, 1, Color.White);
+                }
             }
 
             // bug slots
