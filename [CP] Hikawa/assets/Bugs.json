@@ -416,7 +416,7 @@
                         "Season": "spring",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1000,
-                        "BugSlots": [ "Perch" ],
+                        "BugSlots": [ "Ground", "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Mantis"
                     },
                     "Woodlouse": {
