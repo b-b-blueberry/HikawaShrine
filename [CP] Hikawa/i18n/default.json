@@ -356,10 +356,10 @@
     "bugs.wasp.description": "As with bees, a lone queen founds a nest, hatching female workers to grow her brood.\n\nAn adult wasp can't feed on solid matter; her mandibles are mainly for pulping wood fiber into paper. She subsists on nectar and feeds chewed insects to her larvae.",
     "bugs.wasp.message": "Hm, you've caught something? .. Wow, a paper wasp!#$b#You needn't look so worried, they're really quite docile. Or at least, they are before you shove them in a jar.#$b#Actually, this one's starting to look real mad.$s{{action}}",
 
-    "bugs.grasshopper.name": "Grasshopper",
-    "bugs.grasshopper.scientific": "Acrididae",
-    "bugs.grasshopper.description": "Especially prehistoric insects with powerful wings and spurred hindlegs. May transform into locusts in adverse conditions.\n\nInfamous competition for crops such as grains and herbs.",
-    "bugs.grasshopper.message": "Having fun collecting bugs? I've found two types of earwigs and a lovely fluffy moth this week.#$b#It's amazing how many different species live right beside us, you'd never notice if you weren't looking for them.{{action}}",
+    "bugs.cicada.name": "Emperor Cicada",
+    "bugs.cicada.scientific": "Hyalessa maculaticollis",
+    "bugs.cicada.description": "Named for its jeweled colour, they spend 3 years burrowing underground as nymphs, emerging for their final molt in mid-summer.\n\nMales perform their song by forcing air through vibrating membranes into their echoic abdomen.",
+    "bugs.cicada.message": "Having fun collecting bugs? I've found two types of earwigs and a lovely fluffy moth this week.#$b#It's amazing how many different species live right beside us, you'd never notice if you weren't looking for them.{{action}}",
 
     "bugs.mantis.name": "Orchid Mantis",
     "bugs.mantis.scientific": "Hymenopus coronatus",

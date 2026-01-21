@@ -348,7 +348,7 @@
                         "Season": "spring",
                         "AnimationFrames": 2,
                         "AnimationSpeed": 1000,
-                        "BugSlots": [ "Ground" ],
+                        "BugSlots": [ "Perch" ],
                         "ContextTag": "{{ID}}_Bugs_Cicada"
                     },
                     "Mantis": {

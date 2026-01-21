@@ -60,12 +60,12 @@
                         },
                         {
                             "Type": "Deliver",
-                            "Text": "{{i18n:bugs.grasshopper.name}}",
+                            "Text": "{{i18n:bugs.cicada.name}}",
                             "RequiredCount": "1",
                             "Data": {
-                                "AcceptedContextTags": "{{ID}}_Bugs_Grasshopper",
+                                "AcceptedContextTags": "{{ID}}_Bugs_Cicada",
                                 "TargetName": "{{AMI}}",
-                                "Message": "{{i18n:bugs.grasshopper.message |action={{ACTION_TOOL_BUGS}} }}"
+                                "Message": "{{i18n:bugs.cicada.message |action={{ACTION_TOOL_BUGS}} }}"
                             }
                         },
                         {
