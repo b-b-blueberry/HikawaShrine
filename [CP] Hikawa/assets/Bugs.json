@@ -216,6 +216,45 @@
                                 }
                             }
                         ]
+                    },
+                    "Jungle": {
+                        "DisplayName": "{{i18n:furniture.bugs.jungle.name}}",
+                        "Description": "{{i18n:furniture.bugs.jungle.description}}",
+                        "TextureId": "{{PATH}}/Sprites/Furniture_Bugs",
+                        "SpriteIndex": 10,
+                        "SpriteSize": {
+                            "X": 2,
+                            "Y": 3
+                        },
+                        "CollisionSize": {
+                            "X": 2,
+                            "Y": 1
+                        },
+                        "BugSlots": [
+                            {
+                                "Type": "Ground",
+                                "Position": {
+                                    "X": 12,
+                                    "Y": 31
+                                },
+                                "Flip": true
+                            },
+                            {
+                                "Type": "Perch",
+                                "Position": {
+                                    "X": 23,
+                                    "Y": 17
+                                },
+                                "Flip": true
+                            },
+                            {
+                                "Type": "Air",
+                                "Position": {
+                                    "X": 11,
+                                    "Y": 16
+                                }
+                            }
+                        ]
                     }
                 },
                 "BugToolData": {
