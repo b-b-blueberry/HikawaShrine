@@ -325,23 +325,28 @@ namespace Hikawa.Objects.Items
 				// Do behaviours
 				this.BugId = bug.BugId;
 				where.critters.Remove(bug);
-				if (!ModEntry.SaveData.BugCollection.ContainsKey(bug.BugId))
-                {
-                    ModEntry.SaveData.BugCollection[bug.BugId] = new()
-					{
-						DaysPlayed = WorldDate.GetDaysPlayed(
-					year: Game1.year,
-					season: Game1.season,
-							dayOfMonth: Game1.dayOfMonth)
-					};
-                }
-				ModEntry.SaveData.BugCollection[bug.BugId].Count++;
-			}
+				BugTool.CatchBug(bug.BugId);
+            }
 		}
 
 		public void ReleaseBug()
 		{
 			this.BugId = null;
 		}
+
+		public static void CatchBug(string bugId, int count = 1)
+        {
+            if (!ModEntry.SaveData.BugCollection.ContainsKey(bugId))
+            {
+                ModEntry.SaveData.BugCollection[bugId] = new()
+                {
+                    DaysPlayed = WorldDate.GetDaysPlayed(
+                        year: Game1.year,
+                        season: Game1.season,
+                        dayOfMonth: Game1.dayOfMonth)
+                };
+            }
+            ModEntry.SaveData.BugCollection[bugId].Count += count;
+        }
 	}
 }
