@@ -175,7 +175,7 @@ namespace Hikawa
 		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
 		{
 			if (ModEntry.State.Value is not null)
-			ModEntry.State.Value.PreciseTime = Utils.GetPreciseTimeOfDay(Game1.timeOfDay);
+				ModEntry.State.Value.PreciseTime = Utils.GetPreciseTimeOfDay(Game1.timeOfDay);
 			Modules.DialogueEffects.Update(e.Ticks);
 		}
 
