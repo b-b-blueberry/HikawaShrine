@@ -342,7 +342,7 @@
     "bugs.furniture.none": "You haven't caught any bugs yet.",
 
     "bugs.stag.name": "Stag Beetle",
-    "bugs.stag.scientific": "Lucanidae",
+    "bugs.stag.scientific": "Prosopocoilus inclinatus",
     "bugs.stag.description": "Their mandibles grow throughout their lifetime to the length of their body.\n\nMales wrestle one-another for females, food, and territory. Despite their size, they remain capable flyers.",
     "bugs.stag.message": "Nice bug, @. Hope you didn't get pinched catching it!#$b#I'll probably need to get it in a bigger container, this is one big bug.#$e#While you're here, wanna see this millipede I found?$h{{action}}",
 
@@ -352,7 +352,7 @@
     "bugs.butterfly.message": "Good catch! These butterflies are on their annual migratory route at this time of year.$h#$b#By the summer, they should be enjoying the warm weather in the islands south of here. They must be happy to rest at the hilltop on the way, though.{{action}}",
 
     "bugs.wasp.name": "Paper Wasp",
-    "bugs.wasp.scientific": "Vespidae",
+    "bugs.wasp.scientific": "Polistes chinensis",
     "bugs.wasp.description": "As with bees, a lone queen founds a nest, hatching female workers to grow her brood.\n\nAn adult wasp can't feed on solid matter; her mandibles are mainly for pulping wood fiber into paper. She subsists on nectar and feeds chewed insects to her larvae.",
     "bugs.wasp.message": "Hm, you've caught something? .. Wow, a paper wasp!#$b#You needn't look so worried, they're really quite docile. Or at least, they are before you shove them in a jar.#$b#Actually, this one's starting to look real mad.$s{{action}}",
 
