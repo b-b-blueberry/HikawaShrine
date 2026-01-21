@@ -174,6 +174,7 @@ namespace Hikawa
 
 		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
 		{
+			if (ModEntry.State.Value is not null)
 			ModEntry.State.Value.PreciseTime = Utils.GetPreciseTimeOfDay(Game1.timeOfDay);
 			Modules.DialogueEffects.Update(e.Ticks);
 		}
@@ -252,6 +253,7 @@ namespace Hikawa
 		private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
 		{
 			ModEntry.SaveData = null;
+			ModEntry.State.ResetAllScreens();
 		}
 
 		/// <summary>
