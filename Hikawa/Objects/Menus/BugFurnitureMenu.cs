@@ -80,7 +80,7 @@ namespace Hikawa.Objects.Menus
             this.height = TileSize;
 
             // prevent bug button popup from going offscreen
-            var h = Border * 4 + TileSize * MenuScale * (1 + ((this.BugButtons.Length - 1) / BugButtonsColumns));
+            var h = Border * 4 + TileSize * MenuScale * (1 + (int)Math.Ceiling((this.BugButtons.Length - 1) / (float)BugButtonsColumns));
             this.yPositionOnScreen += Math.Max(0, h - this.yPositionOnScreen);
 
             // bug slots arranged in row
@@ -120,7 +120,13 @@ namespace Hikawa.Objects.Menus
                         this.BugSlotIndex = slotIndex;
                         var bugSlot = this.BugFurniture.Definition.BugSlots[this.BugSlotIndex].Type;
                         for (var bugIndex = 0; bugIndex < this.BugButtons.Length; ++bugIndex)
-                            this.BugsAllowed[bugIndex] = ModEntry.BugsData.Value.BugData[this.BugButtons[bugIndex].name].BugSlots.Contains(bugSlot);
+                        {
+                            // update allowed bugs for this slot based on collected-placed count and slot type
+                            var bugId = this.BugButtons[bugIndex].name;
+                            var isAllowed = ModEntry.BugsData.Value.BugData[bugId].BugSlots.Contains(bugSlot);
+                            var isAvailable = !ModEntry.State.Value.BugsPlaced.TryGetValue(bugId, out int count) || ModEntry.SaveData.BugCollection[bugId].Count > count;
+                            this.BugsAllowed[bugIndex] = isAllowed && isAvailable;
+                        }
                         Game1.playSound(SelectSound);
                     }
                     return;
@@ -130,23 +136,24 @@ namespace Hikawa.Objects.Menus
             // select bug with bug buttons popup open
             if (this.BugSlotIndex >= 0)
             {
-                for (var i = 0; i < this.BugButtons.Length; ++i)
+                for (var bugIndex = 0; bugIndex < this.BugButtons.Length; ++bugIndex)
                 {
-                    if (this.BugButtons[i].containsPoint(x, y))
+                    if (this.BugButtons[bugIndex].containsPoint(x, y))
                     {
-                        string bugId = this.BugButtons[i].name;
-                        if (this.BugFurniture.Bugs[this.BugSlotIndex] is not null && this.BugFurniture.Bugs[this.BugSlotIndex].BugId == bugId)
+                        string bugId = this.BugButtons[bugIndex].name;
+                        if (this.BugFurniture.BugIds[this.BugSlotIndex] == bugId)
                         {
                             // selected same bug, remove
-                            this.BugFurniture.RemoveBug(this.BugSlotIndex);
+                            this.BugFurniture.BugIds[this.BugSlotIndex] = null;
                             Game1.playSound(DeselectSound);
                         }
                         else
                         {
                             // selected different bug, add or replace
-                            if (this.BugFurniture.TryAddBug(this.BugSlotIndex, bugId))
+                            if (this.BugsAllowed[bugIndex] && this.BugFurniture.CanAddBug(this.BugSlotIndex, bugId))
                             {
                                 Game1.playSound(SelectSound);
+                                this.BugFurniture.BugIds[this.BugSlotIndex] = bugId;
                                 this.BugSlotIndex = -1;
                             }
                             else
@@ -154,6 +161,7 @@ namespace Hikawa.Objects.Menus
                                 Game1.playSound(DeselectSound);
                             }
                         }
+                        this.BugSlotIndex = -1;
                         return;
                     }
                 }
@@ -208,7 +216,7 @@ namespace Hikawa.Objects.Menus
             if (this.BugSlotIndex >= 0)
             {
                 var slot = this.BugSlotButtons[this.BugSlotIndex];
-                drawTextureBox(b: b, x: this.BugButtons[0].bounds.X - Border, y: this.BugButtons[^1].bounds.Y - Border, width: BugButtonsColumns * TileSize * MenuScale + Border * 2, height: this.BugButtons.Length / BugButtonsColumns * TileSize * MenuScale + Border * 2, color: Color.White);
+                drawTextureBox(b: b, x: this.BugButtons[0].bounds.X - Border, y: this.BugButtons[^1].bounds.Y - Border, width: BugButtonsColumns * TileSize * MenuScale + Border * 2, height: (int)Math.Ceiling(this.BugButtons.Length / (float)BugButtonsColumns) * TileSize * MenuScale + Border * 2, color: Color.White);
                 for (var i = 0; i < this.BugButtons.Length; ++i)
                     this.BugButtons[i].draw(b, c: this.BugsAllowed[i] ? Color.White : Color.Black * 0.35f, layerDepth: 1f);
             }
@@ -219,8 +227,8 @@ namespace Hikawa.Objects.Menus
                 this.BugSlotButtons[i].draw(b, c: this.BugSlotIndex < 0 || this.BugSlotIndex == i ? Color.White : Color.Black * 0.35f, layerDepth: 1f);
 
             // bugs in slots
-            for (var i = 0; i < this.BugFurniture.Bugs.Length; ++i)
-                this.BugFurniture.Bugs[i]?.DrawInMenu(b, this.BugSlotButtons[i].bounds.Location.ToVector2(), Vector2.Zero, MenuScale);
+            for (var i = 0; i < this.BugFurniture.BugIds.Count; ++i)
+                this.BugFurniture.GetBugInSlot(i)?.DrawInMenu(b, this.BugSlotButtons[i].bounds.Location.ToVector2(), Vector2.Zero, MenuScale);
 
             this.drawMouse(b);
         }

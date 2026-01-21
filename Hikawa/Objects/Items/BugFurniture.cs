@@ -13,36 +13,78 @@ namespace Hikawa.Objects.Items
 	[XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(BugFurniture)}")] // SpaceCore serialisation signature
 	public class BugFurniture : Furniture
     {
-        /// <summary>Whether the owner is currently using the <see cref="BugFurnitureMenu"/>.</summary>
-        [XmlIgnore]
-        public NetBool IsInUse = new();
-
         /// <summary>Bug furniture data definition.</summary>
         [XmlIgnore]
         public BugFurnitureDataEntry Definition;
 
+        /// <summary>Bug IDs for each slot. Saves current bugs.</summary>
+        public NetList<string, NetString> BugIds = new();
+
         /// <summary>Bug instances for each slot.</summary>
         [XmlIgnore]
-		public ShrineBug[] Bugs;
+        protected ShrineBug[] Bugs;
 
-        /// <summary>Bug IDs for each slot. Saves current bugs.</summary>
-        public NetArray<string> BugIds = new();
+        /// <summary>Whether the owner is currently using the <see cref="BugFurnitureMenu"/>.</summary>
+        [XmlIgnore]
+        protected NetBool IsInUse = new();
 
         public override string TypeDefinitionId => BugFurnitureItemDataDefinition.TypeDefinitionId;
 
-		public BugFurniture() : base()
+		public BugFurniture()
+            : base()
 		{
 		}
 
 		public BugFurniture(ParsedItemData data)
 			: this()
         {
+            this.Init(data);
+        }
+
+        protected override Item GetOneNew()
+        {
+            return new BugFurniture();
+        }
+
+        protected override void GetOneCopyFrom(Item source)
+        {
+            base.GetOneCopyFrom(source);
+
+            if (source is BugFurniture other)
+            {
+                this.Init(ItemRegistry.GetDataOrErrorItem(other.ItemId));
+            }
+        }
+
+        protected override void initNetFields()
+        {
+            base.initNetFields();
+
+            this.NetFields
+                .AddField(this.IsInUse)
+                .AddField(this.BugIds);
+
+            this.BugIds.OnElementChanged += (list, index, oldValue, newValue) =>
+            {
+                if (newValue is null)
+                    this.RemoveBug(Game1.player, index, oldValue);
+                else
+                    this.AddBug(Game1.player, index, newValue);
+            };
+        }
+
+        public void Init(ParsedItemData data)
+        {
             // BugFurniture
             this.Definition = data.RawData as BugFurnitureDataEntry;
-            this.BugIds ??= new string[this.Definition.BugSlots.Length];
-            this.Bugs = new ShrineBug[this.BugIds.Length];
-            for (int i = 0; i < this.BugIds.Length; ++i)
-                this.TryAddBug(i, this.BugIds[i]);
+
+            // bug instances reconstructed from serialised bug ids
+            this.Bugs = new ShrineBug[this.Definition.BugSlots.Length];
+
+            // initial bug ids list should match bug slots
+            // deserialised bug id lists will already be populated to the correct size
+            while (this.BugIds.Count < this.Definition.BugSlots.Length)
+                this.BugIds.Add(null);
 
             // Item
             this.ItemId = data.ItemId;
@@ -55,11 +97,9 @@ namespace Hikawa.Objects.Items
             this.updateRotation();
         }
 
-        protected override void initNetFields()
+        public ShrineBug GetBugInSlot(int slot)
         {
-            base.initNetFields();
-
-            this.NetFields.AddField(this.IsInUse);
+            return slot >= 0 && slot < this.Bugs.Length ? this.Bugs[slot] : null;
         }
 
         public bool CanAddBug(int slot, string bugId)
@@ -72,26 +112,31 @@ namespace Hikawa.Objects.Items
 			return allowedSlotTypes.Contains(slotType);
 		}
 
-		public bool TryAddBug(int slot, string bugId)
+		protected void AddBug(Farmer player, int slot, string bugId)
 		{
-			if (this.CanAddBug(slot, bugId))
-			{
-				this.BugIds[slot] = bugId;
-				if (this.Bugs[slot] is null)
-					this.Bugs[slot] = new ShrineBug(bugId);
-				else
-					this.Bugs[slot].Init(bugId);
-                this.Bugs[slot].flip = this.Definition.BugSlots[slot].Flip;
-				return true;
-			}
-			return false;
+			this.BugIds[slot] = bugId;
+			if (this.Bugs[slot] is null)
+				this.Bugs[slot] = new ShrineBug(bugId);
+			else
+				this.Bugs[slot].Init(bugId);
+            this.Bugs[slot].flip = this.Definition.BugSlots[slot].Flip;
+
+            ModEntry.State.Value.BugsPlaced.TryAdd(bugId, 0);
+            if (player.UniqueMultiplayerID == this.owner.Value)
+                ModEntry.State.Value.BugsPlaced[bugId]++;
 		}
 
-		public void RemoveBug(int slot)
+        protected void RemoveBug(Farmer player, int slot, string bugId)
 		{
 			this.Bugs[slot] = null;
-			this.BugIds[slot] = null;
-		}
+
+            if (bugId is not null)
+            {
+                ModEntry.State.Value.BugsPlaced.TryAdd(bugId, 1);
+                if (player.UniqueMultiplayerID == this.owner.Value)
+                    ModEntry.State.Value.BugsPlaced[bugId]--;
+            }
+        }
 
         public override bool checkForAction(Farmer who, bool justCheckingForActivity = false)
         {
@@ -135,12 +180,15 @@ namespace Hikawa.Objects.Items
             base.updateRotation();
 
             // you drove me to this
-            var data = ItemRegistry.GetDataOrErrorItem(this.ItemId);
-            this.defaultSourceRect.Value = this.sourceRect.Value = data.GetSourceRect();
-            this.defaultBoundingBox.Value = this.boundingBox.Value = new Rectangle((int)this.TileLocation.X * Game1.tileSize, (int)this.TileLocation.Y * Game1.tileSize, this.Definition.CollisionSize.X * Game1.tileSize, this.Definition.CollisionSize.Y * Game1.tileSize);
+            if (ModEntry.BugsData.Value.BugFurniture.TryGetValue(BugFurnitureItemDataDefinition.UnqualifiedGlobalToLocalId(this.ItemId), out var definition))
+            {
+                var data = ItemRegistry.GetDataOrErrorItem(this.ItemId);
+                this.defaultSourceRect.Value = this.sourceRect.Value = data.GetSourceRect();
+                this.defaultBoundingBox.Value = this.boundingBox.Value = new Rectangle((int)this.TileLocation.X * Game1.tileSize, (int)this.TileLocation.Y * Game1.tileSize, definition.CollisionSize.X * Game1.tileSize, definition.CollisionSize.Y * Game1.tileSize);
 
-            // align bounding box to bottom of sprite when drawn
-            this.drawPosition.Value = this.boundingBox.Value.Location.ToVector2() + new Vector2(0, this.Definition.CollisionSize.Y - this.Definition.SpriteSize.Y) * Game1.tileSize;
+                // align bounding box to bottom of sprite when drawn
+                this.drawPosition.Value = this.boundingBox.Value.Location.ToVector2() + new Vector2(0, definition.CollisionSize.Y - definition.SpriteSize.Y) * Game1.tileSize;
+            }
         }
 
         public override void updateWhenCurrentLocation(GameTime time)

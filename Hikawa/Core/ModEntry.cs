@@ -33,6 +33,9 @@ namespace Hikawa
 			public bool AnimationFlag;
 			public Vector2 AnimationTarget;
 
+            // Bugs
+            public Dictionary<string, int> BugsPlaced = [];
+
 			// Others
 			public Match3.Match3Game Match3;
 

@@ -10,14 +10,19 @@ public class BugFurnitureItemDataDefinition : BaseItemDataDefinition
 	public static string TypeDefinitionId => ModEntry.BugsData.Value.BugFurnitureData.Identifier;
 	public override string Identifier => TypeDefinitionId;
 
-	public override Item CreateItem(ParsedItemData data)
+    public static string UnqualifiedGlobalToLocalId(string itemId)
+    {
+        return ModEntry.BugsData.Value.BugFurniture.Keys.FirstOrDefault(localId => itemId == $"{ModEntry.ModData.ItemBugFurniture}_{localId}");
+    }
+
+    public override Item CreateItem(ParsedItemData data)
 	{
 		return new BugFurniture(data);
 	}
 
 	public override bool Exists(string itemId)
 	{
-		return ModEntry.BugsData.Value.BugFurniture.Any(localId => itemId == $"{ModEntry.ModData.ItemBugFurniture}_{localId}");
+		return BugFurnitureItemDataDefinition.UnqualifiedGlobalToLocalId(itemId) is not null;
 	}
 
 	public override IEnumerable<string> GetAllIds()
@@ -27,7 +32,7 @@ public class BugFurnitureItemDataDefinition : BaseItemDataDefinition
 
 	public override ParsedItemData GetData(string itemId)
 	{
-		if (ModEntry.BugsData.Value.BugFurniture.Keys.FirstOrDefault(localId => itemId == $"{ModEntry.ModData.ItemBugFurniture}_{localId}") is string localId)
+		if (BugFurnitureItemDataDefinition.UnqualifiedGlobalToLocalId(itemId) is string localId)
 		{
 			BugFurnitureDataEntry d = ModEntry.BugsData.Value.BugFurniture[localId];
             BugFurnitureData generic = ModEntry.BugsData.Value.BugFurnitureData;
@@ -50,7 +55,7 @@ public class BugFurnitureItemDataDefinition : BaseItemDataDefinition
 
 	public override Rectangle GetSourceRect(ParsedItemData data, Texture2D texture, int spriteIndex)
     {
-        if (ModEntry.BugsData.Value.BugFurniture.Keys.FirstOrDefault(localId => data.ItemId == $"{ModEntry.ModData.ItemBugFurniture}_{localId}") is string localId)
+        if (BugFurnitureItemDataDefinition.UnqualifiedGlobalToLocalId(data.ItemId) is string localId)
         {
             BugFurnitureDataEntry d = ModEntry.BugsData.Value.BugFurniture[localId];
             BugFurnitureData generic = ModEntry.BugsData.Value.BugFurnitureData;
