@@ -1,5 +1,6 @@
 ﻿using Hikawa.Data;
 using Hikawa.Modules;
+using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
 using Hikawa.Volleyball;
 using StardewModdingAPI;
@@ -49,6 +50,23 @@ namespace Hikawa
 
 			return;
 		}
+
+		[ConsoleCommandAttribute("bg", "Catch a bug (name, qty) at the current date")]
+        private static void bug(string s, string[] args)
+        {
+            if (!ArgUtility.TryGet(args, 0, out string bugId, out string error))
+            {
+                Log.E($"No bug ID provided: {error}");
+                return;
+            }
+            if (!ModEntry.BugsData.Value.BugData.ContainsKey(bugId))
+            {
+                Log.E($"No bug data matching ID '{bugId}'");
+                return;
+            }
+            BugTool.CatchBug(bugId, ArgUtility.GetInt(args, 1, 1));
+            Log.D($"{bugId} total: {ModEntry.SaveData.BugCollection[bugId].Count}");
+        }
 
 		[ConsoleCommandAttribute("v", "Volleyball starter")]
         private static void volleyball(string s, string[] args)
