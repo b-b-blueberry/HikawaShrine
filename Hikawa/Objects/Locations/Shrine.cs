@@ -516,7 +516,7 @@ namespace Hikawa.Objects.Locations
 
 		public void EndBellSequence(Farmer who)
 		{
-			++ModEntry.SaveData.BellRingCount;
+			who.stats.Increment($"{ModEntry.ModData.ContentPrefix}_BellRingCount");
 
 			// TODO: Apply shrine effects
 		}

@@ -6,7 +6,6 @@ namespace Hikawa
     {
         /// <summary>Map of bug IDs to collection data.</summary>
         public Dictionary<string, BugCollectionEntry> BugCollection;
-        public int BellRingCount;
         public Vector2 LostGlassesQuestTile;
         public Vector2 LostJewelryQuestTile;
 
