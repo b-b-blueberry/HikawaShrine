@@ -129,6 +129,7 @@ namespace Hikawa
 			TileActions.RegisterAll(ModEntry.ModData.ContentPrefix);
 			EventCommands.RegisterAll(ModEntry.ModData.ContentPrefix);
 			ItemQueryResolvers.RegisterAll(ModEntry.ModData.ContentPrefix);
+			GameStateQueryResolvers.RegisterAll(ModEntry.ModData.ContentPrefix);
 
 			// modules
 			Modules.DialogueEffects.Init();
