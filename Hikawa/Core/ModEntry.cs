@@ -68,6 +68,7 @@ namespace Hikawa
 		public static Lazy<KitesDataAsset> KitesData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<KitesDataAsset>(AssetManager.KiteDataAssetName));
 		public static Lazy<ShrineTreesDataAsset> ShrineTreesData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<ShrineTreesDataAsset>(AssetManager.ShrineTreesDataAssetName));
 		public static Lazy<ShrubsDataAsset> ShrubsData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<ShrubsDataAsset>(AssetManager.ShrubsDataAssetName));
+		public static Lazy<VolleyballDataAsset> VolleyballData { get; private set; } = new(() => ModEntry.Instance.Helper.GameContent.Load<VolleyballDataAsset>(AssetManager.VolleyballDataAssetName));
 
 		// fonts
 		public static Lazy<SpriteFont> Italics = new(() => ModEntry.Instance.Helper.GameContent.Load<SpriteFont>(AssetManager.ItalicsFontAssetName));

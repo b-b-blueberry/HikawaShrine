@@ -1,0 +1,27 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Volleyball - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Volleyball",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Volleyball - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Volleyball",
+            "Entries": {
+                "Characters": {
+                    "{{REI}}": {
+                        "TextureId": "Characters/{{REI}}",
+                        "Responsiveness": 1,
+                        "Speed": 3,
+                        "Weight": 1,
+                        "Jump": 1,
+                        "Power": 1
+                    }
+                }
+            }
+        }
+    ]
+}

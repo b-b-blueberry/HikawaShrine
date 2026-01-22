@@ -229,10 +229,12 @@ namespace Hikawa.Volleyball
                 // Farmers have added power when swinging or spiking, increasing with current height of jump
                 return farmer.UsingTool ? 3 - farmer.yJumpOffset * 0.1f : 0;
             }
-            else
+            else if (character is VolleyballNPC other)
             {
-                return 1 + character.yJumpOffset * 0.1f;
+                // Characters have added power when jumping, scaling with their attributes
+                return (1 + other.yJumpOffset * 0.1f) * other.VolleyballData.Power;
             }
+            return 0;
         }
 
         public Rectangle GetCharacterCollisionArea(Character character)
