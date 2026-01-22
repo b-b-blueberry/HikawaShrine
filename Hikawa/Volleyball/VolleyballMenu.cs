@@ -51,7 +51,7 @@ namespace Hikawa.Volleyball
         public Character HoveredPlayer;
         public bool IsReadyToStart => this.PlayerButtons.Values.All((PlayerButtonEntry entry) => entry.Team is not Team.None);
 
-        public VolleyballMenu(IEnumerable<Character> players, int scoreGoal, bool isDoublesAllowed = false) : base(
+        public VolleyballMenu(VolleyballRules rules) : base(
             x: Game1.uiViewport.Width / 2 - (VolleyballMenu.Dimensions.X + IClickableMenu.borderWidth * 2) / 2,
             y: Game1.uiViewport.Height / 2 - (VolleyballMenu.Dimensions.Y + IClickableMenu.borderWidth * 2) / 2,
             width: VolleyballMenu.Dimensions.X + IClickableMenu.borderWidth * 2,
@@ -62,33 +62,32 @@ namespace Hikawa.Volleyball
             if (VolleyballMenu.IsCloseButtonVisible)
 				this.initializeUpperRightCloseButton();
 
-            // VolleyballPicker fields
-            this.Rules = new VolleyballRules(
-				players: players,
-				scoreGoal: scoreGoal,
-				isDoubles: isDoublesAllowed);
+            // VolleyballPicker fields;
 
             // Clickable components
             {
                 const int scale = Game1.pixelZoom;
                 Rectangle source;
+                Texture2D texture;
+                var ballData = ModEntry.VolleyballData.Value.Balls[rules.BallType];
 
                 // start-button
-                source = AssetManager.ExtraSpritesVolleyballArea;
+                source = ballData.SourceArea;
+                texture = Game1.content.Load<Texture2D>(ballData.TextureId);
 				this.StartButton = new ClickableTextureComponent(
                     bounds: new(
                         x: 0,
                         y: 0,
                         width: source.Width * scale,
                         height: source.Height * scale),
-                    texture: ModEntry.Sprites,
+                    texture: texture,
                     sourceRect: source,
                     scale: scale,
                     drawShadow: true);
 
                 // player-buttons
                 this.PlayerButtons = new();
-                this.PlayerButtons = players.ToDictionary(player => player, player => new PlayerButtonEntry(
+                this.PlayerButtons = rules.Players.ToDictionary(player => player, player => new PlayerButtonEntry(
                     team: Team.None, clickable: new ClickableComponent(bounds: Rectangle.Empty, name: player.Name)));
             }
 

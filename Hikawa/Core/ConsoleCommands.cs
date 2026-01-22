@@ -70,20 +70,19 @@ namespace Hikawa
 
 		[ConsoleCommandAttribute("v", "Volleyball starter")]
         private static void volleyball(string s, string[] args)
-		{
-			VolleyballLocation location = VolleyballLocation.MakeTemp();
-			location.SetUpLocation(rules:
-				false ? new VolleyballRules(
-					players: new Character[]
-					{
-						Game1.player,
-						VolleyballNPC.MakeFor(ModEntry.ModData.NpcRei)
-					},
-					scoreGoal: 3,
-					isDoubles: false)
-				: null,
-				umpireName: ModEntry.ModData.NpcCat,
-				style: Volleyball.Volleyball.Style.Volleyball);
+        {
+            var rules = new VolleyballRules(
+                ballType: ModEntry.VolleyballData.Value.Balls.Keys.Last(),
+                players:
+                    [
+                        Game1.player,
+                        VolleyballNPC.MakeFor(ModEntry.ModData.NpcRei)
+                    ],
+                scoreGoal: 3,
+                isDoubles: false);
+
+            var location = VolleyballLocation.MakeTemp();
+            location.SetUpLocation(rules, umpireName: ModEntry.ModData.NpcCat, skipMenu: true);
 		}
 
 		[ConsoleCommandAttribute("3", "Match3 starter")]

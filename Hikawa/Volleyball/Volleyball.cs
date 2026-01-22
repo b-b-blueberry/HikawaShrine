@@ -1,4 +1,5 @@
-﻿using Netcode;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Netcode;
 using StardewModdingAPI;
 using StardewValley.Network;
 using System;
@@ -8,24 +9,20 @@ namespace Hikawa.Volleyball
 {
 	public class Volleyball : INetObject<NetFields>
 	{
-        public enum Style
-        {
-            Beachball,
-            Volleyball
-        }
+        public string BallType;
+        public VolleyballBallData BallData;
 
-        public Rectangle SourceArea => AssetManager.ExtraSpritesVolleyballArea;
         public Vector2 Tile => Vector2.Floor(this.Position.Value / Game1.tileSize);
 		public Vector2 PositionDecay => new(x: -0.0005f, y: -0.0005f);
 		public float zPositionDecay => -0.005f;
 
+        public Texture2D Texture;
 		public float Scale;
         public int CollisionSize;
         public int TravelTimeBeforeHit;
 		public string SmallHitSound;
 		public string HitSound;
 		public string HeavyHitSound;
-        public Style VisualStyle;
 
 		public NetFields NetFields { get; } = new(nameof(Volleyball));
 
@@ -50,17 +47,20 @@ namespace Hikawa.Volleyball
         private Vector2 _velocityAccumulator = Vector2.Zero;
         private float _zVelocityAccumulator = 0;
 
-		public Volleyball(VolleyballLocation location, Vector2? position = null, Style style = Style.Beachball)
+		public Volleyball(VolleyballLocation location, VolleyballRules rules, Vector2? position = null)
         {
+            this.BallType = rules.BallType;
+            this.BallData = ModEntry.VolleyballData.Value.Balls[this.BallType];
+
 			this.LastHitBy = new();
 
+            this.Texture = Game1.content.Load<Texture2D>(this.BallData.TextureId);
 			this.Scale = Game1.pixelZoom;
             this.CollisionSize = (int)(16 * this.Scale);
 			this.TravelTimeBeforeHit = 500;
 			this.SmallHitSound = "bob";
 			this.HitSound = "pickUpItem";
 			this.HeavyHitSound = "throwDownITem"; // [sic]
-            this.VisualStyle = style;
 
 			this.Position = new(position ?? Vector2.Zero);
 			this.zPosition = new(0);
@@ -360,7 +360,7 @@ namespace Hikawa.Volleyball
 
 			this.Position.Value += this.Velocity.Value;
 			this.zPosition.Value += this.zVelocity.Value;
-			this.RotationVelocity.Value = this.VisualStyle is Style.Beachball ? this.zVelocity.Value : this.RotationVelocity.Value - rotationDecay * time.ElapsedGameTime.Milliseconds;
+			this.RotationVelocity.Value = this.BallData.IsFloaty ? this.zVelocity.Value : this.RotationVelocity.Value - rotationDecay * time.ElapsedGameTime.Milliseconds;
 			this.Rotation.Value += this.RotationVelocity.Value / 360;
             /*
             if (oldPosition != new Vector3(x: this.Position.X, y: this.Position.Y, z: this.zPosition.Value))
@@ -382,17 +382,17 @@ namespace Hikawa.Volleyball
         {
             // Sprite
             b.Draw(
-                texture: ModEntry.Sprites,
+                texture: this.Texture,
                 position: Game1.GlobalToLocal(
                     viewport: Game1.viewport,
                     globalPosition: this.Position.Value
                         + new Vector2(x: 0, y: -this.zPosition.Value)
-                        - new Vector2(x: 0, y: this.SourceArea.Y) / 2 * Game1.pixelZoom
+                        + new Vector2(x: 0, y: -this.BallData.SourceArea.Height) / 2 * Game1.pixelZoom
                         ),
-                sourceRectangle: this.SourceArea,
+                sourceRectangle: this.BallData.SourceArea,
                 color: Color.White,
                 rotation: this.Rotation.Value,
-                origin: Utility.PointToVector2(this.SourceArea.Size) / 2,
+                origin: this.BallData.SourceArea.Size.ToVector2() / 2,
                 scale: this.Scale,
                 effects: SpriteEffects.None,
                 layerDepth: (this.Position.Value.Y + 96f) / 10000f);

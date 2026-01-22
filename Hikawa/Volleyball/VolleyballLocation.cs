@@ -94,7 +94,7 @@ namespace Hikawa.Volleyball
 			}
 		}
 
-        public void SetUpLocation(VolleyballRules? rules, string umpireName, Volleyball.Style style)
+        public void SetUpLocation(VolleyballRules rules, string umpireName, bool skipMenu)
         {
             // Components
             VolleyballHUD.Init();
@@ -127,21 +127,21 @@ namespace Hikawa.Volleyball
 					//umpire.syncedPortraitPath.Value = $"Portraits/{umpireName}";
 					this.addCharacter(character: umpire);
 
-					if (rules is not null)
+					if (skipMenu)
 					{
-						this.SetUpGame(rules: rules.Value, style: style);
+						this.SetUpGame(rules: rules);
 					}
 					else
 					{
 						// Build rules from VolleyballPicker
 						VolleyballMenu menu = null;
-						Character[] characters = new Character[] {
+						Character[] characters = [
 							Game1.player,
 							VolleyballNPC.MakeFor(ModEntry.ModData.NpcRei)
-						}; // TODO: DEBUG: REMOVE THIS
-						menu = new(players: characters, scoreGoal: 3)
+						]; // TODO: DEBUG: REMOVE THIS
+						menu = new(rules)
 						{
-							exitFunction = () => this.SetUpGame(rules: menu.Rules, style: style)
+							exitFunction = () => this.SetUpGame(rules: menu.Rules)
 						};
 						Game1.pauseThenDoFunction(pauseTime: 750, function: () =>
 						{
@@ -157,7 +157,7 @@ namespace Hikawa.Volleyball
                         {
 							// TODO: MAKE THIS WORK
 							// MENU HAS NO CHARACTERS FOR CLIENTS
-							this.SetUpGame(rules: rules.Value, style: style);
+							this.SetUpGame(rules: rules);
 						},
                         onCancel: (Farmer who) =>
                         {
@@ -172,7 +172,7 @@ namespace Hikawa.Volleyball
                 facingDirectionAfterWarp: Game1.player.FacingDirection);
         }
 
-		public void SetUpGame(VolleyballRules rules, Volleyball.Style style)
+		public void SetUpGame(VolleyballRules rules)
 		{
 			// Set game state
 			Game1.displayHUD = false;
@@ -184,7 +184,7 @@ namespace Hikawa.Volleyball
 				this.ScoreGoal.Set(rules.ScoreGoal);
 
 				// Volleyball
-				this.Volleyball = new(location: this, style: style);
+				this.Volleyball = new(this, rules);
 				this.Volleyball.TouchPlayerEvent.onEvent += this.OnTouchPlayer;
 				this.Volleyball.TouchGroundEvent.onEvent += this.OnTouchGround;
 
@@ -341,7 +341,7 @@ namespace Hikawa.Volleyball
 				animationInterval: 50f,
 				animationLength: 8,
 				numberOfLoops: 0,
-				position: this.Volleyball.Position.Value + Utility.PointToVector2(this.Volleyball.SourceArea.Size) * -this.Volleyball.Scale / 2,
+				position: this.Volleyball.Position.Value + Utility.PointToVector2(this.Volleyball.BallData.SourceArea.Size) * -this.Volleyball.Scale / 2,
 				flicker: false,
 				flipped: false)
 			{
@@ -498,10 +498,10 @@ namespace Hikawa.Volleyball
 						y: (int)this.Volleyball.Position.Y - Game1.viewport.Y,
 						width: this.Volleyball.CollisionSize,
 						height: this.Volleyball.CollisionSize),
-					sourceRectangle: AssetManager.ExtraSpritesVolleyballArea,
+					sourceRectangle: this.Volleyball.BallData.SourceArea,
 					color: Color.Green * 0.6f,
 					rotation: 0,
-					origin: Utility.PointToVector2(AssetManager.ExtraSpritesVolleyballArea.Size) / 2,
+					origin: this.Volleyball.BallData.SourceArea.Size.ToVector2() / 2,
 					effects: SpriteEffects.None,
 					layerDepth: 1f);
 

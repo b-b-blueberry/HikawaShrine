@@ -2,8 +2,9 @@
 
 namespace Hikawa.Volleyball
 {
-    public struct VolleyballRules(IEnumerable<Character> players, int scoreGoal, bool isDoubles)
+    public struct VolleyballRules(string ballType, IEnumerable<Character> players, int scoreGoal, bool isDoubles)
     {
+        public string BallType = ballType;
         public IEnumerable<Character> Players = players;
         public int ScoreGoal = scoreGoal;
         public bool IsDoubles = isDoubles;

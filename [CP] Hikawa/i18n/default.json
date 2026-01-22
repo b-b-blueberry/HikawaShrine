@@ -337,6 +337,8 @@
     "ui.volleyball.score.drop": "{{team}}{{loser}} fumbled!",
     "ui.volleyball.score.out": "{{team}}{{loser}} went out!",
     "ui.volleyball.score.team": "Team ",
+    "ui.volleyball.ball.beachball": "Beach ball",
+    "ui.volleyball.ball.volleyball": "Volleyball",
 
     // Bugs
     // scientific names should not be localised

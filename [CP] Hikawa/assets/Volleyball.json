@@ -11,6 +11,31 @@
             "Action": "EditData",
             "Target": "{{PATH}}/Data/Volleyball",
             "Entries": {
+                "Balls": {
+                    "{{ID}}_Beachball": {
+                        "DisplayName": "{{i18n:ui.volleyball.ball.beachball}}",
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "SourceArea": {
+                            "X": 80,
+                            "Y": 17,
+                            "Width": 17,
+                            "Height": 17
+                        },
+                        "Weight": 1,
+                        "IsFloaty": true
+                    },
+                    "{{ID}}_Volleyball": {
+                        "DisplayName": "{{i18n:ui.volleyball.ball.volleyball}}",
+                        "TextureId": "{{PATH}}/Sprites/Extras",
+                        "SourceArea": {
+                            "X": 223,
+                            "Y": 32,
+                            "Width": 17,
+                            "Height": 17
+                        },
+                        "Weight": 1.5
+                    }
+                },
                 "Characters": {
                     "{{REI}}": {
                         "TextureId": "Characters/{{REI}}",
