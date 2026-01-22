@@ -1,6 +1,4 @@
-﻿using StardewValley;
-
-namespace Hikawa.Volleyball
+﻿namespace Hikawa.Volleyball
 {
 	public static class VolleyballHUD
 	{

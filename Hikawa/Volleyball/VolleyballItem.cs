@@ -1,7 +1,6 @@
-﻿using System;
+﻿using StardewValley.Tools;
+using System;
 using System.Text;
-using StardewValley;
-using StardewValley.Tools;
 
 namespace Hikawa.Volleyball
 {

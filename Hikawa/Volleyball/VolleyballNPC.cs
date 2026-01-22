@@ -1,7 +1,7 @@
-﻿using System;
-using Netcode;
+﻿using Netcode;
 using StardewModdingAPI;
-using StardewValley;
+using StardewValley.TokenizableStrings;
+using System;
 
 namespace Hikawa.Volleyball
 {
@@ -14,7 +14,7 @@ namespace Hikawa.Volleyball
 		public NetVector2 TargetPosition;
 
 		public VolleyballNPC(string name, string displayName, Vector2? position = null) : base(
-			sprite: new AnimatedSprite(textureName: "TileSheets/Craftables"),
+			sprite: new AnimatedSprite(textureName: $"Characters/{name}"),
 			position: position ?? Vector2.Zero,
 			speed: 1,
 			name: name)
@@ -26,7 +26,7 @@ namespace Hikawa.Volleyball
 		{
 			return new VolleyballNPC(
 				name: baseName + ModEntry.ModData.NpcVolleyballSuffix,
-				displayName: Game1.characterData.TryGetValue(baseName, out var data) ? data.DisplayName : baseName);
+				displayName: Game1.characterData.TryGetValue(baseName, out var data) ? TokenParser.ParseText(data.DisplayName) : baseName);
 		}
 
 		protected override void initNetFields()

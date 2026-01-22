@@ -1,49 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Netcode;
+﻿using Netcode;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.Menus;
+using System;
+using System.Linq;
 
 namespace Hikawa.Volleyball
 {
-	public struct VolleyballRules
-	{
-		public IEnumerable<Character> Players;
-		public int ScoreGoal;
-		public bool IsDoubles;
-
-		public VolleyballRules(IEnumerable<Character> players, int scoreGoal, bool isDoubles)
-		{
-			this.Players = players;
-			this.ScoreGoal = scoreGoal;
-			this.IsDoubles = isDoubles;
-		}
-	}
-
-	public struct UmpireData
-	{
-		public string Name;
-		public string DisplayName;
-		public string TextureName;
-		public Rectangle SourceRectangle;
-		public int InitialFrame;
-		public int PortraitFrame;
-		public bool IsBreathing;
-
-		public UmpireData(string name, string displayName, string textureName, Rectangle sourceRectangle, int initialFrame, int portraitFrame, bool isBreathing)
-		{
-			this.Name = name;
-			this.DisplayName = displayName;
-			this.TextureName = textureName;
-			this.SourceRectangle = sourceRectangle;
-			this.InitialFrame = initialFrame;
-			this.PortraitFrame = portraitFrame;
-			this.IsBreathing = isBreathing;
-		}
-	}
-
     public class VolleyballLocation : GameLocation
     {
 		public static readonly Vector2 UmpirePosition = new(x: 33, y: 26.5f);
@@ -52,7 +14,7 @@ namespace Hikawa.Volleyball
 		public static Vector2 PlayAreaCentre => (Utility.PointToVector2(VolleyballLocation.PlayArea.Center) + new Vector2(x: 0.5f, y: 0)) * Game1.tileSize;
 
 		public Volleyball Volleyball;
-		public UmpireData UmpireData;
+		public VolleyballUmpireData UmpireData;
 
         public NetCollection<Character> Players;
         public NetInt ScoreL;
@@ -92,12 +54,12 @@ namespace Hikawa.Volleyball
 			return this.Players.FirstOrDefault(c => c.Name == name);
 		}
 
-		public UmpireData GetUmpireData(string name)
+		public VolleyballUmpireData GetUmpireData(string name)
 		{
 			if (name == ModEntry.ModData.NpcCat)
 			{
 				Point size = new(x: 32, y: 32);
-				return new UmpireData(
+				return new VolleyballUmpireData(
 					name: name + ModEntry.ModData.NpcVolleyballSuffix,
 					displayName: NPC.GetDisplayName(name),
 					textureName: AssetManager.CatSpritesAssetName,
@@ -106,7 +68,7 @@ namespace Hikawa.Volleyball
 					portraitFrame: 5,
 					isBreathing: false);
 			}
-			return new UmpireData(
+			return new VolleyballUmpireData(
 				name: name + ModEntry.ModData.NpcVolleyballSuffix,
 				displayName: NPC.GetDisplayName(name),
 				textureName: $"Characters/{name}",
