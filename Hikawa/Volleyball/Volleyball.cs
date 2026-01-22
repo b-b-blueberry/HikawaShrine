@@ -224,17 +224,19 @@ namespace Hikawa.Volleyball
 
         public float GetCharacterHitPower(Character character)
         {
+            float power = 0;
             if (character is Farmer farmer)
             {
                 // Farmers have added power when swinging or spiking, increasing with current height of jump
-                return farmer.UsingTool ? 3 - farmer.yJumpOffset * 0.1f : 0;
+                if (farmer.UsingTool)
+                    power = 3 - farmer.yJumpOffset * 0.1f;
             }
             else if (character is VolleyballNPC other)
             {
                 // Characters have added power when jumping, scaling with their attributes
-                return (1 + other.yJumpOffset * 0.1f) * other.VolleyballData.Power;
+                other.OnVolleyballHit(ref power);
             }
-            return 0;
+            return power;
         }
 
         public Rectangle GetCharacterCollisionArea(Character character)

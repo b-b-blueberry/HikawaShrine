@@ -14,5 +14,7 @@
         public float Speed;
         /// <summary>Modifier to strike values.</summary>
         public float Power;
+        /// <summary>Percentage chance to spike when feasible.</summary>
+        public float SpikePreference;
     }
 }

@@ -60,11 +60,49 @@ namespace Hikawa.Volleyball
 			this.TargetPosition.Set(Vector2.Zero);
 		}
 
+		public void OnVolleyballHit(ref float power)
+        {
+            power = (1 + this.yJumpOffset * 0.1f) * this.VolleyballData.Power;
+
+			if (Math.Abs(VolleyballLocation.PlayAreaCentre.X - this.Position.X) > VolleyballLocation.PlayArea.Width * Game1.tileSize / 4) // far from net
+                power += 1 + Game1.random.NextSingle();
+			else if (Game1.random.NextSingle() < this.VolleyballData.SpikePreference && this.yJumpOffset < Game1.tileSize / 2) // jumping spike
+				power += 3;
+        }
+
 		public void UpdateVolleyballAimpoint()
 		{
 			Vector2 oldPosition = this.TargetPosition.Value;
+			Vector2 newPosition;
 
-			this.Aimpoint.Set(Game1.player.Position);
+			if (this.Volleyball.LastHitBy.Value != this.Name // responding to spike, try to bounce in place and return
+				&& Math.Abs(VolleyballLocation.PlayAreaCentre.X - this.Position.X) < Game1.tileSize * 2)
+			{
+				// near position
+				newPosition = Utils.Vector.MotionTo(this.Position, Game1.player.Position);
+            }
+			else if (Game1.random.NextSingle() < 0.5f)
+			{
+				// far from enemy player
+				var players = ((VolleyballLocation)this.Volleyball.Location.Value).Players;
+				var other = players[(players.IndexOf(this) + players.Count / 2) % players.Count];
+				newPosition = new Vector2(other.Position.X, VolleyballLocation.PlayAreaCentre.Y) + new Vector2(0, other.Position.Y - VolleyballLocation.PlayAreaCentre.Y) / 2;
+            }
+			else if (Game1.random.NextSingle() < 0.5f)
+			{
+				// random position on other side
+				int sign = Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X);
+				var area = VolleyballLocation.PlayArea;
+				area = new Rectangle(area.X * Game1.tileSize, area.Y * Game1.tileSize, area.Width * Game1.tileSize / 2, area.Height * Game1.tileSize / 2);
+				area.X += (int)(area.Width * (sign * 0.5f - 0.5f));
+				newPosition = Utility.getRandomPositionInThisRectangle(area, Game1.random);
+            }
+            else
+			{
+				newPosition = Game1.player.Position;
+            }
+
+            this.Aimpoint.Set(newPosition);
 
 			Log.D($"Aimpoint(from: {oldPosition}, to: {this.Aimpoint.Value})");
 		}
@@ -109,7 +147,7 @@ namespace Hikawa.Volleyball
 
 				bool wannaJump = this.yJumpOffset == 0 // not currently jumping
 					&& Math.Abs(VolleyballLocation.PlayAreaCentre.X - this.Position.X) < VolleyballLocation.PlayArea.Width * Game1.tileSize / 4 // close to net
-					&& Math.Abs(Vector2.Distance(this.Position, this.Volleyball.Position.Value)) < this.Volleyball.CollisionSize * 1.5f // ball is within reach
+					&& Math.Abs(Vector2.Distance(this.Position, this.Volleyball.Position.Value)) < this.Volleyball.CollisionSize * 2f // ball is within reach
 					&& this.Volleyball.zPosition.Value < this.Volleyball.GetCharacterCollisionArea(this).Height && this.Volleyball.zVelocity.Value < 0.1; // ball is overhead and falling
 
                 if (wannaJump)
