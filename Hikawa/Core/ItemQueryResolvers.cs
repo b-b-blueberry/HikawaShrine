@@ -31,7 +31,12 @@ namespace Hikawa
             {
                 return Helpers.ErrorResult(key, arguments, logError, "must specify an item ID");
             }
-            if (Utility.getTreasureFromGeode(ItemRegistry.Create(arguments)) is Item output)
+            var input = context.CustomFields.GetValueOrDefault("Input") as Item;
+            if (!GameStateQuery.Helpers.TryGetItemArg(query: [arguments], index: 0, targetItem: null, inputItem: input, item: out Item geode, error: out string error))
+            {
+                return Helpers.ErrorResult(key, arguments, logError, "invalid input arg");
+            }
+            if (Utility.getTreasureFromGeode(geode) is Item output)
             {
                 return [new ItemQueryResult(output)];
             }

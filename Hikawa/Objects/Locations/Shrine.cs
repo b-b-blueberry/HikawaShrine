@@ -419,6 +419,7 @@ namespace Hikawa.Objects.Locations
 					player: Game1.MasterPlayer,
 					random: null,
 					sourcePhrase: $"location '{this.Name}' > tile action '{ModEntry.ModData.ActionCrowTrade}' > field '{nameof(this.CrowTradeItem)}'");
+				context.CustomFields = new() { { "Input", input } };
 				foreach (GenericSpawnItemDataWithCondition rule in ModEntry.CrowTradeRulesData.Value.CrowTradeRules)
 				{
 					if (GameStateQuery.CheckConditions(
