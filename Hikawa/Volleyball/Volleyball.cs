@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
-using Netcode;
+﻿using Netcode;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.Network;
+using System;
+using System.Linq;
 
 namespace Hikawa.Volleyball
 {
@@ -232,26 +231,29 @@ namespace Hikawa.Volleyball
             }
             else
             {
-                return 0;
+                return 1 + character.yJumpOffset * 0.1f;
             }
         }
 
         public Rectangle GetCharacterCollisionArea(Character character)
-		{
-            // Collision area is sized relative to height and positioned around head height, centred on character centre
-			Vector2 size = new Vector2(x: character.Sprite.SpriteWidth, y: character.Sprite.SpriteHeight / 2) * Game1.pixelZoom;
-
-            if (character is Farmer farmer && farmer.UsingTool)
+        {
+            var source = character.GetBoundingBox();
+            var area = source;
+            area.Y -= source.Height / 2;
+            area.Height += source.Height / 2;
+            area.Inflate(source.Width / 4, source.Height / 4);
+            if (character is Farmer farmer)
             {
-                size *= 1.5f;
+                if (farmer.UsingTool)
+                    area.Inflate(source.Width / 2, source.Height / 2);
+                else if (farmer.yJumpOffset < 0)
+                    area.Inflate(source.Width / 4, source.Height / 4);
             }
-
-			Vector2 position = character.getStandingPosition() - new Vector2(x: 0, y: character.Sprite.SpriteHeight / 2) * Game1.pixelZoom;
-			return new Rectangle(
-                x: (int)position.X - (int)size.X / 2,
-                y: (int)position.Y - (int)size.Y / 2,
-                width: (int)size.X,
-                height: (int)size.Y);
+            else if (character is VolleyballNPC other)
+            {
+                area.Inflate(source.Width / 2, source.Height / 2);
+            }
+            return area;
         }
 
         public Character IsCollidingWithCharacter()
@@ -263,11 +265,11 @@ namespace Hikawa.Volleyball
                 Vector2 distance = Utility.PointToVector2(bounds.Center) - this.Position.Value;
 
 				bool isInReachXY = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2 < this.CollisionSize + (bounds.Width + bounds.Height) / 2;
-				bool isInReachZ = Math.Abs(this.zPosition.Value + c.yJumpOffset * 2) < this.CollisionSize;
+				bool isInReachZ = Math.Abs(this.zPosition.Value + c.yJumpOffset * 2) < this.CollisionSize / 2;
                 bool isCollisionOnCooldown = this.LastHitBy.Value == c.Name && this.TravelTime.Value < this.TravelTimeBeforeHit;
 
                 Vector2 motion = Utils.Vector.MotionTo(origin: this.Position.Value, target: Utility.PointToVector2(bounds.Center));
-                Vector2 scaledMotion = motion * this.CollisionSize;
+                Vector2 scaledMotion = motion * this.CollisionSize / 2;
                 Vector2 positionAfterScaledMotion = this.Position.Value + scaledMotion;
 
 				isInReachXY = bounds.Contains(positionAfterScaledMotion);

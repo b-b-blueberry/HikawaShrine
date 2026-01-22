@@ -515,12 +515,18 @@ namespace Hikawa.Volleyball
 					color: Color.Red * 0.5f);
 
 				// test - adjusted collision area
-				Rectangle collisionArea = this.Volleyball.GetCharacterCollisionArea(character: Game1.player);
-                collisionArea.Location -= new Point(x: Game1.viewport.Location.X, y: Game1.viewport.Location.Y - Game1.player.yJumpOffset * 2);
-				b.Draw(
-				    texture: Game1.fadeToBlackRect,
-				    destinationRectangle: collisionArea,
-				    color: Color.Blue * 0.5f);
+				for (int i = 0; i < this.Players.Count; ++i)
+				{
+					if (this.Players[i] is Character player)
+                    {
+                        Rectangle collisionArea = Game1.GlobalToLocal(Game1.viewport, this.Volleyball.GetCharacterCollisionArea(character: player));
+                        collisionArea.Y += player.yJumpOffset * 2;
+                        b.Draw(
+                            texture: Game1.fadeToBlackRect,
+                            destinationRectangle: collisionArea,
+                            color: Color.Blue * ((this.Volleyball.LastHitBy.Value == player.Name && this.Volleyball.TravelTime.Value < this.Volleyball.TravelTimeBeforeHit) ? 0.2f : 0.5f));
+                    }
+                }
 
 				// test: ball collision area
 				b.Draw(

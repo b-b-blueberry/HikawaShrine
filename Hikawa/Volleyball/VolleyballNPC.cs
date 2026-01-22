@@ -60,15 +60,30 @@ namespace Hikawa.Volleyball
 
 		public void UpdateVolleyballTargetPosition()
 		{
+			int sign = Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X);
 			Vector2 oldPosition = this.TargetPosition.Value;
+			Vector2 newPosition;
 
-			this.TargetPosition.Value = // Position outward from centre
-				// new Vector2(x: VolleyballLocation.PlayAreaCentre.X + Math.Sign(VolleyballLocation.PlayAreaCentre.X - this.Position.X) * this.Position.X, y: 0) +
-				// Move to the predicted path of the ball
-				//(this.Volleyball.Velocity * );
-			this.Position;
+			if (sign * this.Volleyball.Position.X < sign * VolleyballLocation.PlayAreaCentre.X)
+			{
+				// volleyball on opposite side of net, move to dummy pos
+				newPosition = new Vector2(VolleyballLocation.PlayAreaCentre.X + sign * VolleyballLocation.PlayArea.Width * Game1.tileSize / 4, VolleyballLocation.PlayAreaCentre.Y);
+                Log.D($"TargetPosition(from: {oldPosition}, to: {newPosition}) OPP");
+            }
+			else
+			{
+                // volleyball on this side of net, move to ball
+                newPosition =
+                    // Position outward from centre
+                    // new Vector2(x: VolleyballLocation.PlayAreaCentre.X + Math.Sign(VolleyballLocation.PlayAreaCentre.X - this.Position.X) * this.Position.X, y: 0) +
+                    // Move to the predicted path of the ball
+                    //(this.Volleyball.Velocity * );
 
-			Log.D($"TargetPosition(from: {oldPosition}, to: {this.TargetPosition.Value})");
+                    this.Volleyball.Position.Value;
+                Log.D($"TargetPosition(from: {oldPosition}, to: {newPosition}) THIS");
+            }
+            this.TargetPosition.Value = newPosition;
+
 		}
 
 		public override void update(GameTime time, GameLocation location, long id, bool move)
@@ -76,13 +91,18 @@ namespace Hikawa.Volleyball
 			base.update(time, location, id, move);
 
 			// Update strategy
-			if (Context.IsMainPlayer && this.Volleyball?.IsInPlay.Value is not null and true && (time.TotalGameTime.TotalMilliseconds / this.ThinkRate.Value) % 16 < 1)
+			if (Context.IsMainPlayer && this.Volleyball?.IsInPlay.Value is true && (time.TotalGameTime.TotalMilliseconds / this.ThinkRate.Value) % 16 < 1)
 			{
 				Log.D($"ThinkAt(rate: {this.ThinkRate.Value}, time: {time.TotalGameTime.TotalMilliseconds}, at: {this.Position})");
 
-				if (this.yJumpOffset > -0.1f && Math.Abs(Vector2.Distance(this.Position, this.Volleyball.Position.Value)) < this.Volleyball.CollisionSize)
+				bool wannaJump = this.yJumpOffset == 0 // not currently jumping
+					&& Math.Abs(Vector2.Distance(this.Position, this.Volleyball.Position.Value)) < this.Volleyball.CollisionSize // ball is within reach
+					&& this.Volleyball.zPosition.Value < this.Volleyball.GetCharacterCollisionArea(this).Height && this.Volleyball.zVelocity.Value < 0.1; // ball is overhead and falling
+
+                if (wannaJump)
 				{
-					this.jump(jumpVelocity: 2f); // TODO: DEBUG: HIT BEHAVIOUR
+					this.jump(jumpVelocity: 4f); // TODO: DEBUG: HIT BEHAVIOUR
+					this.yJumpGravity = -0.25f;
 				}
 
 				this.UpdateVolleyballAimpoint();
@@ -96,7 +116,7 @@ namespace Hikawa.Volleyball
 			if (this.TargetPosition.Value != Vector2.Zero && Math.Abs(Vector2.Distance(this.Position, this.TargetPosition.Value)) > distanceToStop)
 			{
 				Vector2 velocity = Utils.Vector.MotionTo(origin: this.Position, target: this.TargetPosition.Value);
-				this.Position += velocity * (this.Speed + this.addedSpeed) * 0.005f;
+				this.Position += velocity * (this.Speed + this.addedSpeed) * 3.5f;
 			}
 		}
 
@@ -104,8 +124,23 @@ namespace Hikawa.Volleyball
 		{
 			base.draw(b, alpha);
 
-
-		}
+			// npc targetposition
+			Vector2 from = this.getLocalPosition(Game1.viewport);
+            Vector2 target = Game1.GlobalToLocal(Game1.viewport, this.TargetPosition.Value);
+            Rectangle source = AssetManager.ExtraSpritesVolleyballAimpointArea;
+            source.X += Math.Clamp(((VolleyballLocation)this.Volleyball.Location.Value).Players.IndexOf(Game1.player) * source.Width, min: 0, max: 4);
+			Utility.drawLineWithScreenCoordinates((int)from.X, (int)from.Y, (int)target.X, (int)target.Y, b, Color.White);
+            b.Draw(
+                texture: ModEntry.Sprites,
+                sourceRectangle: source,
+                position: target,
+                color: Color.White,
+                rotation: MathF.PI / 2,
+                origin: Utility.PointToVector2(source.Size) / 2,
+                scale: Game1.pixelZoom,
+                effects: SpriteEffects.None,
+                layerDepth: 1f);
+        }
 
 		public override void draw(SpriteBatch b, int ySourceRectOffset, float alpha = 1)
 		{
