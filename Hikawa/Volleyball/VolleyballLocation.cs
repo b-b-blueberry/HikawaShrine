@@ -9,7 +9,7 @@ namespace Hikawa.Volleyball
     public class VolleyballLocation : GameLocation
     {
 		public static readonly Vector2 UmpirePosition = new(x: 33, y: 26.5f);
-		public static readonly Vector2 NetSize = new(x: Game1.tileSize / 16f, y: Game1.tileSize * 2f);
+		public static readonly Vector2 NetSize = new(x: Game1.tileSize / 16f, y: Game1.tileSize * 1.5f);
         public static readonly Rectangle PlayArea = new(x: 23, y: 29, width: 17, height: 11);
 		public static Vector2 PlayAreaCentre => (Utility.PointToVector2(VolleyballLocation.PlayArea.Center) + new Vector2(x: 0.5f, y: 0)) * Game1.tileSize;
 
