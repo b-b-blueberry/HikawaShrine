@@ -247,9 +247,26 @@ namespace Hikawa.Volleyball
             if (character is Farmer farmer)
             {
                 if (farmer.UsingTool)
-                    area.Inflate(source.Width / 2, source.Height / 2);
-                else if (farmer.yJumpOffset < 0)
+                {
+                    // increase general size by flat value when swinging tool
                     area.Inflate(source.Width / 4, source.Height / 4);
+
+                    // area covers additional space in facing direction
+                    if (farmer.FacingDirection % 2 == 0)
+                    {
+                        area.Y += (-1 + 2 * (farmer.FacingDirection / 2)) * source.Height / 2;
+                    }
+                    else
+                    {
+                        area.X -= (-1 + 2 * (farmer.FacingDirection / 2)) * source.Width / 2;
+                    }
+                }
+                else if (farmer.yJumpOffset < 0)
+                {
+                    // increase general size scaled to jump height
+                    // area is largest at peak of jump
+                    area.Inflate(source.Width / 4 * -farmer.yJumpOffset / Game1.tileSize, source.Height / 4 * -farmer.yJumpOffset / Game1.tileSize);
+                }
             }
             else if (character is VolleyballNPC other)
             {
