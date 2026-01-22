@@ -377,7 +377,7 @@ namespace Hikawa.Objects.Menus
 			int height = area.Height;
 			Texture2D texture = Game1.uncoloredMenuTexture;
 			Rectangle source = new(64, 128, 64, 64);
-			spriteBatch.Draw(texture: texture, destinationRectangle: new Rectangle(x + source.Width / 2, y + source.Height / 6 * 10, width - source.Width, height - source.Height * 2), sourceRectangle: source, color: bg);
+			spriteBatch.Draw(texture: texture, destinationRectangle: new Rectangle(x + source.Width / 2, (int)Math.Ceiling(y + source.Height / 6f * 9), width - source.Width, height - source.Height * 2), sourceRectangle: source, color: bg);
 			source.Y = 0;
 			source.X = 0;
 			spriteBatch.Draw(texture, new Vector2(x, y + source.Height), source, c);
