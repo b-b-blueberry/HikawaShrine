@@ -26,14 +26,15 @@ namespace Hikawa.Objects.Locations
 		public float DarknessRatio;
 		public List<Cloud> Clouds;
 
-		public ShrineBackground(GameLocation location) : base(location, color: Color.White, onlyMapBG: false)
+		public ShrineBackground(GameLocation location)
+			: base(location, color: Color.White, onlyMapBG: false)
 		{
 			this.summitBG = false;
 			this.initialViewportY = Game1.viewport.Y;
 			this.tempSprites = [];
 			this.cloudsTexture = Game1.content.Load<Texture2D>("Minigames\\Clouds");
 
-			this.IsWindy = Game1.currentLocation.IsDebrisWeatherHere();
+			this.IsWindy = location.IsDebrisWeatherHere();
 			this.Clouds = new((3 + Game1.dayOfMonth % 3) * (this.IsWindy ? 2 : 1));
 			for (int i = 0; i < this.Clouds.Capacity; ++i)
 			{
@@ -65,14 +66,16 @@ namespace Hikawa.Objects.Locations
 
 		public override void draw(SpriteBatch b)
 		{
-			if (Game1.currentLocation is null || Game1.viewport.X <= -1000 || Game1.viewport.Y > 28 * Game1.tileSize)
+			var location = Game1.currentLocation;
+
+            if (location is null || Game1.viewport.X <= -1000 || Game1.viewport.Y > 28 * Game1.tileSize)
 				return;
 
-			bool isRain = Game1.isRaining;
+			bool isRain = Game1.IsRainingHere();
 			bool isGreenRain = Utility.isGreenRainDay(Game1.dayOfMonth, Game1.season);
 			bool isWindy = this.IsWindy;
 			bool isWinter = Game1.IsWinter;
-			bool isDark = Game1.isStartingToGetDarkOut(Game1.currentLocation);
+			bool isDark = Game1.isStartingToGetDarkOut(location);
 
 			int seasonOffset = Game1.IsWinter ? 2 : Game1.IsFall ? 1 : 0;
 			int yOffset = -Game1.viewport.Y / Game1.pixelZoom + this.initialViewportY / Game1.pixelZoom;
@@ -94,7 +97,7 @@ namespace Hikawa.Objects.Locations
 					r: 255f,
 					g: 255f - Math.Max(100f, preciseTime - 1800f),
 					b: 255f - Math.Max(100f, (preciseTime - 1800f) / 2f));
-				cloudAlpha = 1f - Utils.RatioFromPreciseTime(startTime: Game1.getStartingToGetDarkTime(Game1.currentLocation), endTime: 2100);
+				cloudAlpha = 1f - Utils.RatioFromPreciseTime(startTime: Game1.getStartingToGetDarkTime(location), endTime: 2100);
 				skyAlpha = Math.Clamp((2200f - preciseTime) / 200f, 0, 1);
 				alpha = Math.Clamp((2000f - preciseTime) / 100f, 0, 1);
 				bgColor = Color.Lerp(bgColor, bgEndColor, 1 - alpha);
@@ -132,22 +135,23 @@ namespace Hikawa.Objects.Locations
 				float weatherX = preciseTime / 500f * (display.Width + 2048);
 				if (isRain)
 				{
-					for (int x = -244; x < Game1.uiViewport.Width + 244; x += 244)
+					int w = 244;
+					for (int x = -w; x < Game1.viewport.Width + w; x += w)
 					{
-						b.Draw(Game1.mouseCursors, zero + new Vector2(x + weatherX / 2f % 244f, 32f), new Rectangle(643, 1142, 61, 53), Color.DarkSlateGray * 1f, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+						b.Draw(Game1.mouseCursors, zero + new Vector2(x + weatherX / 2f % w, 32f), new Rectangle(643, 1142, 61, 53), Color.DarkSlateGray * 1f, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
 					}
 					for (int x2 = 0; x2 < Game1.viewport.Width; x2 += 639)
 					{
-						b.Draw(Game1.mouseCursors, zero + new Vector2(x2 * 4, Game1.uiViewport.Height - 192), new Rectangle(0, isWinter ? 1034 : 737, 639, 48), (isWinter ? (Color.White * 0.25f) : new Color(30, 62, 50)), 0f, Vector2.Zero, 4f, SpriteEffects.FlipHorizontally, 1f);
-						b.Draw(Game1.mouseCursors, zero + new Vector2(x2 * 4, Game1.uiViewport.Height - 128), new Rectangle(0, isWinter ? 1034 : 737, 639, 32), (isWinter ? (Color.White * 0.5f) : new Color(30, 62, 50)), 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+						b.Draw(Game1.mouseCursors, zero + new Vector2(x2 * 4, Game1.viewport.Height - 192), new Rectangle(0, isWinter ? 1034 : 737, 639, 48), (isWinter ? (Color.White * 0.25f) : new Color(30, 62, 50)), 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipHorizontally, 1f);
+						b.Draw(Game1.mouseCursors, zero + new Vector2(x2 * 4, Game1.viewport.Height - 128), new Rectangle(0, isWinter ? 1034 : 737, 639, 32), (isWinter ? (Color.White * 0.5f) : new Color(30, 62, 50)), 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
 					}
-					for (int x3 = -244; x3 < Game1.uiViewport.Width + 244; x3 += 244)
+					for (int x3 = -w; x3 < Game1.viewport.Width + w; x3 += w)
 					{
-						b.Draw(Game1.mouseCursors, zero + new Vector2(x3 + weatherX % 244f, -32f), new Rectangle(643, 1142, 61, 53), Color.SlateGray * 0.85f, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.9f);
+						b.Draw(Game1.mouseCursors, zero + new Vector2(x3 + weatherX % w, -32f), new Rectangle(643, 1142, 61, 53), Color.SlateGray * 0.85f, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
 					}
-					for (int x4 = -244; x4 < Game1.uiViewport.Width + 244; x4 += 244)
+					for (int x4 = -w; x4 < Game1.viewport.Width + w; x4 += w)
 					{
-						b.Draw(Game1.mouseCursors, zero + new Vector2(x4 + weatherX * 1.5f % 244f, -128f), new Rectangle(643, 1142, 61, 53), Color.LightSlateGray, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.9f);
+						b.Draw(Game1.mouseCursors, zero + new Vector2(x4 + weatherX * 1.5f % w, -128f), new Rectangle(643, 1142, 61, 53), Color.LightSlateGray, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
 					}
 				}
 			}
@@ -214,8 +218,8 @@ namespace Hikawa.Objects.Locations
 					if (!isWinter)
 					{
 						// evening skies
-						int eveningStartTime = Game1.getStartingToGetDarkTime(Game1.currentLocation);
-						int eveningEndTime = Game1.getTrulyDarkTime(Game1.currentLocation);
+						int eveningStartTime = Game1.getStartingToGetDarkTime(location);
+						int eveningEndTime = Game1.getTrulyDarkTime(location);
 						int eveningRange = eveningEndTime - eveningStartTime;
 						eveningStartTime += eveningRange / 6;
 						eveningEndTime += eveningRange / 6;
@@ -267,7 +271,7 @@ namespace Hikawa.Objects.Locations
 				width: 639,
 				height: 149);
 			int rows = 2;
-			int columns = (int)Math.Ceiling((double)Game1.currentLocation.Map.DisplayWidth / Game1.pixelZoom / source.Width);
+			int columns = (int)Math.Ceiling((double)location.Map.DisplayWidth / Game1.pixelZoom / source.Width);
 			for (int i = 0; i < columns * rows; ++i)
 			{
 				int row = i / columns;
@@ -304,7 +308,7 @@ namespace Hikawa.Objects.Locations
 					texture: ModEntry.Sprites,
 					position: offset + 
 						new Vector2(0, yOffset / 5f) + Game1.GlobalToLocal(new Vector2(
-							x: i == 0 ? 0 : Game1.currentLocation.Map.DisplayWidth - fillSource.Width * Game1.pixelZoom,
+							x: i == 0 ? 0 : location.Map.DisplayWidth - fillSource.Width * Game1.pixelZoom,
 							y: source.Height * 7.5f)),
 					sourceRectangle: new Rectangle(
 						x: fillSource.X,
