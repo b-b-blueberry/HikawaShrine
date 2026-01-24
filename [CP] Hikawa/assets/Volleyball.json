@@ -43,7 +43,8 @@
                         "Speed": 3,
                         "Weight": 1,
                         "Jump": 1,
-                        "Power": 1
+                        "Power": 1,
+                        "SpikePreference": 0.5
                     }
                 }
             }

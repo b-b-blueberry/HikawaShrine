@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Netcode;
+﻿using Netcode;
 using StardewModdingAPI;
 using StardewValley.Network;
 using System;
@@ -37,10 +36,12 @@ namespace Hikawa.Volleyball
 
 		public NetBool IsInPlay;
         public NetString LastHitBy;
+        public NetBool LastHitNet;
         public NetLocationRef Location;
         public NetEvent0 TouchPlayerEvent;
         public NetEvent1Field<Vector2, NetVector2> TouchGroundEvent;
 		public NetInt TravelTime;
+        public NetInt HitCount;
 		public NetInt BouncesAllowed;
         public NetInt BouncesLeft;
 
@@ -51,8 +52,6 @@ namespace Hikawa.Volleyball
         {
             this.BallType = rules.BallType;
             this.BallData = ModEntry.VolleyballData.Value.Balls[this.BallType];
-
-			this.LastHitBy = new();
 
             this.Texture = Game1.content.Load<Texture2D>(this.BallData.TextureId);
 			this.Scale = Game1.pixelZoom;
@@ -73,10 +72,12 @@ namespace Hikawa.Volleyball
 
 			this.IsInPlay = new(false);
             this.LastHitBy = new();
+            this.LastHitNet = new();
             this.Location = new(location);
 			this.TouchPlayerEvent = new();
 			this.TouchGroundEvent = new();
 			this.TravelTime = new(0);
+			this.HitCount = new(0);
 			this.BouncesAllowed = new(3);
 			this.BouncesLeft = new(this.BouncesAllowed.Value);
 
@@ -91,9 +92,12 @@ namespace Hikawa.Volleyball
 				.AddField(this.RotationVelocity, nameof(this.RotationVelocity))
 
 				.AddField(this.IsInPlay, nameof(this.IsInPlay))
+				.AddField(this.LastHitBy, nameof(this.LastHitBy))
+				.AddField(this.LastHitNet, nameof(this.LastHitNet))
 				.AddField(this.TouchPlayerEvent, nameof(this.TouchPlayerEvent))
 				.AddField(this.TouchGroundEvent, nameof(this.TouchGroundEvent))
 				.AddField(this.TravelTime, nameof(this.TravelTime))
+				.AddField(this.HitCount, nameof(this.HitCount))
 				.AddField(this.BouncesAllowed, nameof(this.BouncesAllowed))
 				.AddField(this.BouncesLeft, nameof(this.BouncesAllowed));
 		}
@@ -115,6 +119,7 @@ namespace Hikawa.Volleyball
 
 			// Play
 			this.IsInPlay.Set(true);
+            this.HitCount.Set(0);
             this.BouncesLeft.Set(this.BouncesAllowed.Value);
         }
 
@@ -127,6 +132,7 @@ namespace Hikawa.Volleyball
 
 			this.TravelTime.Set(0);
 			this.LastHitBy.Set(character.Name);
+            this.LastHitNet.Set(false);
 
 			this.Location.Value.playSound(sound);
 		}
@@ -154,15 +160,26 @@ namespace Hikawa.Volleyball
 
 				this.Velocity.Set(limitedVelocity + addedVelocity);
 
-                // Set Z-axis velocity to move upwards, where jumping players using specials will add downwards velocity
-				this.zVelocity.Set(Math.Abs(this.zVelocity.Value) + (addedPower * character.yJumpOffset * 0.01f));
+				this.zVelocity.Set(Math.Abs(this.zVelocity.Value)
+                    // players will add upwards velocity when first jumping
+                    + character.yJumpVelocity * 0.1f
+                    // players will add downwards velocity when at the peak of their jump
+                    + (addedPower * character.yJumpOffset * 0.01f));
+
+                // aim upwards when very close to net
+                float range = Game1.tileSize * 2f;
+                float dist = MathF.Abs(character.Position.X - VolleyballLocation.PlayAreaCentre.X);
+                float up = (range - MathF.Min(range, dist)) / range * 1f;
+                this.zVelocity.Value -= up;
 
                 // Rotation
                 this.RotationVelocity.Set(this.RotationVelocity.Value * -1 + 5f + 3f * addedPower);
 
                 // Set travel time for checks to prevent instant rebound
+                this.HitCount.Value++;
 				this.TravelTime.Set(0);
 				this.LastHitBy.Set(character.Name);
+                this.LastHitNet.Set(false);
                 this.TouchPlayerEvent.Fire();
 
 				this.Location.Value.playSound(this.SmallHitSound);
@@ -179,12 +196,14 @@ namespace Hikawa.Volleyball
 
 			// Bounce back towards player with no change in Z-axis velocity
 			this.Velocity.Set(Utils.Vector.Abs(this.Velocity.Value) * (((VolleyballLocation)this.Location.Value).GetPlayer(this.LastHitBy.Value).Position.X < VolleyballLocation.PlayAreaCentre.X ? -1 : 1));
+            this.Velocity.X *= 0.5f; // prevent wild rebounds
 			this.Position.Value += this.Velocity.Value;
 
 			this.RotationVelocity.Value *= -0.5f;
 
             // Reset travel time for checks to prevent instant rebound
 			this.TravelTime.Set(0);
+            this.LastHitNet.Set(true);
 
 			this.Location.Value.playSound(this.SmallHitSound);
 
@@ -281,9 +300,12 @@ namespace Hikawa.Volleyball
         {
             return ((VolleyballLocation)this.Location.Value).Players.FirstOrDefault((Character c) =>
 			{
-				// TODO: FIX: collision with player on hit to compass NE/ENE
 				Rectangle bounds = this.GetCharacterCollisionArea(character: c);
                 Vector2 distance = Utility.PointToVector2(bounds.Center) - this.Position.Value;
+
+                // must be on same side of net, or above net height
+                if (VolleyballLocation.NetSize.Y > -c.yJumpOffset && Math.Sign(bounds.X - VolleyballLocation.PlayAreaCentre.X) != Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X))
+                    return false;
 
 				bool isInReachXY = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2 < this.CollisionSize + (bounds.Width + bounds.Height) / 2;
 				bool isInReachZ = Math.Abs(this.zPosition.Value + c.yJumpOffset * 2) < this.CollisionSize / 2;
@@ -311,8 +333,9 @@ namespace Hikawa.Volleyball
         {
             // Ball must be lower than net height
 			return this.zPosition.Value <= VolleyballLocation.NetSize.Y
-                // Prevent instant rebound with value larger than an average tick duration
 				&& this.TravelTime.Value > 100
+                // Prevent instant rebound
+				&& !this.LastHitNet.Value
                 // Check difference in position between ball and centre based on combined ball and net size
                 && Math.Abs(this.Position.X - VolleyballLocation.PlayAreaCentre.X) < /*VolleyballLocation.NetSize.X +*/ this.CollisionSize
                 // Ignore collision if on opposite side of net to player who hit it
