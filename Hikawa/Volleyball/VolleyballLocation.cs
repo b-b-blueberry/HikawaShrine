@@ -254,7 +254,7 @@ namespace Hikawa.Volleyball
             bool isLastHitByLeftSide = this.GetPlayer(this.Volleyball.LastHitBy.Value).Position.X < VolleyballLocation.PlayAreaCentre.X;
 			bool isFumbled = isLastHitByLeftSide == isLandingOnLeftSide;
             bool isInBounds = VolleyballLocation.PlayArea.Contains(position / Game1.tileSize);
-            bool isLeftSideWin = (isLastHitByLeftSide != isFumbled) && isInBounds;
+            bool isLeftSideWin = isLastHitByLeftSide == (!isFumbled && isInBounds);
 
 			// Add score
             ++(isLeftSideWin ? this.ScoreL : this.ScoreR).Value;
