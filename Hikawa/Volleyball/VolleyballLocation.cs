@@ -490,6 +490,15 @@ namespace Hikawa.Volleyball
                     }
                 }
 
+                // test - lunge values
+                for (int i = 0; i < this.Players.Count; ++i)
+                {
+                    if (this.Players[i] is VolleyballNPC player)
+                    {
+						b.DrawString(Game1.smallFont, $"{player.LungeSpeed:00.00}", player.StandingPixel.ToVector2() - new Vector2(Game1.viewport.X, Game1.viewport.Y), Color.Red);
+                    }
+                }
+
 				// test: ball collision area
 				b.Draw(
 					texture: ModEntry.Sprites,
