@@ -318,6 +318,7 @@ namespace Hikawa.Volleyball
 						speaker: umpire,
 						translationKey: null,
 						dialogueText: $"${this.UmpireData.PortraitFrame}{message} {winMessage}"));
+					endFunc();
 					Game1.drawDialogue(speaker: umpire);
 					Game1.activeClickableMenu.exitFunction = () => endFunc();
 				}, delay: addedDelay);
