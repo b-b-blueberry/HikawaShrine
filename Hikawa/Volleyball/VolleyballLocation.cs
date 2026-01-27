@@ -215,6 +215,10 @@ namespace Hikawa.Volleyball
 					{
 						farmer.completelyStopAnimatingOrDoingAction();
 					}
+					else if (this.Players[i] is VolleyballNPC npc)
+					{
+						npc.ResetVolleyballValues();
+                    }
 
 					bool isLeftTeam = i < this.Players.Count / 2; // Whether player is on left side of play area
 					int xFlipPerTeam = isLeftTeam ? -1 : 1; // Side of centre per player

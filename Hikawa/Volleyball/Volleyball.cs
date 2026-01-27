@@ -309,32 +309,27 @@ namespace Hikawa.Volleyball
         {
             return this.VolleyballLocation.Players.FirstOrDefault((Character c) =>
 			{
-				Rectangle bounds = this.GetCharacterCollisionArea(character: c);
-                Vector2 distance = Utility.PointToVector2(bounds.Center) - this.Position.Value;
-
-                // must be on same side of net, or above net height
-                if (VolleyballLocation.NetSize.Y > -c.yJumpOffset && Math.Sign(bounds.X - VolleyballLocation.PlayAreaCentre.X) != Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X))
+                // hit cooldown for this character
+                if (this.LastHitBy.Value == c.Name && this.TravelTime.Value < this.TravelTimeBeforeHit)
                     return false;
 
-				bool isInReachXY = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2 < this.CollisionSize + (bounds.Width + bounds.Height) / 2;
-				bool isInReachZ = Math.Abs(this.zPosition.Value + c.yJumpOffset * 2) < this.CollisionSize / 2;
-                bool isCollisionOnCooldown = this.LastHitBy.Value == c.Name && this.TravelTime.Value < this.TravelTimeBeforeHit;
+                Rectangle hitbox = this.GetCharacterCollisionArea(character: c);
+                var size = this.CollisionSize / 2;
+                var direction = Utils.Vector.MotionTo(this.Position.Value, hitbox.Center.ToVector2());
 
-                Vector2 motion = Utils.Vector.MotionTo(origin: this.Position.Value, target: Utility.PointToVector2(bounds.Center));
-                Vector2 scaledMotion = motion * this.CollisionSize / 2;
-                Vector2 positionAfterScaledMotion = this.Position.Value + scaledMotion;
 
-				isInReachXY = bounds.Contains(positionAfterScaledMotion);
+				bool isInReachXY = hitbox.Contains((int)(this.Position.X + direction.X * size), (int)(this.Position.Y + direction.Y * size));
+				bool isInReachZ = Math.Abs(this.zPosition.Value + c.yJumpOffset * 2) < size;
 
-                if (isInReachXY && isInReachZ && !isCollisionOnCooldown)
+                if (isInReachXY && isInReachZ)
 				{
-					Log.D(
-						$"\nrect (x: {bounds.X} y: {bounds.Y} width: {bounds.Width} height: {bounds.Height})" +
-						$"\ndist (x: {distance.X:0} y: {distance.Y:0} size: {this.CollisionSize})" +
+					Log.D($"hit {c.Name}" +
+						$"\nbox (x: {hitbox.X} y: {hitbox.Y} width: {hitbox.Width} height: {hitbox.Height})" +
+						$"\ndir (x: {direction.X:0} y: {direction.Y:0} size: {this.CollisionSize})" +
 						$"\njump (this: {this.zPosition.Value:0.000} chara: {(c.yJumpOffset * 2):0.000} dist: {Math.Abs(this.zPosition.Value + c.yJumpOffset * 2)})");
 				}
 
-				return isInReachXY && isInReachZ && !isCollisionOnCooldown;
+				return isInReachXY && isInReachZ;
 			});
         }
 
@@ -342,8 +337,8 @@ namespace Hikawa.Volleyball
         {
             // Ball must be lower than net height
 			return this.zPosition.Value <= VolleyballLocation.NetSize.Y
-				&& this.TravelTime.Value > 100
                 // Prevent instant rebound
+                && this.TravelTime.Value > 100
 				&& !this.LastHitNet.Value
                 // Check difference in position between ball and centre based on combined ball and net size
                 && Math.Abs(this.Position.X - VolleyballLocation.PlayAreaCentre.X) < /*VolleyballLocation.NetSize.X +*/ this.CollisionSize
