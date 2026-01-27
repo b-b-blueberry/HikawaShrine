@@ -37,11 +37,12 @@ namespace Hikawa.Volleyball
 		public NetBool IsInPlay;
         public NetString LastHitBy;
         public NetBool LastHitNet;
+        public NetInt TeamHitCount;
+        public NetInt HitCount;
         public NetLocationRef Location;
-        public NetEvent0 TouchPlayerEvent;
+        public NetEvent1Field<string, NetString> TouchPlayerEvent;
         public NetEvent1Field<Vector2, NetVector2> TouchGroundEvent;
 		public NetInt TravelTime;
-        public NetInt HitCount;
 		public NetInt BouncesAllowed;
         public NetInt BouncesLeft;
 
@@ -77,6 +78,7 @@ namespace Hikawa.Volleyball
 			this.TouchPlayerEvent = new();
 			this.TouchGroundEvent = new();
 			this.TravelTime = new(0);
+			this.TeamHitCount = new(0);
 			this.HitCount = new(0);
 			this.BouncesAllowed = new(3);
 			this.BouncesLeft = new(this.BouncesAllowed.Value);
@@ -94,10 +96,11 @@ namespace Hikawa.Volleyball
 				.AddField(this.IsInPlay, nameof(this.IsInPlay))
 				.AddField(this.LastHitBy, nameof(this.LastHitBy))
 				.AddField(this.LastHitNet, nameof(this.LastHitNet))
-				.AddField(this.TouchPlayerEvent, nameof(this.TouchPlayerEvent))
-				.AddField(this.TouchGroundEvent, nameof(this.TouchGroundEvent))
 				.AddField(this.TravelTime, nameof(this.TravelTime))
+                .AddField(this.TeamHitCount, nameof(this.TeamHitCount))
 				.AddField(this.HitCount, nameof(this.HitCount))
+                .AddField(this.TouchPlayerEvent, nameof(this.TouchPlayerEvent))
+				.AddField(this.TouchGroundEvent, nameof(this.TouchGroundEvent))
 				.AddField(this.BouncesAllowed, nameof(this.BouncesAllowed))
 				.AddField(this.BouncesLeft, nameof(this.BouncesAllowed));
 		}
@@ -120,6 +123,7 @@ namespace Hikawa.Volleyball
 			// Play
 			this.IsInPlay.Set(true);
             this.HitCount.Set(0);
+            this.TeamHitCount.Set(0);
             this.BouncesLeft.Set(this.BouncesAllowed.Value);
         }
 
@@ -130,6 +134,8 @@ namespace Hikawa.Volleyball
 			this.Velocity.Set(x: setVelocity.X, y: setVelocity.Y);
 			this.zVelocity.Set(setVelocity.Z);
 
+            ++this.HitCount.Value;
+            ++this.TeamHitCount.Value;
 			this.TravelTime.Set(0);
 			this.LastHitBy.Set(character.Name);
             this.LastHitNet.Set(false);
@@ -177,10 +183,14 @@ namespace Hikawa.Volleyball
 
                 // Set travel time for checks to prevent instant rebound
                 this.HitCount.Value++;
+                if (this.LastHitBy is null || this.VolleyballLocation.Players.IndexOf(character) == this.VolleyballLocation.Players.IndexOf(this.VolleyballLocation.GetPlayer(this.LastHitBy.Value)) / 2)
+                    this.TeamHitCount.Value++;
+                else
+                    this.TeamHitCount.Set(0);
 				this.TravelTime.Set(0);
-				this.LastHitBy.Set(character.Name);
                 this.LastHitNet.Set(false);
-                this.TouchPlayerEvent.Fire();
+                this.TouchPlayerEvent.Fire(character.Name);
+                this.LastHitBy.Set(character.Name);
 
 				this.Location.Value.playSound(this.SmallHitSound);
 
@@ -226,10 +236,8 @@ namespace Hikawa.Volleyball
 				this.zVelocity.Set(Math.Abs(this.zVelocity.Value) * bounceScale);
                 this.RotationVelocity.Set(this.RotationVelocity.Value * bounceScale);
 
-                // End round on touch ground
                 if (this.IsInPlay.Value)
                 {
-					this.IsInPlay.Set(false);
 					this.TouchGroundEvent.Fire(this.Position.Value);
 				}
 

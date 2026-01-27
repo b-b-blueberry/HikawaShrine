@@ -242,10 +242,23 @@ namespace Hikawa.Volleyball
 				isLeftSidePlayerStarting: position.X < VolleyballLocation.PlayAreaCentre.X);
 		}
 
-        public void OnTouchPlayer()
+        public void OnTouchPlayer(string name)
         {
-            Character character = this.GetPlayer(this.Volleyball.LastHitBy.Value);
-			// ???
+            Log.D($"OnTouchPlayer (hit: {name} last hit: {this.Volleyball.LastHitBy.Value})");
+
+			// Foul rules
+            if (name == this.Volleyball.LastHitBy.Value
+                // Touched the same player 2 times in a row (doubles game only)
+                && (this.Players.Count > 2
+                    // Touched players from the same team 3 times in a row
+                    || name == this.Volleyball.LastHitBy.Value && this.Volleyball.TeamHitCount.Value >= 3))
+            {
+                Character player = this.GetPlayer(name);
+                bool isLeftSideWin = this.Players.IndexOf(player) > this.Players.Count / 2;
+                string messageKey = "ui.volleyball.score.juggle";
+
+                this.EndRound(isLeftSideWin, messageKey);
+            }
         }
 
         public void OnTouchGround(Vector2 position)
@@ -256,6 +269,22 @@ namespace Hikawa.Volleyball
             bool isInBounds = VolleyballLocation.PlayArea.Contains(position / Game1.tileSize);
             bool isLeftSideWin = isLastHitByLeftSide == (!isFumbled && isInBounds);
 
+            string messageKey = !isInBounds
+                ? "ui.volleyball.score.out"
+                : isFumbled
+                    ? "ui.volleyball.score.drop"
+                    : "ui.volleyball.score.score";
+
+            Log.D($"OnTouchGround (lastHitBy: {this.Volleyball.LastHitBy.Value}, time: {this.Volleyball.TravelTime}, timeBeforeHit: {this.Volleyball.TravelTimeBeforeHit}\nisLeftSideWin: {isLeftSideWin}, isLandingOnLeftSide: {isLandingOnLeftSide}, isFumbled: {isFumbled}, isInBounds: {isInBounds})");
+
+            this.EndRound(isLeftSideWin, messageKey);
+        }
+
+        public void EndRound(bool isLeftSideWin, string messageKey)
+        {
+            // End round
+            this.Volleyball.IsInPlay.Set(false);
+
 			// Add score
             ++(isLeftSideWin ? this.ScoreL : this.ScoreR).Value;
 			bool isGameWin = this.ScoreL.Value >= this.ScoreGoal.Value || this.ScoreR.Value >= this.ScoreGoal.Value;
@@ -265,11 +294,6 @@ namespace Hikawa.Volleyball
 			Character rightPlayer = this.Players[this.Players.Count / 2];
 			string winner = isLeftSideWin ? leftPlayer.displayName : rightPlayer.displayName;
             string loser = isLeftSideWin ? rightPlayer.displayName : leftPlayer.displayName;
-            string messageKey = !isInBounds
-				? "ui.volleyball.score.out"
-				: isFumbled
-					? "ui.volleyball.score.drop"
-					: "ui.volleyball.score.score";
 			object tokens = new { winner = winner, loser = loser, team = this.Players.Count <= 2 ? null : ModEntry.I18n.Get("ui.volleyball.score.team") };
 			string message = ModEntry.I18n.Get(messageKey, tokens);
 
