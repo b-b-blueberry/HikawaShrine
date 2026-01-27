@@ -8,7 +8,7 @@ namespace Hikawa.Volleyball
 {
 	public class Volleyball : INetObject<NetFields>
 	{
-        public string BallType;
+        public NetString BallType;
         public VolleyballBallData BallData;
 
         public Vector2 Tile => Vector2.Floor(this.Position.Value / Game1.tileSize);
@@ -19,9 +19,6 @@ namespace Hikawa.Volleyball
 		public float Scale;
         public int CollisionSize;
         public int TravelTimeBeforeHit;
-		public string SmallHitSound;
-		public string HitSound;
-		public string HeavyHitSound;
 
 		public NetFields NetFields { get; } = new(nameof(Volleyball));
 
@@ -46,21 +43,17 @@ namespace Hikawa.Volleyball
 		public NetInt BouncesAllowed;
         public NetInt BouncesLeft;
 
+        public VolleyballLocation VolleyballLocation => (VolleyballLocation)this.Location.Value;
+
         private Vector2 _velocityAccumulator = Vector2.Zero;
         private float _zVelocityAccumulator = 0;
 
 		public Volleyball(VolleyballLocation location, VolleyballRules rules, Vector2? position = null)
         {
-            this.BallType = rules.BallType;
-            this.BallData = ModEntry.VolleyballData.Value.Balls[this.BallType];
+            this.BallType = new();
 
-            this.Texture = Game1.content.Load<Texture2D>(this.BallData.TextureId);
 			this.Scale = Game1.pixelZoom;
-            this.CollisionSize = (int)(16 * this.Scale);
-			this.TravelTimeBeforeHit = 500;
-			this.SmallHitSound = "bob";
-			this.HitSound = "pickUpItem";
-			this.HeavyHitSound = "throwDownITem"; // [sic]
+			this.TravelTimeBeforeHit = 250;
 
 			this.Position = new(position ?? Vector2.Zero);
 			this.zPosition = new(0);
@@ -103,6 +96,14 @@ namespace Hikawa.Volleyball
 				.AddField(this.TouchGroundEvent, nameof(this.TouchGroundEvent))
 				.AddField(this.BouncesAllowed, nameof(this.BouncesAllowed))
 				.AddField(this.BouncesLeft, nameof(this.BouncesAllowed));
+
+            this.BallType.fieldChangeEvent += (field, oldValue, newValue) =>
+            {
+                this.BallData = ModEntry.VolleyballData.Value.Balls[newValue];
+                this.Texture = Game1.content.Load<Texture2D>(this.BallData.TextureId);
+                this.CollisionSize = (int)((this.BallData.SourceArea.Width + this.BallData.SourceArea.Height) / 2 * this.Scale);
+            };
+            this.BallType.Value = rules.BallType;
 		}
 
         public void Start(Vector3 position, Character character, bool isLeftSidePlayerStarting)
@@ -118,7 +119,7 @@ namespace Hikawa.Volleyball
                 x: 0f,
                 y: 0f,
                 z: 4f);
-			this.Hit(character: character, setVelocity: velocity, sound: this.HeavyHitSound);
+			this.Hit(character: character, setVelocity: velocity, sound: this.BallData.HeavyHitSound);
 
 			// Play
 			this.IsInPlay.Set(true);
@@ -192,7 +193,7 @@ namespace Hikawa.Volleyball
                 this.TouchPlayerEvent.Fire(character.Name);
                 this.LastHitBy.Set(character.Name);
 
-				this.Location.Value.playSound(this.SmallHitSound);
+				this.Location.Value.playSound(addedPower > 3 ? this.BallData.HitSound : this.BallData.SmallHitSound);
 
 				Log.D($"_velocityAccumulator: start at {this.Velocity.Value} Z: {this.zVelocity.Value}");
 				this._velocityAccumulator = this.Velocity.Value;
@@ -205,7 +206,7 @@ namespace Hikawa.Volleyball
 			Log.D($"{nameof(Volleyball)} CollisionWithNet()");
 
 			// Bounce back towards player with no change in Z-axis velocity
-			this.Velocity.Set(Utils.Vector.Abs(this.Velocity.Value) * (((VolleyballLocation)this.Location.Value).GetPlayer(this.LastHitBy.Value).Position.X < VolleyballLocation.PlayAreaCentre.X ? -1 : 1));
+            this.Velocity.Set(Utils.Vector.Abs(this.Velocity.Value) * (this.VolleyballLocation.GetPlayer(this.LastHitBy.Value).Position.X < VolleyballLocation.PlayAreaCentre.X ? -1 : 1));
             this.Velocity.X *= 0.5f; // prevent wild rebounds
 			this.Position.Value += this.Velocity.Value;
 
@@ -215,7 +216,7 @@ namespace Hikawa.Volleyball
 			this.TravelTime.Set(0);
             this.LastHitNet.Set(true);
 
-			this.Location.Value.playSound(this.SmallHitSound);
+			this.Location.Value.playSound(this.BallData.SmallHitSound);
 
 			Log.D($"_velocityAccumulator: {this._velocityAccumulator} Z:{this._zVelocityAccumulator}");
 			this._velocityAccumulator = Vector2.Zero;
@@ -241,7 +242,7 @@ namespace Hikawa.Volleyball
 					this.TouchGroundEvent.Fire(this.Position.Value);
 				}
 
-				this.Location.Value.playSound(this.SmallHitSound);
+				this.Location.Value.playSound(this.BallData.SmallHitSound);
 
 				Log.D($"_velocityAccumulator: {this._velocityAccumulator} Z:{this._zVelocityAccumulator}");
 				this._velocityAccumulator = Vector2.Zero;
@@ -306,7 +307,7 @@ namespace Hikawa.Volleyball
 
         public Character IsCollidingWithCharacter()
         {
-            return ((VolleyballLocation)this.Location.Value).Players.FirstOrDefault((Character c) =>
+            return this.VolleyballLocation.Players.FirstOrDefault((Character c) =>
 			{
 				Rectangle bounds = this.GetCharacterCollisionArea(character: c);
                 Vector2 distance = Utility.PointToVector2(bounds.Center) - this.Position.Value;
@@ -347,7 +348,7 @@ namespace Hikawa.Volleyball
                 // Check difference in position between ball and centre based on combined ball and net size
                 && Math.Abs(this.Position.X - VolleyballLocation.PlayAreaCentre.X) < /*VolleyballLocation.NetSize.X +*/ this.CollisionSize
                 // Ignore collision if on opposite side of net to player who hit it
-                && Math.Sign(((VolleyballLocation)this.Location.Value).GetPlayer(this.LastHitBy.Value).Position.X - VolleyballLocation.PlayAreaCentre.X) == Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X);
+                && Math.Sign(this.VolleyballLocation.GetPlayer(this.LastHitBy.Value).Position.X - VolleyballLocation.PlayAreaCentre.X) == Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X);
         }
 
         public bool Update(GameTime time)
