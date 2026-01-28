@@ -21,6 +21,9 @@
                             "Width": 17,
                             "Height": 17
                         },
+                        "SmallHitSound": "bob",
+                        "HitSound": "pickUpItem",
+                        "HeavyHitSound": "throwDownITem",
                         "Weight": 1,
                         "IsFloaty": true
                     },
@@ -33,6 +36,9 @@
                             "Width": 17,
                             "Height": 17
                         },
+                        "SmallHitSound": "bob",
+                        "HitSound": "pickUpItem",
+                        "HeavyHitSound": "throwDownITem",
                         "Weight": 1.5
                     }
                 },
