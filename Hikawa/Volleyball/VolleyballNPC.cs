@@ -311,39 +311,6 @@ namespace Hikawa.Volleyball
             b.Draw(this.Sprite.Texture, this.getLocalPosition(Game1.viewport) + new Vector2(Game1.tileSize / 2, Game1.tileSize + Game1.tileSize / 4 + yJumpOffset * 2), new Rectangle(Sprite.SourceRect.X, Sprite.SourceRect.Y, Sprite.SourceRect.Width, Sprite.SourceRect.Height / 2), Color.White, 0, new Vector2(Game1.tileSize / 2, Game1.tileSize * 3 / 2) / 4f, Math.Max(0.2f, scale.Value) * Game1.pixelZoom, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, this.StandingPixel.Y / 10000f);
 
             this.DrawShadow(b);
-
-			// npc targetposition
-            Vector2 from = Game1.GlobalToLocal(Game1.viewport, this.StandingPixel.ToVector2());
-            Vector2 target = Game1.GlobalToLocal(Game1.viewport, this.TargetPosition.Value);
-            Rectangle source = AssetManager.ExtraSpritesVolleyballAimpointArea;
-            source.X += Math.Clamp(((VolleyballLocation)this.Volleyball.Location.Value).Players.IndexOf(this), min: 0, max: 4) * source.Width;
-			Utility.drawLineWithScreenCoordinates((int)from.X, (int)from.Y, (int)target.X, (int)target.Y, b, Color.White);
-            b.Draw(
-                texture: ModEntry.Sprites,
-                sourceRectangle: source,
-                position: target,
-                color: Color.White,
-                rotation: MathF.PI / 2,
-                origin: Utility.PointToVector2(source.Size) / 2,
-                scale: Game1.pixelZoom,
-                effects: SpriteEffects.None,
-                layerDepth: 0f);
-
-            // npc aimpoint
-            target = Game1.GlobalToLocal(Game1.viewport, this.Aimpoint.Value);
-            source = AssetManager.ExtraSpritesVolleyballAimpointArea;
-            source.X += Math.Clamp(((VolleyballLocation)this.Volleyball.Location.Value).Players.IndexOf(this), min: 0, max: 4) * source.Width;
-            Utility.drawLineWithScreenCoordinates((int)from.X, (int)from.Y, (int)target.X, (int)target.Y, b, Color.White);
-            b.Draw(
-                texture: ModEntry.Sprites,
-                sourceRectangle: source,
-                position: target,
-                color: Color.White,
-                rotation: MathF.PI + MathF.PI / 2,
-                origin: Utility.PointToVector2(source.Size) / 2,
-                scale: Game1.pixelZoom,
-                effects: SpriteEffects.None,
-                layerDepth: 0f);
         }
 
 		public override void draw(SpriteBatch b, int ySourceRectOffset, float alpha = 1)
