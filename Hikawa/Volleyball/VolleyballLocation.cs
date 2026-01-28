@@ -452,28 +452,6 @@ namespace Hikawa.Volleyball
 					scale: scale,
 					effects: SpriteEffects.None,
 					layerDepth: (this.Volleyball.Position.Value.Y - 1f) / 10000f);
-
-			}
-			if (this.Volleyball?.IsInPlay.Value is not null and true && Game1.activeClickableMenu is null)
-			{
-				// Player aimpoints
-				Vector2 viewpoint = new Vector2(x: Game1.viewport.X, y: Game1.viewport.Y);
-				Vector2 player = Game1.player.getStandingPosition();
-                Vector2 cursor = Utility.PointToVector2(Game1.getMousePosition(ui_scale: false));
-				Vector2 distance = Vector2.Clamp(value1: Utils.Vector.Abs(vector: player - viewpoint - cursor), min: Vector2.Zero, max: new Vector2(Game1.tileSize * 3));
-
-				Rectangle source = AssetManager.ExtraSpritesVolleyballAimpointArea;
-				source.X += Math.Clamp(this.Players.IndexOf(Game1.player) * source.Width, min: 0, max: 4);
-				b.Draw(
-					texture: ModEntry.Sprites,
-					sourceRectangle: source,
-					position: cursor,
-					color: Color.White,
-					rotation: (float)Utils.Vector.RadiansBetween(cursor + viewpoint, player),
-					origin: Utility.PointToVector2(source.Size) / 2,
-					scale: Game1.pixelZoom + (distance.X + distance.Y) / Game1.tileSize / 3,
-					effects: SpriteEffects.None,
-					layerDepth: 1f);
 			}
             
 			base.drawFarmers(b);
