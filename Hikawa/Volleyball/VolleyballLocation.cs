@@ -248,8 +248,6 @@ namespace Hikawa.Volleyball
 
         public void OnTouchPlayer(string name)
         {
-            Log.D($"OnTouchPlayer (hit: {name} last hit: {this.Volleyball.LastHitBy.Value})");
-
 			// Foul rules
             if (name == this.Volleyball.LastHitBy.Value
                 // Touched the same player 2 times in a row (doubles game only)
@@ -278,8 +276,6 @@ namespace Hikawa.Volleyball
                 : isFumbled
                     ? "ui.volleyball.score.drop"
                     : "ui.volleyball.score.score";
-
-            Log.D($"OnTouchGround (lastHitBy: {this.Volleyball.LastHitBy.Value}, time: {this.Volleyball.TravelTime}, timeBeforeHit: {this.Volleyball.TravelTimeBeforeHit}\nisLeftSideWin: {isLeftSideWin}, isLandingOnLeftSide: {isLandingOnLeftSide}, isFumbled: {isFumbled}, isInBounds: {isInBounds})");
 
             this.EndRound(isLeftSideWin, messageKey);
         }
@@ -448,12 +444,7 @@ namespace Hikawa.Volleyball
 				float scale = Math.Clamp(value: this.Volleyball.Scale - this.Volleyball.zPosition.Value / 60f, min: 1.5f, max: 6.5f);
 				b.Draw(
 					texture: Game1.shadowTexture,
-					position: Game1.GlobalToLocal(
-						viewport: Game1.viewport,
-						globalPosition: this.Volleyball.Position.Value
-							//- new Vector2(x: this.SourceArea.Width / 2, y: this.SourceArea.Height) * this.Scale
-							+ new Vector2(-scale)
-					),
+					position: Game1.GlobalToLocal(Game1.viewport, this.Volleyball.Position.Value + new Vector2(-scale)),
 					sourceRectangle: Game1.shadowTexture.Bounds,
 					color: Color.White * 0.75f,
 					rotation: 0,
@@ -492,59 +483,6 @@ namespace Hikawa.Volleyball
         {
             base.drawAboveAlwaysFrontLayer(b);
 
-            if (false && ModEntry.Config.DebugMode && this.Volleyball is not null)
-			{
-				// test - collision box
-				Rectangle bounds = Game1.player.GetBoundingBox();
-				b.Draw(
-					texture: Game1.fadeToBlackRect,
-					destinationRectangle: new Rectangle(
-						x: bounds.X - Game1.viewport.X,
-						y: bounds.Y - Game1.viewport.Y,
-						width: bounds.Width,
-						height: bounds.Height),
-					color: Color.Red * 0.5f);
-
-				// test - adjusted collision area
-				for (int i = 0; i < this.Players.Count; ++i)
-				{
-					if (this.Players[i] is Character player)
-                    {
-                        Rectangle collisionArea = Game1.GlobalToLocal(Game1.viewport, this.Volleyball.GetCharacterCollisionArea(character: player));
-                        collisionArea.Y += player.yJumpOffset * 2;
-                        b.Draw(
-                            texture: Game1.fadeToBlackRect,
-                            destinationRectangle: collisionArea,
-                            color: Color.Blue * ((this.Volleyball.LastHitBy.Value == player.Name && this.Volleyball.TravelTime.Value < this.Volleyball.TravelTimeBeforeHit) ? 0.2f : 0.5f));
-                    }
-                }
-
-                // test - lunge values
-                for (int i = 0; i < this.Players.Count; ++i)
-                {
-                    if (this.Players[i] is VolleyballNPC player)
-                    {
-						b.DrawString(Game1.smallFont, $"{player.LungeSpeed:00.00}", player.StandingPixel.ToVector2() - new Vector2(Game1.viewport.X, Game1.viewport.Y), Color.Red);
-                    }
-                }
-
-				// test: ball collision area
-				b.Draw(
-					texture: ModEntry.Sprites,
-					destinationRectangle: new Rectangle(
-						x: (int)this.Volleyball.Position.X - Game1.viewport.X,
-						y: (int)this.Volleyball.Position.Y - Game1.viewport.Y,
-						width: this.Volleyball.CollisionSize,
-						height: this.Volleyball.CollisionSize),
-					sourceRectangle: this.Volleyball.BallData.SourceArea,
-					color: Color.Green * 0.6f,
-					rotation: 0,
-					origin: this.Volleyball.BallData.SourceArea.Size.ToVector2() / 2,
-					effects: SpriteEffects.None,
-					layerDepth: 1f);
-
-			} // DEBUG: REMOVE THIS
-
 			for (int i = 0; i < this.Players.Count; ++i)
             {
                 if (this.Players[i] is not null)
@@ -580,12 +518,7 @@ namespace Hikawa.Volleyball
 			// HUD
 			VolleyballHUD.Draw(
                 b: b,
-                characters: /*this.Players.ToArray()*/ new Character[] {
-					Game1.player,
-					Game1.getCharacterFromName(ModEntry.ModData.NpcRei)/*,
-					Game1.getCharacterFromName(ModEntry.ModData.NpcAmi),
-					Game1.getCharacterFromName(ModEntry.ModData.NpcGramps)*/
-				}, // DEBUG: REMOVE THIS
+                characters: this.Players,
                 scoreL: this.ScoreL.Value,
                 scoreR: this.ScoreR.Value);
 		}

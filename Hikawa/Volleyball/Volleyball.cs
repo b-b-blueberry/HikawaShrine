@@ -108,8 +108,6 @@ namespace Hikawa.Volleyball
 
         public void Start(Vector3 position, Character character, bool isLeftSidePlayerStarting)
         {
-            Log.D($"{nameof(Volleyball)} Start (chara: '{character?.Name}' left: {isLeftSidePlayerStarting}) {position}");
-
             // Starting position
             this.Position.Set(new Vector2(x: position.X, y: position.Y));
 			this.zPosition.Set(position.Z);
@@ -130,8 +128,6 @@ namespace Hikawa.Volleyball
 
         public void Hit(Character character, Vector3 setVelocity, string sound)
 		{
-			Log.D($"{nameof(Volleyball)} Hit (chara: '{character?.Name}' sound: '{sound}')");
-
 			this.Velocity.Set(x: setVelocity.X, y: setVelocity.Y);
 			this.zVelocity.Set(setVelocity.Z);
 
@@ -148,8 +144,6 @@ namespace Hikawa.Volleyball
         {
             if (this.IsInPlay.Value)
 			{
-				Log.D($"{nameof(Volleyball)} CollisionWithCharacter (character: {character.Name})");
-
                 // Scale power relative to distance of cursor from player
                 Vector2 aimpoint = character == Game1.player
                     ? Utility.PointToVector2(new Point(Game1.viewport.Location.X, Game1.viewport.Location.Y) + Game1.getMousePosition(ui_scale: false))
@@ -157,7 +151,6 @@ namespace Hikawa.Volleyball
                 // Vector2 velocity = Utils.Vector.MotionTo(character.Position, target: aimpoint) * 3f; // Set power
                 Vector2 velocity = Utils.Vector.PointAt(character.Position, aimpoint) * 0.01f; // Variable power
 
-                // TODO: FIX LIMIT BREAK
                 // Limit power to a reasonable amount
 				Vector2 limitedVelocity = character == Game1.player ? Vector2.Clamp(value1: velocity, min: new Vector2(-3f), max: new Vector2(3f)) : velocity;
 
@@ -195,7 +188,6 @@ namespace Hikawa.Volleyball
 
 				this.Location.Value.playSound(addedPower > 3 ? this.BallData.HitSound : this.BallData.SmallHitSound);
 
-				Log.D($"_velocityAccumulator: start at {this.Velocity.Value} Z: {this.zVelocity.Value}");
 				this._velocityAccumulator = this.Velocity.Value;
 				this._zVelocityAccumulator = this.zVelocity.Value;
 			}
@@ -203,8 +195,6 @@ namespace Hikawa.Volleyball
 
         public void OnCollisionWithNet()
         {
-			Log.D($"{nameof(Volleyball)} CollisionWithNet()");
-
 			// Bounce back towards player with no change in Z-axis velocity
             this.Velocity.Set(Utils.Vector.Abs(this.Velocity.Value) * (this.VolleyballLocation.GetPlayer(this.LastHitBy.Value).Position.X < VolleyballLocation.PlayAreaCentre.X ? -1 : 1));
             this.Velocity.X *= 0.5f; // prevent wild rebounds
@@ -218,7 +208,6 @@ namespace Hikawa.Volleyball
 
 			this.Location.Value.playSound(this.BallData.SmallHitSound);
 
-			Log.D($"_velocityAccumulator: {this._velocityAccumulator} Z:{this._zVelocityAccumulator}");
 			this._velocityAccumulator = Vector2.Zero;
 			this._zVelocityAccumulator = 0;
 		}
@@ -244,7 +233,6 @@ namespace Hikawa.Volleyball
 
 				this.Location.Value.playSound(this.BallData.SmallHitSound);
 
-				Log.D($"_velocityAccumulator: {this._velocityAccumulator} Z:{this._zVelocityAccumulator}");
 				this._velocityAccumulator = Vector2.Zero;
                 this._zVelocityAccumulator = 0;
 			}
@@ -317,17 +305,12 @@ namespace Hikawa.Volleyball
                 var size = this.CollisionSize / 2;
                 var direction = Utils.Vector.MotionTo(this.Position.Value, hitbox.Center.ToVector2());
 
+                // must be on same side of net, or above net height
+                if (VolleyballLocation.NetSize.Y > -c.yJumpOffset && Math.Sign(hitbox.X - VolleyballLocation.PlayAreaCentre.X) != Math.Sign(this.Position.X - VolleyballLocation.PlayAreaCentre.X))
+                    return false;
 
 				bool isInReachXY = hitbox.Contains((int)(this.Position.X + direction.X * size), (int)(this.Position.Y + direction.Y * size));
 				bool isInReachZ = Math.Abs(this.zPosition.Value + c.yJumpOffset * 2) < size;
-
-                if (isInReachXY && isInReachZ)
-				{
-					Log.D($"hit {c.Name}" +
-						$"\nbox (x: {hitbox.X} y: {hitbox.Y} width: {hitbox.Width} height: {hitbox.Height})" +
-						$"\ndir (x: {direction.X:0} y: {direction.Y:0} size: {this.CollisionSize})" +
-						$"\njump (this: {this.zPosition.Value:0.000} chara: {(c.yJumpOffset * 2):0.000} dist: {Math.Abs(this.zPosition.Value + c.yJumpOffset * 2)})");
-				}
 
 				return isInReachXY && isInReachZ;
 			});
@@ -348,7 +331,6 @@ namespace Hikawa.Volleyball
 
         public bool Update(GameTime time)
         {
-            // TODO: FARMHAND COLLIDES WITH BALL FOR CURSOR POSITION
             if (!Context.IsMainPlayer)
                 return false;
 
@@ -380,8 +362,6 @@ namespace Hikawa.Volleyball
 
         public void UpdatePosition(GameTime time)
         {
-            // Vector3 oldPosition = new(x: this.Position.X, y: this.Position.Y, z: this.zPosition.Value);
-
             float rotationDecay = this.IsInPlay.Value ? -(float)Math.CopySign(0.005f, this.Rotation.Value) : 0;
 
 			this.Velocity.Value += this.Velocity.Value * this.PositionDecay * time.ElapsedGameTime.Milliseconds;
@@ -391,14 +371,6 @@ namespace Hikawa.Volleyball
 			this.zPosition.Value += this.zVelocity.Value;
 			this.RotationVelocity.Value = this.BallData.IsFloaty ? this.zVelocity.Value : this.RotationVelocity.Value - rotationDecay * time.ElapsedGameTime.Milliseconds;
 			this.Rotation.Value += this.RotationVelocity.Value / 360;
-            /*
-            if (oldPosition != new Vector3(x: this.Position.X, y: this.Position.Y, z: this.zPosition.Value))
-            {
-                Log.D(
-                    $" P (X: {this.Position.X:0} Y: {this.Position.Y:0} Z: {this.zPosition.Value:0})" +
-                    $" V (X: {this.Velocity.X:0.000} Y: {this.Velocity.Y:0.000} Z: {this.zVelocity.Value:0.000})");
-            }
-            */
 
             if (this._velocityAccumulator != Vector2.Zero)
             {

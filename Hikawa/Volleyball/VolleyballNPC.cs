@@ -3,7 +3,6 @@ using StardewModdingAPI;
 using StardewValley.GameData.Characters;
 using StardewValley.TokenizableStrings;
 using System;
-using System.Linq;
 
 namespace Hikawa.Volleyball
 {
@@ -84,8 +83,6 @@ namespace Hikawa.Volleyball
 
 		public void TryLunge()
 		{
-			// TODO: FIX LUNGE RUBBER BANDING
-
             // don't lunge while jumping or lunging
             if (this.yJumpOffset < 0 || this.LungeCooldown > 0)
 				return;
@@ -120,8 +117,6 @@ namespace Hikawa.Volleyball
                 this.LungeVelocity.Y *= -1;
                 this.LungeTimer = 150 * (16 - sum);
                 this.LungeCooldown = 750 * (16 - sum);
-
-                Log.D($"lunge! velocity: x: ({this.LungeVelocity.X:.0} y:{this.LungeVelocity.Y:.0}) timer: {this.LungeTimer} cooldown: {this.LungeCooldown}");
             }
 		}
 
@@ -147,7 +142,6 @@ namespace Hikawa.Volleyball
 
             if (wannaJump)
             {
-                // TODO: DEBUG: HIT BEHAVIOUR
                 this.jump(jumpVelocity: 4 * this.VolleyballData.Jump - (1 - this.VolleyballData.Weight));
                 this.yJumpGravity = -0.25f * this.VolleyballData.Weight;
             }
@@ -207,8 +201,6 @@ namespace Hikawa.Volleyball
             }
 
             this.Aimpoint.Set(newPosition);
-
-			Log.D($"Aimpoint(from: {oldPosition}, to: {this.Aimpoint.Value})");
 		}
 
 		public void UpdateVolleyballTargetPosition()
@@ -241,7 +233,6 @@ namespace Hikawa.Volleyball
 				else
 			{
 				// volleyball on opposite side of net, move to dummy pos
-                Log.D($"TargetPosition(from: {oldPosition}, to: {newPosition}) OPP");
                     newPosition = new Vector2(centre.X + sign * VolleyballLocation.PlayArea.Width * Game1.tileSize / 4, centre.Y);
                 }
             }
@@ -262,7 +253,6 @@ namespace Hikawa.Volleyball
 			int rate = (int)(30 / this.VolleyballData.Responsiveness);
 			if (Context.IsMainPlayer && this.Volleyball?.IsInPlay.Value is true && (time.TotalGameTime.TotalMilliseconds / rate) % 16 < 1)
 			{
-				Log.D($"ThinkAt(rate: {this.VolleyballData.Responsiveness}, time: {time.TotalGameTime.TotalMilliseconds}, at: {this.Position})");
 				this.TryJump();
 				this.TryLunge();
 				this.UpdateVolleyballAimpoint();
@@ -284,8 +274,6 @@ namespace Hikawa.Volleyball
             {
                 // lunging movement
 
-                Log.D($"lunge velocity: x: ({this.LungeVelocity.X:.0} y:{this.LungeVelocity.Y:.0}) timer: {this.LungeTimer:.0} cd: {this.LungeCooldown:.0}");
-
                 // don't move while recovering from a lunge
                 if (Math.Abs(this.LungeVelocity.X) <= 0.1f && Math.Abs(this.LungeVelocity.Y) <= 0.1f)
                 return;
@@ -301,9 +289,6 @@ namespace Hikawa.Volleyball
                 // don't move after round ends
                 if (this.Volleyball?.IsInPlay.Value is not true)
 				return;
-
-                // panic
-                this.addedSpeed = (this.Volleyball.LastHitBy.Value == this.Name && this.Volleyball.LastHitNet.Value) ? 0.25f : 0;
 
 			var target = this.TargetPosition.Value;
 			var origin = this.StandingPixel.ToVector2();
@@ -328,7 +313,7 @@ namespace Hikawa.Volleyball
             this.DrawShadow(b);
 
 			// npc targetposition
-			Vector2 from = this.getLocalPosition(Game1.viewport);
+            Vector2 from = Game1.GlobalToLocal(Game1.viewport, this.StandingPixel.ToVector2());
             Vector2 target = Game1.GlobalToLocal(Game1.viewport, this.TargetPosition.Value);
             Rectangle source = AssetManager.ExtraSpritesVolleyballAimpointArea;
             source.X += Math.Clamp(((VolleyballLocation)this.Volleyball.Location.Value).Players.IndexOf(this), min: 0, max: 4) * source.Width;
@@ -342,7 +327,7 @@ namespace Hikawa.Volleyball
                 origin: Utility.PointToVector2(source.Size) / 2,
                 scale: Game1.pixelZoom,
                 effects: SpriteEffects.None,
-                layerDepth: 1f);
+                layerDepth: 0f);
 
             // npc aimpoint
             target = Game1.GlobalToLocal(Game1.viewport, this.Aimpoint.Value);
@@ -358,7 +343,7 @@ namespace Hikawa.Volleyball
                 origin: Utility.PointToVector2(source.Size) / 2,
                 scale: Game1.pixelZoom,
                 effects: SpriteEffects.None,
-                layerDepth: 1f);
+                layerDepth: 0f);
         }
 
 		public override void draw(SpriteBatch b, int ySourceRectOffset, float alpha = 1)

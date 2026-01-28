@@ -1,4 +1,6 @@
-﻿namespace Hikawa.Volleyball
+﻿using Netcode;
+
+namespace Hikawa.Volleyball
 {
 	public static class VolleyballHUD
 	{
@@ -67,7 +69,7 @@
 			return source;
 		}
 
-		public static void Draw(SpriteBatch b, Character[] characters, int scoreL, int scoreR)
+		public static void Draw(SpriteBatch b, NetCollection<Character> characters, int scoreL, int scoreR)
 		{
 			const float scale = Game1.pixelZoom;
 			const float layerDepth = 1f;
@@ -104,13 +106,13 @@
 				value: (uint)scoreR,
 				scale: scale);
 
-			for (int i = 0; i < characters.Length; ++i)
+			for (int i = 0; i < characters.Count; ++i)
 			{
 				// Portraits
 				Point size = Point.Zero;
 				float xOffsetPerChara = 16 + 4; // Standard horizontal spacing between origin of each player icon
-				bool isDoubles = characters.Length > 2; // Whether there are more than 2 player icons to display
-				bool isLeftTeam = i < characters.Length / 2; // Whether player is on left side of play area
+				bool isDoubles = characters.Count > 2; // Whether there are more than 2 player icons to display
+				bool isLeftTeam = i < characters.Count / 2; // Whether player is on left side of play area
 				int xFlipPerTeam = isLeftTeam ? -1 : 1; // Side of centre per player icon
 				int xMultiplierPerTeam = isLeftTeam ? 1 - i : i; // Distance per player icon from centre
 				Vector2 position = anchor
