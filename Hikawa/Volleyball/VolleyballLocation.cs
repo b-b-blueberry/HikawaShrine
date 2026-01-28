@@ -441,7 +441,7 @@ namespace Hikawa.Volleyball
 			if (this.Volleyball is not null)
 			{
 				// Shadow
-				float scale = Math.Clamp(value: this.Volleyball.Scale - this.Volleyball.zPosition.Value / 60f, min: 1.5f, max: 6.5f);
+				float scale = Math.Clamp(value: this.Volleyball.Scale - this.Volleyball.zPosition.Value / 60f, min: 1f, max: 7.5f);
 				b.Draw(
 					texture: Game1.shadowTexture,
 					position: Game1.GlobalToLocal(Game1.viewport, this.Volleyball.Position.Value + new Vector2(-scale)),
