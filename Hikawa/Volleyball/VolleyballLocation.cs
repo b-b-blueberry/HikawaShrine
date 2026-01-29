@@ -324,7 +324,7 @@ namespace Hikawa.Volleyball
 			if (isGameWin)
 			{
 				const int addedDelay = 1500;
-				endDelay = 7000 + addedDelay;
+				endDelay = 5000 + addedDelay;
 
 				NPC umpire = this.getCharacterFromName(name: this.UmpireData.Name);
 				umpire.shake(500);
@@ -342,7 +342,6 @@ namespace Hikawa.Volleyball
 						speaker: umpire,
 						translationKey: null,
 						dialogueText: $"${this.UmpireData.PortraitFrame}{message} {winMessage}"));
-					endFunc();
 					Game1.drawDialogue(speaker: umpire);
 					Game1.activeClickableMenu.exitFunction = () => endFunc();
 				}, delay: addedDelay);
