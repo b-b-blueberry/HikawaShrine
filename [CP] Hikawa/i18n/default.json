@@ -240,6 +240,10 @@
     "talisman.doll.name": "Cherry-wood Doll",
     "talisman.doll.description": "A curious doll with a painted face.",
 
+    // Trinkets
+    "trinket.crow.name": "Old Coin",
+    "trinket.crow.description": "Summons a crow companion that occasionally brings you items.",
+
     // World
     "world.shrine.map": "Cherry Hill",
     "world.house.map": "Hino Residence",

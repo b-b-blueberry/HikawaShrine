@@ -4,10 +4,13 @@ using Hikawa.Objects.Critters;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Items.Data;
 using Hikawa.Objects.Locations;
+using Hikawa.Objects.Trinkets;
 using Hikawa.Volleyball;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
+using StardewValley;
+using StardewValley.Companions;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
@@ -157,23 +160,38 @@ namespace Hikawa
 
 		private void OnRenderedStep(object sender, RenderedStepEventArgs e)
 		{
-			if (Game1.currentLocation?.critters is null)
+			GameLocation location = Game1.currentLocation;
+			if (location is null)
 				return;
 
 			bool isWorld = e.Step is StardewValley.Mods.RenderSteps.World_Sorted;
 			bool isAlwaysFront = e.Step is StardewValley.Mods.RenderSteps.World_AlwaysFront;
 
-			if (isWorld || isAlwaysFront)
-				foreach (LightTile light in Game1.currentLocation.critters.Where(c => c is LightTile))
-					if (light.Data.DrawAbove != isWorld)
-						light.DrawLightTile(b: e.SpriteBatch);
-
+			// Crow trinket companions
 			if (isAlwaysFront)
+				if (!location.shouldHideCharacters())
+					if (Game1.currentMinigame is null)
+						if (location.currentEvent is null || location.currentEvent.isFestival || location.currentEvent.farmerActors.Count == 0)
+							foreach (var farmer in location.farmers)
+								foreach (Companion companion in farmer.companions)
+									if (companion is CrowCompanion crow)
+										crow.DrawAboveAlwaysFront(e.SpriteBatch);
+
+			// Critters
+            if (location.critters is not null)
 			{
-				foreach (Kite kite in Game1.currentLocation.Objects.Values.Where(o => o is Kite))
-					kite.drawAboveFrontLayer(e.SpriteBatch, (int)kite.TileLocation.X, (int)kite.TileLocation.Y);
-				//if (Game1.player.CurrentItem is Kite kite1)
-				//	kite1.drawAboveFrontLayer(e.SpriteBatch, Game1.player.TilePoint.X, Game1.player.TilePoint.Y);
+				if (isWorld || isAlwaysFront)
+					foreach (LightTile light in Game1.currentLocation.critters.Where(c => c is LightTile))
+						if (light.Data.DrawAbove != isWorld)
+							light.DrawLightTile(b: e.SpriteBatch);
+
+				if (isAlwaysFront)
+				{
+					foreach (Kite kite in Game1.currentLocation.Objects.Values.Where(o => o is Kite))
+						kite.drawAboveFrontLayer(e.SpriteBatch, (int)kite.TileLocation.X, (int)kite.TileLocation.Y);
+					//if (Game1.player.CurrentItem is Kite kite1)
+					//	kite1.drawAboveFrontLayer(e.SpriteBatch, Game1.player.TilePoint.X, Game1.player.TilePoint.Y);
+				}
 			}
 		}
 

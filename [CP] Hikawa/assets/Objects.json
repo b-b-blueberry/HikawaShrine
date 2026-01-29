@@ -213,6 +213,20 @@
                 "{{ID}}_Totem": "709 1 423 1 {{ID}}_Feather 5//1/false/y 999/{{i18n:item.totem.name}}", // Hardwood + Rice + Feathers
                 "{{ID}}_Bow_Arrow_Basic": "388 10 {{ID}}_Feather 5//25/false/y 999/{{i18n:item.bow_arrow_basic.name}}" // Wood + Feathers
             }
+        },
+        {
+            "LogName": "Hikawa: Trinkets - Data",
+            "Action": "EditData",
+            "Target": "Data/Trinkets",
+            "Entries": {
+                "{{ID}}_CrowTrinket": {
+                    "DisplayName": "{{i18n:trinket.crow.name}}",
+                    "Description": "{{i18n:trinket.crow.description}}",
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SheetIndex": 11,
+                    "TrinketEffectClass": "Hikawa.Objects.Trinkets.CrowTrinketEffect, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                }
+            }
         }
     ]
 }
