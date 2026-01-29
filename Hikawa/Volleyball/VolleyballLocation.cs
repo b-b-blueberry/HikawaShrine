@@ -209,24 +209,27 @@ namespace Hikawa.Volleyball
 		{
 			for (int i = 0; i < this.Players.Count; ++i)
 			{
-				if (this.Players[i] is not null)
-				{
-					if (this.Players[i] is Farmer farmer)
+				var player = this.Players[i];
+                if (player is not null)
+                {
+                    bool isLeftTeam = i < this.Players.Count / 2; // Whether player is on left side of play area
+                    int xFlipPerTeam = isLeftTeam ? -1 : 1; // Side of centre per player
+                    int xOffsetPerPlayer = Game1.tileSize * 2;
+					player.Position = VolleyballLocation.PlayAreaCentre
+                        + new Vector2(x: (i % 2 + 1) * xOffsetPerPlayer * xFlipPerTeam - Game1.tileSize * 1.5f, y: 0);
+                    player.faceGeneralDirection(VolleyballLocation.PlayAreaCentre);
+
+                    if (player is Farmer farmer)
 					{
 						farmer.completelyStopAnimatingOrDoingAction();
+						farmer.animateInFacingDirection(Game1.currentGameTime);
 					}
-					else if (this.Players[i] is VolleyballNPC npc)
+					else if (player is VolleyballNPC npc)
 					{
 						npc.ResetVolleyballValues();
                     }
-
-					bool isLeftTeam = i < this.Players.Count / 2; // Whether player is on left side of play area
-					int xFlipPerTeam = isLeftTeam ? -1 : 1; // Side of centre per player
-					int xOffsetPerPlayer = Game1.tileSize * 2;
-					this.Players[i].Position = VolleyballLocation.PlayAreaCentre
-						+ new Vector2(x: (i % 2 + 1) * xOffsetPerPlayer * xFlipPerTeam, y: 0);
-				}
-			}
+                }
+            }
 		}
 
         public void StartRound()
