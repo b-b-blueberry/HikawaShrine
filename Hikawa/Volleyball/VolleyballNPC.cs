@@ -10,11 +10,14 @@ namespace Hikawa.Volleyball
 	{
 		public Volleyball Volleyball;
 
-		public NetVector2 Aimpoint;
-		public NetVector2 TargetPosition;
+		public Vector2 Aimpoint;
+		public Vector2 TargetPosition;
+        public NetEvent1Field<Vector2, NetVector2> LungeEvent;
 
-		public CharacterData CharacterData;
+        public CharacterData CharacterData;
 		public VolleyballCharacterData VolleyballData;
+
+        public float HitCooldown;
 
 		public Vector2 LungeVelocity;
 		public float LungeTimer;
@@ -52,18 +55,18 @@ namespace Hikawa.Volleyball
 		{
 			base.initNetFields();
 
-			this.Aimpoint = new(Vector2.Zero);
-			this.TargetPosition = new(Vector2.Zero);
+			this.LungeEvent = new();
 
-			this.NetFields
-				.AddField(this.Aimpoint, nameof(this.Aimpoint))
-				.AddField(this.TargetPosition, nameof(this.TargetPosition));
+            this.NetFields
+				.AddField(this.LungeEvent, nameof(this.LungeEvent));
+            this.LungeEvent.onEvent += this.Lunge;
 		}
 
 		public void ResetVolleyballValues()
 		{
-			this.Aimpoint.Set(Vector2.Zero);
-			this.TargetPosition.Set(Vector2.Zero);
+			this.Aimpoint = Vector2.Zero;
+			this.TargetPosition = Vector2.Zero;
+            this.HitCooldown = 0;
             this.LungeVelocity = Vector2.Zero;
             this.LungeTimer = this.LungeCooldown = 0;
 		}
@@ -79,6 +82,8 @@ namespace Hikawa.Volleyball
                 power += 1 + Game1.random.NextSingle();
 			else if (Game1.random.NextSingle() < this.VolleyballData.SpikePreference && this.yJumpOffset < Game1.tileSize / 2) // jumping spike
 				power += 3;
+
+            this.HitCooldown = 1000;
         }
 
 		public void TryLunge()
@@ -89,7 +94,7 @@ namespace Hikawa.Volleyball
 
 			var centre = VolleyballLocation.PlayAreaCentre;
             var origin = this.StandingPixel.ToVector2();
-            var target = this.TargetPosition.Value;
+            var target = this.TargetPosition;
 
             // don't lunge at opposite side
             if (Math.Sign(this.Volleyball.Position.X - centre.X) != Math.Sign(origin.X - centre.X))
@@ -107,20 +112,25 @@ namespace Hikawa.Volleyball
 
             if (wannaLunge && (Game1.random.NextSingle() < this.VolleyballData.SpikePreference || this.Volleyball.Velocity.Value.Length() > 9f))
             {
-                Game1.playSound("throwDownITem"); // [sic]
-
-                this.jump(this.VolleyballData.Jump / 2);
-
-                var sum = this.VolleyballData.Speed - this.VolleyballData.Jump - this.VolleyballData.Responsiveness;
-
-                this.LungeVelocity = Utils.Vector.MotionTo(origin, target) * (1 + this.VolleyballSpeed + this.VolleyballData.Speed);
-                this.LungeVelocity.Y *= -1;
-                this.LungeTimer = 150 * (16 - sum);
-                this.LungeCooldown = 750 * (16 - sum);
+                this.LungeEvent.Fire(Utils.Vector.MotionTo(origin, target) * (1 + this.VolleyballSpeed + this.VolleyballData.Speed));
             }
 		}
 
-		public void TryJump()
+        public void Lunge(Vector2 velocity)
+        {
+            Game1.playSound("throwDownITem"); // [sic]
+
+            this.jump(this.VolleyballData.Jump / 2);
+
+            var sum = this.VolleyballData.Speed - this.VolleyballData.Jump - this.VolleyballData.Responsiveness;
+
+            this.LungeVelocity = velocity;
+            this.LungeVelocity.Y *= -1;
+            this.LungeTimer = 150 * (16 - sum);
+            this.LungeCooldown = 750 * (16 - sum);
+        }
+
+        public void TryJump()
         {
             // don't jump while jumping or lunging
             if (this.yJumpOffset != 0 || this.LungeTimer > 0)
@@ -130,15 +140,17 @@ namespace Hikawa.Volleyball
             var origin = this.StandingPixel.ToVector2();
             var bounds = this.Volleyball.GetCharacterCollisionArea(this);
 
-            bool isBallNearXY = Math.Abs(Vector2.Distance(origin, this.Volleyball.Position.Value)) < this.Volleyball.CollisionSize + this.Volleyball.GetCharacterCollisionArea(this).Width / 2;
-            bool isBallNearZ = this.Volleyball.zPosition.Value > bounds.Height
+            var isBallNearXY = Math.Abs(Vector2.Distance(origin, this.Volleyball.Position.Value)) < this.Volleyball.CollisionSize + this.Volleyball.GetCharacterCollisionArea(this).Width / 2;
+            var isBallNearZ = this.Volleyball.zPosition.Value > bounds.Height
 				&& this.Volleyball.zPosition.Value < bounds.Height * 1.5f;
-            bool wannaJump = isBallNearXY && isBallNearZ
+            var isFirstHit = this.Volleyball.HitCount.Value == 0;
+            var isLastHit = this.Volleyball.TeamHitCount.Value == 2 || this.Volleyball.HitCount.Value == 1;
+            var wannaJump = isBallNearXY && isBallNearZ
 				&& this.Volleyball.TravelTime.Value > 500
                 && (Math.Abs(centre.X - origin.X) < Game1.tileSize * 2 // very close to net, or
                 || (Math.Abs(centre.X - origin.X) < VolleyballLocation.PlayArea.Width * Game1.tileSize / 4 // close to net
                     && this.Volleyball.zVelocity.Value < 0.1) // ball is falling
-                || this.Volleyball.HitCount.Value == 0); // first hit serve
+                || isFirstHit); // serving
 
             if (wannaJump)
             {
@@ -149,17 +161,19 @@ namespace Hikawa.Volleyball
 
 		public void UpdateVolleyballAimpoint()
 		{
-			Vector2 oldPosition = this.TargetPosition.Value;
+			Vector2 oldPosition = this.TargetPosition;
 			Vector2 newPosition;
 
             var players = ((VolleyballLocation)this.Volleyball.Location.Value).Players;
             var other = players[(players.IndexOf(this) + players.Count / 2) % players.Count];
+            var isLastHit = this.Volleyball.TeamHitCount.Value == 2 || this.Volleyball.HitCount.Value == 1;
 
             var centre = VolleyballLocation.PlayAreaCentre;
             var origin = this.StandingPixel.ToVector2();
             var otherOrigin = other.StandingPixel.ToVector2();
 
-			if (this.Volleyball.LastHitBy.Value != this.Name // responding to spike, try to bounce in place and return
+			if (!isLastHit // responding to spike, try to bounce in place and return
+                && this.Volleyball.LastHitBy.Value != this.Name
 				&& Math.Abs(centre.X - origin.X) < Game1.tileSize * 2)
 			{
 				// near position
@@ -200,20 +214,20 @@ namespace Hikawa.Volleyball
 				newPosition = Game1.player.Position;
             }
 
-            this.Aimpoint.Set(newPosition);
+            this.Aimpoint = newPosition;
 		}
 
 		public void UpdateVolleyballTargetPosition()
 		{
 			// don't change target position while lunging
-			if (this.TargetPosition.Value != Vector2.Zero && this.LungeTimer > 0)
+			if (this.TargetPosition != Vector2.Zero && this.LungeTimer > 0)
 				return;
 
             var centre = VolleyballLocation.PlayAreaCentre;
             var origin = this.StandingPixel.ToVector2();
             var sign = Math.Sign(origin.X - centre.X);
 
-			Vector2 oldPosition = this.TargetPosition.Value;
+			Vector2 oldPosition = this.TargetPosition;
 			Vector2 newPosition;
 
             if (this.Volleyball.LastHitBy.Value == this.Name && this.Volleyball.LastHitNet.Value)
@@ -242,14 +256,14 @@ namespace Hikawa.Volleyball
 				newPosition = this.Volleyball.Position.Value // current position
 					+ this.Volleyball.Velocity.Value * Game1.tileSize / this.VolleyballSpeed * 2; // predicted position
             }
-            this.TargetPosition.Value = newPosition;
+            this.TargetPosition = newPosition;
 		}
 
 		public override void update(GameTime time, GameLocation location, long id, bool move)
 		{
 			base.update(time, location, id, move);
 
-			// Update strategy
+			// update strategy
 			int rate = (int)(30 / this.VolleyballData.Responsiveness);
 			if (Context.IsMainPlayer && this.Volleyball?.IsInPlay.Value is true && (time.TotalGameTime.TotalMilliseconds / rate) % 16 < 1)
 			{
@@ -257,11 +271,17 @@ namespace Hikawa.Volleyball
 				this.TryLunge();
 				this.UpdateVolleyballAimpoint();
 				this.UpdateVolleyballTargetPosition();
-			}
-		}
+            }
+
+            // update fields
+            this.LungeEvent.Poll();
+        }
 
 		public override void updateMovement(GameLocation location, GameTime time)
-		{
+        {
+            if (this.HitCooldown > 0)
+                this.HitCooldown = Math.Max(0, this.HitCooldown - (float)time.ElapsedGameTime.TotalMilliseconds);
+
             // lunge behaviours
             if (Math.Abs(this.LungeVelocity.X) > 0.1f || Math.Abs(this.LungeVelocity.Y) > 0.1f)
                 this.LungeVelocity -= this.LungeVelocity / (float)time.ElapsedGameTime.TotalMilliseconds * 0.5f;
@@ -290,8 +310,8 @@ namespace Hikawa.Volleyball
                 if (this.Volleyball?.IsInPlay.Value is not true)
 				return;
 
-			var target = this.TargetPosition.Value;
-			var origin = this.StandingPixel.ToVector2();
+			    var target = this.TargetPosition;
+			    var origin = this.StandingPixel.ToVector2();
                 var velocity = Utils.Vector.MotionTo(origin, target) * this.VolleyballSpeed;
                 var distanceToStop = velocity.Length();
 

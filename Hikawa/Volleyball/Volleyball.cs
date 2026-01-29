@@ -53,7 +53,7 @@ namespace Hikawa.Volleyball
             this.BallType = new();
 
 			this.Scale = Game1.pixelZoom;
-			this.TravelTimeBeforeHit = 250;
+			this.TravelTimeBeforeHit = 500;
 
 			this.Position = new(position ?? Vector2.Zero);
 			this.zPosition = new(0);
@@ -147,7 +147,7 @@ namespace Hikawa.Volleyball
                 // Scale power relative to distance of cursor from player
                 Vector2 aimpoint = character == Game1.player
                     ? Utility.PointToVector2(new Point(Game1.viewport.Location.X, Game1.viewport.Location.Y) + Game1.getMousePosition(ui_scale: false))
-                    : ((VolleyballNPC)character).Aimpoint.Value;
+                    : ((VolleyballNPC)character).Aimpoint;
                 // Vector2 velocity = Utils.Vector.MotionTo(character.Position, target: aimpoint) * 3f; // Set power
                 Vector2 velocity = Utils.Vector.PointAt(character.Position, aimpoint) * 0.01f; // Variable power
 
@@ -299,6 +299,8 @@ namespace Hikawa.Volleyball
 			{
                 // hit cooldown for this character
                 if (this.LastHitBy.Value == c.Name && this.TravelTime.Value < this.TravelTimeBeforeHit)
+                    return false;
+                if (c is VolleyballNPC npc && npc.HitCooldown > 0)
                     return false;
 
                 Rectangle hitbox = this.GetCharacterCollisionArea(character: c);
