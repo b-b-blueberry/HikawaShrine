@@ -1,4 +1,5 @@
-﻿using StardewValley.Companions;
+﻿using Netcode;
+using StardewValley.Companions;
 using StardewValley.Extensions;
 using StardewValley.Locations;
 using System;
@@ -7,31 +8,32 @@ namespace Hikawa.Objects.Trinkets
 {
     public class CrowCompanion : Companion
     {
-        const float rotationIncrement = (float)Math.PI / 64f;
         Rectangle DefaultSourceArea => new Rectangle(0, 160, 16, 16);
+
+        Vector2 velocity;
+        Vector2 target;
 
         float idleTimer;
         float peckTimer;
-        bool perching;
+        bool foraging;
         bool falling;
         bool flying;
+        int pecks;
+        int hops;
 
-        Vector2 velocity;
-
-        // sensible
-        Vector2 target;
-
-        // fuck
-        float extraVelocity;
-        float maxSpeed;
-        float rotation;
-        float targetRotation;
-        bool turningRight;
-
+        public NetRef<Item> item = new();
 
         public CrowCompanion()
         {
             // caw caw
+        }
+
+        public override void InitNetFields()
+        {
+            base.InitNetFields();
+
+            this.NetFields
+                .AddField(item);
         }
 
         public void ResetIdleTimer()
@@ -46,10 +48,17 @@ namespace Hikawa.Objects.Trinkets
 
         public void StartFlying(GameLocation location)
         {
-            if (Game1.random.NextSingle() < 0.25f)
+            if (Game1.random.NextBool(0.25))
                 location?.localSound("crow");
 
-            this.perching = false;
+            Game1.createMultipleItemDebris(
+                item: ItemRegistry.Create(ModEntry.ModData.ItemFeather, Game1.random.Next(0, 5)),
+                pixelOrigin: this.Position + new Vector2(0, -this.height),
+                direction: -1,
+                location: location,
+                groundLevel: (int)this.Position.Y);
+
+            this.foraging = false;
             this.falling = false;
             this.flying = true;
             this.gravity = 0f;
@@ -64,7 +73,7 @@ namespace Hikawa.Objects.Trinkets
         {
             this.falling = true;
             this.flying = false;
-            this.perching = false;
+            this.foraging = false;
 
             if (this.IsLocal)
                 this.lerp = -1;
@@ -76,7 +85,46 @@ namespace Hikawa.Objects.Trinkets
         {
             location?.localSound("tinyWhip");
 
+            ++this.pecks;
             this.peckTimer = 300;
+        }
+
+        public void StartForaging(GameLocation location)
+        {
+            this.foraging = true;
+            this.pecks = 0;
+
+            this.ResetIdleTimer();
+        }
+
+        public void StopForaging(GameLocation location)
+        {
+            this.pecks = 0;
+            this.foraging = false;
+
+            // set held item
+            this.item.Value = this.GetForageItem(location);
+
+            // fly to player to avoid lerp snap
+            this.StartFlying(location);
+        }
+
+        public Item GetForageItem(GameLocation location)
+        {
+            if (Game1.random.NextBool(0.1) && location.tryGetRandomArtifactFromThisLocation(this.Owner, Game1.random, 0.5) is Item artefact)
+                return artefact;
+            return ItemRegistry.Create(StardewValley.Object.woodQID, Game1.random.Next(2, 10));
+        }
+
+        public void DropForageItem(GameLocation location)
+        {
+            Game1.createItemDebris(
+                item: this.item.Value,
+                pixelOrigin: this.Position + new Vector2(0, -this.height),
+                direction: -1,
+                location: location,
+                groundLevel: (int)this.Position.Y);
+            this.item.Value = null;
         }
 
         public override void InitializeCompanion(Farmer farmer)
@@ -110,15 +158,71 @@ namespace Hikawa.Objects.Trinkets
             {
                 base.Hop(amount);
 
-                this.ResetIdleTimer();
+                ++this.hops;
+                this.hops %= 4;
+
+                // start flying on repeat hops
+                var location = this.Owner.currentLocation;
+                if (this.hops == 0 && Game1.random.NextBool(0.2) && this.CanFlyHere(location))
+                    this.StartFlying(location);
+
                 this.peckTimer = 0;
+
+                this.ResetIdleTimer();
             }
         }
 
         public override void Update(GameTime time, GameLocation location)
         {
             var ms = (float)time.ElapsedGameTime.TotalMilliseconds;
-            if (!this.flying)
+
+            if (this.item.Value is not null && this.idleTimer > 2000 && Vector2.Distance(this.Position, this.OwnerPosition) < Game1.tileSize * 2)
+                this.DropForageItem(location);
+
+            if (this.flying)
+            {
+                this.idleTimer += ms;
+
+                if (this.IsLocal)
+                {
+                    // caw caw
+                    if (Game1.random.NextBool(0.0001))
+                        location.localSound("crow");
+                }
+
+                // flying movement
+                this.UpdateFlyingMovement();
+
+                // update fields
+                this.hopEvent.Poll();
+            }
+            else if (this.foraging)
+            {
+                this.idleTimer += ms;
+
+                // active pecking
+                if (this.IsLocal)
+                {
+                    this.peckTimer = MathF.Max(0, this.peckTimer - ms);
+
+                    if (this.idleTimer > 600)
+                    {
+                        this.ResetIdleTimer();
+                        if (this.pecks >= 3 && Game1.random.NextBool(0.5))
+                        {
+                            this.StopForaging(location);
+                        }
+                        else
+                        {
+                            this.Peck(location);
+                        }
+                    }
+                }
+
+                // update fields
+                this.hopEvent.Poll();
+            }
+            else
             {
                 // behave as a regular companion (hopping)
                 base.Update(time, location);
@@ -130,110 +234,26 @@ namespace Hikawa.Objects.Trinkets
                     this.peckTimer = MathF.Max(0, this.peckTimer - ms);
 
                     // idle pecking
-                    if (this.idleTimer > 5000 && this.peckTimer <= 0 && Game1.random.NextSingle() < 0.005f)
+                    if (this.idleTimer > 5000 && this.peckTimer <= 0 && Game1.random.NextBool(0.005))
                         this.Peck(location);
 
-                    // start flying when midair after hopping repeatedly
-                    if (this.CanFlyHere(location) && this.height > 0 && this.gravity > 0.5f && Game1.random.NextSingle() < 0.05f)
-                        this.StartFlying(location);
+                    // forage if idle on ground
+                    if (this.idleTimer > 5000 && this.peckTimer <= 0 && Game1.random.NextBool(0.05) && this.CanFlyHere(location))
+                        this.StartForaging(location);
 
                     // stop falling after hitting the ground
                     if (this.height <= 0)
                         this.falling = false;
-
-                    // do the actual critter behaviour (pilfer items as forage)
                 }
-            }
-            else if (this.flying)
-            {
-                this.idleTimer += ms;
-
-                if (this.IsLocal)
-                {
-                    if (Game1.random.NextSingle() < 0.0001f)
-                        location.localSound("crow");
-                }
-
-                // flying movement
-                this.UpdateSensibleMovement();
-
-                // do the actual critter behaviour (pilfer items as loot)
-
-                // update fields
-                this.hopEvent.Poll();
-            }
-            else if (this.perching)
-            {
-                // perching (no movement)
-
-                // TODO: perching behaviour
-
-                // update fields
-                this.hopEvent.Poll();
             }
         }
 
         public void UpdateFlyingMovement()
         {
-            Vector2 monsterPixel = this.Position;
-            Vector2 playerPixel = this.Owner.Position;
-
-            Vector2 slope = new Vector2(-(playerPixel.X - monsterPixel.X), playerPixel.Y - monsterPixel.Y);
-            float t = Math.Max(1, Math.Abs(slope.X) + Math.Abs(slope.Y));
-            if (t < (extraVelocity > 0 ? Game1.tileSize * 3 : Game1.tileSize))
-            {
-                this.velocity = new Vector2(
-                    Math.Max(-(maxSpeed), Math.Min(maxSpeed, this.velocity.X * (1.05f))),
-                    Math.Max(-(maxSpeed), Math.Min(maxSpeed, this.velocity.Y * (1.05f))));
-            }
-
-            slope /= t;
-
-            {
-                targetRotation = (float)Math.Atan2(-slope.Y, slope.X) - (float)Math.PI / 2;
-
-                if (Math.Abs(targetRotation) - Math.Abs(rotation) > Math.PI * 7 / 8 && Game1.random.NextBool())
-                    turningRight = true;
-                else if (Math.Abs(targetRotation) - Math.Abs(rotation) < Math.PI / 8)
-                    turningRight = false;
-
-                if (turningRight)
-                    rotation -= Math.Sign(targetRotation - rotation) * rotationIncrement;
-                else
-                    rotation += Math.Sign(targetRotation - rotation) * rotationIncrement;
-
-                rotation %= (float)Math.PI * 2;
-            }
-
-            float maxAccel = Math.Min(5f, Math.Max(1f, 5f - t / Game1.tileSize / 2f)) + extraVelocity;
-
-            slope.X = (float)Math.Cos(rotation + Math.PI / 2);
-            slope.Y = -(float)Math.Sin(rotation + Math.PI / 2);
-
-            this.velocity.X += -slope.X * maxAccel / 6f + Game1.random.Next(-10, 10) / 100f;
-            this.velocity.Y += -slope.Y * maxAccel / 6f + Game1.random.Next(-10, 10) / 100f;
-
-            if (Math.Abs(this.velocity.X) > Math.Abs(-slope.X * maxSpeed))
-                this.velocity.X -= -slope.X * maxAccel / 6f;
-            if (Math.Abs(this.velocity.Y) > Math.Abs(-slope.Y * maxSpeed))
-                this.velocity.Y -= -slope.Y * maxAccel / 6f;
-
-            if (velocity != Vector2.Zero)
-            {
-                this.Position = new Vector2(this.Position.X + this.velocity.X, this.Position.Y - this.velocity.Y);
-                if (Math.Abs(this.velocity.X) <= .05f)
-                    this.velocity.X = 0;
-                if (Math.Abs(this.velocity.Y) <= .05f)
-                    this.velocity.Y = 0;
-            }
-        }
-
-        public void UpdateSensibleMovement()
-        {
             var ms = (float)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
             if (this.target == default || Vector2.Distance(this.Position, this.target) < Game1.tileSize)
-            {                
-                if (this.perching)
+            {
+                if (this.foraging)
                 {
                     // stop flying
                     this.StopFlying(this.Owner.currentLocation);
@@ -245,10 +265,10 @@ namespace Hikawa.Objects.Trinkets
                         + new Vector2(-1) + new Vector2(Game1.random.Next(3), Game1.random.Next(3)) * Game1.tileSize;
                 }
 
-                if (!this.perching && this.idleTimer > 3000 && Game1.random.NextBool() && Vector2.Distance(this.Position, this.OwnerPosition) < Game1.tileSize * 3)
+                if (!this.foraging && this.idleTimer > 3000 && Game1.random.NextBool() && Vector2.Distance(this.Position, this.OwnerPosition) < Game1.tileSize * 3)
                 {
                     // bird goes down
-                    this.perching = true;
+                    this.foraging = true;
                 }
             }
             else
@@ -318,6 +338,7 @@ namespace Hikawa.Objects.Trinkets
 
         public void DrawCrow(SpriteBatch b, bool isDrawAboveAlwaysFront, Color color, out Rectangle source, out Vector2 origin)
         {
+            var scale = Game1.pixelZoom;
             var direction = this.direction.Value switch
             {
                 Game1.up => 2,
@@ -330,19 +351,13 @@ namespace Hikawa.Objects.Trinkets
             var layerDepth = this._position.Y / 10000f;
             var frames = 2;
 
-            source = this.flying
+            source = this.flying || this.falling
                 ? new Rectangle(
                     x: this.DefaultSourceArea.X + this.DefaultSourceArea.Width * (2 + (direction * frames) + (int)(ms / 150 % frames)),
                     y: this.DefaultSourceArea.Y,
                     width: this.DefaultSourceArea.Width,
                     height: this.DefaultSourceArea.Height)
-                : this.falling
-                    ? new Rectangle(
-                        x: this.DefaultSourceArea.X + this.DefaultSourceArea.Width * (2 + (direction * frames)),
-                        y: this.DefaultSourceArea.Y,
-                        width: this.DefaultSourceArea.Width,
-                        height: this.DefaultSourceArea.Height)
-                    : this.DefaultSourceArea;
+                : this.DefaultSourceArea;
             if (this.peckTimer > 0)
                 source.X += source.Width;
 
@@ -353,20 +368,35 @@ namespace Hikawa.Objects.Trinkets
 
             var position = Game1.GlobalToLocal(this.Position
                 + this.Owner.drawOffset
-                + (this.flying ? new Vector2(MathF.Sin(ms / 300) * 1 * Game1.pixelZoom) : Vector2.Zero) // flying wobble
-                + new Vector2(0, -source.Height * Game1.pixelZoom / 2) // align sprite with ground
-                + new Vector2(0, -this.height * Game1.pixelZoom)); // hopping or flying offset
+                + (this.flying ? new Vector2(MathF.Sin(ms / 300) * 1 * scale) : Vector2.Zero) // flying wobble
+                + new Vector2(0, -source.Height * scale / 2) // align sprite with ground
+                + new Vector2(0, -this.height * scale)); // hopping or flying offset
 
             b.Draw(
                 texture: texture,
                 position: position,
                 sourceRectangle: source,
                 color: color,
-                rotation: this.rotation,
+                rotation: 0,
                 origin: origin,
-                scale: Game1.pixelZoom,
+                scale: scale,
                 effects: effect,
                 layerDepth: layerDepth);
+
+            if (this.item.Value is Item item)
+            {
+                var data = ItemRegistry.GetDataOrErrorItem(item.QualifiedItemId);
+                item.drawInMenu(
+                    spriteBatch: b,
+                    location: position
+                        + new Vector2(-data.GetSourceRect().Width * scale / 2, 0),
+                    scaleSize: 1,
+                    transparency: 1,
+                    layerDepth: layerDepth + .0001f,
+                    drawStackNumber: StackDrawType.Hide,
+                    color: Color.White,
+                    drawShadow: false);
+            }
         }
     }
 }
