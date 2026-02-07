@@ -223,7 +223,7 @@
                     "DisplayName": "{{i18n:trinket.crow.name}}",
                     "Description": "{{i18n:trinket.crow.description}}",
                     "Texture": "{{PATH}}/Sprites/Objects",
-                    "SheetIndex": 11,
+                    "SheetIndex": 12,
                     "TrinketEffectClass": "Hikawa.Objects.Trinkets.CrowTrinketEffect, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
                 }
             }
