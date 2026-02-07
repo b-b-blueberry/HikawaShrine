@@ -84,7 +84,7 @@
                     "Category": 0,
                     "Price": 20,
                     "Texture": "{{PATH}}/Sprites/Objects",
-                    "SpriteIndex": 6,
+                    "SpriteIndex": 8,
                     "Edibility": -300,
                     "CanBeGivenAsGift": true,
                     "CanBeTrashed": true,
@@ -103,7 +103,7 @@
                     "Category": -7,
                     "Price": 180,
                     "Texture": "{{PATH}}/Sprites/Objects",
-                    "SpriteIndex": 15,
+                    "SpriteIndex": 16,
                     "Edibility": 32,
                     "IsDrink": false,
                     "Buffs": [
@@ -130,7 +130,7 @@
                     "Category": -7,
                     "Price": 180,
                     "Texture": "{{PATH}}/Sprites/Objects",
-                    "SpriteIndex": 16,
+                    "SpriteIndex": 17,
                     "Edibility": 28,
                     "IsDrink": false,
                     "Buffs": [
@@ -157,7 +157,7 @@
                     "Category": -7,
                     "Price": 180,
                     "Texture": "{{PATH}}/Sprites/Objects",
-                    "SpriteIndex": 17,
+                    "SpriteIndex": 20,
                     "Edibility": 24,
                     "IsDrink": false,
                     "Buffs": [
@@ -184,7 +184,7 @@
                     "Category": -7,
                     "Price": 180,
                     "Texture": "{{PATH}}/Sprites/Objects",
-                    "SpriteIndex": 20,
+                    "SpriteIndex": 21,
                     "Edibility": 30,
                     "IsDrink": false,
                     "Buffs": [
