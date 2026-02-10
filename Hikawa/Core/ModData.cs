@@ -23,6 +23,7 @@
 		public string MapHouse;
 		public string MapHall;
 		public string MapGrove;
+		public string MapIsland;
         public string MapVortex;
 		public string MapRoof;
 		public string MapVolleyball;

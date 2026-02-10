@@ -70,6 +70,10 @@
             "Value": "{{ID}}_Grove"
         },
         {
+            "Name": "ISLAND",
+            "Value": "{{ID}}_Island"
+        },
+        {
             "Name": "PEAK",
             "Value": "{{ID}}_Peak"
         },
