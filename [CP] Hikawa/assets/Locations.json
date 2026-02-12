@@ -117,8 +117,8 @@
 				"{{ISLAND}}": {
 					"DisplayName": "{{i18n:world.island.map}}",
 					"DefaultArrivalTile": {
-						"X": 94,
-						"Y": 58
+						"X": 90,
+						"Y": 55
 					},
 					"CreateOnLoad": {
 						"MapPath": "Maps/{{ISLAND}}",
