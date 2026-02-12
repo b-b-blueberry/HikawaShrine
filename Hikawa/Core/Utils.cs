@@ -298,7 +298,7 @@ namespace Hikawa
 							color: entry.Color);
 						++j;
 					}
-					where.sharedLights.Add(key: light.Id, value: light);
+					where.sharedLights.TryAdd(light.Id, light);
 				}
 			}
 		}
