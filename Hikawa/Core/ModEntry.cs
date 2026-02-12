@@ -370,7 +370,7 @@ namespace Hikawa
 				|| Game1.player.ActiveObject.isTemporarilyInvisible
 				|| Game1.currentLocation is null
 				|| Game1.currentLocation.currentEvent is not null
-				|| Utils.IsPlayerSwimming() || Game1.player.isRidingHorse() || Game1.isFestival())
+				|| Utils.IsPlayerSwimming(Game1.player) || Game1.player.isRidingHorse() || Game1.isFestival())
 				return;
 
 			this.CheckHeldObjectAction(Game1.player.ActiveObject, Game1.player.currentLocation, e.Button);
@@ -403,17 +403,16 @@ namespace Hikawa
 			var player = Game1.player;
 			var location = player.currentLocation;
 
-			if (location is null)
+			if (location is not Island)
 				return;
 
-			var tile = player.TilePoint;
-			var water = location?.doesTileHaveProperty(tile.X, tile.Y, "Water", "Back");
+			var isInWater = Utils.IsPlayerWading(player);
 			var key = ModEntry.ModData.ContentPrefix + "_InWater";
 			player.modData.TryGetValue(key, out string wasInWater);
-			player.modData[key] = water;
+			player.modData[key] = isInWater;
 
 			// wading in water
-			if (water is not null)
+			if (isInWater is not null)
 			{
 				// start jumping in
 				if (wasInWater is null)
@@ -424,15 +423,15 @@ namespace Hikawa
 					player.jump(4);
 				}
 				// finish jumping in
-				if (player.yJumpOffset == 0 && player.yOffset == 0)
+				if (player.yJumpOffset == 0 && player.drawOffset == Vector2.Zero)
                 {
                     player.playNearbySoundAll("pullItemFromWater");
-					Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite(27, 100, 4, 0, new Vector2(player.Position.X, player.StandingPixel.Y), false, false) { layerDepth = 1f, motion = (player.Position - player.lastPosition) / 2 });
-				}
-				// wading
-				if (player.yJumpOffset == 0)
+					Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite(Game1.objectSpriteSheetName, Game1.getSourceRectForStandardTileSheet(Game1.objectSpriteSheet, 27, 16, 16), 100f, 4, 0, new Vector2(0, 4 * Game1.pixelZoom), false, false, 1f, 0f, Color.White, Game1.pixelZoom, 0f, 0f, 0f) { layerDepth = 1f, attachedCharacter = player, positionFollowsAttachedCharacter = true });
+                }
+                // wading
+                if (player.yJumpOffset == 0)
 				{
-					player.yOffset = 4 * Game1.pixelZoom;
+					player.drawOffset = new Vector2(0, 4 * Game1.pixelZoom);
 					player.Speed = Farmer.walkingSpeed;
 					player.canOnlyWalk = true;
 					player.running = false;
@@ -462,7 +461,7 @@ namespace Hikawa
             else if (wasInWater is not null)
 			{
 				player.onBridge.Value = false;
-				player.yOffset = 0;
+				player.drawOffset = Vector2.Zero;
 				player.shouldShadowBeOffset = false;
                 player.jump(4);
                 player.freezePause = 100;

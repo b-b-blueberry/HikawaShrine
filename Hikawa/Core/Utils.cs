@@ -455,9 +455,18 @@ namespace Hikawa
 					|| Game1.player.IsBusyDoingSomething(); // Nothing else
         }
 
-		public static bool IsPlayerSwimming()
+        public static bool IsPlayerSwimming(Farmer player)
+        {
+            return player.swimming.Value && !player.bathingClothes.Value;
+        }
+
+        public static string IsPlayerWading(Farmer player)
 		{
-			return Game1.player.swimming.Value && !Game1.player.bathingClothes.Value;
+			if (player is null || player.currentLocation is null || Utils.IsPlayerSwimming(player))
+				return null;
+
+            var tile = player.TilePoint;
+            return player.currentLocation.doesTileHaveProperty(tile.X, tile.Y, "Water", "Back");
         }
 
         internal static void ResetAnimationVars()

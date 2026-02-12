@@ -1,5 +1,4 @@
 ﻿using HarmonyLib; // el diavolo nuevo
-using Hikawa.Data;
 using Hikawa.Modules;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
@@ -118,11 +117,12 @@ namespace Hikawa
         [HarmonyPatch(nameof(FarmerRenderer.draw), [typeof(SpriteBatch), typeof(FarmerSprite.AnimationFrame), typeof(int), typeof(Rectangle), typeof(Vector2), typeof(Vector2), typeof(float), typeof(int), typeof(Color), typeof(float), typeof(float), typeof(Farmer)])]
         public static void FarmerRenderer_Draw_Prefix(SpriteBatch b, FarmerSprite.AnimationFrame animationFrame, int currentFrame, ref Rectangle sourceRect, ref Vector2 position, Vector2 origin, float layerDepth, int facingDirection, Color overrideColor, float rotation, float scale, Farmer who)
         {
-            if (!FarmerRenderer.isDrawingForUI && who.modData[ModEntry.ModData.ContentPrefix + "_InWater"] is not null && who.yJumpOffset == 0)
+            if (!FarmerRenderer.isDrawingForUI && who.modData.TryGetValue(ModEntry.ModData.ContentPrefix + "_InWater", out string isInWater) && isInWater is not null && who.yJumpOffset == 0)
             {
 				// crop player sprite
-                sourceRect.Height -= (int)who.yOffset / Game1.pixelZoom;
-                position.Y += Game1.tileSize;
+				var cropY = (int)who.drawOffset.Y;
+                sourceRect.Height -= cropY / Game1.pixelZoom;
+                position.Y += cropY;
 
 				// water
 				var drawPosition = Vector2.Floor(position);
@@ -132,7 +132,7 @@ namespace Hikawa
                     Game1.staminaRect,
                     new Rectangle(
 						(int)drawPosition.X + 4 * Game1.pixelZoom - addedSize / 2 * Game1.pixelZoom,
-						(int)drawPosition.Y - 33 * Game1.pixelZoom + sourceRect.Height * Game1.pixelZoom + (int)origin.Y - (int)who.yOffset,
+						(int)drawPosition.Y - 33 * Game1.pixelZoom + sourceRect.Height * Game1.pixelZoom + (int)origin.Y,
                         (int)size.X * Game1.pixelZoom,
 						(int)size.Y * Game1.pixelZoom),
                     Game1.staminaRect.Bounds,
@@ -149,17 +149,16 @@ namespace Hikawa
         [HarmonyPatch(nameof(Character.GetShadowOffset))]
         public static void Character_GetShadowOffset_Postfix(Character __instance, ref Vector2 __result)
         {
-            if (__instance is Farmer player && player.modData[ModEntry.ModData.ContentPrefix + "_InWater"] is not null)
-            {
-				__result += new Vector2(0, Game1.tileSize / 4 + player.yOffset);
-            }
+			// get rid
+            if (__instance is Farmer player && player.modData.TryGetValue(ModEntry.ModData.ContentPrefix + "_InWater", out string isInWater) && isInWater is not null)
+				__result = -player.Position + new Vector2(-999 * Game1.pixelZoom);
         }
 
-		#endregion
+        #endregion
 
-		#region Item behaviours
+        #region Item behaviours
 
-		[HarmonyPrefix]
+        [HarmonyPrefix]
 		[HarmonyPatch(typeof(Slingshot), nameof(Slingshot.GetRequiredChargeTime))]
 		private static bool Slingshot_GetRequiredChargeTime_Prefix(Slingshot __instance, ref float __result)
 		{
@@ -507,6 +506,6 @@ namespace Hikawa
 			return Game1.currentLocation is not Volleyball.VolleyballLocation;
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }
