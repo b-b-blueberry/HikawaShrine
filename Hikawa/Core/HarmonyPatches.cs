@@ -113,6 +113,48 @@ namespace Hikawa
 			return ilOut;
 		}
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(FarmerRenderer))]
+        [HarmonyPatch(nameof(FarmerRenderer.draw), [typeof(SpriteBatch), typeof(FarmerSprite.AnimationFrame), typeof(int), typeof(Rectangle), typeof(Vector2), typeof(Vector2), typeof(float), typeof(int), typeof(Color), typeof(float), typeof(float), typeof(Farmer)])]
+        public static void FarmerRenderer_Draw_Prefix(SpriteBatch b, FarmerSprite.AnimationFrame animationFrame, int currentFrame, ref Rectangle sourceRect, ref Vector2 position, Vector2 origin, float layerDepth, int facingDirection, Color overrideColor, float rotation, float scale, Farmer who)
+        {
+            if (!FarmerRenderer.isDrawingForUI && who.modData[ModEntry.ModData.ContentPrefix + "_InWater"] is not null && who.yJumpOffset == 0)
+            {
+				// crop player sprite
+                sourceRect.Height -= (int)who.yOffset / Game1.pixelZoom;
+                position.Y += Game1.tileSize;
+
+				// water
+				var drawPosition = Vector2.Floor(position);
+				var addedSize = currentFrame % 2 == 1 ? 2 : 6;
+                var size = new Vector2(sourceRect.Width / 2 + addedSize, 1);
+                b.Draw(
+                    Game1.staminaRect,
+                    new Rectangle(
+						(int)drawPosition.X + 4 * Game1.pixelZoom - addedSize / 2 * Game1.pixelZoom,
+						(int)drawPosition.Y - 33 * Game1.pixelZoom + sourceRect.Height * Game1.pixelZoom + (int)origin.Y - (int)who.yOffset,
+                        (int)size.X * Game1.pixelZoom,
+						(int)size.Y * Game1.pixelZoom),
+                    Game1.staminaRect.Bounds,
+                    Color.White * 0.75f,
+                    0,
+                    Vector2.Zero,
+                    SpriteEffects.None,
+                    FarmerRenderer.GetLayerDepth(layerDepth, FarmerRenderer.FarmerSpriteLayers.SwimWaterRing));
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Character))]
+        [HarmonyPatch(nameof(Character.GetShadowOffset))]
+        public static void Character_GetShadowOffset_Postfix(Character __instance, ref Vector2 __result)
+        {
+            if (__instance is Farmer player && player.modData[ModEntry.ModData.ContentPrefix + "_InWater"] is not null)
+            {
+				__result += new Vector2(0, Game1.tileSize / 4 + player.yOffset);
+            }
+        }
+
 		#endregion
 
 		#region Item behaviours

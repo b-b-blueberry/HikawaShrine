@@ -9,8 +9,8 @@ using Hikawa.Volleyball;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
-using StardewValley;
 using StardewValley.Companions;
+using StardewValley.Extensions;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
@@ -158,7 +158,7 @@ namespace Hikawa
 			this.Helper.Events.Content.AssetRequested += AssetManager.TryEdit;
 		}
 
-		private void OnRenderedStep(object sender, RenderedStepEventArgs e)
+        private void OnRenderedStep(object sender, RenderedStepEventArgs e)
 		{
 			GameLocation location = Game1.currentLocation;
 			if (location is null)
@@ -195,11 +195,13 @@ namespace Hikawa
 			}
 		}
 
-		private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
-		{
-			if (ModEntry.State.Value is not null)
-				ModEntry.State.Value.PreciseTime = Utils.GetPreciseTimeOfDay(Game1.timeOfDay);
-			Modules.DialogueEffects.Update(e.Ticks);
+        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        {
+            if (ModEntry.State.Value is not null)
+                ModEntry.State.Value.PreciseTime = Utils.GetPreciseTimeOfDay(Game1.timeOfDay);
+            Modules.DialogueEffects.Update(e.Ticks);
+
+			this.UpdatePlayerWading();
 		}
 
 		/// <summary>
@@ -393,6 +395,79 @@ namespace Hikawa
 		}
 
 		#endregion
+
+		public void UpdatePlayerWading()
+		{
+			// wading
+
+			var player = Game1.player;
+			var location = player.currentLocation;
+
+			if (location is null)
+				return;
+
+			var tile = player.TilePoint;
+			var water = location?.doesTileHaveProperty(tile.X, tile.Y, "Water", "Back");
+			var key = ModEntry.ModData.ContentPrefix + "_InWater";
+			player.modData.TryGetValue(key, out string wasInWater);
+			player.modData[key] = water;
+
+			// wading in water
+			if (water is not null)
+			{
+				// start jumping in
+				if (wasInWater is null)
+				{
+					// i swear to god this was the only way
+					// helpfully OnBridge does also prevent people from doing all the things i don't want them to do while wading
+					player.onBridge.Value = true;
+					player.jump(4);
+				}
+				// finish jumping in
+				if (player.yJumpOffset == 0 && player.yOffset == 0)
+                {
+                    player.playNearbySoundAll("pullItemFromWater");
+					Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite(27, 100, 4, 0, new Vector2(player.Position.X, player.StandingPixel.Y), false, false) { layerDepth = 1f, motion = (player.Position - player.lastPosition) / 2 });
+				}
+				// wading
+				if (player.yJumpOffset == 0)
+				{
+					player.yOffset = 4 * Game1.pixelZoom;
+					player.Speed = Farmer.walkingSpeed;
+					player.canOnlyWalk = true;
+					player.running = false;
+					player.shouldShadowBeOffset = true;
+
+					int oldSwimTimer = player.swimTimer;
+					player.swimTimer -= (int)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
+					if (player.timerSinceLastMovement == 0)
+					{
+						if (oldSwimTimer > 400 && player.swimTimer <= 400 && player.IsLocalPlayer)
+						{
+							Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite(Game1.animationsName, new Rectangle(0, 0, Game1.tileSize, Game1.tileSize), 150f - ((Math.Abs(player.xVelocity) + Math.Abs(player.yVelocity)) * 3), 8, 0, new Vector2(player.Position.X, player.StandingPixel.Y), false, Game1.random.NextBool(), .01f, .01f, Color.White, 1f, .003f, 0, 0));
+						}
+						if (player.swimTimer <= 0)
+						{
+							player.swimTimer = 800;
+							if (player.IsLocalPlayer)
+							{
+								player.playNearbySoundAll("slosh");
+								Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite(Game1.animationsName, new Rectangle(0, 0, Game1.tileSize, Game1.tileSize), 150f - ((Math.Abs(player.xVelocity) + Math.Abs(player.yVelocity)) * 3), 8, 0, new Vector2(player.Position.X, player.StandingPixel.Y), false, Game1.random.NextBool(), .01f, .01f, Color.White, 1f, .003f, 0, 0));
+							}
+						}
+					}
+				}
+            }
+            // jump out
+            else if (wasInWater is not null)
+			{
+				player.onBridge.Value = false;
+				player.yOffset = 0;
+				player.shouldShadowBeOffset = false;
+                player.jump(4);
+                player.freezePause = 100;
+            }
+		}
 	}
 }
 
