@@ -24,6 +24,7 @@
 		public string MapHall;
 		public string MapGrove;
 		public string MapIsland;
+		public string MapMirage;
         public string MapVortex;
 		public string MapRoof;
 		public string MapVolleyball;

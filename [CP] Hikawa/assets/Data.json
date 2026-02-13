@@ -33,6 +33,7 @@
                 "MapHall": "{{HALL}}",
                 "MapGrove": "{{GROVE}}",
                 "MapIsland": "{{ISLAND}}",
+                "MapMirage": "{{MIRAGE}}",
                 "MapVortex": "{{ID}}_Vortex",
                 "MapRoof": "{{ID}}_Roof",
                 "MapVolleyball": "{{ID}}_Volleyball",

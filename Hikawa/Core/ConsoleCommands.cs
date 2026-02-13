@@ -124,6 +124,18 @@ namespace Hikawa
             warpTo(locationName: ModEntry.ModData.MapGrove);
         }
 
+        [ConsoleCommandAttribute("i", "Warp to Hikawa Island")]
+        private static void island(string s, string[] args)
+        {
+            warpTo(locationName: ModEntry.ModData.MapIsland);
+        }
+
+        [ConsoleCommandAttribute("m", "Warp to Hikawa Mirage")]
+        private static void mirage(string s, string[] args)
+        {
+            warpTo(locationName: ModEntry.ModData.MapMirage);
+        }
+
 		[ConsoleCommandAttribute("o", "Manage screen overlays: use [0~num]")]
         private static void overlay(string s, string[] args)
 		{
