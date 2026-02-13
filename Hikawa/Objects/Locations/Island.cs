@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Linq;
+using System.Xml.Serialization;
 
 namespace Hikawa.Objects.Locations
 {
@@ -35,5 +36,18 @@ namespace Hikawa.Objects.Locations
 		{
 			base.performTenMinuteUpdate(timeOfDay);
 		}
+
+        public override void spawnObjects()
+        {
+            base.spawnObjects();
+
+			foreach(var key in this.map.Properties.Keys.Where(key => key.StartsWith(ModEntry.ModData.ContentPrefix + "_IslandSpawn")))
+				if (this.GetMapPropertySplitBySpaces(key) is string[] args)
+					if (ArgUtility.TryGetRectangle(args, 0, out Rectangle area, out string error)
+						&& ArgUtility.TryGet(args, 4, out string type, out error)
+						&& ArgUtility.TryGetInt(args, 5, out int attempts, out error)
+                        && ArgUtility.TryGetInt(args, 6, out int max, out error))
+						Utils.SpawnObjectsInArea(this, area, args[7..], attempts, max, type);
+        }
 	}
 }

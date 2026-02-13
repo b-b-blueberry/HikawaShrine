@@ -406,7 +406,7 @@ namespace Hikawa
 
         #region Item methods
 
-		public static void SpawnObjectsInArea(GameLocation where, Rectangle area, string[] itemIds, int attempts, int max = -1)
+		public static void SpawnObjectsInArea(GameLocation where, Rectangle area, string[] itemIds, int attempts, int max = -1, string type = null)
         {
 			var tiles = new List<Vector2>();
 			for (var x = area.Left; x < area.Right; ++x)
@@ -420,7 +420,8 @@ namespace Hikawa
 					break;
 
                 var tile = tiles[i];
-                if (where.CanItemBePlacedHere(tile, itemIsPassable: false, CollisionMask.All, CollisionMask.None))
+                if (where.CanItemBePlacedHere(tile, itemIsPassable: false, CollisionMask.All, CollisionMask.None)
+					&& (type is null || type == where.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Type", "Back")))
                 {
                     var id = itemIds[Game1.random.Next(itemIds.Length)];
                     var o = ItemRegistry.Create<Object>(id);

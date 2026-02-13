@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="120" height="90" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="16">
  <properties>
+  <property name="Custom_Hikawa_IslandSpawn_M" value="36 40 34 22 Sand 1 1 392"/>
+  <property name="Custom_Hikawa_IslandSpawn_NE" value="86 25 17 12 Sand 1 3 88"/>
+  <property name="Custom_Hikawa_IslandSpawn_W" value="18 42 6 14 Sand 1 2 392 393"/>
   <property name="LocationContext" value="Island"/>
   <property name="Outdoors" value="T"/>
   <property name="SeasonOverride" value="summer"/>
