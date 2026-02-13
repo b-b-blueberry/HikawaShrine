@@ -5,6 +5,46 @@
             "Action": "EditData",
             "Target": "Data/Minecarts",
             "Entries": {
+                "{{ID}}_Boat": {
+                    "Destinations": [
+                        {
+                            "Id": "{{SHRINE}}",
+                            "DisplayName": "{{i18n:world.shrine.map}}",
+                            "Condition": null,
+                            "BuyTicketMessage": "{{i18n:world.shrine.boat}}",
+                            "TargetLocation": "{{SHRINE}}",
+                            "TargetTile": {
+                              "X": 34,
+                              "Y": 53
+                            },
+                            "TargetDirection": "down"
+                        },
+                        {
+                            "Id": "{{ISLAND}}",
+                            "DisplayName": "{{i18n:world.island.map}}",
+                            "Condition": null,
+                            "BuyTicketMessage": "{{i18n:world.island.boat}}",
+                            "TargetLocation": "{{ISLAND}}",
+                            "TargetTile": {
+                              "X": 90,
+                              "Y": 55
+                            },
+                            "TargetDirection": "left"
+                        },
+                        {
+                            "Id": "{{MIRAGE}}",
+                            "DisplayName": "{{i18n:world.mirage.map}}",
+                            "Condition": "{{ID}}_Mirage",
+                            "BuyTicketMessage": "{{i18n:world.mirage.boat}}",
+                            "TargetLocation": "{{MIRAGE}}",
+                            "TargetTile": {
+                              "X": 50,
+                              "Y": 50
+                            },
+                            "TargetDirection": "up"
+                        }
+                    ]
+                }
             }
         }
     ]

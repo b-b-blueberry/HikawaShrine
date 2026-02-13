@@ -257,6 +257,10 @@
     "world.bonfire.map": "Cherry Hill Shrine",
     "world.vortex.map": "???",
 
+    "world.shrine.boat": "Let's head on home.",
+    "world.island.boat": "We're on our way to Honey Moon Island!",
+    "world.mirage.boat": "I'll set a course. This doesn't look easy...",
+
     "world.shrine.sign.name": "Cherry Hill Shrine",
     "world.shrine.hall.locked": "It's locked.",
     "world.shrine.statue": "A stone statue of a protective crow.^Crops beware.",
