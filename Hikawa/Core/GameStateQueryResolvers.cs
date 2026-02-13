@@ -48,5 +48,11 @@ namespace Hikawa
             float progress = ModEntry.SaveData.BugCollection.Select(bug => bug.Value.Count > 0).Count() / ModEntry.BugsData.Value.BugData.Count;
             return progress >= min && progress <= max;
         }
+
+        [GameStateQueryAttribute("Mirage")]
+        private static bool Mirage(string[] args, GameStateQueryContext context)
+        {
+            return Utils.IsMirageDay();
+        }
     }
 }

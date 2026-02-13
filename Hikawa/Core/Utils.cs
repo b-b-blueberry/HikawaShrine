@@ -497,6 +497,17 @@ namespace Hikawa
 				   || Game1.season == Season.Fall && Game1.dayOfMonth < 3;
 		}
 
+		internal static bool IsMirageDay()
+		{
+			var r = Utility.CreateDaySaveRandom();
+			var num = (short)r.Next();
+			var animals = Game1.getFarm().getAllFarmAnimals();
+			for (var i = 0; i < 6 && i < animals.Count; ++i)
+				if (num == (short)animals[i].myID.Value)
+					return true;
+			return num == (short)Game1.MasterPlayer.UniqueMultiplayerID;
+		}
+
 		internal static bool TryPlaySound(string cueName)
 		{
 			return !string.IsNullOrEmpty(cueName) && Game1.soundBank.Exists(name: cueName) && Game1.playSound(cueName: cueName);

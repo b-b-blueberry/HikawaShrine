@@ -32,6 +32,12 @@
 			"FromFile": "assets/Locations/HikawaIsland.tmx"
 		},
 		{
+			"LogName": "Hikawa: Locations - Mirage map",
+			"Action": "Load",
+			"Target": "Maps/{{MIRAGE}}",
+			"FromFile": "assets/Locations/HikawaMirage.tmx"
+		},
+		{
 			"LogName": "Hikawa: Locations - Volleyball map",
 			"Action": "Load",
 			"Target": "Maps/{{ID}}_Volleyball",
@@ -123,6 +129,18 @@
 					"CreateOnLoad": {
 						"MapPath": "Maps/{{ISLAND}}",
 						"Type": "Hikawa.Objects.Locations.Island, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+					},
+					"ExcludeFromNpcPathfinding": false
+				},
+				"{{MIRAGE}}": {
+					"DisplayName": "{{i18n:world.mirage.map}}",
+					"DefaultArrivalTile": {
+						"X": 50,
+						"Y": 50
+					},
+					"CreateOnLoad": {
+						"MapPath": "Maps/{{MIRAGE}}"
+						//"Type": "Hikawa.Objects.Locations.Island, Hikawa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
 					},
 					"ExcludeFromNpcPathfinding": false
 				},

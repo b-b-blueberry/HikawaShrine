@@ -4,7 +4,7 @@
         {
             "LogName": "Hikawa: Includes",
             "Action": "Include",
-            "FromFile": "assets/Data.json, assets/Audio.json, assets/Buffs.json, assets/Bows.json, assets/Bugs.json, assets/Characters.json, assets/CrowTradeRules.json, assets/DecorSpawns.json, assets/Events.json, assets/Fonts.json, assets/Furniture.json, assets/Locations.json, assets/Kites.json, assets/Mail.json, assets/Objects.json, assets/PassiveFestivals.json, assets/Quests.json, assets/Shops.json, assets/Shrubs.json, assets/ShrineTrees.json, assets/Sprites.json, assets/Strings.json, assets/Tools.json, assets/Volleyball.json, assets/WildTrees.json, assets/Match3/content.json"
+            "FromFile": "assets/Data.json, assets/Audio.json, assets/Buffs.json, assets/Bows.json, assets/Bugs.json, assets/Characters.json, assets/CrowTradeRules.json, assets/DecorSpawns.json, assets/Events.json, assets/Fonts.json, assets/Furniture.json, assets/Locations.json, assets/Kites.json, assets/Mail.json, assets/Minecarts.json, assets/Objects.json, assets/PassiveFestivals.json, assets/Quests.json, assets/Shops.json, assets/Shrubs.json, assets/ShrineTrees.json, assets/Sprites.json, assets/Strings.json, assets/Tools.json, assets/Volleyball.json, assets/WildTrees.json, assets/Match3/content.json"
         }
     ],
     "DynamicTokens": [
@@ -72,6 +72,10 @@
         {
             "Name": "ISLAND",
             "Value": "{{ID}}_Island"
+        },
+        {
+            "Name": "MIRAGE",
+            "Value": "{{ID}}_Mirage"
         },
         {
             "Name": "PEAK",
