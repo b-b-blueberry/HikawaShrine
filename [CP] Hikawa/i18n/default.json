@@ -327,6 +327,7 @@
 
     "ui.shop.text": "Welcome! Looking for some souvenirs?",
     "ui.shop.trade": "Shop",
+
     "ui.shop.crackers": "Rice crackers",
     "ui.shop.crackers.fail.daily": "Sorry, one per customer. Come back tomorrow!",
     "ui.shop.crackers.fail.money": "Sorry, these aren't free. Come back another time.",
@@ -339,6 +340,19 @@
     "ui.shop.crackers.yes.4": "Enjoy!$h",
     "ui.shop.crackers.yes.5": "This one looks a little burnt.. but I'm sure it tastes great!$h",
     "ui.shop.crackers.no.1": "Really? I made them myself..$s",
+
+    "ui.shop.wedding.fail.engaged": "We also offer marriage services. Come visit when you're planning a wedding!",
+    "ui.shop.wedding.options": "Wedding",
+    "ui.shop.wedding.options.intro": "I heard you're getting married. Congratulations!$h#$b#If you're interested, we offer some unique wedding services.",
+    "ui.shop.wedding.options.main": "Would you like to make any changes to your wedding service?",
+    "ui.shop.wedding.options.main.yes": "Great! Let's see here...",
+    "ui.shop.wedding.options.main.no": "Oh, I see. Come back if you change your mind!",
+    "ui.shop.wedding.options.where": "Where would you like the service?",
+    "ui.shop.wedding.options.who": "Who would you like as the officiary?",
+    "ui.shop.wedding.options.how": "Would you prefer a white wedding, or something traditional?",
+    "ui.shop.wedding.options.how.default": "Usual",
+    "ui.shop.wedding.options.how.shinto": "Traditional",
+    "ui.shop.wedding.options.confirmed": "Lovely! We'll handle everything but the dress, that's up to you!$h#$b#We'll be here if you need any last-minute changes!$h",
 
     "ui.talisman.end": "The effects of the {{talisman}} have faded.",
 

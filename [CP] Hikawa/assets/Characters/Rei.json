@@ -116,12 +116,20 @@
                 "Introduction": "test",
                 "Mon": "b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#b#$e#",
 
-                "shop_main": "$q {{ID}}_Shop null#{{i18n:ui.shop.text}}#$r null 0 shop_trade#{{i18n:ui.shop.trade}}#$r null 0 shop_crackers#{{i18n:ui.shop.crackers}}#$r null 0 shop_cancel#{{i18n:ui.menu.cancel}}",
+                "shop_main": "$q {{ID}}_Shop null#{{i18n:ui.shop.text}}#$r null 0 shop_trade#{{i18n:ui.shop.trade}}#$r null 0 shop_crackers#{{i18n:ui.shop.crackers}}#$r null 0 shop_wedding#{{i18n:ui.shop.wedding.options}}#$r null 0 shop_cancel#{{i18n:ui.menu.cancel}}",
                 "shop_trade": "$action {{ID}}_DialogueEffects shop",
                 "shop_crackers": "$query PLAYER_HAS_CONVERSATION_TOPIC Current {{ID}}_Crackers#{{i18n:ui.shop.crackers.fail.daily}}|$q {{ID}}_Shop_Crackers null#{{i18n:ui.shop.crackers.text}}#$r null 0 crackers_yes#{{i18n:ui.shop.crackers.yes}}#$r null 0 crackers_no#{{i18n:ui.shop.crackers.no}}",
                 "shop_cancel": "$action {{ID}}_DialogueEffects exit",
+                "shop_wedding": "$query !ANY \"PLAYER_NPC_RELATIONSHIP Current Any Engaged\" \"PLAYER_PLAYER_RELATIONSHIP Current Any Engaged\"#{{i18n:ui.shop.wedding.fail.engaged}}|{{i18n:ui.shop.wedding.options.intro}}#$b#$q null null#{{i18n:ui.shop.wedding.options.main}}#$r null 0 wedding_where#{{i18n:ui.menu.yes}}#$r null 0 wedding_no#{{i18n:ui.menu.no}}",
+
                 "crackers_yes": "$query !PLAYER_CURRENT_MONEY Current 200#{{i18n:ui.shop.crackers.fail.money}}|{{i18n:ui.shop.crackers.yes.{{Random: 1, 2, 3, 4, 5}}}}#$action AddMoney -200#$action AddItem {{ID}}_BurntCrackers#$action AddConversationTopic {{ID}}_Crackers 0",
-                "crackers_no": "{{i18n:ui.shop.crackers.no.1}}"
+                "crackers_no": "{{i18n:ui.shop.crackers.no.1}}",
+
+                "wedding_no": "{{i18n:ui.shop.wedding.options.main.no}}",
+                "wedding_where": "{{i18n:ui.shop.wedding.options.main.yes}}#$b#$q null null#{{i18n:ui.shop.wedding.options.where}}{{bb/WeddingLocationsResponses}}",
+                "wedding_who": "$q null null#{{i18n:ui.shop.wedding.options.who}}{{bb/WeddingOfficiantsResponses}}",
+                "wedding_how": "$q null null#{{i18n:ui.shop.wedding.options.how}}{{bb/WeddingStyleResponses}}",
+                "wedding_confirmed": "{{i18n:ui.shop.wedding.options.confirmed}}"
             }
         },
         {
