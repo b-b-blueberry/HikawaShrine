@@ -13,7 +13,7 @@
                     "Description": "{{i18n:item.shrubtool.description}}",
                     "Texture": "{{PATH}}/Sprites/Objects",
                     "SpriteIndex": -1,
-                    "MenuSpriteIndex": 10,
+                    "MenuSpriteIndex": 11,
                     "CanBeLostOnDeath": true
                 }
             }
