@@ -92,7 +92,7 @@
                 "{{ID}}_Cherry_Wheel_Chest_2": "{{ID}}_Cherry_Wheel_Chest_2/decor/2 2/2 1/4/9999/-1/{{i18n:furniture.cherry_chest.name}}/181/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
                 "{{ID}}_Cherry_Stove_1": "{{ID}}_Cherry_Stove_1/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_stove.name}}/224/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
                 "{{ID}}_Cherry_Stove_2": "{{ID}}_Cherry_Stove_2/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_stove.name}}/225/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
-                "{{ID}}_Cherry_Sink": "{{ID}}_Cherry_Sink/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_firewood.name}}/227/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
+                "{{ID}}_Cherry_Sink": "{{ID}}_Cherry_Sink/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_sink.name}}/227/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
                 "{{ID}}_Cherry_Firewood_1": "{{ID}}_Cherry_Firewood_1/decor/1 2/1 1/1/9999/-1/{{i18n:furniture.cherry_firewood.name}}/231/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
                 "{{ID}}_Cherry_Firewood_2": "{{ID}}_Cherry_Firewood_2/decor/2 2/2 1/1/9999/-1/{{i18n:furniture.cherry_firewood.name}}/229/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
                 "{{ID}}_Cherry_Bucket_1": "{{ID}}_Cherry_Bucket_1/decor/1 1/1 1/1/9999/-1/{{i18n:furniture.cherry_bucket.name}}/248/{{PATH_S}}\\Sprites\\Furniture_Cherry/true",
