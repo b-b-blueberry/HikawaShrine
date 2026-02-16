@@ -77,10 +77,6 @@ namespace Hikawa.Interfaces
 		private static bool ContentPatcher(string uniqueId)
 		{
 			Interfaces.ContentPatcherAPI = Interfaces._registry.GetApi<IContentPatcherAPI>(uniqueID: uniqueId);
-			Interfaces.ContentPatcherAPI?.RegisterToken(mod: Interfaces._manifest, name: "SeasonalOutfits", getValue: () =>
-			{
-				return [ModEntry.Config.SeasonalOutfits.ToString()];
-			});
 			return Interfaces.ContentPatcherAPI is not null;
 		}
 

@@ -100,6 +100,9 @@ namespace Hikawa
 				return;
 			}
 
+            // law-abiding citizen
+            ContentPatcherTokens.RegisterAll();
+
 			// continue init after setup delay
 			this.Helper.Events.GameLoop.OneSecondUpdateTicked += this.OnDelayAfterGameLaunched;
 		}
