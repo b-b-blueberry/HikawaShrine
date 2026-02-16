@@ -125,6 +125,10 @@
             "Name": "MUSIC_AMI",
             "Value": "elliottPiano"
         },
+        {
+            "Name": "WEDDING_OFFICIANT",
+            "Value": "{{ID}}_Gramps"
+        },
         // Variables
         {
             "Name": "Outfit",
