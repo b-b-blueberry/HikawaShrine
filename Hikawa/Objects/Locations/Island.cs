@@ -29,6 +29,8 @@ namespace Hikawa.Objects.Locations
 		{
 			Utils.ResetCustomSharedMapProperties(this);
 
+            Game1.player.modData[ModEntry.ModData.ContentPrefix + "_InWater"] = null;
+
 			base.cleanupBeforePlayerExit();
 		}
 
