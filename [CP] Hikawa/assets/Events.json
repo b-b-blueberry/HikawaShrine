@@ -4,7 +4,7 @@
         {
             "LogName": "Hikawa: Events - Blanks",
             "Action": "Load",
-            "Target": "Data/Events/{{SHRINE}}, Data/Events/{{HOUSE}}, Data/Events/{{HALL}}, Data/Events/{{GROVE}}",
+            "Target": "Data/Events/{{SHRINE}}, Data/Events/{{HOUSE}}, Data/Events/{{HALL}}, Data/Events/{{GROVE}}, Data/Events/{{ISLAND}}",
             "FromFile": "assets/Blank.json"
         },
         // Events
@@ -643,6 +643,13 @@
             "LogName": "Hikawa: Events - Grove",
             "Action": "EditData",
             "Target": "Data/Events/{{GROVE}}",
+            "Entries": {
+            }
+        },
+        {
+            "LogName": "Hikawa: Events - Island",
+            "Action": "EditData",
+            "Target": "Data/Events/{{ISLAND}}",
             "Entries": {
             }
         }
