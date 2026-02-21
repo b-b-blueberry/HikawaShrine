@@ -1,11 +1,11 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Hikawa.Objects.Locations;
+﻿using Hikawa.Objects.Locations;
 using StardewModdingAPI.Utilities;
-using StardewValley;
 using StardewValley.Delegates;
+using StardewValley.Extensions;
 using StardewValley.Menus;
 using StardewValley.Triggers;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Hikawa.Modules
 {
@@ -88,6 +88,17 @@ namespace Hikawa.Modules
 					db.closeDialogue();
 				}
 			}
+            else if (args[1] == "dialogueAnswered")
+            {
+                for (int i = 2; i < args.Length; i += 2)
+                    if (ArgUtility.TryGet(args, i, out string key, out string error) && ArgUtility.TryGetBool(args, i + 1, out bool value, out error))
+                        Game1.player.dialogueQuestionsAnswered.Toggle(key, value);
+            }
+            else if (args[1] == "forgetDialogueAnswersStartingWith")
+            {
+                if (ArgUtility.TryGet(args, 2, out string prefix, out string error))
+                    Game1.player.dialogueQuestionsAnswered.RemoveWhere(s => s.StartsWith(prefix));
+            }
 		}
 
 		public static void SetFromDialogue(Dialogue d)

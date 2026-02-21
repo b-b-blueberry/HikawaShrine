@@ -509,6 +509,14 @@ namespace Hikawa
 			return num == (short)Game1.MasterPlayer.UniqueMultiplayerID;
 		}
 
+        internal static string GetWeddingResponse(string prefix)
+        {
+            foreach (var key in Game1.player.DialogueQuestionsAnswered)
+                if (key.StartsWith(prefix))
+                    return key.Split(prefix)[1];
+            return null;
+        }
+
 		internal static bool TryPlaySound(string cueName)
 		{
 			return !string.IsNullOrEmpty(cueName) && Game1.soundBank.Exists(name: cueName) && Game1.playSound(cueName: cueName);

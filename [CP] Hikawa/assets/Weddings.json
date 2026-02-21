@@ -1,0 +1,215 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Weddings - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Data/Weddings",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Weddings - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Data/Weddings",
+            "Entries": {
+                "EventScript": "
+                    sweet
+                    /-1000 -1000
+                    /farmer [{{ID}}_Wedding_Offset 27 63] 2 otherFarmers [{{ID}}_Wedding_Offset 29 69] 0 [{{ID}}_Wedding_Officiant] [{{ID}}_Wedding_Offset 27 64] 2 [SpouseFarmerText [EscapedText] [EscapedText [SpouseActor] [{{ID}}_Wedding_Offset 28 63] 2]] [SetupContextualWeddingAttendees]
+                    /changeLocation [{{ID}}_Wedding_Location]
+
+                    /-- spouse appearance
+                    /[SpouseFarmerText [EscapedText faceDirection [SpouseActor] 2/warp [SpouseActor] [{{ID}}_Wedding_Offset 28 63]] [EscapedText showFrame [SpouseActor] 36]]
+
+                    /-- decoration script
+                    [{{ID}}_Wedding_DecorationScript]
+
+                    /-- intro
+                    /viewport [{{ID}}_Wedding_Offset 27 64] true
+                    /pause 4000
+
+                    /-- officiant script
+                    [{{ID}}_Wedding_OfficiantScript]
+
+                    /-- now kiss
+                    /pause 1000
+                    /showFrame 101
+                    /[SpouseFarmerText [EscapedText showFrame [SpouseActor] 101 true] [EscapedText showFrame [SpouseActor] 38]]
+                    /specificTemporarySprite heart [{{ID}}_Wedding_Offset 28 62]
+                    /playSound dwop
+
+                    /-- confetti
+                    /pause 2000
+                    /specificTemporarySprite wed
+                    /faceDirection farmer 2
+                    /[SpouseFarmerText [EscapedText faceDirection [SpouseActor] 2] [EscapedText showFrame [SpouseActor] 36]]
+                    /[ContextualWeddingCelebrations]move [{{ID}}_Wedding_Officiant] 0 3 3 true
+                    /pause 4000
+                    /faceDirection farmer 1
+                    /[SpouseFarmerText [EscapedText showFrame [SpouseActor] 3 true] [EscapedText showFrame [SpouseActor] 37]]
+
+                    /globalFade
+                    /viewport -1000 -1000
+                    /pause 1000
+                    /message \"[LocalizedText Strings/StringsFromCSFiles:Utility.cs.5381]\"
+                    /pause 500
+                    /message \"[LocalizedText Strings/StringsFromCSFiles:Utility.cs.5383]\"
+
+                    /waitForOtherPlayers weddingEnd[FarmerUniqueId]
+                    /end wedding
+                ",
+                "Locations": {
+                    "Town": {
+                        "DisplayName": "[LocalizedText Strings\\StringsFromCSFiles:MapPage.cs.11190]"
+                    },
+                    "{{SHRINE}}": {
+                        "DisplayName": "{{i18n:world.shrine.map}}",
+                        "WeddingOffset": {
+                            "X": "7",
+                            "Y": "-24"
+                        }
+                    },
+                    "{{ISLAND}}": {
+                        "DisplayName": "{{i18n:world.island.map}}",
+                        "Condition": "PLAYER_VISITED_LOCATION Current {{ISLAND}}",
+                        "WeddingOffset": {
+                            "X": "49",
+                            "Y": "-15"
+                        }
+                    },
+                },
+                "AttendeeGroups": {
+                    "default": {
+                        "DisplayName": "{{i18n:ui.shop.wedding.options.attendees.default}}",
+                    },
+                    "{{SHRINE}}": {
+                        "DisplayName": "{{i18n:ui.shop.wedding.options.attendees.shrine}}",
+                        "Attendees": {
+                            // girlies
+                            "{{REI}}": {
+                                "Id": "{{REI}}",
+                                "Condition": "!{{bb/WeddingOfficiant |contains={{REI}}}}",
+                                "Setup": "{{REI}} 26 65 0",
+                            },
+                            "{{AMI}}": {
+                                "Id": "{{AMI}}",
+                                "Condition": null,
+                                "Setup": "{{AMI}} 25 65 0",
+                            },
+                            "{{MAKO}}": {
+                                "Id": "{{MAKO}}",
+                                "Condition": "PLAYER_HAS_MET Any {{MAKO}}",
+                                "Setup": "{{MAKO}} 24 65 0",
+                            },
+
+                            // fellas
+                            "{{GRAMPS}}": {
+                                "Id": "{{GRAMPS}}",
+                                "Condition": "!{{bb/WeddingOfficiant |contains={{GRAMPS}}}}",
+                                "Setup": "{{GRAMPS}} 29 65 0",
+                            },
+                            "{{GUY}}": {
+                                "Id": "{{GUY}}",
+                                "Condition": null,
+                                "Setup": "{{GUY}} 30 65 0"
+                            },
+
+                            // twins
+                            "{{MINA}}": {
+                                "Id": "{{MINA}}",
+                                "Condition": "PLAYER_HAS_MET Any {{MINA}} {{USAGI}}",
+                                "Setup": "{{MINA}} 29 66 0",
+                                "Celebration": null
+                            },
+                            "{{USAGI}}": {
+                                "Id": "{{USAGI}}",
+                                "Condition": "PLAYER_HAS_MET Any {{MINA}} {{USAGI}}",
+                                "Setup": "{{USAGI}} 30 66 0",
+                                "Celebration": null
+                            },
+
+                            // cats
+                            "{{CAT}}": {
+                                "Id": "{{CAT}}",
+                                "Condition": null,
+                                "Setup": "{{CAT}} 26 66 0"
+                            },
+                            "blueberry.SailorStyles.Character": {
+                                "Id": "blueberry.SailorStyles.Character",
+                                "Condition": "{{HasMod |contains=blueberry.SailorStyles.CP}}",
+                                "Setup": "blueberry.SailorStyles.Character 25 66 0"
+                            }
+                        }
+                    },
+                    "{{ID}}_None": {
+                        "DisplayName": "{{i18n:ui.shop.wedding.options.attendees.none}}",
+                        "Attendees": {}
+                    }
+                },
+                "AttendeeDialogues": {
+                    "{{REI}}": "haha yay"
+                },
+                "Officiants": {
+                    "Lewis": {
+                        "DisplayName": "[LocalizedText Strings\\NPCNames:Lewis]",
+                        "EventScript": "
+                            /speak Lewis \"[GenderedText [EscapedText [LocalizedText Strings/StringsFromCSFiles:Utility.cs.5367 [DayOfMonth] [Season]]] [EscapedText [LocalizedText Strings/StringsFromCSFiles:Utility.cs.5369 [DayOfMonth] [Season]]]]\"
+                            /faceDirection farmer 1
+                            /[SpouseFarmerText [EscapedText faceDirection [SpouseActor] 3] [EscapedText showFrame [SpouseActor] 37]]
+                            /pause 500
+                            /faceDirection Lewis 0
+                            /pause 2000
+                            /speak Lewis \"[LocalizedText Strings/StringsFromCSFiles:Utility.cs.5370]\"
+                            /move Lewis 0 1 0
+                            /playMusic none
+                            /pause 1000
+                            /showFrame Lewis 20
+                            /speak Lewis \"[GenderedText [EscapedText [SpouseGenderedText [EscapedText [LocalizedText Strings/StringsFromCSFiles:Utility.cs.5371]] [EscapedText [LocalizedText Strings/StringsFromCSFiles:Utility.cs.5373]]]] [EscapedText [SpouseGenderedText [EscapedText [LocalizedText Strings/StringsFromCSFiles:Utility.cs.5377]] [EscapedText [LocalizedText Strings/StringsFromCSFiles:Utility.cs.5375]]]]]\"
+                            /pause 500
+                            /speak Lewis \"[LocalizedText Strings/StringsFromCSFiles:Utility.cs.5379]\"
+                        ",
+                    },
+                    "{{REI}}": {
+                        "DisplayName": "[LocalizedText Strings\\NPCNames:{{REI}}]",
+                        "EventScript": "
+                            /speak {{REI}} \"im a girl btw\"
+                            /pause 500
+                        "
+                    },
+                    "{{GRAMPS}}": {
+                        "DisplayName": "[LocalizedText Strings\\NPCNames:{{GRAMPS}}]",
+                        "EventScript": "
+                            /speak {{GRAMPS}} \"haha im an old man\"
+                            /pause 500
+                        "
+                    }
+                },
+                "Decorations": {
+                    "default": {
+                        "DisplayName": "{{i18n:ui.shop.wedding.options.decorations.default}}",
+                        "EventScript": "
+                            /-- pergola trellis thing
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 540 1196 98 79 1 1 1 [{{ID}}_Wedding_Offset 25 59] false false 38 0 1 0 0 0 hold_last_frame
+                            /-- flowers
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 527 1249 12 25 1 1 1 [{{ID}}_Wedding_Offset 24 62] false false 41 0 1 0 0 0 hold_last_frame
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 527 1249 12 25 1 1 1 [{{ID}}_Wedding_Offset 32 62] false false 41 0 1 0 0 0 hold_last_frame
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 527 1249 12 25 1 1 1 [{{ID}}_Wedding_Offset 24 72] false false 51 0 1 0 0 0 hold_last_frame
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 527 1249 12 25 1 1 1 [{{ID}}_Wedding_Offset 32 72] false false 51 0 1 0 0 0 hold_last_frame
+                        "
+                    },
+                    "{{ID}}_Shinto": {
+                        "DisplayName": "{{i18n:ui.shop.wedding.options.decorations.shinto}}",
+                        "EventScript": "
+                            /-- pergola trellis thing
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 540 1196 98 79 1 1 1 [{{ID}}_Wedding_Offset 25 59] false false 38 0 1 0 0 0 hold_last_frame
+                            /-- flowers
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 128 688 16 32 1 1 1 [{{ID}}_Wedding_Offset 24 62] false false 41 0 1 0 0 0 hold_last_frame
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 128 688 16 32 1 1 1 [{{ID}}_Wedding_Offset 32 62] false false 41 0 1 0 0 0 hold_last_frame
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 128 688 16 32 1 1 1 [{{ID}}_Wedding_Offset 24 72] false false 51 0 1 0 0 0 hold_last_frame
+                            /temporaryAnimatedSprite \"LooseSprites/Cursors\" 128 688 16 32 1 1 1 [{{ID}}_Wedding_Offset 32 72] false false 51 0 1 0 0 0 hold_last_frame
+                        "
+                    }
+                }
+            }
+        }
+    ]
+}
