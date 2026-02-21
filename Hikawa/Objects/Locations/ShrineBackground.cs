@@ -228,7 +228,7 @@ namespace Hikawa.Objects.Locations
 						float eveningAlpha = Utils.CircularFromRatio(eveningRatio);
 						cloudColor = Color.Lerp(Color.White, Color.Salmon, eveningAlpha);
 						cloudAlpha += eveningAlpha * 0.75f;
-						source = new(544, 208, 16, 240);
+						source = new(624, 208, 16, 240);
 						b.Draw(
 							texture: ModEntry.Sprites,
 							destinationRectangle: new Rectangle(0, (int)(zero.Y - skyY * eveningAlpha), display.Width, skyH),
@@ -300,7 +300,7 @@ namespace Hikawa.Objects.Locations
 			for (int i = 0; i < 2; ++i)
 			{
 				Rectangle fillSource = new Rectangle(
-					x: 320,
+					x: 400,
 					y: 0,
 					width: 240,
 					height: 208);

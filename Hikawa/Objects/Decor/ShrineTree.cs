@@ -37,7 +37,7 @@ namespace Hikawa.Objects.Decor
             Rectangle area = this.TreeData.LeafRegion.Value;
             var sprite = TemporaryAnimatedSprite.GetTemporaryAnimatedSprite(
                 textureName: AssetManager.ExtraSpritesAssetName,
-                sourceRect: new Rectangle(320, 208, 16, 16),
+                sourceRect: new Rectangle(400, 208, 16, 16),
                 position: this.Tile * Game1.tileSize
                     - this.TreeData.TextureRegion.Size.ToVector2() / 2f * Game1.pixelZoom
                     + area.Size.ToVector2() / 2f * Game1.pixelZoom
