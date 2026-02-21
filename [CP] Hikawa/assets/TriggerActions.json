@@ -1,0 +1,11 @@
+{
+    "Changes": [
+        {
+            "LogName": "Hikawa: TriggerActions - Data",
+            "Action": "EditData",
+            "Target": "Data/TriggerActions",
+            "Entries": {
+            }
+        }
+    ]
+}
