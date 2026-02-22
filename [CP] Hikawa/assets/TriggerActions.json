@@ -5,6 +5,12 @@
             "Action": "EditData",
             "Target": "Data/TriggerActions",
             "Entries": {
+                "{{ID}}_Engaged": {
+                    "Id": "{{ID}}_Engaged",
+                    "Trigger": "DayEnding",
+                    "Condition": "PLAYER_NPC_RELATIONSHIP Current Any Engaged",
+                    "Action": "AddMail Current {{ID}}_Engaged"
+                }
             }
         }
     ]

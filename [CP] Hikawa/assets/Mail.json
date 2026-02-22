@@ -5,6 +5,7 @@
             "Action": "EditData",
             "Target": "Data/mail",
             "Entries": {
+                "{{ID}}_Engaged": "{{i18n:mail.engaged.text}}[#]{{i18n:mail.engaged.title}}",
                 "{{ID}}_Flowers": "{{i18n:quest.mail.flowers}}%item money 2500 %% %item conversationTopic {{ID}}_Flowers 7 %%"
             }
         }

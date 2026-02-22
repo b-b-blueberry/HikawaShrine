@@ -35,6 +35,10 @@
 
     "anim.gramps.sleep": "%Grandpa's sleeping.",
 
+    // Mail
+    "mail.engaged.text": "Good morning!^Word's reached us that you're planning a wedding in town. Congratulations!^^We offer wedding planning services from the shop, so feel free to visit and tailor your perfect wedding.^^   -Cherry Hill Shrine",
+    "mail.engaged.title": "Cherry Hill Wedding Service",
+
     // Quests
     // bugs
     "quest.title.bugs": "Ami's Arthropology",
