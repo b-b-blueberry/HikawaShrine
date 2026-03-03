@@ -298,7 +298,10 @@ namespace Hikawa
 							color: entry.Color);
 						++j;
 					}
-					where.sharedLights.TryAdd(light.Id, light);
+					if (!where.sharedLights.TryAdd(light.Id, light))
+					{
+						Log.E($"Failed to add light {light.Id} ({i} - {entry.TextureName ?? "null"}) at {entry.Tile} to {where.Name}");
+					}
 				}
 			}
 		}
