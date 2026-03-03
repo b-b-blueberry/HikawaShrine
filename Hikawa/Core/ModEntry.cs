@@ -292,6 +292,10 @@ namespace Hikawa
 		{
 			ModEntry.SaveData = this.Helper.Data.ReadSaveData<SaveData>(ModEntry.ModData.SaveDataKey) ?? new SaveData();
 			Modules.DialoguePicker.LoadData();
+
+			// ensure correct wedding event changes are applied
+			if (Game1.weddingToday)
+				this.Helper.GameContent.InvalidateCache("Data/Weddings");
 		}
 
 		/// <summary>
