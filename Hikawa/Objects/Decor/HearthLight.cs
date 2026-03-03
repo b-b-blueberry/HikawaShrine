@@ -45,7 +45,7 @@ namespace Hikawa.Objects.Decor
             if (!Utility.isOnScreen(
                 positionNonTile: position.Value,
                 acceptableDistanceFromScreen: (int)(radius.Value * Game1.tileSize * 4))
-                || !Game1.isStartingToGetDarkOut(Game1.currentLocation) && !Game1.isRaining)
+                || (Data.ExtinguishAtTime > 0 && !Game1.isStartingToGetDarkOut(Game1.currentLocation) && !Game1.isRaining))
                 return;
 
             GameLocation here = Game1.currentLocation;
