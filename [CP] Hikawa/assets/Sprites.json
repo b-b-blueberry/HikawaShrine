@@ -1,106 +1,16 @@
 ﻿{
     "Changes": [
         {
-            "LogName": "Hikawa: Sprites - Objects",
+            "LogName": "Hikawa: Sprites - Sprites",
             "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Objects",
-            "FromFile": "assets/Sprites/Objects.png"
+            "Target": "{{PATH}}/Sprites/Objects, {{PATH}}/Sprites/Bows, {{PATH}}/Sprites/Extras, {{PATH}}/Sprites/Furniture, {{PATH}}/Sprites/Furniture_Bugs, {{PATH}}/Sprites/Furniture_BugsFront, {{PATH}}/Sprites/Furniture_Cherry, {{PATH}}/Sprites/Wallpaper, {{PATH}}/Sprites/Floors, {{PATH}}/Sprites/Kites, {{PATH}}/Sprites/Lights, {{PATH}}/Sprites/Cats, {{PATH}}/Sprites/Crows, {{PATH}}/Sprites/Arcade",
+            "FromFile": "assets/Sprites/{{TargetWithoutPath}}.png"
         },
         {
-            "LogName": "Hikawa: Sprites - Outdoors",
+            "LogName": "Hikawa: Sprites - Locations",
             "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Outdoors",
-            "FromFile": "assets/Locations/HikawaOutdoors.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - House",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/House",
-            "FromFile": "assets/Locations/HikawaHouse.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Bows",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Bows",
-            "FromFile": "assets/Sprites/Bows.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Extras",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Extras",
-            "FromFile": "assets/Sprites/Extras.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Furniture",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture",
-            "FromFile": "assets/Sprites/Furniture.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Furniture (Bugs)",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_Bugs",
-            "FromFile": "assets/Sprites/Furniture_Bugs.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Furniture (Bugs - Front)",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_BugsFront",
-            "FromFile": "assets/Sprites/Furniture_BugsFront.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Furniture (Cherry)",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Furniture_Cherry",
-            "FromFile": "assets/Sprites/Furniture_Cherry.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Wallpaper",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Wallpaper",
-            "FromFile": "assets/Sprites/Wallpaper.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Floorpaper",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Floors",
-            "FromFile": "assets/Sprites/Floors.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Kites",
-            "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Kites",
-            "FromFile": "assets/Sprites/Kites.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Lights",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Lights",
-            "FromFile": "assets/Sprites/Lights.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Cats",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Cats",
-            "FromFile": "assets/Sprites/Cats.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Crows",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Crows",
-            "FromFile": "assets/Sprites/Crows.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Events",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Locations/Events",
-            "FromFile": "assets/Locations/HikawaEvents.png"
-        },
-        {
-            "LogName": "Hikawa: Sprites - Arcade",
-            "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Sprites/Arcades",
-            "FromFile": "assets/Sprites/Arcade.png"
+            "Target": "{{PATH}}/Locations/Outdoors, {{PATH}}/Locations/Indoors, {{PATH}}/Locations/House, {{PATH}}/Locations/Events, {{PATH}}/Locations/Hall",
+            "FromFile": "assets/Locations/{{TargetWithoutPath}}.png"
         }
     ]
 }

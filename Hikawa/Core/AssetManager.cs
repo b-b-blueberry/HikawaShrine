@@ -23,9 +23,11 @@ namespace Hikawa
         internal static readonly string StringsAssetName = Path.Combine(RootAssetDir, "Strings", "Strings");
 
         internal static readonly string EventSpritesAssetName = Path.Combine(RootAssetDir, "Locations", "Events");
+        internal static readonly string HouseSpritesAssetName = Path.Combine(RootAssetDir, "Locations", "House");
+        internal static readonly string IndoorsSpritesAssetName = Path.Combine(RootAssetDir, "Locations", "Indoors");
+        internal static readonly string OutdoorsSpritesAssetName = Path.Combine(RootAssetDir, "Locations", "Outdoors");
+
         internal static readonly string ExtraSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Extras");
-        internal static readonly string IndoorsSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Indoors");
-        internal static readonly string OutdoorsSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Outdoors");
         internal static readonly string CrowSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Crows");
         internal static readonly string CatSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Cats");
         internal static readonly string LightSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Lights");

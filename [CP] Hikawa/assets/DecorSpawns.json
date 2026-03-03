@@ -365,7 +365,7 @@
                     "{{SHRINE}}": [
                         { // Main gate (big rope tassle)
                             "Tile": "34.75, 48.6",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 416,
                                 "Y": 192,
@@ -379,7 +379,7 @@
                         },
                         { // Main gate (small rope tassle)
                             "Tile": "33.3, 48.3",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 432,
                                 "Y": 192,
@@ -393,7 +393,7 @@
                         },
                         { // Main gate (small rope tassle)
                             "Tile": "36.3, 48.3",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 432,
                                 "Y": 192,
@@ -407,7 +407,7 @@
                         },
                         { // Souvenir shop (paper lantern)
                             "Tile": "22, 46",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 528,
                                 "Y": 192,
@@ -421,7 +421,7 @@
                         },
                         { // Shrine (paper lantern)
                             "Tile": "30.5, 30.75",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 512,
                                 "Y": 192,
@@ -435,7 +435,7 @@
                         },
                         { // Shrine (paper lantern)
                             "Tile": "31.5, 30.75",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 512,
                                 "Y": 192,
@@ -449,7 +449,7 @@
                         },
                         { // Shrine (paper lantern)
                             "Tile": "38, 30.75",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 528,
                                 "Y": 192,
@@ -463,7 +463,7 @@
                         },
                         { // Shrine (paper lantern)
                             "Tile": "39, 30.75",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 544,
                                 "Y": 192,
@@ -477,7 +477,7 @@
                         },
                         { // Shrine (paper tassles)
                             "Tile": "33.75, 33.5",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 448,
                                 "Y": 192,
@@ -491,7 +491,7 @@
                         },
                         { // Shrine (paper tassles)
                             "Tile": "34.25, 33.5",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 464,
                                 "Y": 192,
@@ -505,7 +505,7 @@
                         },
                         { // Shrine (paper tassles)
                             "Tile": "35.25, 33.5",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 480,
                                 "Y": 192,
@@ -519,7 +519,7 @@
                         },
                         { // Shrine (paper tassles)
                             "Tile": "35.75, 33.5",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 496,
                                 "Y": 192,
@@ -533,7 +533,7 @@
                         },
                         { // Construction (rope)
                             "Tile": "51, 42",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 240,
                                 "Y": 80,
@@ -547,7 +547,7 @@
                         },
                         { // Verandah (wind chime)
                             "Tile": "53.5, 30.25",
-                            "TextureId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TextureId": "{{PATH}}/Sprites/Outdoors",
                             "TextureRegion": {
                                 "X": 544,
                                 "Y": 352,
@@ -567,19 +567,19 @@
                     "{{SHRINE}}": [
                         { // Shrine left (wood)
                             "Tile": "31, 38",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 651,
                             "DrawAbove": true
                         },
                         { // Shrine right (wood)
                             "Tile": "38, 38",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 651,
                             "DrawAbove": true
                         },
                         { // Shrine gate left (stone)
                             "Tile": "29, 55",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1553,
                             "Size": {
                                 "X": 2,
@@ -588,7 +588,7 @@
                         },
                         { // Shrine gate right (stone)
                             "Tile": "39, 55",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1553,
                             "Size": {
                                 "X": 2,
@@ -597,7 +597,7 @@
                         },
                         { // Shrine gate left lower (stone)
                             "Tile": "29, 61",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1553,
                             "Size": {
                                 "X": 2,
@@ -606,7 +606,7 @@
                         },
                         { // Shrine gate right lower (stone)
                             "Tile": "39, 61",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1553,
                             "Size": {
                                 "X": 2,
@@ -615,7 +615,7 @@
                         },
                         { // Cemetary (stone)
                             "Tile": "35, 18",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1551,
                             "Size": {
                                 "X": 2,
@@ -624,7 +624,7 @@
                         },
                         { // Cemetary gate (stone)
                             "Tile": "25, 25",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1553,
                             "Size": {
                                 "X": 2,
@@ -633,47 +633,47 @@
                         },
                         { // Garden (small)
                             "Tile": "56, 20",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Cemetary bottom right (small)
                             "Tile": "46, 18",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Cemetary bench (small)
                             "Tile": "47, 15",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Cemetary left (small)
                             "Tile": "32, 18",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Cemetary centre (small)
                             "Tile": "37, 19",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Cemetary right (small)
                             "Tile": "40, 17",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Cemetary bottom (small)
                             "Tile": "37, 23",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Ema yard (small)
                             "Tile": "12, 20",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         },
                         { // Name stone (small)
                             "Tile": "43, 61",
-                            "TileSheetId": "Mods/blueberry/Hikawa/Sprites/Outdoors",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         }
                     ]
@@ -689,7 +689,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -707,7 +707,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 5,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.5,
                             "Variance": 0,
                             "Rate": 0,
@@ -723,7 +723,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 4,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.5,
                             "Variance": 0,
                             "Rate": 0,
@@ -739,7 +739,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -755,7 +755,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -771,7 +771,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -787,7 +787,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -803,7 +803,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -819,7 +819,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 2,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -835,7 +835,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 1,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0,
                             "Rate": 64,
@@ -851,7 +851,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 1,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0,
                             "Rate": 64,
@@ -868,7 +868,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 6,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -883,7 +883,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -898,7 +898,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -913,7 +913,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -928,7 +928,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -943,7 +943,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -958,7 +958,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -973,7 +973,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -988,7 +988,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -1003,7 +1003,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 3,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.666,
                             "Variance": 0.002,
                             "Rate": 4,
@@ -1022,7 +1022,7 @@
                                 "A": 255
                             },
                             "TextureIndex": 0,
-                            "TextureName": "Mods/blueberry/Hikawa/Sprites/Lights",
+                            "TextureName": "{{PATH}}/Sprites/Lights",
                             "Luminosity": 0.8,
                             "Variance": 0.002,
                             "Rate": 4

@@ -3,13 +3,13 @@
         {
             "LogName": "Hikawa: Match3Data",
             "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Match3/Data",
+            "Target": "{{PATH}}/Match3/Data",
             "FromFile": "assets/Match3/data.json"
         },
         {
             "LogName": "Hikawa: Match3Sprites",
             "Action": "Load",
-            "Target": "Mods/blueberry/Hikawa/Match3/Sprites",
+            "Target": "{{PATH}}/Match3/Sprites",
             "FromFile": "assets/Match3/match3.png"
         },
         {

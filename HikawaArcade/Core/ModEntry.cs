@@ -20,7 +20,7 @@ namespace HikawaArcade
         internal const string ArcadeObjectName = ContentPrefix + "ArcadeGunGame";
 
 		internal static readonly string RootAssetDir = Path.Combine("Mods", "blueberry", "Hikawa");
-		internal static readonly string ArcadeSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Arcades");
+		internal static readonly string ArcadeSpritesAssetName = Path.Combine(RootAssetDir, "Sprites", "Arcade");
 
 		public override void Entry(IModHelper helper)
         {

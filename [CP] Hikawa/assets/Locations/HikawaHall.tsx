@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.1" name="HikawaHall" tilewidth="16" tileheight="16" tilecount="675" columns="12">
- <image source="HikawaHall.png" width="192" height="240"/>
+ <image source="Hall.png" width="192" height="240"/>
  <tile id="171">
   <animation>
    <frame tileid="171" duration="300"/>
