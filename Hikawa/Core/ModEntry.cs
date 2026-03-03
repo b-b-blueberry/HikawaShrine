@@ -124,7 +124,7 @@ namespace Hikawa
 
 			// evil doings
 			Harmony harmony = new(id: this.Helper.ModRegistry.ModID);
-			harmony.PatchAll();
+			harmony.PatchAll(typeof(HarmonyPatches).Assembly);
 
 			// criminal activity
 			this.MangleTranslations();
