@@ -483,15 +483,14 @@ namespace Hikawa
 		{
 			return who.currentLocation is BathHousePool pool && pool.isWaterTile(xTile: who.TilePoint.X, yTile: who.TilePoint.Y);
 		}
-		/*
-		internal static float GetProgressFromEveningIntoNighttime()
+		
+		internal static float GetProgressFromEveningIntoNighttime(GameLocation location, float time)
 		{
-			var now = Game1.timeOfDay;
-			var start = Game1.getStartingToGetDarkTime();
-			var end = Game1.getTrulyDarkTime();
-			return Math.Min(1f, (float)(now - start) / (end - start));
+			var start = Game1.getStartingToGetDarkTime(location);
+			var end = Game1.getTrulyDarkTime(location);
+			return Math.Clamp((float)(time - start) / (end - start), 0, 1);
 		}
-		*/
+
 		internal static bool IsItObonYet()
 		{
 			return Game1.season == Season.Summer && Game1.dayOfMonth > 27

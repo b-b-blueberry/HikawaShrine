@@ -6,11 +6,13 @@ namespace Hikawa.Objects.Locations
 {
 	[XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(House)}")] // SpaceCore serialisation signature
 	public class House : GameLocation
-	{
-		[XmlIgnore]
-		public HearthLight HearthLight;
-		
-		public House() : base() {}
+    {
+        [XmlIgnore]
+        public HearthLight HearthLight;
+        [XmlIgnore]
+        public bool DoorsOpen;
+
+        public House() : base() {}
 
 		public House(string filename, string locationName) : base(filename, locationName) {}
 
@@ -89,8 +91,11 @@ namespace Hikawa.Objects.Locations
 			if (this.sharedLights.TryGetValue(HearthLight.GetId(where: this, which: 0), out LightSource light))
 				this.HearthLight = light as HearthLight;
 
-			// fire
-			/*
+            // engawa. not cold or windy. rainy is ok and nice
+            this.DoorsOpen = Game1.season is not Season.Winter && !Shrine.Get().IsDebrisWeatherHere();
+
+            // fire
+            /*
 			where.TemporarySprites.Add(new TemporaryAnimatedSprite(
 				textureName: "LooseSprites/Cursors",
 				sourceRect: new Rectangle(276, 1985, 12, 11),
@@ -114,9 +119,9 @@ namespace Hikawa.Objects.Locations
 			});
 			*/
 
-			// Bedroom door
-			// forget it i hate doors
-			/*const string layerName = "Buildings";
+            // Bedroom door
+            // forget it i hate doors
+            /*const string layerName = "Buildings";
 			Layer layer = where.Map.GetLayer(layerName);
 			foreach (Point point in where.interiorDoors.Keys)
 			{
@@ -168,8 +173,8 @@ namespace Hikawa.Objects.Locations
 				Log.D($"Door created.\n\tDoor tile: {point}\n\tNeighbouring tile: {tileNeighbourPoint}\n\tDoor sprite: {door.Sprite.initialPosition}\n\t({door.Sprite.sourceRect})");
 			}*/
 
-			// TODO: DEBUG: Seasonal rei house changes are currently blocked
-			return;
+            // TODO: DEBUG: Seasonal rei house changes are currently blocked
+            return;
 			/*
 			// Seasonal tiles
 			// Butsudan
@@ -216,5 +221,43 @@ namespace Hikawa.Objects.Locations
 
 			base.cleanupBeforePlayerExit();
 		}
+
+        public override void drawBackground(SpriteBatch b)
+        {
+            base.drawBackground(b);
+
+			// engawa
+			{
+
+			}
+        }
+
+        public override void draw(SpriteBatch b)
+        {
+            base.draw(b);
+
+			// engawa
+			// this would be unreasonably convoluted in content patcher
+			{
+				var texture = Game1.content.Load<Texture2D>($"{ModEntry.ModData.ContentPrefix}_{ModEntry.ModData.TilesheetHouse}");
+				var tile = new Vector2(7, 2);
+				var position = Game1.GlobalToLocal(Game1.viewport, tile * Game1.tileSize);
+				var source = new Rectangle(112, 400, 96, 48);
+
+                if (DoorsOpen)
+					source.Y += source.Height;
+
+				// day
+				b.Draw(texture, position, source, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1);
+
+                // night
+                var alpha = Utils.GetProgressFromEveningIntoNighttime(this, Game1.timeOfDay);
+                if (alpha > 0)
+				{
+					source.X += source.Width;
+					b.Draw(texture, position, source, Color.White * alpha, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1);
+				}
+			}
+        }
 	}
 }
