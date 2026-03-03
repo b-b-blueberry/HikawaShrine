@@ -58,7 +58,7 @@ namespace Hikawa.Objects.Decor
             sprite.totalNumberOfLoops = 8;
             sprite.interval = (float)(100f + 100f * Game1.random.NextDouble());
             sprite.layerDepth = 1f;
-            sprite.scale = (float)(3f + 0.5f * Game1.random.NextDouble());
+            sprite.scale = Game1.pixelZoom;
             sprite.scaleChange = -0.0025f;
             this.Location.TemporarySprites.Add(sprite);
         }
