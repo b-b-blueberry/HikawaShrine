@@ -14,6 +14,12 @@
 			"FromFile": "assets/Locations/HikawaHouse.tmx"
 		},
 		{
+			"LogName": "Hikawa: Locations - House map - Bed patch",
+			"Action": "Load",
+			"Target": "Maps/{{HOUSE}}_Bed",
+			"FromFile": "assets/Locations/HikawaHouse_Bed.tmx"
+		},
+		{
 			"LogName": "Hikawa: Locations - Hall map",
 			"Action": "Load",
 			"Target": "Maps/{{HALL}}",
