@@ -99,6 +99,38 @@ namespace Hikawa.Objects.Locations
             this.DoorsOpen = Game1.season is not Season.Winter && !shrine.IsGreenRainingHere();
 		}
 
+        public override void MakeMapModifications(bool force = false)
+        {
+            base.MakeMapModifications(force);
+
+			// bedmas
+            // timeOfDay should be somewhere around...
+			// Data > DecorSpawns > Lights > Shrine > House (bedroom) > ExtinguishAtTime
+            if (Game1.timeOfDay >= 2130)
+			{
+                if (Game1.content.Load<Map>($"Maps/{ModEntry.ModData.MapHouse}_Bed") is Map patch)
+                {
+                    var tile = new Vector2(17, 14);
+                    this.ApplyMapOverride(patch, patch.Id, null, new Rectangle((int)tile.X, (int)tile.Y, patch.DisplayWidth / Game1.tileSize, patch.DisplayHeight / Game1.tileSize));
+                    if (this.getCharacterFromName(ModEntry.ModData.NpcRei) is NPC rei)
+                    {
+                        Utils.SetCharacterForMapModification(rei, this, tile + new Vector2(2.5f, 3));
+                        rei.playSleepingAnimation();
+                    }
+                    if (this.getCharacterFromName(ModEntry.ModData.NpcAmi) is NPC ami)
+                    {
+                        Utils.SetCharacterForMapModification(ami, this, tile + new Vector2(4.5f, 3));
+                        ami.playSleepingAnimation();
+                    }
+                    if (this.getCharacterFromName(ModEntry.ModData.NpcMako) is NPC mako)
+                    {
+                        Utils.SetCharacterForMapModification(mako, this, tile + new Vector2(6f, 3));
+                        mako.playSleepingAnimation();
+                    }
+                }
+            }
+        }
+
 		public override void cleanupBeforePlayerExit()
 		{
 			Utils.ResetCustomSharedMapProperties(this);

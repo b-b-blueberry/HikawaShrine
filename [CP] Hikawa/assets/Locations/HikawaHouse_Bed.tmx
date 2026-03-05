@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="8" height="6" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="34">
+ <tileset firstgid="1" name="paths" tilewidth="16" tileheight="16" tilecount="64" columns="4">
+  <image source="paths" width="64" height="256"/>
+ </tileset>
+ <tileset firstgid="65" source="HikawaHouse.tsx"/>
+ <layer id="1" name="Back" width="8" height="6">
+  <data encoding="csv">
+460,461,462,463,464,465,466,467,
+487,488,489,490,491,492,493,494,
+514,515,516,517,518,519,520,521,
+541,542,543,544,545,546,547,548,
+568,569,570,571,572,573,574,575,
+595,596,597,598,599,600,601,602
+</data>
+ </layer>
+ <layer id="2" name="Buildings" width="8" height="6">
+  <data encoding="csv">
+717,593,0,0,0,663,664,665,
+0,0,0,0,0,0,691,692,
+592,0,659,660,740,741,0,719,
+0,0,686,687,767,768,0,0,
+0,0,713,714,794,795,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="11" name="Buildings1" width="8" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,715,716,796,797,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="Front" width="8" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,661,662,742,743,0,0,
+0,0,688,689,769,770,0,0,
+0,0,0,0,0,0,0,0,
+617,618,619,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="9" name="AlwaysFront" width="8" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,591,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="Paths" width="8" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="5" name="Back" visible="0">
+  <object id="33" name="TileData" x="0" y="0" width="128" height="96">
+   <properties>
+    <property name="NoFurniture" value="T"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Buildings">
+  <object id="2" name="TileData" x="112" y="0" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;Custom_Hikawa_House_Bookshelf&quot;"/>
+   </properties>
+  </object>
+  <object id="17" name="TileData" x="96" y="0" width="16" height="16">
+   <properties>
+    <property name="Action" value="Message &quot;Custom_Hikawa_House_Bear&quot;"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Front"/>
+ <objectgroup id="10" name="AlwaysFront"/>
+ <objectgroup id="8" name="Paths"/>
+</map>

@@ -486,6 +486,16 @@ namespace Hikawa
 		{
 			return who.currentLocation is BathHousePool pool && pool.isWaterTile(xTile: who.TilePoint.X, yTile: who.TilePoint.Y);
 		}
+
+		internal static void SetCharacterForMapModification(NPC npc, GameLocation location, Vector2 tile)
+        {
+            npc.ClearSchedule();
+            npc.ignoreScheduleToday = true;
+            npc.controller = null;
+            npc.temporaryController = null;
+            npc.Halt();
+            Game1.warpCharacter(npc, location.Name, tile);
+        }
 		
 		internal static float GetProgressFromEveningIntoNighttime(GameLocation location, float time)
 		{
