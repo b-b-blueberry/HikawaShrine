@@ -358,46 +358,6 @@
 				}
 			]
 		},
-		// House - Bedroom changes
-		{
-			"LogName": "Hikawa: Locations - House bedroom block",
-			"Action": "EditMap",
-			"Target": "Maps/{{HOUSE}}",
-			"FromFile": "assets/Locations/HikawaHouse.tmx",
-			"FromArea": {
-				"X": 18,
-				"Y": 1,
-				"Width": 4,
-				"Height": 3
-			},
-			"ToArea": {
-				"X": 22,
-				"Y": 1,
-				"Width": 4,
-				"Height": 3
-			}
-		},
-		{
-			"LogName": "Hikawa: Locations - House bedroom table",
-			"Action": "EditMap",
-			"Target": "Maps/{{HOUSE}}",
-			"FromFile": "assets/Locations/HikawaHouse.tmx",
-			"FromArea": {
-				"X": 22,
-				"Y": 1,
-				"Width": 4,
-				"Height": 3
-			},
-			"ToArea": {
-				"X": 19,
-				"Y": 16,
-				"Width": 4,
-				"Height": 3
-			},
-			"When": {
-				"Season": "fall, winter"
-			}
-		},
 		// Other map edits
 		// Town - Shrine entrance
 		// Merged in vertical stripes to maximise compatibility between this mod, SDV, and SVE

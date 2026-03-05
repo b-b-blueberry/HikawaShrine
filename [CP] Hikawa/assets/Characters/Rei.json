@@ -131,6 +131,9 @@
                 "wedding_attendees": "$q {{ID}}_Wedding_Attendees null#{{i18n:ui.shop.wedding.options.attendees}}{{bb/WeddingAttendeesResponses}}",
                 "wedding_decorations": "$q {{ID}}_Wedding_Decorations null#{{i18n:ui.shop.wedding.options.decorations}}{{bb/WeddingDecorationsResponses}}",
                 "wedding_confirmed": "{{i18n:ui.shop.wedding.options.confirmed}}"
+
+                // cs return String.Join(` `, Game1.player.DialogueQuestionsAnswered);
+                // cs Game1.currentLocation.checkForEvents();
             }
         },
         {
@@ -174,6 +177,14 @@
 
                 // Rainy schedule
                 "rain": "GOTO mon"
+            }
+        },
+        {
+            "LogName": "Hikawa: Rei - Animation data",
+            "Action": "EditData",
+            "Target": "Data/animationDescriptions",
+            "Entries": {
+                "{{Lowercase:{{REI}}_sleep}}": "27/27/27"
             }
         }
         /*,

@@ -129,6 +129,14 @@
                 "sat": "GOTO mon",
                 "sun": "GOTO mon"
             }
+        },
+        {
+            "LogName": "Hikawa: Ami - Animation data",
+            "Action": "EditData",
+            "Target": "Data/animationDescriptions",
+            "Entries": {
+                "{{Lowercase:{{AMI}}_sleep}}": "27/27/27"
+            }
         }
     ]
 }

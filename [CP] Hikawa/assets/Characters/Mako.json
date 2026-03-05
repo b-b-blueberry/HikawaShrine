@@ -119,6 +119,14 @@
                 "sat": "GOTO mon",
                 "sun": "GOTO mon"
             }
+        },
+        {
+            "LogName": "Hikawa: Mako - Animation data",
+            "Action": "EditData",
+            "Target": "Data/animationDescriptions",
+            "Entries": {
+                "{{Lowercase:{{MAKO}}_sleep}}": "27/27/27"
+            }
         }
     ]
 }
