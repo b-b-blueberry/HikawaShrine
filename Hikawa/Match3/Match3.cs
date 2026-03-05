@@ -14,6 +14,6 @@ public static class Match3
 
     public static Match3Data GetData()
     {
-        return Game1.content.Load<Match3Data>("Mods/blueberry/Hikawa/Match3/Data");
+        return Game1.content.Load<Match3Data>("{{PATH}}/Match3/Data");
     }
 }

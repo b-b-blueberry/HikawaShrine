@@ -25,7 +25,7 @@ public class Match3MainMenu : IClickableMenu
     {
         this.InitialStage = stage;
 
-        this.Sprites = Game1.content.Load<Texture2D>("Mods/blueberry/Hikawa/Match3/Sprites");
+        this.Sprites = Game1.content.Load<Texture2D>("{{PATH}}/Match3/Sprites");
 
         this.InitComponents();
         this.UpdateComponentLayout();

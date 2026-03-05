@@ -9,7 +9,7 @@
         {
             "LogName": "Hikawa: Sprites - Locations",
             "Action": "Load",
-            "Target": "{{PATH}}/Locations/Outdoors, {{PATH}}/Locations/Indoors, {{PATH}}/Locations/House, {{PATH}}/Locations/Events, {{PATH}}/Locations/Hall",
+            "Target": "{{PATH}}/Sprites/Outdoors, {{PATH}}/Sprites/Indoors, {{PATH}}/Sprites/House, {{PATH}}/Sprites/Events, {{PATH}}/Sprites/Hall",
             "FromFile": "assets/Locations/{{TargetWithoutPath}}.png"
         }
     ]
