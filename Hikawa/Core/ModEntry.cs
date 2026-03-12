@@ -2,7 +2,6 @@
 using Hikawa.Data;
 using Hikawa.Objects.Critters;
 using Hikawa.Objects.Items;
-using Hikawa.Objects.Items.Data;
 using Hikawa.Objects.Locations;
 using Hikawa.Objects.Trinkets;
 using Hikawa.Volleyball;
@@ -11,12 +10,14 @@ using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley.Companions;
 using StardewValley.Extensions;
+using StardewValley.ItemTypeDefinitions;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
 using Object = StardewValley.Object;
 
 namespace Hikawa
@@ -130,10 +131,17 @@ namespace Hikawa
 			this.MangleTranslations();
 
 			// lawful activity
-			ItemRegistry.AddTypeDefinition(new BowItemDataDefinition());
-			ItemRegistry.AddTypeDefinition(new KiteItemDataDefinition());
-            ItemRegistry.AddTypeDefinition(new BugToolItemDataDefinition());
-            ItemRegistry.AddTypeDefinition(new BugFurnitureItemDataDefinition());
+			foreach (var type in Assembly.GetCallingAssembly().GetTypes())
+			{
+				if (type.IsAssignableTo(typeof(IItemDataDefinition)))
+                {
+					ItemRegistry.AddTypeDefinition(Activator.CreateInstance(type) as IItemDataDefinition);
+                }
+				else if (type.GetCustomAttribute<XmlTypeAttribute>() is XmlTypeAttribute attribute && attribute.TypeName.StartsWith(ModConsts.SpaceCoreXmlPrefix))
+				{
+					Interfaces.Interfaces.SpaceCoreAPI?.RegisterSerializerType(type);
+                }
+			}
 			TileActions.RegisterAll(ModEntry.ModData.ContentPrefix);
 			EventCommands.RegisterAll(ModEntry.ModData.ContentPrefix);
 			ItemQueryResolvers.RegisterAll(ModEntry.ModData.ContentPrefix);

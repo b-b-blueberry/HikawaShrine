@@ -59,18 +59,6 @@ namespace Hikawa.Interfaces
 		private static bool SpaceCore(string uniqueId)
 		{
 			Interfaces.SpaceCoreAPI = Interfaces._registry.GetApi<ISpaceCoreAPI>(uniqueID: uniqueId);
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Shrine));
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(House));
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Hall));
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Grove));
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Island));
-            Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Bow));
-            Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Kite));
-            Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(BugTool));
-            Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(BugFurniture));
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(ShrubTool));
-			Interfaces.SpaceCoreAPI?.RegisterSerializerType(typeof(Shrub));
-
 			return Interfaces.SpaceCoreAPI is not null;
 		}
 
