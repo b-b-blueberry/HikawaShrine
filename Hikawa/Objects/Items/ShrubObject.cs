@@ -19,25 +19,6 @@ namespace Hikawa.Objects.Items
         {
         }
 
-        public static bool IsTilePlaceableForShrub(GameLocation location, Vector2 tile, out string error)
-        {
-            if (!location.CanItemBePlacedHere(tile, false, CollisionMask.None))
-            {
-                error = ModEntry.I18n.Get("shrubs.error.placement");
-                return false;
-            }
-            foreach (var other in Utility.getSurroundingTileLocationsArray(tile))
-            {
-                if (location.isTerrainFeatureAt((int)other.X, (int)other.Y))
-                {
-                    error = ModEntry.I18n.Get("shrubs.error.close");
-                    return false;
-                }
-            }
-            error = null;
-            return true;
-        }
-
         public override string getCategoryName()
         {
             return ModEntry.I18n.Get("item.category.shrub");
@@ -55,19 +36,18 @@ namespace Hikawa.Objects.Items
 
         public override bool canBePlacedHere(GameLocation l, Vector2 tile, CollisionMask collisionMask = CollisionMask.All, bool showError = false)
         {
-            return ShrubObject.IsTilePlaceableForShrub(l, tile, out _);
+            if (!Shrub.CanBePlacedHere(l, tile, out string error))
+            {
+                if (showError && error is not null)
+                    Game1.showRedMessage(error);
+                return false;
+            }
+            return true;
         }
 
         public override bool placementAction(GameLocation location, int x, int y, Farmer who = null)
         {
             var tile = Vector2.Floor(new Vector2(x, y) / Game1.tileSize);
-            if (!ShrubObject.IsTilePlaceableForShrub(location, tile, out string error))
-            {
-                if (error is not null)
-                    Game1.showRedMessage(error);
-                return false;
-            }
-
             location.terrainFeatures[tile] = new Shrub(location, tile, this.ItemId);
             return true;
         }

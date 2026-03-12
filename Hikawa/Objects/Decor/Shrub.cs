@@ -85,6 +85,25 @@ namespace Hikawa.Objects.Decor
             return null;
         }
 
+        public static bool CanBePlacedHere(GameLocation location, Vector2 tile, out string error)
+        {
+            if (!location.IsOutdoors || location.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Type", "Back") is null or not ("Grass" or "Dirt") || !location.CanItemBePlacedHere(tile, false, CollisionMask.All))
+            {
+                error = ModEntry.I18n.Get("shrubs.error.placement");
+                return false;
+            }
+            foreach (var other in Utility.getSurroundingTileLocationsArray(tile))
+            {
+                if (location.isTerrainFeatureAt((int)other.X, (int)other.Y))
+                {
+                    error = ModEntry.I18n.Get("shrubs.error.close");
+                    return false;
+                }
+            }
+            error = null;
+            return true;
+        }
+
         public override bool tickUpdate(GameTime time)
         {
 			if (this._shakeTimer > 0)
