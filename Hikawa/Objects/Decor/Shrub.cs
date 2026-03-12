@@ -165,6 +165,12 @@ namespace Hikawa.Objects.Decor
 			Log.E($"no valid appearance found for shrub '{this.Id}' at {this.Location?.NameOrUniqueName} {this.Tile}");
         }
 
+        public override bool performUseAction(Vector2 tileLocation)
+        {
+            this.Shake(100);
+            return true;
+        }
+
         public override bool performToolAction(Tool t, int damage, Vector2 tileLocation)
         {
 			var farmer = t.lastUser;
