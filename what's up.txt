@@ -278,13 +278,17 @@
 
 	shrubs
 
-		cherry blossom
-		decorative mandarin
-		crab apple
-		magnolia
+	✔	plum
+	✔	mandarin
+	x	crabapple
+	✔	magnolia
+	✔	frangipani
 		camellia
+		rose
 
 		no more than five. five is enough. five is good ✔
+		six ✔
+		seven
 
 	a couple secret notes
 		burger

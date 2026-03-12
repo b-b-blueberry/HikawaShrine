@@ -64,7 +64,6 @@
                 "ItemBugCollection": "{{ID}}_BugCollection",
                 "ItemBugFurniture": "{{ID}}_BugFurniture",
                 "ItemBugTool": "{{TOOL_BUGS}}",
-                "ItemShrubTool": "{{ID}}_ShrubTool",
                 "ItemVolleyball": "{{ID}}_Volleyball",
                 "ItemLostGlasses": "{{ID}}_LostGlasses",
                 "ItemLostJewelry": "{{ID}}_LostJewelry",

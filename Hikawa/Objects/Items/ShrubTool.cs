@@ -1,4 +1,4 @@
-﻿using Hikawa.Objects.Decor;
+﻿using Hikawa.Objects.Items.Data;
 using StardewValley.Tools;
 using System.Xml.Serialization;
 using static StardewValley.FarmerSprite;
@@ -8,21 +8,32 @@ namespace Hikawa.Objects.Items
 	[XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(ShrubTool)}")] // SpaceCore serialisation signature
 	public class ShrubTool : Tool
 	{
-		public float StaminaCost => 2f;
-
-		public ShrubTool()
-			: base()
+        public override string TypeDefinitionId => ShrubToolItemDataDefinition.TypeDefinitionId;
+        
+		public ShrubTool() : this(null)
 		{
-			this.Name = ModEntry.ModData.ItemShrubTool;
-			this.InstantUse = false;
 		}
 
-		protected override Item GetOneNew()
-		{
-			return new ShrubTool();
-		}
+		public ShrubTool(string id)
+        {
+            this.ItemId = id;
 
-		public override bool beginUsing(GameLocation location, int x, int y, Farmer who)
+            var data = ItemRegistry.GetDataOrErrorItem(this.TypeDefinitionId + this.ItemId);
+
+            this.Name = data.InternalName;
+            this.InitialParentTileIndex = data.SpriteIndex;
+            this.CurrentParentTileIndex = data.SpriteIndex;
+            this.IndexOfMenuItemView = data.SpriteIndex;
+            this.AttachmentSlotsCount = 0;
+            this.PlayUseSounds = false;
+        }
+
+        protected override Item GetOneNew()
+        {
+            return new ShrubTool(ModEntry.ShrubsData.Value.ShrubToolData.ItemId);
+        }
+
+        public override bool beginUsing(GameLocation location, int x, int y, Farmer who)
 		{
 			x = (int)who.GetToolLocation().X;
 			y = (int)who.GetToolLocation().Y;
@@ -33,20 +44,24 @@ namespace Hikawa.Objects.Items
 		public override void endUsing(GameLocation location, Farmer who)
 		{
 			base.endUsing(location, who);
-		}
+
+            Farmer.canMoveNow(this.lastUser);
+        }
 
 		public override void DoFunction(GameLocation location, int x, int y, int power, Farmer who)
 		{
 			base.DoFunction(location, x, y, power, who);
 
-			if (this.TrimShrub(who: who, where: location, x: x, y: y))
-			{
-				who.Stamina -= this.StaminaCost;
-			}
+			var tile = Vector2.Floor(new Vector2(x, y) / Game1.tileSize);
 
-			//Shears.playSnip(who);
-			Farmer.canMoveNow(this.lastUser);
-		}
+			location.performToolAction(this, (int)tile.X, (int)tile.Y);
+            if (location.terrainFeatures.TryGetValue(tile, out var terrainFeature))
+            {
+                terrainFeature.performToolAction(this, 0, tile);
+            }
+
+            Shears.playSnip(who);
+        }
 
 		public void PlayAnimation(Farmer who)
 		{
@@ -63,25 +78,15 @@ namespace Hikawa.Objects.Items
 			};
 			AnimationFrame[] animation = [
 				new(frames[0], ms, secondaryArm: false, flip: flip),
-				new(frames[1], ms, secondaryArm: false, flip: flip, Shears.playSnip),
+				new(frames[1], ms, secondaryArm: false, flip: flip, Farmer.useTool),
 				new(frames[2], ms, secondaryArm: false, flip: flip),
-				new(frames[3], ms, secondaryArm: false, flip: flip, Farmer.useTool)
+				new(frames[3], ms, secondaryArm: false, flip: flip, (farmer) => this.endUsing(who.currentLocation, who))
 			];
+			who.animateInFacingDirection(Game1.currentGameTime);
 			who.FarmerSprite.animateOnce(animation: animation);
 			who.FarmerSprite.PauseForSingleAnimation = true;
 			who.UsingTool = true;
 			who.canReleaseTool = false;
-		}
-
-		public bool TrimShrub(Farmer who, GameLocation where, int x, int y)
-		{
-			Point tile = Vector2.Floor(new Vector2(x, y) / Game1.tileSize).ToPoint();
-			if (where.getLargeTerrainFeatureAt(tile.X, tile.Y) is Shrub shrub)
-			{
-				shrub.Trim();
-				return true;
-			}
-			return false;
 		}
 	}
 }

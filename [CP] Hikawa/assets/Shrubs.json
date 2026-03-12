@@ -11,20 +11,60 @@
             "Action": "EditData",
             "Target": "{{PATH}}/Data/Shrubs",
             "Entries": {
+                "ShrubObjectData": {
+                    "Identifier": "(BB_HIKAWA_SHRUB)",
+                    "ContextTags": [
+                        "{{ID}}_shrub",
+                        "placeable"
+                    ]
+                },
+                "ShrubToolData": {
+                    "Identifier": "(BB_HIKAWA_SHRUB_TOOL)",
+                    "ItemId": "{{ID}}_ShrubTool",
+                    "DisplayName": "{{i18n:item.shrubtool.name}}",
+                    "Description": "{{i18n:item.shrubtool.description}}",
+                    "Category": -98,
+                    "Type": null,
+                    "TextureId": "{{PATH}}/Sprites/Objects",
+                    "IconTextureRegion": {
+                        "X": 48,
+                        "Y": 16,
+                        "Width": 16,
+                        "Height": 16
+                    }
+                },
                 "Shrubs": {
-                    "Cherry": {
-                        "TextureId": "{{PATH}}/Sprites/Outdoors",
-                        "TextureRegion": {
-                            "X": 656,
-                            "Y": 464,
+                    "Rose": {
+                        "DisplayName": "{{i18n:shrubs.rose.name}}",
+                        "Description": "{{i18n:shrubs.rose.description}}",
+                        "MaxGrowthStage": 0,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 16,
+                            "Y": 304,
                             "Width": 48,
-                            "Height": 64
+                            "Height": 48
                         },
-                        "TextureOrigin": "24, 64",
-                        "DisplayName": "{{i18n:shrubs.cherry.name}}",
-                        "ScientificName": "{{i18n:shrubs.cherry.scientific}}",
-                        "Description": "{{i18n:shrubs.cherry.description}}",
-                        "MaxSize": 0
+                        "Appearances": [
+                            {
+                                "Id": "Spring",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 304,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46",
+                                        "TextureOffset": "0, 0"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }
             }

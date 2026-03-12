@@ -106,7 +106,7 @@
     "item.bugtool.name": "Bug Jar",
     "item.bugtool.description": "Ami's hi-tech survey equipment. Used to collect critters around Cherry Hill.",
     "item.shrubtool.name": "Secateurs",
-    "item.shrubtool.description": "Makoto's trusty garden scissors. Used to trim decorative shrubs.",
+    "item.shrubtool.description": "Makoto's trusty garden scissors. Used to cut decorative shrubs down to size.",
     // totems
     "item.totem.name": "Warp Totem: Cherry Hill",
     "item.totem.description": "Warp directly to Cherry Hill Shrine. Consumed on use.",
@@ -442,9 +442,14 @@
 
     // Shrubs
 
-    "shrubs.cherry.name": "Ornamental Cherry",
-    "shrubs.cherry.scientific": "Prunus serrulata",
-    "shrubs.cherry.description": "Deciduous tree prized for its delicate pink blossoms.\nDoes not produce fruit.\nFlowers in spring.",
+    "shrubs.error.placement": "Cannot be placed here.",
+    "shrubs.error.close": "Too close to other plants.",
+
+    "shrubs.plum.name": "Ornamental Plum",
+    "shrubs.plum.description": "Deciduous tree prized for its delicate pink blossoms.\nDoes not produce fruit.\nFlowers in spring.",
+
+    "shrubs.rose.name": "Ornamental Rose",
+    "shrubs.rose.description": "Hardy shrub with rich, fragrant flowers.\nDoes not produce fruit.\nFlowers in summer.",
 
     // Dialogue
 

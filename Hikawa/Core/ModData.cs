@@ -55,7 +55,6 @@
 		public string ItemBugCollection;
 		public string ItemBugFurniture;
 		public string ItemBugTool;
-		public string ItemShrubTool;
 		public string ItemVolleyball;
 		public string ItemLostGlasses;
 		public string ItemLostJewelry;

@@ -3,7 +3,7 @@
         {
             "LogName": "Hikawa: Sprites - Sprites",
             "Action": "Load",
-            "Target": "{{PATH}}/Sprites/Objects, {{PATH}}/Sprites/Bows, {{PATH}}/Sprites/Extras, {{PATH}}/Sprites/Furniture, {{PATH}}/Sprites/Furniture_Bugs, {{PATH}}/Sprites/Furniture_BugsFront, {{PATH}}/Sprites/Furniture_Cherry, {{PATH}}/Sprites/Wallpaper, {{PATH}}/Sprites/Floors, {{PATH}}/Sprites/Kites, {{PATH}}/Sprites/Lights, {{PATH}}/Sprites/Cats, {{PATH}}/Sprites/Crows, {{PATH}}/Sprites/Arcade",
+            "Target": "{{PATH}}/Sprites/Objects, {{PATH}}/Sprites/Bows, {{PATH}}/Sprites/Extras, {{PATH}}/Sprites/Furniture, {{PATH}}/Sprites/Furniture_Bugs, {{PATH}}/Sprites/Furniture_BugsFront, {{PATH}}/Sprites/Furniture_Cherry, {{PATH}}/Sprites/Wallpaper, {{PATH}}/Sprites/Floors, {{PATH}}/Sprites/Kites, {{PATH}}/Sprites/Lights, {{PATH}}/Sprites/Shrubs, {{PATH}}/Sprites/Cats, {{PATH}}/Sprites/Crows, {{PATH}}/Sprites/Arcade",
             "FromFile": "assets/Sprites/{{TargetWithoutPath}}.png"
         },
         {

@@ -1,5 +1,6 @@
 ﻿using Hikawa.Data;
 using Hikawa.Modules;
+using Hikawa.Objects.Decor;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
 using Hikawa.Volleyball;
@@ -192,6 +193,41 @@ namespace Hikawa
 				Game1.eventUp = true;
 			});
 		}
+
+		[ConsoleCommandAttribute("sh", "<id> [tile] [growthStage] [variant]")]
+		private static void shrub(string s, string[] args)
+		{
+			var location = Game1.currentLocation;
+
+			if (location is null)
+				return;
+
+			if (args.Length == 0)
+			{
+				Log.E("requires args: <id> [tile] [growthStage] [variant]");
+				return;
+			}
+			if (!ArgUtility.TryGet(args, 0, out string id, out string error) || !ModEntry.ShrubsData.Value.Shrubs.TryGetValue(id, out _))
+			{
+				Log.E($"no shrub data found for id '{id}'\nerror: {error ?? "null"}");
+                return;
+            }
+            if (!ArgUtility.TryGetVector2(args, 1, out Vector2 tile, out _, integerOnly: true))
+            {
+                tile = Game1.player.Tile;
+            }
+            if (!ArgUtility.TryGetInt(args, 3, out int growthStage, out _))
+            {
+                growthStage = 0;
+            }
+            if (!ArgUtility.TryGet(args, 4, out string variant, out _))
+            {
+                variant = null;
+            }
+
+			var shrub = new Shrub(location, tile, id, growthStage, variant);
+			location.terrainFeatures[tile] = shrub;
+        }
 
 		private static void warpTo(string locationName)
 		{
