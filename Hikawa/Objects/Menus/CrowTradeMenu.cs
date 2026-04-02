@@ -243,6 +243,11 @@ namespace Hikawa.Objects.Menus
 			}
 		}
 
+        public override void receiveRightClick(int x, int y, bool playSound = true)
+        {
+			this.receiveLeftClick(x, y, playSound);
+        }
+
 		public override void performHoverAction(int x, int y)
 		{
 			this.hoverText = "";
