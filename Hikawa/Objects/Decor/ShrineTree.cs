@@ -173,6 +173,10 @@ namespace Hikawa.Objects.Decor
                     layerDepth: 1E-06f);
             }
 
+            Vector2 origin = this.TreeData.TextureOrigin;
+            if (this.flipped.Value)
+                origin.X = this.TreeData.TextureRegion.Width - origin.X;
+
             // Tree
             spriteBatch.Draw(
                 texture: this.texture.Value,
@@ -180,7 +184,7 @@ namespace Hikawa.Objects.Decor
                 sourceRectangle: this.TreeData.TextureRegion,
                 color: Color.White * this.alpha,
                 rotation: this.shakeRotation,
-                origin: this.TreeData.TextureOrigin,
+                origin: origin,
                 scale: Game1.pixelZoom,
                 effects: this.flipped.Value ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 layerDepth: (baseSortPosition + 2f) / 10000f - this.Tile.X / 1000000f);
