@@ -110,6 +110,56 @@
                             "QualityModifierMode": "Stack"
                         }
                     ]
+                },
+                "{{ID}}_Shop_Flowers": {
+                    "Owners": [
+                        {
+                            "Name": "AnyOrNone",
+                            "Id": "AnyOrNone",
+                            "Condition": null,
+                            "Portrait": "Portraits/{{REI}}",
+                            "Dialogues": [
+                                {
+                                    "Id": "Default",
+                                    "Condition": null,
+                                    "Dialogue": "[LocalizedText Strings/StringsFromCSFiles:ShopMenu.cs.11489]",
+                                    "RandomDialogue": null
+                                }
+                            ]
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Id": "Shrub_Tool",
+                            "ItemId": "(BB_HIKAWA_SHRUB_TOOL){{ID}}_ShrubTool"
+                        },
+                        {
+                            "Id": "Shrub_Random",
+                            "AvailableStock": 5,
+                            "AvailableStockLimit": "Player",
+                            "AvoidRepeat": true,
+                            "RandomItemId": [ "(BB_HIKAWA_SHRUB){{ID}}_Shrub_Plum", "(BB_HIKAWA_SHRUB){{ID}}_Shrub_Magnolia", "(BB_HIKAWA_SHRUB){{ID}}_Shrub_Mandarin" ]
+                        },
+                        {
+                            "Id": "Shrub_Rose",
+                            "AvailableStock": 5,
+                            "AvailableStockLimit": "Player",
+                            "RandomItemId": [ "(BB_HIKAWA_SHRUB){{ID}}_Shrub_Rose", "(BB_HIKAWA_SHRUB){{ID}}_Shrub_RoseBush" ]
+                        },
+                        {
+                            "Id": "Shrub_Frangipani",
+                            "AvailableStock": 3,
+                            "AvailableStockLimit": "Player",
+                            "Condition": "PLAYER_HAS_MAIL Host Island_UpgradeHouse",
+                            "ItemId": "(BB_HIKAWA_SHRUB){{ID}}_Shrub_Plumeria"
+                        },
+                        {
+                            "Id": "Shrub_Fertiliser",
+                            "AvailableStock": 10,
+                            "AvailableStockLimit": "Player",
+                            "RandomItemId": [ "(O){{ID}}_ShrubFertiliser" ]
+                        }
+                    ]
                 }
             }
         }

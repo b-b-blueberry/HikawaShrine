@@ -1,5 +1,6 @@
 ﻿using HarmonyLib; // el diavolo nuevo
 using Hikawa.Modules;
+using Hikawa.Objects.Decor;
 using Hikawa.Objects.Items;
 using Hikawa.Objects.Locations;
 using Hikawa.Objects.Menus;
@@ -8,6 +9,7 @@ using StardewValley.Menus;
 using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.Projectiles;
+using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using System;
 using System.Collections.Generic;
@@ -239,6 +241,33 @@ namespace Hikawa
                 float scale = (__instance.scale.Y > 1f) ? __instance.getScale().Y : Game1.pixelZoom;
                 Utils.DrawSmokeParticles(spriteBatch, position, scale, layerDepth, alpha);
             }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Object))]
+        [HarmonyPatch(nameof(Object.canBePlacedHere))]
+        private static bool Object_CanBePlacedHere_Prefix(Object __instance, GameLocation l, Vector2 tile, CollisionMask collisionMask, bool showError, ref bool __result)
+        {
+            if (__instance?.ItemId == ModEntry.ModData.ItemShrubFertiliser && Shrub.Get(l, tile) is not null)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Object))]
+        [HarmonyPatch(nameof(Object.placementAction))]
+        private static bool Object_PlacementAction_Prefix(Object __instance, GameLocation location, int x, int y, Farmer who, ref bool __result)
+        {
+            Vector2 tile = new Vector2(x, y) / Game1.tileSize;
+            if (__instance.ItemId == ModEntry.ModData.ItemShrubFertiliser && Shrub.Get(location, tile) is Shrub shrub && shrub.Fertilise())
+			{
+				__result = true;
+				return false;
+            }
+            return true;
         }
 
 		[HarmonyPrefix]

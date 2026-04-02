@@ -89,7 +89,7 @@ namespace Hikawa.Objects.Items
 
         public override void DrawShadow(SpriteBatch spriteBatch, Vector2 position, Color color, float layerDepth)
         {
-            base.DrawShadow(spriteBatch, position, color, layerDepth);
+            //base.DrawShadow(spriteBatch, position, color, layerDepth);
         }
     }
 }

@@ -60,6 +60,7 @@
 		public string ItemLostJewelry;
 		public string ItemCharcoal;
 		public string ItemFeather;
+		public string ItemShrubFertiliser;
         // buffs
         public string BuffCrackersAttack;
 		public string BuffCrackersDefence;

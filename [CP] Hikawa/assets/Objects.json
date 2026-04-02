@@ -222,6 +222,24 @@
                         "food_spicy",
                         "food_party"
                     ]
+                },
+                "{{ID}}_ShrubFertiliser": {
+                    "Name": "{{ID}}_ShrubFertiliser",
+                    "DisplayName": "{{i18n:item.shrubfertiliser.name}}",
+                    "Description": "{{i18n:item.shrubfertiliser.description}}",
+                    "Type": "Basic",
+                    "Category": -19,
+                    "Price": 30,
+                    "Texture": "{{PATH}}/Sprites/Objects",
+                    "SpriteIndex": 23,
+                    "CanBeGivenAsGift": true,
+                    "CanBeTrashed": true,
+                    "ExcludeFromShippingCollection": true,
+                    "ExcludeFromRandomSale": true,
+                    "ContextTags": [
+                        "color_brown",
+                        "fertilizer_item"
+                    ]
                 }
             }
         },
