@@ -173,190 +173,167 @@
                     "{{SHRINE}}": [
                         /** Small Cherry **/
                         { // Graveyard shrine
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "34, 11",
                             "Flip": false,
                             "Leaves": true
                         },
                         { // House rear
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "48, 22",
                             "Flip": true,
                             "Leaves": false
                         },
                         { // Garden
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "62, 25",
                             "Flip": false,
                             "Leaves": true
                         },
-                        { // Souvenir shop
-                            "LocalId": "_Cherry_S",
-                            "Tile": "17, 43",
-                            "Flip": false,
-                            "Leaves": false
-                        },
                         { // Hall rear
-                            "LocalId": "_Cherry_S",
-                            "Tile": "53, 37",
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": "54, 37",
                             "Flip": false,
                             "Leaves": true
                         },
                         { // Hall side
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "44, 42",
                             "Flip": false,
                             "Leaves": true
                         },
                         { // Main gate
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "40, 54",
                             "Flip": false,
                             "Leaves": true
                         },
-                        { // Backyard
-                            "LocalId": "_Cherry_S",
+                        { // North-west cliff
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "15, 16",
                             "Flip": false,
                             "Leaves": false
                         },
-                        { // Backyard
-                            "LocalId": "_Cherry_S",
-                            "Tile": "13, 24",
+                        { // North-west yard
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": "13, 25",
                             "Flip": true,
                             "Leaves": false
                         },
                         { // Frontyard
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "58, 51",
                             "Flip": true,
                             "Leaves": false
                         },
                         { // West cliff
-                            "LocalId": "_Cherry_S",
+                            "Id": "{{ID}}_Cherry_S",
                             "Tile": "12, 61",
                             "Flip": false,
                             "Leaves": false
                         },
                         /** Medium Cherry **/
-                        { // Hall
-                            "LocalId": "_Cherry_M",
-                            "Tile": "55, 46",
-                            "Flip": false,
+                        { // Main gate
+                            "Id": "{{ID}}_Cherry_M",
+                            "Tile": "45, 53",
+                            "Flip": true,
                             "Leaves": true
                         },
                         { // Souvenir shop
-                            "LocalId": "_Cherry_M",
+                            "Id": "{{ID}}_Cherry_M",
                             "Tile": "17, 49",
+                            "Flip": true,
+                            "Leaves": true
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Cherry_M",
+                            "Tile": "45, 24",
                             "Flip": true,
                             "Leaves": true
                         },
                         /** Large Cherry **/
                         { // Graveyard
-                            "LocalId": "_Cherry_L",
+                            "Id": "{{ID}}_Cherry_L",
                             "Tile": "43, 15",
                             "Flip": true,
                             "Leaves": true
                         },
-                        { // Backyard
-                            "LocalId": "_Cherry_L",
-                            "Tile": "16, 28",
-                            "Flip": true,
+                        { // Hall
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": "55, 45",
+                            "Flip": false,
                             "Leaves": true
                         },
-                        { // Main gate
-                            "LocalId": "_Cherry_L",
-                            "Tile": "44, 53",
+                        { // North-west yard
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": "16, 29",
                             "Flip": true,
                             "Leaves": true
                         },
                         { // East cliff
-                            "LocalId": "_Cherry_L",
-                            "Tile": "59, 37",
+                            "Id": "{{ID}}_Cherry_L",
+                            "Tile": "62, 37",
                             "Flip": true,
                             "Leaves": false
                         },
                         /** Boxwood **/
                         { // Garden
-                            "LocalId": "_Boxwood",
+                            "Id": "{{ID}}_Boxwood",
                             "Tile": "54, 22",
                             "Flip": false
                         },
-                        { // Hall
-                            "LocalId": "_Boxwood",
-                            "Tile": "56, 40",
-                            "Flip": false
-                        },
                         { // Souvenir shop
-                            "LocalId": "_Boxwood",
+                            "Id": "{{ID}}_Boxwood",
                             "Tile": "19, 39",
                             "Flip": false
                         },
                         { // Graveyard gate
-                            "LocalId": "_Boxwood",
+                            "Id": "{{ID}}_Boxwood",
                             "Tile": "24, 19",
                             "Flip": false
                         },
                         /** Maple 1 **/
                         { // Main gate
-                            "LocalId": "_Maple_1",
+                            "Id": "{{ID}}_Maple_1",
                             "Tile": "26, 55",
                             "Flip": false,
                             "Leaves": false
                         },
                         { // Souvenir shop
-                            "LocalId": "_Maple_1",
-                            "Tile": "16, 40",
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": "16, 45",
                             "Flip": false,
                             "Leaves": false
                         },
-                        { // Graveyard gate
-                            "LocalId": "_Maple_1",
-                            "Tile": "18, 16",
-                            "Flip": false,
-                            "Leaves": false
-                        },
-                        { // East cliff
-                            "LocalId": "_Maple_1",
-                            "Tile": "62, 37",
-                            "Flip": false,
+                        { // North-west yard
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": "10, 27",
+                            "Flip": true,
                             "Leaves": false
                         },
                         { // South-east cliff
-                            "LocalId": "_Maple_1",
+                            "Id": "{{ID}}_Maple_1",
                             "Tile": "55, 61",
                             "Flip": false,
                             "Leaves": false
                         },
                         /** Maple 2 **/
-                        { // Souvenir shop
-                            "LocalId": "_Maple_2",
-                            "Tile": "15, 46",
-                            "Flip": false,
-                            "Leaves": false
-                        },
-                        { // Backyard
-                            "LocalId": "_Maple_2",
-                            "Tile": "10, 27",
+                        { // North-west cliff
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": "18, 16",
                             "Flip": false,
                             "Leaves": false
                         },
                         { // Graveyard
-                            "LocalId": "_Maple_2",
+                            "Id": "{{ID}}_Maple_2",
                             "Tile": "31, 16",
                             "Flip": false,
                             "Leaves": false
                         },
                         { // East cliff
-                            "LocalId": "_Maple_2",
+                            "Id": "{{ID}}_Maple_2",
                             "Tile": "64, 52",
                             "Flip": false,
-                            "Leaves": false
-                        },
-                        { // Garden
-                            "LocalId": "_Maple_2",
-                            "Tile": "45, 24",
-                            "Flip": true,
                             "Leaves": false
                         }
                     ]
@@ -672,7 +649,7 @@
                             "TileId": 1364
                         },
                         { // Name stone (small)
-                            "Tile": "43, 61",
+                            "Tile": "43, 59",
                             "TileSheetId": "{{PATH}}/Sprites/Outdoors",
                             "TileId": 1364
                         }

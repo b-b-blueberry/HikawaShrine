@@ -22,7 +22,7 @@ namespace Hikawa.Objects.Decor
         public ShrineTree() { }
 
         public ShrineTree(ShrineTreeData treeData, ShrineTreeSpawnData spawnData)
-            : base(id: spawnData.GlobalId)
+            : base(id: spawnData.Id)
         {
             this.TreeData = treeData;
             this.SpawnData = spawnData;
