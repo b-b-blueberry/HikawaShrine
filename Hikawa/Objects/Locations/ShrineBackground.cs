@@ -135,21 +135,22 @@ namespace Hikawa.Objects.Locations
 				float weatherX = preciseTime / 500f * (display.Width + 2048);
 				if (isRain)
 				{
+					int worldWidth = Game1.currentLocation.Map.DisplayWidth;
 					int w = 244;
-					for (int x = -w; x < Game1.viewport.Width + w; x += w)
+					for (int x = -w; x < worldWidth + w; x += w)
 					{
 						b.Draw(Game1.mouseCursors, zero + new Vector2(x + weatherX / 2f % w, 32f), new Rectangle(643, 1142, 61, 53), Color.DarkSlateGray * 1f, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
 					}
-					for (int x2 = 0; x2 < Game1.viewport.Width; x2 += 639)
+					for (int x2 = 0; x2 < worldWidth; x2 += 639)
 					{
 						b.Draw(Game1.mouseCursors, zero + new Vector2(x2 * 4, Game1.viewport.Height - 192), new Rectangle(0, isWinter ? 1034 : 737, 639, 48), (isWinter ? (Color.White * 0.25f) : new Color(30, 62, 50)), 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipHorizontally, 1f);
 						b.Draw(Game1.mouseCursors, zero + new Vector2(x2 * 4, Game1.viewport.Height - 128), new Rectangle(0, isWinter ? 1034 : 737, 639, 32), (isWinter ? (Color.White * 0.5f) : new Color(30, 62, 50)), 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
 					}
-					for (int x3 = -w; x3 < Game1.viewport.Width + w; x3 += w)
+					for (int x3 = -w; x3 < worldWidth + w; x3 += w)
 					{
 						b.Draw(Game1.mouseCursors, zero + new Vector2(x3 + weatherX % w, -32f), new Rectangle(643, 1142, 61, 53), Color.SlateGray * 0.85f, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
 					}
-					for (int x4 = -w; x4 < Game1.viewport.Width + w; x4 += w)
+					for (int x4 = -w; x4 < worldWidth + w; x4 += w)
 					{
 						b.Draw(Game1.mouseCursors, zero + new Vector2(x4 + weatherX * 1.5f % w, -128f), new Rectangle(643, 1142, 61, 53), Color.LightSlateGray, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
 					}
