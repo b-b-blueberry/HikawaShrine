@@ -179,9 +179,9 @@
 			"Action": "EditData",
 			"Target": "Data/ChairTiles",
 			"Entries": {
-				"HikawaOutdoors/0/20": "1/2/left/bench/-1/-1/false",
-				"HikawaOutdoors/1/20": "1/1/down/bench/-1/-1/false",
-				"HikawaOutdoors/2/20": "1/1/down/bench/-1/-1/false"
+				"Outdoors/0/20": "1/2/left/bench/-1/-1/false",
+				"Outdoors/1/20": "1/1/down/bench/-1/-1/false",
+				"Outdoors/2/20": "1/1/down/bench/-1/-1/false"
 			}
 		},
 		// Location contexts
