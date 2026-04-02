@@ -53,7 +53,7 @@
                             "Width": 96,
                             "Height": 96
                         },
-                        "TextureOrigin": "56, 96",
+                        "TextureOrigin": "40, 96",
                         "HasShadow": true,
                         "CanShake": true,
                         "LeafRegion": {
