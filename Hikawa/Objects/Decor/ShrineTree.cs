@@ -4,9 +4,11 @@ using StardewValley.ItemTypeDefinitions;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using System;
+using System.Xml.Serialization;
 
 namespace Hikawa.Objects.Decor
 {
+    [XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(ShrineTree)}")] // SpaceCore serialisation signature
     public class ShrineTree : Tree
     {
         public readonly ShrineTreeSpawnData SpawnData;
