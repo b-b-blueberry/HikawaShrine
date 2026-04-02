@@ -16,10 +16,13 @@ namespace Hikawa.Data
     {
         public string Identifier;
         public string ItemId;
+
         public string DisplayName;
         public string Description;
+
         public int Category;
         public string Type;
+
         public string TextureId;
         public Rectangle IconTextureRegion;
     }
@@ -34,7 +37,10 @@ namespace Hikawa.Data
     {
         public string DisplayName;
         public string Description;
+
         public int MaxGrowthStage;
+        public int GrowthDays;
+
         public string TextureId;
         public Rectangle IconTextureRegion;
         public List<ShrubAppearanceData> Appearances;
@@ -44,16 +50,23 @@ namespace Hikawa.Data
     {
         public string Id;
         public int GrowthStage;
+
+        public string DebrisColour;
+
         public Season Season;
         public string Condition;
+
         public List<ShrubDrawLayerData> DrawLayers;
     }
 
     public record class ShrubDrawLayerData
     {
         public string Id;
+
         public Rectangle TextureRegion;
         public Vector2 TextureOrigin;
         public Vector2 TextureOffset;
+
+        public bool Shake = true;
     }
 }

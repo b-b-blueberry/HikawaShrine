@@ -15,8 +15,19 @@ namespace Hikawa.Objects.Items
         }
 
         public ShrubObject(string id, int stack)
-            : base(id, stack)
+            : this()
         {
+            this.ItemId = id;
+
+            var data = ItemRegistry.GetDataOrErrorItem(this.TypeDefinitionId + this.ItemId);
+
+            this.Name = data.InternalName;
+            this.Stack = stack;
+        }
+
+        protected override Item GetOneNew()
+        {
+            return new ShrubObject(this.ItemId, 1);
         }
 
         public override string getCategoryName()
@@ -56,7 +67,7 @@ namespace Hikawa.Objects.Items
         {
             if (Shrub.GetData(this.ItemId) is ShrubDataEntry shrubData)
             {
-                scaleSize = (new Vector2(Object.spriteSheetTileSize) / shrubData.IconTextureRegion.Size.ToVector2()).Length();
+                scaleSize = System.Math.Clamp((new Vector2(Object.spriteSheetTileSize) / shrubData.IconTextureRegion.Size.ToVector2()).Length() / 2, 1f / Game1.pixelZoom, 1f);
             }
             base.drawInMenu(spriteBatch, location, scaleSize, transparency, layerDepth, drawStackNumber, color, drawShadow);
         }
@@ -66,7 +77,7 @@ namespace Hikawa.Objects.Items
             if (Shrub.GetData(this.ItemId) is ShrubDataEntry shrubData)
             {
                 objectPosition += -shrubData.IconTextureRegion.Size.ToVector2() / 2 * Game1.pixelZoom
-                    + new Vector2(1, -1) / 2 * Game1.tileSize;
+                    + new Vector2(1, 0) / 2 * Game1.tileSize;
             }
             base.drawWhenHeld(spriteBatch, objectPosition, f);
         }

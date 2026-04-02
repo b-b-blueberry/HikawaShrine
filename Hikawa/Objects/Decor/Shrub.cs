@@ -35,11 +35,13 @@ namespace Hikawa.Objects.Decor
 			set
 			{
 				var growthStage = this._growthStage;
-				this._growthStage = Math.Clamp(value: value, min: 0, max: this.Data.MaxGrowthStage);
+                this._growthStage = Math.Clamp(value, 0, this.Data.MaxGrowthStage);
 
 				if (this._growthStage != growthStage)
                 {
+                    this._growthDays = 0;
 					this._hits = 0;
+                    this._fertilised = false;
                     this.loadSprite();
                 }
 			}
@@ -48,16 +50,21 @@ namespace Hikawa.Objects.Decor
 		public ShrubDataEntry Data;
 
         [XmlIgnore]
+        private Texture2D _texture;
+        [XmlIgnore]
+        private ShrubAppearanceData _appearance;
+
+        [XmlIgnore]
         private int _hits;
         [XmlIgnore]
 		private float _shakeTimer;
 
         private string _id;
 		private string _variant;
+        private int _growthDays;
 		private int _growthStage;
 		private bool _flip;
-		private Texture2D _texture;
-		private ShrubAppearanceData _appearance;
+        private bool _fertilised;
 
 		public Shrub()
 			: base(needsTick: true)
@@ -85,9 +92,17 @@ namespace Hikawa.Objects.Decor
             return null;
         }
 
+        public static Shrub Get(GameLocation location, Vector2 tile)
+        {
+            if (location?.terrainFeatures.TryGetValue(tile, out TerrainFeature tf) == true && tf is Shrub shrub)
+                return shrub;
+
+            return null;
+        }
+
         public static bool CanBePlacedHere(GameLocation location, Vector2 tile, out string error)
         {
-            if (!location.IsOutdoors || location.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Type", "Back") is null or not ("Grass" or "Dirt") || !location.CanItemBePlacedHere(tile, false, CollisionMask.All))
+            if (!location.IsOutdoors || location.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Type", "Back") is not ("Grass" or "Dirt") || !location.CanItemBePlacedHere(tile, false, CollisionMask.All))
             {
                 error = ModEntry.I18n.Get("shrubs.error.placement");
                 return false;
@@ -117,11 +132,20 @@ namespace Hikawa.Objects.Decor
             base.dayUpdate();
 
             this._hits = 0;
+
+            if (Shrub.CanBePlacedHere(this.Location, this.Tile, out _))
+            {
+                ++this._growthDays;
+            }
+            else
+            {
+                Game1.showRedMessage(ModEntry.I18n.Get("shrubs.error.growth", new { shrub = this.Data.DisplayName }));
+            }
         }
 
 		public override bool seasonUpdate(bool onLoad)
 		{
-			if (Game1.season is Season.Spring)
+            if (this._growthDays >= this.Data.GrowthDays)
 				++this.GrowthStage;
 
 			this.loadSprite();
@@ -138,13 +162,52 @@ namespace Hikawa.Objects.Decor
         {
 			this.Shake(300);
 
-            Game1.createRadialDebris(Game1.currentLocation, 36, (int)this.Tile.X + Game1.random.Next(1 / 2 + 1), (int)this.Tile.Y + Game1.random.Next(1 / 2 + 1), Game1.random.Next(3, 6), resource: false);
+            if (this._appearance is not null)
+            {
+                Game1.createRadialDebris(
+                    Game1.currentLocation,
+                    Debris.woodDebris,
+                    (int)this.Tile.X,
+                    (int)this.Tile.Y - 1,
+                    Game1.random.Next(3, 6),
+                    resource: false,
+                    groundLevel: (int)this.Tile.Y,
+                    color: Utility.StringToColor(this._appearance.DebrisColour));
+            }
 
             int previous = this.GrowthStage;
             if (this.GrowthStage > 0 && ++this._hits >= 3)
                 --this.GrowthStage;
+            else if (this.GrowthStage == 0 && ++this._hits >= 6)
+                return true;
+
 			return previous != this.GrowthStage;
 		}
+
+        public bool Fertilise()
+        {
+            this.Shake(60);
+
+            if (this.Data is not null && this.GrowthStage == this.Data.MaxGrowthStage)
+            {
+                Game1.showRedMessage(ModEntry.I18n.Get("shrubs.error.fertiliser.max"));
+                this.Location.playSound("cancel");
+                return false;
+            }
+            if (this._fertilised)
+            {
+                Game1.showRedMessage(ModEntry.I18n.Get("shrubs.error.fertiliser.once"));
+                this.Location.playSound("cancel");
+                return false;
+            }
+
+            this._fertilised = true;
+            this._growthDays = this.Data.GrowthDays;
+
+            this.Location.playSound("dirtyHit");
+
+            return true;
+        }
 
         public override void loadSprite()
         {
@@ -153,7 +216,10 @@ namespace Hikawa.Objects.Decor
 				var context = new GameStateQueryContext(this.Location, null, null, null, null);
 				foreach (var appearance in this.Data.Appearances)
 				{
-					if (appearance.GrowthStage == this.GrowthStage && appearance.Variant == this._variant && appearance.Season == this.Location.GetSeason() && GameStateQuery.CheckConditions(appearance.Condition, context))
+					if (appearance.GrowthStage == this.GrowthStage
+                        && appearance.Variant == this._variant
+                        && appearance.Season == this.Location.GetSeason()
+                        && GameStateQuery.CheckConditions(appearance.Condition, context))
 					{
 						this._appearance = appearance;
                         this._texture = Game1.content.Load<Texture2D>(this.Data.TextureId);
@@ -167,8 +233,25 @@ namespace Hikawa.Objects.Decor
 
         public override bool performUseAction(Vector2 tileLocation)
         {
-            this.Shake(100);
+            this.Shake(60);
+
+            return Game1.player.ActiveObject is null || !Game1.player.ActiveObject.canBePlacedHere(this.Location, tileLocation);
+        }
+
+        public override bool isActionable()
+        {
             return true;
+        }
+
+        public override Rectangle getRenderBounds()
+        {
+            if (this._appearance is not null)
+            {
+                var bounds = this._appearance.DrawLayers[^1].TextureRegion;
+                bounds.Offset(this.Tile * Game1.tileSize);
+                return bounds;
+            }
+            return base.getRenderBounds();
         }
 
         public override bool performToolAction(Tool t, int damage, Vector2 tileLocation)
@@ -181,18 +264,30 @@ namespace Hikawa.Objects.Decor
 				if (++this._hits > 3)
 				{
 					// destroy shrub
-					Game1.createRadialDebris(Game1.currentLocation, 12, (int)this.Tile.X + Game1.random.Next(1 / 2 + 1), (int)this.Tile.Y + Game1.random.Next(1 / 2 + 1), Game1.random.Next(3, 6), resource: false);
+					Game1.createRadialDebris(
+                        Game1.currentLocation,
+                        Debris.woodDebris,
+                        (int)this.Tile.X + Game1.random.Next(1 / 2 + 1), (int)this.Tile.Y + Game1.random.Next(1 / 2 + 1),
+                        Game1.random.Next(3, 6),
+                        resource: false);
                     return true;
 				}
 				else
                 {
-					this.Location.debris.Add(new Debris(12, Game1.random.Next(1, 3), t.getLastFarmerToUse().GetToolLocation() + new Vector2(16f, 0f), t.getLastFarmerToUse().Position, 0, Color.Khaki));
+                    // damage shrub
+					this.Location.debris.Add(new Debris(
+                        Debris.woodDebris,
+                        Game1.random.Next(1, 3),
+                        t.getLastFarmerToUse().GetToolLocation() + new Vector2(16f, 0f),
+                        t.getLastFarmerToUse().Position,
+                        0,
+                        Color.Khaki));
                     this.Shake(500);
                 }
 			}
 			else if (t is Hoe)
             {
-				// shrub can be hoed at base growth stage
+				// shrubs can be hoed at base growth stage to pick up
 				if (this.GrowthStage == 0)
                 {
                     this.Location.playSound("hoeHit", tileLocation * Game1.tileSize);
@@ -205,7 +300,7 @@ namespace Hikawa.Objects.Decor
 				{
 					// no effect on large shrubs
                     this.Location.playSound("dirtyHit", tileLocation * Game1.tileSize);
-					this.Shake(300);
+					this.Shake(500);
                     Game1.player.jitterStrength = 1f;
                     return false;
                 }
@@ -216,7 +311,17 @@ namespace Hikawa.Objects.Decor
 
                 if (this.Trim())
                 {
-					// ???
+                    if (this._hits >= 6)
+                    {
+                        // destroy shrub
+                        Game1.createRadialDebris(
+                            Game1.currentLocation,
+                            Debris.woodDebris,
+                            (int)this.Tile.X + Game1.random.Next(1 / 2 + 1), (int)this.Tile.Y + Game1.random.Next(1 / 2 + 1),
+                            Game1.random.Next(3, 6),
+                            resource: false);
+                        return true;
+                    }
                 }
             }
             return false;
@@ -230,18 +335,22 @@ namespace Hikawa.Objects.Decor
             float layerDepth = (this.getBoundingBox().Y - 4 + this.Tile.X / 900f + 0.01f) / 10000f;
             float scale = Game1.pixelZoom;
 			var position = (this.Tile + new Vector2(0.5f)) * Game1.tileSize;
-			if (this._shakeTimer > 0)
-				position += new Vector2(-2 + 4 * Game1.random.NextSingle(), -2 + 4 * Game1.random.NextSingle());
+			var shakeOffset = this._shakeTimer > 0 ? new Vector2(-2 + 4 * Game1.random.NextSingle(), -2 + 4 * Game1.random.NextSingle()) : Vector2.Zero;
 
-			this.drawInMenu(spriteBatch, Game1.GlobalToLocal(Game1.viewport, position), this.Tile, scale, layerDepth);
+			this.DrawShrub(spriteBatch, Game1.GlobalToLocal(Game1.viewport, position), shakeOffset, scale, layerDepth);
         }
 
         public override void drawInMenu(SpriteBatch spriteBatch, Vector2 positionOnScreen, Vector2 tileLocation, float scale, float layerDepth)
         {
+            this.DrawShrub(spriteBatch, positionOnScreen, Vector2.Zero, scale, layerDepth);
+        }
+
+        public void DrawShrub(SpriteBatch b, Vector2 position, Vector2 shakeOffset, float scale, float layerDepth)
+        {
             if (this.Data is null || this._texture is null || this._appearance is null || this._appearance.DrawLayers is null)
             {
 				var bounds = this.getRenderBounds();
-                Utility.DrawErrorTexture(spriteBatch, new Rectangle((int)positionOnScreen.X, (int)positionOnScreen.Y, bounds.Width, bounds.Height), layerDepth);
+                Utility.DrawErrorTexture(b, new Rectangle((int)position.X, (int)position.Y, bounds.Width, bounds.Height), layerDepth);
             }
             else
             {
@@ -249,8 +358,10 @@ namespace Hikawa.Objects.Decor
                 {
                     var source = layer.TextureRegion;
                     var origin = layer.TextureOrigin;
-                    var position = layer.TextureOffset * Game1.pixelZoom + positionOnScreen;
-                    spriteBatch.Draw(this._texture, position, source, Color.White, 0, origin, scale, this._flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth);
+                    var drawPosition = layer.TextureOffset * Game1.pixelZoom + position;
+                    if (layer.Shake && shakeOffset != Vector2.Zero)
+                        drawPosition += shakeOffset;
+                    b.Draw(this._texture, drawPosition, source, Color.White, 0, origin, scale, this._flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth += .000001f);
                 }
             }
         }

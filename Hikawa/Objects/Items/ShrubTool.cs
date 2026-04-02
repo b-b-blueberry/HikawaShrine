@@ -55,38 +55,38 @@ namespace Hikawa.Objects.Items
 			var tile = Vector2.Floor(new Vector2(x, y) / Game1.tileSize);
 
 			location.performToolAction(this, (int)tile.X, (int)tile.Y);
-            if (location.terrainFeatures.TryGetValue(tile, out var terrainFeature))
+            if (location.terrainFeatures.TryGetValue(tile, out var terrainFeature) && terrainFeature.performToolAction(this, 0, tile))
             {
-                terrainFeature.performToolAction(this, 0, tile);
+                location.terrainFeatures.Remove(tile);
             }
 
             Shears.playSnip(who);
         }
 
-		public void PlayAnimation(Farmer who)
+		public void PlayAnimation(Farmer player)
 		{
-			who.Halt();
-			who.FarmerSprite.oldFrame = who.FarmerSprite.CurrentFrame;
+			player.Halt();
+			player.FarmerSprite.oldFrame = player.FarmerSprite.CurrentFrame;
 
 			int ms = 200;
-			bool flip = who.FacingDirection == Game1.left;
-			int[] frames = who.FacingDirection switch
+			bool flip = player.FacingDirection is Game1.left;
+			int[] frames = player.FacingDirection switch
 			{
 				Game1.up => [82, 83, 82, 83],
 				Game1.down => [78, 79, 78, 79],
 				_ => [80, 81, 80, 81],
 			};
 			AnimationFrame[] animation = [
-				new(frames[0], ms, secondaryArm: false, flip: flip),
-				new(frames[1], ms, secondaryArm: false, flip: flip, Farmer.useTool),
-				new(frames[2], ms, secondaryArm: false, flip: flip),
-				new(frames[3], ms, secondaryArm: false, flip: flip, (farmer) => this.endUsing(who.currentLocation, who))
+				new(frames[0], ms, false, flip),
+				new(frames[1], ms, false, flip, Farmer.useTool),
+				new(frames[2], ms, false, flip),
+				new(frames[3], ms, false, flip, farmer => this.endUsing(player.currentLocation, player))
 			];
-			who.animateInFacingDirection(Game1.currentGameTime);
-			who.FarmerSprite.animateOnce(animation: animation);
-			who.FarmerSprite.PauseForSingleAnimation = true;
-			who.UsingTool = true;
-			who.canReleaseTool = false;
+			player.animateInFacingDirection(Game1.currentGameTime);
+			player.FarmerSprite.animateOnce(animation);
+			player.FarmerSprite.PauseForSingleAnimation = true;
+			player.UsingTool = true;
+			player.canReleaseTool = false;
 		}
 	}
 }

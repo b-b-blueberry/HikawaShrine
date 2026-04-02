@@ -14,7 +14,7 @@
                 "ShrubObjectData": {
                     "Identifier": "(BB_HIKAWA_SHRUB)",
                     "ContextTags": [
-                        "{{ID}}_shrub",
+                        "{{ID}}_Shrub",
                         "placeable"
                     ]
                 },
@@ -34,33 +34,2203 @@
                     }
                 },
                 "Shrubs": {
-                    "Rose": {
-                        "DisplayName": "{{i18n:shrubs.rose.name}}",
-                        "Description": "{{i18n:shrubs.rose.description}}",
-                        "MaxGrowthStage": 0,
+                    "{{ID}}_Shrub_Magnolia": {
+                        "DisplayName": "{{i18n:shrubs.magnolia.name}}",
+                        "Description": "{{i18n:shrubs.magnolia.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 50,
                         "TextureId": "{{PATH}}/Sprites/Shrubs",
                         "IconTextureRegion": {
-                            "X": 16,
-                            "Y": 304,
-                            "Width": 48,
-                            "Height": 48
+                            "X": 144,
+                            "Y": 32,
+                            "Width": 16,
+                            "Height": 32
                         },
                         "Appearances": [
+                            // Spring
                             {
-                                "Id": "Spring",
+                                "Id": "Spring_Stage_0",
                                 "GrowthStage": 0,
                                 "Season": "Spring",
+                                "DebrisColour": "Brown",
                                 "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
                                             "X": 16,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 160,
+                                            "Y": 16,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 0,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 208,
+                                            "Y": 0,
+                                            "Width": 48,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "24, 62"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 288,
+                                            "Y": 16,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 0,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 336,
+                                            "Y": 0,
+                                            "Width": 48,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "24, 62"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 400,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 416,
+                                            "Y": 16,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "Brown",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 0,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 464,
+                                            "Y": 0,
+                                            "Width": 48,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "24, 62"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "Chocolate",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "Chocolate",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 544,
+                                            "Y": 16,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "Chocolate",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 0,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 592,
+                                            "Y": 0,
+                                            "Width": 48,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "24, 62"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "{{ID}}_Shrub_Plum": {
+                        "DisplayName": "{{i18n:shrubs.plum.name}}",
+                        "Description": "{{i18n:shrubs.plum.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 30,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 144,
+                            "Y": 112,
+                            "Width": 16,
+                            "Height": 32
+                        },
+                        "Appearances": [
+                            // Spring
+                            {
+                                "Id": "Spring_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DebrisColour": "Plum",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "Plum",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 96,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 168,
+                                            "Y": 96,
+                                            "Width": 32,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "16, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "Plum",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 80,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 200,
+                                            "Y": 80,
+                                            "Width": 64,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "32, 62"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 96,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 296,
+                                            "Y": 96,
+                                            "Width": 32,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "16, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 64,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 78",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 328,
+                                            "Y": 64,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "DarkRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 400,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "DarkRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 96,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 424,
+                                            "Y": 96,
+                                            "Width": 32,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "16, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "DarkRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 64,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 456,
+                                            "Y": 64,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 112,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 96,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 552,
+                                            "Y": 96,
+                                            "Width": 32,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "20, 46"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 64,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 78",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 584,
+                                            "Y": 64,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "{{ID}}_Shrub_Mandarin": {
+                        "DisplayName": "{{i18n:shrubs.mandarin.name}}",
+                        "Description": "{{i18n:shrubs.mandarin.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 25,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 144,
+                            "Y": 192,
+                            "Width": 16,
+                            "Height": 32
+                        },
+                        "Appearances": [
+                            // Spring
+                            {
+                                "Id": "Spring_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 176,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 164,
+                                            "Y": 176,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 144,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 78",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 200,
+                                            "Y": 144,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "YellowGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "YellowGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 176,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 292,
+                                            "Y": 176,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "YellowGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 144,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 78",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 328,
+                                            "Y": 144,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "Olive",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 400,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "Olive",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 176,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 420,
+                                            "Y": 176,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "Olive",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 144,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 78",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 456,
+                                            "Y": 144,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "SeaGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 192,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "SeaGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 176,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 548,
+                                            "Y": 176,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "SeaGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 144,
+                                            "Width": 16,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "8, 78",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 584,
+                                            "Y": 144,
+                                            "Width": 64,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "32, 78"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "{{ID}}_Shrub_Plumeria": {
+                        "DisplayName": "{{i18n:shrubs.plumeria.name}}",
+                        "Description": "{{i18n:shrubs.plumeria.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 50,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 144,
+                            "Y": 256,
+                            "Width": 16,
+                            "Height": 32
+                        },
+                        "Appearances": [
+                            // Spring
+                            {
+                                "Id": "Spring_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 248,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 164,
+                                            "Y": 248,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "ForestGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 224,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 200,
+                                            "Y": 224,
+                                            "Width": 64,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "32, 62"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "YellowGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "YellowGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 248,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 292,
+                                            "Y": 248,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "YellowGreen",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 224,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 328,
+                                            "Y": 224,
+                                            "Width": 64,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "32, 62"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "Coral",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 400,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "Coral",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 248,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 420,
+                                            "Y": 248,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "Coral",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 224,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 456,
+                                            "Y": 224,
+                                            "Width": 64,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "32, 62"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "DarkSalmon",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 256,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "DarkSalmon",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 248,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 548,
+                                            "Y": 248,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "DarkSalmon",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 224,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 584,
+                                            "Y": 224,
+                                            "Width": 64,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "32, 62"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "{{ID}}_Shrub_Rose": {
+                        "DisplayName": "{{i18n:shrubs.rose.name}}",
+                        "Description": "{{i18n:shrubs.rose.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 40,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 144,
+                            "Y": 320,
+                            "Width": 16,
+                            "Height": 32
+                        },
+                        "Appearances": [
+                            // Spring
+                            {
+                                "Id": "Spring_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 164,
+                                            "Y": 320,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 208,
                                             "Y": 304,
                                             "Width": 48,
                                             "Height": 48
                                         },
-                                        "TextureOrigin": "24, 46",
-                                        "TextureOffset": "0, 0"
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 292,
+                                            "Y": 312,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 336,
+                                            "Y": 304,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 400,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 420,
+                                            "Y": 312,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 464,
+                                            "Y": 304,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 320,
+                                            "Width": 16,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "8, 38",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 548,
+                                            "Y": 312,
+                                            "Width": 40,
+                                            "Height": 40
+                                        },
+                                        "TextureOrigin": "20, 38"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 592,
+                                            "Y": 304,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 46"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "{{ID}}_Shrub_RoseBush": {
+                        "DisplayName": "{{i18n:shrubs.rose.name}}",
+                        "Description": "{{i18n:shrubs.rose.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 40,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 144,
+                            "Y": 352,
+                            "Width": 16,
+                            "Height": 32
+                        },
+                        "Appearances": [
+                            // Spring
+                            {
+                                "Id": "Spring_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 164,
+                                            "Y": 352,
+                                            "Width": 40,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "20, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 208,
+                                            "Y": 352,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 30"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 292,
+                                            "Y": 352,
+                                            "Width": 40,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "20, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 336,
+                                            "Y": 352,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 30"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 400,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 420,
+                                            "Y": 352,
+                                            "Width": 40,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "20, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 464,
+                                            "Y": 352,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 30"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 0,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 16,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 548,
+                                            "Y": 352,
+                                            "Width": 40,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "20, 30"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "IndianRed",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 32,
+                                            "Y": 352,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 592,
+                                            "Y": 352,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 30"
                                     }
                                 ]
                             }

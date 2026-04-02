@@ -96,6 +96,8 @@
     "item.koinobori.description": "A decorative fish-shaped streamer. Can be placed outdoors.",
     "item.bow_arrow_basic.name": "Wooden Arrows",
     "item.bow_arrow_basic.description": "Used with a bow.",
+    "item.shrubfertiliser.name": "Shrub Fertilizer",
+    "item.shrubfertiliser.description": "Pour beneath a decorative shrub to ensure rapid growth, even in winter.",
     // tools
     "item.bow_basic.name": "Bow",
     "item.bow_basic.description": "Fires arrows quickly.",
@@ -444,12 +446,24 @@
 
     "shrubs.error.placement": "Cannot be placed here.",
     "shrubs.error.close": "Too close to other plants.",
+    "shrubs.error.growth": "Your {{shrub}} wasn't able to grow last night.",
+    "shrubs.error.fertiliser.once": "Fertiliser can only be applied once.",
+    "shrubs.error.fertiliser.max": "Decorative shrub is already fully-grown.",
 
     "shrubs.plum.name": "Ornamental Plum",
-    "shrubs.plum.description": "Deciduous tree prized for its delicate pink blossoms.\nDoes not produce fruit.\nFlowers in spring.",
+    "shrubs.plum.description": "Deciduous tree prized for its delicate pink blossoms.\nDoes not produce.\nFlowers in spring.",
+
+    "shrubs.magnolia.name": "Ornamental Magnolia",
+    "shrubs.magnolia.description": "Deciduous tree with unique foliage and cones.\nDoes not produce.\nFlowers in spring.",
+
+    "shrubs.mandarin.name": "Ornamental Mandarin",
+    "shrubs.mandarin.description": "Evergreen tree decorated with miniature citrus.\nDoes not produce.\nFlowers in spring.\nFruits in summer.",
+
+    "shrubs.plumeria.name": "Ornamental Frangipani",
+    "shrubs.plumeria.description": "Exotic flowering tree grown in warm climates.\nDoes not produce.\nFlowers every other season.",
 
     "shrubs.rose.name": "Ornamental Rose",
-    "shrubs.rose.description": "Hardy shrub with rich, fragrant flowers.\nDoes not produce fruit.\nFlowers in summer.",
+    "shrubs.rose.description": "Hardy shrub with rich, fragrant flowers.\nDoes not produce.\nBenefits from pruning when overgrown.\nFlowers in summer.",
 
     // Dialogue
 

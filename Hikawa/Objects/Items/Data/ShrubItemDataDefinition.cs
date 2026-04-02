@@ -1,12 +1,11 @@
 ﻿using Hikawa.Data;
-using Hikawa.Objects.Decor;
 using StardewValley.ItemTypeDefinitions;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Hikawa.Objects.Items.Data;
 
-public class ShrubObjectDataDefinition : BaseItemDataDefinition
+public class ShrubItemDataDefinition : BaseItemDataDefinition
 {
     // this one isnt so bad but i still hate
 
@@ -20,7 +19,7 @@ public class ShrubObjectDataDefinition : BaseItemDataDefinition
 
     public override bool Exists(string itemId)
     {
-        return Shrub.GetData(itemId) is not null;
+        return ModEntry.ShrubsData.Value.Shrubs.ContainsKey(itemId);
     }
 
     public override IEnumerable<string> GetAllIds()
@@ -32,7 +31,6 @@ public class ShrubObjectDataDefinition : BaseItemDataDefinition
     {
         if (ModEntry.ShrubsData.Value.Shrubs.TryGetValue(itemId, out ShrubDataEntry shrubData))
         {
-            ShrubsDataAsset generic = ModEntry.ShrubsData.Value;
             ParsedItemData data = new ParsedItemData(
                 itemType: this,
                 itemId: itemId,
