@@ -74,11 +74,13 @@ namespace Hikawa.Objects.Locations
 			bool isRain = Game1.IsRainingHere();
 			bool isGreenRain = Utility.isGreenRainDay(Game1.dayOfMonth, Game1.season);
 			bool isWindy = this.IsWindy;
+			bool isSnowy = Game1.IsSnowingHere();
 			bool isWinter = Game1.IsWinter;
 			bool isDark = Game1.isStartingToGetDarkOut(location);
 
 			int seasonOffset = Game1.IsWinter ? 2 : Game1.IsFall ? 1 : 0;
 			int yOffset = -Game1.viewport.Y / Game1.pixelZoom + this.initialViewportY / Game1.pixelZoom;
+            int worldWidth = Game1.currentLocation.Map.DisplayWidth;
 			float alpha = 1f;
 			float skyAlpha = 1f;
 			float cloudAlpha = 1f;
@@ -113,6 +115,10 @@ namespace Hikawa.Objects.Locations
 			// background
 			if (isRain)
 			{
+				// we still use cloud colour for the near clouds
+				cloudColor = //Color.DarkSlateGray; 
+					new Color(77, 66, 77);
+
 				// StardewValley.Menus.ShippingMenu.cs
 
 				// grey skies
@@ -135,7 +141,6 @@ namespace Hikawa.Objects.Locations
 				float weatherX = preciseTime / 500f * (display.Width + 2048);
 				if (isRain)
 				{
-					int worldWidth = Game1.currentLocation.Map.DisplayWidth;
 					int w = 244;
 					for (int x = -w; x < worldWidth + w; x += w)
 					{
@@ -323,6 +328,29 @@ namespace Hikawa.Objects.Locations
 					effects: i == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
 					layerDepth: 0.0005f * i);
 			}
+
+			// near cloud
+            if (isRain || isWindy || isSnowy || ModEntry.OverlayEffectControl?.CurrentEffect() is (Modules.OverlayEffectControl.Effect.Mist or Modules.OverlayEffectControl.Effect.Haze))
+            {
+                source = new Rectangle(0, 0, 512, 336);
+                float scale = Game1.pixelZoom;
+				float ms = (float)Game1.currentGameTime.TotalGameTime.TotalMilliseconds;
+                for (int i = 0; i < 3; ++i)
+                {
+                    b.Draw(
+                        texture: this.cloudsTexture,
+                        position: zero
+                            + offset
+							+ new Vector2(i * (worldWidth - source.Width * Game1.pixelZoom + 32 * Game1.pixelZoom) - 32 * Game1.pixelZoom, 128 * Game1.pixelZoom + yOffset / 8 + MathF.Cos((ms / 9999 % 9999) * MathF.PI) * 16),
+                        sourceRectangle: source,
+                        color: cloudColor * cloudAlpha,
+                        rotation: 0f,
+                        origin: Vector2.Zero,
+                        scale: scale,
+                        effects: SpriteEffects.None,
+                        layerDepth: 0.00005f + i / 100000f);
+                }
+            }
 		}
 	}
 }
