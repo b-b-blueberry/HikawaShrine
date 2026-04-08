@@ -208,8 +208,9 @@ namespace Hikawa.Objects.Locations
 			}
 
 			// Lost item quest sparkles
-			if (// Quest flag
-				(ModEntry.SaveData.LostJewelryQuestTile != default || ModEntry.SaveData.LostGlassesQuestTile != default)
+			if (ModEntry.SaveData is not null
+				// Quest flag
+				&& (ModEntry.SaveData.LostJewelryQuestTile != default || ModEntry.SaveData.LostGlassesQuestTile != default)
 				// Poll rate
 				&& ticks % sparkleInterval == 0 && Game1.random.NextDouble() < 0.5f
 				// Game state
