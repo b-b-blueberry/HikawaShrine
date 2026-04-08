@@ -5,7 +5,7 @@
             "Action": "EditData",
             "Target": "Data/WildTrees",
             "Entries": {
-                "Custom_Hikawa_Cherry_S": {
+                "{{ID}}_Cherry_S": {
                     "Textures": [
                         {
                             "Condition": null,
@@ -39,7 +39,7 @@
                     "GrowsMoss": false,
                     "CustomFields": null
                 },
-                "Custom_Hikawa_Cherry_M": {
+                "{{ID}}_Cherry_M": {
                     "Textures": [
                         {
                             "Condition": null,
@@ -73,7 +73,7 @@
                     "GrowsMoss": false,
                     "CustomFields": null
                 },
-                "Custom_Hikawa_Cherry_L": {
+                "{{ID}}_Cherry_L": {
                     "Textures": [
                         {
                             "Condition": null,
@@ -107,7 +107,7 @@
                     "GrowsMoss": false,
                     "CustomFields": null
                 },
-                "Custom_Hikawa_Boxwood": {
+                "{{ID}}_Boxwood": {
                     "Textures": [
                         {
                             "Condition": null,
@@ -141,7 +141,7 @@
                     "GrowsMoss": false,
                     "CustomFields": null
                 },
-                "Custom_Hikawa_Maple_1": {
+                "{{ID}}_Maple_1": {
                     "Textures": [
                         {
                             "Condition": null,
@@ -175,7 +175,7 @@
                     "GrowsMoss": false,
                     "CustomFields": null
                 },
-                "Custom_Hikawa_Maple_2": {
+                "{{ID}}_Maple_2": {
                     "Textures": [
                         {
                             "Condition": null,
