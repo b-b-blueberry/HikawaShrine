@@ -465,6 +465,9 @@
     "shrubs.rose.name": "Ornamental Rose",
     "shrubs.rose.description": "Hardy shrub with rich, fragrant flowers.\nDoes not produce.\nBenefits from pruning when overgrown.\nFlowers in summer.",
 
+    "shrubs.azalea.name": "Ornamental Azalea",
+    "shrubs.azalea.description": "Evergreen shrub with prolific flowers.\nDoes not produce.\nFlowers in spring.",
+
     // Dialogue
 
     "chicken.fight.1": "Hey! Stop that!",

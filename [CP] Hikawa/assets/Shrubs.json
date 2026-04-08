@@ -95,6 +95,17 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 32,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
                                             "X": 160,
@@ -121,6 +132,17 @@
                                             "Height": 64
                                         },
                                         "TextureOrigin": "8, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
@@ -156,7 +178,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 272,
+                                            "X": 256,
                                             "Y": 32,
                                             "Width": 16,
                                             "Height": 32
@@ -183,9 +205,20 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 64,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 288,
+                                            "X": 272,
                                             "Y": 16,
                                             "Width": 48,
                                             "Height": 48
@@ -212,9 +245,20 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 336,
+                                            "X": 320,
                                             "Y": 0,
                                             "Width": 48,
                                             "Height": 64
@@ -244,7 +288,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 400,
+                                            "X": 368,
                                             "Y": 32,
                                             "Width": 16,
                                             "Height": 32
@@ -271,9 +315,20 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 64,
+                                            "Y": 32,
+                                            "Width": 16,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 416,
+                                            "X": 384,
                                             "Y": 16,
                                             "Width": 48,
                                             "Height": 48
@@ -300,9 +355,20 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 16,
+                                            "Width": 16,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 464,
+                                            "X": 432,
                                             "Y": 0,
                                             "Width": 48,
                                             "Height": 64
@@ -332,7 +398,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 528,
+                                            "X": 480,
                                             "Y": 32,
                                             "Width": 16,
                                             "Height": 32
@@ -361,7 +427,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 544,
+                                            "X": 496,
                                             "Y": 16,
                                             "Width": 48,
                                             "Height": 48
@@ -390,7 +456,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 592,
+                                            "X": 544,
                                             "Y": 0,
                                             "Width": 48,
                                             "Height": 64
@@ -462,6 +528,17 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 96,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
                                             "X": 168,
@@ -491,14 +568,25 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 80,
+                                            "Width": 48,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "24, 62",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 200,
-                                            "Y": 80,
-                                            "Width": 64,
-                                            "Height": 64
+                                            "X": 208,
+                                            "Y": 64,
+                                            "Width": 80,
+                                            "Height": 80
                                         },
-                                        "TextureOrigin": "32, 62"
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             },
@@ -523,7 +611,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 272,
+                                            "X": 288 ,
                                             "Y": 112,
                                             "Width": 16,
                                             "Height": 32
@@ -550,9 +638,20 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 96,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 296,
+                                            "X": 304,
                                             "Y": 96,
                                             "Width": 32,
                                             "Height": 48
@@ -579,14 +678,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 328,
-                                            "Y": 64,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 80,
+                                            "Width": 48,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "24, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 352,
+                                            "Y": 64,
+                                            "Width": 80,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             },
@@ -609,9 +719,20 @@
                                         "Shake": false
                                     },
                                     {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 96,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
+                                        "Shake": false
+                                    },
+                                    {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 400,
+                                            "X": 432,
                                             "Y": 112,
                                             "Width": 16,
                                             "Height": 32
@@ -640,7 +761,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 424,
+                                            "X": 448,
                                             "Y": 96,
                                             "Width": 32,
                                             "Height": 48
@@ -667,14 +788,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 456,
-                                            "Y": 64,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 80,
+                                            "Width": 48,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "24, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 496,
+                                            "Y": 64,
+                                            "Width": 80,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             },
@@ -699,7 +831,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 528,
+                                            "X": 576,
                                             "Y": 112,
                                             "Width": 16,
                                             "Height": 32
@@ -728,7 +860,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 552,
+                                            "X": 592,
                                             "Y": 96,
                                             "Width": 32,
                                             "Height": 48
@@ -757,12 +889,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 584,
+                                            "X": 640,
                                             "Y": 64,
-                                            "Width": 64,
+                                            "Width": 80,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             }
@@ -823,20 +955,31 @@
                                             "X": 16,
                                             "Y": 176,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 192,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 164,
+                                            "X": 156,
                                             "Y": 176,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -860,12 +1003,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 200,
+                                            "X": 208,
                                             "Y": 144,
-                                            "Width": 64,
+                                            "Width": 80,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             },
@@ -885,6 +1028,17 @@
                                             "Height": 32
                                         },
                                         "TextureOrigin": "8, 30",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 160,
+                                            "Width": 48,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "24, 62",
                                         "Shake": false
                                     },
                                     {
@@ -911,20 +1065,31 @@
                                             "X": 16,
                                             "Y": 176,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 192,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 292,
+                                            "X": 304,
                                             "Y": 176,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -946,14 +1111,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 328,
-                                            "Y": 144,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 160,
+                                            "Width": 48,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "24, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 352,
+                                            "Y": 144,
+                                            "Width": 80,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             },
@@ -999,20 +1175,31 @@
                                             "X": 16,
                                             "Y": 176,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 192,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 420,
+                                            "X": 448,
                                             "Y": 176,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1034,14 +1221,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 456,
-                                            "Y": 144,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 160,
+                                            "Width": 48,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "24, 62",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 496,
+                                            "Y": 144,
+                                            "Width": 80,
+                                            "Height": 80
+                                        },
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             },
@@ -1087,20 +1285,20 @@
                                             "X": 16,
                                             "Y": 176,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 548,
+                                            "X": 592,
                                             "Y": 176,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1124,12 +1322,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 584,
+                                            "X": 640,
                                             "Y": 144,
-                                            "Width": 64,
+                                            "Width": 80,
                                             "Height": 80
                                         },
-                                        "TextureOrigin": "32, 78"
+                                        "TextureOrigin": "40, 78"
                                     }
                                 ]
                             }
@@ -1188,22 +1386,33 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 248,
+                                            "Y": 240,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 256,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 164,
-                                            "Y": 248,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 160,
+                                            "Y": 240,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1225,14 +1434,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 200,
-                                            "Y": 224,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 240,
+                                            "Width": 48,
                                             "Height": 64
                                         },
-                                        "TextureOrigin": "32, 62"
+                                        "TextureOrigin": "24, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 208,
+                                            "Y": 224,
+                                            "Width": 80,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "40, 62"
                                     }
                                 ]
                             },
@@ -1276,22 +1496,33 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 248,
+                                            "Y": 240,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 256,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 292,
-                                            "Y": 248,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 304,
+                                            "Y": 240,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1313,14 +1544,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 328,
-                                            "Y": 224,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 240,
+                                            "Width": 48,
                                             "Height": 64
                                         },
-                                        "TextureOrigin": "32, 62"
+                                        "TextureOrigin": "24, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 352,
+                                            "Y": 224,
+                                            "Width": 80,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "40, 62"
                                     }
                                 ]
                             },
@@ -1366,20 +1608,31 @@
                                             "X": 16,
                                             "Y": 248,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Shadow_Foliage",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 256,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 30",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 420,
-                                            "Y": 248,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 448,
+                                            "Y": 240,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1401,14 +1654,25 @@
                                         "Shake": false
                                     },
                                     {
-                                        "Id": "Main",
+                                        "Id": "Shadow_Foliage",
                                         "TextureRegion": {
-                                            "X": 456,
-                                            "Y": 224,
-                                            "Width": 64,
+                                            "X": 96,
+                                            "Y": 240,
+                                            "Width": 48,
                                             "Height": 64
                                         },
-                                        "TextureOrigin": "32, 62"
+                                        "TextureOrigin": "24, 46",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 496,
+                                            "Y": 224,
+                                            "Width": 80,
+                                            "Height": 64
+                                        },
+                                        "TextureOrigin": "40, 62"
                                     }
                                 ]
                             },
@@ -1454,20 +1718,20 @@
                                             "X": 16,
                                             "Y": 248,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 548,
-                                            "Y": 248,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 592,
+                                            "Y": 240,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1491,12 +1755,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 584,
+                                            "X": 640,
                                             "Y": 224,
-                                            "Width": 64,
+                                            "Width": 80,
                                             "Height": 64
                                         },
-                                        "TextureOrigin": "32, 62"
+                                        "TextureOrigin": "40, 62"
                                     }
                                 ]
                             }
@@ -1510,7 +1774,7 @@
                         "TextureId": "{{PATH}}/Sprites/Shrubs",
                         "IconTextureRegion": {
                             "X": 144,
-                            "Y": 320,
+                            "Y": 304,
                             "Width": 16,
                             "Height": 32
                         },
@@ -1537,7 +1801,7 @@
                                         "Id": "Main",
                                         "TextureRegion": {
                                             "X": 144,
-                                            "Y": 320,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1555,22 +1819,22 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 320,
+                                            "Y": 288,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 164,
-                                            "Y": 320,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 160,
+                                            "Y": 288,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1584,7 +1848,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 304,
+                                            "Y": 277,
                                             "Width": 16,
                                             "Height": 48
                                         },
@@ -1595,7 +1859,7 @@
                                         "Id": "Main",
                                         "TextureRegion": {
                                             "X": 208,
-                                            "Y": 304,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 48
                                         },
@@ -1614,7 +1878,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 320,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1624,8 +1888,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 272,
-                                            "Y": 320,
+                                            "X": 256,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1643,22 +1907,22 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 320,
+                                            "Y": 288,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 292,
-                                            "Y": 312,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 272,
+                                            "Y": 288,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1672,7 +1936,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 304,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 48
                                         },
@@ -1682,8 +1946,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 336,
-                                            "Y": 304,
+                                            "X": 320,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 48
                                         },
@@ -1702,7 +1966,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 320,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1712,8 +1976,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 400,
-                                            "Y": 320,
+                                            "X": 368,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1731,22 +1995,22 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 320,
+                                            "Y": 288,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 420,
-                                            "Y": 312,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 384,
+                                            "Y": 288,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "24, 46"
                                     }
                                 ]
                             },
@@ -1760,7 +2024,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 304,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 48
                                         },
@@ -1770,8 +2034,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 464,
-                                            "Y": 304,
+                                            "X": 432,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 48
                                         },
@@ -1790,7 +2054,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 320,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1800,8 +2064,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 528,
-                                            "Y": 320,
+                                            "X": 480,
+                                            "Y": 304,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1819,22 +2083,22 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 320,
+                                            "Y": 288,
                                             "Width": 16,
-                                            "Height": 40
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "8, 38",
+                                        "TextureOrigin": "8, 46",
                                         "Shake": false
                                     },
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 548,
-                                            "Y": 312,
-                                            "Width": 40,
-                                            "Height": 40
+                                            "X": 496,
+                                            "Y": 288,
+                                            "Width": 48,
+                                            "Height": 48
                                         },
-                                        "TextureOrigin": "20, 38"
+                                        "TextureOrigin": "20, 46"
                                     }
                                 ]
                             },
@@ -1848,7 +2112,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 304,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 48
                                         },
@@ -1858,8 +2122,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 592,
-                                            "Y": 304,
+                                            "X": 544,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 48
                                         },
@@ -1877,7 +2141,7 @@
                         "TextureId": "{{PATH}}/Sprites/Shrubs",
                         "IconTextureRegion": {
                             "X": 144,
-                            "Y": 352,
+                            "Y": 336,
                             "Width": 16,
                             "Height": 32
                         },
@@ -1893,7 +2157,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1904,7 +2168,7 @@
                                         "Id": "Main",
                                         "TextureRegion": {
                                             "X": 144,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1922,7 +2186,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1932,12 +2196,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 164,
-                                            "Y": 352,
-                                            "Width": 40,
+                                            "X": 160,
+                                            "Y": 336,
+                                            "Width": 48,
                                             "Height": 32
                                         },
-                                        "TextureOrigin": "20, 30"
+                                        "TextureOrigin": "24, 30"
                                     }
                                 ]
                             },
@@ -1951,7 +2215,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1962,7 +2226,7 @@
                                         "Id": "Main",
                                         "TextureRegion": {
                                             "X": 208,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 48,
                                             "Height": 32
                                         },
@@ -1981,7 +2245,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -1991,8 +2255,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 272,
-                                            "Y": 352,
+                                            "X": 256,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2010,7 +2274,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 352,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2020,12 +2284,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 292,
-                                            "Y": 352,
-                                            "Width": 40,
+                                            "X": 272,
+                                            "Y": 288,
+                                            "Width": 48,
                                             "Height": 32
                                         },
-                                        "TextureOrigin": "20, 30"
+                                        "TextureOrigin": "24, 30"
                                     }
                                 ]
                             },
@@ -2039,7 +2303,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 352,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2049,8 +2313,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 336,
-                                            "Y": 352,
+                                            "X": 320,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 32
                                         },
@@ -2069,7 +2333,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2079,8 +2343,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 400,
-                                            "Y": 352,
+                                            "X": 368,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2098,7 +2362,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 352,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2108,12 +2372,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 420,
-                                            "Y": 352,
-                                            "Width": 40,
+                                            "X": 384,
+                                            "Y": 288,
+                                            "Width": 48,
                                             "Height": 32
                                         },
-                                        "TextureOrigin": "20, 30"
+                                        "TextureOrigin": "24, 30"
                                     }
                                 ]
                             },
@@ -2127,7 +2391,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 352,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2137,8 +2401,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 464,
-                                            "Y": 352,
+                                            "X": 432,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 32
                                         },
@@ -2157,7 +2421,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 0,
-                                            "Y": 352,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2167,8 +2431,8 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 528,
-                                            "Y": 352,
+                                            "X": 480,
+                                            "Y": 336,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2186,7 +2450,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 16,
-                                            "Y": 352,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2196,12 +2460,12 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 548,
-                                            "Y": 352,
-                                            "Width": 40,
+                                            "X": 496,
+                                            "Y": 288,
+                                            "Width": 48,
                                             "Height": 32
                                         },
-                                        "TextureOrigin": "20, 30"
+                                        "TextureOrigin": "24, 30"
                                     }
                                 ]
                             },
@@ -2215,7 +2479,7 @@
                                         "Id": "Shadow",
                                         "TextureRegion": {
                                             "X": 32,
-                                            "Y": 352,
+                                            "Y": 288,
                                             "Width": 16,
                                             "Height": 32
                                         },
@@ -2225,12 +2489,335 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 592,
-                                            "Y": 352,
+                                            "X": 544,
+                                            "Y": 288,
                                             "Width": 48,
                                             "Height": 32
                                         },
                                         "TextureOrigin": "24, 30"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "{{ID}}_Shrub_Azalea": {
+                        "DisplayName": "{{i18n:shrubs.azalea.name}}",
+                        "Description": "{{i18n:shrubs.azalea.description}}",
+                        "MaxGrowthStage": 2,
+                        "GrowthDays": 40,
+                        "TextureId": "{{PATH}}/Sprites/Shrubs",
+                        "IconTextureRegion": {
+                            "X": 144,
+                            "Y": 384,
+                            "Width": 16,
+                            "Height": 32
+                        },
+                        "Appearances": [
+                            // Spring
+                            {
+                                "Id": "Spring_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 144,
+                                            "Y": 384,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 160,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Spring_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Spring",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 208,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48"
+                                    }
+                                ]
+                            },
+                            // Summer
+                            {
+                                "Id": "Summer_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 272,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Summer_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Summer",
+                                "DebrisColour": "GreenYellow",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 320,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48"
+                                    }
+                                ]
+                            },
+                            // Fall
+                            {
+                                "Id": "Fall_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 368,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 384,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Fall_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Fall",
+                                "DebrisColour": "OliveDrab",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 432,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48"
+                                    }
+                                ]
+                            },
+                            // Winter
+                            {
+                                "Id": "Winter_Stage_0",
+                                "GrowthStage": 0,
+                                "Season": "Winter",
+                                "DebrisColour": "LightSkyBlue",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 528,
+                                            "Y": 304,
+                                            "Width": 16,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "8, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_1",
+                                "GrowthStage": 1,
+                                "Season": "Winter",
+                                "DebrisColour": "LightSkyBlue",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 48,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "24, 32",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 496,
+                                            "Y": 384,
+                                            "Width": 48,
+                                            "Height": 32
+                                        },
+                                        "TextureOrigin": "20, 32"
+                                    }
+                                ]
+                            },
+                            {
+                                "Id": "Winter_Stage_2",
+                                "GrowthStage": 2,
+                                "Season": "Winter",
+                                "DebrisColour": "LightSkyBlue",
+                                "DrawLayers": [
+                                    {
+                                        "Id": "Shadow",
+                                        "TextureRegion": {
+                                            "X": 96,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48",
+                                        "Shake": false
+                                    },
+                                    {
+                                        "Id": "Main",
+                                        "TextureRegion": {
+                                            "X": 544,
+                                            "Y": 368,
+                                            "Width": 48,
+                                            "Height": 48
+                                        },
+                                        "TextureOrigin": "24, 48"
                                     }
                                 ]
                             }
