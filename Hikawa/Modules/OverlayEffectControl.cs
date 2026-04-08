@@ -45,7 +45,7 @@ namespace Hikawa.Modules
 
         public OverlayEffectControl()
         {
-            Set(Effect.Mist);
+            Set(Effect.None);
         }
 
         public bool Set(Effect whichEffect)
