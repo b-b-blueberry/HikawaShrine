@@ -15,6 +15,24 @@
                     ],
                     "Category": "Sound"
                 },
+                "{{ID}}_Chime_Big": {
+                    "ID": "{{ID}}_Chime_Big",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/chime_big_1.wav}}",
+                        "{{AbsoluteFilePath: assets/Audio/chime_big_2.wav}}",
+                        "{{AbsoluteFilePath: assets/Audio/chime_big_3.wav}}"
+                    ],
+                    "Category": "Sound"
+                },
+                "{{ID}}_Chime_Small": {
+                    "ID": "{{ID}}_Chime_Small",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/chime_small_1.wav}}",
+                        "{{AbsoluteFilePath: assets/Audio/chime_small_2.wav}}",
+                        "{{AbsoluteFilePath: assets/Audio/chime_small_3.wav}}"
+                    ],
+                    "Category": "Sound"
+                },
                 "{{ID}}_Bow_Draw_Slow": {
                     "ID": "{{ID}}_Bow_Draw_Slow",
                     "FilePaths": [
