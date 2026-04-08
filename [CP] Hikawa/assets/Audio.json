@@ -6,6 +6,15 @@
             "Target": "Data/AudioChanges",
             "Action": "EditData",
             "Entries": {
+                "{{ID}}_Creak": {
+                    "ID": "{{ID}}_Creak",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/creak1.wav}}",
+                        "{{AbsoluteFilePath: assets/Audio/creak2.wav}}",
+                        "{{AbsoluteFilePath: assets/Audio/creak3.wav}}"
+                    ],
+                    "Category": "Sound"
+                },
                 "{{ID}}_Bow_Draw_Slow": {
                     "ID": "{{ID}}_Bow_Draw_Slow",
                     "FilePaths": [
