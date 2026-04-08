@@ -170,6 +170,22 @@
                     }
                 ],
                 "ShrineTrees": {
+                    "Town": [
+                        /** Small Cherry **/
+                        { // Shrine steps
+                            "Id": "{{ID}}_Cherry_S",
+                            "Tile": "14, 11",
+                            "Flip": false,
+                            "Leaves": true
+                        },
+                        /** Maple 1 **/
+                        { // Shrine steps
+                            "Id": "{{ID}}_Maple_1",
+                            "Tile": "28, 2",
+                            "Flip": false,
+                            "Leaves": false
+                        }
+                    ],
                     "{{SHRINE}}": [
                         /** Small Cherry **/
                         { // Graveyard shrine
@@ -177,12 +193,6 @@
                             "Tile": "34, 11",
                             "Flip": false,
                             "Leaves": true
-                        },
-                        { // House rear
-                            "Id": "{{ID}}_Cherry_S",
-                            "Tile": "48, 22",
-                            "Flip": true,
-                            "Leaves": false
                         },
                         { // Garden
                             "Id": "{{ID}}_Cherry_S",
@@ -198,37 +208,13 @@
                         },
                         { // Hall side
                             "Id": "{{ID}}_Cherry_S",
-                            "Tile": "44, 42",
-                            "Flip": false,
-                            "Leaves": true
-                        },
-                        { // Main gate
-                            "Id": "{{ID}}_Cherry_S",
-                            "Tile": "40, 54",
-                            "Flip": false,
+                            "Tile": "44, 43",
+                            "Flip": true,
                             "Leaves": true
                         },
                         { // North-west cliff
                             "Id": "{{ID}}_Cherry_S",
                             "Tile": "15, 16",
-                            "Flip": false,
-                            "Leaves": false
-                        },
-                        { // North-west yard
-                            "Id": "{{ID}}_Cherry_S",
-                            "Tile": "13, 25",
-                            "Flip": true,
-                            "Leaves": false
-                        },
-                        { // Frontyard
-                            "Id": "{{ID}}_Cherry_S",
-                            "Tile": "58, 51",
-                            "Flip": true,
-                            "Leaves": false
-                        },
-                        { // West cliff
-                            "Id": "{{ID}}_Cherry_S",
-                            "Tile": "12, 61",
                             "Flip": false,
                             "Leaves": false
                         },
@@ -251,6 +237,12 @@
                             "Flip": true,
                             "Leaves": true
                         },
+                        { // East cliff
+                            "Id": "{{ID}}_Cherry_M",
+                            "Tile": "62, 37",
+                            "Flip": false,
+                            "Leaves": true
+                        },
                         /** Large Cherry **/
                         { // Graveyard
                             "Id": "{{ID}}_Cherry_L",
@@ -269,12 +261,6 @@
                             "Tile": "16, 29",
                             "Flip": true,
                             "Leaves": true
-                        },
-                        { // East cliff
-                            "Id": "{{ID}}_Cherry_L",
-                            "Tile": "62, 37",
-                            "Flip": true,
-                            "Leaves": false
                         },
                         /** Boxwood **/
                         { // Garden
@@ -296,13 +282,13 @@
                         { // Main gate
                             "Id": "{{ID}}_Maple_1",
                             "Tile": "26, 55",
-                            "Flip": false,
+                            "Flip": true,
                             "Leaves": false
                         },
                         { // Souvenir shop
                             "Id": "{{ID}}_Maple_1",
                             "Tile": "16, 45",
-                            "Flip": false,
+                            "Flip": true,
                             "Leaves": false
                         },
                         { // North-west yard
@@ -335,6 +321,342 @@
                             "Tile": "64, 52",
                             "Flip": false,
                             "Leaves": false
+                        }
+                    ]
+                },
+                "Shrubs": {
+                    "Town": [
+                        /** Cherry **/
+                        { // Shrine steps
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "25, 9",
+                            "GrowthStage": 1
+                        },
+                        /** Azalea **/
+                        { // Shrine steps
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "26, 1",
+                            "GrowthStage": 1
+                        }
+                    ],
+                    "{{SHRINE}}": [
+                        /** Cherry **/
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "13, 26",
+                            "GrowthStage": 1
+                        },
+                        { // House rear
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "48, 22",
+                            "GrowthStage": 1
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "20, 42",
+                            "GrowthStage": 0
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "14, 42",
+                            "GrowthStage": 1
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "45, 37",
+                            "GrowthStage": 0
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "56, 38",
+                            "GrowthStage": 1
+                        },
+                        { // Main gate L
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "30, 53",
+                            "GrowthStage": 0
+                        },
+                        { // Main gate R
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "40, 54",
+                            "GrowthStage": 1
+                        },
+                        { // Bottom L
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "20, 62",
+                            "GrowthStage": 1
+                        },
+                        { // Bottom R
+                            "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "45, 62",
+                            "GrowthStage": 0
+                        },
+                        /** Rose **/
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_RoseBush",
+                            "Tile": "59, 31",
+                            "GrowthStage": 1
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Rose",
+                            "Tile": "58, 34",
+                            "GrowthStage": 0
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Rose",
+                            "Tile": "60, 34",
+                            "GrowthStage": 1
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_RoseBush",
+                            "Tile": "56, 35",
+                            "GrowthStage": 0
+                        },
+                        /** Azalea **/
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "15, 14",
+                            "GrowthStage": 1
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "13, 16",
+                            "GrowthStage": 1
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "21, 16",
+                            "GrowthStage": 2
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "10, 18",
+                            "GrowthStage": 1
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "9, 25",
+                            "GrowthStage": 1
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "14, 29",
+                            "GrowthStage": 1
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "17, 31",
+                            "GrowthStage": 1
+                        },
+                        { // North-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "16, 19",
+                            "GrowthStage": 1
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "17, 36",
+                            "GrowthStage": 1
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "16, 41",
+                            "GrowthStage": 1
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "11, 45",
+                            "GrowthStage": 1
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "14, 46",
+                            "GrowthStage": 2
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "13, 49",
+                            "GrowthStage": 1
+                        },
+                        { // Souvenir shop
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "26, 38",
+                            "GrowthStage": 1
+                        },
+                        { // South-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "21, 55",
+                            "GrowthStage": 1
+                        },
+                        { // South-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "23, 53",
+                            "GrowthStage": 1
+                        },
+                        { // South-west yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "26, 53",
+                            "GrowthStage": 2
+                        },
+                        { // Main hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "29, 25",
+                            "GrowthStage": 1
+                        },
+                        { // Main hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "38, 24",
+                            "GrowthStage": 1
+                        },
+                        { // Graveyard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "33, 13",
+                            "GrowthStage": 2
+                        },
+                        { // Graveyard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "40, 11",
+                            "GrowthStage": 1
+                        },
+                        { // Graveyard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "35, 18",
+                            "GrowthStage": 2
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "52, 22",
+                            "GrowthStage": 2
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "52, 19",
+                            "GrowthStage": 1
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "58, 20",
+                            "GrowthStage": 2
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "59, 25",
+                            "GrowthStage": 1
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "62, 27",
+                            "GrowthStage": 1
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "59, 35",
+                            "GrowthStage": 1
+                        },
+                        { // Garden
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "62, 36",
+                            "GrowthStage": 1
+                        },
+                        { // House
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "48, 24",
+                            "GrowthStage": 1
+                        },
+                        { // House
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "48, 31",
+                            "GrowthStage": 1
+                        },
+                        { // House
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "43, 27",
+                            "GrowthStage": 1
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "44, 44",
+                            "GrowthStage": 1
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "43, 40",
+                            "GrowthStage": 2
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "47, 37",
+                            "GrowthStage": 1
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "51, 37",
+                            "GrowthStage": 2
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "54, 39",
+                            "GrowthStage": 1
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "56, 40",
+                            "GrowthStage": 1
+                        },
+                        { // Hall
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "54, 47",
+                            "GrowthStage": 1
+                        },
+                        { // South-east yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "58, 46",
+                            "GrowthStage": 1
+                        },
+                        { // South-east yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "43, 53",
+                            "GrowthStage": 1
+                        },
+                        { // South-east yard
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "54, 53",
+                            "GrowthStage": 2
+                        },
+                        { // Main gate L
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "29, 51",
+                            "GrowthStage": 1
+                        },
+                        { // Main gate R
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "40, 51",
+                            "GrowthStage": 1
+                        },
+                        { // Bottom L
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "24, 60",
+                            "GrowthStage": 2
+                        },
+                        { // Bottom L
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "27, 61",
+                            "GrowthStage": 1
+                        },
+                        { // Name stone
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "40, 60",
+                            "GrowthStage": 1
+                        },
+                        { // Bottom R
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "46, 63",
+                            "GrowthStage": 1
+                        },
+                        { // Bottom R
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "55, 63",
+                            "GrowthStage": 2
                         }
                     ]
                 },
@@ -541,6 +863,31 @@
                     ]
                 },
                 "LightTiles": {
+                    "Town": [
+                        { // Shrine steps left (stone)
+                            "Tile": "14, 1",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Shrine steps right (stone)
+                            "Tile": "24, 1",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                            "TileId": 1553,
+                            "Size": {
+                                "X": 2,
+                                "Y": 1
+                            }
+                        },
+                        { // Shrine steps (small)
+                            "Tile": "23, 7",
+                            "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                            "TileId": 1364
+                        }
+                    ],
                     "{{SHRINE}}": [
                         { // Shrine left (wood)
                             "Tile": "31, 38",
@@ -657,8 +1004,24 @@
                 },
                 "Lights": {
                     "Town": [
-                        { // Shrine steps (stone)
-                            "Tile": "24.5, 9",
+                        { // Shrine steps left (stone)
+                            "Tile": "14.5, 2",
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 2,
+                            "TextureName": "{{PATH}}/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2430,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine steps right (stone)
+                            "Tile": "24.5, 2",
                             "Color": {
                                 "R": 0,
                                 "G": 100,
@@ -672,6 +1035,21 @@
                             "Rate": 4,
                             "ExtinguishAtTime": 2400,
                             "ExtinguishedAlpha": 0.35
+                        },
+                        { // Shrine steps (small)
+                            "Tile": "23, 6.5",
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 3,
+                            "TextureName": "{{PATH}}/Sprites/Lights",
+                            "Luminosity": 0.666,
+                            "Variance": 0.002,
+                            "Rate": 4,
+                            "ExtinguishAtTime": 2300
                         }
                     ],
                     "{{SHRINE}}": [
@@ -740,7 +1118,7 @@
                             "ExtinguishedAlpha": 0.25
                         },
                         { // Shrine gate left lower (stone)
-                            "Tile": "29.5, 61",
+                            "Tile": "29.5, 62",
                             "Color": {
                                 "R": 0,
                                 "G": 100,
@@ -756,7 +1134,7 @@
                             "ExtinguishedAlpha": 0.25
                         },
                         { // Shrine gate right lower (stone)
-                            "Tile": "39.5, 61",
+                            "Tile": "39.5, 62",
                             "Color": {
                                 "R": 0,
                                 "G": 100,
@@ -972,7 +1350,7 @@
                             "ExtinguishAtTime": 2300
                         },
                         { // Name stone (small)
-                            "Tile": "43, 60.5",
+                            "Tile": "43, 58.5",
                             "Color": {
                                 "R": 0,
                                 "G": 100,

@@ -247,12 +247,22 @@ namespace Hikawa
 			{
 				foreach (var spawnData in treeSpawns)
 				{
-					if (ModEntry.ShrineTreesData.Value.ShrineTrees.TryGetValue(spawnData.Id, out var treeData))
-					{
-						where.terrainFeatures.TryAdd(spawnData.Tile, new ShrineTree(treeData, spawnData));
-					}
+                    where.terrainFeatures.TryAdd(spawnData.Tile, new ShrineTree(spawnData));
 				}
 			}
+
+            // Shrubs
+            if (ModEntry.DecorSpawnsData.Value.Shrubs.TryGetValue(where.Name, out var shrubSpawns))
+            {
+                foreach (var spawnData in shrubSpawns)
+                {
+                    where.terrainFeatures.TryAdd(spawnData.Tile, new Shrub(where, spawnData.Tile, spawnData.Id, spawnData.GrowthStage)
+                    {
+                        PreventGrowth = spawnData.PreventGrowth,
+                        PreventInteractions = spawnData.PreventInteractions
+                    });
+                }
+            }
 
 			// Hanging sprites
 			if (ModEntry.DecorSpawnsData.Value.HangingSprites.TryGetValue(where.Name, out var sprites))

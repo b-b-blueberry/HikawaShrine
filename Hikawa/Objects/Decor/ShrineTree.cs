@@ -11,27 +11,53 @@ namespace Hikawa.Objects.Decor
     [XmlType($"{ModConsts.SpaceCoreXmlPrefix}{nameof(ShrineTree)}")] // SpaceCore serialisation signature
     public class ShrineTree : Tree
     {
-        public readonly ShrineTreeSpawnData SpawnData;
-        public readonly ShrineTreeData TreeData;
+        [XmlIgnore]
+        public ShrineTreeData TreeData;
 
+        private readonly bool _isSpawningLeaves;
+
+        [XmlIgnore]
         private readonly int _leafOffset;
+        //[XmlIgnore]
         //private readonly IReflectedField<List<Leaf>> _leaves;
 
         private const int LeafInterval = 300;
 
-        public ShrineTree() { }
+        public ShrineTree()
+            : base()
+        {
+        }
 
-        public ShrineTree(ShrineTreeData treeData, ShrineTreeSpawnData spawnData)
+        public ShrineTree(ShrineTreeSpawnData spawnData)
             : base(id: spawnData.Id)
         {
-            this.TreeData = treeData;
-            this.SpawnData = spawnData;
+            this.treeType.Value = spawnData.Id;
 
-            this.growthStage.Set(treeStage);
-            this.flipped.Set(this.SpawnData.Flip);
+            this.growthStage.Set(Tree.treeStage);
+            this.flipped.Set(spawnData.Flip);
 
+            this._isSpawningLeaves = spawnData.Leaves;
             this._leafOffset = Game1.random.Next(ShrineTree.LeafInterval);
             //this._leaves = ModEntry.Instance.Helper.Reflection.GetField<List<Leaf>>(this, "leaves");
+        }
+
+        public override void initNetFields()
+        {
+            base.initNetFields();
+
+            this.treeType.fieldChangeEvent += this.OnTreeTypeChanged;
+        }
+
+        public void OnTreeTypeChanged(Netcode.NetString field, string oldValue, string newValue)
+        {
+            if (ModEntry.ShrineTreesData.Value.ShrineTrees.TryGetValue(newValue, out var treeData))
+            {
+                this.TreeData = treeData;
+            }
+            else
+            {
+                Log.E($"No data found for {nameof(ShrineTree)} type {newValue} at {this.Location?.NameOrUniqueName ?? "null"} {this.Tile}");
+            }
         }
 
         public void SpawnLeaf()
@@ -78,7 +104,7 @@ namespace Hikawa.Objects.Decor
             if (// Poll rate
                 time.TotalGameTime.Ticks % LeafInterval == this._leafOffset
                 // Instance state
-                && this.SpawnData.Leaves && this.TreeData.LeafRegion.HasValue && this.Location is not null
+                && this._isSpawningLeaves && this.TreeData.LeafRegion.HasValue && this.Location is not null
                 && this.getRenderBounds().Intersects(new(Game1.viewport.X, Game1.viewport.Y, Game1.viewport.Width, Game1.viewport.Height))
                 // World state
                 // && Game1.dayOfMonth > WorldDate.DaysPerMonth / 2
@@ -92,7 +118,7 @@ namespace Hikawa.Objects.Decor
 
         public override bool performUseAction(Vector2 tileLocation)
         {
-            if (!this.TreeData.CanShake)
+            if (this.TreeData?.CanShake != true)
                 return false;
 
             return base.performUseAction(tileLocation);
@@ -129,15 +155,21 @@ namespace Hikawa.Objects.Decor
             if (this.isTemporarilyInvisible)
                 return;
 
-            float baseSortPosition = this.getBoundingBox().Bottom;
+            this.DrawShrineTree(spriteBatch);
+        }
+
+        public void DrawShrineTree(SpriteBatch b)
+        {
+            var bounds = this.getBoundingBox();
+            float baseSortPosition = bounds.Bottom - bounds.Height / 2;
 
             TryGetData(this.treeType.Value, out var data);
 
             // Error data
-            if (this.texture.Value is null || data is null)
+            if (this.texture.Value is null || data is null || this.TreeData is null)
             {
                 IItemDataDefinition itemType = ItemRegistry.RequireTypeDefinition("(O)");
-                spriteBatch.Draw(
+                b.Draw(
                     texture: itemType.GetErrorTexture(),
                     position: Game1.GlobalToLocal(Game1.viewport, new Vector2(
                         this.Tile.X * 64f + (this.shakeTimer > 0f ? MathF.Sin(MathF.PI * 2f / this.shakeTimer) * 3f : 0f),
@@ -163,7 +195,7 @@ namespace Hikawa.Objects.Decor
             // Shadow
             if (this.TreeData.HasShadow)
             {
-                spriteBatch.Draw(
+                b.Draw(
                     texture: this.IsLeafy() ? Game1.mouseCursors : Game1.mouseCursors_1_6,
                     position: Game1.GlobalToLocal(Game1.viewport, new Vector2(x: this.Tile.X - 0.8f, y: this.Tile.Y - 0.25f) * Game1.tileSize),
                     sourceRectangle: this.IsLeafy() ? shadowSourceRect : new Rectangle(469, 298, 42, 31),
@@ -180,7 +212,7 @@ namespace Hikawa.Objects.Decor
                 origin.X = this.TreeData.TextureRegion.Width - origin.X;
 
             // Tree
-            spriteBatch.Draw(
+            b.Draw(
                 texture: this.texture.Value,
                 position: Game1.GlobalToLocal(Game1.viewport, new Vector2(x: this.Tile.X + 0.5f, y: this.Tile.Y + 1f) * Game1.tileSize),
                 sourceRectangle: this.TreeData.TextureRegion,
@@ -193,7 +225,7 @@ namespace Hikawa.Objects.Decor
             /*
 			foreach (Leaf leaf in this._leaves.GetValue())
 			{
-				spriteBatch.Draw(
+				b.Draw(
 					texture: this.texture.Value,
 					position: Game1.GlobalToLocal(Game1.viewport, leaf.position),
 					sourceRectangle: new Rectangle(16 + leaf.type % 2 * 8, 112 + leaf.type / 2 * 8, 8, 8),

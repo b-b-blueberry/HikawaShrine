@@ -248,7 +248,7 @@ namespace Hikawa
         [HarmonyPatch(nameof(Object.canBePlacedHere))]
         private static bool Object_CanBePlacedHere_Prefix(Object __instance, GameLocation l, Vector2 tile, CollisionMask collisionMask, bool showError, ref bool __result)
         {
-            if (__instance?.ItemId == ModEntry.ModData.ItemShrubFertiliser && Shrub.Get(l, tile) is not null)
+            if (__instance?.ItemId == ModEntry.ModData.ItemShrubFertiliser && Shrub.Get(l, tile) is Shrub shrub && !shrub.PreventInteractions)
             {
                 __result = true;
                 return false;

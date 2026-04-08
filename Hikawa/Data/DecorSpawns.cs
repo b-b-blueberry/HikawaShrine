@@ -21,6 +21,7 @@ public record class DecorSpawnsDataAsset
     public Point[] BabyCrowPerches;
     public Point[] BabyCrowRoosts;
     public Dictionary<string, List<ShrineTreeSpawnData>> ShrineTrees;
+    public Dictionary<string, List<ShrubSpawnData>> Shrubs;
     public Dictionary<string, List<HangingSpriteData>> HangingSprites;
     public Dictionary<string, List<LightTileData>> LightTiles;
     public Dictionary<string, List<LightData>> Lights;
@@ -66,6 +67,18 @@ public record class ShrineTreeSpawnData
     public bool Flip;
     public bool Leaves;
     public bool Shadow;
+}
+
+public record class ShrubSpawnData
+{
+    /// <summary>
+    /// Tile position of base of shrub.
+    /// </summary>
+    public Vector2 Tile;
+    public string Id;
+    public int GrowthStage;
+    public bool PreventGrowth = true;
+    public bool PreventInteractions = true;
 }
 
 public record class HangingSpriteData

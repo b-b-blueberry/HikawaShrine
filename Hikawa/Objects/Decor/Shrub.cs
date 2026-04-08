@@ -26,28 +26,35 @@ namespace Hikawa.Objects.Decor
 
                     this.loadSprite();
                 }
+                else
+                {
+                    Log.E($"No data found for {nameof(Shrub)} type {value} at {this.Location?.NameOrUniqueName ?? "null"} {this.Tile}");
+                }
 			}
-		}
-		[XmlIgnore]
-		public int GrowthStage
-		{
-			get => this._growthStage;
-			set
-			{
-				var growthStage = this._growthStage;
+        }
+        [XmlIgnore]
+        public int GrowthStage
+        {
+            get => this._growthStage;
+            set
+            {
+                var growthStage = this._growthStage;
                 this._growthStage = Math.Clamp(value, 0, this.Data.MaxGrowthStage);
 
-				if (this._growthStage != growthStage)
+                if (this._growthStage != growthStage)
                 {
                     this._growthDays = 0;
-					this._hits = 0;
+                    this._hits = 0;
                     this._fertilised = false;
                     this.loadSprite();
                 }
-			}
-		}
-		[XmlIgnore]
+            }
+        }
+        [XmlIgnore]
 		public ShrubDataEntry Data;
+
+        public bool PreventGrowth;
+        public bool PreventInteractions;
 
         [XmlIgnore]
         private Texture2D _texture;
@@ -57,13 +64,19 @@ namespace Hikawa.Objects.Decor
         [XmlIgnore]
         private int _hits;
         [XmlIgnore]
-		private float _shakeTimer;
+        private float _shakeTimer;
 
+        [XmlElement("id")]
         private string _id;
-		private string _variant;
+        [XmlElement("variant")]
+        private string _variant;
+        [XmlElement("growthDays")]
         private int _growthDays;
-		private int _growthStage;
-		private bool _flip;
+        [XmlElement("growthStage")]
+        private int _growthStage;
+        [XmlElement("flip")]
+        private bool _flip;
+        [XmlElement("fertilised")]
         private bool _fertilised;
 
 		public Shrub()
@@ -133,20 +146,23 @@ namespace Hikawa.Objects.Decor
 
             this._hits = 0;
 
-            if (Shrub.CanBePlacedHere(this.Location, this.Tile, out _))
+            if (!this.PreventGrowth)
             {
-                ++this._growthDays;
-            }
-            else
-            {
-                Game1.showRedMessage(ModEntry.I18n.Get("shrubs.error.growth", new { shrub = this.Data.DisplayName }));
+                if (Shrub.CanBePlacedHere(this.Location, this.Tile, out _))
+                {
+                    ++this._growthDays;
+                }
+                else
+                {
+                    Game1.showRedMessage(ModEntry.I18n.Get("shrubs.error.growth", new { shrub = this.Data.DisplayName }));
+                }
             }
         }
 
-		public override bool seasonUpdate(bool onLoad)
-		{
-            if (this._growthDays >= this.Data.GrowthDays)
-				++this.GrowthStage;
+        public override bool seasonUpdate(bool onLoad)
+        {
+            if (!this.PreventGrowth && this._growthDays >= this.Data.GrowthDays)
+                ++this.GrowthStage;
 
 			this.loadSprite();
 
@@ -181,7 +197,7 @@ namespace Hikawa.Objects.Decor
             else if (this.GrowthStage == 0 && ++this._hits >= 6)
                 return true;
 
-			return previous != this.GrowthStage;
+            return previous != this.GrowthStage;
 		}
 
         public bool Fertilise()
@@ -256,6 +272,9 @@ namespace Hikawa.Objects.Decor
 
         public override bool performToolAction(Tool t, int damage, Vector2 tileLocation)
         {
+            if (this.PreventInteractions)
+                return false;
+
 			var farmer = t.lastUser;
 
 			if (t is Axe)
@@ -334,7 +353,7 @@ namespace Hikawa.Objects.Decor
 
             float layerDepth = (this.getBoundingBox().Y - 4 + this.Tile.X / 900f + 0.01f) / 10000f;
             float scale = Game1.pixelZoom;
-			var position = (this.Tile + new Vector2(0.5f)) * Game1.tileSize;
+			var position = (this.Tile + new Vector2(0.5f, 1f)) * Game1.tileSize;
 			var shakeOffset = this._shakeTimer > 0 ? new Vector2(-2 + 4 * Game1.random.NextSingle(), -2 + 4 * Game1.random.NextSingle()) : Vector2.Zero;
 
 			this.DrawShrub(spriteBatch, Game1.GlobalToLocal(Game1.viewport, position), shakeOffset, scale, layerDepth);
@@ -349,8 +368,8 @@ namespace Hikawa.Objects.Decor
         {
             if (this.Data is null || this._texture is null || this._appearance is null || this._appearance.DrawLayers is null)
             {
-				var bounds = this.getRenderBounds();
-                Utility.DrawErrorTexture(b, new Rectangle((int)position.X, (int)position.Y, bounds.Width, bounds.Height), layerDepth);
+                var bounds = this.getRenderBounds();
+                Utility.DrawErrorTexture(b, new Rectangle((int)position.X - bounds.Width / 2, (int)position.Y - bounds.Height, bounds.Width, bounds.Height), layerDepth);
             }
             else
             {
@@ -365,5 +384,5 @@ namespace Hikawa.Objects.Decor
                 }
             }
         }
-	}
+    }
 }

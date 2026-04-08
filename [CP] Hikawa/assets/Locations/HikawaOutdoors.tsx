@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.0" name="HikawaOutdoors" tilewidth="16" tileheight="16" tilecount="2988" columns="62">
+<tileset version="1.10" tiledversion="1.11.2" name="HikawaOutdoors" tilewidth="16" tileheight="16" tilecount="2976" columns="62">
  <image source="Outdoors.png" width="992" height="768"/>
  <tile id="2">
   <properties>
@@ -218,13 +218,11 @@
  </tile>
  <tile id="748">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="749">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
@@ -254,13 +252,11 @@
  </tile>
  <tile id="754">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
  <tile id="755">
   <properties>
-   <property name="Passable" type="bool" value="true"/>
    <property name="Type" value="Stone"/>
   </properties>
  </tile>
