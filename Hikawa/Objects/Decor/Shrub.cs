@@ -351,7 +351,7 @@ namespace Hikawa.Objects.Decor
             if (this.isTemporarilyInvisible)
                 return;
 
-            float layerDepth = (this.getBoundingBox().Y - 4 + this.Tile.X / 900f + 0.01f) / 10000f;
+            float layerDepth = (this.getBoundingBox().Center.Y + this.Tile.X / 900f + 0.01f) / 10000f;
             float scale = Game1.pixelZoom;
 			var position = (this.Tile + new Vector2(0.5f, 1f)) * Game1.tileSize;
 			var shakeOffset = this._shakeTimer > 0 ? new Vector2(-2 + 4 * Game1.random.NextSingle(), -2 + 4 * Game1.random.NextSingle()) : Vector2.Zero;
