@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="11">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="14">
  <tileset firstgid="1" name="Landscape" tilewidth="16" tileheight="16" tilecount="1975" columns="25">
   <image source="spring_outdoorsTileSheet.png" width="400" height="1264"/>
   <tile id="150">
@@ -1504,7 +1504,7 @@
  <tileset firstgid="9496" source="HikawaOutdoors.tsx"/>
  <layer id="1" name="Back" width="28" height="20">
   <data encoding="base64" compression="zlib">
-   eJyVVVFOwkAQ7RqOUOUUqOUIJlQgegI/XBD99hNQuYNEoccwcgrUUxA9hUqcCW/S56a1sskLZens2zfzZvC1KPKCVHAcoFWyz/ABrlwUzQRzwYngKcrh5HsmOBW0C2J7tXy/jM/Ov3ObZ+XpC0aCccA3F3Rl7xExf6GMT899IE198KQaQ2iD29N9dgV7gjqe67RXxpfJGUPEj4ir4zZnXwoSQU8wxZ4+37vfuvlTzyzjK3p/SPe0+1tu+bkI5hurkwdmqH1KvIwsuEPomzK+FnwzobxbzW7JZ2kBZxWOgjoZl/lO876U994E5+Qz1dmp6Buut2k+czmPD7jMdyt57wM1Uo0N0lnVq2HeQ57Q46rtFXwZNHrozEp6OATz9QMevbv25w36R7Xt7ETRM3JqGpN/9vCMfKJa+/CFxl+gdzw4e+B7F1wHnOYfjztabBN7CXktrNeEcjRHjOXzU87/BqdCOV8KeC226/J5MrZ+Bw/Pv0bgfetP9ZVyfoE3EZ0L+Vzjt6xAr3HpPIlR54xqxu9wbXVG7QsOUEvjXeO3Ns6Lkfsh3TUmNImDZ88SubJ8mRcb8I/yHrrNLO6Qp+xc1Vq0rLZ6J82J8ajvF6TBvOjhhwFgnrI5XLUGLp8dmrdVwMNz0Di1v7ne26yyfuY5G+MuWnOeYxa7zbI8TF2uTXXpd/MBz3v+r7Fab7N+ALIh8+o=
+   eJyVVVtOAkEQ3NE9AsopUPEIJiAYPYEfzq6Pbz8BlTtoFPYYRk6Begqip/ARu0N1thhmVSapsAzbU1Pd1Y1Pk8QL2oL9AC3ab6zH4dNFXLgkGQnGgkPBY1LCyfdCcCTopMuxWVruV/HZ+Tdu/qw8uaAvGAR8Y8GB7D0g5jdU8em596QpB09bsE/ogNvTfTYEm4I6nuu0V8VXyBk9xPeJq+vmZ58LmoJMcIc9fb51i7r5U8+s4ou936N72v0tt/wcg/nG6uSBEWpvfgrjiuAOoW+q+FrwzZDybjW7Jp+1I5x/Yc8t90OWlr7TvE/lvVfBCflMdXYj/RRDQZqPXcnjAy7z3Uzee0eNVGODdMZ6OESYO+YJPa7aXsBXQKOHzqKih0MwXx7w6N21P6/QP6ptbS1JnpBT09j8Zw+PyCeqNYcvNP4UvePBmYHvTXAZcJp/PO5osbvYa5LXwnoNKUdjxFg+P+T8L3AqlPM5wmuxB66cJwPrd/Dw/GsE3rf+VF8p5yd4m6JzIp/f+K2I6DUunSc11LmgmvE7XFudUVuCbdTSeL/xWwfn1ZD7Ht21RtglDp49U+TK8mVebMA/yrvj5rO4S56yc1VrbFlt9U6aE+NR309Ig3nRww9ngHnK5vBf68yVs0PzNgt4eA4ap/Y313uVVdXPPGdruIvWnOeYxa6yLA93rtSmuvS7+YDnPf/XWK1XWT9kS/DA
   </data>
  </layer>
  <layer id="3" name="Back1" width="28" height="20">
@@ -1532,7 +1532,19 @@
    eJzt1TEOgjAUgOHuyhm6oOIhlEEFvAA4qOAkngBuANzEY/KbMHSDpK8OhD/5pr7kJR3aUiv1wa8KtbLvhDMuiBAjGc5adnVaYInRHQ88kaPAazj7Cu8yk7qvpXm3whrexDnbfGywFZob64AjQqG5sVJkuAnN2bTjfQmwd/jOmMXsSXD90743e0rjj3Bdo938EUvzrAd4phMH
   </data>
  </layer>
- <objectgroup id="2" name="Back" visible="0"/>
+ <objectgroup id="2" name="Back">
+  <object id="12" name="TileData" x="160" y="0" width="96" height="96">
+   <properties>
+    <property name="NoSpawn" value="All"/>
+    <property name="Placeable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="TileData" x="176" y="0" width="64" height="96">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="4" name="Back1" visible="0"/>
  <objectgroup id="6" name="Buildings" visible="0">
   <object id="5" name="TileData" x="160" y="128" width="16" height="16">

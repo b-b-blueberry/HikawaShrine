@@ -448,9 +448,9 @@
                             "Tile": "17, 31",
                             "GrowthStage": 1
                         },
-                        { // North-west yard
+                        { // Ema board
                             "Id": "{{ID}}_Shrub_Azalea",
-                            "Tile": "16, 19",
+                            "Tile": "17, 19",
                             "GrowthStage": 1
                         },
                         { // Souvenir shop
