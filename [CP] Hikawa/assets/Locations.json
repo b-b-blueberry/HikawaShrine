@@ -236,6 +236,20 @@
 				}
 			}
 		},
+		{
+			"LogName": "Hikawa: Locations - Location contexts - Seasonal ambience",
+			"Action": "EditData",
+			"Target": "Data/LocationContexts",
+			"Fields": {
+				"{{SHRINE}}": {
+					"DayAmbience": "{{ID}}_Shrine_Ambient_Day",
+					"NightAmbience": "{{ID}}_Shrine_Ambient_Night"
+				}
+			},
+			"When": {
+				"Season": "Summer"
+			}
+		},
 		// World map
 		{
 			"LogName": "Hikawa: Locations - World map",
