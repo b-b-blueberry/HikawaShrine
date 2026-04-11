@@ -191,7 +191,7 @@
 			"Target": "Data/LocationContexts",
 			"Entries": {
 				"{{SHRINE}}": {
-					"DefaultMusic": "communityCenter",
+					"DefaultMusic": null,
 					"DefaultMusicCondition": null,
 					"DefaultMusicDelayOneScreen": true,
 					"Music": null,
