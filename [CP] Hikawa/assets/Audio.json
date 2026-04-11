@@ -6,6 +6,24 @@
             "Target": "Data/AudioChanges",
             "Action": "EditData",
             "Entries": {
+                "{{ID}}_Shrine_Ambient_Day": {
+                    "ID": "{{ID}}_Shrine_Ambient_Day",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/shrine_ambient_day.ogg}}"
+                    ],
+                    "Category": "Ambient",
+                    "Looped": true,
+                    "StreamedVorbis": true
+                },
+                "{{ID}}_Shrine_Ambient_Night": {
+                    "ID": "{{ID}}_Shrine_Ambient_Night",
+                    "FilePaths": [
+                        "{{AbsoluteFilePath: assets/Audio/shrine_ambient_night.ogg}}"
+                    ],
+                    "Category": "Ambient",
+                    "Looped": true,
+                    "StreamedVorbis": true
+                },
                 "{{ID}}_Creak": {
                     "ID": "{{ID}}_Creak",
                     "FilePaths": [
