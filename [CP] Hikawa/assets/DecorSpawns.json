@@ -208,7 +208,7 @@
                         },
                         { // Hall side
                             "Id": "{{ID}}_Cherry_S",
-                            "Tile": "44, 43",
+                            "Tile": "44, 42",
                             "Flip": true,
                             "Leaves": true
                         },
@@ -300,7 +300,7 @@
                         /** Maple 2 **/
                         { // North-west cliff
                             "Id": "{{ID}}_Maple_2",
-                            "Tile": "18, 16",
+                            "Tile": "18, 15",
                             "Flip": false,
                             "Leaves": false
                         },
@@ -335,10 +335,20 @@
                         /** Cherry **/
                         { // Shrine steps
                             "Id": "{{ID}}_Shrub_Plum",
+                            "Tile": "22, 6",
+                            "GrowthStage": 0
+                        },
+                        { // Shrine steps
+                            "Id": "{{ID}}_Shrub_Plum",
                             "Tile": "25, 9",
                             "GrowthStage": 1
                         },
                         /** Azalea **/
+                        { // Signpost
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "17, 7",
+                            "GrowthStage": 2
+                        },
                         { // Shrine steps L
                             "Id": "{{ID}}_Shrub_Azalea",
                             "Tile": "12, 9",
