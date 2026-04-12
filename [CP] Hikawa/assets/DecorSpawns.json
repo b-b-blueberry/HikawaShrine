@@ -279,12 +279,6 @@
                             "Flip": false
                         },
                         /** Maple 1 **/
-                        { // Main gate
-                            "Id": "{{ID}}_Maple_1",
-                            "Tile": "26, 55",
-                            "Flip": true,
-                            "Leaves": false
-                        },
                         { // Souvenir shop
                             "Id": "{{ID}}_Maple_1",
                             "Tile": "16, 45",
@@ -297,9 +291,9 @@
                             "Flip": true,
                             "Leaves": false
                         },
-                        { // South-east cliff
+                        { // Name stone
                             "Id": "{{ID}}_Maple_1",
-                            "Tile": "55, 61",
+                            "Tile": "44, 59",
                             "Flip": false,
                             "Leaves": false
                         },
@@ -321,6 +315,18 @@
                             "Tile": "64, 52",
                             "Flip": false,
                             "Leaves": false
+                        },
+                        { // South-west yard
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": "26, 55",
+                            "Flip": true,
+                            "Leaves": false
+                        },
+                        { // South-east cliff
+                            "Id": "{{ID}}_Maple_2",
+                            "Tile": "55, 61",
+                            "Flip": false,
+                            "Leaves": false
                         }
                     ]
                 },
@@ -333,7 +339,12 @@
                             "GrowthStage": 1
                         },
                         /** Azalea **/
-                        { // Shrine steps
+                        { // Shrine steps L
+                            "Id": "{{ID}}_Shrub_Azalea",
+                            "Tile": "12, 9",
+                            "GrowthStage": 1
+                        },
+                        { // Shrine steps R
                             "Id": "{{ID}}_Shrub_Azalea",
                             "Tile": "26, 1",
                             "GrowthStage": 1
@@ -374,22 +385,22 @@
                         { // Main gate L
                             "Id": "{{ID}}_Shrub_Plum",
                             "Tile": "30, 53",
-                            "GrowthStage": 0
+                            "GrowthStage": 1
                         },
                         { // Main gate R
                             "Id": "{{ID}}_Shrub_Plum",
                             "Tile": "40, 54",
-                            "GrowthStage": 1
+                            "GrowthStage": 0
                         },
                         { // Bottom L
                             "Id": "{{ID}}_Shrub_Plum",
                             "Tile": "20, 62",
-                            "GrowthStage": 1
+                            "GrowthStage": 0
                         },
                         { // Bottom R
                             "Id": "{{ID}}_Shrub_Plum",
-                            "Tile": "45, 62",
-                            "GrowthStage": 0
+                            "Tile": "45, 61",
+                            "GrowthStage": 1
                         },
                         /** Rose **/
                         { // Garden
