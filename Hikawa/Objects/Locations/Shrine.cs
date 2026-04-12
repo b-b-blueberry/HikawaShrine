@@ -4,6 +4,7 @@ using Hikawa.Objects.Critters;
 using Hikawa.Objects.Menus;
 using Netcode;
 using StardewModdingAPI;
+using StardewValley.Audio;
 using StardewValley.BellsAndWhistles;
 using StardewValley.GameData;
 using StardewValley.Internal;
@@ -39,6 +40,10 @@ namespace Hikawa.Objects.Locations
 		public int BellTimerMax = 1500;
 		[XmlIgnore]
 		public (Vector2, Vector2) BellShake = new();
+        [XmlIgnore]
+        public ICue WindChimeCue;
+
+        // Crows
 		[XmlIgnore]
 		public Vector2 CrowTradeTile;
 		[XmlIgnore]
@@ -526,6 +531,8 @@ namespace Hikawa.Objects.Locations
 		public void UpdateWindEffects(long ticks)
 		{
 			// Idle windy weather
+			var initialWind = WeatherDebris.globalWind;
+
 			float baseWind = -0.25f;
 			float startChance = 0.01f;
 			float endChance = 0.007f;
@@ -550,6 +557,20 @@ namespace Hikawa.Objects.Locations
 			{
 				WeatherDebris.globalWind = Math.Min(baseWind, WeatherDebris.globalWind + 0.015f);
 			}
+
+            // started wind gust
+            if (initialWind < -1.5f && initialWind > WeatherDebris.globalWind)
+			{
+				if (this.WindChimeCue?.IsPlaying != true)
+                    Game1.sounds.PlayLocal(
+                        cueName: initialWind < -2.5f ? $"{ModEntry.ModData.ContentPrefix}_Chime_Big" : $"{ModEntry.ModData.ContentPrefix}_Chime_Small",
+                        location: this,
+                        position: new Vector2(53, 31),
+                        pitch: null,
+                        context: SoundContext.Default,
+                        cue: out this.WindChimeCue
+                    );
+            }
 
 			// House chimney smoke puffs
 			if (// Poll rate
