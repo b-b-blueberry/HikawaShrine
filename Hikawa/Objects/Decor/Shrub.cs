@@ -251,6 +251,8 @@ namespace Hikawa.Objects.Decor
         {
             this.Shake(60);
 
+            this.Location.playSound("leafrustle");
+
             return Game1.player.ActiveObject is null || !Game1.player.ActiveObject.canBePlacedHere(this.Location, tileLocation);
         }
 
