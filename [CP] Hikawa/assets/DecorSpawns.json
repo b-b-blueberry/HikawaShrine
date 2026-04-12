@@ -737,7 +737,12 @@
                             "TextureOrigin": "8, 0",
                             "Resistance": 0.005,
                             "Limit": 0.3,
-                            "DrawBehind": false
+                            "DrawBehind": false,
+                            "LightTile": {
+                                "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                                "TileId": 778,
+                                "DrawAbove": true
+                            }
                         },
                         { // Shrine (paper lantern)
                             "Tile": "30.5, 30.75",
@@ -751,7 +756,11 @@
                             "TextureOrigin": "8, 0",
                             "Resistance": 0.00375,
                             "Limit": 0.35,
-                            "DrawBehind": false
+                            "DrawBehind": false,
+                            "LightTile": {
+                                "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                                "TileId": 778
+                            }
                         },
                         { // Shrine (paper lantern)
                             "Tile": "31.5, 30.75",
@@ -765,7 +774,11 @@
                             "TextureOrigin": "8, 0",
                             "Resistance": 0.005,
                             "Limit": 0.35,
-                            "DrawBehind": false
+                            "DrawBehind": false,
+                            "LightTile": {
+                                "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                                "TileId": 778
+                            }
                         },
                         { // Shrine (paper lantern)
                             "Tile": "38, 30.75",
@@ -779,7 +792,11 @@
                             "TextureOrigin": "8, 0",
                             "Resistance": 0.0045,
                             "Limit": 0.35,
-                            "DrawBehind": false
+                            "DrawBehind": false,
+                            "LightTile": {
+                                "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                                "TileId": 778
+                            }
                         },
                         { // Shrine (paper lantern)
                             "Tile": "39, 30.75",
@@ -793,7 +810,11 @@
                             "TextureOrigin": "8, 0",
                             "Resistance": 0.004,
                             "Limit": 0.35,
-                            "DrawBehind": false
+                            "DrawBehind": false,
+                            "LightTile": {
+                                "TileSheetId": "{{PATH}}/Sprites/Outdoors",
+                                "TileId": 778
+                            }
                         },
                         { // Shrine (paper tassles)
                             "Tile": "33.75, 33.5",
@@ -1082,6 +1103,38 @@
                         }
                     ],
                     "{{SHRINE}}": [
+                        { // Shrine (L)
+                            "Tile": "30.5, 33.5",
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 8,
+                            "TextureName": "{{PATH}}/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0,
+                            "Rate": 0,
+                            "ExtinguishAtTime": 2345,
+                            "ExtinguishedAlpha": 0.25
+                        },
+                        { // Shrine (R)
+                            "Tile": "38.5, 33.5",
+                            "Color": {
+                                "R": 0,
+                                "G": 100,
+                                "B": 100,
+                                "A": 255
+                            },
+                            "TextureIndex": 9,
+                            "TextureName": "{{PATH}}/Sprites/Lights",
+                            "Luminosity": 0.8,
+                            "Variance": 0,
+                            "Rate": 0,
+                            "ExtinguishAtTime": 2345,
+                            "ExtinguishedAlpha": 0.25
+                        },
                         { // House (entrance)
                             "Tile": "45.1, 30.6",
                             "Color": {
@@ -1242,9 +1295,8 @@
                             "ExtinguishAtTime": 2345,
                             "ExtinguishedAlpha": 0.25
                         },
-                        { // Souvenir shop (paper)
+                        { // Souvenir shop (paper lantern)
                             "Tile": "21.75, 47.5",
-                            "Scale": 1,
                             "Color": {
                                 "R": 0,
                                 "G": 100,

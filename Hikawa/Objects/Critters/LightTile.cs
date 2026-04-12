@@ -1,7 +1,6 @@
-﻿using System;
-using Hikawa.Data;
-using StardewValley;
+﻿using Hikawa.Data;
 using StardewValley.BellsAndWhistles;
+using System;
 
 namespace Hikawa.Objects.Critters
 {
@@ -10,6 +9,8 @@ namespace Hikawa.Objects.Critters
 		public float Alpha = 0f;
 
 		public readonly LightTileData Data;
+
+		public HangingSprite HangingSprite;
 
 		public LightTile(LightTileData data)
 		{
@@ -42,16 +43,28 @@ namespace Hikawa.Objects.Critters
 				|| !(Game1.isStartingToGetDarkOut(Game1.currentLocation) || Game1.isRaining))
 				return;
 
+			var rotation = 0f;
+			var origin = Vector2.Zero;
+			var position = Game1.GlobalToLocal(Game1.viewport, this.position);
+			var layerDepth = 0;
+
+			if (this.HangingSprite is not null)
+			{
+				rotation = this.HangingSprite.DisplayRotation;
+				origin = this.HangingSprite.Data.TextureOrigin;
+				position = this.HangingSprite.DisplayPosition;
+			}
+
 			b.Draw(
 				texture: this.sprite.Texture,
-				position: Game1.GlobalToLocal(Game1.viewport, this.position),
+				position: position,
 				sourceRectangle: this.sprite.SourceRect,
 				color: Color.White * this.Alpha,
-				rotation: 0,
-				origin: Vector2.Zero,
+				rotation: rotation,
+				origin: origin,
 				scale: Game1.pixelZoom,
 				effects: SpriteEffects.None,
-				layerDepth: 0);
+				layerDepth: layerDepth);
 		}
 
 		public override void draw(SpriteBatch b)

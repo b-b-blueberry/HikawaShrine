@@ -270,7 +270,19 @@ namespace Hikawa
 			{
 				foreach (HangingSpriteData entry in sprites)
 				{
-					where.addCritter(new HangingSprite(entry));
+					var sprite = new HangingSprite(entry);
+                    where.addCritter(sprite);
+
+					// Light tiles
+					if (entry.LightTile is not null)
+                    {
+                        where.addCritter(new LightTile(entry.LightTile)
+                        {
+                            position = sprite.position,
+                            startingPosition = sprite.startingPosition,
+                            HangingSprite = sprite
+                        });
+                    }
 				}
 			}
 

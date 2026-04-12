@@ -1,7 +1,6 @@
-using System;
 using Hikawa.Data;
-using StardewValley;
 using StardewValley.BellsAndWhistles;
+using System;
 
 namespace Hikawa.Objects.Critters
 {
@@ -10,7 +9,7 @@ namespace Hikawa.Objects.Critters
 		public const float DefaultRotation = MathF.PI * 0.5f;
 
 		public readonly HangingSpriteData Data;
-
+		public Vector2 DisplayPosition => Game1.GlobalToLocal(Game1.viewport, this.position + this.Data.TextureOrigin * Game1.pixelZoom / 2f);
 		public float DisplayRotation;
 		public float Rotation;
 		public float Velocity;
@@ -155,7 +154,7 @@ namespace Hikawa.Objects.Critters
 
 			b.Draw(
 				texture: this.sprite.Texture,
-				position: Game1.GlobalToLocal(Game1.viewport, this.position + this.Data.TextureOrigin * Game1.pixelZoom / 2f),
+				position: this.DisplayPosition,
 				sourceRectangle: this.sprite.SourceRect,
 				color: Color.White,
 				rotation: this.DisplayRotation,
