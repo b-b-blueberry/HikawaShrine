@@ -402,7 +402,7 @@ namespace Hikawa.Objects.Locations
 			{
 				this.CrowTradeMutex.RequestLock(() =>
 				{
-					Game1.playSound("grassyStep");
+					Game1.playSound("leafrustle");
 					CrowTradeMenu menu = new(shrine: this);
 					Game1.activeClickableMenu = menu;
 					menu.exitFunction += () =>
@@ -451,6 +451,8 @@ namespace Hikawa.Objects.Locations
 		{
 			if (who.FacingDirection == Game1.down)
 				who.FacingDirection = Game1.up;
+
+            Game1.playSound("purchase");
 
 			// Pay tribute
 			Vector2 from = Game1.player.StandingPixel.ToVector2() - new Vector2(Game1.tileSize * 0.5f, Game1.tileSize);
