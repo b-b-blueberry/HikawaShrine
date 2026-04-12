@@ -136,6 +136,28 @@ public static class TileActions
             Game1.playSound(cueId);
     }
 
+    [TouchActionAttribute("ShakeTerrainFeatures")]
+    private static void TouchAction_ShakeTerrainFeatures(GameLocation where, string[] args, Farmer who, Vector2 tile)
+    {
+        if (!ArgUtility.TryGetFloat(args, 1, out float maxShake, out string error))
+        {
+            throw new Exception($"Failed to parse shake value: {error}");
+        }
+        if (!ArgUtility.TryGetOptional(args, 2, out string cueId, out error))
+        {
+            throw new Exception($"Failed to parse shake cue ID: {error}");
+        }
+
+        if (Game1.soundBank.Exists(cueId))
+        {
+            where.localSound(cueId, tile);
+        }
+        foreach (var other in Utility.getAdjacentTileLocations(tile))
+        {
+            Utils.ShakeTerrainFeature(where, other.ToPoint(), maxShake);
+        }
+    }
+
     [TouchActionAttribute("Hop")]
     private static void TouchAction_Hop(GameLocation where, string[] args, Farmer who, Vector2 tile)
     {

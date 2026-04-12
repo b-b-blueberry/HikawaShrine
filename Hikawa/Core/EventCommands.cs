@@ -2,7 +2,6 @@
 using StardewModdingAPI.Events;
 using StardewValley.Delegates;
 using StardewValley.Menus;
-using StardewValley.TerrainFeatures;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -73,37 +72,34 @@ public static class EventCommands
         }
     }
 
-    [EventCommandAttribute("Shake")]
-    private static void Shake(Event e, string[] args, EventContext context)
+    [EventCommandAttribute("ShakeTerrainFeatures")]
+    private static void ShakeTerrainFeatures(Event e, string[] args, EventContext context)
     {
         // parse
         if (!ArgUtility.TryGetPoint(args, 1, out Point tile, out string error, name: "tile"))
         {
-            e.LogCommandErrorAndSkip(args, $"Failed to parse bush shake: {error}");
+            e.LogCommandErrorAndSkip(args, $"Failed to parse shake tile: {error}");
             return;
         }
-        ArgUtility.TryGetOptionalFloat(args, 3, out float maxShake, out error, name: "maxShake");
+        if (!ArgUtility.TryGetOptionalFloat(args, 3, out float maxShake, out error, name: "maxShake"))
+        {
+            e.LogCommandErrorAndSkip(args, $"Failed to parse shake value: {error}");
+            return;
+        }
+        if (!ArgUtility.TryGetOptional(args, 4, out string cueId, out error))
+        {
+            e.LogCommandErrorAndSkip(args, $"Failed to parse shake cue ID: {error}");
+            return;
+        }
 
-        // get
-        if (!Game1.currentLocation.terrainFeatures.TryGetValue(tile.ToVector2(), out TerrainFeature tf))
-            tf = Game1.currentLocation.getLargeTerrainFeatureAt(tile.X, tile.Y);
-
-        // handle
-        if (tf is null)
+        // apply
+        if (Game1.soundBank.Exists(cueId))
+        {
+            context.Location.localSound(cueId, tile.ToVector2());
+        }
+        if (!Utils.ShakeTerrainFeature(context.Location, tile, maxShake))
         {
             e.LogCommandError(args, $"No supported terrain features found on tile {tile}");
-        }
-        else if (tf is Tree tree)
-        {
-            tree.shake(tree.Tile, doEvenIfStillShaking: true);
-            if (maxShake > 0)
-                ModEntry.Instance.Helper.Reflection.GetField<float>(tree, "maxShake").SetValue(maxShake);
-        }
-        else if (tf is Bush bush)
-        {
-            bush.shake(bush.Tile, doEvenIfStillShaking: true);
-            if (maxShake > 0)
-                ModEntry.Instance.Helper.Reflection.GetField<float>(bush, "maxShake").SetValue(maxShake);
         }
 
         // continue

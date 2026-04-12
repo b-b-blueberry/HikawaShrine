@@ -173,15 +173,12 @@
                     /-- farmer walking to the shop, then to the bush
                     /move farmer -5 0 3
                     /--move farmer 0 -1 0
-                    /--playSound leafrustle
-                    /--{{ID}}_Shake 14 52 0.07
+                    /--{{ID}}_ShakeTerrainFeatures 14 52 0.07 leafrustle
                     /--pause 2250
                     /--move farmer 0 1 2
-                    /--playSound leafrustle
-                    /--{{ID}}_Shake 14 52 0.08
+                    /--{{ID}}_ShakeTerrainFeatures 14 52 0.08 leafrustle
                     /--pause 500
-                    /--playSound leafrustle
-                    /--{{ID}}_Shake 14 52 0.09
+                    /--{{ID}}_ShakeTerrainFeatures 14 52 0.09 leafrustle
                     /--pause 1000
                     /--emote farmer 8
                     /move farmer -4 0 3
@@ -193,24 +190,20 @@
                     /showFrame 94
                     /jump farmer 6
                     /startJittering
-                    /playSound leafrustle
-                    /{{ID}}_Shake 14 52 0.07
+                    /{{ID}}_ShakeTerrainFeatures 14 52 0.07 leafrustle
                     /pause 250
-                    /playSound leafrustle
-                    /{{ID}}_Shake 14 52 0.09
+                    /{{ID}}_ShakeTerrainFeatures 14 52 0.09 leafrustle
                     /pause 250
-                    /playSound leafrustle
-                    /{{ID}}_Shake 14 52 0.07
+                    /{{ID}}_ShakeTerrainFeatures 14 52 0.07 leafrustle
                     /pause 250
-                    /playSound leafrustle
-                    /{{ID}}_Shake 14 52 0.09
+                    /{{ID}}_ShakeTerrainFeatures 14 52 0.09 leafrustle
                     /stopJittering
                     /pause 1500
 
                     /-- ami popup
                     /temporaryAnimatedSprite {{PATH_S}}\\Locations\\Events 128 1136 16 32 100 10 2 15 51 false false 53.5 0 1 0 0 0 ping_pong hold_last_frame
                     /playSound leafrustle
-                    /{{ID}}_Shake 14 52 0.07
+                    /{{ID}}_ShakeTerrainFeatures 14 52 0.07
                     /pause 800
                     /playSound dwop
                     /pause 1800
@@ -218,8 +211,7 @@
                     /pause 800
 
                     /-- ami popout
-                    /playSound leafrustle
-                    /{{ID}}_Shake 14 52 0.07
+                    /{{ID}}_ShakeTerrainFeatures 14 52 0.07 leafrustle
                     /removeSprite 15 51
                     /warp {{AMI}} 15 52 true
                     /faceDirection {{AMI}} 2

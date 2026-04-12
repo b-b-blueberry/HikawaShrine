@@ -5,6 +5,7 @@ using Hikawa.Objects.Decor;
 using Hikawa.Objects.Locations;
 using StardewModdingAPI;
 using StardewValley.Locations;
+using StardewValley.TerrainFeatures;
 using System;
 using System.Collections.Generic;
 using xTile.ObjectModel;
@@ -367,6 +368,43 @@ namespace Hikawa
 		#endregion
 
 		#region Special effects
+
+		public static bool ShakeTerrainFeature(GameLocation location, Point tile, float value)
+        {
+            // get
+            if (!location.terrainFeatures.TryGetValue(tile.ToVector2(), out TerrainFeature tf))
+                tf = location.getLargeTerrainFeatureAt(tile.X, tile.Y);
+
+            // handle
+            if (tf is null)
+            {
+				return false;
+            }
+            else if (tf is Tree tree)
+            {
+				if (tree is ShrineTree shrineTree && shrineTree.TreeData?.CanShake != true)
+					return false;
+
+                tree.shake(tree.Tile, doEvenIfStillShaking: true);
+                if (value > 0)
+                    ModEntry.Instance.Helper.Reflection.GetField<float>(tree, "maxShake").SetValue(value);
+            }
+            else if (tf is Bush bush)
+            {
+                bush.shake(bush.Tile, doEvenIfStillShaking: true);
+                if (value > 0)
+                    ModEntry.Instance.Helper.Reflection.GetField<float>(bush, "maxShake").SetValue(value);
+            }
+            else if (tf is Shrub shrub)
+            {
+                shrub.Shake((int)(value * 1000));
+            }
+			else
+			{
+				return false;
+			}
+			return true;
+        }
 
 		public static void CreateSparkleAtTile(GameLocation where, Vector2 tile)
 		{
