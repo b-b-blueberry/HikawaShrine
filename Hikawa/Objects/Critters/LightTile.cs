@@ -51,7 +51,7 @@ namespace Hikawa.Objects.Critters
 				origin: Vector2.Zero,
 				scale: Game1.pixelZoom,
 				effects: SpriteEffects.None,
-				layerDepth: 1);
+				layerDepth: 0);
 		}
 
 		public override void draw(SpriteBatch b)

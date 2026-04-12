@@ -882,7 +882,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Shrine steps right (stone)
                             "Tile": "24, 1",
@@ -891,7 +892,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Shrine steps (small)
                             "Tile": "23, 7",
@@ -919,7 +921,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Shrine gate right (stone)
                             "Tile": "39, 55",
@@ -928,7 +931,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Shrine gate left lower (stone)
                             "Tile": "29, 61",
@@ -937,7 +941,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Shrine gate right lower (stone)
                             "Tile": "39, 61",
@@ -946,7 +951,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Cemetary (stone)
                             "Tile": "35, 18",
@@ -955,7 +961,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Cemetary gate (stone)
                             "Tile": "25, 25",
@@ -964,7 +971,8 @@
                             "Size": {
                                 "X": 2,
                                 "Y": 1
-                            }
+                            },
+                            "DrawAbove": true
                         },
                         { // Garden (small)
                             "Tile": "56, 20",
