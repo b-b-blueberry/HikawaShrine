@@ -119,8 +119,10 @@ namespace Hikawa.Match3
 
 		public bool IsPaused => this.Stage?.State is not StageState.Active;
 
+        public delegate void StageChanged(Stage stage, string next);
 		public delegate void TokensCreated();
 		public delegate void DamageTaken(int value);
+        public event StageChanged OnStageChanged;
 		public event TokensCreated OnTokensCreated;
 		public event DamageTaken OnDamageTaken;
 
@@ -139,8 +141,13 @@ namespace Hikawa.Match3
 		/// <summary>
 		/// Populates game values for given game type data.
 		/// </summary>
-		public void SetUpGame(string stage = null, bool resetTokens = false, StageState state = StageState.Start)
+		public bool SetUpGame(string stage = null, bool resetTokens = false, StageState state = StageState.Start)
 		{
+			this.OnStageChanged?.Invoke(this.Stage, stage);
+
+			if (stage is null)
+				return false;
+
 			// Player stats
 			this.TotalScore += this.Stage?.Score ?? 0;
 			if (this.Life <= 0)
@@ -193,6 +200,8 @@ namespace Hikawa.Match3
 				this.Tokens = this.CreateBoardWithTokens();
 				this.OnTokensCreated?.Invoke();
 			}
+
+			return true;
 		}
 
 		/// <summary>

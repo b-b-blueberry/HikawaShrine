@@ -132,7 +132,7 @@ namespace Hikawa.Match3
 		public Dictionary<string, CharacterData> CharacterData => this.Game.Data.CharacterData;
 		public Dictionary<string, EnemyData> EnemyData => this.Game.Data.EnemyData;
 		public WorldData WorldData => this.Game.Data.WorldData;
-
+        public Dictionary<string, CutsceneData> CutsceneData => this.Game.Data.CutsceneData;
 
         public Match3UI(Match3Game game, string storyId)
 		{
@@ -200,9 +200,11 @@ namespace Hikawa.Match3
 			this.MenuData.MenuTexture = Game1.content.Load<Texture2D>(this.MenuData.MenuTextureId);
 			this.MenuData.CursorTexture = Game1.content.Load<Texture2D>(this.MenuData.CursorTextureId);
 			foreach (TokenData data in this.TokenData.Values)
-			{
+				if (data.TextureId is not null)
+					data.Texture = Game1.content.Load<Texture2D>(data.TextureId);
+            foreach (CutsceneData data in this.CutsceneData.Values)
+                if (data.TextureId is not null)
 				data.Texture = Game1.content.Load<Texture2D>(data.TextureId);
-			}
 		}
 
 		/// <summary>
@@ -846,7 +848,7 @@ namespace Hikawa.Match3
 
 		public void SetupStage(string stageId, bool reset, StageState state)
 		{
-			this.Game.SetUpGame(stage: stageId, resetTokens: reset, state: state);
+			if (this.Game.SetUpGame(stage: stageId, resetTokens: reset, state: state))
 			this.SetupTokens();
 		}
 
@@ -1035,8 +1037,12 @@ namespace Hikawa.Match3
                 if (this.WorldData.Stories.TryGetValue(this.StoryId, out StoryData storyData)
 					&& storyData.Stages.TryGetValue(stageId, out StoryStageData stageData)
 					&& stageData.NextStage is not null)
-					this.ChangeStage(stageData.NextStage);
+					stageId = stageData.NextStage;
 				else
+					stageId = null;
+
+				this.ChangeStage(stageId);
+
 					return false;
             }
 

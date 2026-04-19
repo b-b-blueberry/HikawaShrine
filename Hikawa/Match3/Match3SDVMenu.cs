@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using StardewValley;
-using StardewValley.Menus;
+﻿using StardewValley.Menus;
+using System.Collections.Generic;
 
 namespace Hikawa.Match3
 {
@@ -19,15 +18,21 @@ namespace Hikawa.Match3
 		protected ClickableTextureComponent _helpButton;
 		protected ClickableTextureComponent _muteButton;
 
-		public Match3SDVMenu(Match3UI ui) : base()
+		protected bool _isExiting;
+
+		public Match3SDVMenu(Match3UI ui)
+			: base()
 		{
 			this.UI = ui;
 
 			this.UI.Game.OnTokensCreated += this.OnTokensCreated;
+            this.UI.Game.OnStageChanged += this.OnStageChanged;
             this.UI.Game.Stage.OnStateChanged += this.OnStageStateChanged;
 
 			this.SetupMenu();
 			this.UpdateMenuComponents();
+
+			this.OnStageChanged(stage: null, next: this.UI.Game.Stage.Id);
 		}
 
 		public void SetupMenu()
@@ -101,6 +106,53 @@ namespace Hikawa.Match3
 		{
 			this.UpdateMenuComponents();
 		}
+
+        public void OnStageChanged(Stage stage, string next)
+        {
+			var data = this.UI.Game.Data;
+            var menu = this._childMenu;
+
+            // Play outro cutscene for current scene
+            if (stage?.Data?.OutroCutsceneId is not null)
+            {
+                if (menu is Match3SDVMenu)
+                {
+                    menu.exitFunction += PlayOutro;
+                }
+                else
+                {
+                    PlayOutro();
+                }
+            }
+            else
+            {
+                TryPlayIntro();
+            }
+
+            void PlayOutro()
+            {
+                var cutscene = new Match3CutsceneMenu(data, stage.Data.OutroCutsceneId);
+                this.SetChildMenu(cutscene);
+                cutscene.exitFunction += () =>
+                {
+                    TryPlayIntro();
+                };
+            }
+
+            void TryPlayIntro()
+            {
+                // Play intro cutscene for next scene
+                if (next is not null && data.StageData.TryGetValue(next, out StageData nextStageData) && nextStageData.IntroCutsceneId is not null)
+                {
+                    var cutscene = new Match3CutsceneMenu(data, nextStageData.IntroCutsceneId);
+                    this.SetChildMenu(cutscene);
+                    cutscene.exitFunction += () =>
+                    {
+                        this.SetChildMenu(menu);
+                    };
+                }
+            }
+        }
 
         public void OnStageStateChanged(Stage stage, StageState current, StageState next)
         {
@@ -216,7 +268,13 @@ namespace Hikawa.Match3
 		{
 			base.update(time);
 
-			if (!this.UI.OnTick(time: time))
+            if (this._childMenu is not null)
+                return;
+
+            if (!this._isExiting)
+                this._isExiting = !this.UI.OnTick(time: time);
+
+            if (this._isExiting && this._childMenu is null)
 			{
 				this.exitThisMenuNoSound();
 			}
@@ -225,6 +283,9 @@ namespace Hikawa.Match3
 		public override void draw(SpriteBatch b)
 		{
 			base.draw(b: b);
+
+			if (this._childMenu is not null)
+				return;
 
 			void drawScreenOverlay() => b.Draw(
 				texture: Game1.fadeToBlackRect,

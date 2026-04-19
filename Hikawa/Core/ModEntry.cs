@@ -40,9 +40,6 @@ namespace Hikawa
             // Bugs
             public Dictionary<string, int> BugsPlaced = [];
 
-			// Others
-			public Match3.Match3Game Match3;
-
 			// Vortex
 			public Point WarpFrom;
 			public Point WarpTo;

@@ -262,6 +262,8 @@ namespace Hikawa.Match3
 		public string[] Dialogue;
 		public bool NoSpecialPowers;
 		public bool NoTokenUpgrades;
+		public string IntroCutsceneId;
+		public string OutroCutsceneId;
 	}
 
 	/// <summary>
@@ -413,6 +415,45 @@ namespace Hikawa.Match3
         public Point Position;
     }
 
+	public class CutsceneData
+    {
+        /// <summary>
+        /// Cue ID of music played in cutscene.
+        /// </summary>
+        public string Music;
+        /// <summary>
+        /// Asset name of texture used for cutscene sprites.
+        /// </summary>
+		public string TextureId;
+        /// <summary>
+        /// List of on-screen elements for this cutscene.
+		/// Outer lists are shown in sequence, iterated on player input.
+		/// Inner lists are shown altogether.
+        /// </summary>
+		public List<List<CutsceneItemData>> Items;
+        /// <summary>
+        /// Asset instance loaded from <see cref="TextureId"/>.
+        /// </summary>
+        public Texture2D Texture;
+    }
+
+    public class CutsceneItemData
+    {
+        /// <summary>
+        /// Display text.
+        /// </summary>
+        public string Text;
+		public string TextColor;
+        /// <summary>
+        /// 
+        /// </summary>
+        public Rectangle TextureRegion;
+        /// <summary>
+        /// Unscaled pixel offset relative to the centre of the world.
+        /// </summary>
+        public Point Position;
+    }
+
 	/// <summary>
 	/// Class for complete game metadata.
 	/// </summary>
@@ -450,5 +491,9 @@ namespace Hikawa.Match3
         /// 
         /// </summary>
         public WorldData WorldData;
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<string, CutsceneData> CutsceneData;
 	}
 }
