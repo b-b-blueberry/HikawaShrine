@@ -10,9 +10,10 @@ public class Match3StoryMenu : IClickableMenu
     public List<ClickableComponent> ClickableComponents; // automatic iclickablemenu navigation impl
     public List<ClickableTextureComponent> StageButtons;
 
+    public readonly Match3Data Data;
+
     public readonly string StoryId;
     public readonly StoryData StoryData;
-    public readonly HashSet<string> StagesComplete;
 
     public Rectangle MapBounds;
 
@@ -23,14 +24,16 @@ public class Match3StoryMenu : IClickableMenu
 
     public int Scale => Game1.pixelZoom;
 
-    public Match3StoryMenu(string storyId)
+    public Match3StoryMenu(Match3Data data, string storyId)
         : base()
     {
+        this.Data = data;
+
         this.StoryId = storyId;
         this.StoryData = Match3.GetData().WorldData.Stories[this.StoryId];
         this.StoryData.Texture = Game1.content.Load<Texture2D>(this.StoryData.TextureId);
 
-        this.StagesComplete = [];
+        ModEntry.SaveData.Match3.StoryStageComplete.TryAdd(storyId, []);
 
         this.InitComponents();
         this.UpdateComponentLayout();
@@ -98,25 +101,39 @@ public class Match3StoryMenu : IClickableMenu
     {
         // Stages which continue into other stages (ie. StoryStageData.NextStage) require ALL stages to be completed
         return (allowNull && stageId is null)
-            || (this.StagesComplete.Contains(stageId)
+            || (ModEntry.SaveData.Match3.StoryStageComplete[StoryId].Contains(stageId)
                 && (!this.StoryData.Stages.TryGetValue(stageId, out StoryStageData stageData)
                     || this.IsStageComplete(stageData.NextStage, allowNull: true)));
     }
 
     public void StartGame(string stageId)
     {
-        Match3SDVMenu menu = Match3.StartGame(stageId: stageId, storyId: this.StoryId);
-        menu.UI.OnStageEnded += this.OnStageEnded;
+        Match3SDVMenu menu = Match3.StartGame(data: this.Data, stageId: stageId, storyId: this.StoryId);
+        menu.UI.Game.Stage.OnStateChanged += this.OnStageStateChanged;
         this.SetChildMenu(menu);
     }
 
-    public void OnStageEnded(string stageId, bool won)
+    public void OnStageStateChanged(Stage stage, StageState current, StageState next)
     {
-        if (won)
+        if (next is StageState.End)
         {
-            this.StagesComplete.Add(stageId);
-            this.UpdateButtonsForStoryProgress();
+            this.ResetHover();
+
+            if (stage.IsWon)
+            {
+                ModEntry.SaveData.Match3.StoryStageComplete[StoryId].Add(stage.Id);
+
+                this.UpdateButtonsForStoryProgress();
+            }
         }
+    }
+
+    public void ResetHover()
+    {
+        this._hoveredButton = default;
+        this._hoverPosition = default;
+        this._hoverAlpha = default;
+        this._hoverText = default;
     }
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
@@ -204,7 +221,7 @@ public class Match3StoryMenu : IClickableMenu
         }
 
         // Buttons
-        { 
+        {
             if (this.shouldDrawCloseButton())
                 this.upperRightCloseButton.draw(b: b);
 

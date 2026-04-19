@@ -135,8 +135,6 @@ namespace Hikawa.Match3
 		public Dictionary<string, EnemyData> EnemyData => this.Game.Data.EnemyData;
 		public WorldData WorldData => this.Game.Data.WorldData;
 
-		public delegate void StageEnded(string stage, bool won);
-		public event StageEnded OnStageEnded;
 
         public Match3UI(Match3Game game, string storyId)
 		{
@@ -149,7 +147,7 @@ namespace Hikawa.Match3
 
 			this.MusicContext = MusicContext.MiniGame;
 
-			this.Game.OnStageStateChanged += this.OnStageStateChanged;
+			this.Game.Stage.OnStateChanged += this.OnStageStateChanged;
 
 			this.SetupUI();
 			this.SetupActors();
@@ -636,6 +634,13 @@ namespace Hikawa.Match3
                 this.PlaySound(this.AudioData.PowerMatchSound);
             if (!isSuperPowerMatch && !isPowerMatch)
                 this.PlaySound(this.AudioData.MatchSound);
+
+            // Update stage stats
+            ++this.Game.Stage.Matches;
+            if (isPowerMatch)
+                ++this.Game.Stage.PowerMatches;
+            if (isSuperPowerMatch)
+                ++this.Game.Stage.SuperPowerMatches;
 		}
 
 		public void UpdateCursor(Point pixel)
@@ -784,12 +789,18 @@ namespace Hikawa.Match3
 				this.PlaySound("warrior");
 
 				this.Game.Power = 0;
+
+                // Update stage stats
+                ++this.Game.Stage.SuperPowers;
 			}
 			else if (this.Game.Power >= this.GameData.PowerMax / 2)
 			{
 				this.PlaySound("powerup");
 
 				this.Game.Power -= this.GameData.PowerMax / 2;
+
+                // Update stage stats
+                ++this.Game.Stage.Powers;
 			}
 			else
 			{
@@ -862,15 +873,15 @@ namespace Hikawa.Match3
 			this.SetupStage(stageId: stageId, reset: false, state: StageState.Start);
 		}
 
-		public void OnStageStateChanged(StageState previous, StageState next)
+		public void OnStageStateChanged(Stage stage, StageState previous, StageState next)
 		{
 			if (previous is StageState.Start && next is StageState.Active)
 			{
 				this.PlayMusic(id: this.Game.Stage.Data.Music);
 			}
-			else if (next is StageState.End)
+			else if (previous is StageState.Active && next is StageState.End)
 			{
-				if (this.Game.Stage.IsWon)
+				if (stage.IsWon)
 				{
 					// Win celebration
 					Game1.MusicDuckTimer = this.Game.Stage.Data.EndDelay;
@@ -881,8 +892,6 @@ namespace Hikawa.Match3
 					// Lose commiseration
 					this.Shake(scale: 4f, amount: new(x: 2, y: 2));
 				}
-
-				this.OnStageEnded?.Invoke(stage: this.Game.Stage.Id, won: this.Game.Stage.IsWon);
 			}
 		}
 

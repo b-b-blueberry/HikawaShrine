@@ -11,6 +11,9 @@ public class Match3MainMenu : IClickableMenu
     public ClickableTextureComponent TutorialButton;
     public ClickableTextureComponent StoryButton;
     public ClickableTextureComponent EndlessButton;
+    public ClickableTextureComponent StatsButton;
+
+    public readonly Match3Data Data;
 
     public readonly Texture2D Sprites;
 
@@ -24,6 +27,8 @@ public class Match3MainMenu : IClickableMenu
         : base()
     {
         this.InitialStage = stage;
+
+        this.Data = Match3.GetData();
 
         this.Sprites = Game1.content.Load<Texture2D>(AssetManager.Match3SpritesAssetName);
 
@@ -42,8 +47,9 @@ public class Match3MainMenu : IClickableMenu
         this.TutorialButton = new("tutorial", Rectangle.Empty, null, "Basics", this.Sprites, source, Scale, true);
         this.StoryButton = new("story", Rectangle.Empty, null, "Story", this.Sprites, source, Scale, true);
         this.EndlessButton = new("endless", Rectangle.Empty, null, "Zen", this.Sprites, source, Scale, true);
+        this.StatsButton = new("stats", Rectangle.Empty, null, "Stats", this.Sprites, source, Scale, true);
 
-        this.MenuButtons.AddRange([this.TutorialButton, this.StoryButton, this.EndlessButton]);
+        this.MenuButtons.AddRange([this.TutorialButton, this.StoryButton, this.EndlessButton, this.StatsButton]);
         this.ClickableComponents.AddRange(this.MenuButtons);
     }
 
@@ -64,18 +70,25 @@ public class Match3MainMenu : IClickableMenu
         this.TutorialButton.bounds = new(bounds.Left - origin.X * Scale, bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
         this.StoryButton.bounds = new(bounds.Center.X - origin.X * Scale, bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
         this.EndlessButton.bounds = new(bounds.Right - origin.X * Scale, bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
+        this.StatsButton.bounds = new(bounds.Width / 4 + bounds.Left - origin.X * Scale, bounds.Height / 4 + bounds.Center.Y - origin.Y * Scale, source.Width * Scale, source.Height * Scale);
 
         this.upperRightCloseButton.bounds.Location = new(bounds.Right, bounds.Top);
     }
 
     public void StartGame(string stageId, string storyId)
     {
-        this.SetChildMenu(Match3.StartGame(stageId: stageId, storyId: storyId));
+        var menu = Match3.StartGame(data: this.Data, stageId: stageId, storyId: storyId);
+        this.SetChildMenu(menu);
     }
 
     public void OpenStory(string storyId)
     {
-        this.SetChildMenu(new Match3StoryMenu(storyId));
+        this.SetChildMenu(new Match3StoryMenu(this.Data, storyId));
+    }
+
+    public void OpenStats()
+    {
+        this.SetChildMenu(new Match3StatsMenu());
     }
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
@@ -102,6 +115,10 @@ public class Match3MainMenu : IClickableMenu
         else if (this.EndlessButton.visible && this.EndlessButton.containsPoint(x: x, y: y))
         {
             this.StartGame("Endless", "Endless");
+        }
+        else if (this.StatsButton.visible && this.StatsButton.containsPoint(x: x, y: y))
+        {
+            this.OpenStats();
         }
     }
 

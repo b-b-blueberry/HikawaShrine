@@ -24,6 +24,7 @@ namespace Hikawa.Match3
 			this.UI = ui;
 
 			this.UI.Game.OnTokensCreated += this.OnTokensCreated;
+            this.UI.Game.Stage.OnStateChanged += this.OnStageStateChanged;
 
 			this.SetupMenu();
 			this.UpdateMenuComponents();
@@ -100,6 +101,22 @@ namespace Hikawa.Match3
 		{
 			this.UpdateMenuComponents();
 		}
+
+        public void OnStageStateChanged(Stage stage, StageState current, StageState next)
+        {
+			if (current is StageState.Active && next is StageState.End)
+            {
+                // Update total stats from stage stats
+                ModEntry.SaveData.Match3.TotalTime += stage.Time;
+                ModEntry.SaveData.Match3.TotalScore += stage.Score;
+                ModEntry.SaveData.Match3.TotalMoves += stage.Moves;
+                ModEntry.SaveData.Match3.TotalPowers += stage.Powers;
+                ModEntry.SaveData.Match3.TotalSuperPowers += stage.SuperPowers;
+                ModEntry.SaveData.Match3.TotalMatches += stage.Matches;
+                ModEntry.SaveData.Match3.TotalPowerMatches += stage.PowerMatches;
+                ModEntry.SaveData.Match3.TotalSuperPowerMatches += stage.SuperPowerMatches;
+            }
+        }
 
 		public bool TryPressButton(int x, int y)
 		{

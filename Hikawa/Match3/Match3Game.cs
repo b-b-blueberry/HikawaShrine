@@ -123,7 +123,6 @@ namespace Hikawa.Match3
 		public delegate void DamageTaken(int value);
 		public event TokensCreated OnTokensCreated;
 		public event DamageTaken OnDamageTaken;
-		public event Stage.StateChanged OnStageStateChanged;
 
 		/// <summary>
 		/// Constructor for a prepared game.
@@ -154,7 +153,6 @@ namespace Hikawa.Match3
 			if (this.Stage is null)
 			{
 				this.Stage = new(characterData: this.Data.CharacterData);
-				this.Stage.OnStateChanged += (StageState previous, StageState next) => this.OnStageStateChanged?.Invoke(previous: previous, next: next);
 			}
 			this.Stage.DialogueCharacter ??= new();
 			this.Stage.Set(name: stage, data: this.Data.StageData[stage], state: state);
@@ -544,13 +542,13 @@ namespace Hikawa.Match3
 			{
 				if (this.Life <= 0)
 				{
-					this.Stage.Time = 0;
 					this.Stage.State = StageState.End;
+					this.Stage.Time = 0;
 				}
 				else if (this.Stage.Enemy is Enemy enemy && enemy.Data is not null && enemy.Life <= 0)
 				{
-					this.Stage.Time = 0;
 					this.Stage.State = StageState.End;
+					this.Stage.Time = 0;
 				}
 			}
 

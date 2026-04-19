@@ -13,7 +13,7 @@ namespace Hikawa.Match3
 			set
 			{
 				this.DialogueIndex = 0;
-				this.OnStateChanged?.Invoke(previous: this._state, next: value);
+				this.OnStateChanged?.Invoke(stage: this, current: this._state, next: value);
 				this._state = value;
 			}
 		}
@@ -26,6 +26,26 @@ namespace Hikawa.Match3
 		/// </summary>
 		public int Moves;
 		/// <summary>
+        /// Number of player powers used this stage.
+        /// </summary>
+        public int Powers;
+        /// <summary>
+        /// Number of player super powers used this stage.
+        /// </summary>
+        public int SuperPowers;
+        /// <summary>
+        /// Number of matches made this stage.
+        /// </summary>
+        public int Matches;
+        /// <summary>
+        /// Number of power matches made this stage.
+        /// </summary>
+        public int PowerMatches;
+        /// <summary>
+        /// Number of super power matches made this stage.
+        /// </summary>
+        public int SuperPowerMatches;
+        /// <summary>
 		/// Timer of active stage, excluding time paused.
 		/// </summary>
 		public long Time;
@@ -42,7 +62,7 @@ namespace Hikawa.Match3
 		public string DialogueText;
 		public Character DialogueCharacter;
 
-		public delegate void StateChanged(StageState previous, StageState next);
+		public delegate void StateChanged(Stage stage, StageState current, StageState next);
 		public event StateChanged OnStateChanged;
 
 		protected StageState _state;
@@ -117,8 +137,8 @@ namespace Hikawa.Match3
 				if (this.IsReadyToEnd())
 				{
 					this.IsWon = this.CheckIfWon();
-					this.Time = 0;
 					this.State = StageState.End;
+					this.Time = 0;
 				}
 			}
 			else if (this.State is StageState.End)
