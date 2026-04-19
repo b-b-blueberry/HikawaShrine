@@ -1,6 +1,7 @@
 ﻿using Hikawa.Objects.Locations;
 using Hikawa.Objects.Menus;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Hikawa;
@@ -81,6 +82,15 @@ public static class TileActions
     private static bool Action_Shrine_Hall(GameLocation where, string[] args, Farmer who, Point tile)
     {
         // Trying to enter the Shrine Hall front doors
+        bool isHallOpen = ModEntry.Instance.Helper.Reflection
+            .GetField<HashSet<string>>(where, "_appliedMapOverrides")
+            .GetValue()
+            .Contains($"{ModEntry.ModData.MapShrine}_HallDoor");
+        if (isHallOpen)
+        {
+            Game1.playSound("doorOpen");
+            Game1.warpFarmer(ModEntry.ModData.MapHall, 6, 11, flip: false);
+        }
         return true;
     }
 

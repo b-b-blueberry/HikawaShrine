@@ -20,6 +20,12 @@
 			"FromFile": "assets/Locations/HikawaHouse_Bed.tmx"
 		},
 		{
+			"LogName": "Hikawa: Locations - Shrine map - Hall door patch",
+			"Action": "Load",
+			"Target": "Maps/{{SHRINE}}_HallDoor",
+			"FromFile": "assets/Locations/HikawaShrine_HallDoor.tmx"
+		},
+		{
 			"LogName": "Hikawa: Locations - Hall map",
 			"Action": "Load",
 			"Target": "Maps/{{HALL}}",

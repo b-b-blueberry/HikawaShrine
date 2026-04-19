@@ -1,6 +1,7 @@
 ﻿using Hikawa.Data;
 using Hikawa.Modules;
 using Hikawa.Objects.Critters;
+using Hikawa.Objects.Decor;
 using Hikawa.Objects.Menus;
 using Netcode;
 using StardewModdingAPI;
@@ -15,6 +16,7 @@ using StardewValley.TerrainFeatures;
 using System;
 using System.Linq;
 using System.Xml.Serialization;
+using xTile;
 using Object = StardewValley.Object;
 
 namespace Hikawa.Objects.Locations
@@ -269,6 +271,40 @@ namespace Hikawa.Objects.Locations
 
 			this.IsCrowTradeUsedToday = false;
 		}
+
+        public override void MakeMapModifications(bool force = false)
+        {
+            base.MakeMapModifications(force);
+
+			// gramps at the brewery
+            if (Game1.timeOfDay >= 2130
+				&& this.getCharacterFromName(ModEntry.ModData.NpcGramps) is NPC gramps
+				&& Game1.getLocationFromName(ModEntry.ModData.MapHall) is GameLocation hall)
+            {
+                if (Game1.content.Load<Map>($"Maps/{ModEntry.ModData.MapShrine}_HallDoor") is Map patch)
+                {
+                    var tile = new Vector2(49, 42);
+                    this.ApplyMapOverride(patch, $"{ModEntry.ModData.MapShrine}_HallDoor", null, new Rectangle((int)tile.X, (int)tile.Y, patch.DisplayWidth / Game1.tileSize, patch.DisplayHeight / Game1.tileSize));
+
+					var lightData = new LightData()
+					{
+						Tile = tile,
+                        Color = new Color (0, 100, 100, 255),
+                        TextureIndex = 7,
+                        TextureName = AssetManager.LightSpritesAssetName,
+                        Luminosity = 0.75f,
+                        Variance = 0,
+                        Rate = 0,
+                        ExtinguishAtTime = 2430,
+                        ExtinguishedAlpha = 0.35f
+					};
+					this.sharedLights.TryAdd(patch.Id, new HearthLight(HearthLight.GetId(where: this, which: 11477) + "_light", lightData, (lightData.Tile + new Vector2(1, 1)) * Game1.tileSize));
+
+                    Utils.SetCharacterForMapModification(gramps, hall, new Vector2(2, 6));
+					gramps.faceDirection(Game1.down);
+                }
+            }
+        }
 
 		protected override void resetLocalState()
 		{

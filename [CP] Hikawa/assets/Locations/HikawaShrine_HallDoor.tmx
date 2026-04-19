@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="3" height="3" tilewidth="16" tileheight="16" infinite="0" nextlayerid="200" nextobjectid="442">
+ <tileset firstgid="1" source="outdoors.tsx"/>
+ <tileset firstgid="1976" name="paths" tilewidth="16" tileheight="16" tilecount="64" columns="4">
+  <image source="paths" width="64" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="PathType" value="NE"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="PathType" value="SE"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="PathType" value="WS"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="PathType" value="WN"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="PathType" value="Crossroad"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="PathType" value="End"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2040" source="HikawaOutdoors.tsx"/>
+ <tileset firstgid="5016" name="town" tilewidth="16" tileheight="16" tilecount="2304" columns="32">
+  <image source="spring_town.png" width="512" height="1152"/>
+ </tileset>
+ <tileset firstgid="7320" source="HikawaIndoors.tsx"/>
+ <tileset firstgid="7960" source="outdoors2.tsx"/>
+ <tileset firstgid="9080" source="E:/Dev/Projects/SDV/Projects/Hikawa/[CP] Hikawa/assets/Locations/HikawaOutdoors.tsx"/>
+ <layer id="48" name="Back" width="3" height="3">
+  <data encoding="csv">
+339,339,339,
+339,339,339,
+339,339,339
+</data>
+ </layer>
+ <layer id="17" name="Back2" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="46" name="Back3" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="5" name="Buildings" width="3" height="3">
+  <data encoding="csv">
+9722,9723,9473,
+9784,9785,9535,
+9846,9847,9848
+</data>
+ </layer>
+ <layer id="193" name="Buildings1" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="197" name="Buildings2" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="198" name="Buildings3" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="9" name="Front" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="195" name="Front1" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="7" name="Paths" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="185" name="AlwaysFront" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <layer id="194" name="AlwaysFront1" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,0,0,
+0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="Back">
+  <object id="287" name="TileData" x="0" y="32" width="32" height="16">
+   <properties>
+    <property name="NoSpawn" value="All"/>
+    <property name="Placeable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="348" name="TileData" x="32" y="32" width="16" height="16">
+   <properties>
+    <property name="TouchAction" value="Custom_Hikawa_Sound Custom_Hikawa_Creak"/>
+   </properties>
+  </object>
+  <object id="366" name="TileData" x="0" y="0" width="48" height="48">
+   <properties>
+    <property name="Type" value="Wood"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Buildings">
+  <object id="331" name="TileData" x="0" y="16" width="32" height="16">
+   <properties>
+    <property name="Action" value="Custom_Hikawa_Shrine_Hall"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="Paths"/>
+ <objectgroup id="10" name="Front"/>
+ <objectgroup id="12" name="AlwaysFront"/>
+</map>
