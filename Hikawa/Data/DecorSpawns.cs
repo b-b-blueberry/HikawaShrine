@@ -93,6 +93,8 @@ public record class HangingSpriteData
 
 	public int AnimationFrames;
 	public float AnimationSpeed;
+
+	public LightTileData LightTile;
 }
 
 public record class LightTileData
