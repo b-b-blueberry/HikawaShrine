@@ -2,60 +2,19 @@
     "Changes": [
         {
             "LogName": "Hikawa: Match3Data",
-            "Action": "Load",
-            "Target": "{{PATH}}/Match3/Data",
+            "Action": "Include",
             "FromFile": "assets/Match3/data.json"
         },
         {
-            "LogName": "Hikawa: Match3Sprites",
+            "LogName": "Hikawa: Match3 - Sprites",
             "Action": "Load",
             "Target": "{{PATH}}/Match3/Sprites",
             "FromFile": "assets/Match3/match3.png"
         },
         {
-            "LogName": "Hikawa: Match3Audio",
-            "Target": "Data/AudioChanges",
-            "Action": "EditData",
-            "Entries": {
-                "{{MATCH3}}_intro": {
-                    "ID": "{{MATCH3}}_intro",
-                    "FilePaths": [
-                        "{{AbsoluteFilePath: assets/Match3/intro.wav}}"
-                    ],
-                    "Category": "Music",
-                    "Looped": true
-                },
-                "{{MATCH3}}_bgm": {
-                    "ID": "{{MATCH3}}_bgm",
-                    "FilePaths": [
-                        "{{AbsoluteFilePath: assets/Match3/bgm.wav}}"
-                    ],
-                    "Category": "Music",
-                    "Looped": true
-                },
-                "{{MATCH3}}_pause": {
-                    "ID": "{{MATCH3}}_pause",
-                    "FilePaths": [
-                        "{{AbsoluteFilePath: assets/Match3/pause.wav}}"
-                    ],
-                    "Category": "Music",
-                    "Looped": true
-                },
-                "{{MATCH3}}_stage": {
-                    "ID": "{{MATCH3}}_stage",
-                    "FilePaths": [
-                        "{{AbsoluteFilePath: assets/Match3/stage.wav}}"
-                    ],
-                    "Category": "Sound"
-                },
-                "{{MATCH3}}_chapter": {
-                    "ID": "{{MATCH3}}_chapter",
-                    "FilePaths": [
-                        "{{AbsoluteFilePath: assets/Match3/chapter.wav}}"
-                    ],
-                    "Category": "Sound"
-                }
-            }
+            "LogName": "Hikawa: Match3 - Audio",
+            "Action": "Include",
+            "FromFile": "assets/Match3/audio.json"
         }
     ]
 }

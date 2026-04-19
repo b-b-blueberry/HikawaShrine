@@ -1,4 +1,16 @@
 ﻿{
+    "Changes": [
+        {
+            "LogName": "Hikawa: Match3 - Data",
+            "Action": "Load",
+            "Target": "{{PATH}}/Match3/Data",
+            "FromFile": "assets/Blank.json"
+        },
+        {
+            "LogName": "Hikawa: Match3 - Data",
+            "Action": "EditData",
+            "Target": "{{PATH}}/Match3/Data",
+            "Entries": {
     "AudioData": {
         "LandSound": "skeletonStep",
         "SelectSound": "Cowboy_Footstep",
@@ -8,8 +20,9 @@
         "SuperPowerMatchSound": "flameSpellHit",
         "UpgradeSound": "purchase",
         "SuperUpgradeSound": "coldSpell",
-        "IntroMusic": "Custom_Hikawa_Match3_intro",
-        "PauseMusic": "Custom_Hikawa_Match3_pause"
+                    "MainMenuMusic": "{{ID}}_Match3_intro",
+                    "IntroMusic": "{{ID}}_Match3_intro",
+                    "PauseMusic": "{{ID}}_Match3_pause"
     },
     "UIData": {
         "TokenSize": {
@@ -211,7 +224,7 @@
                 "P",
                 "Y"
             ],
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 0,
             "TimeGoal": 0,
@@ -237,7 +250,7 @@
                 "B"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_intro",
+                        "Music": "{{ID}}_Match3_intro",
             "WinMusic": "newRecord",
             "ScoreGoal": 1000,
             "TimeGoal": 0,
@@ -263,7 +276,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_intro",
+                        "Music": "{{ID}}_Match3_intro",
             "WinMusic": "newRecord",
             "ScoreGoal": 1000,
             "TimeGoal": 0,
@@ -289,7 +302,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_intro",
+                        "Music": "{{ID}}_Match3_intro",
             "WinMusic": "newRecord",
             "ScoreGoal": 2000,
             "TimeGoal": 0,
@@ -318,7 +331,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -347,7 +360,7 @@
             ],
             "AddedTokenRate": 20,
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -372,7 +385,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -394,7 +407,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -416,7 +429,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -438,7 +451,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -462,7 +475,7 @@
             ],
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -492,7 +505,7 @@
             "AddedTokenRate": 15,
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 1000,
             "TimeGoal": 0,
@@ -523,7 +536,7 @@
             "AddedTokenRate": 20,
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -553,7 +566,7 @@
             "AddedTokenRate": 15,
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 1000,
             "TimeGoal": 0,
@@ -580,7 +593,7 @@
             ],
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -606,7 +619,7 @@
             ],
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -632,7 +645,7 @@
                 "Y"
             ],
             "Character": "TestChara",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -662,7 +675,7 @@
             "AddedTokenRate": 10,
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 500,
             "TimeGoal": 0,
@@ -692,7 +705,7 @@
             "AddedTokenRate": 15,
             "Character": "TestChara",
             "Enemy": "TestEnemy",
-            "Music": "Custom_Hikawa_Match3_bgm",
+                        "Music": "{{ID}}_Match3_bgm",
             "WinMusic": "newRecord",
             "ScoreGoal": 1000,
             "TimeGoal": 0,
