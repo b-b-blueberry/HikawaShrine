@@ -1,5 +1,4 @@
-﻿using StardewValley.GameData;
-using StardewValley.Menus;
+﻿using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +112,6 @@ namespace Hikawa.Match3
 		// UI state
 		public bool IsMute;
 		public long DisplayScore;
-		public MusicContext MusicContext;
 
 		protected float _shakeScale;
 		protected Point _shakeAmount;
@@ -145,15 +143,13 @@ namespace Hikawa.Match3
 			this._tokenParticles = new TokenParticlePool(size: this.MenuData.ParticleCount);
 			this._matchParticles = new TokenParticlePool(size: this.MenuData.ParticleCount);
 
-			this.MusicContext = MusicContext.MiniGame;
-
 			this.Game.Stage.OnStateChanged += this.OnStageStateChanged;
 
 			this.SetupUI();
 			this.SetupActors();
 			this.SetupTokens();
 
-			this.PlayMusic(this.AudioData.IntroMusic);
+			Match3.PlayMusic(this.AudioData.IntroMusic);
 		}
 
 		public void SetupActors()
@@ -266,22 +262,6 @@ namespace Hikawa.Match3
 					+ new Vector2(x: 0, y: size.Y - dchara.PortraitSize.Y - this.Margin.Y) * scale / 2
 					;
 			}
-		}
-
-		public void PlaySound(string id)
-		{
-			if (!this.IsMute)
-			{
-				Game1.playSound(id);
-			}
-		}
-
-		public void PlayMusic(string id)
-		{
-			Game1.changeMusicTrack(
-				newTrackName: id,
-				track_interruptable: false,
-				music_context: this.MusicContext);
 		}
 
 		public void ClearPlayerContextualState()
@@ -426,7 +406,7 @@ namespace Hikawa.Match3
 			{
 				// Reverse swap if no matches were found
 				this.Game.SwapTokens(a: a, b: b);
-                this.PlaySound(this.AudioData.SwapSound);
+                Match3.PlaySound(this.AudioData.SwapSound);
 			}
 			return false;
 		}
@@ -630,15 +610,15 @@ namespace Hikawa.Match3
 
             // Play sounds
             if (isSuperUpgrade)
-                this.PlaySound(this.AudioData.SuperUpgradeSound);
+                Match3.PlaySound(this.AudioData.SuperUpgradeSound);
             if (isUpgrade)
-                this.PlaySound(this.AudioData.UpgradeSound);
+                Match3.PlaySound(this.AudioData.UpgradeSound);
             if (isSuperPowerMatch)
-                this.PlaySound(this.AudioData.SuperPowerMatchSound);
+                Match3.PlaySound(this.AudioData.SuperPowerMatchSound);
             if (isPowerMatch)
-                this.PlaySound(this.AudioData.PowerMatchSound);
+                Match3.PlaySound(this.AudioData.PowerMatchSound);
             if (!isSuperPowerMatch && !isPowerMatch)
-                this.PlaySound(this.AudioData.MatchSound);
+                Match3.PlaySound(this.AudioData.MatchSound);
 
             // Update stage stats
             ++this.Game.Stage.Matches;
@@ -740,10 +720,11 @@ namespace Hikawa.Match3
 									// Wait for game unpaused before continuing to match tokens
 									if (!this.Game.IsPaused)
 									{
-										this.PlaySound(this.AudioData.LandSound);
+										Match3.PlaySound(this.AudioData.LandSound);
 
 										// Stop token motion
 										token.State = TokenState.Idle;
+										//token.IdleTimer = 250;
 										token.Acceleration = 0;
 
 										// Check chained matches appearing on tokens moved to previous match positions
@@ -791,7 +772,7 @@ namespace Hikawa.Match3
 		{
 			if (this.Game.Power >= this.GameData.PowerMax)
 			{
-				this.PlaySound("warrior");
+				Match3.PlaySound("warrior");
 
 				this.Game.Power = 0;
 
@@ -800,7 +781,7 @@ namespace Hikawa.Match3
 			}
 			else if (this.Game.Power >= this.GameData.PowerMax / 2)
 			{
-				this.PlaySound("powerup");
+				Match3.PlaySound("powerup");
 
 				this.Game.Power -= this.GameData.PowerMax / 2;
 
@@ -809,7 +790,7 @@ namespace Hikawa.Match3
 			}
 			else
 			{
-				this.PlaySound("cancel");
+				Match3.PlaySound("cancel");
 			}
 		}
 
@@ -843,13 +824,13 @@ namespace Hikawa.Match3
 					enemy.State = EnemyState.Attack;
 					if (enemy.Power >= enemy.Data.PowerMax)
 					{
-						this.PlaySound("serpent");
+						Match3.PlaySound("serpent");
 
 						enemy.Power = 0;
 					}
 					else
 					{
-						this.PlaySound("ow");
+						Match3.PlaySound("ow");
 
 						this.AttackPlayer(damage: enemy.Data.AttackValue);
 
@@ -882,15 +863,15 @@ namespace Hikawa.Match3
 		{
 			if (previous is StageState.Start && next is StageState.Active)
 			{
-				this.PlayMusic(id: this.Game.Stage.Data.Music);
+				Match3.PlayMusic(id: stage.Data.Music);
 			}
 			else if (previous is StageState.Active && next is StageState.End)
 			{
 				if (stage.IsWon)
 				{
 					// Win celebration
-					Game1.MusicDuckTimer = this.Game.Stage.Data.EndDelay;
-					this.PlaySound(id: this.Game.Stage.Data.WinMusic);
+					Game1.MusicDuckTimer = stage.Data.EndDelay;
+					Match3.PlaySound(id: stage.Data.WinMusic);
 				}
 				else
 				{
@@ -925,7 +906,7 @@ namespace Hikawa.Match3
 			// Attempt to fetch active token
 			this.SetActiveToken(x: x, y: y);
 			if (this.ActiveToken is not null)
-				this.PlaySound(this.AudioData.SelectSound);
+				Match3.PlaySound(this.AudioData.SelectSound);
 		}
 
 		public void OnActionUpdate(int x, int y)

@@ -98,6 +98,8 @@ namespace Hikawa.Match3
 		public string UpgradeSound;
         /// <summary>Token super upgraded.</summary>
 		public string SuperUpgradeSound;
+        /// <summary>Main menu and submenus.</summary>
+        public string MainMenuMusic;
         /// <summary>Stage intro cutscene and countdown.</summary>
         public string IntroMusic;
         /// <summary>Stage in progress paused.</summary>
@@ -365,6 +367,10 @@ namespace Hikawa.Match3
 
     public class StoryData
     {
+        /// <summary>
+        /// Cue ID of music played in story map.
+        /// </summary>
+        public string Music;
         /// <summary>
         /// Asset name of texture used for world sprites.
         /// </summary>

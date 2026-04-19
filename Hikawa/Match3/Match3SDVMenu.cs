@@ -122,19 +122,19 @@ namespace Hikawa.Match3
 		{
 			if (this._helpButton.containsPoint(x: x, y: y))
 			{
-				this.UI.PlaySound("dwop");
+				Match3.PlaySound("dwop");
 			}
 			else if (this._shuffleButton.containsPoint(x: x, y: y))
 			{
 				this.UI.Game.Stage.Score = 0;
 				this.UI.SetupStage(stageId: this.UI.Game.Stage.Id, reset: true, state: this.UI.Game.Stage.State);
 				this.UI.Shake(scale: 4f, amount: new(x: 2, y: 2));
-				this.UI.PlaySound("throwDownITem");
+                Match3.PlaySound("throwDownITem");
 			}
 			else if (this._muteButton.containsPoint(x: x, y: y))
 			{
 				this.UI.IsMute = !this.UI.IsMute;
-				this.UI.PlaySound("smallSelect");
+                Match3.PlaySound("smallSelect");
 				this.SetMuteButtonSprite(this.UI.IsMute);
 			}
 			else
@@ -171,7 +171,7 @@ namespace Hikawa.Match3
 		{
 			base.cleanupBeforeExit();
 
-			Game1.stopMusicTrack(this.UI.MusicContext);
+			Match3.StopMusic();
 		}
 
 		public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)

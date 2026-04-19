@@ -178,6 +178,13 @@ public class Match3StoryMenu : IClickableMenu
         }
     }
 
+    protected override void cleanupBeforeExit()
+    {
+        base.cleanupBeforeExit();
+
+        Match3.StopMusic();
+    }
+
     public override void update(GameTime time)
     {
         base.update(time);
@@ -186,6 +193,8 @@ public class Match3StoryMenu : IClickableMenu
             return;
 
         this._hoverAlpha = Math.Clamp(this._hoverAlpha + (float)time.ElapsedGameTime.TotalMilliseconds / 250f * (this._hoveredButton is null ? -1 : 1), 0, 1);
+
+        Match3.PlayMusic(id: this.StoryData.Music);
     }
 
     public override void draw(SpriteBatch b)

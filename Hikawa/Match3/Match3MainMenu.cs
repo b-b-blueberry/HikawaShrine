@@ -136,12 +136,21 @@ public class Match3MainMenu : IClickableMenu
         this._hoveredButton = this.ClickableComponents.FirstOrDefault(c => c.visible && c.containsPoint(x, y));
     }
 
+    protected override void cleanupBeforeExit()
+    {
+        base.cleanupBeforeExit();
+
+        Match3.StopMusic();
+    }
+
     public override void update(GameTime time)
     {
         base.update(time);
 
         if (this._childMenu is not null)
             return;
+
+        Match3.PlayMusic(this.Data.AudioData.MainMenuMusic);
     }
 
     public override void draw(SpriteBatch b)

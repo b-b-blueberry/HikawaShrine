@@ -1,4 +1,6 @@
-﻿namespace Hikawa.Match3;
+﻿using StardewValley.GameData;
+
+namespace Hikawa.Match3;
 
 public static class Match3
 {
@@ -10,6 +12,30 @@ public static class Match3
         Match3SDVMenu menu = new(ui: ui);
         ModEntry.State.Value.Match3 = game;
         return menu;
+    }
+
+    public static void PlaySound(string id)
+    {
+        //if (!.IsMute)
+        {
+            Game1.playSound(id);
+        }
+    }
+
+    public static void PlayMusic(string id)
+    {
+        if (id is not null && Game1.getMusicTrackName(MusicContext.MiniGame) != id)
+        {
+            Game1.changeMusicTrack(
+                newTrackName: id,
+                track_interruptable: false,
+                music_context: MusicContext.MiniGame);
+        }
+    }
+
+    public static void StopMusic()
+    {
+        Game1.stopMusicTrack(MusicContext.MiniGame);
     }
 
     public static Match3Data GetData()
