@@ -47,7 +47,11 @@ namespace Hikawa.Objects.Items
 
         public override bool canBePlacedHere(GameLocation l, Vector2 tile, CollisionMask collisionMask = CollisionMask.All, bool showError = false)
         {
-            if (!Shrub.CanBePlacedHere(l, tile, out string error))
+            if (Shrub.GetData(this.ItemId) is not ShrubDataEntry shrubData)
+            {
+                return false;
+            }
+            if (!Shrub.CanBePlacedHere(shrubData, l, tile, out string error))
             {
                 if (showError && error is not null)
                     Game1.showRedMessage(error);

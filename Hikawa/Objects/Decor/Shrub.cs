@@ -1,10 +1,15 @@
-﻿using Hikawa.Data;
+﻿using HarmonyLib;
+using Hikawa.Data;
 using Hikawa.Objects.Items;
 using StardewValley.Delegates;
+using StardewValley.GameData;
+using StardewValley.GameData.Crops;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Xml.Serialization;
 
 namespace Hikawa.Objects.Decor
@@ -113,9 +118,17 @@ namespace Hikawa.Objects.Decor
             return null;
         }
 
-        public static bool CanBePlacedHere(GameLocation location, Vector2 tile, out string error)
+        public static bool CanBePlacedHere(ShrubDataEntry shrubData, GameLocation location, Vector2 tile, out string error)
         {
-            if (!location.IsOutdoors || location.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Type", "Back") is not ("Grass" or "Dirt") || !location.CanItemBePlacedHere(tile, false, CollisionMask.All))
+            string deniedMessage = null;
+            var method = AccessTools.Method(typeof(GameLocation), "CheckItemPlantRules", [typeof(List<PlantableRule>), typeof(bool), typeof(bool), typeof(string).MakeByRefType()]);
+            var allowed = (bool)method.Invoke(location, [shrubData.PlantableLocationRules, false, true, deniedMessage]);
+            if (!allowed)
+            {
+                error = deniedMessage;
+                return false;
+            }
+            else if (location.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Type", "Back") is not ("Grass" or "Dirt") || !location.CanItemBePlacedHere(tile, false, CollisionMask.All))
             {
                 error = ModEntry.I18n.Get("shrubs.error.placement");
                 return false;
@@ -148,7 +161,7 @@ namespace Hikawa.Objects.Decor
 
             if (!this.PreventGrowth)
             {
-                if (Shrub.CanBePlacedHere(this.Location, this.Tile, out _))
+                if (Shrub.CanBePlacedHere(this.Data, this.Location, this.Tile, out _))
                 {
                     ++this._growthDays;
                 }

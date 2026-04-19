@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using StardewValley.GameData;
+using System.Collections.Generic;
 
 namespace Hikawa.Data
 {
@@ -37,6 +38,8 @@ namespace Hikawa.Data
     {
         public string DisplayName;
         public string Description;
+
+        public List<PlantableRule> PlantableLocationRules;
 
         public int MaxGrowthStage;
         public int GrowthDays;
