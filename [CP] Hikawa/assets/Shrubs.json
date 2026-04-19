@@ -1485,7 +1485,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 272,
+                                            "X": 288,
                                             "Y": 256,
                                             "Width": 16,
                                             "Height": 32
@@ -1595,7 +1595,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 400,
+                                            "X": 432,
                                             "Y": 256,
                                             "Width": 16,
                                             "Height": 32
@@ -1705,7 +1705,7 @@
                                     {
                                         "Id": "Main",
                                         "TextureRegion": {
-                                            "X": 528,
+                                            "X": 576,
                                             "Y": 256,
                                             "Width": 16,
                                             "Height": 32
