@@ -468,12 +468,16 @@ namespace Hikawa.Match3
 				foreach (Point match in matches)
 				{
 					Token token = this.Game.Tokens[match.X][match.Y];
-					if (!created[token.TypeData.MatchGroup] && matchGroups[token.TypeData.MatchGroup] > this.Game.Stage.Data.Match)
-					{
-                        // Set effects for token matched
+
+                    // Check for power matches (including 1+ power tokens)
                         isPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Radial;
                         isSuperPowerMatch |= token.TypeData.MatchEffect is MatchEffect.Linear or MatchEffect.Global;
 
+					// Check for big matches (creating 1+ power tokens)
+                    if (matchGroups[token.TypeData.MatchGroup] > this.Game.Stage.Data.Match)
+                    {
+						if (!created[token.TypeData.MatchGroup])
+                        {
                         Log.D($"  + particle: {token.TypeData.MatchGroup}_{matchGroups[token.TypeData.MatchGroup]}");
 						created[token.TypeData.MatchGroup] = true;
 						var typeMatches = matches
@@ -491,6 +495,7 @@ namespace Hikawa.Match3
 							color: token.TypeData.ExplodeColour);
 					}
 				}
+			}
 			}
 
             Log.D($"  + initial: [{matches.Count}] {string.Join(' ', matches.Select(p => $"({this.Game.Tokens[p.X][p.Y]?.Type ?? "null"} {p.X} {p.Y})"))}");
