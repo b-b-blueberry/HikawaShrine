@@ -1336,6 +1336,14 @@
                     "{{ID}}_Shrub_Plumeria": {
                         "DisplayName": "{{i18n:shrubs.plumeria.name}}",
                         "Description": "{{i18n:shrubs.plumeria.description}}",
+                        "PlantableLocationRules": [
+                            {
+                                "Id": "NotOutsideUnlessGingerIsland",
+                                "Condition": "LOCATION_IS_OUTDOORS Here, !LOCATION_CONTEXT Here Island",
+                                "Result": "Deny",
+                                "DeniedMessage": "[LocalizedText Strings\\Objects:CactusSeedsOutside]"
+                            }
+                        ],
                         "MaxGrowthStage": 2,
                         "GrowthDays": 50,
                         "TextureId": "{{PATH}}/Sprites/Shrubs",
