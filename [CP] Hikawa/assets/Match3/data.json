@@ -1402,6 +1402,45 @@
         }
                 },
                 "CutsceneData": {
+                    "Intro": {
+                        "Music": "{{ID}}_Match3_intro",
+                        "TextureId": "{{PATH}}/Match3/Sprites",
+                        "Items": [
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 0
+                                    },
+                                    "TextureRegion": {
+                                        "X": 0,
+                                        "Y": 64,
+                                        "Width": 48,
+                                        "Height": 48
+                                    }
+                                },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 0
+                                    },
+                                    "TextureRegion": {
+                                        "X": 0,
+                                        "Y": 176,
+                                        "Width": 32,
+                                        "Height": 32
+                                    }
+                                },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 28
+                                    },
+                                    "Text": "let's go"
+                                }
+                            ]
+                        ]
+                    }
                 }
     }
         }

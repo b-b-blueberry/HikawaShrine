@@ -83,7 +83,12 @@ public class Match3MainMenu : IClickableMenu
 
     public void OpenStory(string storyId)
     {
+        var cutscene = new Match3CutsceneMenu(this.Data, "Intro");
+        this.SetChildMenu(cutscene);
+        cutscene.exitFunction += () =>
+    {
         this.SetChildMenu(new Match3StoryMenu(this.Data, storyId));
+        };
     }
 
     public void OpenStats()
