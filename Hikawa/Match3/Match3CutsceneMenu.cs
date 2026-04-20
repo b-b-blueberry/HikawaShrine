@@ -1,6 +1,5 @@
 ﻿using StardewValley.Menus;
 using System;
-using System.Collections.Generic;
 
 namespace Hikawa.Match3
 {
@@ -8,7 +7,6 @@ namespace Hikawa.Match3
     {
         public readonly Match3Data Data;
         public readonly CutsceneData CutsceneData;
-        public readonly List<CutsceneItem> CutsceneItems;
 
         public UIData MenuData => this.Data.UIData;
 
@@ -18,16 +16,6 @@ namespace Hikawa.Match3
 
         public int Scale => Game1.pixelZoom;
 
-        public class CutsceneItem
-        {
-            public CutsceneItemData Data;
-
-            public CutsceneItem(CutsceneItemData data)
-            {
-                this.Data = data;
-            }
-        }
-
         public Match3CutsceneMenu(Match3Data data, string cutsceneId, int index = 0)
             : base()
         {
@@ -36,9 +24,6 @@ namespace Hikawa.Match3
             this.CutsceneData = data.CutsceneData[cutsceneId];
 
             Match3.PlayMusic(this.CutsceneData.Music);
-
-            this.CutsceneItems = [];
-            this.AddCutsceneItems(index);
 
             this.InitComponents();
             this.UpdateComponentLayout();
@@ -64,23 +49,11 @@ namespace Hikawa.Match3
             this.upperRightCloseButton.bounds.Location = new(bounds.Right, bounds.Top);
         }
 
-        public void AddCutsceneItems(int index)
-        {
-            foreach (var data in this.CutsceneData.Items[index])
-            {
-                this.CutsceneItems.Add(new CutsceneItem(data));
-            }
-        }
-
         public void ContinueCutscene()
         {
             if (++this.CutsceneIndex >= this.CutsceneData.Items.Count)
             {
                 this.exitThisMenuNoSound();
-            }
-            else
-            {
-                this.AddCutsceneItems(this.CutsceneIndex);
             }
         }
 
@@ -139,18 +112,31 @@ namespace Hikawa.Match3
             Vector2 textSize;
             string text;
 
+            // Fill colour
+            b.Draw(
+                texture: Game1.fadeToBlackRect,
+                destinationRectangle: bounds,
+                color: new Color(0, 0, 0, 255));
+
             // Cutscene items (drawn at origin centre)
-            foreach (var item in this.CutsceneItems)
+            foreach (var item in this.CutsceneData.Items[this.CutsceneIndex])
             {
-                if (!item.Data.TextureRegion.IsEmpty)
+                Vector2 itemPosition = position + item.Position.ToVector2() * scale;
+                if (!item.TextureRegion.IsEmpty)
                 {
-                    b.Draw(this.CutsceneData.Texture, position + (item.Data.Position.ToVector2() - item.Data.TextureRegion.Size.ToVector2() / 2) * scale, item.Data.TextureRegion, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
+                    b.Draw(this.CutsceneData.Texture, itemPosition - item.TextureRegion.Size.ToVector2() / 2 * scale, item.TextureRegion, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
                 }
-                if (item.Data.Text is not null)
+                if (item.Text is not null)
                 {
-                    text = item.Data.Text;
+                    text = item.Text;
                     textSize = font.MeasureString(text);
-                    b.DrawString(font, text, position + item.Data.Position.ToVector2() * scale - textSize / 2, Utility.StringToColor(item.Data.TextColor) ?? Color.White);
+                    itemPosition.Y -= textSize.Y / 2;
+                    foreach (var subtext in text.Split('\n'))
+                    {
+                        textSize = font.MeasureString(subtext);
+                        b.DrawString(font, subtext, itemPosition - new Vector2(textSize.X / 2, 0), Utility.StringToColor(item.TextColor) ?? Color.White);
+                        itemPosition.Y += textSize.Y;
+                    }
                 }
             }
 
