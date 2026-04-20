@@ -196,15 +196,6 @@ namespace Hikawa.Match3
 
 			this._tokenParticles.Items.Clear();
 			this._matchParticles.Items.Clear();
-
-			this.MenuData.MenuTexture = Game1.content.Load<Texture2D>(this.MenuData.MenuTextureId);
-			this.MenuData.CursorTexture = Game1.content.Load<Texture2D>(this.MenuData.CursorTextureId);
-			foreach (TokenData data in this.TokenData.Values)
-				if (data.TextureId is not null)
-					data.Texture = Game1.content.Load<Texture2D>(data.TextureId);
-            foreach (CutsceneData data in this.CutsceneData.Values)
-                if (data.TextureId is not null)
-				data.Texture = Game1.content.Load<Texture2D>(data.TextureId);
 		}
 
 		/// <summary>

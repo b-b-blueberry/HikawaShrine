@@ -36,8 +36,24 @@ public static class Match3
         Game1.stopMusicTrack(MusicContext.MiniGame);
     }
 
+    public static void LoadAssets(Match3Data data)
+    {
+        data.UIData.MenuTexture = Game1.content.Load<Texture2D>(data.UIData.MenuTextureId);
+        data.UIData.CursorTexture = Game1.content.Load<Texture2D>(data.UIData.CursorTextureId);
+        foreach (TokenData tokenData in data.TokenData.Values)
+            if (tokenData.TextureId is not null)
+                tokenData.Texture = Game1.content.Load<Texture2D>(tokenData.TextureId);
+        foreach (CutsceneData cutsceneData in data.CutsceneData.Values)
+            if (cutsceneData.TextureId is not null)
+                cutsceneData.Texture = Game1.content.Load<Texture2D>(cutsceneData.TextureId);
+    }
+
     public static Match3Data GetData()
     {
-        return Game1.content.Load<Match3Data>(AssetManager.Match3DataAssetName);
+        var data = Game1.content.Load<Match3Data>(AssetManager.Match3DataAssetName);
+
+        Match3.LoadAssets(data);
+
+        return data;
     }
 }
