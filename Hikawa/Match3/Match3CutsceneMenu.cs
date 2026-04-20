@@ -1,4 +1,5 @@
 ﻿using StardewValley.Menus;
+using System;
 using System.Collections.Generic;
 
 namespace Hikawa.Match3
@@ -9,7 +10,11 @@ namespace Hikawa.Match3
         public readonly CutsceneData CutsceneData;
         public readonly List<CutsceneItem> CutsceneItems;
 
+        public UIData MenuData => this.Data.UIData;
+
         public int CutsceneIndex;
+        public double CutsceneTimer;
+        public double CutsceneInputTimer;
 
         public int Scale => Game1.pixelZoom;
 
@@ -67,6 +72,18 @@ namespace Hikawa.Match3
             }
         }
 
+        public void ContinueCutscene()
+        {
+            if (++this.CutsceneIndex >= this.CutsceneData.Items.Count)
+            {
+                this.exitThisMenuNoSound();
+            }
+            else
+            {
+                this.AddCutsceneItems(this.CutsceneIndex);
+            }
+        }
+
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
             base.gameWindowSizeChanged(oldBounds, newBounds);
@@ -80,19 +97,22 @@ namespace Hikawa.Match3
         {
             base.receiveLeftClick(x, y, playSound);
 
-            if (++this.CutsceneIndex >= this.CutsceneData.Items.Count)
+            if (this.CutsceneInputTimer > this.MenuData.DialogueIgnoreInputTime)
             {
-                this.exitThisMenuNoSound();
-            }
-            else
-            {
-                this.AddCutsceneItems(this.CutsceneIndex);
+                this.CutsceneInputTimer = 0;
+
+                this.ContinueCutscene();
             }
         }
 
         public override void update(GameTime time)
         {
             base.update(time);
+
+            var ms = time.ElapsedGameTime.TotalMilliseconds;
+
+            this.CutsceneTimer += ms;
+            this.CutsceneInputTimer += ms;
         }
 
         public override void draw(SpriteBatch b)
@@ -103,8 +123,8 @@ namespace Hikawa.Match3
                 return;
 
             Rectangle bounds = new(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height);
-
             Vector2 position = bounds.Center.ToVector2();
+            float scale = this.MenuData.Scale;
 
             // Screen overlay
             b.Draw(
@@ -124,14 +144,42 @@ namespace Hikawa.Match3
             {
                 if (!item.Data.TextureRegion.IsEmpty)
                 {
-                    b.Draw(this.CutsceneData.Texture, position + (item.Data.Position.ToVector2() - item.Data.TextureRegion.Size.ToVector2() / 2) * Scale, item.Data.TextureRegion, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 1);
+                    b.Draw(this.CutsceneData.Texture, position + (item.Data.Position.ToVector2() - item.Data.TextureRegion.Size.ToVector2() / 2) * scale, item.Data.TextureRegion, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
                 }
                 if (item.Data.Text is not null)
                 {
                     text = item.Data.Text;
                     textSize = font.MeasureString(text);
-                    b.DrawString(font, text, position + item.Data.Position.ToVector2() * Scale - textSize / 2, Utility.StringToColor(item.Data.TextColor) ?? Color.White);
+                    b.DrawString(font, text, position + item.Data.Position.ToVector2() * scale - textSize / 2, Utility.StringToColor(item.Data.TextColor) ?? Color.White);
                 }
+            }
+
+            // advance or end dialogue prompt
+            if (this.CutsceneInputTimer > this.MenuData.DialogueIgnoreInputTime)
+            {
+                Rectangle region;
+                Vector2 promptPosition = new Vector2(x: bounds.Right, y: bounds.Bottom);
+                float offset = (float)Math.Cos(this.CutsceneTimer * Math.PI / 512d) * scale;
+                if (this.CutsceneIndex < this.CutsceneData.Items.Count - 1)
+                {
+                    promptPosition.X += offset;
+                    region = this.MenuData.DialogueAdvanceTextureRegion;
+                }
+                else
+                {
+                    promptPosition.Y += offset;
+                    region = this.MenuData.DialogueEndTextureRegion;
+                }
+                b.Draw(
+                    texture: this.MenuData.MenuTexture,
+                    position: promptPosition,
+                    sourceRectangle: region,
+                    color: Color.White,
+                    rotation: 0,
+                    origin: region.Size.ToVector2() / 2,
+                    scale: scale,
+                    effects: SpriteEffects.None,
+                    layerDepth: 1);
             }
 
             this.drawMouse(b, ignore_transparency: true, cursor: Game1.cursor_gamepad_pointer);
