@@ -1412,31 +1412,79 @@
                                         "X": 0,
                                         "Y": 0
                                     },
-                                    "TextureRegion": {
+                                    "Text": "19XX"
+                                }
+                            ],
+                            [
+                                {
+                                    "Position": {
                                         "X": 0,
-                                        "Y": 64,
-                                        "Width": 48,
-                                        "Height": 48
+                                        "Y": -16
+                                    },
+                                    "TextureRegion": {
+                                        "X": 224,
+                                        "Y": 0,
+                                        "Width": 64,
+                                        "Height": 64
                                     }
                                 },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 32
+                                    },
+                                    "Text": "dark crystals..."
+                                }
+                            ],
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": -16
+                                    },
+                                    "TextureRegion": {
+                                        "X": 288,
+                                        "Y": 0,
+                                        "Width": 64,
+                                        "Height": 64
+                                    }
+                                },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 32
+                                    },
+                                    "Text": "dark energy is emanating\nfrom the city tower."
+                                }
+                            ],
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": -16
+                                    },
+                                    "TextureRegion": {
+                                        "X": 352,
+                                        "Y": 0,
+                                        "Width": 64,
+                                        "Height": 64
+                                    }
+                                },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 32
+                                    },
+                                    "Text": "transform and\nstop the enemy!"
+                                }
+                            ],
+                            [
                                 {
                                     "Position": {
                                         "X": 0,
                                         "Y": 0
                                     },
-                                    "TextureRegion": {
-                                        "X": 0,
-                                        "Y": 176,
-                                        "Width": 32,
-                                        "Height": 32
-                                    }
-                                },
-                                {
-                                    "Position": {
-                                        "X": 0,
-                                        "Y": 28
-                                    },
-                                    "Text": "let's go"
+                                    "Text": "let's go!"
                                 }
                             ]
                         ]
