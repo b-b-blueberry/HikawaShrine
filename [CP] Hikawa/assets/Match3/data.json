@@ -1259,12 +1259,21 @@
             },
             "Main": {
                 "TextureId": "{{PATH}}/Match3/Sprites",
-                "BackgroundTextureRegion": {
+                            "BackgroundFrameTime": 1000,
+                            "BackgroundTextureRegion": [
+                                {
                     "X": 0,
                     "Y": 336,
                     "Width": 224,
                     "Height": 176
                 },
+                                {
+                                    "X": 224,
+                                    "Y": 336,
+                                    "Width": 224,
+                                    "Height": 176
+                                }
+                            ],
                 "StageTextureRegion": {
                     "X": 80,
                     "Y": 48,

@@ -378,9 +378,13 @@ namespace Hikawa.Match3
         /// </summary>
         public string TextureId;
         /// <summary>
+        /// Duration in ms for each frame in <see cref="BackgroundTextureRegion"/>.
+        /// </summary>
+		public int BackgroundFrameTime;
+        /// <summary>
         /// Area in <see cref="StoryData.Texture"/> used to draw world background for story in <see cref="Match3StoryMenu"/>.
         /// </summary>
-        public Rectangle BackgroundTextureRegion;
+        public List<Rectangle> BackgroundTextureRegion;
         /// <summary>
         /// Area in <see cref="StoryData.Texture"/> used to draw stage marker in <see cref="Match3StoryMenu"/>.
         /// </summary>

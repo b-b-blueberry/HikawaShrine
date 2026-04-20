@@ -16,6 +16,8 @@ public class Match3StoryMenu : IClickableMenu
     public readonly StoryData StoryData;
 
     public Rectangle MapBounds;
+    public int MapIndex;
+    public float MapTimer;
 
     private ClickableComponent _hoveredButton;
     private Vector2 _hoverPosition;
@@ -69,7 +71,7 @@ public class Match3StoryMenu : IClickableMenu
 
         // Map
         {
-            Rectangle source = this.StoryData.BackgroundTextureRegion;
+            Rectangle source = this.StoryData.BackgroundTextureRegion.FirstOrDefault();
             this.MapBounds = new Rectangle(new(bounds.Left + (bounds.Width - source.Width * Scale) / 2, bounds.Top + (bounds.Height - source.Height * Scale) / 2), new (source.Width * Scale, source.Height * Scale));
         }
         // Buttons
@@ -192,7 +194,17 @@ public class Match3StoryMenu : IClickableMenu
         if (this._childMenu is not null)
             return;
 
-        this._hoverAlpha = Math.Clamp(this._hoverAlpha + (float)time.ElapsedGameTime.TotalMilliseconds / 250f * (this._hoveredButton is null ? -1 : 1), 0, 1);
+        var ms = (float)time.ElapsedGameTime.TotalMilliseconds;
+
+        this.MapTimer += ms;
+        if (this.MapTimer > this.StoryData.BackgroundFrameTime)
+        {
+            this.MapTimer = 0;
+            ++this.MapIndex;
+            this.MapIndex %= this.StoryData.BackgroundTextureRegion.Count;
+        }
+
+        this._hoverAlpha = Math.Clamp(this._hoverAlpha + ms / 250f * (this._hoveredButton is null ? -1 : 1), 0, 1);
 
         Match3.PlayMusic(id: this.StoryData.Music);
     }
@@ -214,7 +226,7 @@ public class Match3StoryMenu : IClickableMenu
 
         // World background
         {
-            Rectangle source = this.StoryData.BackgroundTextureRegion;
+            Rectangle source = this.StoryData.BackgroundTextureRegion[this.MapIndex];
             Vector2 origin = source.Size.ToVector2() / 2;
             Vector2 position = bounds.Center.ToVector2();
             b.Draw(
@@ -254,7 +266,7 @@ public class Match3StoryMenu : IClickableMenu
                     texture: Game1.mouseCursors,
                     position: position - new Vector2(x: 0, y: -1) * Scale,
                     sourceRectangle: source,
-                    color: Color.White * alpha * 0.8f,
+                    color: Color.White * alpha,
                     rotation: 0,
                     origin: source.Size.ToVector2() / 2,
                     scale: Scale * alpha,
