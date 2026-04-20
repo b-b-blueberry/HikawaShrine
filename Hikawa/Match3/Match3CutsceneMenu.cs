@@ -88,6 +88,11 @@ namespace Hikawa.Match3
             this.CutsceneInputTimer += ms;
         }
 
+        public override bool shouldDrawCloseButton()
+        {
+            return this._childMenu is null;
+        }
+
         public override void draw(SpriteBatch b)
         {
             base.draw(b);

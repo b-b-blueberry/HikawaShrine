@@ -209,6 +209,11 @@ public class Match3StoryMenu : IClickableMenu
         Match3.PlayMusic(id: this.StoryData.Music);
     }
 
+    public override bool shouldDrawCloseButton()
+    {
+        return this._childMenu is null;
+    }
+
     public override void draw(SpriteBatch b)
     {
         base.draw(b);
