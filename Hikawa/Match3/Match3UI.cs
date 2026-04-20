@@ -1728,14 +1728,25 @@ namespace Hikawa.Match3
 
 					if (stage.State is StageState.Start)
 					{
+						if (stage.Data.StartDelay <= 0)
+						{
+							text = string.Empty;
+						}
+						else
+					{
 						long ms = (stage.Data.StartDelay - stage.Time);
 						int sec = (int)Math.Floor(ms / 1000f);
 						textScale = 2 + (ms / 1000f) % 1;
 						text = sec > 0 ? $"{sec}" : "PLAY!";
+                        }
 					}
 					else if (stage.State is StageState.End)
 					{
-						text = stage.IsWon ? "CLEAR!" : "FAIL..";
+						text = stage.IsWon
+							? "CLEAR!"
+							: this.Game.IsGameOver
+								? "NO MORE MOVES.."
+								: "FAIL..";
 					}
 					else if (stage.State is StageState.Pause)
 					{
