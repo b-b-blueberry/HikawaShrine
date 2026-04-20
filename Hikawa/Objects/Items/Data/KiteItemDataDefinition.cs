@@ -38,7 +38,7 @@ public class KiteItemDataDefinition : BaseItemDataDefinition
                 itemType: this,
                 itemId: itemId,
                 spriteIndex: kiteData.SpriteIndex,
-                textureName: kiteData.Texture,
+                textureName: kiteData.TextureId,
                 internalName: itemId,
                 displayName: kiteData.DisplayName,
                 description: kiteData.Description,

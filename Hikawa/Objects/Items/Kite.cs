@@ -1,6 +1,5 @@
 ﻿using Hikawa.Data;
 using Hikawa.Objects.Items.Data;
-using Hikawa.Objects.Locations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -187,16 +186,19 @@ public class Kite : StardewValley.Object
             Vector2 screenStakePosition = Game1.GlobalToLocal(Game1.viewport, this.StakePosition);
 
             // sprite
-            spriteBatch.Draw(
-                texture: Game1.content.Load<Texture2D>(kiteData.StakeTexture),
-                position: screenStakePosition,
-                sourceRectangle: kiteData.StakeSource,
-                color: Color.White * alpha,
-                rotation: 0,
-                origin: stakeOrigin,
-                scale: Game1.pixelZoom,
-                effects: SpriteEffects.None,
-                layerDepth: layerDepth);
+            if (kiteData.StakeTexture is not null)
+            {
+                spriteBatch.Draw(
+                    texture: kiteData.StakeTexture.Value,
+                    position: screenStakePosition,
+                    sourceRectangle: kiteData.StakeSource,
+                    color: Color.White * alpha,
+                    rotation: 0,
+                    origin: stakeOrigin,
+                    scale: Game1.pixelZoom,
+                    effects: SpriteEffects.None,
+                    layerDepth: layerDepth);
+            }
             // shadow
             spriteBatch.Draw(
                 texture: Game1.shadowTexture,
@@ -227,7 +229,7 @@ public class Kite : StardewValley.Object
         //base.drawAboveFrontLayer(spriteBatch, x, y, alpha);
 
         // kite in the sky
-        if (this.KiteData is KiteDataEntry kiteData && this.Kites is not null)
+        if (this.KiteData is not null && this.Kites is not null)
         {
             for (int i = 0; i < this.Kites.Count; ++i)
             {
@@ -254,7 +256,7 @@ public class Kite : StardewValley.Object
                     // flip x and y for horizontal kites (banners, streamers)
                     if (!kite.Data.Vertical)
                     {
-                        float temp = kiteOffset.X;
+                        //float temp = kiteOffset.X;
                         kiteOffset.X = kiteOffset.Y;
                         kiteOffset.Y = 0;
                     }
@@ -263,17 +265,20 @@ public class Kite : StardewValley.Object
                     + kiteOffset * scale * Game1.pixelZoom;
 
                 // kite
-                float rotation = bounce / MathF.PI / 5;
-                spriteBatch.Draw(
-                    Game1.content.Load<Texture2D>(kite.Data.KiteTexture),
-                    position: Game1.GlobalToLocal(Game1.viewport, kite.Position),
-                    sourceRectangle: kite.Data.KiteSource,
-                    color: Color.White * alpha,
-                    rotation: rotation,
-                    origin: kiteOrigin,
-                    scale: (Vector2.One + new Vector2(rotation) * kite.Data.Scaling) * Game1.pixelZoom,
-                    effects: SpriteEffects.None,
-                    layerDepth: layerDepth);
+                if (kite.Data.KiteTexture is not null)
+                {
+                    float rotation = bounce / MathF.PI / 5;
+                    spriteBatch.Draw(
+                        texture: kite.Data.KiteTexture.Value,
+                        position: Game1.GlobalToLocal(Game1.viewport, kite.Position),
+                        sourceRectangle: kite.Data.KiteSource,
+                        color: Color.White * alpha,
+                        rotation: rotation,
+                        origin: kiteOrigin,
+                        scale: (Vector2.One + new Vector2(rotation) * kite.Data.Scaling) * Game1.pixelZoom,
+                        effects: SpriteEffects.None,
+                        layerDepth: layerDepth);
+                }
             }
         }
     }

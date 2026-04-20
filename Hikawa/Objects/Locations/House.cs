@@ -11,6 +11,8 @@ namespace Hikawa.Objects.Locations
         [XmlIgnore]
         public HearthLight HearthLight;
         [XmlIgnore]
+        public Texture2D HouseSprites;
+        [XmlIgnore]
         public bool DoorsOpen;
 
         public House() : base() {}
@@ -81,7 +83,9 @@ namespace Hikawa.Objects.Locations
 		protected override void resetLocalState()
 		{
 			base.resetLocalState();
-		}
+
+            HouseSprites = Game1.content.Load<Texture2D>(AssetManager.HouseSpritesAssetName);
+        }
 
 		protected override void resetSharedState()
 		{
@@ -89,7 +93,7 @@ namespace Hikawa.Objects.Locations
 
 			var shrine = Shrine.Get();
 
-			Utils.ApplyCustomSharedMapProperties(this);
+            Utils.ApplyCustomSharedMapProperties(this);
 
 			if (this.sharedLights.TryGetValue(HearthLight.GetId(where: this, which: 0), out LightSource light))
 				this.HearthLight = light as HearthLight;
@@ -142,11 +146,10 @@ namespace Hikawa.Objects.Locations
         {
             base.drawFloorDecorations(b);
 
-			// engawa
+            // engawa
 			// lives in this method because draw() places it above the front layer (occludes houseplants etc)
             // this would be unreasonably convoluted in content patcher
-			{
-                var texture = Game1.content.Load<Texture2D>(AssetManager.HouseSpritesAssetName);
+            {
                 var tile = new Vector2(7, 2);
                 var position = Game1.GlobalToLocal(Game1.viewport, tile * Game1.tileSize);
                 var source = new Rectangle(112, 400, 96, 48);
@@ -155,52 +158,51 @@ namespace Hikawa.Objects.Locations
                     source.Y += source.Height;
 
                 // day
-                b.Draw(texture, position, source, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00002f);
+                b.Draw(HouseSprites, position, source, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00002f);
 
                 // night
                 var alpha = Utils.GetProgressFromEveningIntoNighttime(this, Game1.timeOfDay);
                 if (alpha > 0)
                 {
                     source.X += source.Width;
-                    b.Draw(texture, position, source, Color.White * alpha, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00004f);
+                    b.Draw(HouseSprites, position, source, Color.White * alpha, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00004f);
                 }
-			}
+            }
         }
 
         public override void drawBackground(SpriteBatch b)
         {
             base.drawBackground(b);
 
-			// engawa
+            // engawa
             if (this.DoorsOpen)
-			{
+            {
                 // landscape
-                var texture = Game1.content.Load<Texture2D>(AssetManager.HouseSpritesAssetName);
-				var tile = new Vector2(7, 2);
-				var position = Game1.GlobalToLocal(Game1.viewport, tile * Game1.tileSize);
+                var tile = new Vector2(7, 2);
+                var position = Game1.GlobalToLocal(Game1.viewport, tile * Game1.tileSize);
                 //var parallax = (new Vector2(this.Map.DisplayWidth / 2, this.Map.DisplayHeight / 4) - new Vector2(Math.Clamp(Game1.player.Position.X, 0, Game1.tileSize * tile.X * 2), Math.Clamp(Game1.player.Position.Y, 0, Game1.tileSize * 12))) / 25f;
                 //var parallax = (new Vector2(this.Map.DisplayWidth / 2, this.Map.DisplayHeight / 4) - Game1.player.Position) / 10f;
                 //var parallax = (new Vector2(0, this.Map.DisplayHeight / 8) - new Vector2(Game1.viewport.X, Game1.viewport.Y)) / 10f;
                 var parallax = (new Vector2(this.Map.DisplayWidth / 2, this.Map.DisplayHeight / 4) - new Vector2(Math.Clamp(Game1.viewport.X, 0, Game1.tileSize * tile.X * 2), Math.Clamp(Game1.viewport.Y, 0, Game1.tileSize * 12))) / 25f;
-				var source = new Rectangle(112, 400, 96, 48);
+                var source = new Rectangle(112, 400, 96, 48);
                 var wind = Game1.isDebrisWeather ? 18 : 12;
 
 				// day
 				source.Y += source.Height * 2;
-                b.Draw(texture, position + parallax, source, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00001f);
-                // night
+                b.Draw(HouseSprites, position + parallax, source, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00001f);
+				// night
                 var nightRatio = Utils.RatioFromPreciseTime(Game1.getStartingToGetDarkTime(this), 2100);
                 if (nightRatio > 0)
-				{
-					source.X += source.Width;
-                    b.Draw(texture, position + parallax, source, Color.White * nightRatio, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00003f);
+                {
+                    source.X += source.Width;
+                    b.Draw(HouseSprites, position + parallax, source, Color.White * nightRatio, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, .00003f);
                 }
 
                 // falling leaves
                 if (Game1.season is not Season.Winter)
                 {
                     // modified DrawSmokeParticles
-                    texture = Game1.mouseCursors;
+                    HouseSprites = Game1.mouseCursors;
 
                     var frames = 11;
                     var colour = Color.White;
@@ -218,7 +220,7 @@ namespace Hikawa.Objects.Locations
                         leafSource.Y += Game1.seasonIndex * leafSource.Height;
                         leafSource.X += (int)(frames * (time % frameRate) / frameRate) * leafSource.Width;
                         b.Draw(
-                            texture: texture,
+                            texture: HouseSprites,
                             position: position
                                 + parallax
 								+ new Vector2(i * 1f / num * source.Width + ratio * -wind, ratio * source.Height * .666f) * Game1.pixelZoom
@@ -232,8 +234,8 @@ namespace Hikawa.Objects.Locations
                             layerDepth: .00005f + i * .00001f);
                     }
                 }
-				}
-			}
+            }
+        }
 
         public override void draw(SpriteBatch b)
         {

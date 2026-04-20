@@ -22,9 +22,9 @@
                         "Passable": true,
                         "DisplayName": "{{i18n:item.kite.name}}",
                         "Description": "{{i18n:item.kite.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 5,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 5,
                             "Y": 55,
@@ -34,7 +34,7 @@
                         "StakeOrigin": "2.5, 7",
                         "Kites": [
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 64,
                                     "Y": 16,
@@ -62,9 +62,9 @@
                         "Passable": false,
                         "DisplayName": "{{i18n:item.balloon.name}}",
                         "Description": "{{i18n:item.balloon.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 0,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 21,
                             "Y": 48,
@@ -74,7 +74,7 @@
                         "StakeOrigin": "2.5, 46",
                         "Kites": [
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 0,
                                     "Y": 16,
@@ -101,9 +101,9 @@
                         "Passable": true,
                         "DisplayName": "{{i18n:item.balloon.name}}",
                         "Description": "{{i18n:item.balloon.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 1,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 5,
                             "Y": 55,
@@ -113,7 +113,7 @@
                         "StakeOrigin": "2.5, 7",
                         "Kites": [
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 16,
                                     "Y": 16,
@@ -140,9 +140,9 @@
                         "Passable": false,
                         "DisplayName": "{{i18n:item.balloon.name}}",
                         "Description": "{{i18n:item.balloon.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 4,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 5,
                             "Y": 55,
@@ -152,7 +152,7 @@
                         "StakeOrigin": "2.5, 7",
                         "Kites": [
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 32,
                                     "Y": 16,
@@ -180,9 +180,9 @@
                         "Passable": false,
                         "DisplayName": "{{i18n:item.koinobori.name}}",
                         "Description": "{{i18n:item.koinobori.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 6,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 21,
                             "Y": 48,
@@ -193,7 +193,7 @@
                         "Kites": [
                             // Pink
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 96,
@@ -215,7 +215,7 @@
                             },
                             // Blue
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 32,
@@ -237,7 +237,7 @@
                             },
                             // Red
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 16,
@@ -264,9 +264,9 @@
                         "Passable": false,
                         "DisplayName": "{{i18n:item.koinobori.name}}",
                         "Description": "{{i18n:item.koinobori.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 6,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 21,
                             "Y": 48,
@@ -277,7 +277,7 @@
                         "Kites": [
                             // Blue
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 80,
@@ -299,7 +299,7 @@
                             },
                             // Green
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 48,
@@ -321,7 +321,7 @@
                             },
                             // Red
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 16,
@@ -348,9 +348,9 @@
                         "Passable": false,
                         "DisplayName": "{{i18n:item.koinobori.name}}",
                         "Description": "{{i18n:item.koinobori.description}}",
-                        "Texture": "{{PATH}}/Sprites/Kites",
+                        "TextureId": "{{PATH}}/Sprites/Kites",
                         "SpriteIndex": 6,
-                        "StakeTexture": "{{PATH}}/Sprites/Kites",
+                        "StakeTextureId": "{{PATH}}/Sprites/Kites",
                         "StakeSource": {
                             "X": 21,
                             "Y": 48,
@@ -361,7 +361,7 @@
                         "Kites": [
                             // Yellow
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 112,
@@ -383,7 +383,7 @@
                             },
                             // Purple
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 64,
@@ -405,7 +405,7 @@
                             },
                             // Red
                             {
-                                "KiteTexture": "{{PATH}}/Sprites/Kites",
+                                "KiteTextureId": "{{PATH}}/Sprites/Kites",
                                 "KiteSource": {
                                     "X": 96,
                                     "Y": 16,
