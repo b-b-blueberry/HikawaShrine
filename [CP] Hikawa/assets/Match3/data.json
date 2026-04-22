@@ -1488,6 +1488,63 @@
                                 }
                             ]
                         ]
+                    },
+                    "Shrine_Intro": {
+                        "Music": "{{ID}}_Match3_intro",
+                        "TextureId": "{{PATH}}/Match3/Sprites",
+                        "Items": [
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": -16
+                                    },
+                                    "TextureRegion": {
+                                        "X": 224,
+                                        "Y": 192,
+                                        "Width": 64,
+                                        "Height": 64
+                                    }
+                                },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 32
+                                    },
+                                    "Text": "the sacred shrine..."
+                                }
+                            ],
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": -16
+                                    },
+                                    "TextureRegion": {
+                                        "X": 288,
+                                        "Y": 192,
+                                        "Width": 64,
+                                        "Height": 64
+                                    }
+                                },
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 32
+                                    },
+                                    "Text": "dark energy is here!"
+                                }
+                            ],
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 0
+                                    },
+                                    "Text": "let's go!"
+                                }
+                            ]
+                        ]
                     }
                 }
     }
