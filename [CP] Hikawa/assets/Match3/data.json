@@ -1434,7 +1434,7 @@
                                         "X": 0,
                                         "Y": 32
                                     },
-                                    "Text": "dark crystals..."
+                                    "Text": "dark crystals have appeared..."
                                 }
                             ],
                             [
@@ -1455,7 +1455,7 @@
                                         "X": 0,
                                         "Y": 32
                                     },
-                                    "Text": "the city tower is\nemitting dark energy."
+                                    "Text": "the city is poisoned\nby a dark energy!"
                                 }
                             ],
                             [
@@ -1476,7 +1476,16 @@
                                         "X": 0,
                                         "Y": 32
                                     },
-                                    "Text": "transform and\nstop the enemy!"
+                                    "Text": "your fate is to\ndefeat the enemy!"
+                                }
+                            ],
+                            [
+                                {
+                                    "Position": {
+                                        "X": 0,
+                                        "Y": 0
+                                    },
+                                    "Text": "let's go!"
                                 }
                         ]
                         ]
