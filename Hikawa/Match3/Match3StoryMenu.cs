@@ -32,7 +32,7 @@ public class Match3StoryMenu : IClickableMenu
         this.Data = data;
 
         this.StoryId = storyId;
-        this.StoryData = Match3.GetData().WorldData.Stories[this.StoryId];
+        this.StoryData = this.Data.WorldData.Stories[this.StoryId];
         this.StoryData.Texture = Game1.content.Load<Texture2D>(this.StoryData.TextureId);
 
         ModEntry.SaveData.Match3.StoryStageComplete.TryAdd(storyId, []);

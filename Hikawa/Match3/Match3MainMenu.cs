@@ -83,12 +83,24 @@ public class Match3MainMenu : IClickableMenu
 
     public void OpenStory(string storyId)
     {
-        var cutscene = new Match3CutsceneMenu(this.Data, "Intro");
-        this.SetChildMenu(cutscene);
-        cutscene.exitFunction += () =>
+        void start()
     {
         this.SetChildMenu(new Match3StoryMenu(this.Data, storyId));
-        };
+        }
+
+        if ((!ModEntry.SaveData.Match3.StoryStageComplete.TryGetValue(storyId, out var stages) || stages?.Any() is not true)
+            && this.Data.WorldData.Stories[storyId].CutsceneId is not null)
+        {
+            // Play cutscene if no story progress found
+            var cutscene = new Match3CutsceneMenu(this.Data, storyId);
+            this.SetChildMenu(cutscene);
+            cutscene.exitFunction += start;
+        }
+        else
+        {
+            // Skip cutscene and goto story
+            start();
+        }   
     }
 
     public void OpenStats()

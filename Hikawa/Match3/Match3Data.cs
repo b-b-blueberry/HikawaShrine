@@ -378,6 +378,10 @@ namespace Hikawa.Match3
         /// </summary>
         public string TextureId;
         /// <summary>
+        /// ID of cutscene played on story selected if no progress is found.
+        /// </summary>
+        public string CutsceneId;
+        /// <summary>
         /// Duration in ms for each frame in <see cref="BackgroundTextureRegion"/>.
         /// </summary>
 		public int BackgroundFrameTime;

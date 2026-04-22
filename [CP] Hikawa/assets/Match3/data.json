@@ -1259,6 +1259,7 @@
             },
             "Main": {
                 "TextureId": "{{PATH}}/Match3/Sprites",
+                            "CutsceneId": "Main",
                             "BackgroundFrameTime": 1000,
                             "BackgroundTextureRegion": [
                                 {
@@ -1402,7 +1403,7 @@
         }
                 },
                 "CutsceneData": {
-                    "Intro": {
+                    "Main": {
                         "Music": "{{ID}}_Match3_intro",
                         "TextureId": "{{PATH}}/Match3/Sprites",
                         "Items": [
@@ -1454,7 +1455,7 @@
                                         "X": 0,
                                         "Y": 32
                                     },
-                                    "Text": "dark energy is emanating\nfrom the city tower."
+                                    "Text": "the city tower is\nemitting dark energy."
                                 }
                             ],
                             [
